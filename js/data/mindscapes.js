@@ -439,7 +439,7 @@ export const mindscapesData = {
             desc: { fr: "Consommer 12 cartouches réduit le coût du prochain EX Spécial de 30 énergie. Cet EX Spécial tire 4 balles d'Éther bonus infligeant chacune 220 % de l'ATK en DGT.", en: "Consuming 12 Enhanced Shotshells reduces the next EX Special cost by 30 Energy. This EX Special fires 4 extra Ether rounds dealing 220% ATK as DMG each." } 
         }
     ],
-    "Jane Doe": [
+    "Jane": [
         { 
             rank: "M1", 
             title: { fr: "Conseillère en criminalité", en: "Crime Counsel" }, 
