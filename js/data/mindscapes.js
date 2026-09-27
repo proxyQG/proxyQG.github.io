@@ -439,6 +439,138 @@ export const mindscapesData = {
             desc: { fr: "Consommer 12 cartouches réduit le coût du prochain EX Spécial de 30 énergie. Cet EX Spécial tire 4 balles d'Éther bonus infligeant chacune 220 % de l'ATK en DGT.", en: "Consuming 12 Enhanced Shotshells reduces the next EX Special cost by 30 Energy. This EX Special fires 4 extra Ether rounds dealing 220% ATK as DMG each." } 
         }
     ],
+    "Jane Doe": [
+        { 
+            rank: "M1", 
+            title: { fr: "Conseillère en criminalité", en: "Crime Counsel" }, 
+            desc: { fr: "Le nombre maximum d'utilisations de l'Attaque de base : Salchow Jump augmente de 1. Sous l'état Passion, le Taux d'accumulation d'Anomalie Physique augmente de 15 %. De plus, chaque point d'Adresse d'Anomalie augmente ses dégâts de 0,1 %, jusqu'à un maximum de 30 %.", en: "Max uses of Basic Attack: Salchow Jump increased by 1. In Passion state, Physical Anomaly Buildup Rate increases by 15%, and each point of Anomaly Proficiency increases her damage by 0.1% (up to 30%)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Adaptation à l'environnement", en: "Adapt to the Environment" }, 
+            desc: { fr: "Si Jane attaque un ennemi sous l'état Rongé (Gnawed), ou si un allié déclenche Assaut sur un ennemi Rongé, 15 % de la DÉF ennemie est ignorée. De plus, lorsqu'un DGT d'Assaut inflige un coup critique, les DGT CRIT augmentent de 50 %.", en: "When Jane hits a Gnawed enemy, or an ally triggers Assault on a Gnawed enemy, ignores 15% DEF. When Assault triggers a CRIT, CRIT DMG is increased by 50%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "S'adapter et prospérer", en: "Adapt and Thrive" }, 
+            desc: { fr: "Lorsqu'un membre de l'escouade déclenche les effets Assaut ou Désordre, les DGT d'Anomalie d'Attribut de toute l'équipe augmentent de 18 % pendant 15s.", en: "When any squad member triggers Assault or Disorder, all squad members' Attribute Anomaly DMG increases by 18% for 15s." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Technique \"Lousse\"", en: "\"Shady\" Technique" }, 
+            desc: { fr: "Sous l'état Passion, le Taux CRIT augmente de 20 % et les DGT CRIT de 40 %. Lorsqu'un allié inflige Assaut, Jane entre instantanément en Passion avec son flux (Passion Stream) au maximum. Si cet Assaut est critique, Jane lance une attaque supplémentaire infligeant des DGT Physiques équivalant à 1600 % de son Adresse d'Anomalie.", en: "In Passion state, CRIT Rate increases by 20% and CRIT DMG by 40%. When an ally inflicts Assault, Jane instantly enters Passion with max Passion Stream. If that Assault is a CRIT, she deals an extra attack equal to 1,600% of her Anomaly Proficiency." } 
+        }
+    ],
+    "Qingyi": [
+        { 
+            rank: "M1", 
+            title: { fr: "Rupture d'isolation", en: "Insulation Breakdown" }, 
+            desc: { fr: "En entrant en combat, la Tension Flash Connect est restaurée au maximum et son taux d'accumulation augmente de 30 %. Si la Tension est max lors de l'Attaque de base : Enchanted Moonlit Blossoms, l'attaque réduit la DÉF de la cible de 15 % et le Taux CRIT de Qingyi contre elle augmente de 20 % (15s).", en: "Entering combat maxes Flash Connect Voltage and boosts its accumulation by 30%. At max Voltage, Basic Attack: Enchanted Moonlit Blossoms reduces target's DEF by 15% and boosts Qingyi's CRIT Rate against them by 20% for 15s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Effort minimum, impact maximum", en: "Minimal Effort, Maximum Impact" }, 
+            desc: { fr: "Le multiplicateur de DGT d'étourdissement fourni par chaque cumul de Soumission (Subjugation) du Passif Principal passe à 135 % de sa valeur originale. Lorsque Qingyi applique le maximum de cumuls de Soumission à un ennemi, le Daze infligé à cette cible augmente de 15 %.", en: "Stun DMG Multiplier from Subjugation stacks (Core Passive) increases to 135% of original value. Reaching max Subjugation stacks on an enemy increases Daze dealt to them by 15%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Barrière à arc stable", en: "Stable Arc Barrier" }, 
+            desc: { fr: "En entrant ou sortant de l'état Flash Connect, gagne un bouclier égal à 10 % des PV max. Si le bouclier se rafraîchit alors que le précédent est encore actif, Qingyi génère 5 points d'énergie (recharge 10s).", en: "Entering/exiting Flash Connect grants a 10% Max HP shield. Refreshing an active shield generates 5 Energy (10s cooldown)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Huit Méridiens", en: "Eight Meridians" }, 
+            desc: { fr: "Le niveau d'interruption de l'Attaque de base : Enchanted Moonlit Blossoms est grandement augmenté et ses DGT CRIT augmentent de 100 %. Toucher un ennemi avec cette attaque réduit sa RÉS aux DGT d'Attribut de 20 % pendant 15s.", en: "Interrupt Level of Basic Attack: Enchanted Moonlit Blossoms is greatly increased, and its CRIT DMG increases by 100%. Hitting an enemy with it reduces their Attribute DMG RES by 20% for 15s." } 
+        }
+    ],
+    "Burnice": [
+        { 
+            rank: "M1", 
+            title: { fr: "Flammes parentes", en: "Kindred Flames" }, 
+            desc: { fr: "La limite de Chaleur (Heat) passe de 100 à 140. Burnice gagne 40 de Chaleur en entrant en combat. Le multiplicateur de DGT de l'effet Postcombustion (Afterburn) augmente de 100 % de l'ATK. L'accumulation d'Anomalie Feu générée par la Postcombustion augmente de 25 %.", en: "Heat limit increases to 140 (gains 40 upon entering combat). Afterburn DMG Multiplier increases by 100% ATK. Fire Anomaly Buildup from Afterburn increases by 25%." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Supplément sans frais additionnels", en: "Extra at No Additional Charge" }, 
+            desc: { fr: "Déclencher Postcombustion applique une Pénétration Thermique à l'ennemi (max 5 cumuls, 6s). Lorsqu'un allié touche la cible, le Taux de Pénétration (PEN Ratio) de l'attaque augmente de 4 % par cumul (jusqu'à 20 %).", en: "Triggering Afterburn applies Thermal Penetration (max 5 stacks, 6s). Allied attacks on the target gain 4% PEN Ratio per stack (up to 20%)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Approvisionnement en carburant ultime", en: "Ultimate Fuel Supply" }, 
+            desc: { fr: "Le Taux CRIT de l'Attaque Spéciale EX et de l'Attaque d'Assistance augmente de 30 %. La durée maximale de projection de flammes de l'Attaque Spéciale EX (Double Shot) est prolongée de 1s.", en: "EX Special and Assist Attack CRIT Rate increases by 30%. Max flame spray duration for EX Special Attack (Double Shot) increases by 1s." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Invitation brûlante", en: "Burning Invitation" }, 
+            desc: { fr: "Toucher avec l'Attaque Spéciale EX (Double Shot) déclenche une Postcombustion spéciale infligeant 60 % de l'ATK en DGT Feu (0,5s de CD, ne consomme pas de Chaleur). Pendant l'attaque, les effets ignorent 25 % de la RÉS Feu. Toucher un ennemi Brûlé déclenche une occurrence supplémentaire de DGT de Brûlure égale à 1800 % (20s de CD par cible).", en: "EX Special Attack (Double Shot) hits trigger a special Afterburn dealing 60% ATK as Fire DMG (0.5s CD, no Heat cost). While active, effects ignore 25% Fire RES. Hitting a Burned enemy triggers an extra Burn DMG instance equal to 1,800% (20s CD per target)." } 
+        }
+    ],
+    "Caesar": [
+        { 
+            rank: "M1", 
+            title: { fr: "Avancée en fer de lance", en: "Spearhead Advance" }, 
+            desc: { fr: "En entrant en combat ou en étant déployée, Caesar octroie instantanément le bouclier Égide Radieuse à l'équipe (recharge 300s). Tant que le bouclier est actif, les ennemis dans un rayon de 5m subissent une réduction de 15 % de leur RÉS aux DGT d'Attribut.", en: "Entering combat instantly grants the Radiant Aegis shield to the team (300s CD). While active, enemies within 5m suffer a 15% Attribute DMG RES reduction." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Héritage des contrées lointaines", en: "Legacy of the Far Lands" }, 
+            desc: { fr: "Tant que l'Égide Radieuse est active (Passif Principal), la génération d'énergie de Caesar augmente de 10 %, et le boost d'ATK du porteur du bouclier passe à 150 % de sa valeur initiale.", en: "While Radiant Aegis is active (Core Passive), Caesar's Energy Gen increases by 10%, and the shield bearer's ATK boost increases to 150% of its original value." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Bélier du Bélier", en: "Aries the Battering-Ram" }, 
+            desc: { fr: "L'utilisation d'un Enchaînement ou d'un Ultime octroie 3 Points d'Assistance supplémentaires. Si son énergie est sous 20, elle peut activer l'Attaque Spéciale EX : Overpowered Shield Bash en consommant 1 Point d'Assistance à la place (recharge 5s).", en: "Chain Attacks or Ultimates grant 3 Assist Points. If Energy is below 20, can activate EX Special Attack: Overpowered Shield Bash using 1 Assist Point instead (5s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Volonté du Suzerain", en: "Overlord's Will" }, 
+            desc: { fr: "L'Attaque Spéciale EX (Shield Bash) et l'Assistance de suivi (Aiding Blade) infligent des coups critiques garantis, leurs DGT augmentent de 50 % et infligent 50 % de DGT supplémentaires à la cible principale. Lors de leur utilisation, le Taux CRIT de Caesar augmente de 30 % et ses DGT CRIT de 60 % pendant 15s.", en: "EX Special Attack and Assist Follow-Up are guaranteed CRITs, gain 50% DMG, and deal 50% extra DMG to the primary target. Using them boosts Caesar's CRIT Rate by 30% and CRIT DMG by 60% for 15s." } 
+        }
+    ],
+    "Lighter": [
+        { 
+            rank: "M1", 
+            title: { fr: "Le Champion", en: "The Champion" }, 
+            desc: { fr: "L'effet d'Effondrement (Collapse) du Passif Principal augmente la durée d'Étourdissement de 5s et réduit la RÉS Glace et Feu de 10 %. Le Coup de grâce puissant (Finishing Move) lancé lorsque le Moral de Lighter s'épuise pendant un combo inflige 30 % de DGT supplémentaires.", en: "Collapse debuff (Core Passive) increases Stun duration by 5s and reduces Ice/Fire RES by 10%. The Finishing Move triggered when Morale depletes during a combo deals 30% more DMG." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Écharpe Rouge", en: "Red Scarf" }, 
+            desc: { fr: "Appliquer l'Effondrement augmente le multiplicateur de DGT d'étourdissement de la cible de 25 %. L'augmentation des DGT Glace et Feu fournie par l'Allégresse (Elation) passe à 120 % de sa valeur initiale.", en: "Applying Collapse increases target's Stun DMG Multiplier by 25%. The Ice/Fire DMG boost from Elation (Additional Ability) increases to 120%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Lunettes de soleil", en: "Sunglasses" }, 
+            desc: { fr: "Lorsque Lighter est hors-terrain, la Régénération d'énergie du personnage actif augmente de 10 %. En entrant dans l'état Explosion de Moral (Morale Burst), Lighter restaure 4 points d'énergie aux personnages hors-terrain (recharge 18s).", en: "When off-field, on-field character's Energy Regen increases by 10%. Entering Morale Burst restores 4 Energy to off-field characters (18s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Survivant", en: "Survivor" }, 
+            desc: { fr: "L'efficacité de récupération du Moral passe à 200 %. Toucher avec une frappe lourde déclenche l'Impact Flamboyant (Blazing Impact) infligeant 250 % de l'ATK en DGT Feu (8s CD/ennemi). Au-delà de 170 d'Impact, chaque point augmente ce multiplicateur de 5 % (max 500 %). Le Coup de grâce puissant déclenche une activation supplémentaire ignorant le CD.", en: "Morale recovery efficiency becomes 200%. Heavy strikes trigger Blazing Impact (250% ATK as Fire DMG, 8s CD/enemy). Every point of Impact above 170 boosts this multiplier by 5% (up to 500%). The Finishing Move triggers an extra activation ignoring cooldown." } 
+        }
+    ],
+    "Yanagi": [
+        { 
+            rank: "M1", 
+            title: { fr: "Connais-toi toi-même, connais ton ennemi", en: "Know Thy Self, Know Thy Enemy" }, 
+            desc: { fr: "Lorsqu'un allié inflige une Anomalie, Yanagi gagne 1 cumul de Clarté (max 3, 15s). Être touché consomme 1 cumul pour gagner 1s d'invulnérabilité. Si Yanagi a au moins 1 cumul, son Adresse d'Anomalie augmente de 80.", en: "Ally inflicting Anomaly grants 1 Clarity stack (max 3, 15s). Getting hit consumes 1 stack for 1s invulnerability. Having 1+ stacks increases Anomaly Proficiency by 80." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Adaptabilité exceptionnelle", en: "Outstanding Adaptability" }, 
+            desc: { fr: "L'accumulation d'Anomalie Électrique des coups rapides de l'EX Spécial augmente de 20 %. Maintenir la touche après un coup consomme 10 d'énergie pour relancer un coup (se termine par un coup descendant). Déclencher le Désordre de Polarité (Polarity Disorder) avec ce dernier coup augmente le multiplicateur de DGT de 20 % (plus 15 % par coup additionnel, max 2).", en: "EX Special rapid thrusts gain 20% Electric Anomaly Buildup. Holding the button consumes 10 Energy for another thrust (ends with downward attack). Triggering Polarity Disorder with the downward attack boosts DMG multiplier by 20% (+15% per extra thrust, max 2)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Maître des échecs", en: "Chessmaster" }, 
+            desc: { fr: "Infliger des DGT d'Anomalie applique l'effet Exposé (Exposed) pendant 15s. Les attaques contre les ennemis Exposés bénéficient de 16 % de Taux de Pénétration (PEN Ratio) supplémentaire.", en: "Inflicting Anomaly DMG applies Exposed for 15s. Attacks against Exposed enemies gain 16% increased PEN Ratio." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Sang inhumain", en: "Inhuman Blood" }, 
+            desc: { fr: "Après une attaque rapide (EX Spécial), l'état Shinrabanshou passe à 30s. Sous cet état, l'ATK augmente de 15 % et les DGT de l'EX Spécial de 20 %. L'effet de multiplicateur de DGT (M2) peut être déclenché jusqu'à 4 fois, et le coût en énergie des 4 premiers coups additionnels est réduit de moitié.", en: "After an EX Special thrust, Shinrabanshou state lasts 30s. While active, ATK increases by 15% and EX Special DMG by 20%. The M2 DMG multiplier effect can trigger up to 4 times, and the Energy cost for the first 4 extra thrusts is halved." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
