@@ -65,7 +65,8 @@ export const agentDatabase = {
         teams: [
             { 
                 name: "TEAM 01", 
-                tag: { fr: "Physique Calydon 👑", en: "Physical Calydon 👑" }, 
+                tag: { fr: "Physique Calydon 👑", en: "Physical Calydon 👑" },
+                videoId: "6Ngyp_jBrCY", // <--- AJOUT DE LA VIDÉO ICI
                 members: [ 
                     { img: "Burnice.png", color: "#f05432", initial: "B" }, 
                     { img: "Caesar.png", color: "#e8a838", initial: "C" }, 
