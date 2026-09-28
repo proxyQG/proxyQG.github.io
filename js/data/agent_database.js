@@ -74,7 +74,8 @@ export const agentDatabase = {
             },
             { 
                 name: "TEAM 02", 
-                tag: { fr: "Synergie Stun", en: "Stun Synergy" }, 
+                tag: { fr: "Synergie Stun", en: "Stun Synergy" },
+                videoId: "WqzP_JXF2uA",
                 members: [ 
                     { img: "Piper.png", color: "#e8a838", initial: "P" },
                     { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, 
@@ -84,6 +85,7 @@ export const agentDatabase = {
             { 
                 name: "TEAM 03", 
                 tag: { fr: "Désordre Mixte", en: "Mixed Disorder" }, 
+                videoId: "IqG8ufUTih0",
                 members: [ 
                     { img: "Piper.png", color: "#e8a838", initial: "P" },
                     { img: "Vivian.png", color: "#f23c8a", initial: "V" }, 
