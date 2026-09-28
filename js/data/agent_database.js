@@ -2,93 +2,92 @@ export const agentDatabase = {
     "Piper": {
         color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
         stats: [
-            { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, value: "≥ 385 - 420+" },
-            { label: { fr: "Attaque", en: "Attack" }, value: "≥ 2600 - 2800+" },
-            { label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, value: "≥ 120 - 150+" }
+            { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, value: "350 - 450+" },
+            { label: { fr: "Attaque", en: "Attack" }, value: "2500 - 2800+" },
+            { label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, value: "150+" }
         ],
         discs: [
             { 
                 tag: { fr: "Assaut / Carry (100 %) 👑", en: "Assault / Carry (100%) 👑" }, 
-                set1: "Fanged_Metal", set2: "Freedom_Blues", 
-                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Freedom Blues", 
+                set1: "Fanged_Metal", set2: "Phaethon_Melody", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", 
                 note: { 
-                    fr: "Le meilleur choix pour maximiser les dégâts personnels d'Assaut (+35 % DGT Physiques) et alimenter de lourds dégâts de Désordre.", 
-                    en: "Optimal set to maximize personal Assault damage (+35% Physical DMG) and trigger massive Disorder bursts." 
+                    fr: "La meilleure option pour maximiser les dégâts d'Assaut (+35 % DGT). L'idéal est qu'un coéquipier/Bangboo aide à appliquer l'Assaut pour profiter du bonus le plus longtemps possible.", 
+                    en: "Best option for direct Anomaly-based Physical damage. The DMG% bonus against enemies inflicted by Assault by any party member for 12 seconds." 
                 } 
             },
             { 
-                tag: { fr: "Support Anomalie", en: "Anomaly Support" }, 
-                set1: "Freedom_Blues", set2: "Swing_Jazz", 
-                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", 
+                tag: { fr: "Alternative 1", en: "Alternative 1" }, 
+                set1: "Fanged_Metal", set2: "Puffer_Electro", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Puffer Electro", 
                 note: { 
-                    fr: "Réduit la résistance à l'anomalie ennemie de 20 % via l'EX Spécial ; idéal dans les compositions double anomalie (Burnice / Jane).", 
-                    en: "Reduces enemy Anomaly Buildup RES by 20% on EX Special; ideal for dual anomaly setups (Burnice / Jane)." 
+                    fr: "Une très bonne alternative au 2pc Phaethon's Melody.", 
+                    en: "A very good alternative to the 2pc Phaethon's Melody." 
                 } 
             },
             { 
-                tag: { fr: "Hybride Énergie", en: "Energy Hybrid" }, 
-                set1: "Freedom_Blues", set2: "Hormone_Punk", 
-                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Hormone Punk", 
+                tag: { fr: "Alternative 2", en: "Alternative 2" }, 
+                set1: "Fanged_Metal", set2: "Chaos_Jazz", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
                 note: { 
-                    fr: "Alternative équilibrée combinant la réduction de résistance et un surcroît d'ATK brute.", 
-                    en: "Balanced alternative combining anomaly shred with raw ATK boosts." 
+                    fr: "Un mélange intéressant pour optimiser les dégâts d'anomalie.", 
+                    en: "An interesting mix to optimize anomaly damage." 
                 } 
             }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
             { name: "Ex", level: "12", icon: "Ex.png" },
+            { name: "Assist", level: "8", icon: "Assist.png" },
             { name: "Ult", level: "11", icon: "Ultime.png" },
             { name: "Basic", level: "9", icon: "Attaque_basic.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" },
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
         statPriority: {
             main: [
-                { slot: "6", label: { fr: "Maîtrise d'Anomalie / ATK %", en: "Anomaly Mastery / ATK%" } },
-                { slot: "5", label: { fr: "DGT Physique % / PEN Ratio", en: "Physical DMG% / PEN Ratio" } },
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "PEN Ratio = ATK% = DGT Physique", en: "PEN Ratio = ATK% = Physical DMG%" } },
                 { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } }
             ],
             sub: [
                 { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
                 { label: { fr: "Attaque %", en: "ATK %" }, highlight: true },
-                { label: { fr: "PEN Flat", en: "Flat PEN" }, highlight: false },
-                { label: { fr: "Attaque Flat", en: "Flat ATK" }, highlight: false }
+                { label: { fr: "PEN = Attaque", en: "PEN = ATK" }, highlight: false }
             ]
         },
         engines: [
-            { tag: { fr: "Signature (100 %) 👑", en: "Signature (100%) 👑" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" },
-            { tag: { fr: "Alternative BP (95 %)", en: "BP Alternative (95%)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" },
+            { tag: { fr: "Signature d'Alice (100 %) 👑", en: "Alice's Signature (100%) 👑" }, name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" },
+            { tag: { fr: "Signature de Jane (98 %)", en: "Jane's Signature (98%)" }, name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.png" },
             { tag: { fr: "F2P Craftable (S5)", en: "F2P Craftable (S5)" }, name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" },
-            { tag: { fr: "Option Boutique", en: "Gadget Store Option" }, name: "Rainforest Gourmet", img: "W-Engine_Rainforest_Gourmet.png" }
+            { tag: { fr: "Signature de Piper", en: "Piper's Signature" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" },
+            { tag: { fr: "Alternative BP (S5)", en: "BP Alternative (S5)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
         ],
         teams: [
             { 
                 name: "TEAM 01", 
-                tag: { fr: "Physique Calydon 👑", en: "Physical Calydon 👑" },
-                videoId: "6Ngyp_jBrCY", // <--- AJOUT DE LA VIDÉO ICI
+                tag: { fr: "Désordre Ultime 👑", en: "Ultimate Disorder 👑" }, 
+                videoId: "IzMquorLuQU", // <--- L'ID YouTube que tu m'as donné
                 members: [ 
-                    { img: "Burnice.png", color: "#f05432", initial: "B" }, 
-                    { img: "Caesar.png", color: "#e8a838", initial: "C" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" }, 
+                    { img: "Velina.png", color: "#3bbedb", initial: "V" }, 
+                    { img: "Remielle.png", color: "#fba2d0", initial: "R" } 
                 ] 
             },
             { 
                 name: "TEAM 02", 
-                tag: { fr: "Mono Calydon F2P", en: "Mono Calydon F2P" }, 
+                tag: { fr: "Synergie Stun", en: "Stun Synergy" }, 
                 members: [ 
-                    { img: "Lucy.png", color: "#f05432", initial: "L" }, 
-                    { img: "Burnice.png", color: "#f05432", initial: "B" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" },
+                    { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, 
+                    { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } 
                 ] 
             },
             { 
                 name: "TEAM 03", 
-                tag: { fr: "Lièvres rusés / F2P", en: "Cunning Hares / F2P" }, 
+                tag: { fr: "Désordre Mixte", en: "Mixed Disorder" }, 
                 members: [ 
-                    { img: "Nicole.png", color: "#f23c8a", initial: "N" }, 
-                    { img: "Corin.png", color: "#e8a838", initial: "C" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" },
+                    { img: "Vivian.png", color: "#f23c8a", initial: "V" }, 
+                    { img: "Burnice.png", color: "#f05432", initial: "B" } 
                 ] 
             }
         ],
@@ -98,8 +97,8 @@ export const agentDatabase = {
             { rank: "M6", desc: { fr: "Prolonge la durée maximale de l'EX Spécial et augmente ses dégâts d'Assaut finaux.", en: "Extends max EX Special spin duration and significantly increases terminal Assault strike DMG." } }
         ],
         notes: [
-            { fr: "Gestion de la Puissance : Atteindre rapidement 20 cumuls avec l'EX Spécial pour activer le buff d'équipe de +18 % de DGT.", en: "Power Management: Quickly build 20 Power stacks with EX Special to trigger the squad-wide +18% DMG bonus." },
-            { fr: "Annulation d'animation : Après le coup lourd final de la rotation, changer d'agent immédiatement pour éviter l'animation d'essoufflement.", en: "Animation Cancel: Swap out immediately following the heavy slam finisher to cancel her exhaustion recovery animation." }
+            { fr: "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Désordres. L'énorme quantité d'Anomalies de Piper la rend compétitive.", en: "Velina Synergy: Velina is a perfect match for Piper, who struggled with Disorder management. Piper's fast Anomaly build-up makes her competitive with Velina." },
+            { fr: "Synergie Yuzuha : Bien que ce soit un support Anomalie, le fait qu'elle soit Physique permet à Piper de bénéficier facilement de sa Compétence Additionnelle.", en: "Yuzuha Synergy: Being Physical is great for Piper as it's one of the few reliable ways to trigger her Additional Ability." }
         ]
     },
     "Jane": {
