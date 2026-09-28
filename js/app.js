@@ -492,12 +492,16 @@ function initModals() {
 
 function initKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
-        const modalAgent = document.getElementById('agentDetailModal'); const modalFaction = document.getElementById('factionModal'); const modalMobileFilter = document.getElementById('mobileFilterModal');
+        const modalAgent = document.getElementById('agentDetailModal'); 
+        const modalFaction = document.getElementById('factionModal'); 
+        const modalMobileFilter = document.getElementById('mobileFilterModal');
+        const modalVideo = document.getElementById('videoModal'); // NOUVEAU
 
         if (e.key === 'Escape') { 
             if (modalAgent && !modalAgent.classList.contains('hidden')) window.closeModal('agentDetailModal'); 
             else if (modalFaction && !modalFaction.classList.contains('hidden')) window.closeModal('factionModal'); 
             else if (modalMobileFilter && !modalMobileFilter.classList.contains('hidden')) window.closeModal('mobileFilterModal');
+            else if (modalVideo && !modalVideo.classList.contains('hidden')) window.closeVideoModal(); // NOUVEAU
         }
         if (modalAgent && !modalAgent.classList.contains('hidden')) {
             if (e.key === 'ArrowLeft' && State.modalIndex > 0) window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
@@ -525,6 +529,41 @@ function checkUrlForAgent() {
         else if (fastMask) fastMask.remove();
     } else if (fastMask) fastMask.remove();
 }
+
+// Fonction pour ouvrir la vidéo
+window.openVideoModal = function(videoId, event) {
+    if(event) event.stopPropagation(); 
+    
+    const modal = document.getElementById('videoModal');
+    const container = document.getElementById('youtubeContainer');
+    const content = document.getElementById('videoModalContent');
+    if (!modal || !container) return;
+
+    container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+    modal.classList.remove('hidden');
+    void modal.offsetWidth; 
+    modal.classList.add('opacity-100');
+    content.classList.remove('scale-95');
+    content.classList.add('scale-100');
+};
+
+// Fonction pour fermer la vidéo
+window.closeVideoModal = function() {
+    const modal = document.getElementById('videoModal');
+    const container = document.getElementById('youtubeContainer');
+    const content = document.getElementById('videoModalContent');
+    if (!modal) return;
+
+    modal.classList.remove('opacity-100');
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        if (container) container.innerHTML = ''; 
+    }, 300);
+};
 
 // ==========================================
 // 10. UTILITAIRES & PARALLAXE FLUIDE (60 FPS)
