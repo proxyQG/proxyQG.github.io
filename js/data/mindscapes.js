@@ -571,6 +571,138 @@ export const mindscapesData = {
             desc: { fr: "Après une attaque rapide (EX Spécial), l'état Shinrabanshou passe à 30s. Sous cet état, l'ATK augmente de 15 % et les DGT de l'EX Spécial de 20 %. L'effet de multiplicateur de DGT (M2) peut être déclenché jusqu'à 4 fois, et le coût en énergie des 4 premiers coups additionnels est réduit de moitié.", en: "After an EX Special thrust, Shinrabanshou state lasts 30s. While active, ATK increases by 15% and EX Special DMG by 20%. The M2 DMG multiplier effect can trigger up to 4 times, and the Energy cost for the first 4 extra thrusts is halved." } 
         }
     ],
+    "Harumasa": [
+        { 
+            rank: "M1", 
+            title: { fr: "Excellente humeur", en: "High Spirit" }, 
+            desc: { fr: "La limite maximale de cumuls de Prison Électrique appliqués par l'Attaque de base : Ha-Oto no Ya passe à 14 cumuls. Lorsqu'un Carquois Électrique est déclenché, 2 Ha-Oto no Ya consécutives sont tirées sur la cible.", en: "The maximum stack limit of Electro Prison from Basic Attack: Ha-Oto no Ya increases to 14 stacks. When an Electro Quiver is triggered, 2 consecutive Ha-Oto no Ya will be fired at the target." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Languissement", en: "Languish" }, 
+            desc: { fr: "Lors de l'utilisation d'un Enchaînement ou d'un Ultime, Harumasa gagne 7 cumuls de Blitz Électrique (max 7 cumuls). Tant qu'il possède un Blitz Électrique, les DGT de l'Attaque d'esquive : Hiten no Tsuru - Slash augmentent de 50 %. Un cumul de Blitz Électrique est consommé à la fin de cette Attaque d'esquive.", en: "When using a Chain Attack or Ultimate, Harumasa gains 7 stacks of Electro Blitz, up to a max of 7 stacks. While possessing Electro Blitz, the DMG of Dash Attack: Hiten no Tsuru - Slash increases by 50%. Consume 1 stack of Electro Blitz once Dash Attack: Hiten no Tsuru - Slash ends." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Occasionnellement motivé", en: "Occasionally Motivated" }, 
+            desc: { fr: "La Prison Électrique dure désormais 20s. Lorsque l'Attaque d'esquive : Hiten no Tsuru - Slash touche des ennemis, Harumasa gagne 30 Décibels (une fois par utilisation de la compétence). Lors de l'activation d'un Ultime, applique le nombre maximum de cumuls de Prison Électrique à tous les ennemis sur le terrain.", en: "Electro Prison now lasts for 20s. When Dash Attack: Hiten no Tsuru - Slash hits enemies, Harumasa gains 30 Decibels once per use of this skill. Upon activating an Ultimate, apply the maximum stacks of Electro Prison to all on-field enemies." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Entente tacite", en: "Tacit Understanding" }, 
+            desc: { fr: "Après que Ha-Oto no Ya a touché des ennemis Étourdis ou sous Anomalie d'Attribut, Harumasa ignore 15 % de leur RÉS Électrique pendant 12s. Toutes les 12 fois qu'un ennemi est touché par Ha-Oto no Ya, déclenche une explosion électromagnétique supplémentaire infligeant 1500 % de l'ATK de Harumasa en DGT Électriques.", en: "After Ha-Oto no Ya hits Stunned enemies or enemies under Attribute Anomalies, Harumasa will ignore 15% of the target's Electric RES for 12s. Every 12 times an enemy is hit by Ha-Oto no Ya, trigger an extra electromagnetic explosion, dealing 1,500% of Harumasa's ATK to the target as Electric DMG." } 
+        }
+    ],
+    "Miyabi": [
+        { 
+            rank: "M1", 
+            title: { fr: "Givre sur la neige", en: "Frost Atop the Snow" }, 
+            desc: { fr: "Sous la Posture Shimotsuki, chaque point de Givre Déchu (Fallen Frost) consommé permet à l'Attaque de base : Shimotsuki d'ignorer 6 % de la DÉF (cumulable 6 fois jusqu'à la fin de la Posture). Lorsqu'une frappe chargée de niveau 3 de l'Attaque de base : Shimotsuki touche un ennemi sous Brûlure de givre (Frostburn), elle dissipe instantanément cet état et augmente le Taux d'accumulation d'Anomalie de toute l'équipe de 20 % pendant 10s.", en: "While in Shimotsuki Stance, every 1 point of Fallen Frost consumed will allow Basic Attack: Shimotsuki to ignore 6% of DEF, stacking up to 6 times and lasting until Shimotsuki Stance ends. When a charge-level three slash of Basic Attack: Shimotsuki hits an enemy suffering Frostburn, it will immediately remove the Frostburn state and increase all squad members' Anomaly Buildup Rate by 20% for 10s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Technique de respiration", en: "Breath Technique" }, 
+            desc: { fr: "Les DGT de l'Attaque de base : Kazahana et de la Contre-esquive augmentent de 30 %. Miyabi gagne 1 point de Givre Déchu lorsque le mouvement final du 5ème coup de l'Attaque de base : Kazahana touche un ennemi. En entrant sur le champ de bataille, elle obtient immédiatement 6 points de Givre Déchu et son Taux CRIT augmente de 15 %.", en: "Basic Attack: Kazahana and Dodge Counter DMG increases by 30%. Hoshimi Miyabi gains 1 point of Fallen Frost when the final move of the 5th hit of Basic Attack: Kazahana hits an enemy. Upon entering the battlefield, Hoshimi Miyabi immediately obtains 6 points of Fallen Frost and her CRIT Rate increases by 15%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Rupture", en: "Rupture" }, 
+            desc: { fr: "Les DGT de Rupture - Brûlure de givre (Frostburn - Break) augmentent de 30 %. Lors du déclenchement de cette Rupture, Miyabi génère 250 Décibels supplémentaires.", en: "Frostburn - Break DMG increases by 30%. Upon triggering Frostburn - Break, Hoshimi Miyabi generates 250 more Decibels." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Talent prodigieux", en: "Prodigious Talent" }, 
+            desc: { fr: "Sous la Posture Shimotsuki, Miyabi obtient l'état Polaire (Polar), augmentant les DGT de l'Attaque de base : Shimotsuki de 30 %. Avec Polaire, elle dégaine automatiquement sa lame et lance de puissantes frappes selon le niveau de charge lors de la consommation de Givre Déchu. Tant que le Givre n'est pas épuisé, ces frappes n'interrompent pas la charge de la Posture. Chaque activation de la posture permet jusqu'à 3 frappes de ce type.", en: "During Shimotsuki Stance, Hoshimi Miyabi obtains Polar, which increases Basic Attack: Shimotsuki DMG by 30%. After obtaining Polar, Hoshimi Miyabi will automatically draw her blade and unleash powerful slashes based on the current charge level upon consuming Fallen Frost. Before Fallen Frost is completely depleted, the draw and slashes will not interrupt charging under Shimotsuki Stance. Each occurrence of Shimotsuki Stance can perform up to 3 draws and slashes." } 
+        }
+    ],
+    "Evelyn": [
+        { 
+            rank: "M1", 
+            title: { fr: "Tissage de rêve", en: "Dreamweave" }, 
+            desc: { fr: "En entrant au combat, Evelyn gagne immédiatement 1500 Décibels. Les ennemis affectés par le Sceau Entravant (Binding Seal) sont Liés. Lorsqu'elle attaque des ennemis Liés, elle ignore 12 % de leur DÉF. L'utilisation de l'Attaque Spéciale (First Form) ou de l'EX Spécial (Final Form) propage l'effet Lié à tous les ennemis touchés pendant 10s.", en: "Upon entering the battlefield, Evelyn immediately gains 1,500 Decibels. Enemies affected by Binding Seal will be Bound. When Evelyn attacks Bound enemies, she ignores 12% of their DEF. When Evelyn uses Special Attack: Binding Sunder - First Form or EX Special Attack: Binding Sunder - Final Form, the Bound effect spreads to all enemies hit by the skill. This spread Bound effect lasts for 10s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Danse de feu", en: "Dance of Fire" }, 
+            desc: { fr: "L'ATK d'Evelyn augmente de 15 %. Lorsqu'elle utilise l'Attaque de base : Garrot (First Form ou Second Form), les Braises Ardentes (Burning Embers) consommées lui sont restituées (recharge 25s). Lorsqu'elle consomme un Point d'Attache Brûlant pour déclencher l'Enchaînement : Lunalux - Snare, le niveau d'interruption de la compétence augmente.", en: "Evelyn's ATK increases by 15%. When Evelyn uses Basic Attack: Garrote - First Form or Basic Attack: Garrote - Second Form, the Burning Embers consumed will be returned. This effect can trigger once every 25s. When Evelyn consumes Burning Tether Point to trigger Chain Attack: Lunalux - Snare, the skill's Interrupt Level increases." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Mélodie du destin", en: "Fate's Melody" }, 
+            desc: { fr: "Lors de l'activation d'un Enchaînement ou d'un Ultime, Evelyn gagne immédiatement un bouclier égal à 10 % de ses PV Max. Tant que ce bouclier est actif, ses DGT CRIT augmentent de 40 %.", en: "Upon activating a Chain Attack or Ultimate, Evelyn immediately gains a shield equal to 10% of her Max HP. While this shield exists, Evelyn's CRIT DMG increases by 40%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Lien d'ombre et de lumière", en: "Bond of Light and Shadow" }, 
+            desc: { fr: "Lors de l'activation d'un Enchaînement ou Ultime, Evelyn obtient le Tranchant d'Ombre-fil (Shadowstring Edge) pendant 20s. Sous cet état, lorsqu'elle touche des ennemis avec une Attaque de base, d'esquive, Spéciale ou EX Spéciale, un Garrot Lunalux supplémentaire est libéré pour une attaque de suivi. Cette attaque inflige 375 % de l'ATK en DGT Feu (considérés comme DGT d'Enchaînement, max 16 déclenchements). Le compteur est réinitialisé à chaque gain de l'état.", en: "When activating her Chain Attack or Ultimate, Evelyn gains Shadowstring Edge for 20s. During Shadowstring Edge, when Evelyn hits enemies with a Basic Attack, Dash Attack, Special Attack, or EX Special Attack, an additional Lunalux Garrote will be released for a follow-up attack, dealing Fire DMG equal to 375% of Evelyn's ATK. This DMG is considered Chain Attack DMG and can trigger up to 16 times. The number of triggers will be refreshed each time Shadowstring Edge is gained." } 
+        }
+    ],
+    "Astra": [
+        { 
+            rank: "M1", 
+            title: { fr: "Tempérament égal à 12 tons", en: "12-Tone Equal Temperament" }, 
+            desc: { fr: "Lorsqu'une attaque d'Astra Yao touche un ennemi, la RÉS de la cible à tous les Attributs est réduite de 6 % (max 3 cumuls, 30s). En entrant en combat, elle gagne 1000 Décibels. À l'activation de son Ultime, l'équipe gagne 1 cumul de Chant de Protection pendant 60s. Subir une attaque consomme ce cumul pour octroyer 1s d'invulnérabilité.", en: "When Astra Yao's attack hits an enemy, the target's All-Attribute RES is reduced by 6%, stacking up to 3 times and lasting 30s. Repeated triggers refresh the duration. Upon entering the battlefield, Astra Yao immediately gains 1,000 Decibels. When activating her Ultimate, all squad members gain 1 stack of Song of Protection for 60s. When attacked by an enemy, consume Song of Protection, granting Invulnerability for 1s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "L'art de la cupidité", en: "Art of Greed" }, 
+            desc: { fr: "Le buff d'ATK du Passif Principal : \"Andante Gracieux\" est augmenté de 19 %, avec un maximum porté à 400. Sous l'état Cadence Idyllique, lorsqu'un allié entre via une Assistance (Rapide, Défensive, Évasive) ou un Enchaînement, Astra Yao enchaîne avec 1 Trémolo et 3 Clusters de Tonalité (recharge 3s).", en: "The ATK buff from Core Passive: 'Graceful Andante' is further increased by 19%, with an increased maximum of 400. While in the Idyllic Cadenza state, when other squad members switch in through a Quick Assist, Chain Attack, Defensive Assist, or Evasive Assist, Astra Yao will additionally follow up with 1 Tremolo and 3 Tone Clusters to attack. This effect can trigger once every 3s." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Cheveux sur ta nuque", en: "Hair Upon Your Nape" }, 
+            desc: { fr: "Après un Enchaînement ou Ultime, Astra Yao peut déclencher une Assistance Rapide dans les 15s même sans Accords (Chords). Toucher un ennemi réduit l'intervalle de l'Assistance à 1s. Sous l'état Cadence Idyllique, l'allié entrant via Assistance Rapide reçoit un buff (recharge 3s pour l'équipe) : Attaque -> L'attaque lourde d'assistance inflige +300 % de l'ATK d'Astra ; Anomalie -> L'assistance accumule +50 % d'Anomalie ; Stun -> L'assistance inflige +50 % de Daze.", en: "After activating a Chain Attack or Ultimate, within 15s, Astra Yao can trigger a Quick Assist even if she does not have Chords. When the attack hits an enemy, the interval for triggering a Quick Assist is reduced to 1s. While in the Idyllic Cadenza state, when other squad members enter the field via a Quick Assist, they will receive different buffs based on their specialty, and this effect can be triggered once every 3s for the entire squad: Attack: The next Quick Assist heavy attack on an enemy will deal extra DMG equal to 300% of Astra Yao's ATK; Anomaly: The next Quick Assist will have 50% increased Anomaly Buildup; Stun: The next Quick Assist will inflict 50% increased Daze." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Nous sommes le monde", en: "We Are the World" }, 
+            desc: { fr: "Sous l'état Cadence Idyllique, le multiplicateur de DGT des Trémolos et Clusters de Tonalité passe à 200 %, et leur Taux CRIT augmente de 80 %. Lors d'une Assistance Précise, Astra Yao enchaîne automatiquement avec le 3ème coup chargé de l'Attaque de base : \"Capriccio\", avec un bonus de +80 % de Taux CRIT (recharge 10s).", en: "While in the Idyllic Cadenza state, the DMG multiplier for Tremolo and Tone Clusters released or followed up with will increase to 200% of the original, and CRIT Rate is increased by 80%. When triggering a Precise Assist, Astra Yao will automatically follow up with the charged 3rd-hit of Basic Attack: 'Capriccio', with a 80% increased CRIT Rate. This effect can trigger once every 10s." } 
+        }
+    ],
+    "Trigger": [
+        { 
+            rank: "M1", 
+            title: { fr: "Sens aiguisés", en: "Sharpened Senses" }, 
+            desc: { fr: "Le multiplicateur de DGT d'étourdissement du Passif Principal augmente de 20 %. L'activation de l'Attaque de base : Harmonizing Shot voit son temps de recharge réduit à 2s. La Purge (Purge) générée en touchant un ennemi avec le tir continu ou la contre-attaque chargée en Posture Sniper augmente de 25 %. La Purge maximale passe à 125.", en: "The Stun DMG Multiplier applied through Core Passive: Soul-Searching Gaze is increased by an additional 20%. When activating Basic Attack: Harmonizing Shot, the cooldown is reduced to 2s. Purge gained upon hitting an enemy with the continuous fire or charged counter in Sniper Stance increases by 25%. Maximum Purge increases to 125." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Vision Éther", en: "Ether Vision" }, 
+            desc: { fr: "L'utilisation d'une Réplique (Aftershock) confère à Trigger 1 cumul de Regard du Chasseur (Hunter's Gaze). Lancer un Coup de Grâce en Posture Sniper octroie 2 cumuls. Chaque cumul augmente les DGT CRIT de toute l'équipe de 6 % (max 4 cumuls, 10s). Les déclenchements répétés rafraîchissent la durée.", en: "Upon using an Aftershock, Trigger gains 1 stack of Hunter's Gaze. When executing a Finishing Move in Sniper Stance, Trigger gains 2 stacks of Hunter's Gaze. Each stack of Hunter's Gaze increases all squad members' CRIT DMG by 6%, stacking up to 4 times, and lasting 10s. Repeated triggers reset the duration." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Dissimulation", en: "Concealment" }, 
+            desc: { fr: "Lorsque Trigger entre ou prolonge le Soutien Coordonné, la prochaine fois qu'un allié déclenche le Tir Harmonisé classique ou Tartarus, cela provoquera une Déconnexion (Disconnect) à l'impact. Cela inflige des DGT supplémentaires égaux à 200 % de l'ATK de Trigger et un Daze égal à 120 % de son Impact. Niveau d'interruption très élevé.", en: "When Trigger enters or extends Coordinated Support, while the state is active, the next time other squad members trigger Basic Attack: Harmonizing Shot or Basic Attack: Harmonizing Shot - Tartarus, it will trigger Disconnect upon hitting an enemy, dealing additional DMG equal to 200% of Trigger's ATK and inflict Daze equal to 120% of Trigger's Impact. This skill has a relatively high Interrupt Level." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Au-delà du fleuve des morts", en: "Beyond the River of the Dead" }, 
+            desc: { fr: "En entrant en combat, Trigger gagne 5 Munitions Brise-Armure. Chaque tranche de 25 Purge consommée lui rend 1 Munition (max 5). Si Trigger touche une cible en Posture Sniper, 1 Munition est consommée pour infliger 1200 % de son ATK en DGT Électriques bonus (+50 % de DGT sur cette instance). Effet déclenchable toutes les 0,2s.", en: "Upon entering the battlefield, Trigger gains 5 Armor Break Rounds. For every 25 Purge consumed, Trigger gains 1 additional Armor Break Round, up to a maximum of 5 rounds. While possessing Armor Break Rounds, when Trigger hits a target in Sniper Stance, 1 Armor Break Round is consumed to deal additional Electric DMG equal to 1,200% of Trigger's ATK. In addition, this instance of DMG is additionally increased by 50%. This effect can trigger once every 0.2s." } 
+        }
+    ],
+    "Pulchra": [
+        { 
+            rank: "M1", 
+            title: { fr: "Intérêt personnel", en: "Self-Interest" }, 
+            desc: { fr: "Infliger des DGT aux ennemis affectés par le Piège Entravant (Binding Trap) augmente son propre Taux CRIT de 10 %.", en: "When dealing DMG to enemies affected by Binding Trap, increase own CRIT Rate by 10%." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Opportuniste", en: "Opportunistic" }, 
+            desc: { fr: "Sous l'état Démarche du Chasseur (Hunter's Gait) du Passif Principal, l'ATK de Pulchra augmente de 10 % supplémentaires.", en: "While in the Hunter's Gait state from Core Passive: Hunter's Instinct, Pulchra's ATK is increased by an additional 10%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Joie de la chasse", en: "Joy of the Hunt" }, 
+            desc: { fr: "Réduit le coût en Énergie de l'activation de l'Attaque Spéciale EX : Griffe Déchirante - Flashstep de 5.", en: "Reduces Energy Cost of activating EX Special Attack: Rending Claw - Flashstep by 5." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Derrière le masque", en: "Behind the Mask" }, 
+            desc: { fr: "Les DGT de l'Attaque Spéciale : Griffe Déchirante - Ombre Cauchemardesque (Nightmare Shadow) augmentent de 15 %, et l'attaque répétée peut se déclencher 2 fois supplémentaires. L'effet de Piège Entravant de la Compétence additionnelle s'applique désormais à tous les types de dégâts (plus seulement aux DGT de Réplique).", en: "Special Attack: Rending Claw - Nightmare Shadow's DMG is increased by 15%, and the number of times the repeated attack can trigger is increased by 2. Additional Ability: Business Partner's Binding Trap effect now also applies to all damage types, not just Aftershock DMG." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
