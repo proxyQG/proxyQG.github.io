@@ -703,6 +703,138 @@ export const mindscapesData = {
             desc: { fr: "Les DGT de l'Attaque Spéciale : Griffe Déchirante - Ombre Cauchemardesque (Nightmare Shadow) augmentent de 15 %, et l'attaque répétée peut se déclencher 2 fois supplémentaires. L'effet de Piège Entravant de la Compétence additionnelle s'applique désormais à tous les types de dégâts (plus seulement aux DGT de Réplique).", en: "Special Attack: Rending Claw - Nightmare Shadow's DMG is increased by 15%, and the number of times the repeated attack can trigger is increased by 2. Additional Ability: Business Partner's Binding Trap effect now also applies to all damage types, not just Aftershock DMG." } 
         }
     ],
+    "Soldier 0 Anby": [
+        { 
+            rank: "M1", 
+            title: { fr: "Charge statique", en: "Static Charge" }, 
+            desc: { fr: "Lorsque Soldier 0 - Anby utilise une Attaque Spéciale EX, cela déclenche 3 fois les DGT supplémentaires de Foudre Blanche (White Thunder)[cite: 36]. Cet effet ne consomme aucun cumul de Foudre Blanche[cite: 36].", en: "When Soldier 0 - Anby uses an EX Special Attack to hit an enemy, it triggers the additional DMG from White Thunder 3 times. This effect does not consume any White Thunder stacks." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Protocole de sécurité", en: "Fail-Safe Protocol" }, 
+            desc: { fr: "Le Taux CRIT de Soldier 0 - Anby augmente de 12 %[cite: 36]. Lorsqu'elle utilise son Ultime, elle gagne 6 cumuls de Cri du Tonnerre (max 6)[cite: 36]. Avec ce buff, l'Attaque Spéciale : Éclair d'Azur consommera 1 cumul de Cri du Tonnerre à la place de la Foudre Blanche pour activer ses dégâts supplémentaires[cite: 36].", en: "Soldier 0 - Anby's CRIT Rate increases by 12%. When she uses her Ultimate, she gains 6 stacks of Thunder's Cry. With it, Special Attack: Azure Flash consumes 1 stack of Thunder's Cry instead to activate White Thunder DMG." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Réverbération argentée", en: "Silver Reverb" }, 
+            desc: { fr: "En touchant un ennemi marqué d'une Étoile Argentée (Silver Star), Soldier 0 - Anby ignore 12 % de la RÉS Électrique de la cible[cite: 36].", en: "When hitting an enemy marked with Silver Star, Soldier 0 - Anby ignores 12% of the target's Electric RES." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Protagoniste de préquelle", en: "Prequel Protagonist" }, 
+            desc: { fr: "Après 6 déclenchements des DGT supplémentaires de Foudre Blanche, un vortex électromagnétique est généré, infligeant 1000 % de l'ATK en DGT Électriques aux ennemis proches[cite: 36]. Ces DGT sont considérés comme des DGT de Réplique (Aftershock)[cite: 36].", en: "Upon triggering 6 instances of White Thunder's additional DMG, an electromagnetic vortex deals 1,000% of ATK as Electric DMG to surrounding enemies (considered Aftershock DMG)." } 
+        }
+    ],
+    "Hugo": [
+        { 
+            rank: "M1", 
+            title: { fr: "Enfant de la haine", en: "Child of Hatred" }, 
+            desc: { fr: "Lors du déclenchement de l'effet Totalisation (Totalize) sous l'état Réverbération de l'Abysse Sombre, le Taux CRIT de la compétence augmente de 12 % supplémentaires, et ses DGT CRIT de 30 %[cite: 37].", en: "When triggering Totalize in the Dark Abyss Reverb state, the skill's CRIT Rate increases by 12%, and CRIT DMG by 30%." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "L'enfant intérieur", en: "The Child Within" }, 
+            desc: { fr: "Lorsque l'Ultime : Blasphème déclenche Totalisation, cela ne met pas fin à l'état étourdi de l'ennemi[cite: 37]. De plus, lors de ce déclenchement, la compétence ignore 15 % de la DÉF de l'ennemi[cite: 37].", en: "When Ultimate: Blaspheme triggers Totalize, it won't end the Stunned state. The skill will also ignore 15% of the enemy's DEF." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Théorie dramatique", en: "Dramatic Theory" }, 
+            desc: { fr: "Après qu'un Tir Chargé a touché un ennemi, les attaques de Hugo contre cette cible ignoreront 12 % de sa RÉS Glace pendant 15s (la durée se rafraîchit à chaque coup)[cite: 37].", en: "After a Charged Shot hits an enemy, Hugo's attacks against them ignore 12% Ice RES for 15s (refreshes on hit)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Couronne d'épines", en: "Crown of Thorns" }, 
+            desc: { fr: "Tous les tirs déclenchent l'état Réverbération de l'Abysse Sombre pendant 6s[cite: 37]. Les DGT de Totalisation augmentent de 60 %[cite: 37]. Le coup de grâce de l'EX Spécial déclenche Totalisation même sur les ennemis non étourdis, boostant le multiplicateur du coup final de 1000 %[cite: 37].", en: "All shots trigger Dark Abyss Reverb (6s). Totalize DMG is increased by 60%. EX Special Finishing Move triggers Totalize on non-stunned enemies, boosting its multiplier by 1,000%." } 
+        }
+    ],
+    "Vivian": [
+        { 
+            rank: "M1", 
+            title: { fr: "Entrer dans le verger au printemps", en: "Walking Into the Orchard in Spring" }, 
+            desc: { fr: "Lorsque 4 Plumes de Garde sont consommées au total, gagne 1 Plume de Vol[cite: 38]. Les DGT d'Anomalie et de Désordre subis par les cibles sous l'effet Prophétie de Vivian augmentent de 16 %[cite: 38].", en: "When 4 Guard Feathers are consumed, gain 1 Flight Feather. All Attribute Anomaly and Disorder DMG received by targets under Vivian's Prophecy increases by 16%." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Nuit d'orage, nuit d'orage", en: "Stormy Night, Stormy Night" }, 
+            desc: { fr: "Le taux d'accumulation d'Anomalie Éther augmente de 25 %[cite: 38]. Les bénéfices de l'Éclosion (Abloom) tirés de l'Adresse d'Anomalie passent à 130 %, et 15 % de la RÉS de la cible à tous les attributs est ignorée[cite: 38].", en: "Ether Anomaly Buildup Rate increases by 25%. Abloom benefits from Anomaly Proficiency are raised to 130%, and 15% of the target's All-Attribute RES is ignored." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Le vent dans les roseaux", en: "The Wind Between the Reeds" }, 
+            desc: { fr: "Les Attaques de base \"Suspension\" et \"Featherbloom\" infligeront toujours des coups critiques et augmenteront l'ATK de Vivian de 12 % pendant 12s[cite: 38]. En entrant au combat, Vivian gagne immédiatement 5 Plumes de Garde[cite: 38].", en: "Basic Attacks: Suspension and Featherbloom will always CRIT, increasing Vivian's ATK by 12% for 12s. Entering combat immediately grants 5 Guard Feathers." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Vivian", en: "Vivian" }, 
+            desc: { fr: "Les DGT Éther augmentent de 40 %[cite: 39]. Déclencher une esquive parfaite ou un EX Spécial octroie 1 Plume de Vol[cite: 39]. L'Attaque de base \"Suspension\" consomme toutes les Plumes de Garde pour élargir la zone et déclencher une Éclosion spéciale : chaque plume consommée (max 5) augmente proportionnellement les DGT de cette anomalie[cite: 39].", en: "Ether DMG increases by 40%. Perfect Dodging or using EX Special grants 1 Flight Feather. Basic Attack: Suspension consumes all Guard Feathers to expand its AoE and trigger a special Abloom, scaling its DMG up to 5 times based on feathers consumed." } 
+        }
+    ],
+    "Ju Fufu": [
+        { 
+            rank: "M1", 
+            title: { fr: "Petit tigre super effrayant", en: "Super Scary Little Tiger" }, 
+            desc: { fr: "En entrant en combat, le Taux CRIT augmente de 12 % et elle gagne instantanément 100 de Puissance (Might)[cite: 40]. Lorsque son Enchaînement touche un ennemi étourdi, le multiplicateur de DGT d'étourdissement de la cible augmente de 35 % pendant 30s[cite: 40].", en: "Upon entering combat, CRIT Rate increases by 12% and she gains 100 Might. When her Chain Attack hits a Stunned enemy, the Stun DMG Multiplier increases by 35% for 30s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Guerrier Qingming tout-puissant", en: "Almighty Qingming Warrior" }, 
+            desc: { fr: "Sous l'état Rugissement du Tigre, les DGT CRIT des personnages augmentent de 22 % supplémentaires[cite: 40]. À chaque fois qu'un personnage active un Ultime, Ju Fufu gagne 3 points d'Élan (Momentum)[cite: 40].", en: "While in Tiger's Roar state, character CRIT DMG increases by 22%. Whenever any character uses an Ultimate, Ju Fufu gains 3 Momentum." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Tigre mystique tueur de monstres", en: "Monster-Slaying Tiger Mystic" }, 
+            desc: { fr: "Tant que Ju Fufu est dans l'état Rugissement du Tigre, ses DGT CRIT augmentent de 35 %[cite: 40].", en: "While Ju Fufu is in the Tiger's Roar state, her CRIT DMG increases by 35%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Rugissement du tigre intérieur", en: "Roar of My Inner Tiger" }, 
+            desc: { fr: "Les DGT d'Enchaînement de Ju Fufu augmentent de 30 %[cite: 40]. En consommant de l'Élan lors d'une attaque rotative, elle tire 3 pop-corns infligeant chacun 160 % de son ATK en DGT (considérés comme DGT d'Enchaînement)[cite: 40].", en: "Chain Attack DMG increases by 30%. Consuming Momentum while spinning fires 3 popcorns, each dealing 160% ATK as Chain Attack DMG." } 
+        }
+    ],
+    "Pan Yinhu": [
+        { 
+            rank: "M1", 
+            title: { fr: "Bouclier Qi", en: "Qi Shield" }, 
+            desc: { fr: "Toutes les unités infligent 10 % de DGT supplémentaires aux ennemis affectés par Qi Épuisé (Depleted Qi)[cite: 41].", en: "All units deal 10% increased DMG to enemies affected by Depleted Qi." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Frappe des points de pression Yunkui", en: "Yunkui Pressure-Point Strike" }, 
+            desc: { fr: "Pour chaque tranche de 6 points de Force de Rupture consommée, Pan Yinhu récupère 4 d'Énergie[cite: 41]. La durée de l'effet Qi Épuisé appliqué par l'Attaque Spéciale passe à 12s[cite: 41].", en: "For every 6 Break Force consumed, recovers 4 Energy. The Depleted Qi effect from Special Attack lasts 12s." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Chef de cuisine de première classe", en: "First-Class Head Chef" }, 
+            desc: { fr: "Les soins de l'Ultime (immédiats et sur la durée) augmentent de 25 %[cite: 41]. Activer l'Ultime octroie l'effet Provisions de Secours : si un allié perd des PV, cet effet est consommé pour restaurer instantanément 50 % des soins initiaux de l'Ultime[cite: 41].", en: "Ultimate healing increases by 25%. Activating it grants Backup Provisions: when an ally loses HP, consumes the effect to restore 50% of the Ultimate's instant healing." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Théorie des méridiens", en: "Meridian Theory" }, 
+            desc: { fr: "Le Flux des Méridiens du Passif Principal augmente de 6 % supplémentaires de l'ATK initiale de Pan Yinhu[cite: 42]. Le maximum de Sheer Force accordé par cet effet passe à 720[cite: 42].", en: "The Meridian Flow effect increases by an extra 6% of Pan Yinhu's initial ATK. Max Sheer Force limit increases to 720." } 
+        }
+    ],
+    "Alice": [
+        { 
+            rank: "M1", 
+            title: { fr: "Poignée de coriandre", en: "Palmful of Cilantro" }, 
+            desc: { fr: "Lorsqu'Alice déclenche un Assaut Polarisé, elle gagne 25 points d'Étiquette de Lame[cite: 43]. Lorsqu'elle déclenche Assaut sur un ennemi, la DÉF de la cible est réduite de 20 % pendant 30s[cite: 43].", en: "Triggering Polarized Assault grants 25 Blade Etiquette. Triggering Assault reduces the target's DEF by 20% for 30s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Le sage à la pointe de l'épée", en: "Sage at the Sword's Tip" }, 
+            desc: { fr: "Le coup de grâce de l'Ultime déclenche un Assaut Polarisé[cite: 43]. Les DGT d'Assaut de l'équipe augmentent de 15 %, tout comme les DGT de Désordre sur les cibles sous Anomalie Physique[cite: 43]. Alice gagne 1000 Décibels en entrant en combat (recharge 180s)[cite: 43].", en: "Ultimate Finishing Move triggers Polarized Assault. Squad Assault DMG and Physical Disorder DMG increase by 15%. Gains 1,000 Decibels upon entering combat (180s CD)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Romarin sur ses lèvres", en: "Rosemary on Her Lips" }, 
+            desc: { fr: "Alice ignore 10 % de la RÉS Physique de la cible[cite: 43]. L'Attaque de base renforcée : Ouverture Céleste accumule 25 % d'Anomalie Physique supplémentaire[cite: 43].", en: "Alice ignores 10% of Physical RES. Enhanced Basic Attack accumulates 25% more Physical Anomaly." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Un cœur de thym", en: "A Heart of Thyme" }, 
+            desc: { fr: "Le 3ème coup chargé de l'Attaque de base ou l'Ultime active l'état Victoire (30s)[cite: 44]. Sous cet état, lorsqu'un allié touche une cible, Alice enchaîne avec un coup critique garanti infligeant 3300 % de son Adresse d'Anomalie en DGT Physiques (recharge 1s, max 6 déclenchements)[cite: 44].", en: "Charged 3rd-hit Basic Attack or Ultimate grants Victory State (30s). When an ally hits a target, Alice follows up with a guaranteed CRIT dealing 3,300% of Anomaly Proficiency as Physical DMG (1s CD, max 6 triggers)." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
