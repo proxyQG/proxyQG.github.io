@@ -530,8 +530,7 @@ function checkUrlForAgent() {
     } else if (fastMask) fastMask.remove();
 }
 
-// Fonction pour ouvrir la vidéo
-// Fonction pour ouvrir la vidéo avec Timecode
+// Fonction pour ouvrir la vidéo avec Timecode et Chargement Bangboo
 window.openVideoModal = function(videoId, startTime, event) {
     if(event) event.stopPropagation(); 
     
@@ -540,18 +539,27 @@ window.openVideoModal = function(videoId, startTime, event) {
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    // Construit le paramètre de temps s'il est fourni (supérieur à 0)
     const timeParam = startTime > 0 ? `&start=${startTime}` : '';
 
-    // Injecte l'iframe avec le paramètre de temps
-    // Injecte l'iframe YouTube classique (plus stable pour éviter l'écran noir)
-    container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    // L'iframe reçoit un ID (yt-player) et démarre totalement invisible (opacity-0) avec une transition lente (duration-1000)
+    container.innerHTML = `<iframe id="yt-player" class="w-full h-full opacity-0 transition-opacity duration-1000" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
+    // Ouverture de la modale
     modal.classList.remove('hidden');
     void modal.offsetWidth; 
     modal.classList.add('opacity-100');
     content.classList.remove('scale-95');
     content.classList.add('scale-100');
+
+    // On laisse le Bangboo visible pendant 1.5 secondes. 
+    // Le lecteur charge sa pub ou sa vidéo dans l'ombre, puis apparaît en fondu.
+    setTimeout(() => {
+        const player = document.getElementById('yt-player');
+        if (player) {
+            player.classList.remove('opacity-0');
+            player.classList.add('opacity-100');
+        }
+    }, 1500); // 1500 millisecondes = 1.5 secondes
 };
 
 // Fonction pour fermer la vidéo
