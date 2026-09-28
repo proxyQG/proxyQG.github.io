@@ -301,15 +301,20 @@ function buildInitialGrid() {
     DOM.grid.innerHTML = ''; 
     let currentV = '';
     
+    // NOUVEAU : On prépare tout le code HTML dans cette variable sans toucher au site
+    let finalHTML = '';
+    
     agentsData.forEach((agent) => {
         const v = agent.version || 'Inconnu';
         if (v !== currentV) {
             currentV = v;
-            const sepHTML = `<div class="version-separator col-span-full relative mt-16 mb-12 flex items-center justify-center group/sep perspective-1000 hidden" data-version="${v}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-[80%] md:w-[60%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c] to-transparent -translate-x-full laser-beam"></div></div></div><div class="relative bg-[#050505] px-8 py-3 border border-zinc-800/80 rounded-full flex items-center gap-4 shadow-[0_0_40px_rgba(0,0,0,0.6)] transform transition-transform duration-700 hover:scale-110 hover:border-[#d7f70c]/50 hover:shadow-[0_0_50px_rgba(215,247,12,0.2)] z-10 cursor-default"><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><span class="font-display font-black italic text-2xl tracking-[0.3em] text-white uppercase drop-shadow-md">Version <span class="text-[#d7f70c]">${v.replace('V', '')}</span></span><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><div class="absolute inset-0 bg-[#d7f70c]/5 blur-xl rounded-full -z-10 group-hover/sep:bg-[#d7f70c]/15 transition-colors duration-500"></div></div></div>`;
-            DOM.grid.insertAdjacentHTML('beforeend', sepHTML);
+            finalHTML += `<div class="version-separator col-span-full relative mt-16 mb-12 flex items-center justify-center group/sep perspective-1000 hidden" data-version="${v}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-[80%] md:w-[60%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c] to-transparent -translate-x-full laser-beam"></div></div></div><div class="relative bg-[#050505] px-8 py-3 border border-zinc-800/80 rounded-full flex items-center gap-4 shadow-[0_0_40px_rgba(0,0,0,0.6)] transform transition-transform duration-700 hover:scale-110 hover:border-[#d7f70c]/50 hover:shadow-[0_0_50px_rgba(215,247,12,0.2)] z-10 cursor-default"><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><span class="font-display font-black italic text-2xl tracking-[0.3em] text-white uppercase drop-shadow-md">Version <span class="text-[#d7f70c]">${v.replace('V', '')}</span></span><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><div class="absolute inset-0 bg-[#d7f70c]/5 blur-xl rounded-full -z-10 group-hover/sep:bg-[#d7f70c]/15 transition-colors duration-500"></div></div></div>`;
         }
-        DOM.grid.insertAdjacentHTML('beforeend', createCardHTML(agent));
+        finalHTML += createCardHTML(agent);
     });
+    
+    // NOUVEAU : On injecte tout le HTML d'un seul coup (fini les saccades !)
+    DOM.grid.innerHTML = finalHTML;
     
     // Mise en cache des noeuds générés
     DOM.agentCards = Array.from(DOM.grid.querySelectorAll('.agent-card-container')).map((el, i) => ({
@@ -319,7 +324,12 @@ function buildInitialGrid() {
     }));
     DOM.separators = Array.from(DOM.grid.querySelectorAll('.version-separator'));
     
-    init3DParallax(); // Initialise l'animation 3D sur les cartes fraîchement créées
+    init3DParallax(); // Initialise l'animation 3D
+    
+    // NOUVEAU : On déclenche l'apparition en fondu une fois la grille construite
+    requestAnimationFrame(() => {
+        DOM.grid.classList.add('loaded');
+    });
 }
 
 function renderAgents() {
