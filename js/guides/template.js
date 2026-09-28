@@ -133,7 +133,7 @@ function buildTeams(data, c, txt) {
                         <div class="flex items-center gap-2">
                             <!-- BOUTON VIDÉO (S'affiche uniquement si videoId existe) -->
                             ${team.videoId ? `
-                            <button onclick="window.openVideoModal('${team.videoId}', event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
+                            <button onclick="window.openVideoModal('${team.videoId}', ${team.startTime || 0}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
                                 <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
                             </button>
