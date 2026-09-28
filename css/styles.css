@@ -85,9 +85,24 @@ body {
     box-shadow: 0 30px 50px -10px var(--elem-color, rgba(255,255,255,0.3)); 
 }
 
+/* --- OPTIMISATION ANTI-SACCADE (CLS & FOUC) --- */
+#agents-grid {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+#agents-grid.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .agent-image { 
     transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1); 
     transform-origin: bottom center; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    background-color: transparent;
 }
 .agent-card-container:hover .agent-image { 
     transform: scale(1.08); 
