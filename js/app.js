@@ -531,7 +531,8 @@ function checkUrlForAgent() {
 }
 
 // Fonction pour ouvrir la vidéo
-window.openVideoModal = function(videoId, event) {
+// Fonction pour ouvrir la vidéo avec Timecode
+window.openVideoModal = function(videoId, startTime, event) {
     if(event) event.stopPropagation(); 
     
     const modal = document.getElementById('videoModal');
@@ -539,7 +540,11 @@ window.openVideoModal = function(videoId, event) {
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    // Construit le paramètre de temps s'il est fourni (supérieur à 0)
+    const timeParam = startTime > 0 ? `&start=${startTime}` : '';
+
+    // Injecte l'iframe avec le paramètre de temps
+    container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
     modal.classList.remove('hidden');
     void modal.offsetWidth; 
