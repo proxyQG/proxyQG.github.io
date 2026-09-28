@@ -835,6 +835,94 @@ export const mindscapesData = {
             desc: { fr: "Le 3ème coup chargé de l'Attaque de base ou l'Ultime active l'état Victoire (30s). Sous cet état, lorsqu'un allié touche une cible, Alice enchaîne avec un coup critique garanti infligeant 3300 % de son Adresse d'Anomalie en DGT Physiques (recharge 1s, max 6 déclenchements).", en: "Charged 3rd-hit Basic Attack or Ultimate grants Victory State (30s). When an ally hits a target, Alice follows up with a guaranteed CRIT dealing 3,300% of Anomaly Proficiency as Physical DMG (1s CD, max 6 triggers)." } 
         }
     ],
+    "Yuzuha": [
+        { 
+            rank: "M1", 
+            title: { fr: "Constitution chanceuse", en: "Lucky Constitution" }, 
+            desc: { fr: "Yuzuha récupère 30 d'Énergie en entrant sur le champ de bataille (max 1 fois toutes les 180s en mode Zone d'Investigation)[cite: 40]. Les ennemis sous l'état Frayeur Sucrée (Sweet Scare) voient leur RÉS à tous les attributs réduite de 10 %[cite: 40]. Le buff de DGT d'Anomalie d'Attribut et de Désordre de sa Compétence Additionnelle passe à 130 % de sa valeur initiale[cite: 40].", en: "Yuzuha regains 30 Energy when she enters the battlefield. In Investigation Zone Mode, this effect can trigger at most once every 180s. Enemies in the Sweet Scare state have their All-Attribute RES reduced by 10%. The Attribute Anomaly DMG and Disorder DMG buff from her Additional Ability is increased to 130% of its original value." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Pleine de compagnie colorée", en: "Full of Colorful Company" }, 
+            desc: { fr: "Lorsque les Attaques Spéciales EX ou l'Ultime de Yuzuha touchent un ennemi, les DGT de toute l'équipe augmentent de 15 % et le Taux d'accumulation d'Anomalie de 15 % pendant 40s[cite: 40]. Lorsqu'une attaque lourde touche un ennemi non étourdi, elle déclenche un Enchaînement forcé (niveau d'interruption réduit, max 1 fois toutes les 20s)[cite: 40]. Lorsqu'un autre personnage entre via un Enchaînement, Yuzuha gagne 1 Point de Sucre[cite: 40]. Le CD de l'Attaque de base : Hard Candy Shot est réduit de 25 %[cite: 40].", en: "When Yuzuha's EX Special Attacks or Ultimate hits an enemy, all squad members' DMG increases by 15% and Anomaly Buildup Rate by 15%, lasting 40s. Heavy attacks on non-Stunned enemies trigger a forced Chain Attack (reduced Interrupt Level, 20s CD). Another character entering through Chain Attack grants Yuzuha 1 Sugar Point. Basic Attack: Hard Candy Shot cooldown reduced by 25%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Magie tombante", en: "Falling Magic" }, 
+            desc: { fr: "Les DGT des Assistances de suivi (Stuffed Hard Candy Shot et We Have Cookies) augmentent de 30 %, leur Taux d'accumulation d'Anomalie augmente de 20 %, et toucher un ennemi avec déclenche une Assistance Rapide[cite: 41].", en: "The DMG of Yuzuha's Assist Follow-Up: Stuffed Hard Candy Shot and Assist Follow-Up: We Have Cookies increases by 30%, Anomaly Buildup Rate by 20%, and triggers a Quick Assist when it hits an enemy." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Prendre racine", en: "Put Down Roots" }, 
+            desc: { fr: "Gagne 1 Point de Sucre en parant une attaque (Assistance Défensive ou Attaque de base : Tanuki Cloak)[cite: 42]. Lors de l'Assistance de suivi : Stuffed Hard Candy Shot, maintenir chargé (jusqu'à 0,8s) consomme 1 Point de Sucre par tranche de 0,4s pour tirer un puissant obus supplémentaire (300 % d'ATK en DGT Physiques)[cite: 42]. Si un obus touche, le multiplicateur de DGT de Désordre de l'équipe augmente de 105 % pendant 40s (cumulable 3 fois indépendamment)[cite: 42]. Toucher un ennemi sous Frayeur Sucrée déclenche une attaque Max bonus[cite: 42].", en: "Gain 1 Sugar Point on successful parry. When using Assist Follow-Up: Stuffed Hard Candy Shot, hold to charge. For every 0.4s charged, consumes 1 Sugar Point to fire a powerful shell dealing 300% ATK as Physical DMG. Hitting with a powerful shell increases squad Disorder DMG Multiplier by 105% for 40s (stacks 3 times independently). Hits on Sweet Scare enemies trigger an extra max attack." } 
+        }
+    ],
+    "Orphie and Magus": [
+        { 
+            rank: "M1", 
+            title: { fr: "Maison de chat luxueuse", en: "Luxurious Cat House" }, 
+            desc: { fr: "L'Attaque Spéciale, les Attaques Spéciales EX (Crimson Vortex, Heat Charge, Fiery Eruption) ignorent 15 % de la RÉS Feu de la cible[cite: 43]. Les Agents sous l'état Zeroed In infligent 20 % de DGT supplémentaires[cite: 43].", en: "Special Attack and all EX Special Attacks ignore 15% of target's Fire RES, and Agents with Zeroed In deal 20% increased DMG." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Liste de nourriture étrange", en: "Weird Food List" }, 
+            desc: { fr: "Lorsqu'Orphie & Magus lancent une Réplique (Aftershock), ils restaurent 65 Décibels (recharge 4s)[cite: 43]. Après avoir utilisé leur Ultime, leur ATK augmente de 20 % pendant 45s maximum[cite: 43].", en: "When Orphie & Magus launch an Aftershock, restore 65 Decibels (4s CD). After using Ultimate, their ATK increases by 20% for up to 45s." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Étui rose", en: "Pink Holster" }, 
+            desc: { fr: "La durée initiale de Zeroed In passe à 16s[cite: 44]. Les DGT de l'Attaque Spéciale EX : Heat Charge et de l'Ultime augmentent de 40 %[cite: 44].", en: "Initial duration of Zeroed In increases to 16s, and EX Special Attack: Heat Charge and Ultimate DMG increases by 40%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Graine magique", en: "Magic Seed" }, 
+            desc: { fr: "Avec assez d'énergie, après la lame de feu de l'Attaque de base : Lance-flammes Haute Pression, appuyer sur la touche enchaîne instantanément avec l'EX Spécial : Crimson Vortex[cite: 44]. Activer cette lame de feu restaure 10 Chaleur Enbouteillée (Bottled Heat) et augmente le niveau d'interruption[cite: 44]. Le laser de l'EX Spécial : Heat Charge ou de l'Ultime inflige des DGT Feu bonus équivalant à 250 % de l'ATK toutes les 0,5s (considérés comme DGT d'EX Spécial et de Réplique)[cite: 44].", en: "With enough energy, after the fire blade attack of Basic Attack, press Special to instantly follow up with EX Special: Crimson Vortex. Activating the fire blade recovers 10 Bottled Heat and increases Interrupt Level. Lasers from EX Special: Heat Charge or Ultimate deal extra Fire DMG equal to 250% ATK every 0.5s (counts as EX Special and Aftershock DMG)." } 
+        }
+    ],
+    "Seed": [
+        { 
+            rank: "M1", 
+            title: { fr: "Période d'hibernation", en: "Hibernation Period" }, 
+            desc: { fr: "Lorsque la Charge d'Acier (Steel Charge) de Seed atteint 100, l'Attaque de base : Falling Petals - Downfall peut être déclenchée, et la Charge totale consommée est réduite à 100[cite: 45]. La quantité de Charge requise pour relâcher rapidement l'Attaque de base : Slaughter est réduite à 100[cite: 45]. Elle cumule 40/20 de Charge d'Acier supplémentaire en entrant en combat/en utilisant l'Ultime[cite: 45]. Les DGT CRIT de l'Attaque de base : Downfall augmentent de 30 %[cite: 45].", en: "When Steel Charge reaches 100, Basic Attack: Falling Petals - Downfall can be triggered, and total Charge consumed is reduced to 100. Charge required for quick Basic Attack: Slaughter reduced to 100. Accumulate an extra 40/20 Charge when entering combat/using Ultimate. Basic Attack: Downfall CRIT DMG increases by 30%." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Technique d'absorption de lumière", en: "Light Absorption Technique" }, 
+            desc: { fr: "Lorsque l'état Assiéger (Besiege) est actif, les DGT de l'Agent ignorent 20 % de la DÉF[cite: 45]. Lors de l'EX Spécial : Raining Iron Petals, Seed peut consommer jusqu'à 120 d'Énergie au total pour prolonger la compétence[cite: 45]. Pour chaque tranche de 5 points d'Énergie consommée par cet EX, les DGT de l'Attaque de base : Slaughter qui suit augmentent de 5 %[cite: 45].", en: "When Besiege is active, the Agent's DMG ignores 20% of DEF. When activating EX Special Attack: Raining Iron Petals, Seed can continue consuming up to 120 Energy to extend it. For every 5 Energy consumed by the EX Special, the following Basic Attack: Slaughter's DMG increases by 5%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Mélodie parfumée", en: "Fragrant Tune" }, 
+            desc: { fr: "Tant que le buff de l'état Assiéger (Besiege) est actif pour Seed, son Taux de Génération de Décibels augmente de 10 %, et les DGT de son Ultime de 20 %[cite: 46].", en: "When Seed's Besiege status buff is active, her Decibel Generation Rate increases by 10%, and Ultimate DMG increases by 20%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Théorie du cœur", en: "Theory of the Heart" }, 
+            desc: { fr: "Les DGT CRIT de Seed augmentent de 50 %[cite: 46]. Lors de l'utilisation de l'Attaque de base : Falling Petals - Slaughter, elle tire 3 rayons laser supplémentaires infligeant chacun 165 % de l'ATK en DGT (recharge 3s)[cite: 46].", en: "Seed's CRIT DMG increases by 50%. When using Basic Attack: Falling Petals - Slaughter, fires 3 additional laser beams, each dealing 165% of ATK as DMG. This effect can trigger once every 3s." } 
+        }
+    ],
+    "Yidhari": [
+        { 
+            rank: "M1", 
+            title: { fr: "Le passé perdu sous l'abîme", en: "The Past Lost Beneath the Abyss" }, 
+            desc: { fr: "Le coût en Adrénaline pour activer l'EX Spécial est réduit de 10[cite: 47]. Après l'utilisation des EX Spéciaux : Frost Coil ou Glacial Crush, maintenir le bouton d'attaque permet de consommer 35 d'Adrénaline pour annuler le soin et enchaîner directement avec un autre Glacial Crush[cite: 47]. Les PV restaurés par l'EX Spécial : Glacial Crush sont augmentés de 100 %[cite: 47]. Ses Attaques de base et EX Spéciaux ignorent 20 % de la RÉS Glace des cibles[cite: 47].", en: "EX Special Adrenaline cost reduced by 10. After EX Special: Frost Coil or Glacial Crush, holding the attack button consumes 35 Adrenaline to forgo healing and instantly chain into another Glacial Crush. HP restored by Glacial Crush is increased by 100%. Basic/EX Special Attacks ignore 20% Ice RES." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Qui s'attarde ici, perdu dans ses pensées ?", en: "Who Lingers Here, Lost in Thought?" }, 
+            desc: { fr: "Les DGT CRIT de Yidhari augmentent de 40 %[cite: 47]. Déclencher Froid Déferlant (Surging Cold) ou Poursuite Écrasante (Crushing Pursuit) octroie une régénération d'Adrénaline de 0,5/s pendant 30s (les déclenchements répétés réinitialisent la durée)[cite: 47].", en: "Yidhari's CRIT DMG increases by 40%. Triggering Surging Cold or Crushing Pursuit grants Adrenaline regen of 0.5/s for up to 30s. Repeated triggers reset the duration." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Éclosion en silence", en: "Blooming in Silence" }, 
+            desc: { fr: "Yidhari gagne 10 % de Décibels supplémentaires lorsqu'elle perd des PV via le Passif Principal : Dreamscape Collection[cite: 48]. Tant qu'elle est sous le Voile d'Éther : Wellspring, ses PV Max augmentent de 5 % supplémentaires[cite: 48].", en: "Yidhari gains 10% more Decibels when losing HP for Core Passive: Dreamscape Collection. While in Ether Veil: Wellspring, Yidhari's Max HP is further increased by 5%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Enfin un rêve paisible", en: "At Last, a Peaceful Dream" }, 
+            desc: { fr: "Après avoir dépensé des Décibels pour activer ou prolonger le Voile d'Éther : Wellspring, elle gagne l'état Érudition pendant 30s[cite: 48]. Sous Érudition, ses DGT Sheer augmentent de 25 %[cite: 48]. De plus, lors de la première réception de DGT fatals, ses PV sont réduits à 1 au maximum, elle ne peut pas être vaincue pendant 5s et restaurera 25 % de ses PV sur la durée[cite: 48].", en: "After spending Decibels to activate/extend Ether Veil: Wellspring, gains Erudition for 30s. While Erudition is active, Sheer DMG increases by 25%. Upon taking fatal DMG for the first time, HP drops to 1, prevents defeat for 5s, and restores 25% HP over time." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
