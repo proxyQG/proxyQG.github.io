@@ -532,7 +532,6 @@ function checkUrlForAgent() {
 
 let currentPlayer = null; // Va stocker notre lecteur vidéo intelligent
 
-// Fonction pour ouvrir la vidéo avec l'API YouTube
 window.openVideoModal = function(videoId, startTime, event) {
     if(event) event.stopPropagation(); 
     
@@ -541,9 +540,9 @@ window.openVideoModal = function(videoId, startTime, event) {
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    // On prépare une "boîte" invisible (opacity-0) qui contiendra le lecteur
+    // Ajout d'un fond noir (bg-black) au wrapper pour masquer le Bangboo
     container.innerHTML = `
-        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500">
+        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500 bg-black">
             <div id="yt-player"></div>
         </div>
     `;
@@ -558,6 +557,8 @@ window.openVideoModal = function(videoId, startTime, event) {
     // On crée le lecteur avec l'API YouTube
     if (typeof YT !== 'undefined' && YT.Player) {
         currentPlayer = new YT.Player('yt-player', {
+            height: '100%', // <-- FORCAGE DE LA HAUTEUR À 100%
+            width: '100%',  // <-- FORCAGE DE LA LARGEUR À 100%
             videoId: videoId,
             playerVars: {
                 'autoplay': 1,
@@ -580,7 +581,7 @@ window.openVideoModal = function(videoId, startTime, event) {
         });
     } else {
         // Sécurité si l'API est bloquée
-        container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime||0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime||0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     }
 };
 
