@@ -131,14 +131,24 @@ function buildTeams(data, c, txt) {
                     <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
                 </div>
                 <div class="flex items-center justify-between gap-2 relative z-10">
-                    ${team.members.map((m, i) => `
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
-                            ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${m.color.replace('#','')}?text=${m.initial}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
+                    ${team.members.map((m, i) => {
+                        // On extrait le nom de l'agent à partir de l'image (ex: "Burnice.png" -> "Burnice")
+                        const agentName = m.img ? m.img.replace('.png', '') : '';
+                        
+                        // Si c'est un agent précis (avec image), on le rend cliquable avec un effet de survol
+                        const clickEvent = m.img ? `onclick="window.openAgentDetail('${agentName.replace(/'/g, "\\'")}')"` : '';
+                        const cursorClass = m.img ? 'cursor-pointer hover:scale-110 transition-transform duration-300' : '';
+                        const hoverTitle = m.img ? `title="Voir le guide de ${agentName}"` : '';
+
+                        return `
+                        <div class="flex flex-col items-center gap-3 ${cursorClass}" ${clickEvent} ${hoverTitle}>
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
+                                ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${m.color.replace('#','')}?text=${m.initial}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
+                            </div>
                         </div>
-                    </div>
-                    ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
-                    `).join('')}
+                        ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
+                        `;
+                    }).join('')}
                 </div>
             </div>`).join('')}
         </div>
