@@ -86,6 +86,7 @@ export const agentDatabase = {
                 name: "TEAM 03", 
                 tag: { fr: "Désordre Mixte", en: "Mixed Disorder" }, 
                 videoId: "IqG8ufUTih0",
+                startTime: 255,
                 members: [ 
                     { img: "Piper.png", color: "#e8a838", initial: "P" },
                     { img: "Vivian.png", color: "#f23c8a", initial: "V" }, 
