@@ -124,18 +124,28 @@ function buildTeams(data, c, txt) {
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             ${data.teams.map((team, index) => `
-            <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors" style="hover:border-color: ${c}80;">
+            <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
                 <div class="absolute right-4 -top-5 text-[85px] font-display font-black text-zinc-800/20 italic tracking-tighter leading-none pointer-events-none select-none transform group-hover:scale-110 transition-all duration-700">0${index+1}</div>
-                <div class="flex items-center justify-between mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
-                    <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${tData(team.name)}</span>
-                    <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
+                
+                <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
+                    <div class="flex items-center justify-between">
+                        <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${tData(team.name)}</span>
+                        <div class="flex items-center gap-2">
+                            <!-- BOUTON VIDÉO (S'affiche uniquement si videoId existe) -->
+                            ${team.videoId ? `
+                            <button onclick="window.openVideoModal('${team.videoId}', event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
+                            </button>
+                            ` : ''}
+                            <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="flex items-center justify-between gap-2 relative z-10">
                     ${team.members.map((m, i) => {
-                        // On extrait le nom de l'agent à partir de l'image (ex: "Burnice.png" -> "Burnice")
-                        const agentName = m.img ? m.img.replace('.png', '') : '';
-                        
-                        // Si c'est un agent précis (avec image), on le rend cliquable avec un effet de survol
+                        const agentName = m.img ? m.img.replace('.webp', '').replace('.png', '') : '';
                         const clickEvent = m.img ? `onclick="window.openAgentDetail('${agentName.replace(/'/g, "\\'")}')"` : '';
                         const cursorClass = m.img ? 'cursor-pointer hover:scale-110 transition-transform duration-300' : '';
                         const hoverTitle = m.img ? `title="Voir le guide de ${agentName}"` : '';
