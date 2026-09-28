@@ -530,7 +530,9 @@ function checkUrlForAgent() {
     } else if (fastMask) fastMask.remove();
 }
 
-// Fonction pour ouvrir la vidéo avec Timecode et Chargement Bangboo
+let currentPlayer = null; // Va stocker notre lecteur vidéo intelligent
+
+// Fonction pour ouvrir la vidéo avec l'API YouTube
 window.openVideoModal = function(videoId, startTime, event) {
     if(event) event.stopPropagation(); 
     
@@ -539,10 +541,12 @@ window.openVideoModal = function(videoId, startTime, event) {
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    const timeParam = startTime > 0 ? `&start=${startTime}` : '';
-
-    // L'iframe reçoit un ID (yt-player) et démarre totalement invisible (opacity-0) avec une transition lente (duration-1000)
-    container.innerHTML = `<iframe id="yt-player" class="w-full h-full opacity-0 transition-opacity duration-1000" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    // On prépare une "boîte" invisible (opacity-0) qui contiendra le lecteur
+    container.innerHTML = `
+        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500">
+            <div id="yt-player"></div>
+        </div>
+    `;
 
     // Ouverture de la modale
     modal.classList.remove('hidden');
@@ -551,15 +555,33 @@ window.openVideoModal = function(videoId, startTime, event) {
     content.classList.remove('scale-95');
     content.classList.add('scale-100');
 
-    // On laisse le Bangboo visible pendant 1.5 secondes. 
-    // Le lecteur charge sa pub ou sa vidéo dans l'ombre, puis apparaît en fondu.
-    setTimeout(() => {
-        const player = document.getElementById('yt-player');
-        if (player) {
-            player.classList.remove('opacity-0');
-            player.classList.add('opacity-100');
-        }
-    }, 1500); // 1500 millisecondes = 1.5 secondes
+    // On crée le lecteur avec l'API YouTube
+    if (typeof YT !== 'undefined' && YT.Player) {
+        currentPlayer = new YT.Player('yt-player', {
+            videoId: videoId,
+            playerVars: {
+                'autoplay': 1,
+                'start': startTime || 0,
+                'rel': 0,
+                'modestbranding': 1
+            },
+            events: {
+                'onStateChange': function(e) {
+                    // e.data === 1 signifie "PLAYING"
+                    if (e.data === 1) {
+                        const wrapper = document.getElementById('yt-wrapper');
+                        if (wrapper) {
+                            wrapper.classList.remove('opacity-0');
+                            wrapper.classList.add('opacity-100');
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        // Sécurité si l'API est bloquée
+        container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime||0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
 };
 
 // Fonction pour fermer la vidéo
@@ -575,6 +597,10 @@ window.closeVideoModal = function() {
 
     setTimeout(() => {
         modal.classList.add('hidden');
+        if (currentPlayer && typeof currentPlayer.destroy === 'function') {
+            currentPlayer.destroy();
+            currentPlayer = null;
+        }
         if (container) container.innerHTML = ''; 
     }, 300);
 };
