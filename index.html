@@ -409,12 +409,18 @@
             <!-- Bordure lumineuse façon New Eridu -->
             <div class="absolute -inset-1 bg-gradient-to-r from-[#d7f70c] to-[#f05432] rounded-xl blur opacity-25 animate-pulse"></div>
             
-            <div class="relative bg-black rounded-xl border border-zinc-800 shadow-[0_0_50px_rgba(0,0,0,1)] overflow-hidden aspect-video">
-                <!-- L'iframe YouTube sera injecté ici par JS -->
-                <div id="youtubeContainer" class="w-full h-full"></div>
+            <div class="relative bg-[#080808] rounded-xl border border-zinc-800 shadow-[0_0_50px_rgba(0,0,0,1)] overflow-hidden aspect-video flex items-center justify-center">
+                
+                <!-- 1. L'animation Bangboo de chargement (toujours au fond) -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center z-0">
+                    <!-- On utilise "invert" pour passer le GIF noir en blanc pur, et "opacity-70" pour la douceur -->
+                    <img src="assets/Icone/loading-bangboo.gif" alt="Loading" class="h-16 md:h-24 object-contain invert opacity-70">
+                </div>
+                
+                <!-- 2. L'iframe YouTube viendra se poser par-dessus (z-10) et cachera le GIF une fois chargée -->
+                <div id="youtubeContainer" class="absolute inset-0 z-10 w-full h-full bg-transparent"></div>
             </div>
         </div>
-    </div>
     
     <script type="module" src="js/app.js" defer></script>
 </body>
