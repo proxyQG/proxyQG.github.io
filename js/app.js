@@ -544,7 +544,8 @@ window.openVideoModal = function(videoId, startTime, event) {
     const timeParam = startTime > 0 ? `&start=${startTime}` : '';
 
     // Injecte l'iframe avec le paramètre de temps
-    container.innerHTML = `<iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    // Injecte l'iframe YouTube classique (plus stable pour éviter l'écran noir)
+    container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1${timeParam}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
     modal.classList.remove('hidden');
     void modal.offsetWidth; 
