@@ -108,7 +108,7 @@ function buildEngines(data, c, txt) {
         <div class="flex flex-col gap-3">
             ${data.engines.map((eng, index) => `
             <div class="flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
-                <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="assets/W-Engine/${eng.img}" loading="lazy" class="w-full h-full object-cover"></div>
+                <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="assets/W-Engine/${eng.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover"></div>
                 <div class="flex flex-col justify-center">
                     <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${index === 0 ? c+'20' : 'transparent'}; color: ${index === 0 ? c : '#a1a1aa'};">${tData(eng.tag)}</span>
                     <span class="font-black text-xs uppercase tracking-wide" style="color: ${index === 0 ? '#fff' : '#d4d4d8'};">${tEngine(eng.name)}</span>
