@@ -132,7 +132,6 @@ window.hideTooltip = hideTooltip;
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
-                    positionTooltip(trigger);
                     tooltipEl.classList.add('visible');
                 }
             } 
