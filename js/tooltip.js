@@ -2,6 +2,7 @@
     let tooltipEl = null;
     let currentEngineKey = null;
     let hoverTimeout = null;
+    let openTimeout = null; // ← AJOUT : Timer pour le délai d'ouverture
     
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
@@ -132,11 +133,17 @@ window.hideTooltip = hideTooltip;
             }
 
             if (trigger) {
-                const isValid = populateTooltip(trigger.dataset.engine, 0);
-                if (isValid) {
-                    positionTooltip(trigger);
-                    tooltipEl.classList.add('visible');
-                }
+                // Annule toute ouverture en attente pour éviter les accumulations
+                clearTimeout(openTimeout);
+
+                // Attends 120 ms avant d'afficher l'infobulle (Hover Intent)
+                openTimeout = setTimeout(() => {
+                    const isValid = populateTooltip(trigger.dataset.engine, 0);
+                    if (isValid) {
+                        positionTooltip(trigger);
+                        tooltipEl.classList.add('visible');
+                    }
+                }, 120);
             }
         });
 
@@ -144,12 +151,14 @@ window.hideTooltip = hideTooltip;
             const trigger = e.target.closest('[data-engine], #proxy-tooltip');
             
             if (trigger && !e.relatedTarget?.closest('[data-engine], #proxy-tooltip')) {
+                // Si la souris quitte l'élément avant 120 ms, on annule l'ouverture !
+                clearTimeout(openTimeout);
+
                 hoverTimeout = setTimeout(() => {
                     hideTooltip();
                 }, 250); 
             }
         });
-
         tooltipEl.addEventListener('click', e => {
     if (e.target.classList.contains('tt-oc-btn')) {
         populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
