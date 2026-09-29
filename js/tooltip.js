@@ -1,4 +1,3 @@
-// js/tooltip.js
 (function() {
     let tooltipEl = null;
     let currentEngineKey = null;
@@ -10,7 +9,6 @@
         
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
-        // Ajout de l'ID tt-stat-base-lbl pour la traduction
         tooltipEl.innerHTML = `
             <div class="tt-header"><span id="tt-name"></span></div>
             <div class="tt-body">
@@ -37,6 +35,7 @@
 
     // Parser de texte (transforme les [] en fluo et {} en gras)
     function parseText(text) {
+        if (!text) return "";
         return text
             .replace(/\[(.*?)\]/g, '<span class="tt-hl">$1</span>')
             .replace(/\{(.*?)\}/g, '<strong>$1</strong>');
@@ -44,19 +43,18 @@
 
     function populateTooltip(engineKey, tier = 0) {
         const data = W_ENGINES_DB[engineKey];
-        if (!data) return;
+        // SI LE MOTEUR N'EXISTE PAS DANS LA BDD, ON ARRÊTE TOUT ET ON RENVOIE FALSE
+        if (!data) return false; 
 
-        // Détection de la langue active
         const lang = document.documentElement.lang || 'fr';
-        
-        // Traduction des labels statiques de l'UI
         const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
         const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
         
+        // Mise à jour de l'UI si on change de moteur
         if (currentEngineKey !== engineKey) {
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
             
-            // Correction du chemin de l'image et conversion dynamique en .webp
+            // Correction du chemin de l'image
             document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
             
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
@@ -64,30 +62,39 @@
                               ${data.element ? `<span class="tt-tag">${data.element}</span>` : ''}`;
             document.getElementById('tt-tags').innerHTML = tagsHtml;
             
-            // Application des labels selon la langue
             document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
             document.getElementById('tt-stat-base').textContent = data.stats.base;
-            document.getElementById('tt-stat-adv-lbl').textContent = data.stats.advancedLabel[lang] || data.stats.advancedLabel.en;
+            
+            // Sécurité si advancedLabel n'a pas été défini dans les deux langues
+            const advLbl = data.stats.advancedLabel[lang] || data.stats.advancedLabel.en || data.stats.advancedLabel;
+            document.getElementById('tt-stat-adv-lbl').textContent = advLbl;
             document.getElementById('tt-stat-adv').textContent = data.stats.advanced;
+            
             document.getElementById('tt-passive-title').textContent = data.passiveName[lang] || data.passiveName.en;
             
             currentEngineKey = engineKey;
         }
 
-        const passiveRaw = data.overclocks[tier][lang] || data.overclocks[tier].en;
+        // Mise à jour uniquement du texte du passif et des boutons
+        let passiveRaw = "";
+        if (data.overclocks && data.overclocks[tier]) {
+            passiveRaw = data.overclocks[tier][lang] || data.overclocks[tier].en || "";
+        }
         document.getElementById('tt-passive-text').innerHTML = parseText(passiveRaw);
 
         document.querySelectorAll('.tt-oc-btn').forEach(btn => {
             btn.classList.toggle('active', parseInt(btn.dataset.tier) === tier);
         });
+        
+        return true; // TOUT S'EST BIEN PASSÉ
     }
 
     function positionTooltip(target) {
         const rect = target.getBoundingClientRect();
-        const ttWidth = 340; // Largeur fixe du CSS
+        const ttWidth = 340; 
         const gap = 15;
 
-        // Logique anti-débordement intelligente
+        // Logique anti-débordement
         let left = rect.right + gap;
         if (left + ttWidth > window.innerWidth) left = rect.left - ttWidth - gap;
         
@@ -100,42 +107,43 @@
     }
 
     function bindEvents() {
-        // Gestion des interactions (Souris)
         document.addEventListener('mouseover', e => {
             const trigger = e.target.closest('[data-engine]');
             if (trigger) {
                 clearTimeout(hoverTimeout);
-                populateTooltip(trigger.dataset.engine, 0);
-                positionTooltip(trigger);
-                tooltipEl.classList.add('visible');
+                // On vérifie si la fonction renvoie true (le moteur existe)
+                const isValid = populateTooltip(trigger.dataset.engine, 0);
+                if (isValid) {
+                    positionTooltip(trigger);
+                    tooltipEl.classList.add('visible');
+                }
             }
         });
 
         document.addEventListener('mouseout', e => {
             const trigger = e.target.closest('[data-engine], #proxy-tooltip');
             if (trigger && !e.relatedTarget?.closest('[data-engine], #proxy-tooltip')) {
-                // Délai de 150ms pour permettre à la souris de traverser l'écart
                 hoverTimeout = setTimeout(() => {
                     tooltipEl.classList.remove('visible');
-                    currentEngineKey = null; // Reset pour forcer la maj au prochain survol
+                    currentEngineKey = null; 
                 }, 150); 
             }
         });
 
-        // Gestion de l'Overclock (sans recharger tout le HTML)
         tooltipEl.addEventListener('click', e => {
             if (e.target.classList.contains('tt-oc-btn')) {
                 populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
             }
         });
 
-        // Support Mobile (Tactile)
         document.addEventListener('touchstart', e => {
             const trigger = e.target.closest('[data-engine]');
             if (trigger) {
-                populateTooltip(trigger.dataset.engine, 0);
-                positionTooltip(trigger);
-                tooltipEl.classList.add('visible');
+                const isValid = populateTooltip(trigger.dataset.engine, 0);
+                if (isValid) {
+                    positionTooltip(trigger);
+                    tooltipEl.classList.add('visible');
+                }
             } else if (!e.target.closest('#proxy-tooltip')) {
                 tooltipEl.classList.remove('visible');
             }
