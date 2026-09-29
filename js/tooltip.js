@@ -9,7 +9,10 @@
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
         tooltipEl.innerHTML = `
-            <div class="tt-header"><span id="tt-name"></span></div>
+            <div class="tt-header">
+    <span id="tt-name"></span>
+    <button class="tt-close-btn">&times;</button>
+</div>
             <div class="tt-body">
                 <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
@@ -40,9 +43,10 @@
     }
 
     function hideTooltip() {
-        if (tooltipEl) tooltipEl.classList.remove('visible');
-        currentEngineKey = null;
-    }
+    if (tooltipEl) tooltipEl.classList.remove('visible');
+    currentEngineKey = null;
+}
+window.hideTooltip = hideTooltip;
 
     function populateTooltip(engineKey, tier = 0) {
         const data = W_ENGINES_DB[engineKey];
@@ -143,10 +147,14 @@
         });
 
         tooltipEl.addEventListener('click', e => {
-            if (e.target.classList.contains('tt-oc-btn')) {
-                populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
-            }
-        });
+    if (e.target.classList.contains('tt-oc-btn')) {
+        populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
+    }
+
+    if (e.target.closest('.tt-close-btn')) {
+        hideTooltip();
+    }
+});
 
         document.addEventListener('touchstart', e => {
             const agentModal = document.getElementById('agentDetailModal');
