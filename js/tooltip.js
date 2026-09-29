@@ -9,28 +9,32 @@
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
         tooltipEl.innerHTML = `
-            <div class="tt-header">
-    <span id="tt-name"></span>
-    <button class="tt-close-btn">&times;</button>
-</div>
-            <div class="tt-body">
-                <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
-                <div class="tt-tags" id="tt-tags"></div>
-                <div class="tt-stats-grid">
-                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
-                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
-                </div>
-                <div class="tt-oc-container">
-                    <div class="tt-oc-tabs" id="tt-oc-tabs">
-                        ${[1,2,3,4,5].map(i => `<button class="tt-oc-btn" data-tier="${i-1}">${i}</button>`).join('')}
-                    </div>
-                    <div class="tt-desc-box">
-                        <div class="tt-desc-title" id="tt-passive-title"></div>
-                        <div class="tt-desc-text" id="tt-passive-text"></div>
-                    </div>
-                </div>
+    <div class="tt-header">
+        <span id="tt-name"></span>
+        <button class="tt-close-btn" aria-label="Fermer l'infobulle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+    <div class="tt-body">
+        <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
+        <div class="tt-tags" id="tt-tags"></div>
+        <div class="tt-stats-grid">
+            <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
+            <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
+        </div>
+        <div class="tt-oc-container">
+            <div class="tt-oc-tabs" id="tt-oc-tabs">
+                ${[1,2,3,4,5].map(i => `<button class="tt-oc-btn" data-tier="${i-1}">${i}</button>`).join('')}
             </div>
-        `;
+            <div class="tt-desc-box">
+                <div class="tt-desc-title" id="tt-passive-title"></div>
+                <div class="tt-desc-text" id="tt-passive-text"></div>
+            </div>
+        </div>
+    </div>
+`;
         document.body.appendChild(tooltipEl);
         bindEvents();
     }
