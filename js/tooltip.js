@@ -108,6 +108,7 @@ window.hideTooltip = hideTooltip;
 
         let left = rect.right + gap;
         if (left + ttWidth > window.innerWidth) left = rect.left - ttWidth - gap;
+        if (left < 10) left = 10; // ← À RAJOUTER ICI
         
         let top = rect.top + (rect.height / 2) - (tooltipEl.offsetHeight / 2);
         if (top < 10) top = 10;
@@ -169,6 +170,9 @@ window.hideTooltip = hideTooltip;
     }
 });
 
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') hideTooltip();
+        });
         let touchStartX = 0;
 let touchStartY = 0;
 let isTouchScrolling = false;
