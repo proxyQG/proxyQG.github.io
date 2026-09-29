@@ -923,6 +923,160 @@ export const mindscapesData = {
             desc: { fr: "Après avoir dépensé des Décibels pour activer ou prolonger le Voile d'Éther : Wellspring, elle gagne l'état Érudition pendant 30s. Sous Érudition, ses DGT Sheer augmentent de 25 %. De plus, lors de la première réception de DGT fatals, ses PV sont réduits à 1 au maximum, elle ne peut pas être vaincue pendant 5s et restaurera 25 % de ses PV sur la durée.", en: "After spending Decibels to activate/extend Ether Veil: Wellspring, gains Erudition for 30s. While Erudition is active, Sheer DMG increases by 25%. Upon taking fatal DMG for the first time, HP drops to 1, prevents defeat for 5s, and restores 25% HP over time." } 
         }
     ],
+    "Dialyn": [
+        { 
+            rank: "M1", 
+            title: { fr: "Hospitalité sans limites", en: "Boundless Hospitality" }, 
+            desc: { fr: "La quantité d'Avis Positifs accumulés chaque seconde et gagnés lorsque l'Attaque Spéciale EX : Pierre, Ciseaux ou Papier ! touche un ennemi augmente de 16 %. Tant que l'effet Extrêmement Positif est actif, les personnages ignorent 15 % de la RÉS à tous les attributs des ennemis.", en: "The amount of Positive Reviews accumulated each second and gained when EX Special Attack: Rock, Scissors, or Paper! hits an enemy increase by 16%. While the Overwhelmingly Positive effect is active, characters ignore 15% of enemy All-Attribute RES." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Assistance 24/7", en: "24/7 Hotline" }, 
+            desc: { fr: "Les ennemis affectés par Plainte Malveillante subissent un multiplicateur de DGT d'Étourdissement supplémentaire de 20 % lorsqu'ils sont étourdis. Toutes les unités infligent 15 % de DGT supplémentaires aux cibles affectées par Plainte Malveillante.", en: "Enemies affected by Malicious Complaint gain an additional 20% Stun DMG Multiplier when Stunned. All units deal 15% increased DMG to targets affected by Malicious Complaint." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Le passé ne s'efface jamais", en: "The Past Never Fades" }, 
+            desc: { fr: "En entrant en combat, Dialyn récupère 20 points d'Énergie (déclenchable une fois toutes les 180s en mode Zone d'Investigation). Tant que l'effet Extrêmement Positif est actif, l'ATQ de Dialyn augmente de 500.", en: "Upon entering combat, Dialyn recovers 20 Energy. This effect can trigger once every 180s in Investigation Zone Mode. While the Overwhelmingly Positive effect is active, Dialyn's ATK increases by 500." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Vérité", en: "Truth" }, 
+            desc: { fr: "Lorsqu'un allié entre sur le terrain avec un Ultime via l'effet du Passif Principal, il gagne l'effet Résonance (Aftertone). Réussir une attaque sous cet effet permet à Dialyn d'infliger une instance supplémentaire de DGT Physiques équivalant à 480 % de son ATQ. Ces DGT sont considérés comme des DGT d'Attaque Spéciale EX (1 fois/s, jusqu'à 12 fois). Gagner Résonance à nouveau réinitialise le compte.", en: "When an ally enters with an Ultimate through the Core Passive, they gain Aftertone. Landing an attack causes Dialyn to deal extra Physical DMG equal to 480% of her ATK. Treated as EX Special Attack DMG (triggers 1/s, up to 12 times). Gaining Aftertone again refreshes the count." } 
+        }
+    ],
+    "Banyue": [
+        { 
+            rank: "M1", 
+            title: { fr: "L'avidité brûle comme le feu", en: "Greed Burns Like Fire" }, 
+            desc: { fr: "Toucher avec l'Attaque Spéciale EX : One's Path ou Earth Shaker inflige l'état Tremblement (Tremor), réduisant la RÉS Feu de 10 % pendant 30s. Toucher un ennemi sous Tremblement avec certaines Attaques EX ou de base augmente les DGT Sheer de 10 %. L'Attaque de base : Crushing Peaks prolonge l'étourdissement actuel de 2s (1 fois par étourdissement).", en: "Hitting with EX Special: One's Path or Earth Shaker inflicts Tremor, reducing Fire RES by 10% for 30s. Hitting Tremor enemies with certain EX/Basic attacks increases Sheer DMG by 10%. Basic Attack: Crushing Peaks extends current Stun by 2s (once per Stun)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "La colère coupe comme une lame", en: "Anger Cuts Like a Blade" }, 
+            desc: { fr: "Les bonus de DGT CRIT et de DGT Feu du Passif Principal augmentent de 15 % supplémentaires. Sous l'état Visage of Wrath, Banyue restaure 5 Adrénaline supplémentaires en consommant Mountain's Might pour une Attaque Spéciale EX.", en: "Core Passive CRIT DMG and Fire DMG bonuses increase by an extra 15%. In Visage of Wrath state, restores 5 extra Adrenaline when consuming Mountain's Might for an EX Special." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Unité de purge - Type Zéro", en: "Purge Unit - Type Zero" }, 
+            desc: { fr: "Les DGT de l'Attaque Spéciale EX : Lion's Roar - Wrath, Mountain Tremor - Wrath et des Attaques de base Toppling Mountain et Crushing Peaks augmentent de 30 %.", en: "EX Special Attack: Lion's Roar - Wrath, Mountain Tremor - Wrath, and Basic Attacks Toppling Mountain and Crushing Peaks DMG increase by 30%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Vidyaraja descendu", en: "Descended Vidyaraja" }, 
+            desc: { fr: "Utiliser une Attaque Spéciale EX octroie Vidyaraja. Le bonus de DGT Feu de Vidyaraja augmente de 8 % supplémentaires et dure 30s. L'Attaque de base : Crushing Peaks inflige des DGT Feu égaux à 600 % de la Force Sheer aux ennemis proches. Une Esquive : Battle Cry après une Attaque Spéciale EX octroie aussi Vidyaraja.", en: "Using EX Special grants Vidyaraja. Vidyaraja Fire DMG bonus increases by 8%, duration extended to 30s. Basic Attack: Crushing Peaks deals Fire DMG equal to 600% Sheer Force. Dodge: Battle Cry after an EX Special also grants Vidyaraja." } 
+        }
+    ],
+    "Lucia": [
+        { 
+            rank: "M1", 
+            title: { fr: "Ami secret", en: "Secret Friend" }, 
+            desc: { fr: "Lorsque Dreamer's Nursery Rhyme inflige des DGT supplémentaires, ignore 18 % de la RÉS globale ennemie et augmente la génération de Décibels de 5 %. Améliorer une compétence octroie 1 cumul d'Écho (max 4). À la fin de Dreamer's Nursery Rhyme, 1 cumul est consommé pour le réappliquer à l'équipe.", en: "Dreamer's Nursery Rhyme bonus DMG ignores 18% All-Attribute RES and increases Decibel generation by 5%. Skill upgrades grant 1 Echo stack (max 4). When Nursery Rhyme ends, consumes 1 stack to reapply it to the squad." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Grande magicienne", en: "Great Magician" }, 
+            desc: { fr: "Dans le Voile d'Éther : Wellspring, Harmonie inflige 15 % de DGT supplémentaires. Les Agents sous l'état Darkbreaker gagnent 15 % de DGT Sheer supplémentaires dans ce Voile.", en: "Inside Ether Veil: Wellspring, Harmony deals 15% more DMG. Darkbreaker Agents gain an extra 15% Sheer DMG inside the Veil." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Heures tardives", en: "Late-Night Hours" }, 
+            desc: { fr: "Activer ou prolonger un Voile d'Éther accorde 100 Décibels à toute l'équipe (recharge 15s).", en: "Activating or extending an Ether Veil grants all squad members 100 Decibels (15s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Le voyage sans fin", en: "The Never-Ending Journey" }, 
+            desc: { fr: "Dans n'importe quel Voile d'Éther, l'ATQ de Lucia augmente de 2 % de ses PV Max initiaux, et Harmonie inflige toujours un coup critique avec ses DGT CRIT augmentés de 30 %.", en: "Inside any Ether Veil, Lucia's ATK increases by 2% of initial Max HP, and Harmony always CRITs with 30% increased CRIT DMG." } 
+        }
+    ],
+    "Manato": [
+        { 
+            rank: "M1", 
+            title: { fr: "Règles de survie du vagabond", en: "Drifter's Rules of Survival" }, 
+            desc: { fr: "La quantité de PV perdus par Manato est comptabilisée. Chaque 1 % de PV Max perdu augmente les DGT Feu des Assistances de suivi et des Attaques de base de 0,4 % (jusqu'à 20 %).", en: "Lost HP is tallied. Each 1% Max HP lost increases Fire DMG of Assist Follow-Ups and Basic Attacks by 0.4% (max 20%)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Jour & Nuit, Cuisine & Amour", en: "Day & Night, Kitchen & Love" }, 
+            desc: { fr: "Sous l'état Molten Edge, Manato ignore 8 % de la RÉS Feu de la cible. Être touché pendant l'Attaque Spéciale : Return to Ashes ou Sacrifice permet de lancer une Assistance de suivi.", en: "In Molten Edge state, ignores 8% of target's Fire RES. Being hit during Special Attack: Return to Ashes/Sacrifice allows triggering an Assist Follow-Up." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Serment d'enfance", en: "Childhood Oath" }, 
+            desc: { fr: "Les PV Max augmentent de 8 %. Subir des DGT fatals pendant Return to Ashes ou Sacrifice maintient Manato en vie avec 1 PV (recharge 10s).", en: "Max HP increases by 8%. Taking fatal DMG during Return to Ashes/Sacrifice leaves Manato at 1 HP (10s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Au-delà des rêves du passé", en: "Beyond Dreams of the Past" }, 
+            desc: { fr: "Toucher un ennemi étourdi avec Return to Ashes octroie 75 Blazing Heart et 4 cumuls de Remnant Flame (permet une Assistance de suivi, recharge 20s). L'Assistance de suivi augmente les DGT Feu de 3 % pendant 8s (cumulable 5 fois).", en: "Hitting a Stunned enemy with Return to Ashes grants 75 Blazing Heart and 4 Remnant Flame stacks (allows Assist Follow-Up, 20s CD). Assist Follow-Up increases Fire DMG by 3% for 8s (stacks 5 times)." } 
+        }
+    ],
+    "Qingming": [
+        { 
+            rank: "M1", 
+            title: { fr: "Moi lié au rêve", en: "Dreambound Self" }, 
+            desc: { fr: "Gagne 6 Qingming Sword Force en entrant en combat (recharge 180s en Zone d'Investigation). L'effet Unity du Passif augmente les DGT de 10 % supplémentaires et ignore 20 % de la DÉF.", en: "Gains 6 Qingming Sword Force upon entering combat (180s CD in Investigation Zone). Unity effect increases DMG by an extra 10% and ignores 20% DEF." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Lumière & Ombre", en: "Light & Shadow" }, 
+            desc: { fr: "Bearer se cumule jusqu'à 6 fois et Culmination jusqu'à 9. Sous Enlightened Mind, chaque point de Sword Force consommé octroie 1 cumul de Culmination. L'Attaque Spéciale EX : Soaring Light et l'Ultime ignorent 40 % de la DÉF.", en: "Bearer max stacks to 6, Culmination to 9. In Enlightened Mind, consuming Sword Force grants 1 Culmination stack. EX Special: Soaring Light and Ultimate ignore 40% DEF." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Ensemble dans la poussière", en: "Together into the Dust" }, 
+            desc: { fr: "En entrant sur le terrain, gagne 1 000 Décibels (recharge 180s en Zone d'Investigation). La Vulnérabilité du Voile d'Éther : Verdict est augmentée jusqu'à un maximum de 200 %.", en: "Entering combat grants 1,000 Decibels (180s CD in Investigation Zone). Ether Veil: Verdict Vulnerability bonus maxes at 200%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Vœu de lanterne", en: "Lantern Wish" }, 
+            desc: { fr: "Gagne 2 cumuls de Lantern Wish en entrant en combat et 1 cumul (max 4) en activant Enlightened Mind. À 3 cumuls, l'Attaque Spéciale EX : Return to Dust est remplacée par l'Ultime (qui consomme les cumuls). Le dernier coup inflige 1 500 % d'ATQ en DGT Physiques bonus.", en: "Gains 2 Lantern Wish stacks entering combat and 1 (max 4) entering Enlightened Mind. At 3 stacks, EX Special: Return to Dust is replaced by Ultimate (consumes stacks). Final hit deals 1,500% ATK as bonus Physical DMG." } 
+        }
+    ],
+    "Zhao": [
+        { 
+            rank: "M1", 
+            title: { fr: "Verdict vertueux", en: "Righteous Verdict" }, 
+            desc: { fr: "Lorsque Zhao quitte le statut de personnage actif, les DGT de toute l'équipe ignorent 15 % de la RÉS globale de la cible pendant 50s.", en: "When Zhao switches out, squad DMG ignores 15% All-Attribute RES for 50s." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Krampus Senior", en: "Krampus Senior" }, 
+            desc: { fr: "Lorsque Zhao récupère des PV, son ATQ augmente de 20 % et celle de l'équipe de 15 % pendant 50s (réinitialisable).", en: "When recovering HP, Zhao's ATK increases by 20% and squad ATK by 15% for 50s (refreshes on trigger)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Pas légers", en: "Featherlight Footsteps" }, 
+            desc: { fr: "Activer un Voile d'Éther octroie 250 Décibels. Les DGT CRIT de l'Ultime, de l'Enchaînement et de l'Attaque de base : Final Verdict augmentent de 40 %.", en: "Activating Ether Veil grants 250 Decibels. Ultimate, Chain Attack, and Basic Attack: Final Verdict CRIT DMG increases by 40%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Aucune valeur n'a sa propre valeur", en: "No Value Has Its Own Value" }, 
+            desc: { fr: "Le buff de Taux CRIT du Passif passe à 125 % de sa valeur. Les DGT supplémentaires de la charge de Final Verdict passent à 140 %, et le temps de charge n'est plus consommé en attaquant.", en: "Core Passive CRIT Rate buff increases to 125%. Extra charge DMG from Final Verdict increases to 140%, and charge time is not consumed when attacking." } 
+        }
+    ],
+    "Aria": [
+        { 
+            rank: "M1", 
+            title: { fr: "Ondes sonores énergétiques", en: "Energetic Sound Waves" }, 
+            desc: { fr: "Les Attaques ignorent 10 % de la RÉS d'Anomalie d'Éther. Déclencher Abloom a une chance de coup critique (25 % Taux/DGT CRIT de base). Si la Maîtrise d'Anomalie dépasse 100, chaque point ajoute 0,5 % de Taux CRIT.", en: "Attacks ignore 10% Ether Anomaly RES. Abloom triggers can CRIT (25% base Rate/DMG). Anomaly Mastery above 100 grants 0.5% CRIT Rate per point." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Rythme fantastique", en: "Fantastical Beat" }, 
+            desc: { fr: "Les attaques et Abloom ignorent 16 % de DÉF. Pendant Moment of Delusion, ils ignorent 8 % de DÉF supplémentaires.", en: "Attacks and Abloom ignore 16% DEF. During Moment of Delusion, they ignore an extra 8% DEF." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Ange mécanique", en: "Mechanical Angel" }, 
+            desc: { fr: "Déclencher Abloom octroie 4 Énergie et 70 Décibels (recharge 10s).", en: "Triggering Abloom grants 4 Energy and 70 Decibels (10s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Le rêve du construct", en: "Construct's Dream" }, 
+            desc: { fr: "Gagne 1 200 Décibels en entrant en combat. Aria ne quitte plus Moment of Delusion une fois activé, et son Attaque de base renforcée et son Ultime infligent 40 % de DGT d'Éther bonus. Sous ce statut, une Anomalie ennemie octroie 1 cumul d'All-Out Cheering (recharge 6s). Au-delà de 3 cumuls, l'excès génère 2 Fandom Power sur le terrain.", en: "Gains 1,200 Decibels entering combat. Aria stays in Moment of Delusion permanently once entered, with enhanced Basic/Ultimate dealing 40% more Ether DMG. Enemy Anomalies grant 1 All-Out Cheering stack (6s CD). Stacks above 3 generate 2 Fandom Power." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
