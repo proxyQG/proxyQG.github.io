@@ -126,6 +126,7 @@
 .tt-close-btn:hover::before,
 .tt-close-btn:active::before {
     opacity: 1;
+    animation-play-state: running;
 }
 
 .tt-close-btn:hover::after,
