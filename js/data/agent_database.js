@@ -692,10 +692,10 @@ export const agentDatabase = {
             { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.png" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "", color: "#52525b", role: "Tous les agents<br>Attaque" }, { img: "", color: "#52525b", role: "Tous les agents<br>Stunner" } ] },
-            { name: "TEAM 02", tag: "Premium", members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
-        ]
+    { name: "TEAM 01", tag: { fr: "Équipe Norma", en: "Norma Team" }, videoId: "yPagnW_6Oto", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Norma.png", color: "#3182eb", initial: "N" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }, //[cite: 38]
+    { name: "TEAM 02", tag: { fr: "Équipe Koleda", en: "Koleda Team" }, videoId: "MmDEw30cDCs", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }, //[cite: 38]
+    { name: "TEAM 03", tag: { fr: "Équipe Grace", en: "Grace Team" }, videoId: "zZ-_JbMj9_I", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] } //[cite: 38]
+]
     },
     "Grace": {
         color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
