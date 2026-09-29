@@ -1,8 +1,6 @@
 (function() {
     let tooltipEl = null;
     let currentEngineKey = null;
-    let hoverTimeout = null;
-    let openTimeout = null; // ← AJOUT : Timer pour le délai d'ouverture
     
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
@@ -119,45 +117,28 @@ window.hideTooltip = hideTooltip;
     }
 
     function bindEvents() {
-        document.addEventListener('mouseover', e => {
-            // 1. SÉCURITÉ ABSOLUE : Vérifie si le guide de l'agent est bien affiché et actif
+        // Écouteur principal au CLIC (remplace mouseover / mouseout)
+        document.addEventListener('click', e => {
+            // 1. SÉCURITÉ : Vérifie si le modal est actif
             const agentModal = document.getElementById('agentDetailModal');
             if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
-                return; // Si la page se ferme ou est cachée, on bloque tout déclenchement
+                return;
             }
 
             const trigger = e.target.closest('[data-engine]');
             const isTooltip = e.target.closest('#proxy-tooltip');
 
-            if (trigger || isTooltip) {
-                clearTimeout(hoverTimeout);
-            }
-
+            // Cas A : On clique sur une carte d'équipement
             if (trigger) {
-                // Annule toute ouverture en attente pour éviter les accumulations
-                clearTimeout(openTimeout);
-
-                // Attends 120 ms avant d'afficher l'infobulle (Hover Intent)
-                openTimeout = setTimeout(() => {
-                    const isValid = populateTooltip(trigger.dataset.engine, 0);
-                    if (isValid) {
-                        positionTooltip(trigger);
-                        tooltipEl.classList.add('visible');
-                    }
-                }, 120);
-            }
-        });
-
-        document.addEventListener('mouseout', e => {
-            const trigger = e.target.closest('[data-engine], #proxy-tooltip');
-            
-            if (trigger && !e.relatedTarget?.closest('[data-engine], #proxy-tooltip')) {
-                // Si la souris quitte l'élément avant 120 ms, on annule l'ouverture !
-                clearTimeout(openTimeout);
-
-                hoverTimeout = setTimeout(() => {
-                    hideTooltip();
-                }, 250); 
+                const isValid = populateTooltip(trigger.dataset.engine, 0);
+                if (isValid) {
+                    positionTooltip(trigger);
+                    tooltipEl.classList.add('visible');
+                }
+            } 
+            // Cas B : On clique n'importe où ailleurs (sauf à l'intérieur de l'infobulle)
+            else if (!isTooltip) {
+                hideTooltip();
             }
         });
         tooltipEl.addEventListener('click', e => {
