@@ -739,10 +739,38 @@ export const agentDatabase = {
             { tag: "Meilleur Moteur", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, { tag: "Alternative 5★", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }, { tag: "Alternative 4★", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }, { tag: "Alternative F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alternative B", name: "Magnetic Storm - Alpha", img: "Magnetic_Storm_Alpha.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Team Anomalie", en: "Anomaly Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
-        ]
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Remielle Velina (Top Pick)", en: "Remielle Velina (Top Pick)" }, 
+        videoId: "M4wZRaCchCQ", 
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" } 
+        ] 
+    },
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Velina Yuzuha", en: "Velina Yuzuha" }, 
+        videoId: "", 
+        members: [ 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" }, 
+            { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } 
+        ] 
+    },
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Remielle Alice (Top Score)", en: "Remielle Alice (Top Score)" }, 
+        videoId: "QSrpfGwFuN4", 
+        startTime: 25,
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Alice.webp", color: "#e8a838", initial: "A" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" } 
+        ] 
+    }
+]
     },
     "Roxy": {
         color: "#3bbedb", element: "Wind", rank: "S", factionTitle: { fr: "Atelier Flint", en: "Flint Workshop" },
