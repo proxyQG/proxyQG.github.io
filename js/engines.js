@@ -1,4 +1,3 @@
-// js/engines.js
 const W_ENGINES_DB = {
     "Practiced Perfection": {
         name: { fr: "Perfection de la pratique", en: "Practiced Perfection" },
@@ -6,7 +5,11 @@ const W_ENGINES_DB = {
         specialty: "Anomaly",
         element: "Physical",
         img: "W-Engine_Practiced_Perfection.png",
-        stats: { base: "48 - 713", advancedLabel: "ATQ %", advanced: "12% - 30%" },
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "12% - 30%" 
+        },
         passiveName: { fr: "Don de poussière d'étoile", en: "Gift of Stardust" },
         // Les valeurs entre crochets [] seront colorées en jaune fluo par le JS
         // Les valeurs entre accolades {} seront mises en gras
@@ -18,5 +21,5 @@ const W_ENGINES_DB = {
             { fr: "Augmente la {Maîtrise d'Anomalie} de [96]. En infligeant {Assaut}, les {DGT Physiques} augmentent de [32 %] pendant 20s (cumulable 2 fois). Entrer en combat octroie immédiatement 2 cumuls." }
         ]
     }
-    // Ajoute les autres moteurs ici...
+    // Tu pourras ajouter les autres moteurs ici plus tard...
 };
