@@ -1,39 +1,47 @@
+// js/tooltip.js
 (function() {
     let tooltipEl = null;
+    let overlayEl = null; // NOUVEAU : L'overlay sombre
     let currentEngineKey = null;
     
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
         
+        // 1. Création de l'Overlay
+        overlayEl = document.createElement('div');
+        overlayEl.id = 'proxy-tooltip-overlay';
+        document.body.appendChild(overlayEl);
+
+        // 2. Création de l'Infobulle
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
         tooltipEl.innerHTML = `
-    <div class="tt-header">
-        <span id="tt-name"></span>
-        <button class="tt-close-btn" aria-label="Fermer l'infobulle">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-    </div>
-    <div class="tt-body">
-        <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
-        <div class="tt-tags" id="tt-tags"></div>
-        <div class="tt-stats-grid">
-            <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
-            <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
-        </div>
-        <div class="tt-oc-container">
-            <div class="tt-oc-tabs" id="tt-oc-tabs">
-                ${[1,2,3,4,5].map(i => `<button class="tt-oc-btn" data-tier="${i-1}">${i}</button>`).join('')}
+            <div class="tt-header">
+                <span id="tt-name"></span>
+                <button class="tt-close-btn" aria-label="Fermer l'infobulle">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
             </div>
-            <div class="tt-desc-box">
-                <div class="tt-desc-title" id="tt-passive-title"></div>
-                <div class="tt-desc-text" id="tt-passive-text"></div>
+            <div class="tt-body">
+                <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
+                <div class="tt-tags" id="tt-tags"></div>
+                <div class="tt-stats-grid">
+                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
+                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
+                </div>
+                <div class="tt-oc-container">
+                    <div class="tt-oc-tabs" id="tt-oc-tabs">
+                        ${[1,2,3,4,5].map(i => `<button class="tt-oc-btn" data-tier="${i-1}">${i}</button>`).join('')}
+                    </div>
+                    <div class="tt-desc-box">
+                        <div class="tt-desc-title" id="tt-passive-title"></div>
+                        <div class="tt-desc-text" id="tt-passive-text"></div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-`;
+        `;
         document.body.appendChild(tooltipEl);
         bindEvents();
     }
@@ -46,10 +54,17 @@
     }
 
     function hideTooltip() {
-    if (tooltipEl) tooltipEl.classList.remove('visible');
-    currentEngineKey = null;
-}
-window.hideTooltip = hideTooltip;
+        if (tooltipEl) {
+            tooltipEl.classList.remove('visible');
+            tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
+        }
+        if (overlayEl) {
+            overlayEl.classList.remove('visible');
+            overlayEl.style.opacity = ''; // Nettoie l'opacité du Swipe
+        }
+        currentEngineKey = null;
+    }
+    window.hideTooltip = hideTooltip;
 
     function populateTooltip(engineKey, tier = 0) {
         const data = W_ENGINES_DB[engineKey];
@@ -93,110 +108,85 @@ window.hideTooltip = hideTooltip;
         return true; 
     }
 
-    function positionTooltip(target) {
-        // Sécurité si l'élément HTML ciblé est supprimé du site
-        if (!document.body.contains(target)) {
-            hideTooltip();
-            return;
-        }
-
-        const rect = target.getBoundingClientRect();
-        const ttWidth = 340; 
-        const gap = 15;
-
-        let left = rect.right + gap;
-        if (left + ttWidth > window.innerWidth) left = rect.left - ttWidth - gap;
-        if (left < 10) left = 10; // ← À RAJOUTER ICI
-        
-        let top = rect.top + (rect.height / 2) - (tooltipEl.offsetHeight / 2);
-        if (top < 10) top = 10;
-        if (top + tooltipEl.offsetHeight > window.innerHeight) top = window.innerHeight - tooltipEl.offsetHeight - 10;
-
-        tooltipEl.style.left = `${left}px`;
-        tooltipEl.style.top = `${top}px`;
-    }
-
     function bindEvents() {
-        // Écouteur principal au CLIC (remplace mouseover / mouseout)
+        // --- GESTION DU CLIC ET DE L'OUVERTURE ---
         document.addEventListener('click', e => {
-            // 1. SÉCURITÉ : Vérifie si le modal est actif
             const agentModal = document.getElementById('agentDetailModal');
             if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
                 return;
             }
 
             const trigger = e.target.closest('[data-engine]');
-            const isTooltip = e.target.closest('#proxy-tooltip');
-
-            // Cas A : On clique sur une carte d'équipement
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
                     tooltipEl.classList.add('visible');
+                    overlayEl.classList.add('visible'); // Affiche l'overlay
                 }
-            } 
-            // Cas B : On clique n'importe où ailleurs (sauf à l'intérieur de l'infobulle)
-            else if (!isTooltip) {
+            }
+        });
+
+        // --- GESTION DES CLICS INTERNES (Boutons, Croix, Overlay) ---
+        tooltipEl.addEventListener('click', e => {
+            if (e.target.classList.contains('tt-oc-btn')) {
+                populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
+            }
+            if (e.target.closest('.tt-close-btn')) {
                 hideTooltip();
             }
         });
-        tooltipEl.addEventListener('click', e => {
-    if (e.target.classList.contains('tt-oc-btn')) {
-        populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
-    }
 
-    if (e.target.closest('.tt-close-btn')) {
-        hideTooltip();
-    }
-});
+        overlayEl.addEventListener('click', hideTooltip); // Ferme si clic dans le noir
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') hideTooltip();
         });
-        let touchStartX = 0;
-let touchStartY = 0;
-let isTouchScrolling = false;
-let touchTargetEngine = null;
 
-document.addEventListener('touchstart', e => {
-    const agentModal = document.getElementById('agentDetailModal');
-    if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
-        return;
-    }
+        // --- GESTION DU SWIPE-TO-CLOSE (MOBILE) ---
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
 
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-    isTouchScrolling = false;
-    touchTargetEngine = e.target.closest('[data-engine]');
-}, { passive: true });
+        tooltipEl.addEventListener('touchstart', e => {
+            if (window.innerWidth > 768) return; // Uniquement sur mobile
+            if (tooltipEl.scrollTop > 0) return; // On ne swipe que si on est tout en haut du tiroir
+            
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            tooltipEl.style.transition = 'none'; // Désactive la transition CSS pour suivre le doigt
+        }, { passive: true });
 
-document.addEventListener('touchmove', e => {
-    if (!touchTargetEngine) return;
-    const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
-    const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
-    
-    // Si le doigt bouge de plus de 10px, c'est un scroll !
-    if (deltaX > 10 || deltaY > 10) {
-        isTouchScrolling = true;
-    }
-}, { passive: true });
+        tooltipEl.addEventListener('touchmove', e => {
+            if (!isDragging) return;
+            currentY = e.touches[0].clientY - startY;
+            
+            // On ne peut tirer que vers le bas (currentY > 0)
+            if (currentY > 0) {
+                e.preventDefault(); // Bloque le défilement de la page arrière
+                tooltipEl.style.transform = `translateY(${currentY}px)`;
+                // L'overlay s'éclaircit progressivement en glissant
+                overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
+            }
+        }, { passive: false });
 
-document.addEventListener('touchend', e => {
-    // Si l'utilisateur était en train de scroller, on annule l'ouverture
-    if (isTouchScrolling) return;
+        tooltipEl.addEventListener('touchend', e => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            tooltipEl.style.transition = ''; // Restaure les animations CSS
+            overlayEl.style.opacity = '';
+            
+            // Si on a glissé de plus de 100px vers le bas, on ferme
+            if (currentY > 100) {
+                hideTooltip();
+            } else {
+                // Sinon, le tiroir rebondit à sa place d'origine
+                tooltipEl.style.transform = ''; 
+            }
+            currentY = 0;
+        });
 
-    if (touchTargetEngine) {
-        const isValid = populateTooltip(touchTargetEngine.dataset.engine, 0);
-        if (isValid) {
-            positionTooltip(touchTargetEngine);
-            tooltipEl.classList.add('visible');
-        }
-    } else if (!e.target.closest('#proxy-tooltip')) {
-        hideTooltip();
-    }
-});
-
-        // L'observateur tue l'infobulle à la milliseconde exacte où tu cliques sur "Fermer"
+        // --- SÉCURITÉ ANTI-FANTÔME ---
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.target.id === 'agentDetailModal' && !mutation.target.classList.contains('opacity-100')) {
