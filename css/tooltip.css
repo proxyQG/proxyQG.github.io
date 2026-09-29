@@ -1,10 +1,11 @@
 /* css/tooltip.css */
+
 #proxy-tooltip {
     position: fixed;
     z-index: 999999;
     width: 340px;
-    background: rgba(15, 17, 21, 0.85); /* Transparence pour le flou */
-    backdrop-filter: blur(12px); /* Effet Glassmorphism ZZZ */
+    background: rgba(15, 17, 21, 0.85);
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-top: 3px solid #d7f70c;
@@ -13,21 +14,25 @@
     color: #e5e7eb;
     font-family: 'Inter', sans-serif;
     
-    /* Animation optimisée GPU */
     opacity: 0;
     visibility: hidden;
     transform: scale(0.95) translateY(10px);
     transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                 transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0.25s;
-    will-change: transform, opacity; /* Prévient les saccades et le texte flou */
-    pointer-events: auto;
+    will-change: transform, opacity;
+    
+    /* FIX 1 : Ne bloque AUCUN clic ni scroll tant que le tooltip n'est pas visible */
+    pointer-events: none; 
 }
 
 #proxy-tooltip.visible {
     opacity: 1;
     visibility: visible;
     transform: scale(1) translateY(0);
+    
+    /* Réactive les clics uniquement quand l'infobulle est ouverte */
+    pointer-events: auto; 
 }
 
 .tt-header {
@@ -196,5 +201,25 @@
     .tt-oc-btn {
         padding: 10px 0;
         font-size: 0.9rem;
+    }
+}
+
+.tt-close-btn {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .tt-close-btn {
+        display: flex;
     }
 }
