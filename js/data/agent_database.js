@@ -752,7 +752,8 @@ export const agentDatabase = {
     { 
         name: "TEAM 02", 
         tag: { fr: "Velina Yuzuha", en: "Velina Yuzuha" }, 
-        videoId: "", 
+        videoId: "QSrpfGwFuN4", 
+        startTime: 25,
         members: [ 
             { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
             { img: "Velina.webp", color: "#3182eb", initial: "V" }, 
@@ -761,9 +762,7 @@ export const agentDatabase = {
     },
     { 
         name: "TEAM 03", 
-        tag: { fr: "Remielle Alice (Top Score)", en: "Remielle Alice (Top Score)" }, 
-        videoId: "QSrpfGwFuN4", 
-        startTime: 25,
+        tag: { fr: "Remielle Alice (Top Score)", en: "Remielle Alice (Top Score)" },  
         members: [ 
             { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
             { img: "Alice.webp", color: "#e8a838", initial: "A" }, 
