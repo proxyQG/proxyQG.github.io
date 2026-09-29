@@ -109,9 +109,15 @@
     function bindEvents() {
         document.addEventListener('mouseover', e => {
             const trigger = e.target.closest('[data-engine]');
-            if (trigger) {
+            const isTooltip = e.target.closest('#proxy-tooltip');
+
+            // 1. Si la souris est sur le moteur OU sur l'infobulle, on annule la fermeture
+            if (trigger || isTooltip) {
                 clearTimeout(hoverTimeout);
-                // On vérifie si la fonction renvoie true (le moteur existe)
+            }
+
+            // 2. Si on survole un nouveau moteur, on met à jour les données
+            if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
                     positionTooltip(trigger);
@@ -122,11 +128,14 @@
 
         document.addEventListener('mouseout', e => {
             const trigger = e.target.closest('[data-engine], #proxy-tooltip');
+            
+            // Si on quitte le moteur ou l'infobulle ET qu'on ne va pas vers l'un des deux...
             if (trigger && !e.relatedTarget?.closest('[data-engine], #proxy-tooltip')) {
+                // On attend 250ms avant de fermer, pour laisser le temps de bouger la souris
                 hoverTimeout = setTimeout(() => {
                     tooltipEl.classList.remove('visible');
                     currentEngineKey = null; 
-                }, 150); 
+                }, 250); 
             }
         });
 
