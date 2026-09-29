@@ -109,6 +109,12 @@
 
     function bindEvents() {
         document.addEventListener('mouseover', e => {
+            // 1. SÉCURITÉ ABSOLUE : Vérifie si le guide de l'agent est bien affiché et actif
+            const agentModal = document.getElementById('agentDetailModal');
+            if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
+                return; // Si la page se ferme ou est cachée, on bloque tout déclenchement
+            }
+
             const trigger = e.target.closest('[data-engine]');
             const isTooltip = e.target.closest('#proxy-tooltip');
 
@@ -142,6 +148,11 @@
         });
 
         document.addEventListener('touchstart', e => {
+            const agentModal = document.getElementById('agentDetailModal');
+            if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
+                return;
+            }
+
             const trigger = e.target.closest('[data-engine]');
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
@@ -156,22 +167,20 @@
 
         // --- SÉCURITÉS ANTI-BUG FANTÔME ---
         
-        // 1. Fermeture via la touche Echap
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') hideTooltip();
         });
 
-        // 2. Fermeture si on clique n'importe où en dehors
         document.addEventListener('click', e => {
             if (!e.target.closest('#proxy-tooltip') && !e.target.closest('[data-engine]')) {
                 hideTooltip();
             }
         });
 
-        // 3. Fermeture automatique si la page de l'agent se ferme
+        // L'observateur tue l'infobulle à la milliseconde exacte où tu cliques sur "Fermer"
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
-                if (mutation.target.id === 'agentDetailModal' && mutation.target.classList.contains('hidden')) {
+                if (mutation.target.id === 'agentDetailModal' && !mutation.target.classList.contains('opacity-100')) {
                     hideTooltip();
                 }
             });
