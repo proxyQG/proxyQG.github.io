@@ -48,7 +48,8 @@
         const data = W_ENGINES_DB[engineKey];
         if (!data) return false; 
 
-        const lang = document.documentElement.lang || 'fr';
+        const langSwitcher = document.getElementById('langSwitcher');
+        const lang = langSwitcher ? langSwitcher.getAttribute('data-active') : 'fr';
         const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
         const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
         
