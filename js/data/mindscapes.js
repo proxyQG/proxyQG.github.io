@@ -1165,7 +1165,7 @@ export const mindscapesData = {
             desc: { fr: "Consommer Trial by Cold pour déclencher Abloom génère un effet Abloom spécial (inflige des DGT d'Anomalie de l'attribut correspondant avec un multiplicateur fixe de 200 %). Restaure 5 Corrosive Chill et 100 Décibels (recharge 15s). De plus, les DGT d'Anomalie d'Attribut et de Désordre infligés par Promeia ignorent 15 % de la RÉS globale des ennemis.", en: "Consuming Trial by Cold for Abloom triggers a special Abloom effect (deals Attribute Anomaly DMG with a fixed 200% multiplier). Restores 5 Corrosive Chill and 100 Decibels (15s CD). Attribute Anomaly and Disorder DMG dealt by Promeia ignore 15% of enemies' All-Attribute RES." } 
         }
     ],
-    "Starlight - Billy": [
+    "Starlight Billy": [
         { 
             rank: "M1", 
             title: { fr: "Entrée héroïque", en: "Heroic Entrance" }, 
