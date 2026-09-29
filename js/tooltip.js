@@ -10,14 +10,14 @@
         
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
-        // Structure HTML vide prête à être peuplée (évite les reflows constants)
+        // Ajout de l'ID tt-stat-base-lbl pour la traduction
         tooltipEl.innerHTML = `
             <div class="tt-header"><span id="tt-name"></span></div>
             <div class="tt-body">
                 <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
                 <div class="tt-stats-grid">
-                    <div class="tt-stat-card"><div class="lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
+                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
                     <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
                 </div>
                 <div class="tt-oc-container">
@@ -46,27 +46,34 @@
         const data = W_ENGINES_DB[engineKey];
         if (!data) return;
 
+        // Détection de la langue active
         const lang = document.documentElement.lang || 'fr';
         
-        // Mise à jour de l'UI si on change de moteur
+        // Traduction des labels statiques de l'UI
+        const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
+        const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
+        
         if (currentEngineKey !== engineKey) {
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
-            document.getElementById('tt-img').src = `assets/Engines/${data.img}`;
             
-            const tagsHtml = `<span class="tt-tag rank-${data.rank}">Rang ${data.rank}</span>
+            // Correction du chemin de l'image et conversion dynamique en .webp
+            document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
+            
+            const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
                               <span class="tt-tag">${data.specialty}</span>
                               ${data.element ? `<span class="tt-tag">${data.element}</span>` : ''}`;
             document.getElementById('tt-tags').innerHTML = tagsHtml;
             
+            // Application des labels selon la langue
+            document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
             document.getElementById('tt-stat-base').textContent = data.stats.base;
-            document.getElementById('tt-stat-adv-lbl').textContent = data.stats.advancedLabel;
+            document.getElementById('tt-stat-adv-lbl').textContent = data.stats.advancedLabel[lang] || data.stats.advancedLabel.en;
             document.getElementById('tt-stat-adv').textContent = data.stats.advanced;
             document.getElementById('tt-passive-title').textContent = data.passiveName[lang] || data.passiveName.en;
             
             currentEngineKey = engineKey;
         }
 
-        // Mise à jour uniquement du texte du passif et des boutons (Ultra optimisé)
         const passiveRaw = data.overclocks[tier][lang] || data.overclocks[tier].en;
         document.getElementById('tt-passive-text').innerHTML = parseText(passiveRaw);
 
