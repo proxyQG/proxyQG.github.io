@@ -1011,7 +1011,7 @@ export const mindscapesData = {
             desc: { fr: "Toucher un ennemi étourdi avec Return to Ashes octroie 75 Blazing Heart et 4 cumuls de Remnant Flame (permet une Assistance de suivi, recharge 20s). L'Assistance de suivi augmente les DGT Feu de 3 % pendant 8s (cumulable 5 fois).", en: "Hitting a Stunned enemy with Return to Ashes grants 75 Blazing Heart and 4 Remnant Flame stacks (allows Assist Follow-Up, 20s CD). Assist Follow-Up increases Fire DMG by 3% for 8s (stacks 5 times)." } 
         }
     ],
-    "Qingming": [
+    "Ye Shunguang": [
         { 
             rank: "M1", 
             title: { fr: "Moi lié au rêve", en: "Dreambound Self" }, 
