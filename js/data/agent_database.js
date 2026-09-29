@@ -743,6 +743,7 @@ export const agentDatabase = {
         name: "TEAM 01", 
         tag: { fr: "Remielle Velina (Top Pick)", en: "Remielle Velina (Top Pick)" }, 
         videoId: "M4wZRaCchCQ", 
+        startTime: 11,
         members: [ 
             { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
             { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
