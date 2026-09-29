@@ -692,9 +692,36 @@ export const agentDatabase = {
             { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.png" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.png" }
         ],
         teams: [
-    { name: "TEAM 01", tag: { fr: "Équipe Norma", en: "Norma Team" }, videoId: "yPagnW_6Oto", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Norma.png", color: "#3182eb", initial: "N" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }, //[cite: 38]
-    { name: "TEAM 02", tag: { fr: "Équipe Koleda", en: "Koleda Team" }, videoId: "MmDEw30cDCs", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }, //[cite: 38]
-    { name: "TEAM 03", tag: { fr: "Équipe Grace", en: "Grace Team" }, videoId: "zZ-_JbMj9_I", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] } //[cite: 38]
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Équipe Désordre", en: "Disorder Team" }, 
+        videoId: "W6GsmzM0B5g", 
+        members: [ 
+            { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, 
+            { img: "Jane.webp", color: "#e8a838", initial: "J" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Équipe Électrique", en: "Shock Team" }, 
+        videoId: "f4QsmzM0B8a", 
+        members: [ 
+            { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, 
+            { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Équipe Shiyu", en: "Shiyu Team" }, 
+        videoId: "x1QsmzM0B9c", 
+        members: [ 
+            { img: "Claret.webp", color: "#3182eb", initial: "C" }, 
+            { img: "Norma.webp", color: "#f05432", initial: "N" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    } 
 ]
     },
     "Grace": {
