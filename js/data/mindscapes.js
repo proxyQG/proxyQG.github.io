@@ -1209,6 +1209,94 @@ export const mindscapesData = {
             desc: { fr: "Consommer 2 points de Windbite pour augmenter le multiplicateur de DGT de Vortex octroie 1 point de Windbite (recharge 6s). Frapper un ennemi sous Anomalie Vent augmente l'accumulation d'Anomalie Vent de 20 %. Infliger Windswept à un ennemi déjà affecté augmente les DGT du nouveau Windswept en fonction de la durée restante du précédent (+2,5 % par seconde restante, max +40 %).", en: "Consuming 2 points of Windbite to increase Vortex DMG Multiplier grants 1 point of Windbite (6s CD). Hitting an enemy suffering Wind Anomaly increases Wind Anomaly Buildup by 20%. Inflicting Windswept on an already affected enemy increases the new Windswept's DMG based on remaining duration (+2.5% per remaining second, max 40% increase)." } 
         }
     ],
+    "Norma": [
+        { 
+            rank: "M1", 
+            title: { fr: "Extrémisme visionnaire", en: "Visionary Extremism" }, //[cite: 44]
+            desc: { fr: "La durée de la baie de missiles de la Tourelle En-Nah déployée par l'Attaque Spéciale EX : Explosive Experiment augmente à 12s. Lorsqu'une Armor-Piercing Warhead ou High-Explosive Warhead de n'importe quelle compétence touche un ennemi, la RÉS globale de la cible est réduite de 15 % pendant 15s.", en: "The duration of the En-Nah Turret's missile bay deployed by EX Special Attack: Explosive Experiment increases to 12s. When an Armor-Piercing Warhead or High-Explosive Warhead from any skill hits an enemy, the target's All-Attribute RES is reduced by 15% for 15s." } //[cite: 44]
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Axiome de l'unité universelle", en: "Axiom of Universal Unity" }, //[cite: 44]
+            desc: { fr: "Le multiplicateur de DGT d'Étourdissement accordé par chaque cumul de Tech Divide dans la Compétence Additionnelle : Advantage in Numbers passe à 6 %. Lorsque Norma utilise l'Attaque de base : Hat Trick en combat, elle gagne 25 d'Énergie (recharge 20s).", en: "The Stun DMG Multiplier granted by each stack of Tech Divide in Norma's Additional Ability: Advantage in Numbers is increased to 6%. When Norma uses Basic Attack: Hat Trick while in combat, she gains 25 Energy. This effect can trigger once every 20s." } //[cite: 44]
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Théorie de supériorité des Bangbous", en: "Bangboo Superiority Theory" }, //[cite: 44]
+            desc: { fr: "Lorsque Norma consomme Preheated Chamber pour déclencher un Enchaînement, Norma et l'Agent correspondant gagnent tous les deux 200 Décibels.", en: "When Norma consumes Preheated Chamber to trigger a Chain Attack, both Norma and the corresponding Agent gain 200 Decibels." } //[cite: 44]
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "La cause première du génie", en: "The Primary Cause of Genius" }, //[cite: 44]
+            desc: { fr: "Après qu'un membre de l'équipe étourdisse un ennemi, Norma invoque continuellement des missiles pour bombarder des ennemis aléatoires pendant 6s. Un missile est lancé toutes les 0,75s, infligeant des DGT Feu égaux à 200 % de l'ATQ de Norma. Ces DGT sont considérés comme des DGT d'Ultime (réinitialisable, recharge 30s). La Daze infligée par Armor-Piercing Warhead augmente de 30 %, et les DGT de High-Explosive Warhead augmentent de 30 %.", en: "After any squad member Stuns an enemy, Norma will continuously summon missiles to bombard random enemies on the field for 6s. A missile is launched every 0.75s, dealing Fire DMG equal to 200% of Norma's ATK to enemies within the area. This DMG is considered Ultimate DMG. Repeated triggers reset the duration. This effect can trigger once every 30s. The Daze inflicted by Armor-Piercing Warhead increases by 30%, and the DMG dealt by High-Explosive Warhead increases by 30%." } //[cite: 44]
+        }
+    ],
+    "Pyrois": [
+        { 
+            rank: "M1", 
+            title: { fr: "Ombres du passé crépusculaire", en: "Shadows of Twilight Past" }, //[cite: 45]
+            desc: { fr: "En entrant sur le champ de bataille, Pyrois gagne 1 000 Décibels (recharge 180s en Zone d'Investigation). Le Taux CRIT augmente de 8 %.", en: "Upon entering the battlefield, Pyrois gains 1,000 Decibels. This effect can trigger once every 180s in Investigation Zone mode. CRIT Rate increases by 8%." } //[cite: 45]
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Cavalerie flamboyante", en: "Blazing Cavalry" }, //[cite: 45]
+            desc: { fr: "Utiliser l'Ultime : Triumphant Return octroie 1 500 Décibels (recharge 180s). La limite de Décibels de Pyrois augmente de 1 000.", en: "Using Ultimate: Triumphant Return grants 1,500 Decibels. This effect can trigger once every 180s. Pyrois's Decibel limit increases by 1,000." } //[cite: 45]
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Horizon de feu de joie", en: "Balefire Horizon" }, //[cite: 45]
+            desc: { fr: "Lorsque Pyrois déclenche un Blocage Parfait avec l'Attaque Spéciale EX : Sun's Halo, elle gagne immédiatement un bouclier égal à 8 % de ses PV Max pendant 10s (les déclenchements répétés réinitialisent la durée). Pyrois inflige 10 % de Daze supplémentaire sous bouclier.", en: "When Pyrois triggers a Perfect Block with EX Special Attack: Sun's Halo, immediately gain shield equal to 8% of Max HP, lasting 10s. Repeated triggers reset the duration. Pyrois deals 10% extra Daze while shielded." } //[cite: 45]
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Étoile du matin à l'aube", en: "Morning Star at Dawn" }, //[cite: 45]
+            desc: { fr: "Effet de Mindscape caché.", en: "Mindscape Effect Hidden" } //[cite: 45]
+        }
+    ],
+    "Claret": [
+        { 
+            rank: "M1", 
+            title: { fr: "Chronique tachée de sang", en: "Bloodstained Chronicle" }, //[cite: 46]
+            desc: { fr: "Lorsque les attaques de Claret touchent des ennemis et déclenchent Laceration, le Taux d'accumulation de Gash augmente de 20 %. Le multiplicateur de DGT de Maim déclenché par Claret passe à 130 % de sa valeur initiale.", en: "When Claret's attacks hit enemies and trigger Laceration, Gash Buildup Rate increases by 20%. The DMG Multiplier of Maim triggered by Claret increases to 130% of its original value." } //[cite: 46]
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Couronne de la flamme héritée", en: "Crown of Inherited Flame" }, //[cite: 46]
+            desc: { fr: "La durée maximale de Crimson Inscription est prolongée de 2s. Tant que Claret est sous l'état Crimson Inscription, ou lors d'un Enchaînement, Ultime, Assistance Défensive ou Assistance de suivi, ses attaques ignorent 18 % de la RÉS Électrique de la cible.", en: "The maximum duration of Crimson Inscription is extended by 2s. While Claret is in the Crimson Inscription state, or while using a Chain Attack, Ultimate, Counter Assist, or Assist Follow-Up, attacks ignore 18% of the target's Electric RES." } //[cite: 46]
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Vagabonde de la lune cramoisie", en: "Crimson Moon Wanderer" }, //[cite: 46]
+            desc: { fr: "Lors du 3e coup de l'Attaque de base : Bloodbloom Oath - Starforging, la durée de prolongation des entailles consécutives est augmentée. Les DGT infligés par ce 3e coup, l'Enchaînement : Bloodbloom Oath - Resonant Blood Pact, et l'Ultime : Bloodbloom Oath - Trial After Trial augmentent de 20 %.", en: "During the 3rd hit of Basic Attack: Bloodbloom Oath - Starforging, the time by which the consecutive slashes can be extended is increased. DMG dealt by Basic Attack: Bloodbloom Oath - Starforging's 3rd hit, Chain Attack: Bloodbloom Oath - Resonant Blood Pact, and Ultimate: Bloodbloom Oath - Trial After Trial increases by 20%." } //[cite: 46]
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Rêve d'une nuit chaude", en: "Warm Night's Dream" }, //[cite: 46]
+            desc: { fr: "Lorsque les attaques lourdes de l'Enchaînement : Bloodbloom Oath - Resonant Blood Pact et de l'Ultime : Bloodbloom Oath - Trial After Trial touchent un ennemi, Claret déclenche directement 1 instance de Maim sur cible unique sans consommer de Gash.", en: "When the heavy attacks of Chain Attack: Bloodbloom Oath - Resonant Blood Pact and Ultimate: Bloodbloom Oath - Trial After Trial hit an enemy, Claret directly triggers 1 instance of single-target Maim without consuming Gash." } //[cite: 46]
+        }
+    ],
+    "Roxy": [
+        { 
+            rank: "M1", 
+            title: { fr: "Assistante polyvalente", en: "Versatile Attendant" }, //[cite: 47]
+            desc: { fr: "Lorsque l'Attaque Spéciale EX : Kindly Rest in Peace touche, elle réduit la RÉS globale de l'ennemi de 15 % pendant 50s (réinitialisable). Les DGT CRIT augmentent de 40 %.", en: "When EX Special Attack: Kindly Rest in Peace hits, it reduces the enemy's All-Attribute RES by 15% for 50s. Repeated triggers reset the duration. CRIT DMG increases by 40%." } //[cite: 47]
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Mythe de la fin de service", en: "Clocking Out Myth" }, //[cite: 47]
+            desc: { fr: "L'Attaque Spéciale EX : Don't Catch a Chill inflige 5 % de Daze supplémentaire. Chaque Eye of the Storm détoné octroie 1 cumul de Windflow (max 3). Pendant cette Attaque EX, si Roxy quitte le terrain après être entrée dans l'état Whirlwind, elle consomme tout son Windflow. Chaque cumul maintient l'état Whirlwind pendant 0,2s sans consommer d'Énergie (max 0,6s). Lorsque cette Attaque EX touche un ennemi, le multiplicateur de DGT d'Étourdissement de la cible augmente de 30 % jusqu'à sa récupération.", en: "EX Special Attack: Don't Catch a Chill deals 5% more Daze. For each Eye of the Storm detonated, gain 1 stack of Windflow, up to 3 stacks. During EX Special Attack: Don't Catch a Chill, if Roxy switches out after entering the Whirlwind state, she consumes all Windflow. Each stack consumed sustains the Whirlwind state for 0.2s, during which no Energy is consumed, up to a maximum of 0.6s. When EX Special Attack: Don't Catch a Chill hits an enemy, that enemy's Stun DMG Multiplier increases by 30% until the target recovers from Stun." } //[cite: 47]
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "R.I.P.", en: "R.I.P." }, //[cite: 47]
+            desc: { fr: "Lorsqu'une Assistance Défensive pare une attaque avec succès, Roxy gagne 1 d'Énergie (1 fois par compétence). Lorsque la Contre-esquive : Returned Courtesy touche un ennemi, elle octroie 2 d'Énergie (1 fois par compétence). L'Ultime : Requiem for the Night-Burial inflige 20 % de DGT et 10 % de Daze supplémentaires.", en: "When a Defensive Assist successfully parries an enemy attack, Roxy gains 1 Energy, up to once per skill. When Dodge Counter: Returned Courtesy hits an enemy, it grants 2 Energy, up to once per skill. Ultimate: Requiem for the Night-Burial deals 20% more DMG and 10% more Daze." } //[cite: 47]
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "L'éternité et la poupée mécanique", en: "Eternity and the Clockwork Doll" }, //[cite: 47]
+            desc: { fr: "Aucun effet de combat spécifié (texte d'histoire uniquement).", en: "No combat effect specified (lore text only)." } //[cite: 47]
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
