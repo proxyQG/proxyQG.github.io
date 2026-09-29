@@ -39,21 +39,24 @@
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(90deg, rgba(215, 247, 12, 0.15) 0%, transparent 100%);
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* =========================================
-   BOUTON DE FERMETURE MOBILE (NEUTRE / SANS ROUGE)
+   BOUTON DE FERMETURE (DESIGN PREMIUM ZZZ)
    ========================================= */
 .tt-close-btn {
-    display: inline-flex; /* <-- Modifié ici */
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0; /* Empêche le bouton de s'écraser si le titre est long */
     width: 32px;
     height: 32px;
     padding: 0;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     color: #9ca3af;
     cursor: pointer;
@@ -61,32 +64,30 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     -webkit-tap-highlight-color: transparent;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Style de la croix SVG */
 .tt-close-btn svg {
     width: 14px;
     height: 14px;
-    transition: transform 0.2s ease, color 0.2s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
-/* Appui / survol : éclaircissement neutre (blanc) */
-.tt-close-btn:hover,
+/* Animation de survol : Néon + Rotation */
+.tt-close-btn:hover {
+    background: rgba(215, 247, 12, 0.15); /* Fond légèrement jaune */
+    border-color: #d7f70c;
+    color: #d7f70c;
+    box-shadow: 0 0 15px rgba(215, 247, 12, 0.4), inset 0 0 8px rgba(215, 247, 12, 0.2);
+    transform: scale(1.1);
+}
+
+.tt-close-btn:hover svg {
+    transform: rotate(90deg) scale(1.1);
+}
+
 .tt-close-btn:active {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: #ffffff;
-}
-
-.tt-close-btn:hover svg,
-.tt-close-btn:active svg {
-    color: #ffffff;
-    transform: rotate(90deg);
-}
-
-.tt-close-btn:active {
-    transform: scale(0.92);
+    transform: scale(0.9);
 }
 
 /* Affichage uniquement sur mobile */
