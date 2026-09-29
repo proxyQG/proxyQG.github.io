@@ -156,35 +156,48 @@ window.hideTooltip = hideTooltip;
     }
 });
 
-        document.addEventListener('touchstart', e => {
-            const agentModal = document.getElementById('agentDetailModal');
-            if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
-                return;
-            }
+        let touchStartX = 0;
+let touchStartY = 0;
+let isTouchScrolling = false;
+let touchTargetEngine = null;
 
-            const trigger = e.target.closest('[data-engine]');
-            if (trigger) {
-                const isValid = populateTooltip(trigger.dataset.engine, 0);
-                if (isValid) {
-                    positionTooltip(trigger);
-                    tooltipEl.classList.add('visible');
-                }
-            } else if (!e.target.closest('#proxy-tooltip')) {
-                hideTooltip();
-            }
-        }, { passive: true });
+document.addEventListener('touchstart', e => {
+    const agentModal = document.getElementById('agentDetailModal');
+    if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
+        return;
+    }
 
-        // --- SÉCURITÉS ANTI-BUG FANTÔME ---
-        
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') hideTooltip();
-        });
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    isTouchScrolling = false;
+    touchTargetEngine = e.target.closest('[data-engine]');
+}, { passive: true });
 
-        document.addEventListener('click', e => {
-            if (!e.target.closest('#proxy-tooltip') && !e.target.closest('[data-engine]')) {
-                hideTooltip();
-            }
-        });
+document.addEventListener('touchmove', e => {
+    if (!touchTargetEngine) return;
+    const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+    const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+    
+    // Si le doigt bouge de plus de 10px, c'est un scroll !
+    if (deltaX > 10 || deltaY > 10) {
+        isTouchScrolling = true;
+    }
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+    // Si l'utilisateur était en train de scroller, on annule l'ouverture
+    if (isTouchScrolling) return;
+
+    if (touchTargetEngine) {
+        const isValid = populateTooltip(touchTargetEngine.dataset.engine, 0);
+        if (isValid) {
+            positionTooltip(touchTargetEngine);
+            tooltipEl.classList.add('visible');
+        }
+    } else if (!e.target.closest('#proxy-tooltip')) {
+        hideTooltip();
+    }
+});
 
         // L'observateur tue l'infobulle à la milliseconde exacte où tu cliques sur "Fermer"
         const observer = new MutationObserver((mutations) => {
