@@ -317,23 +317,3 @@
         font-size: 0.9rem;
     }
 }
-
-.tt-close-btn {
-    display: none;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #fff;
-    font-size: 1.2rem;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-}
-
-@media (max-width: 768px) {
-    .tt-close-btn {
-        display: flex;
-    }
-}
