@@ -2159,45 +2159,45 @@ export const agentDatabase = {
                 tag: { fr: "DPS Anomalie Glace 👑", en: "Ice Anomaly DPS 👑" }, 
                 set1: "Notes_From_the_Chained", set2: "Phaethon_Melody", 
                 set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Phaethon's Melody", 
-                note: { fr: "Un set sur mesure conçu pour l'application constante de Gel et d'Ablooms.", en: "A tailor-made set for her constant Freeze application and Ablooms." } 
+                note: { fr: "Set BiS absolu maximisant les déclenchements de Gel et les DGT d'Abloom.", en: "Absolute BiS set maximizing Freeze triggers and Abloom DMG." } 
             },
             { 
-                tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, 
-                set1: "Notes_From_the_Chained", set2: "Freedom_Blues", 
-                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Freedom Blues", 
-                note: { fr: "Excellente synergie avec des équipes misant lourdement sur le statut Désordre.", en: "Excellent synergy in heavy Disorder-focused team compositions." } 
+                tag: { fr: "Alternative 2pc PÉN", en: "2pc PEN Alternative" }, 
+                set1: "Notes_From_the_Chained", set2: "Puffer_Electro", 
+                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Excellente alternative (98,73 %) si vous possédez de meilleures sous-statistiques.", en: "Excellent alternative (98.73%) if you have better sub-stats." } 
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "6", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "11", icon: "Ex.png" }, 
+            { name: "Chain", level: "10", icon: "Ultime.png" }, 
+            { name: "Basic", level: "10", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "10", icon: "Assist.png" }, 
+            { name: "Dodge", level: "1", icon: "Esquive.png" }
         ],
         statPriority: { 
             main: [ 
                 { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "DGT Glace % = ATK %" }, 
+                { slot: "5", label: "Taux de PÉN % > ATK % > DGT Glace %" }, 
                 { slot: "4", label: "Adresse d'Anomalie" } 
             ], 
             sub: [ 
                 { label: "Adresse d'Anomalie", highlight: true }, 
                 { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: "PÉN fixe", highlight: false }, 
+                { label: "ATK fixe", highlight: false } 
             ] 
         },
         engines: [
             { tag: "Signature (100 %)", name: "Frostfall Sickle", img: "W-Engine_Frostfall_Sickle.png" }, 
-            { tag: "Meilleure Option S (99.31%)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
-            { tag: "Option S", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
-            { tag: "Alternative A", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
+            { tag: "Option S BiS (93.41 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
+            { tag: "Option S (90.92 %)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
+            { tag: "Alternative A (90.03 %)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Stun-Abloom 👑", en: "Stun-Abloom Synergy 👑" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Désordre Glace", en: "Ice Disorder" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative F2P", en: "F2P Alternative" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Méta BiS (Velina / Remielle) 👑", en: "BiS Meta (Velina / Remielle) 👑" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Velina.webp", color: "#3182eb", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Vivian", en: "Vivian Disorder" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Stun-Abloom", en: "Stun-Abloom Synergy" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
         ]
     },
     "Starlight Billy": {
