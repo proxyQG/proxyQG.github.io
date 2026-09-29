@@ -1077,6 +1077,138 @@ export const mindscapesData = {
             desc: { fr: "Gagne 1 200 Décibels en entrant en combat. Aria ne quitte plus Moment of Delusion une fois activé, et son Attaque de base renforcée et son Ultime infligent 40 % de DGT d'Éther bonus. Sous ce statut, une Anomalie ennemie octroie 1 cumul d'All-Out Cheering (recharge 6s). Au-delà de 3 cumuls, l'excès génère 2 Fandom Power sur le terrain.", en: "Gains 1,200 Decibels entering combat. Aria stays in Moment of Delusion permanently once entered, with enhanced Basic/Ultimate dealing 40% more Ether DMG. Enemy Anomalies grant 1 All-Out Cheering stack (6s CD). Stacks above 3 generate 2 Fandom Power." } 
         }
     ],
+    "Sunna": [
+        { 
+            rank: "M1", 
+            title: { fr: "Symptômes de corruption par la solitude", en: "Loneliness Corruption Symptoms" }, 
+            desc: { fr: "Lorsque Sunna entre sur le champ de bataille, elle gagne 15 points d'Énergie (recharge 180s en Zone d'Investigation). Lorsque Cat's Gaze se déclenche et blesse un ennemi, la DÉF de la cible est réduite de 7 % pendant 40s (jusqu'à 3 cumuls, durée de chaque cumul calculée séparément).", en: "When Sunna enters the battlefield, she gains 15 Energy (180s CD in Investigation Zone Mode). When Cat's Gaze triggers and damages an enemy, the target's DEF is reduced by 7% for 40s (stacking up to 3 times, duration calculated separately)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Félin qui se laisse porter", en: "Feline Go-With-the-Flow" }, 
+            desc: { fr: "Tant que Sunna est dans un Voile d'Éther, l'ATQ de toute l'équipe augmente de 10 % et elle obtient 1 Claw Sharpener toutes les 10s. Le nombre d'attaques requises pour déclencher Cat's Gaze est réduit, et son multiplicateur de DGT augmente : +200 % si déclenché par un Agent d'Attaque, +300 % si déclenché par un Agent d'Anomalie.", en: "While Sunna is within any Ether Veil, squad members gain 10% ATK and she obtains 1 Claw Sharpener every 10s. Attacks required to trigger Cat's Gaze are reduced, and DMG Multiplier is increased: +200% when triggered by an Attack character, +300% when triggered by an Anomaly character." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Équipe d'investigation des illusions", en: "Delusion Investigation Team" }, 
+            desc: { fr: "Lorsque Sunna utilise son Ultime, toute l'équipe inflige 18 % de DGT supplémentaires pendant 60s.", en: "When Sunna uses her Ultimate, all squad members deal 18% increased DMG for 60s." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Big Bang Néantre", en: "Hollow Big Bang" }, 
+            desc: { fr: "Lorsqu'elle utilise une Attaque Spéciale EX, Sunna entre dans l'état Focused Creation! pendant 8s. Dans cet état : toutes ses attaques sont des coups critiques garantis, ses DGT CRIT augmentent de 0,03 % de son ATQ initiale (max 105 %), son niveau de RÉS à l'interruption augmente et les DGT subis sont réduits de 40 %. Elle peut déclencher Cat's Gaze selon les règles d'un Agent d'Attaque. Si Cat's Gaze est déclenché alors qu'elle a un Claw Sharpener, il est consommé pour réappliquer instantanément Cat's Gaze, dont les DGT sont augmentés de 50 % dans cet état.", en: "When using an EX Special Attack, enters Focused Creation! state for 8s. In this state: all attacks are guaranteed CRITs, CRIT DMG increases by 0.03% of initial ATK (max 105%), Anti-Interrupt Level is increased, and DMG taken is reduced by 40%. Can trigger Cat's Gaze using Attack Agent rules. If Cat's Gaze is triggered with a Claw Sharpener, it's consumed and Cat's Gaze is instantly reapplied. In this state, Cat's Gaze DMG increases by 50%." } 
+        }
+    ],
+    "Cissia": [
+        { 
+            rank: "M1", 
+            title: { fr: "Voyageuse et proie", en: "Traveler and Prey" }, 
+            desc: { fr: "Le Venin (Venom) gagné en entrant sur le champ de bataille passe à 6. L'ignorance de DÉF du Passif Principal passe à 140 % de sa valeur initiale, et tous les membres de l'équipe ignorent 5 % de la RÉS Électrique de la cible. Les DGT de Corrode Bone ignorent 10 % de la RÉS Électrique de la cible.", en: "The Venom gained upon entering the battlefield increases to 6. The DEF ignore from the Core Passive increases to 140% of its original value, and all squad members ignore 5% of target's Electric RES. Corrode Bone DMG ignores 10% of target's Electric RES." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Faim et dures vérités", en: "Hunger and Hard Truths" }, 
+            desc: { fr: "Après qu'un Enchaînement : Gang Operation ou qu'un Ultime : Ophidiophobia touche un ennemi étourdi, gagne 3 Venins supplémentaires. L'Attaque de base : Serpent's Kiss inflige 35 % de DGT supplémentaires.", en: "After a Chain Attack: Gang Operation or Ultimate: Ophidiophobia hits a Stunned enemy, gain an additional 3 Venom. Basic Attack: Serpent's Kiss deals 35% increased DMG." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Résolution de voyou", en: "A Rogue's Resolve" }, 
+            desc: { fr: "Utiliser une Attaque Spéciale EX, un Enchaînement ou un Ultime octroie 1 cumul de Decidedness (max 3). L'Attaque de base : Serpent's Kiss consomme tous les cumuls. Chaque cumul déclenche 1 instance spéciale de Corrode Bone qui ne consomme pas de Venin et ne cause pas de Daze.", en: "When using an EX Special Attack, Chain Attack, or Ultimate, gain 1 stack of Decidedness (max 3). When using Basic Attack: Serpent's Kiss, consume all Decidedness. Each stack triggers 1 special instance of Corrode Bone that does not consume Venom and does not cause Daze." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Maison et Sixième Rue", en: "Home and Sixth Street" }, 
+            desc: { fr: "Chaque déclenchement de Corrode Bone octroie 1 cumul de Bone-Deep Corrosion. Lorsqu'une attaque de l'équipe (autre que Corrode Bone) touche un ennemi, consomme 1 cumul pour déclencher 1 Corrode Bone spécial. Cette instance ne peut pas infliger de Daze et consomme au maximum 1 cumul toutes les 3s.", en: "Each time Corrode Bone is triggered, gain 1 stack of Bone-Deep Corrosion. When squad attacks (other than Corrode Bone) hit an enemy, consume 1 stack to trigger 1 special Corrode Bone. This instance cannot inflict Daze, and at most 1 stack can be consumed every 3s." } 
+        }
+    ],
+    "Nangong Yu": [
+        { 
+            rank: "M1", 
+            title: { fr: "Projecteur paresseux", en: "Lazy Spotlight" }, 
+            desc: { fr: "Lorsque l'Attaque Spéciale EX : The Unbearable Weight of Love ou l'Attaque de base : Adorable Explosive Impact touche un ennemi, la RÉS globale de la cible diminue de 18 % pendant 40s (les déclenchements répétés réinitialisent la durée). En entrant en combat, son Downbeat est restauré au maximum (recharge 180s en Zone d'Investigation).", en: "When EX Special Attack: The Unbearable Weight of Love or Basic Attack: Adorable Explosive Impact hits an enemy, All-Attribute RES decreases by 18% for 40s (refreshes duration). Upon entering combat, Downbeat is restored to maximum (180s CD in Investigation Zone Mode)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Larmes indolores", en: "Painless Tears" }, 
+            desc: { fr: "Le ratio supplémentaire de DGT Abloom de Vibrato (Passif Principal) augmente de 10 %. Le multiplicateur de DGT d'Étourdissement de la Compétence Additionnelle augmente de 30 %. L'attaque lourde d'Enchaînement du personnage actif sur un ennemi étourdi et sous Anomalie d'Attribut déclenche Polarity Disorder (inflige 25 % des DGT originaux du Désordre, max 1 fois par période d'étourdissement).", en: "Vibrato's extra Abloom DMG ratio from Core Passive increases by 10%. Stun DMG Multiplier from Additional Ability increases by 30%. Active character's Chain heavy attack on a Stunned enemy with Attribute Anomaly triggers Polarity Disorder (deals 25% of original Disorder DMG, once per Stun period)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Pas de danse du complice", en: "Accomplice's Dance Step" }, 
+            desc: { fr: "La Maîtrise d'Anomalie augmente de 40. L'accumulation d'Anomalie de l'Attaque de base : Adorable Explosive Impact augmente de 35 % lorsqu'elle touche un ennemi.", en: "Anomaly Proficiency increases by 40. Anomaly Buildup of Basic Attack: Adorable Explosive Impact increases by 35% on hit." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "L'illusion d'un ange", en: "An Angel's Delusion" }, 
+            desc: { fr: "Les attaques de Nangong Yu infligent 50 % de Daze en plus. Hors étourdissement, infliger des DGT Abloom, de Désordre ou une Anomalie à un ennemi lui octroie 1 Vibrato: Modified. Les coups lourds de l'Attaque Spéciale EX ou de l'Attaque de base octroient 1 cumul, le coup lourd de l'Ultime en donne 2 (max 4 cumuls). Lorsqu'il est étourdi, les cumuls sont vidés. Si la cible est sous Anomalie (Éther, Feu, Physique, Glace ou Vent), cela déclenche une instance de DGT Abloom équivalant à 800%/400%/1 000%/70%/100%/40% des DGT d'Anomalie originaux. Chaque cumul augmente ce ratio de DGT Abloom de 25 %. Non cumulable avec Vibrato.", en: "Attacks deal 50% more Daze. When enemy is not Stunned, taking Abloom DMG, Disorder DMG, or Attribute Anomaly grants 1 Vibrato: Modified. Heavy hit of EX Special or Basic Attack grants 1 stack, Ultimate heavy hit grants 2 stacks (max 4). Cleared when enemy is Stunned. When cleared on an enemy under Anomaly (Ether, Fire, Physical, Ice, Wind), triggers Abloom DMG equal to 800%/400%/1,000%/70%/100%/40% of original Attribute Anomaly DMG. Each stack increases this Abloom ratio by 25%. Cannot stack with Vibrato." } 
+        }
+    ],
+    "Promeia": [
+        { 
+            rank: "M1", 
+            title: { fr: "Idéalisme innocent", en: "Innocent Idealism" }, 
+            desc: { fr: "Après avoir utilisé l'Ultime : Glaciating Impalement, si Trial by Cold n'est pas au maximum, gagne 1 point (1 fois par Ultime). Lorsque l'équipe déclenche Abloom sur des ennemis sous Presumption of Guilt, l'attaque ignore 20 % de DÉF supplémentaires.", en: "After using Ultimate: Glaciating Impalement, if Trial by Cold is not maxed, gain 1 point (once per Ultimate). Squad triggering Abloom on enemies with Presumption of Guilt ignores an additional 20% DEF." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Conviction vacillante", en: "Faltering Conviction" }, 
+            desc: { fr: "La Maîtrise d'Anomalie de Promeia augmente de 40. Le multiplicateur d'Abloom déclenché en consommant Trial by Cold augmente de 120 %.", en: "Anomaly Proficiency increases by 40. Abloom multiplier triggered by consuming Trial by Cold increases by 120%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Accusation impitoyable", en: "Ruthless Accusation" }, 
+            desc: { fr: "Déclencher Abloom restaure 5 Corrosive Chill (recharge 0,5s).", en: "Triggering Abloom restores 5 Corrosive Chill (0.5s CD)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "À suivre", en: "To Be Continued" }, 
+            desc: { fr: "Consommer Trial by Cold pour déclencher Abloom génère un effet Abloom spécial (inflige des DGT d'Anomalie de l'attribut correspondant avec un multiplicateur fixe de 200 %). Restaure 5 Corrosive Chill et 100 Décibels (recharge 15s). De plus, les DGT d'Anomalie d'Attribut et de Désordre infligés par Promeia ignorent 15 % de la RÉS globale des ennemis.", en: "Consuming Trial by Cold for Abloom triggers a special Abloom effect (deals Attribute Anomaly DMG with a fixed 200% multiplier). Restores 5 Corrosive Chill and 100 Decibels (15s CD). Attribute Anomaly and Disorder DMG dealt by Promeia ignore 15% of enemies' All-Attribute RES." } 
+        }
+    ],
+    "Starlight - Billy": [
+        { 
+            rank: "M1", 
+            title: { fr: "Entrée héroïque", en: "Heroic Entrance" }, 
+            desc: { fr: "Le Passif Principal : Knight's Resolve restaure 60 Adrénaline supplémentaires en entrant au combat. Toucher un ennemi avec l'Attaque Spéciale EX permet à Starlight - Billy d'ignorer 18 % de la RÉS Physique de la cible pendant 45s (les déclenchements répétés réinitialisent la durée).", en: "Core Passive: Knight's Resolve restores an extra 60 Adrenaline upon entering combat. Hitting an enemy with EX Special Attack causes DMG to ignore 18% Physical RES for 45s (repeated triggers refresh duration)." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Automate des Terres Désolées", en: "Wasteland Automaton" }, 
+            desc: { fr: "Augmente les DGT de l'Attaque de base : Full-Throttle Starlight, de l'EX Spécial : Cool Wheelie, et de l'Ultime de 50 %. Activer certaines Attaques EX ou frapper un ennemi étourdi avec l'Attaque Spéciale : Drive Suppression octroie l'effet Turbocharged. L'Attaque Spéciale : Drive Suppression consomme cet effet pour enchaîner avec l'EX Spécial : Cool Wheelie et augmente les DGT CRIT de cette instance de 50 % (max 1 cumul).", en: "DMG of Basic Attack: Full-Throttle Starlight, EX Special: Cool Wheelie, and Ultimate increased by 50%. Activating certain EX Specials or hitting Stunned enemies with Special Attack: Drive Suppression grants Turbocharged. Drive Suppression consumes it to instantly follow up with EX Special: Cool Wheelie, increasing its CRIT DMG by 50% (max 1 stack held)." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Flammes de la justice", en: "Flames of Justice" }, 
+            desc: { fr: "En combat, chaque utilisation de l'Attaque Spéciale : Drive Suppression augmente ses DGT CRIT de 8 % (max 2 cumuls, dure 45s). Si ses PV sont inférieurs à 35 % et qu'il n'est pas le personnage actif, il récupère continuellement des PV jusqu'à atteindre 35 %.", en: "In combat, each use of Special Attack: Drive Suppression increases CRIT DMG by 8% (max 2 stacks, lasts 45s). If HP is below 35% and he is not the active character, continuously recovers HP up to 35%." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Chevalier Starlight", en: "Starlight Knight" }, 
+            desc: { fr: "Les DGT Sheer de l'Ultime et de l'Attaque de base : Full-Throttle Starlight augmentent de 18 %. Réussir le 4e coup de l'Attaque de base, de l'EX Spécial : Cool Wheelie ou de l'Enchaînement octroie 1 cumul de Brilliant Starlight (max 6, 1 cumul par utilisation de compétence). L'Ultime ou l'Attaque de base : Full-Throttle Starlight consomment jusqu'à 2 cumuls : chaque cumul permet au dernier coup d'infliger 100 % de Force Sheer en DGT Physiques supplémentaires.", en: "Ultimate and Basic Attack: Full-Throttle Starlight Sheer DMG increases by 18%. 4th hit of Basic Attack, EX Special: Cool Wheelie, or Chain Attack grants 1 Brilliant Starlight stack (max 6, 1 stack per skill use). Ultimate or Basic Attack: Full-Throttle Starlight consumes up to 2 stacks, causing the final hit to deal 100% Sheer Force as additional Physical DMG per stack." } 
+        }
+    ],
+    "Velina": [
+        { 
+            rank: "M1", 
+            title: { fr: "Élégance ordonnée", en: "Orderly Elegance" }, 
+            desc: { fr: "Sweeping Cyclone (Compétence Additionnelle) inflige 20 % de Daze supplémentaires. Déclencher Vortex permet d'ignorer 20 % de la RÉS globale de la cible. Les DGT Windswept de l'équipe ignorent 20 % de la RÉS Vent de la cible.", en: "Sweeping Cyclone from Additional Ability deals an extra 20% Daze. Triggering Vortex ignores 20% of target's All-Attribute RES. Squad Windswept DMG ignores 20% of target's Wind RES." } 
+        },
+        { 
+            rank: "M2", 
+            title: { fr: "Projet de saturation", en: "Saturation Project" }, 
+            desc: { fr: "Déclencher Windswept octroie une chance de gagner 1 point de Windbite (recharge 5s). Après que Sweeping Cyclone déclenche l'effet Chromatic Tint, peut accumuler l'Anomalie correspondante (exclue des calculs de DGT d'Anomalie). Les effets d'augmentation de DGT de Windswept et Vortex de la Compétence Additionnelle augmentent de 15 % supplémentaires.", en: "Triggering Windswept can grant 1 point of Windbite (5s CD). After Sweeping Cyclone triggers Chromatic Tint, accumulates corresponding Anomaly Buildup (excluded from Anomaly DMG calc). Windswept and Vortex DMG increase effects from Additional Ability are further increased by 15%." } 
+        },
+        { 
+            rank: "M4", 
+            title: { fr: "Tribunal de la Tea Party", en: "Tea Party Tribunal" }, 
+            desc: { fr: "Utiliser une Attaque Spéciale EX augmente l'ATQ de Velina de 15 % pendant 40s (les déclenchements répétés réinitialisent la durée).", en: "Using an EX Special Attack increases ATK by 15% for 40s (repeated triggers reset duration)." } 
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Ange en chef", en: "Chief Angel" }, 
+            desc: { fr: "Consommer 2 points de Windbite pour augmenter le multiplicateur de DGT de Vortex octroie 1 point de Windbite (recharge 6s). Frapper un ennemi sous Anomalie Vent augmente l'accumulation d'Anomalie Vent de 20 %. Infliger Windswept à un ennemi déjà affecté augmente les DGT du nouveau Windswept en fonction de la durée restante du précédent (+2,5 % par seconde restante, max +40 %).", en: "Consuming 2 points of Windbite to increase Vortex DMG Multiplier grants 1 point of Windbite (6s CD). Hitting an enemy suffering Wind Anomaly increases Wind Anomaly Buildup by 20%. Inflicting Windswept on an already affected enemy increases the new Windswept's DMG based on remaining duration (+2.5% per remaining second, max 40% increase)." } 
+        }
+    ],
     "Sigrid": [
         { 
             rank: "M1", 
