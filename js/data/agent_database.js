@@ -652,9 +652,9 @@ export const agentDatabase = {
             { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Équipe Rupture", en: "Rupture Team" }, members: [ { img: "Lucia.png", color: "#f23c8a", initial: "L" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Équipe Anomalie", en: "Anomaly Team" }, members: [ { img: "Caesar.png", color: "#e8a838", initial: "C" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Team débutant", en: "Starter Team" }, members: [ { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Ben.png", color: "#f05432", initial: "B" } ] }
+             { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37]
+             { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
+             { name: "TEAM 03", tag: { fr: "Équipe Populaire", en: "Popular Team" }, videoId: "wov1Rrs2lkI", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Lucy.png", color: "#f05432", initial: "L" }, { img: "Piper.png", color: "#e8a838", initial: "P" } ] } //[cite: 35]
         ]
     },
     "Ben": {
