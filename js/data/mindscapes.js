@@ -1300,18 +1300,23 @@ export const mindscapesData = {
     "Sigrid": [
         { 
             rank: "M1", 
-            title: { fr: "Première Frappe", en: "First Strike" }, 
-            desc: { fr: "+25 % ATK en combat, progression accélérée des niveaux d'EBA et coup bonus de 100 % de DGT.", en: "+25% in-combat ATK, faster EBA stage progression, and a bonus strike dealing 100% DMG." } 
+            title: { fr: "Il y a très, très longtemps", en: "Long, Long Ago" }, //[cite: 34]
+            desc: { fr: "Lors de l'activation de la 3e phase de l'Attaque de base : Converging Spear, entre dans l'état Aerial Patrol Spear et gagne 1 activation supplémentaire de l'Attaque de base : Converging Spear. Lorsque les activations dépassent la limite d'activation stockée de l'Attaque de base : Converging Spear, le coup final de la prochaine Attaque de base : Converging Spear inflige 100 % de l'ATQ en DGT de Glace supplémentaires. L'ATQ de Sigrid augmente de 25 %.", en: "Upon activating the 3rd stage of Basic Attack: Converging Spear, enters the Aerial Patrol Spear and gains 1 additional activation of Basic Attack: Converging Spear. When activations exceed the stored Basic Attack: Converging Spear's activation limit, the next Basic Attack: Converging Spear's final hit deals an additional 100% of ATK as Ice DMG. Sigrid's ATK increases by 25%." } //[cite: 34]
         },
         { 
             rank: "M2", 
-            title: { fr: "Surcharge Tactique", en: "Tactical Overload" }, 
-            desc: { fr: "+10 % de décibels et gain de dégâts massif ; permet de caler un ultime additionnel par combat.", en: "+10% Decibels and massive damage amplification; enables an extra Ultimate per combat." } 
+            title: { fr: "Le premier acte de la légende", en: "Legend's First Act" }, //[cite: 34]
+            desc: { fr: "Le Taux de PÉN des attaques Unbridled Spear et de l'Attaque de base : Converging Spear augmente de 24 %. La durée d'Aerial Patrol Spear est prolongée de 2s. Le Taux de génération de Décibels de Sigrid augmente de 10 %.", en: "PEN Ratio of Unbridled Spear attacks and Basic Attack: Converging Spear increases by 24%. The duration of Aerial Patrol Spear is extended by 2s. Sigrid's Decibel Generation Rate increases by 10%." } //[cite: 34]
         },
         { 
             rank: "M4", 
-            title: { fr: "Maîtrise Aérienne", en: "Aerial Mastery" }, 
-            desc: { fr: "Bonus permanent de +80 % de dégâts.", en: "Permanent +80% damage bonus." } 
+            title: { fr: "Héros à l'entraînement", en: "Hero in Training" }, //[cite: 34]
+            desc: { fr: "Chaque fois qu'elle gagne Aerial Patrol Spear, les DGT infligés augmentent de 18 % pendant 8s. Les déclenchements répétés prolongent la durée de 8s, jusqu'à un maximum de 40s.", en: "Each time upon gaining Aerial Patrol Spear, DMG dealt increases by 18% for 8s. Repeated triggers extend the duration by 8s, up to a maximum of 40s." } //[cite: 34]
+        },
+        { 
+            rank: "M6", 
+            title: { fr: "Chevalier des cieux", en: "Knight of the Skies" }, //[cite: 34]
+            desc: { fr: "Lorsque le coup final de la 1re/2e/3e phase de l'Attaque de base : Converging Spear touche, il inflige 80 %/90 %/100 % de l'ATQ en DGT de Glace supplémentaires. Il n'y a plus de limite au nombre de fois que Sigrid peut entrer dans l'état Formation Breaker en frappant un ennemi étourdi avec l'Enchaînement : Encroaching Ice. L'Attaque de base : Converging Spear de l'état Formation Breaker s'activera plus rapidement.", en: "When Basic Attack: Converging Spear's 1st/2nd/3rd stage's final hit lands, it deals an additional 80%/90%/100% ATK as Ice DMG. There is no more limit on the number of times Sigrid can enter the Formation Breaker state upon hitting a Stunned enemy with Chain Attack: Encroaching Ice. Formation Breaker state's Basic Attack: Converging Spear will activate faster." } //[cite: 34]
         }
     ]
 };
