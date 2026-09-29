@@ -29,6 +29,9 @@
     left: 50%;
     z-index: 999999;
     width: 340px;
+    max-height: 90vh; /* <-- NOUVEAU : Limite la hauteur à 90% de l'écran */
+    display: flex; /* <-- NOUVEAU : Permet de gérer le défilement interne */
+    flex-direction: column; /* <-- NOUVEAU */
     background: rgba(15, 17, 21, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -118,10 +121,15 @@
     letter-spacing: -0.02em;
 }
 
-/* =========================================
-   CORPS DE L'INFOBULLE
-   ========================================= */
-.tt-body { padding: 16px; }
+.tt-body { 
+    padding: 16px; 
+    overflow-y: auto; /* <-- NOUVEAU : Active la barre de défilement si le texte dépasse */
+}
+
+/* NOUVEAU : Personnalisation discrète de la barre de scroll */
+.tt-body::-webkit-scrollbar { width: 4px; }
+.tt-body::-webkit-scrollbar-track { background: transparent; }
+.tt-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
 
 .tt-img-wrap {
     height: 130px;
@@ -129,6 +137,18 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 16px;
+    position: relative; /* <-- NOUVEAU : Indispensable pour centrer le halo */
+}
+
+/* NOUVEAU : Création du halo lumineux (le ::before passe derrière l'image) */
+.tt-img-wrap::before {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 65%);
+    border-radius: 50%;
+    z-index: -1;
 }
 
 .tt-img-wrap img {
