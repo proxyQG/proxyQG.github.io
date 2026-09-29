@@ -1,9 +1,32 @@
 /* css/tooltip.css */
 
+/* =========================================
+   OVERLAY SOMBRE (FOND)
+   ========================================= */
+#proxy-tooltip-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999998; /* Juste sous l'infobulle */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#proxy-tooltip-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================
+   INFOBULLE PRINCIPALE (MODALE PC)
+   ========================================= */
 #proxy-tooltip {
     position: fixed;
-    top: 50% !important;
-    left: 50% !important;
+    top: 50%;
+    left: 50%;
     z-index: 999999;
     width: 340px;
     background: rgba(15, 17, 21, 0.85);
@@ -16,6 +39,7 @@
     color: #e5e7eb;
     font-family: 'Inter', sans-serif;
 
+    /* Animation d'entrée */
     opacity: 0;
     visibility: hidden;
     transform: translate(-50%, -50%) scale(0.95);
@@ -23,17 +47,17 @@
                 transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0.25s;
     will-change: transform, opacity;
-    pointer-events: none;
 }
 
 #proxy-tooltip.visible {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
-    pointer-events: auto;
 }
 
-/* Alignement propre du titre et du bouton dans le header */
+/* =========================================
+   HEADER & CROIX DE FERMETURE
+   ========================================= */
 .tt-header {
     display: flex;
     align-items: center;
@@ -43,14 +67,11 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* =========================================
-   BOUTON DE FERMETURE (DESIGN PREMIUM ZZZ)
-   ========================================= */
 .tt-close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0; /* Empêche le bouton de s'écraser si le titre est long */
+    flex-shrink: 0;
     width: 32px;
     height: 32px;
     padding: 0;
@@ -73,9 +94,8 @@
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
-/* Animation de survol : Néon + Rotation */
 .tt-close-btn:hover {
-    background: rgba(215, 247, 12, 0.15); /* Fond légèrement jaune */
+    background: rgba(215, 247, 12, 0.15);
     border-color: #d7f70c;
     color: #d7f70c;
     box-shadow: 0 0 15px rgba(215, 247, 12, 0.4), inset 0 0 8px rgba(215, 247, 12, 0.2);
@@ -90,15 +110,6 @@
     transform: scale(0.9);
 }
 
-/* Affichage uniquement sur mobile */
-@media (max-width: 768px) {
-    .tt-close-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
 #tt-name {
     font-weight: 900;
     font-size: 1.1rem;
@@ -107,6 +118,9 @@
     letter-spacing: -0.02em;
 }
 
+/* =========================================
+   CORPS DE L'INFOBULLE
+   ========================================= */
 .tt-body { padding: 16px; }
 
 .tt-img-wrap {
@@ -204,29 +218,18 @@
 .tt-desc-box strong { color: #fff; font-weight: 700; }
 .tt-hl { color: #d7f70c; font-weight: 900; }
 
-/* Pont invisible autour de l'infobulle pour éviter les fermetures accidentelles */
-#proxy-tooltip::before {
-    content: "";
-    position: absolute;
-    inset: -25px; /* Ajuste cette valeur pour agrandir ou réduire la marge */
-    z-index: -1;
-}
-
 /* =========================================
    MODE MOBILE : Tiroir coulissant (Bottom Sheet)
    ========================================= */
 @media (max-width: 768px) {
     #proxy-tooltip {
-        /* Force le positionnement en bas, peu importe ce que dit le JS */
-        top: auto !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        
+        top: auto;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        max-height: 85vh; /* Empêche de dépasser de l'écran */
-        overflow-y: auto; /* Permet de scroller si le texte est très long */
+        max-height: 85vh; 
+        overflow-y: auto; 
         
-        /* Design du tiroir */
         border-radius: 24px 24px 0 0;
         border: none;
         border-top: 2px solid #d7f70c;
@@ -235,15 +238,16 @@
         -webkit-backdrop-filter: blur(15px);
         box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
         
-        /* Ajustement de l'animation d'entrée par le bas */
+        /* On remplace le centrage par une translation vers le bas */
         transform: translateY(100%);
     }
 
     #proxy-tooltip.visible {
+        /* On l'affiche en le remontant à 0 */
         transform: translateY(0);
     }
 
-    /* Optionnel : ajout d'une petite "poignée" visuelle en haut du tiroir */
+    /* Poignée pour indiquer le Swipe-to-close */
     #proxy-tooltip::before {
         content: "";
         display: block;
@@ -255,7 +259,6 @@
         position: static;
     }
 
-    /* Agrandit les boutons d'Overclock pour les gros doigts */
     .tt-oc-btn {
         padding: 10px 0;
         font-size: 0.9rem;
