@@ -468,9 +468,9 @@ export const agentDatabase = {
             { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Lighter.png", color: "#f05432", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 15, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, videoId: "FBYX_6MJVUM", startTime: 13, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Lighter.png", color: "#f05432", initial: "L" } ] }
         ]
     },
     "Trigger": {
