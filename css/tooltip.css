@@ -148,3 +148,53 @@
     inset: -25px; /* Ajuste cette valeur pour agrandir ou réduire la marge */
     z-index: -1;
 }
+
+/* =========================================
+   MODE MOBILE : Tiroir coulissant (Bottom Sheet)
+   ========================================= */
+@media (max-width: 768px) {
+    #proxy-tooltip {
+        /* Force le positionnement en bas, peu importe ce que dit le JS */
+        top: auto !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        
+        width: 100%;
+        max-height: 85vh; /* Empêche de dépasser de l'écran */
+        overflow-y: auto; /* Permet de scroller si le texte est très long */
+        
+        /* Design du tiroir */
+        border-radius: 24px 24px 0 0;
+        border: none;
+        border-top: 2px solid #d7f70c;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
+        
+        /* Ajustement de l'animation d'entrée par le bas */
+        transform: translateY(100%);
+    }
+
+    #proxy-tooltip.visible {
+        transform: translateY(0);
+    }
+
+    /* Optionnel : ajout d'une petite "poignée" visuelle en haut du tiroir */
+    #proxy-tooltip::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        margin: -4px auto 12px auto;
+        position: static;
+    }
+
+    /* Agrandit les boutons d'Overclock pour les gros doigts */
+    .tt-oc-btn {
+        padding: 10px 0;
+        font-size: 0.9rem;
+    }
+}
