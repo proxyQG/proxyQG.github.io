@@ -695,7 +695,7 @@ export const agentDatabase = {
     { 
         name: "TEAM 01", 
         tag: { fr: "Équipe Désordre", en: "Disorder Team" }, 
-        videoId: "W6GsmzM0B5g", 
+        videoId: "6v-yHGnX09U", 
         members: [ 
             { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, 
             { img: "Jane.webp", color: "#e8a838", initial: "J" }, 
@@ -705,7 +705,7 @@ export const agentDatabase = {
     { 
         name: "TEAM 02", 
         tag: { fr: "Équipe Électrique", en: "Shock Team" }, 
-        videoId: "f4QsmzM0B8a", 
+        videoId: "dqH4FKu5jTY", 
         members: [ 
             { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, 
             { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, 
@@ -715,7 +715,7 @@ export const agentDatabase = {
     { 
         name: "TEAM 03", 
         tag: { fr: "Équipe Shiyu", en: "Shiyu Team" }, 
-        videoId: "x1QsmzM0B9c", 
+        videoId: "raBGwwSefe4c", 
         members: [ 
             { img: "Claret.webp", color: "#3182eb", initial: "C" }, 
             { img: "Norma.webp", color: "#f05432", initial: "N" }, 
