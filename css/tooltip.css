@@ -75,12 +75,14 @@
 }
 
 /* Anneau halo néon tournant au survol */
+/* Anneau halo néon tournant au survol */
 .tt-close-btn::before {
     content: '';
     position: absolute;
     inset: -2px;
     border-radius: 50%;
     background: conic-gradient(from 0deg, transparent 0%, #ff3e3e 50%, transparent 100%);
+    display: none; /* ← AJOUT : Masque le rendu GPU au chargement */
     opacity: 0;
     z-index: 0;
     transition: opacity 0.25s ease;
@@ -125,6 +127,7 @@
 
 .tt-close-btn:hover::before,
 .tt-close-btn:active::before {
+    display: block; /* ← AJOUT : Rends le halo visible au clic/survol */
     opacity: 1;
     animation-play-state: running;
 }
