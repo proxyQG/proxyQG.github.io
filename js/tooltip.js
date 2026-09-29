@@ -3,7 +3,6 @@
     let currentEngineKey = null;
     let hoverTimeout = null;
     
-    // Initialisation
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
         
@@ -33,7 +32,6 @@
         bindEvents();
     }
 
-    // Parser de texte (transforme les [] en fluo et {} en gras)
     function parseText(text) {
         if (!text) return "";
         return text
@@ -41,20 +39,21 @@
             .replace(/\{(.*?)\}/g, '<strong>$1</strong>');
     }
 
+    function hideTooltip() {
+        if (tooltipEl) tooltipEl.classList.remove('visible');
+        currentEngineKey = null;
+    }
+
     function populateTooltip(engineKey, tier = 0) {
         const data = W_ENGINES_DB[engineKey];
-        // SI LE MOTEUR N'EXISTE PAS DANS LA BDD, ON ARRÊTE TOUT ET ON RENVOIE FALSE
         if (!data) return false; 
 
         const lang = document.documentElement.lang || 'fr';
         const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
         const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
         
-        // Mise à jour de l'UI si on change de moteur
         if (currentEngineKey !== engineKey) {
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
-            
-            // Correction du chemin de l'image
             document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
             
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
@@ -65,17 +64,14 @@
             document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
             document.getElementById('tt-stat-base').textContent = data.stats.base;
             
-            // Sécurité si advancedLabel n'a pas été défini dans les deux langues
             const advLbl = data.stats.advancedLabel[lang] || data.stats.advancedLabel.en || data.stats.advancedLabel;
             document.getElementById('tt-stat-adv-lbl').textContent = advLbl;
             document.getElementById('tt-stat-adv').textContent = data.stats.advanced;
-            
             document.getElementById('tt-passive-title').textContent = data.passiveName[lang] || data.passiveName.en;
             
             currentEngineKey = engineKey;
         }
 
-        // Mise à jour uniquement du texte du passif et des boutons
         let passiveRaw = "";
         if (data.overclocks && data.overclocks[tier]) {
             passiveRaw = data.overclocks[tier][lang] || data.overclocks[tier].en || "";
@@ -86,15 +82,20 @@
             btn.classList.toggle('active', parseInt(btn.dataset.tier) === tier);
         });
         
-        return true; // TOUT S'EST BIEN PASSÉ
+        return true; 
     }
 
     function positionTooltip(target) {
+        // Sécurité si l'élément HTML ciblé est supprimé du site
+        if (!document.body.contains(target)) {
+            hideTooltip();
+            return;
+        }
+
         const rect = target.getBoundingClientRect();
         const ttWidth = 340; 
         const gap = 15;
 
-        // Logique anti-débordement
         let left = rect.right + gap;
         if (left + ttWidth > window.innerWidth) left = rect.left - ttWidth - gap;
         
@@ -111,12 +112,10 @@
             const trigger = e.target.closest('[data-engine]');
             const isTooltip = e.target.closest('#proxy-tooltip');
 
-            // 1. Si la souris est sur le moteur OU sur l'infobulle, on annule la fermeture
             if (trigger || isTooltip) {
                 clearTimeout(hoverTimeout);
             }
 
-            // 2. Si on survole un nouveau moteur, on met à jour les données
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
@@ -129,12 +128,9 @@
         document.addEventListener('mouseout', e => {
             const trigger = e.target.closest('[data-engine], #proxy-tooltip');
             
-            // Si on quitte le moteur ou l'infobulle ET qu'on ne va pas vers l'un des deux...
             if (trigger && !e.relatedTarget?.closest('[data-engine], #proxy-tooltip')) {
-                // On attend 250ms avant de fermer, pour laisser le temps de bouger la souris
                 hoverTimeout = setTimeout(() => {
-                    tooltipEl.classList.remove('visible');
-                    currentEngineKey = null; 
+                    hideTooltip();
                 }, 250); 
             }
         });
@@ -154,9 +150,37 @@
                     tooltipEl.classList.add('visible');
                 }
             } else if (!e.target.closest('#proxy-tooltip')) {
-                tooltipEl.classList.remove('visible');
+                hideTooltip();
             }
         }, { passive: true });
+
+        // --- SÉCURITÉS ANTI-BUG FANTÔME ---
+        
+        // 1. Fermeture via la touche Echap
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') hideTooltip();
+        });
+
+        // 2. Fermeture si on clique n'importe où en dehors
+        document.addEventListener('click', e => {
+            if (!e.target.closest('#proxy-tooltip') && !e.target.closest('[data-engine]')) {
+                hideTooltip();
+            }
+        });
+
+        // 3. Fermeture automatique si la page de l'agent se ferme
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.target.id === 'agentDetailModal' && mutation.target.classList.contains('hidden')) {
+                    hideTooltip();
+                }
+            });
+        });
+        
+        setTimeout(() => {
+            const modal = document.getElementById('agentDetailModal');
+            if (modal) observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+        }, 1000);
     }
 
     window.addEventListener('DOMContentLoaded', init);
