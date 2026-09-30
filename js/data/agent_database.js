@@ -194,16 +194,6 @@ export const agentDatabase = {
         ]
     },
     "Nangong Yu": {
-        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: "Angels of Delusion",
-        stats: [ { label: "Adre. d'anomalie", value: "350+" }, { label: "Maî. d'Anomalie", value: "150+" }, { label: "Attaque", value: "2800+" } ],
-        discs: [
-            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Phaethon_Melody", set2: "Freedom_Blues", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", note: { fr: "Set idéal.", en: "Ideal set." } },
-            { tag: { fr: "Alternatives", en: "Alternatives" }, set1: "Shining_Aria", set2: "Swing_Jazz", set1Name: "2pc Shining Aria", set2Name: "+ 2pc Swing Jazz", note: "" }
-        ],
-        skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
-        ],
-        "Nangong Yu": {
         color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
         stats: [ 
             { label: "Adre. d'anomalie", value: "280 - 350+" }, 
