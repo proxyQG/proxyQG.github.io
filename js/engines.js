@@ -995,7 +995,7 @@ const W_ENGINES_DB = {
             }
         ]
     },
-    "Vortex Arrow": {
+    "Vortex - Arrow": {
         name: { fr: "Flèche Vortex", en: "Vortex Arrow" },
         rank: "B",
         specialty: "Stun",
