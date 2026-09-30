@@ -134,7 +134,18 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "DÉF %" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DÉF %", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Crimson Thirst", img: "W-Engine_Crimson_Thirst.png" }, { tag: "Alt F2P (80.55%)", name: "Catty Luck", img: "W-Engine_Catty_Luck.png" }, { tag: "Alt (77.48%)", name: "Bloodmarrow Coffer", img: "W-Engine_Bloodmarrow_Coffer.png" }
         ],
@@ -409,7 +420,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Attaque" }, { slot: "5", label: "Attaque" }, { slot: "4", label: "Anomalie" } ], sub: [ { label: "Attaque", highlight: true }, { label: "Anomalie", highlight: false }, { label: "Flat PEN / Flat ATK", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Ode of Resurrected Wings", img: "W-Engine_Ode_of_Resurrected_Wings.png" }, { tag: "Alt F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alt Anomalie", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }
         ],
@@ -430,7 +452,18 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Énergie Regen" }, { slot: "5", label: "Wind DMG %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "ATK %", highlight: false }, { label: "Flat PEN = Flat ATK", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Vent %", en: "Wind DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PÉN = Flat ATQ", en: "Flat PEN = Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Joyau Dore", img: "W-Engine_Joyau_Dore.png" }, { tag: "Alt 5★ (90.88%)", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Alt 4★ (87.16%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }
         ],
@@ -1052,16 +1085,16 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio" },
-                { slot: "4", label: "DGT CRIT / ATK %" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "DGT CRIT / ATQ %", en: "CRIT DMG / ATK %" } }
             ],
             sub: [
-                { label: "Taux CRIT (6 rolls max)", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "DGT CRIT", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (6 rolls max)", en: "CRIT Rate (6 rolls max)" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -2391,15 +2424,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "Taux de PÉN % > ATK % > DGT Glace %" }, 
-                { slot: "4", label: "Adresse d'Anomalie" } 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > ATQ % > DGT Glace %", en: "PEN Ratio % > ATK % > Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
             ], 
             sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PÉN fixe", highlight: false }, 
-                { label: "ATK fixe", highlight: false } 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2448,14 +2481,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "DGT Physique % > HP %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT = HP %" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Physique % > PV %", en: "Physical DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT = DGT CRIT = HP %", highlight: true }, 
-                { label: "Flat HP", highlight: true }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2500,15 +2533,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie = Impact %" }, 
-                { slot: "5", label: "DGT Feu % > PEN Ratio % > ATK %" }, 
-                { slot: "4", label: "Taux CRIT" } 
+                { slot: "6", label: { fr: "Réc. d'énergie = Impact %", en: "Energy Regen = Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > Taux de PÉN % > ATQ %", en: "Fire DMG % > PEN Ratio % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100% en combat)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "Flat PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2557,15 +2590,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Éther %" }, 
-                { slot: "4", label: "Taux CRIT > DGT CRIT" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Éther %", en: "PEN Ratio % > Ether DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT > DGT CRIT", en: "CRIT Rate > CRIT DMG" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100% en combat)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "Flat PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
