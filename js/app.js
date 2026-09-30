@@ -451,7 +451,7 @@ function createCardHTML(agent) {
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
 
     return `
-    <div class="agent-card-container hidden flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
+    <div class="agent-card-container hidden flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onmouseenter="window.preloadSplash('${agent.name.replace(/'/g, "\\'")}')" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 <img src="assets/Agents/${agent.name}.webp" loading="lazy" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
@@ -468,6 +468,21 @@ function createCardHTML(agent) {
 // ==========================================
 // 9. MODALES ET NAVIGATION
 // ==========================================
+
+// --- NOUVEAU : Cache pour éviter de télécharger l'image plusieurs fois ---
+const preloadedSplashes = new Set();
+
+window.preloadSplash = function(agentName) {
+    // Si l'image a déjà été préchargée, on s'arrête
+    if (preloadedSplashes.has(agentName)) return;
+    
+    // Sinon, on la note comme chargée et on lance le téléchargement en arrière-plan
+    preloadedSplashes.add(agentName);
+    const img = new Image();
+    img.src = `assets/splash/${agentName}.webp`;
+};
+// -------------------------------------------------------------------------
+
 window.openModal = function(id) {
     const m = document.getElementById(id);
     if (!m) return;
