@@ -791,6 +791,347 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "The Brimstone": {
+        name: { fr: "Le Soufre", en: "The Brimstone" },
+        rank: "S",
+        specialty: "Attack",
+        img: "W-Engine_The_Brimstone.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Souffle brûlant", en: "Scorching Breath" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'une {Attaque de base}, une {Attaque bondissante} ou un {Contre d'esquive} touche un ennemi, l'ATQ de l'équipementier augmente de [3,5 %] pendant 8s, cumulable jusqu'à 8 fois. Cet effet peut se déclencher une fois toutes les 0,5s. La durée de chaque cumul est calculée séparément.", 
+                en: "Upon hitting an enemy with a {Basic Attack}, {Dash Attack}, or {Dodge Counter}, the equipper's ATK increases by [3.5%] for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base}, une {Attaque bondissante} ou un {Contre d'esquive} touche un ennemi, l'ATQ de l'équipementier augmente de [4,4 %] pendant 8s, cumulable jusqu'à 8 fois. Cet effet peut se déclencher une fois toutes les 0,5s. La durée de chaque cumul est calculée séparément.", 
+                en: "Upon hitting an enemy with a {Basic Attack}, {Dash Attack}, or {Dodge Counter}, the equipper's ATK increases by [4.4%] for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base}, une {Attaque bondissante} ou un {Contre d'esquive} touche un ennemi, l'ATQ de l'équipementier augmente de [5,2 %] pendant 8s, cumulable jusqu'à 8 fois. Cet effet peut se déclencher une fois toutes les 0,5s. La durée de chaque cumul est calculée séparément.", 
+                en: "Upon hitting an enemy with a {Basic Attack}, {Dash Attack}, or {Dodge Counter}, the equipper's ATK increases by [5.2%] for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base}, une {Attaque bondissante} ou un {Contre d'esquive} touche un ennemi, l'ATQ de l'équipementier augmente de [6 %] pendant 8s, cumulable jusqu'à 8 fois. Cet effet peut se déclencher une fois toutes les 0,5s. La durée de chaque cumul est calculée séparément.", 
+                en: "Upon hitting an enemy with a {Basic Attack}, {Dash Attack}, or {Dodge Counter}, the equipper's ATK increases by [6%] for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base}, une {Attaque bondissante} ou un {Contre d'esquive} touche un ennemi, l'ATQ de l'équipementier augmente de [7 %] pendant 8s, cumulable jusqu'à 8 fois. Cet effet peut se déclencher une fois toutes les 0,5s. La durée de chaque cumul est calculée séparément.", 
+                en: "Upon hitting an enemy with a {Basic Attack}, {Dash Attack}, or {Dodge Counter}, the equipper's ATK increases by [7%] for 8s, stacking up to 8 times. This effect can trigger once every 0.5s. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Starlight Engine": {
+        name: { fr: "Moteur Starlight", en: "Starlight Engine" },
+        rank: "A",
+        specialty: "Attack",
+        img: "W-Engine_Starlight_Engine.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Combo de chevalier", en: "Knight's Combo" },
+        overclocks: [
+            { 
+                fr: "Lancer un {Contre d'esquive} ou une {Assistance rapide} augmente l'ATQ de l'équipementier de [12 %] pendant 12s.", 
+                en: "Launching a {Dodge Counter} or {Quick Assist} increases the equipper's ATK by [12%] for 12s." 
+            },
+            { 
+                fr: "Lancer un {Contre d'esquive} ou une {Assistance rapide} augmente l'ATQ de l'équipementier de [13,8 %] pendant 12s.", 
+                en: "Launching a {Dodge Counter} or {Quick Assist} increases the equipper's ATK by [13.8%] for 12s." 
+            },
+            { 
+                fr: "Lancer un {Contre d'esquive} ou une {Assistance rapide} augmente l'ATQ de l'équipementier de [15,6 %] pendant 12s.", 
+                en: "Launching a {Dodge Counter} or {Quick Assist} increases the equipper's ATK by [15.6%] for 12s." 
+            },
+            { 
+                fr: "Lancer un {Contre d'esquive} ou une {Assistance rapide} augmente l'ATQ de l'équipementier de [17,4 %] pendant 12s.", 
+                en: "Launching a {Dodge Counter} or {Quick Assist} increases the equipper's ATK by [17.4%] for 12s." 
+            },
+            { 
+                fr: "Lancer un {Contre d'esquive} ou une {Assistance rapide} augmente l'ATQ de l'équipementier de [19,2 %] pendant 12s.", 
+                en: "Launching a {Dodge Counter} or {Quick Assist} increases the equipper's ATK by [19.2%] for 12s." 
+            }
+        ]
+    },
+    "Spring Embrace": {
+        name: { fr: "Étreinte printanière", en: "Spring Embrace" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Spring_Embrace.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Soupe de source thermale", en: "Hot Spring Soup" },
+        overclocks: [
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [10 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [10%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [11,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [11.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [13 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [13%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [14,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [14.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [16 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [16%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+            }
+        ]
+    },
+    "Original Transmorpher": {
+        name: { fr: "Transmorpheur original", en: "Original Transmorpher" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Original_Transmorpher.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "PV %", en: "HP %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Coup de pied volant du Chevalier Starlight", en: "Starlight Knight Flying Kick" },
+        overclocks: [
+            { 
+                fr: "Augmente les PV max de [8 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [10 %] pendant 12s.", 
+                en: "Increases Max HP by [8%]. When attacked, the equipper's {Impact} is increased by [10%] for 12s." 
+            },
+            { 
+                fr: "Augmente les PV max de [9,2 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [11,5 %] pendant 12s.", 
+                en: "Increases Max HP by [9.2%]. When attacked, the equipper's {Impact} is increased by [11.5%] for 12s." 
+            },
+            { 
+                fr: "Augmente les PV max de [10,4 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [13 %] pendant 12s.", 
+                en: "Increases Max HP by [10.4%]. When attacked, the equipper's {Impact} is increased by [13%] for 12s." 
+            },
+            { 
+                fr: "Augmente les PV max de [11,6 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [14,5 %] pendant 12s.", 
+                en: "Increases Max HP by [11.6%]. When attacked, the equipper's {Impact} is increased by [14.5%] for 12s." 
+            },
+            { 
+                fr: "Augmente les PV max de [12,8 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [16 %] pendant 12s.", 
+                en: "Increases Max HP by [12.8%]. When attacked, the equipper's {Impact} is increased by [16%] for 12s." 
+            }
+        ]
+    },
+    "Big Cylinder": {
+        name: { fr: "Gros Cylindre", en: "Big Cylinder" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Big_Cylinder.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "DÉF %", en: "DEF %" }, 
+            advanced: "16% - 40%" 
+        },
+        passiveName: { fr: "Dix Top Dix", en: "Ten Top Ten" },
+        overclocks: [
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [600 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [600%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [690 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [690%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [780 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [780%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [870 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [870%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+            },
+            { 
+                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [960 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [960%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+            }
+        ]
+    },
+    "Identity Base": {
+        name: { fr: "Base Identité", en: "Identity Base" },
+        rank: "B",
+        specialty: "Defense",
+        img: "W-Engine_Identity_Base.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "DÉF %", en: "DEF %" }, 
+            advanced: "12.8% - 32%" 
+        },
+        passiveName: { fr: "Frappe naufrageuse", en: "Sinking Strike" },
+        overclocks: [
+            { 
+                fr: "En subissant une attaque, la DÉF de l'équipementier augmente de [20 %] pendant 8s.", 
+                en: "When attacked, equipper's DEF increases by [20%] for 8s." 
+            },
+            { 
+                fr: "En subissant une attaque, la DÉF de l'équipementier augmente de [23 %] pendant 8s.", 
+                en: "When attacked, equipper's DEF increases by [23%] for 8s." 
+            },
+            { 
+                fr: "En subissant une attaque, la DÉF de l'équipementier augmente de [26 %] pendant 8s.", 
+                en: "When attacked, equipper's DEF increases by [26%] for 8s." 
+            },
+            { 
+                fr: "En subissant une attaque, la DÉF de l'équipementier augmente de [29 %] pendant 8s.", 
+                en: "When attacked, equipper's DEF increases by [29%] for 8s." 
+            },
+            { 
+                fr: "En subissant une attaque, la DÉF de l'équipementier augmente de [32 %] pendant 8s.", 
+                en: "When attacked, equipper's DEF increases by [32%] for 8s." 
+            }
+        ]
+    },
+    "Vortex Arrow": {
+        name: { fr: "Flèche Vortex", en: "Vortex Arrow" },
+        rank: "B",
+        specialty: "Stun",
+        img: "W-Engine_Vortex_Arrow.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "Impact %", en: "Impact %" }, 
+            advanced: "4.8% - 12%" 
+        },
+        passiveName: { fr: "Tsunami", en: "Tsunami" },
+        overclocks: [
+            { 
+                fr: "Les attaques de l'équipementier infligent [8 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [8%] more {Daze} on their main target." 
+            },
+            { 
+                fr: "Les attaques de l'équipementier infligent [9,2 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [9.2%] more {Daze} on their main target." 
+            },
+            { 
+                fr: "Les attaques de l'équipementier infligent [10,4 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [10.4%] more {Daze} on their main target." 
+            },
+            { 
+                fr: "Les attaques de l'équipementier infligent [11,6 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [11.6%] more {Daze} on their main target." 
+            },
+            { 
+                fr: "Les attaques de l'équipementier infligent [12,8 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [12.8%] more {Daze} on their main target." 
+            }
+        ]
+    },
+    "Housekeeper": {
+        name: { fr: "Gouvernante", en: "Housekeeper" },
+        rank: "A",
+        specialty: "Attack",
+        img: "W-Engine_Housekeeper.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Scie domestique sécurisée", en: "Safe Household Saw" },
+        overclocks: [
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,45]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [3 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.45]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [3%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,52]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [3,5 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.52]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [3.5%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,59]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [3,9 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.59]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [3.9%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,65]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [4,4 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.65]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [4.4%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,72]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [4,8 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.72]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [4.8%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+            }
+        ]
+    },
+    "Steel Cushion": {
+        name: { fr: "Coussin d'acier", en: "Steel Cushion" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Physical",
+        img: "W-Engine_Steel_Cushion.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Griffes de chat en métal", en: "Metal Cat Claws" },
+        overclocks: [
+            { 
+                fr: "Augmente les {DGT Physiques} de [20 %]. Les DGT de l'équipementier augmentent de [25 %] lorsqu'il attaque l'ennemi par-derrière.", 
+                en: "Increases {Physical DMG} by [20%]. The equipper's DMG increases by [25%] when attacking the enemy from behind." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de [25 %]. Les DGT de l'équipementier augmentent de [31,5 %] lorsqu'il attaque l'ennemi par-derrière.", 
+                en: "Increases {Physical DMG} by [25%]. The equipper's DMG increases by [31.5%] when attacking the enemy from behind." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de [30 %]. Les DGT de l'équipementier augmentent de [37,5 %] lorsqu'il attaque l'ennemi par-derrière.", 
+                en: "Increases {Physical DMG} by [30%]. The equipper's DMG increases by [37.5%] when attacking the enemy from behind." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de [35 %]. Les DGT de l'équipementier augmentent de [44 %] lorsqu'il attaque l'ennemi par-derrière.", 
+                en: "Increases {Physical DMG} by [35%]. The equipper's DMG increases by [44%] when attacking the enemy from behind." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de [40 %]. Les DGT de l'équipementier augmentent de [50 %] lorsqu'il attaque l'ennemi par-derrière.", 
+                en: "Increases {Physical DMG} by [40%]. The equipper's DMG increases by [50%] when attacking the enemy from behind." 
+            }
+        ]
+    },
+    "Cannon Rotor": {
+        name: { fr: "Rotor canon", en: "Cannon Rotor" },
+        rank: "A",
+        specialty: "Attack",
+        img: "W-Engine_Cannon_Rotor.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "8% - 20%" 
+        },
+        passiveName: { fr: "Canon surdimensionné", en: "Oversized Barrel" },
+        overclocks: [
+            { 
+                fr: "Augmente l'ATQ de [7,5 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [200 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                en: "Increases ATK by [7.5%]. Landing a critical hit on an enemy will inflict an additional [200%] of ATK as DMG. This effect can trigger once every 8s." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [8,6 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [230 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                en: "Increases ATK by [8.6%]. Landing a critical hit on an enemy will inflict an additional [230%] of ATK as DMG. This effect can trigger once every 8s." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [9,7 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [260 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                en: "Increases ATK by [9.7%]. Landing a critical hit on an enemy will inflict an additional [260%] of ATK as DMG. This effect can trigger once every 8s." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [10,9 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [290 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                en: "Increases ATK by [10.9%]. Landing a critical hit on an enemy will inflict an additional [290%] of ATK as DMG. This effect can trigger once every 8s." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [12 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [320 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                en: "Increases ATK by [12%]. Landing a critical hit on an enemy will inflict an additional [320%] of ATK as DMG. This effect can trigger once every 8s." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
