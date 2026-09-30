@@ -442,7 +442,19 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact" }, { slot: "5", label: "Ice DMG" }, { slot: "4", label: "Crit Rate / DMG" } ], sub: [ { label: "Crit Rate", highlight: true }, { label: "Crit DMG", highlight: false }, { label: "ATK %", highlight: false }, { label: "PEN", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Glace", en: "Ice DMG" } }, 
+                { slot: "4", label: { fr: "Taux / DGT CRIT", en: "CRIT Rate / DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Moteur A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Moteur A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }, { tag: "Moteur B", name: "Vortex - Arrow", img: "Vortex_Arrow.png" }
         ],
@@ -691,7 +703,18 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Chain", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energy Regen ou Impact" }, { slot: "5", label: "DÉF %" }, { slot: "4", label: "DÉF %" } ], sub: [ { label: "DÉF %", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+       statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie ou Impact", en: "Energy Regen or Impact" } }, 
+                { slot: "5", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "4", label: { fr: "DÉF %", en: "DEF %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: true }, 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" }, { tag: "Alternative 4★", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }, { tag: "Alternative 4★", name: "Big Cylinder", img: "W-Engine_Big_Cylinder.png" }, { tag: "Alternative B", name: "Identity Base", img: "Identity_Base.png" }
         ],
@@ -940,16 +963,16 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Fire DMG%" },
-                { slot: "4", label: "Crit Rate% / ATK% / Crit DMG%" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Feu %", en: "PEN Ratio % / ATK % / Fire DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / ATQ % / DGT CRIT %", en: "CRIT Rate % / ATK % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Anomaly Proficiency", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -1086,15 +1109,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "Electric DMG %" },
-                { slot: "4", label: "Crit Rate % / Crit DMG %" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
