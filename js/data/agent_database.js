@@ -411,24 +411,62 @@ export const agentDatabase = {
         ]
     },
     "Banyue": {
-        color: "#f05432", element: "Fire", rank: "S", factionTitle: "Autorité de conformité Krampus",
-        stats: [ { label: "DGT CRIT", value: "≥ 160 %" }, { label: "Taux Crit", value: "≥ 60 %" }, { label: "Force transperçante", value: "≥ 2400" } ],
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { label: "Sheer Force", value: "2200+" }, 
+            { label: "HP", value: "18 000+" }, 
+            { label: "Taux Crit", value: "90 - 100 %", note: { fr: "En combat (Disques et Arme inclus)", en: "In combat (incl. Discs & Weapon)" } } 
+        ],
         discs: [
-            { tag: { fr: "Stun Build 👑", en: "Stun Build 👑" }, set1: "Woodpecker_Electro", set2: "Hormone_Punk", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Hormone Punk", note: "" },
-            { tag: "Set 2", set1: "Inferno_Metal", set2: "Woodpecker_Electro", set1Name: "4pc Inferno Metal", set2Name: "+ 2pc Woodpecker Electro", note: "" },
-            { tag: "Set 3", set1: "Inferno_Metal", set2: "Hormone_Punk", set1Name: "4pc Inferno Metal", set2Name: "+ 2pc Hormone Punk", note: "" }
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "La meilleure (et seule) option à considérer. Fournit des PV%, un effet cumulable de Taux CRIT (jusqu'à 12%), et augmente les DGT Sheer de 10% au maximum de cumuls.", 
+                    en: "The best (and frankly only) option that should be considered on Banyue. Provides HP%, a stackable CRIT Rate up effect, and increases Sheer DMG by 10% at max stacks." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative DGT CRIT", en: "CRIT DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { 
+                    fr: "Excellente alternative pour accompagner le 4-pièces si vous avez besoin de plus de DGT CRIT.", 
+                    en: "Excellent alternative to pair with the 4-piece if you need more CRIT DMG." 
+                } 
+            }
         ],
         skills: [
-            { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+            { name: "Chain", level: "12", icon: "Ultime.png" }, 
+            { name: "Ex", level: "11", icon: "Ex.png" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "8", icon: "Assist.png" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "HP" }, { slot: "5", label: "DMG / HP" }, { slot: "4", label: "TC / DC" } ], sub: [ { label: "TC / DC", highlight: true }, { label: "HP %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT % > Taux CRIT %", en: "CRIT DMG % > CRIT Rate %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false } 
+            ] 
+        },
         engines: [
-            { tag: "Moteur S", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }
+            { tag: "Signature (100%)", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, 
+            { tag: "Alternative S (86.22%)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, 
+            { tag: "Meilleur A-Rank (83.63%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.png" }, 
+            { tag: "Alternative A (82.62%)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" } ] },
-            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" } ] }
         ]
     },
     "Nicole": {
@@ -1972,15 +2010,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "DGT Feu % > HP %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "HP %", highlight: true }, 
-                { label: "Flat HP", highlight: false }, 
-                { label: "ATK %", highlight: false } 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2023,14 +2061,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "HP %" }, 
-                { slot: "4", label: "HP %" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
             ], 
             sub: [ 
-                { label: "HP %", highlight: true }, 
-                { label: "Flat HP", highlight: true }, 
-                { label: "Taux CRIT (≥ DGT CRIT)", highlight: false } 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" }, highlight: false } 
             ] 
         },
         engines: [
