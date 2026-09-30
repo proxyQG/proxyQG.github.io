@@ -773,50 +773,83 @@ export const agentDatabase = {
 ]
     },
     "Roxy": {
-        color: "#3bbedb", element: "Wind", rank: "S", factionTitle: { fr: "Atelier Flint", en: "Flint Workshop" },
-        stats: [
-            { label: "Taux Crit", value: "60 - 90%" },
-            { label: "Récup. d'énergie", value: "3.12" },
-            { label: "Attaque", value: "1800" }
-        ],
-        discs: [
-            { tag: { fr: "Team Armurier 👑", en: "Armorer Team 👑" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: { fr: "Optimisé pour Claret. Le bonus d'équipe se maintient via les assistances ou en encaissant volontairement un coup avant la phase d'étourdissement.", en: "Tailored for Claret. The squad buff is maintained via Quick Assists or taking a deliberate hit prior to stun phase." } },
-            { tag: { fr: "Team Attaque / Rupture", en: "Attack / Rupture Team" }, set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "Convertit son Taux CRIT très élevé en puissants buffs d'équipe pour vos attaquants (Sigrid, Orphie).", en: "Converts her extremely high CRIT Rate into massive team buffs for your main attackers (Sigrid, Orphie)." } },
-            { tag: { fr: "Alternative Énergie", en: "Energy Alternative" }, set1: "Astral_Voice", set2: "Moonlight_Lullaby", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Alternative identique à Swing Jazz pour alimenter ses longs EX Spéciaux très coûteux.", en: "Identical alternative to Swing Jazz to fuel her lengthy and costly EX Specials." } }
-        ],
-        skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
-            { name: "Ex", level: "12", icon: "Ex.png" },
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Assist", level: "12", icon: "Assist.png" },
-            { name: "Basic", level: "1", icon: "Attaque_basic.png" },
-            { name: "Dodge", level: "1", icon: "Esquive.png" }
-        ],
-        statPriority: {
-            main: [
-                { slot: "6", label: "Energy Regeneration" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Wind DMG%" },
-                { slot: "4", label: "Crit Rate" }
-            ],
-            sub: [
-                { label: "Crit Rate (100% en combat)", highlight: true },
-                { label: "Crit DMG = ATK %", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
-            ]
+    color: "#3bbedb",
+    element: "Wind",
+    rank: "S",
+    factionTitle: { fr: "Atelier Flint", en: "Flint Workshop" },
+    stats: [
+        { label: { fr: "Taux CRIT", en: "CRIT Rate" }, value: "60 - 90%" },
+        { label: { fr: "Récup. d'énergie", en: "Energy Regen" }, value: "3.12" },
+        { label: { fr: "Attaque", en: "ATK" }, value: "1800" }
+    ],
+    discs: [
+        { 
+            tag: { fr: "Team Armurier 👑", en: "Armorer Team 👑" }, 
+            set1: "Astral_Voice", 
+            set2: "Swing_Jazz", 
+            set1Name: "4pc Astral Voice", 
+            set2Name: "+ 2pc Swing Jazz", 
+            note: { 
+                fr: "Optimisé pour Claret. Le bonus d'équipe se maintient via les assistances rapides ou en encaissant volontairement un coup avant la phase d'étourdissement.", 
+                en: "Tailored for Claret. The squad buff is maintained via Quick Assists or taking a deliberate hit prior to stun phase." 
+            } 
         },
-        engines: [
-            { tag: "Signature 5★", name: "Crimson Moon Casket", img: "W-Engine_Crimson_Moon_Casket.png" },
-            { tag: "Alternative 4★ F2P", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" },
-            { tag: "Alternative 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" },
-            { tag: "Alternative 4★", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
+        { 
+            tag: { fr: "Team Attaque / Rupture", en: "Attack / Rupture Team" }, 
+            set1: "King_of_the_Summit", 
+            set2: "Swing_Jazz", 
+            set1Name: "4pc King of the Summit", 
+            set2Name: "+ 2pc Swing Jazz", 
+            note: { 
+                fr: "Convertit son Taux CRIT très élevé en puissants buffs d'équipe pour vos attaquants (Sigrid, Orphie).", 
+                en: "Converts her extremely high CRIT Rate into massive team buffs for your main attackers (Sigrid, Orphie)." 
+            } 
+        },
+        { 
+            tag: { fr: "Alternative Énergie", en: "Energy Alternative" }, 
+            set1: "Astral_Voice", 
+            set2: "Moonlight_Lullaby", 
+            set1Name: "4pc Astral Voice", 
+            set2Name: "+ 2pc Moonlight Lullaby", 
+            note: { 
+                fr: "Alternative identique à Swing Jazz pour alimenter ses longs EX Spéciaux très coûteux.", 
+                en: "Identical alternative to Swing Jazz to fuel her lengthy and costly EX Specials." 
+            } 
+        }
+    ],
+    skills: [
+        { name: "Core", level: "F", icon: "Core.webp" },
+        { name: "Ex", level: "12", icon: "Ex.png" },
+        { name: "Ult", level: "12", icon: "Ultime.png" },
+        { name: "Assist", level: "12", icon: "Assist.png" },
+        { name: "Basic", level: "1", icon: "Attaque_basic.png" },
+        { name: "Dodge", level: "1", icon: "Esquive.png" }
+    ],
+    statPriority: {
+        main: [
+            { slot: "6", label: { fr: "Régénération d'énergie", en: "Energy Regeneration" } },
+            { slot: "5", label: { fr: "Ratio PEN % / ATK % / DGT Vent %", en: "PEN Ratio% / ATK% / Wind DMG%" } },
+            { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
         ],
-        teams: [
-            { name: "TEAM 01", tag: { fr: "Team Armurier", en: "Armorer Team" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Glace Burst", en: "Ice Burst" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Orphie and Magus.png", color: "#f05432", initial: "OM" }, { img: "Norma.png", color: "#f05432", initial: "N" } ] }
+        sub: [
+            { label: { fr: "Taux CRIT (100 % en combat)", en: "CRIT Rate (100% in combat)" }, highlight: true },
+            { label: { fr: "DGT CRIT = ATK %", en: "CRIT DMG = ATK %" }, highlight: false },
+            { label: { fr: "PEN brute", en: "Flat PEN" }, highlight: false },
+            { label: { fr: "ATK brute", en: "Flat ATK" }, highlight: false }
         ]
     },
+    engines: [
+        { tag: { fr: "Signature 5★", en: "Signature 5★" }, name: "Crimson Moon Casket", img: "W-Engine_Crimson_Moon_Casket.png" },
+        { tag: { fr: "Alternative 4★ F2P", en: "4★ F2P Alternative" }, name: "Steam Oven", img: "W-Engine_Steam_Oven.png" },
+        { tag: { fr: "Alternative 5★", en: "5★ Alternative" }, name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" },
+        { tag: { fr: "Alternative 4★", en: "4★ Alternative" }, name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
+    ],
+    teams: [
+        { name: "TEAM 01", tag: { fr: "Team Armurier", en: "Armorer Team" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
+        { name: "TEAM 02", tag: { fr: "Glace Burst", en: "Ice Burst" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
+        { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Orphie and Magus.png", color: "#f05432", initial: "OM" }, { img: "Norma.png", color: "#f05432", initial: "N" } ] }
+    ]
+},
     "Sigrid": {
         color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Département de la patrouille aérienne", en: "Air Patrol Department" },
         stats: [
