@@ -999,7 +999,7 @@ const W_ENGINES_DB = {
         name: { fr: "Flèche Vortex", en: "Vortex Arrow" },
         rank: "B",
         specialty: "Stun",
-        img: "W-Engine_Vortex_Arrow.png",
+        img: "Vortex_Arrow.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "Impact %", en: "Impact %" }, 
