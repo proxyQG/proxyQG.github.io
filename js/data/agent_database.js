@@ -463,10 +463,19 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "F", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Dodge", level: "10", icon: "Esquive.png" }, { name: "Basic", level: "9", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact" }, { slot: "5", label: "ATK% / PEN Ratio" }, { slot: "4", label: "Crit Rate" } ], sub: [ { label: "Crit Rate (min 50% avec KOTS)", highlight: true }, { label: "Crit DMG = ATK%", highlight: false }, { label: "Flat PEN", highlight: false }, { label: "Flat ATK", highlight: false } ] },
-        engines: [
-            { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
-        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % / Taux de PÉN", en: "ATK % / PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (min 50% avec KOTS)", en: "CRIT Rate (min 50% with KOTS)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
         teams: [
             { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
             { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 16, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
@@ -647,10 +656,19 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energy Regen / ATK%" }, { slot: "5", label: "ATK% / Fire DMG" }, { slot: "4", label: "ATK% / Crit Rate / DMG" } ], sub: [ { label: "ATK%", highlight: true }, { label: "Crit Rate = Crit DMG", highlight: false }, { label: "PEN", highlight: false }, { label: "ATK", highlight: false } ] },
-        engines: [
-            { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
-        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Feu", en: "ATK % / Fire DMG" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT / DGT CRIT", en: "ATK % / CRIT Rate / CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
         teams: [
              { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37]
              { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
@@ -962,15 +980,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regen / ATK%" },
-                { slot: "5", label: "ATK% / Ice DMG%" },
-                { slot: "4", label: "ATK% / Crit Rate%" }
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Glace %", en: "ATK % / Ice DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT %", en: "ATK % / CRIT Rate %" } }
             ],
             sub: [
-                { label: "ATK % (priorité cap passif)", highlight: true },
-                { label: "Crit Rate = Crit DMG", highlight: false },
-                { label: "PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "ATQ % (priorité cap passif)", en: "ATK % (passive cap priority)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
