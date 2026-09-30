@@ -109,6 +109,14 @@
     }
 
     function bindEvents() {
+        // --- NOUVEAU : Traçage de la souris pour l'effet Spotlight ---
+        document.addEventListener('mousemove', e => {
+            const card = e.target.closest('[data-engine]'); 
+            if (!card) return;
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
         // --- GESTION DU CLIC ET DE L'OUVERTURE ---
         document.addEventListener('click', e => {
             const agentModal = document.getElementById('agentDetailModal');
