@@ -446,6 +446,351 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Fusion Compiler": {
+        name: { fr: "Compilateur de fusion", en: "Fusion Compiler" },
+        rank: "S",
+        specialty: "Anomaly",
+        img: "W-Engine_Fusion_Compiler.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Déluge de données", en: "Data Flood" },
+        overclocks: [
+            { 
+                fr: "Augmente l'ATQ de [12 %]. Lors de l'utilisation d'une {Attaque spéciale} ou d'une {Attaque spéciale EX}, l'Adresse d'Anomalie de l'équipementier augmente de [25] pendant 8s, cumulable jusqu'à 3 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "Increases ATK by [12%]. When using a {Special Attack} or {EX Special Attack}, the equipper's Anomaly Proficiency is increased by [25] for 8s, stacking up to 3 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [15 %]. Lors de l'utilisation d'une {Attaque spéciale} ou d'une {Attaque spéciale EX}, l'Adresse d'Anomalie de l'équipementier augmente de [28] pendant 8s, cumulable jusqu'à 3 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "Increases ATK by [15%]. When using a {Special Attack} or {EX Special Attack}, the equipper's Anomaly Proficiency is increased by [28] for 8s, stacking up to 3 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [18 %]. Lors de l'utilisation d'une {Attaque spéciale} ou d'une {Attaque spéciale EX}, l'Adresse d'Anomalie de l'équipementier augmente de [32] pendant 8s, cumulable jusqu'à 3 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "Increases ATK by [18%]. When using a {Special Attack} or {EX Special Attack}, the equipper's Anomaly Proficiency is increased by [32] for 8s, stacking up to 3 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [21 %]. Lors de l'utilisation d'une {Attaque spéciale} ou d'une {Attaque spéciale EX}, l'Adresse d'Anomalie de l'équipementier augmente de [35] pendant 8s, cumulable jusqu'à 3 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "Increases ATK by [21%]. When using a {Special Attack} or {EX Special Attack}, the equipper's Anomaly Proficiency is increased by [35] for 8s, stacking up to 3 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Augmente l'ATQ de [24 %]. Lors de l'utilisation d'une {Attaque spéciale} ou d'une {Attaque spéciale EX}, l'Adresse d'Anomalie de l'équipementier augmente de [38] pendant 8s, cumulable jusqu'à 3 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "Increases ATK by [24%]. When using a {Special Attack} or {EX Special Attack}, the equipper's Anomaly Proficiency is increased by [38] for 8s, stacking up to 3 times. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Timeweaver": {
+        name: { fr: "Tisseur de temps", en: "Timeweaver" },
+        rank: "S",
+        specialty: "Anomaly",
+        element: "Electric",
+        img: "W-Engine_Timeweaver.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Stratagème dévoreur de temps", en: "Time-Devouring Stratagem" },
+        overclocks: [
+            { 
+                fr: "Le {Taux d'accumulation d'Anomalie Électrique} de l'équipementier augmente de [30 %]. Lorsque des {Attaques spéciales} ou {Attaques spéciales EX} touchent des ennemis subissant une Anomalie d'attribut, l'Adresse d'Anomalie de l'équipementier augmente de [75] pendant 15s. Lorsque l'Adresse d'Anomalie est supérieure ou égale à 375, les DGT de {Désordre} infligés par l'équipementier augmentent de [25 %].", 
+                en: "The equipper's {Electric Anomaly Buildup Rate} increases by [30%]. When {Special Attacks} or {EX Special Attacks} hit enemies under Attribute Anomalies, the equipper's Anomaly Proficiency increases by [75] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, {Disorder} DMG inflicted by the equipper increases by [25%]." 
+            },
+            { 
+                fr: "Le {Taux d'accumulation d'Anomalie Électrique} de l'équipementier augmente de [34,5 %]. Lorsque des {Attaques spéciales} ou {Attaques spéciales EX} touchent des ennemis subissant une Anomalie d'attribut, l'Adresse d'Anomalie de l'équipementier augmente de [86] pendant 15s. Lorsque l'Adresse d'Anomalie est supérieure ou égale à 375, les DGT de {Désordre} infligés par l'équipementier augmentent de [28,5 %].", 
+                en: "The equipper's {Electric Anomaly Buildup Rate} increases by [34.5%]. When {Special Attacks} or {EX Special Attacks} hit enemies under Attribute Anomalies, the equipper's Anomaly Proficiency increases by [86] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, {Disorder} DMG inflicted by the equipper increases by [28.5%]." 
+            },
+            { 
+                fr: "Le {Taux d'accumulation d'Anomalie Électrique} de l'équipementier augmente de [39 %]. Lorsque des {Attaques spéciales} ou {Attaques spéciales EX} touchent des ennemis subissant une Anomalie d'attribut, l'Adresse d'Anomalie de l'équipementier augmente de [97] pendant 15s. Lorsque l'Adresse d'Anomalie est supérieure ou égale à 375, les DGT de {Désordre} infligés par l'équipementier augmentent de [32 %].", 
+                en: "The equipper's {Electric Anomaly Buildup Rate} increases by [39%]. When {Special Attacks} or {EX Special Attacks} hit enemies under Attribute Anomalies, the equipper's Anomaly Proficiency increases by [97] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, {Disorder} DMG inflicted by the equipper increases by [32%]." 
+            },
+            { 
+                fr: "Le {Taux d'accumulation d'Anomalie Électrique} de l'équipementier augmente de [43,5 %]. Lorsque des {Attaques spéciales} ou {Attaques spéciales EX} touchent des ennemis subissant une Anomalie d'attribut, l'Adresse d'Anomalie de l'équipementier augmente de [108] pendant 15s. Lorsque l'Adresse d'Anomalie est supérieure ou égale à 375, les DGT de {Désordre} infligés par l'équipementier augmentent de [35,5 %].", 
+                en: "The equipper's {Electric Anomaly Buildup Rate} increases by [43.5%]. When {Special Attacks} or {EX Special Attacks} hit enemies under Attribute Anomalies, the equipper's Anomaly Proficiency increases by [108] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, {Disorder} DMG inflicted by the equipper increases by [35.5%]." 
+            },
+            { 
+                fr: "Le {Taux d'accumulation d'Anomalie Électrique} de l'équipementier augmente de [48 %]. Lorsque des {Attaques spéciales} ou {Attaques spéciales EX} touchent des ennemis subissant une Anomalie d'attribut, l'Adresse d'Anomalie de l'équipementier augmente de [120] pendant 15s. Lorsque l'Adresse d'Anomalie est supérieure ou égale à 375, les DGT de {Désordre} infligés par l'équipementier augmentent de [40 %].", 
+                en: "The equipper's {Electric Anomaly Buildup Rate} increases by [48%]. When {Special Attacks} or {EX Special Attacks} hit enemies under Attribute Anomalies, the equipper's Anomaly Proficiency increases by [120] for 15s. When the equipper's Anomaly Proficiency is greater than or equal to 375, {Disorder} DMG inflicted by the equipper increases by [40%]." 
+            }
+        ]
+    },
+    "Magnetic Storm - Alpha": {
+        name: { fr: "[Tempête Magnétique] Alpha", en: "[Magnetic Storm] Alpha" },
+        rank: "B",
+        specialty: "Anomaly",
+        img: "Magnetic_Storm_Alpha.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "8% - 20%" 
+        },
+        passiveName: { fr: "Courant désordonné", en: "Disordered Current" },
+        overclocks: [
+            { 
+                fr: "Accumuler de l'{Accumulation d'Anomalie} augmente la Maîtrise d'Anomalie de l'équipementier de [25] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Accumulating {Anomaly Buildup} increases the equipper's Anomaly Mastery by [25] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Accumuler de l'{Accumulation d'Anomalie} augmente la Maîtrise d'Anomalie de l'équipementier de [29] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Accumulating {Anomaly Buildup} increases the equipper's Anomaly Mastery by [29] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Accumuler de l'{Accumulation d'Anomalie} augmente la Maîtrise d'Anomalie de l'équipementier de [32] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Accumulating {Anomaly Buildup} increases the equipper's Anomaly Mastery by [32] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Accumuler de l'{Accumulation d'Anomalie} augmente la Maîtrise d'Anomalie de l'équipementier de [36] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Accumulating {Anomaly Buildup} increases the equipper's Anomaly Mastery by [36] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Accumuler de l'{Accumulation d'Anomalie} augmente la Maîtrise d'Anomalie de l'équipementier de [40] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Accumulating {Anomaly Buildup} increases the equipper's Anomaly Mastery by [40] for 10s. This effect can trigger once every 20s." 
+            }
+        ]
+    },
+    "Hellfire Gears": {
+        name: { fr: "Engrenages des flammes infernales", en: "Hellfire Gears" },
+        rank: "S",
+        specialty: "Stun",
+        element: "Fire",
+        img: "W-Engine_Hellfire_Gears.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "7.2% - 18%" 
+        },
+        passiveName: { fr: "Construction passionnée", en: "Passionate Construction" },
+        overclocks: [
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie de l'équipementier augmente de [0,6]/s. Lors de l'utilisation d'une {Attaque spéciale EX}, l'Impact de l'équipementier augmente de [10 %] pendant 10s, cumulable jusqu'à 2 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "While off-field, the equipper's Energy Regen increases by [0.6]/s. When using an {EX Special Attack}, the equipper's Impact is increased by [10%] for 10s, stacking up to 2 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie de l'équipementier augmente de [0,7]/s. Lors de l'utilisation d'une {Attaque spéciale EX}, l'Impact de l'équipementier augmente de [11,5 %] pendant 10s, cumulable jusqu'à 2 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "While off-field, the equipper's Energy Regen increases by [0.7]/s. When using an {EX Special Attack}, the equipper's Impact is increased by [11.5%] for 10s, stacking up to 2 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie de l'équipementier augmente de [0,8]/s. Lors de l'utilisation d'une {Attaque spéciale EX}, l'Impact de l'équipementier augmente de [13 %] pendant 10s, cumulable jusqu'à 2 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "While off-field, the equipper's Energy Regen increases by [0.8]/s. When using an {EX Special Attack}, the equipper's Impact is increased by [13%] for 10s, stacking up to 2 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie de l'équipementier augmente de [0,9]/s. Lors de l'utilisation d'une {Attaque spéciale EX}, l'Impact de l'équipementier augmente de [14,5 %] pendant 10s, cumulable jusqu'à 2 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "While off-field, the equipper's Energy Regen increases by [0.9]/s. When using an {EX Special Attack}, the equipper's Impact is increased by [14.5%] for 10s, stacking up to 2 times. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie de l'équipementier augmente de [1,0]/s. Lors de l'utilisation d'une {Attaque spéciale EX}, l'Impact de l'équipementier augmente de [16 %] pendant 10s, cumulable jusqu'à 2 fois. La durée de chaque cumul est calculée séparément.", 
+                en: "While off-field, the equipper's Energy Regen increases by [1.0]/s. When using an {EX Special Attack}, the equipper's Impact is increased by [16%] for 10s, stacking up to 2 times. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "The Restrained": {
+        name: { fr: "Le Restreint", en: "The Restrained" },
+        rank: "S",
+        specialty: "Stun",
+        img: "W-Engine_The_Restrained.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "7.2% - 18%" 
+        },
+        passiveName: { fr: "Chaînes contraignantes", en: "Binding Chains" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'une attaque touche un ennemi, les DGT et la Stupeur infligés par les {Attaques de base} augmentent de [6 %] pendant 8s, cumulable jusqu'à 5 fois. Cet effet peut se déclencher au maximum une fois pendant chaque compétence. La durée de chaque cumul est calculée séparément.", 
+                en: "When an attack hits an enemy, DMG and Daze from {Basic Attacks} increase by [6%] for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une attaque touche un ennemi, les DGT et la Stupeur infligés par les {Attaques de base} augmentent de [6,9 %] pendant 8s, cumulable jusqu'à 5 fois. Cet effet peut se déclencher au maximum une fois pendant chaque compétence. La durée de chaque cumul est calculée séparément.", 
+                en: "When an attack hits an enemy, DMG and Daze from {Basic Attacks} increase by [6.9%] for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une attaque touche un ennemi, les DGT et la Stupeur infligés par les {Attaques de base} augmentent de [7,8 %] pendant 8s, cumulable jusqu'à 5 fois. Cet effet peut se déclencher au maximum une fois pendant chaque compétence. La durée de chaque cumul est calculée séparément.", 
+                en: "When an attack hits an enemy, DMG and Daze from {Basic Attacks} increase by [7.8%] for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une attaque touche un ennemi, les DGT et la Stupeur infligés par les {Attaques de base} augmentent de [8,7 %] pendant 8s, cumulable jusqu'à 5 fois. Cet effet peut se déclencher au maximum une fois pendant chaque compétence. La durée de chaque cumul est calculée séparément.", 
+                en: "When an attack hits an enemy, DMG and Daze from {Basic Attacks} increase by [8.7%] for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lorsqu'une attaque touche un ennemi, les DGT et la Stupeur infligés par les {Attaques de base} augmentent de [9,6 %] pendant 8s, cumulable jusqu'à 5 fois. Cet effet peut se déclencher au maximum une fois pendant chaque compétence. La durée de chaque cumul est calculée séparément.", 
+                en: "When an attack hits an enemy, DMG and Daze from {Basic Attacks} increase by [9.6%] for 8s, stacking up to 5 times. This effect can trigger at most once during each skill. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Precious Fossilized Core": {
+        name: { fr: "Noyau fossilisé précieux", en: "Precious Fossilized Core" },
+        rank: "A",
+        specialty: "Stun",
+        img: "W-Engine_Precious_Fossilized.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "6% - 15%" 
+        },
+        passiveName: { fr: "Chasseur de Béhémoth", en: "Behemoth Hunter" },
+        overclocks: [
+            { 
+                fr: "Lorsque les PV de la cible ne sont pas inférieurs à 50 %, l'équipementier inflige [10 %] de Stupeur supplémentaire. Lorsque les PV de la cible ne sont pas inférieurs à 75 %, ce bonus est encore amélioré de [10 %].", 
+                en: "When the target's HP is no lower than 50%, the equipper inflicts [10%] more Daze. When the target's HP is no lower than 75%, this bonus is further enhanced by [10%]." 
+            },
+            { 
+                fr: "Lorsque les PV de la cible ne sont pas inférieurs à 50 %, l'équipementier inflige [11,5 %] de Stupeur supplémentaire. Lorsque les PV de la cible ne sont pas inférieurs à 75 %, ce bonus est encore amélioré de [11,5 %].", 
+                en: "When the target's HP is no lower than 50%, the equipper inflicts [11.5%] more Daze. When the target's HP is no lower than 75%, this bonus is further enhanced by [11.5%]." 
+            },
+            { 
+                fr: "Lorsque les PV de la cible ne sont pas inférieurs à 50 %, l'équipementier inflige [13 %] de Stupeur supplémentaire. Lorsque les PV de la cible ne sont pas inférieurs à 75 %, ce bonus est encore amélioré de [13 %].", 
+                en: "When the target's HP is no lower than 50%, the equipper inflicts [13%] more Daze. When the target's HP is no lower than 75%, this bonus is further enhanced by [13%]." 
+            },
+            { 
+                fr: "Lorsque les PV de la cible ne sont pas inférieurs à 50 %, l'équipementier inflige [14,5 %] de Stupeur supplémentaire. Lorsque les PV de la cible ne sont pas inférieurs à 75 %, ce bonus est encore amélioré de [14,5 %].", 
+                en: "When the target's HP is no lower than 50%, the equipper inflicts [14.5%] more Daze. When the target's HP is no lower than 75%, this bonus is further enhanced by [14.5%]." 
+            },
+            { 
+                fr: "Lorsque les PV de la cible ne sont pas inférieurs à 50 %, l'équipementier inflige [16 %] de Stupeur supplémentaire. Lorsque les PV de la cible ne sont pas inférieurs à 75 %, ce bonus est encore amélioré de [16 %].", 
+                en: "When the target's HP is no lower than 50%, the equipper inflicts [16%] more Daze. When the target's HP is no lower than 75%, this bonus is further enhanced by [16%]." 
+            }
+        ]
+    },
+    "Six Shooter": {
+        name: { fr: "Six coups", en: "Six Shooter" },
+        rank: "A",
+        specialty: "Stun",
+        img: "W-Engine_Six_Shooter.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "6% - 15%" 
+        },
+        passiveName: { fr: "Feu !", en: "Fire!" },
+        overclocks: [
+            { 
+                fr: "L'équipementier gagne 1 cumul de Charge toutes les 3s, cumulable jusqu'à 6 fois. Lors du lancement d'une {Attaque spéciale EX}, consomme tous les cumuls de Charge et chaque cumul consommé augmente la Stupeur infligée par la compétence de [4 %].", 
+                en: "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an {EX Special Attack}, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by [4%]." 
+            },
+            { 
+                fr: "L'équipementier gagne 1 cumul de Charge toutes les 3s, cumulable jusqu'à 6 fois. Lors du lancement d'une {Attaque spéciale EX}, consomme tous les cumuls de Charge et chaque cumul consommé augmente la Stupeur infligée par la compétence de [4,6 %].", 
+                en: "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an {EX Special Attack}, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by [4.6%]." 
+            },
+            { 
+                fr: "L'équipementier gagne 1 cumul de Charge toutes les 3s, cumulable jusqu'à 6 fois. Lors du lancement d'une {Attaque spéciale EX}, consomme tous les cumuls de Charge et chaque cumul consommé augmente la Stupeur infligée par la compétence de [5,2 %].", 
+                en: "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an {EX Special Attack}, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by [5.2%]." 
+            },
+            { 
+                fr: "L'équipementier gagne 1 cumul de Charge toutes les 3s, cumulable jusqu'à 6 fois. Lors du lancement d'une {Attaque spéciale EX}, consomme tous les cumuls de Charge et chaque cumul consommé augmente la Stupeur infligée par la compétence de [5,8 %].", 
+                en: "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an {EX Special Attack}, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by [5.8%]." 
+            },
+            { 
+                fr: "L'équipementier gagne 1 cumul de Charge toutes les 3s, cumulable jusqu'à 6 fois. Lors du lancement d'une {Attaque spéciale EX}, consomme tous les cumuls de Charge et chaque cumul consommé augmente la Stupeur infligée par la compétence de [6,4 %].", 
+                en: "The equipper gains 1 Charge stack every 3s, stacking up to 6 times. When launching an {EX Special Attack}, consumes all Charge stacks and each stack consumed increases the skill's Daze inflicted by [6.4%]." 
+            }
+        ]
+    },
+    "Heartstring Nocturne": {
+        name: { fr: "Nocturne des cordes du cœur", en: "Heartstring Nocturne" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Fire",
+        img: "W-Engine_Heartstring_Nocturne.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Corde et Mélodie", en: "String & Melody" },
+        overclocks: [
+            { 
+                fr: "Les DGT CRIT augmentent de [50 %]. Lorsque l'équipementier entre sur le champ de bataille, ou active un {Enchaînement} ou un {Ultime}, il gagne 1 cumul de {Corde sensible}. Chaque cumul de {Corde sensible} permet à l'{Enchaînement} et à l'{Ultime} de l'équipementier d'ignorer [12,5 %] de la {RÉS Feu} de la cible, cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "CRIT DMG increases by [50%]. When the equipper enters the battlefield, or activates a {Chain Attack} or {Ultimate}, they gain 1 stack of {Heartstring}. Each stack of {Heartstring} allows the equipper's {Chain Attack} and {Ultimate} to ignore [12.5%] of the target's {Fire RES}, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT CRIT augmentent de [57,5 %]. Lorsque l'équipementier entre sur le champ de bataille, ou active un {Enchaînement} ou un {Ultime}, il gagne 1 cumul de {Corde sensible}. Chaque cumul de {Corde sensible} permet à l'{Enchaînement} et à l'{Ultime} de l'équipementier d'ignorer [14,4 %] de la {RÉS Feu} de la cible, cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "CRIT DMG increases by [57.5%]. When the equipper enters the battlefield, or activates a {Chain Attack} or {Ultimate}, they gain 1 stack of {Heartstring}. Each stack of {Heartstring} allows the equipper's {Chain Attack} and {Ultimate} to ignore [14.4%] of the target's {Fire RES}, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT CRIT augmentent de [65 %]. Lorsque l'équipementier entre sur le champ de bataille, ou active un {Enchaînement} ou un {Ultime}, il gagne 1 cumul de {Corde sensible}. Chaque cumul de {Corde sensible} permet à l'{Enchaînement} et à l'{Ultime} de l'équipementier d'ignorer [16,2 %] de la {RÉS Feu} de la cible, cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "CRIT DMG increases by [65%]. When the equipper enters the battlefield, or activates a {Chain Attack} or {Ultimate}, they gain 1 stack of {Heartstring}. Each stack of {Heartstring} allows the equipper's {Chain Attack} and {Ultimate} to ignore [16.2%] of the target's {Fire RES}, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT CRIT augmentent de [72,5 %]. Lorsque l'équipementier entre sur le champ de bataille, ou active un {Enchaînement} ou un {Ultime}, il gagne 1 cumul de {Corde sensible}. Chaque cumul de {Corde sensible} permet à l'{Enchaînement} et à l'{Ultime} de l'équipementier d'ignorer [18,1 %] de la {RÉS Feu} de la cible, cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "CRIT DMG increases by [72.5%]. When the equipper enters the battlefield, or activates a {Chain Attack} or {Ultimate}, they gain 1 stack of {Heartstring}. Each stack of {Heartstring} allows the equipper's {Chain Attack} and {Ultimate} to ignore [18.1%] of the target's {Fire RES}, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT CRIT augmentent de [80 %]. Lorsque l'équipementier entre sur le champ de bataille, ou active un {Enchaînement} ou un {Ultime}, il gagne 1 cumul de {Corde sensible}. Chaque cumul de {Corde sensible} permet à l'{Enchaînement} et à l'{Ultime} de l'équipementier d'ignorer [20 %] de la {RÉS Feu} de la cible, cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "CRIT DMG increases by [80%]. When the equipper enters the battlefield, or activates a {Chain Attack} or {Ultimate}, they gain 1 stack of {Heartstring}. Each stack of {Heartstring} allows the equipper's {Chain Attack} and {Ultimate} to ignore [20%] of the target's {Fire RES}, stacking up to 2 times and lasting 30s. Repeated triggers reset the duration." 
+            }
+        ]
+    },
+    "Cordis Germina": {
+        name: { fr: "Cordis Germina", en: "Cordis Germina" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Electric",
+        img: "W-Engine_Cordis_Germina.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Noyau bourgeonnant", en: "Sprouting Core" },
+        overclocks: [
+            { 
+                fr: "Augmente le Taux CRIT de [15 %]. Lorsque l'équipementier inflige des DGT avec une {Attaque de base} ou une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT Électriques} de l'équipementier de [12,5 %], jusqu'à 2 cumuls. Chaque cumul dure 40s et sa durée est calculée séparément. Ne peut se déclencher qu'une fois par utilisation d'une compétence. À 2 cumuls, les DGT de l'{Attaque de base} et de l'{Ultime} du porteur ignorent [20 %] de la DÉF ennemie.", 
+                en: "Increases CRIT Rate by [15%]. When the equipper deals DMG with a {Basic Attack} or {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's {Electric DMG} by [12.5%], up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's {Basic Attack} and {Ultimate} DMG ignore [20%] of enemy DEF." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [17,3 %]. Lorsque l'équipementier inflige des DGT avec une {Attaque de base} ou une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT Électriques} de l'équipementier de [14,4 %], jusqu'à 2 cumuls. Chaque cumul dure 40s et sa durée est calculée séparément. Ne peut se déclencher qu'une fois par utilisation d'une compétence. À 2 cumuls, les DGT de l'{Attaque de base} et de l'{Ultime} du porteur ignorent [23 %] de la DÉF ennemie.", 
+                en: "Increases CRIT Rate by [17.3%]. When the equipper deals DMG with a {Basic Attack} or {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's {Electric DMG} by [14.4%], up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's {Basic Attack} and {Ultimate} DMG ignore [23%] of enemy DEF." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [19,5 %]. Lorsque l'équipementier inflige des DGT avec une {Attaque de base} ou une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT Électriques} de l'équipementier de [16,2 %], jusqu'à 2 cumuls. Chaque cumul dure 40s et sa durée est calculée séparément. Ne peut se déclencher qu'une fois par utilisation d'une compétence. À 2 cumuls, les DGT de l'{Attaque de base} et de l'{Ultime} du porteur ignorent [26 %] de la DÉF ennemie.", 
+                en: "Increases CRIT Rate by [19.5%]. When the equipper deals DMG with a {Basic Attack} or {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's {Electric DMG} by [16.2%], up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's {Basic Attack} and {Ultimate} DMG ignore [26%] of enemy DEF." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [21,8 %]. Lorsque l'équipementier inflige des DGT avec une {Attaque de base} ou une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT Électriques} de l'équipementier de [18,1 %], jusqu'à 2 cumuls. Chaque cumul dure 40s et sa durée est calculée séparément. Ne peut se déclencher qu'une fois par utilisation d'une compétence. À 2 cumuls, les DGT de l'{Attaque de base} et de l'{Ultime} du porteur ignorent [29 %] de la DÉF ennemie.", 
+                en: "Increases CRIT Rate by [21.8%]. When the equipper deals DMG with a {Basic Attack} or {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's {Electric DMG} by [18.1%], up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's {Basic Attack} and {Ultimate} DMG ignore [29%] of enemy DEF." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [24 %]. Lorsque l'équipementier inflige des DGT avec une {Attaque de base} ou une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT Électriques} de l'équipementier de [20 %], jusqu'à 2 cumuls. Chaque cumul dure 40s et sa durée est calculée séparément. Ne peut se déclencher qu'une fois par utilisation d'une compétence. À 2 cumuls, les DGT de l'{Attaque de base} et de l'{Ultime} du porteur ignorent [32 %] de la DÉF ennemie.", 
+                en: "Increases CRIT Rate by [24%]. When the equipper deals DMG with a {Basic Attack} or {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's {Electric DMG} by [20%], up to 2 stacks. Each stack lasts 40s. The duration of each stack is calculated separately. Can trigger once per use of a skill. At 2 stacks, the wearer's {Basic Attack} and {Ultimate} DMG ignore [32%] of enemy DEF." 
+            }
+        ]
+    },
+    "Myriad Eclipse": {
+        name: { fr: "Éclipse de la myriade", en: "Myriad Eclipse" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Ice",
+        img: "W-Engine_Myriad_Eclipse.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Fausses personnalités", en: "False Personas" },
+        overclocks: [
+            { 
+                fr: "Augmente les DGT CRIT de [45 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Glace}, l'équipementier gagne l'effet {Peine de mort du zéro absolu} pendant 3s. Tant que {Peine de mort du zéro absolu} est actif, le personnage ignore [25 %] de la DÉF de l'ennemi lorsqu'il réussit un coup.", 
+                en: "Increases CRIT DMG by [45%]. When using an {EX Special Attack}, {Chain Attack}, or {Ultimate} to deal {Ice DMG}, the equipper gains the {Absolute Zero Death Sentence} effect for 3s. While {Absolute Zero Death Sentence} is active, the character ignores [25%] of the enemy's DEF when landing a hit." 
+            },
+            { 
+                fr: "Augmente les DGT CRIT de [51,8 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Glace}, l'équipementier gagne l'effet {Peine de mort du zéro absolu} pendant 3s. Tant que {Peine de mort du zéro absolu} est actif, le personnage ignore [28,5 %] de la DÉF de l'ennemi lorsqu'il réussit un coup.", 
+                en: "Increases CRIT DMG by [51.8%]. When using an {EX Special Attack}, {Chain Attack}, or {Ultimate} to deal {Ice DMG}, the equipper gains the {Absolute Zero Death Sentence} effect for 3s. While {Absolute Zero Death Sentence} is active, the character ignores [28.5%] of the enemy's DEF when landing a hit." 
+            },
+            { 
+                fr: "Augmente les DGT CRIT de [58,5 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Glace}, l'équipementier gagne l'effet {Peine de mort du zéro absolu} pendant 3s. Tant que {Peine de mort du zéro absolu} est actif, le personnage ignore [32 %] de la DÉF de l'ennemi lorsqu'il réussit un coup.", 
+                en: "Increases CRIT DMG by [58.5%]. When using an {EX Special Attack}, {Chain Attack}, or {Ultimate} to deal {Ice DMG}, the equipper gains the {Absolute Zero Death Sentence} effect for 3s. While {Absolute Zero Death Sentence} is active, the character ignores [32%] of the enemy's DEF when landing a hit." 
+            },
+            { 
+                fr: "Augmente les DGT CRIT de [65,3 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Glace}, l'équipementier gagne l'effet {Peine de mort du zéro absolu} pendant 3s. Tant que {Peine de mort du zéro absolu} est actif, le personnage ignore [35,5 %] de la DÉF de l'ennemi lorsqu'il réussit un coup.", 
+                en: "Increases CRIT DMG by [65.3%]. When using an {EX Special Attack}, {Chain Attack}, or {Ultimate} to deal {Ice DMG}, the equipper gains the {Absolute Zero Death Sentence} effect for 3s. While {Absolute Zero Death Sentence} is active, the character ignores [35.5%] of the enemy's DEF when landing a hit." 
+            },
+            { 
+                fr: "Augmente les DGT CRIT de [72 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Glace}, l'équipementier gagne l'effet {Peine de mort du zéro absolu} pendant 3s. Tant que {Peine de mort du zéro absolu} est actif, le personnage ignore [40 %] de la DÉF de l'ennemi lorsqu'il réussit un coup.", 
+                en: "Increases CRIT DMG by [72%]. When using an {EX Special Attack}, {Chain Attack}, or {Ultimate} to deal {Ice DMG}, the equipper gains the {Absolute Zero Death Sentence} effect for 3s. While {Absolute Zero Death Sentence} is active, the character ignores [40%] of the enemy's DEF when landing a hit." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
