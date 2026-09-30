@@ -965,7 +965,7 @@ const W_ENGINES_DB = {
         name: { fr: "Base Identité", en: "Identity Base" },
         rank: "B",
         specialty: "Defense",
-        img: "W-Engine_Identity_Base.png",
+        img: "Identity_Base.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "DÉF %", en: "DEF %" }, 
