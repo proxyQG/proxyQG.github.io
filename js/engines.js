@@ -173,6 +173,279 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Kaboom the Cannon": {
+        name: { fr: "Kaboom le canon", en: "Kaboom the Cannon" },
+        rank: "A",
+        specialty: "Support",
+        img: "W-Engine_Kaboom_the_Cannon.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "20% - 50%" 
+        },
+        passiveName: { fr: "Accident de bousculade", en: "Stampede Accident" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'une unité alliée de l'escouade attaque et touche un ennemi, l'ATQ de tous les membres de l'escouade augmente de [2,5 %] pendant 8s (cumulable jusqu'à 4 fois). La durée de chaque cumul est calculée séparément, et chaque unité alliée peut fournir 1 cumul de l'amélioration.", 
+                en: "When any friendly unit in the squad attacks and hits an enemy, all squad members' ATK increases by [2.5%] for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff." 
+            },
+            { 
+                fr: "Lorsqu'une unité alliée de l'escouade attaque et touche un ennemi, l'ATQ de tous les membres de l'escouade augmente de [2,9 %] pendant 8s (cumulable jusqu'à 4 fois). La durée de chaque cumul est calculée séparément, et chaque unité alliée peut fournir 1 cumul de l'amélioration.", 
+                en: "When any friendly unit in the squad attacks and hits an enemy, all squad members' ATK increases by [2.9%] for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff." 
+            },
+            { 
+                fr: "Lorsqu'une unité alliée de l'escouade attaque et touche un ennemi, l'ATQ de tous les membres de l'escouade augmente de [3,2 %] pendant 8s (cumulable jusqu'à 4 fois). La durée de chaque cumul est calculée séparément, et chaque unité alliée peut fournir 1 cumul de l'amélioration.", 
+                en: "When any friendly unit in the squad attacks and hits an enemy, all squad members' ATK increases by [3.2%] for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff." 
+            },
+            { 
+                fr: "Lorsqu'une unité alliée de l'escouade attaque et touche un ennemi, l'ATQ de tous les membres de l'escouade augmente de [3,6 %] pendant 8s (cumulable jusqu'à 4 fois). La durée de chaque cumul est calculée séparément, et chaque unité alliée peut fournir 1 cumul de l'amélioration.", 
+                en: "When any friendly unit in the squad attacks and hits an enemy, all squad members' ATK increases by [3.6%] for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff." 
+            },
+            { 
+                fr: "Lorsqu'une unité alliée de l'escouade attaque et touche un ennemi, l'ATQ de tous les membres de l'escouade augmente de [4 %] pendant 8s (cumulable jusqu'à 4 fois). La durée de chaque cumul est calculée séparément, et chaque unité alliée peut fournir 1 cumul de l'amélioration.", 
+                en: "When any friendly unit in the squad attacks and hits an enemy, all squad members' ATK increases by [4%] for 8s, stacking up to 4 times. The duration of each stack is calculated separately, and each friendly unit can provide 1 stack of the buff." 
+            }
+        ]
+    },
+    "Elegant Vanity": {
+        name: { fr: "Vanité élégante", en: "Elegant Vanity" },
+        rank: "S",
+        specialty: "Support",
+        img: "W-Engine_Elegant_Vanity.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Beauté secrète", en: "Untold Beauty" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, un {Enchaînement}, une {Assistance défensive} ou une {Assistance évasive}, l'équipementier gagne [5] points d'énergie (déclenchement toutes les 5s). Lorsque l'équipementier consomme 25 points d'énergie ou plus, les dégâts de toute l'escouade augmentent de [10 %] (cumulable 2 fois) pendant 20s. Réinitialise la durée à chaque déclenchement.", 
+                en: "When any squad member enters the field through a {Quick Assist}, {Chain Attack}, {Defensive Assist} or {Evasive Assist}, the equipper gains [5] Energy. This effect can trigger once every 5s. When the equipper consumes 25 Energy or more, the damage dealt by all squad members increases by [10%], stacking up to 2 times, and lasting 20s. Repeated triggers refresh the duration." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, un {Enchaînement}, une {Assistance défensive} ou une {Assistance évasive}, l'équipementier gagne [5,5] points d'énergie (déclenchement toutes les 5s). Lorsque l'équipementier consomme 25 points d'énergie ou plus, les dégâts de toute l'escouade augmentent de [11,5 %] (cumulable 2 fois) pendant 20s. Réinitialise la durée à chaque déclenchement.", 
+                en: "When any squad member enters the field through a {Quick Assist}, {Chain Attack}, {Defensive Assist} or {Evasive Assist}, the equipper gains [5.5] Energy. This effect can trigger once every 5s. When the equipper consumes 25 Energy or more, the damage dealt by all squad members increases by [11.5%], stacking up to 2 times, and lasting 20s. Repeated triggers refresh the duration." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, un {Enchaînement}, une {Assistance défensive} ou une {Assistance évasive}, l'équipementier gagne [6] points d'énergie (déclenchement toutes les 5s). Lorsque l'équipementier consomme 25 points d'énergie ou plus, les dégâts de toute l'escouade augmentent de [13 %] (cumulable 2 fois) pendant 20s. Réinitialise la durée à chaque déclenchement.", 
+                en: "When any squad member enters the field through a {Quick Assist}, {Chain Attack}, {Defensive Assist} or {Evasive Assist}, the equipper gains [6] Energy. This effect can trigger once every 5s. When the equipper consumes 25 Energy or more, the damage dealt by all squad members increases by [13%], stacking up to 2 times, and lasting 20s. Repeated triggers refresh the duration." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, un {Enchaînement}, une {Assistance défensive} ou une {Assistance évasive}, l'équipementier gagne [6,5] points d'énergie (déclenchement toutes les 5s). Lorsque l'équipementier consomme 25 points d'énergie ou plus, les dégâts de toute l'escouade augmentent de [14,5 %] (cumulable 2 fois) pendant 20s. Réinitialise la durée à chaque déclenchement.", 
+                en: "When any squad member enters the field through a {Quick Assist}, {Chain Attack}, {Defensive Assist} or {Evasive Assist}, the equipper gains [6.5] Energy. This effect can trigger once every 5s. When the equipper consumes 25 Energy or more, the damage dealt by all squad members increases by [14.5%], stacking up to 2 times, and lasting 20s. Repeated triggers refresh the duration." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, un {Enchaînement}, une {Assistance défensive} ou une {Assistance évasive}, l'équipementier gagne [7] points d'énergie (déclenchement toutes les 5s). Lorsque l'équipementier consomme 25 points d'énergie ou plus, les dégâts de toute l'escouade augmentent de [16 %] (cumulable 2 fois) pendant 20s. Réinitialise la durée à chaque déclenchement.", 
+                en: "When any squad member enters the field through a {Quick Assist}, {Chain Attack}, {Defensive Assist} or {Evasive Assist}, the equipper gains [7] Energy. This effect can trigger once every 5s. When the equipper consumes 25 Energy or more, the damage dealt by all squad members increases by [16%], stacking up to 2 times, and lasting 20s. Repeated triggers refresh the duration." 
+            }
+        ]
+    },
+    "Bashful Demon": {
+        name: { fr: "Démon timide", en: "Bashful Demon" },
+        rank: "A",
+        specialty: "Support",
+        element: "Ice",
+        img: "W-Engine_Bashful_Demon.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Visage de l'Avarice", en: "Visage of Greed" },
+        overclocks: [
+            { 
+                fr: "Les {DGT de Glace} augmentent de [15 %]. Lors du lancement d'une {Attaque spéciale EX}, l'ATQ de tous les membres de l'escouade augmente de [2 %] pendant 12s (cumulable jusqu'à 4 fois). Déclencher l'effet à nouveau réinitialise sa durée.", 
+                en: "Increases {Ice DMG} by [15%]. When launching an {EX Special Attack}, all squad members' ATK increases by [2%] for 12s, stacking up to 4 times. Retriggering refreshes duration." 
+            },
+            { 
+                fr: "Les {DGT de Glace} augmentent de [17,5 %]. Lors du lancement d'une {Attaque spéciale EX}, l'ATQ de tous les membres de l'escouade augmente de [2,3 %] pendant 12s (cumulable jusqu'à 4 fois). Déclencher l'effet à nouveau réinitialise sa durée.", 
+                en: "Increases {Ice DMG} by [17.5%]. When launching an {EX Special Attack}, all squad members' ATK increases by [2.3%] for 12s, stacking up to 4 times. Retriggering refreshes duration." 
+            },
+            { 
+                fr: "Les {DGT de Glace} augmentent de [20 %]. Lors du lancement d'une {Attaque spéciale EX}, l'ATQ de tous les membres de l'escouade augmente de [2,6 %] pendant 12s (cumulable jusqu'à 4 fois). Déclencher l'effet à nouveau réinitialise sa durée.", 
+                en: "Increases {Ice DMG} by [20%]. When launching an {EX Special Attack}, all squad members' ATK increases by [2.6%] for 12s, stacking up to 4 times. Retriggering refreshes duration." 
+            },
+            { 
+                fr: "Les {DGT de Glace} augmentent de [22,5 %]. Lors du lancement d'une {Attaque spéciale EX}, l'ATQ de tous les membres de l'escouade augmente de [2,9 %] pendant 12s (cumulable jusqu'à 4 fois). Déclencher l'effet à nouveau réinitialise sa durée.", 
+                en: "Increases {Ice DMG} by [22.5%]. When launching an {EX Special Attack}, all squad members' ATK increases by [2.9%] for 12s, stacking up to 4 times. Retriggering refreshes duration." 
+            },
+            { 
+                fr: "Les {DGT de Glace} augmentent de [25 %]. Lors du lancement d'une {Attaque spéciale EX}, l'ATQ de tous les membres de l'escouade augmente de [3,2 %] pendant 12s (cumulable jusqu'à 4 fois). Déclencher l'effet à nouveau réinitialise sa durée.", 
+                en: "Increases {Ice DMG} by [25%]. When launching an {EX Special Attack}, all squad members' ATK increases by [3.2%] for 12s, stacking up to 4 times. Retriggering refreshes duration." 
+            }
+        ]
+    },
+    "Unfettered Game Ball": {
+        name: { fr: "Balle de jeu sans entraves", en: "Unfettered Game Ball" },
+        rank: "A",
+        specialty: "Support",
+        img: "W-Engine_Unfettered_Game_Ball.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "20% - 50%" 
+        },
+        passiveName: { fr: "Début du jeu !", en: "Game Start!" },
+        overclocks: [
+            { 
+                fr: "Lorsque l'attaque de l'équipementier déclenche un effet de Contre d'Attribut, le Taux CRIT de toutes les unités contre l'ennemi touché augmente de [12 %] pendant 12s.", 
+                en: "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by [12%] for 12s." 
+            },
+            { 
+                fr: "Lorsque l'attaque de l'équipementier déclenche un effet de Contre d'Attribut, le Taux CRIT de toutes les unités contre l'ennemi touché augmente de [13,5 %] pendant 12s.", 
+                en: "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by [13.5%] for 12s." 
+            },
+            { 
+                fr: "Lorsque l'attaque de l'équipementier déclenche un effet de Contre d'Attribut, le Taux CRIT de toutes les unités contre l'ennemi touché augmente de [15 %] pendant 12s.", 
+                en: "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by [15%] for 12s." 
+            },
+            { 
+                fr: "Lorsque l'attaque de l'équipementier déclenche un effet de Contre d'Attribut, le Taux CRIT de toutes les unités contre l'ennemi touché augmente de [17 %] pendant 12s.", 
+                en: "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by [17%] for 12s." 
+            },
+            { 
+                fr: "Lorsque l'attaque de l'équipementier déclenche un effet de Contre d'Attribut, le Taux CRIT de toutes les unités contre l'ennemi touché augmente de [18,5 %] pendant 12s.", 
+                en: "Whenever the equipper's attack triggers an Attribute Counter effect, all units' CRIT Rate against the struck enemy increases by [18.5%] for 12s." 
+            }
+        ]
+    },
+    "Weeping Cradle": {
+        name: { fr: "Berceau en pleurs", en: "Weeping Cradle" },
+        rank: "S",
+        specialty: "Support",
+        img: "W-Engine_Weeping_Cradle.png",
+        stats: { 
+            base: "46 - 684", 
+            advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Punition", en: "Punishment" },
+        overclocks: [
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie augmente de [0,6]/s. Les attaques de l'équipementier augmentent les DGT de toutes les unités contre la cible touchée de [10 %] pendant 3 secondes. Pendant cette période, cet effet augmente de [1,7 %] toutes les 0,5s (max +[10,2 %] supplémentaires). Les déclenchements répétés réinitialisent uniquement la durée.", 
+                en: "While off-field, Energy Regen increases by [0.6]/s. Attacks from the equipper increase all units' DMG against a struck target by [10%] for 3 seconds. During this period, this effect is further increased by [1.7%] every 0.5s, up to a maximum additional increase of [10.2%]. Repeated triggers only refresh its duration without refreshing the DMG increase effect." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie augmente de [0,7]/s. Les attaques de l'équipementier augmentent les DGT de toutes les unités contre la cible touchée de [11,5 %] pendant 3 secondes. Pendant cette période, cet effet augmente de [2 %] toutes les 0,5s (max +[12 %] supplémentaires). Les déclenchements répétés réinitialisent uniquement la durée.", 
+                en: "While off-field, Energy Regen increases by [0.7]/s. Attacks from the equipper increase all units' DMG against a struck target by [11.5%] for 3 seconds. During this period, this effect is further increased by [2%] every 0.5s, up to a maximum additional increase of [12%]. Repeated triggers only refresh its duration without refreshing the DMG increase effect." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie augmente de [0,8]/s. Les attaques de l'équipementier augmentent les DGT de toutes les unités contre la cible touchée de [13 %] pendant 3 secondes. Pendant cette période, cet effet augmente de [2,2 %] toutes les 0,5s (max +[13,2 %] supplémentaires). Les déclenchements répétés réinitialisent uniquement la durée.", 
+                en: "While off-field, Energy Regen increases by [0.8]/s. Attacks from the equipper increase all units' DMG against a struck target by [13%] for 3 seconds. During this period, this effect is further increased by [2.2%] every 0.5s, up to a maximum additional increase of [13.2%]. Repeated triggers only refresh its duration without refreshing the DMG increase effect." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie augmente de [0,9]/s. Les attaques de l'équipementier augmentent les DGT de toutes les unités contre la cible touchée de [14,5 %] pendant 3 secondes. Pendant cette période, cet effet augmente de [2,5 %] toutes les 0,5s (max +[15 %] supplémentaires). Les déclenchements répétés réinitialisent uniquement la durée.", 
+                en: "While off-field, Energy Regen increases by [0.9]/s. Attacks from the equipper increase all units' DMG against a struck target by [14.5%] for 3 seconds. During this period, this effect is further increased by [2.5%] every 0.5s, up to a maximum additional increase of [15%]. Repeated triggers only refresh its duration without refreshing the DMG increase effect." 
+            },
+            { 
+                fr: "En dehors du terrain, la Réc. d'énergie augmente de [1,0]/s. Les attaques de l'équipementier augmentent les DGT de toutes les unités contre la cible touchée de [16 %] pendant 3 secondes. Pendant cette période, cet effet augmente de [2,8 %] toutes les 0,5s (max +[16,8 %] supplémentaires). Les déclenchements répétés réinitialisent uniquement la durée.", 
+                en: "While off-field, Energy Regen increases by [1.0]/s. Attacks from the equipper increase all units' DMG against a struck target by [16%] for 3 seconds. During this period, this effect is further increased by [2.8%] every 0.5s, up to a maximum additional increase of [16.8%]. Repeated triggers only refresh its duration without refreshing the DMG increase effect." 
+            }
+        ]
+    },
+    "Slice of Time": {
+        name: { fr: "Tranche de temps", en: "Slice of Time" },
+        rank: "A",
+        specialty: "Support",
+        img: "W-Engine_Slice_of_Time.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
+            advanced: "8% - 20%" 
+        },
+        passiveName: { fr: "Ouistiti", en: "Say Cheese" },
+        overclocks: [
+            { 
+                fr: "Les {Contres d'esquive}, {Attaques spéciales EX}, {Attaques de soutien} ou {Enchaînements} d'un membre de l'escouade génèrent respectivement [20/25/30/35] Décibels supplémentaires et génèrent [0,7] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s. Le temps de recharge est indépendant pour chaque attaque.", 
+                en: "Any squad members' {Dodge Counter}, {EX Special Attack}, {Assist Attack}, or {Chain Attack} respectively generates [20/25/30/35] more Decibels and generates [0.7] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others." 
+            },
+            { 
+                fr: "Les {Contres d'esquive}, {Attaques spéciales EX}, {Attaques de soutien} ou {Enchaînements} d'un membre de l'escouade génèrent respectivement [23/28/34/40] Décibels supplémentaires et génèrent [0,8] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s. Le temps de recharge est indépendant pour chaque attaque.", 
+                en: "Any squad members' {Dodge Counter}, {EX Special Attack}, {Assist Attack}, or {Chain Attack} respectively generates [23/28/34/40] more Decibels and generates [0.8] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others." 
+            },
+            { 
+                fr: "Les {Contres d'esquive}, {Attaques spéciales EX}, {Attaques de soutien} ou {Enchaînements} d'un membre de l'escouade génèrent respectivement [26/32/38/45] Décibels supplémentaires et génèrent [0,9] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s. Le temps de recharge est indépendant pour chaque attaque.", 
+                en: "Any squad members' {Dodge Counter}, {EX Special Attack}, {Assist Attack}, or {Chain Attack} respectively generates [26/32/38/45] more Decibels and generates [0.9] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others." 
+            },
+            { 
+                fr: "Les {Contres d'esquive}, {Attaques spéciales EX}, {Attaques de soutien} ou {Enchaînements} d'un membre de l'escouade génèrent respectivement [29/36/43/50] Décibels supplémentaires et génèrent [1,0] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s. Le temps de recharge est indépendant pour chaque attaque.", 
+                en: "Any squad members' {Dodge Counter}, {EX Special Attack}, {Assist Attack}, or {Chain Attack} respectively generates [29/36/43/50] more Decibels and generates [1.0] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others." 
+            },
+            { 
+                fr: "Les {Contres d'esquive}, {Attaques spéciales EX}, {Attaques de soutien} ou {Enchaînements} d'un membre de l'escouade génèrent respectivement [32/40/48/56] Décibels supplémentaires et génèrent [1,1] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s. Le temps de recharge est indépendant pour chaque attaque.", 
+                en: "Any squad members' {Dodge Counter}, {EX Special Attack}, {Assist Attack}, or {Chain Attack} respectively generates [32/40/48/56] more Decibels and generates [1.1] Energy for the equipper. This effect can trigger once every 12s. The cooldown for each type of attack is independent of others." 
+            }
+        ]
+    },
+    "[Reverb] Mark II": {
+        name: { fr: "[Réverbération] Mark II", en: "[Reverb] Mark II" },
+        rank: "B",
+        specialty: "Support",
+        img: "Reverb_Mark_II.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "16% - 40%" 
+        },
+        passiveName: { fr: "Vagues rugissantes", en: "Roaring Waves" },
+        overclocks: [
+            { 
+                fr: "Lancer une {Attaque spéciale EX} ou un {Enchaînement} augmente la Maîtrise d'Anomalie et l'Adresse d'Anomalie de tous les membres de l'escouade de [10] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching an {EX Special Attack} or {Chain Attack} increases all squad members' Anomaly Mastery and Anomaly Proficiency by [10] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} ou un {Enchaînement} augmente la Maîtrise d'Anomalie et l'Adresse d'Anomalie de tous les membres de l'escouade de [12] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching an {EX Special Attack} or {Chain Attack} increases all squad members' Anomaly Mastery and Anomaly Proficiency by [12] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} ou un {Enchaînement} augmente la Maîtrise d'Anomalie et l'Adresse d'Anomalie de tous les membres de l'escouade de [13] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching an {EX Special Attack} or {Chain Attack} increases all squad members' Anomaly Mastery and Anomaly Proficiency by [13] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} ou un {Enchaînement} augmente la Maîtrise d'Anomalie et l'Adresse d'Anomalie de tous les membres de l'escouade de [15] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching an {EX Special Attack} or {Chain Attack} increases all squad members' Anomaly Mastery and Anomaly Proficiency by [15] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} ou un {Enchaînement} augmente la Maîtrise d'Anomalie et l'Adresse d'Anomalie de tous les membres de l'escouade de [16] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching an {EX Special Attack} or {Chain Attack} increases all squad members' Anomaly Mastery and Anomaly Proficiency by [16] for 10s. This effect can trigger once every 20s." 
+            }
+        ]
+    },
+    "[Reverb] Mark III": {
+        name: { fr: "[Réverbération] Mark III", en: "[Reverb] Mark III" },
+        rank: "B",
+        specialty: "Support",
+        img: "Reverb_Mark_III.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "PV %", en: "HP %" }, 
+            advanced: "8% - 20%" 
+        },
+        passiveName: { fr: "Son retentissant", en: "Booming Sound" },
+        overclocks: [
+            { 
+                fr: "Lancer un {Enchaînement} ou un {Ultime} augmente l'ATQ de tous les membres de l'escouade de [8 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching a {Chain Attack} or {Ultimate} increases all squad members' ATK by [8%] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer un {Enchaînement} ou un {Ultime} augmente l'ATQ de tous les membres de l'escouade de [9 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching a {Chain Attack} or {Ultimate} increases all squad members' ATK by [9%] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer un {Enchaînement} ou un {Ultime} augmente l'ATQ de tous les membres de l'escouade de [10 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching a {Chain Attack} or {Ultimate} increases all squad members' ATK by [10%] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer un {Enchaînement} ou un {Ultime} augmente l'ATQ de tous les membres de l'escouade de [11 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching a {Chain Attack} or {Ultimate} increases all squad members' ATK by [11%] for 10s. This effect can trigger once every 20s." 
+            },
+            { 
+                fr: "Lancer un {Enchaînement} ou un {Ultime} augmente l'ATQ de tous les membres de l'escouade de [12 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.", 
+                en: "Launching a {Chain Attack} or {Ultimate} increases all squad members' ATK by [12%] for 10s. This effect can trigger once every 20s." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
