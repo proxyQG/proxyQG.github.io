@@ -780,9 +780,33 @@ export const agentDatabase = {
             { label: "Attaque", value: "1800" }
         ],
         discs: [
-            { tag: { fr: "Team Armurier 👑", en: "Armorer Team 👑" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: { fr: "Optimisé pour Claret. Le bonus d'équipe se maintient via les assistances ou en encaissant volontairement un coup avant la phase d'étourdissement.", en: "Tailored for Claret. The squad buff is maintained via Quick Assists or taking a deliberate hit prior to stun phase." } },
-            { tag: { fr: "Team Attaque / Rupture", en: "Attack / Rupture Team" }, set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "Convertit son Taux CRIT très élevé en puissants buffs d'équipe pour vos attaquants (Sigrid, Orphie).", en: "Converts her extremely high CRIT Rate into massive team buffs for your main attackers (Sigrid, Orphie)." } },
-            { tag: { fr: "Alternative Énergie", en: "Energy Alternative" }, set1: "Astral_Voice", set2: "Moonlight_Lullaby", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Alternative identique à Swing Jazz pour alimenter ses longs EX Spéciaux très coûteux.", en: "Identical alternative to Swing Jazz to fuel her lengthy and costly EX Specials." } }
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Swing_Jazz", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "Swing Jazz synergise parfaitement avec Roxy : la régénération d'énergie lui permet d'utiliser ses Attaques Spéciales EX, améliore son Impact et applique un buff de DGT d'équipe sur Enchaînement/Ultime. Le 2-pièces Woodpecker Electro augmente le Taux CRIT, ce qui renforce la puissance du buff de son Passif Principal.", 
+                    en: "Swing Jazz synergizes well with Roxy since Energy Regen lets her use EX Special Attacks, improves her Impact stat, and applies a team-wide DMG buff when using a Chain Attack or Ultimate. Woodpecker Electro is the 2-piece set for this build, as CRIT Rate increases the potency of the buff from her Core Skill." 
+                } 
+            },
+            { 
+                tag: { fr: "2ème Choix", en: "2nd Best" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { 
+                    fr: "Conçu pour les équipes exploitant les Assistances Rapides (que Roxy n'a pas dans son kit). La rotation demande de la précision pour rentabiliser le buff de 15s, mais le gain de DGT en vaut largement la peine.", 
+                    en: "This is a set for a team that has a member or members that can use Quick Assists since Roxy doesn't have this in her kit. While the team rotation for this would be difficult to master due to the 15 second uptime of the buff, it'll be well worth the damage boost this set can provide." 
+                } 
+            },
+            { 
+                tag: { fr: "3ème Choix", en: "3rd Best" }, 
+                set1: "King_of_the_Summit", set2: "Moonlight_Lullaby", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Moonlight Lullaby", 
+                note: { 
+                    fr: "Une excellente alternative qui améliore son Impact et applique un buff de DGT CRIT à l'équipe. Le 2-pièces Moonlight Lullaby est parfait pour pallier ses besoins en régénération d'énergie.", 
+                    en: "King of the Summit is a great alternative set for Roxy since it improves her Impact and applies a CRIT DMG buff to the team. Additionally, equipping a 2-piece Moonlight Lullaby set is excellent for improving her energy regeneration." 
+                } 
+            }
         ],
         skills: [
             { name: "Core", level: "F", icon: "Core.webp" },
