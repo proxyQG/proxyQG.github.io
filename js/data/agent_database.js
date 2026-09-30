@@ -233,7 +233,17 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "", icon: "Core.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "HP %" }, { slot: "5", label: "ICE DMG %" }, { slot: "4", label: "TC / DC" } ], sub: [ { label: "TC / DC", highlight: true }, { label: "HP %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Glace %", en: "Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Moteur S", name: "Kraken's Cradle", img: "W-Engine_Krakens_Cradle.png" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
         ],
@@ -1622,18 +1632,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "ATK % = DGT Physique %" }, 
-                { slot: "4", label: "Taux CRIT (Build CRIT) / Adre. d'Anomalie (Build Anomalie)" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % = DGT Physique %", en: "ATK % = Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT (Build CRIT) / Adresse d'Anomalie (Build Anomalie)", en: "CRIT Rate (CRIT Build) / Anomaly Proficiency (Anomaly Build)" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Option Stun S (109.57%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, 
@@ -1675,18 +1685,18 @@ export const agentDatabase = {
             { name: "Assist", level: "8", icon: "Assist.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Impact = ATK %" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "Taux CRIT = ATK %" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT (jusqu'à 50%)", highlight: true }, 
-                { label: "ATK / Flat ATK (jusqu'à 3400)", highlight: true }, 
-                { label: "DGT CRIT", highlight: false }, 
-                { label: "PEN", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact = ATQ %", en: "Impact = ATK %" } },
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = ATQ %", en: "CRIT Rate = ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (Jusqu'à 50%)", en: "CRIT Rate (Up to 50%)" }, highlight: true },
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3400)", en: "ATK % / Flat ATK (Up to 3400)" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
@@ -1793,18 +1803,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "DGT Physique % > ATK %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT > ATK %" } 
-            ], 
-            sub: [ 
-                { label: "ATK % / Flat ATK (Jusqu'à 3000)", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "PEN", highlight: false }, 
-                { label: "HP %", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Physique % > ATQ %", en: "Physical DMG % > ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT > ATQ %", en: "CRIT Rate = CRIT DMG > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3000)", en: "ATK % / Flat ATK (Up to 3000)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "PV %", en: "HP %" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Option S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.png" }, 
@@ -1846,18 +1856,18 @@ export const agentDatabase = {
             { name: "Dodge", level: "8", icon: "Esquive.png" }, 
             { name: "Assist", level: "6", icon: "Assist.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Physique %" }, 
-                { slot: "4", label: "Adresse d'Anomalie > ATK %" } 
-            ], 
-            sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Physique %", en: "PEN Ratio % > Physical DMG %" } },
+                { slot: "4", label: { fr: "Adresse d'Anomalie > ATQ %", en: "Anomaly Proficiency > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" }, 
@@ -1903,18 +1913,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Réc. Énergie / ATK %" }, 
-                { slot: "5", label: "DGT Feu % / ATK %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "DGT Feu % / ATQ %", en: "Fire DMG % / ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, 
