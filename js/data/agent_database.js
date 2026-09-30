@@ -818,15 +818,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regeneration" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Wind DMG%" },
-                { slot: "4", label: "Crit Rate" }
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } },
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Vent %", en: "PEN Ratio / ATK % / Wind DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
             ],
             sub: [
-                { label: "Crit Rate (100% en combat)", highlight: true },
-                { label: "Crit DMG = ATK %", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (100 % en combat)", en: "CRIT Rate (100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "PÉN fixe", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "ATQ fixe", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
