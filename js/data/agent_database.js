@@ -262,14 +262,6 @@ export const agentDatabase = {
             { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
         ]
     },
-        engines: [
-            { tag: "Signature S", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, { tag: "Alternative S", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
-        ],
-        teams: [
-            { name: "TEAM 01", tag: "Angels of Delusion", members: [ { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" }, { img: "Aria.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Yanagi", en: "Yanagi Synergy" }, members: [ { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
-        ]
-    },
     "Burnice": {
         color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Fils de Calydon", en: "Mixologist" },
         stats: [ { label: "Réc. d'énergie", value: "2,8" }, { label: "Attaque", value: "2900" }, { label: "Adr. d'anomalie", value: "350" } ],
