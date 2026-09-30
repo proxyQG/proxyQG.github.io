@@ -829,7 +829,7 @@ const W_ENGINES_DB = {
         name: { fr: "Moteur Starlight", en: "Starlight Engine" },
         rank: "A",
         specialty: "Attack",
-        img: "W-Engine_Starlight_Engine.png",
+        img: "Starlight_Engine.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
