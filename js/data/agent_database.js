@@ -153,7 +153,18 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "8", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "PEN Ratio / ATQ / DGT Physique" }, { slot: "4", label: "Dégât CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DGT CRIT", highlight: false }, { label: "Attaque %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Physique %", en: "PEN Ratio / ATK % / Physical DMG %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT", en: "CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.png" }, { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative F2P", name: "Gilded Blossom", img: "Gilded_Blossom.png" }, { tag: "Alternative A", name: "Marcato Desire", img: "Marcato_Desire.png" }, { tag: "Alternative A", name: "Street Superstar", img: "W-Engine_Street_Superstar.png" }
         ],
@@ -192,7 +203,65 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Anomalie" }, { slot: "5", label: "DGT Éther > ATQ" }, { slot: "4", label: "Anomalie" } ], sub: [ { label: "Anomalie", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
+        "Nangong Yu": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
+        stats: [ 
+            { label: "Adre. d'anomalie", value: "280 - 350+" }, 
+            { label: "Maî. d'anomalie", value: "173 - 211" }, 
+            { label: "Attaque", value: "2200 - 2500+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Dégâts Optimaux 👑", en: "Optimal Damage 👑" }, 
+                set1: "Phaethon_Melody", set2: "Chaos_Jazz", 
+                set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
+                note: { 
+                    fr: "Le meilleur set de Nangong pour les dégâts. Excellent pour les phases de burst (surtout lors des étourdissements via les EX Spéciaux) et fonctionne parfaitement avec l'équipe des Idoles.", 
+                    en: "Nangong's best set for damage purposes. Excellent for burst periods from EX Specials during stun, and works perfectly with the Idols team." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative Anomalie", en: "Anomaly Alternative" }, 
+                set1: "Freedom_Blues", set2: "Phaethon_Melody", 
+                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { 
+                    fr: "Si vous avez du mal à maintenir les Désordres ou si l'équipe nécessite un cyclage d'Anomalie très rapide (Miyabi, Alice), ce set est une excellente option de confort.", 
+                    en: "If you are struggling to consistently juggle Disorders or the team has strict fast Anomaly cycling requirements (Miyabi, Alice), this set functions as a decent universal option." 
+                } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.png" }, 
+            { name: "Chain", level: "11", icon: "Ultime.png" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "8", icon: "Assist.png" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.png" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ % > Taux de PÉN", en: "Ether DMG % = ATK % > PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, 
+            { tag: "Alternative Stun S (99.33%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
+            { tag: "Alternative Anomalie S (95.86%)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
+            { tag: "Option F2P A (95.16%)", name: "The Simmering Pot", img: "W-Engine_The_Simmering_Pot.png" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Désordre Méta 👑", en: "Disorder Meta 👑" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Burnice.png", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 02", tag: { fr: "Anges de l'illusion", en: "Angels of Delusion" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
+        ]
+    },
         engines: [
             { tag: "Signature S", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, { tag: "Alternative S", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
         ],
@@ -400,7 +469,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energie Regen" }, { slot: "5", label: "Dmg Elec > ATQ" }, { slot: "4", label: "Taux Crit" } ], sub: [ { label: "TC (Jusqu'à 100% IG)", highlight: true }, { label: "DC %", highlight: false }, { label: "ATK %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Électrique % > ATQ %", en: "Electric DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Moteur S", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Moteur S", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, { tag: "Moteur A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.png" }
         ],
@@ -2113,15 +2193,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "ATK % > DGT Physique % = PEN Ratio" }, 
-                { slot: "4", label: "Taux CRIT" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Physique % = Taux de PÉN", en: "ATK % > Physical DMG % = PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100%)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100%)", en: "CRIT Rate (Up to 100%)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2170,14 +2250,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "HP %" }, 
-                { slot: "4", label: "HP %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
             ], 
             sub: [ 
-                { label: "HP % / Flat HP (Jusqu'à 27k PV)", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "ATK %", highlight: false } 
+                { label: { fr: "PV % / Flat PV (Jusqu'à 27k PV)", en: "HP % / Flat HP (Up to 27k HP)" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2221,15 +2301,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "DGT Éther % = ATK %" }, 
-                { slot: "4", label: "Adresse d'Anomalie" } 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ %", en: "Ether DMG % = ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
             ], 
             sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2277,14 +2357,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "ATK %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
             ], 
             sub: [ 
-                { label: "ATK % / Flat ATK (Jusqu'à 3500)", highlight: true }, 
-                { label: "Adresse d'Anomalie", highlight: false }, 
-                { label: "PEN", highlight: false } 
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3500)", en: "ATK % / Flat ATK (Up to 3500)" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
             ] 
         },
         engines: [
