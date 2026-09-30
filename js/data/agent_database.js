@@ -647,7 +647,19 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energy Regen / ATK%" }, { slot: "5", label: "ATK% / Fire DMG" }, { slot: "4", label: "ATK% / Crit Rate / DMG" } ], sub: [ { label: "ATK%", highlight: true }, { label: "Crit Rate = Crit DMG", highlight: false }, { label: "PEN", highlight: false }, { label: "ATK", highlight: false } ] },
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % / Taux de PÉN", en: "ATK % / PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (min 50% avec KOTS)", en: "CRIT Rate (min 50% with KOTS)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
         ],
