@@ -246,13 +246,45 @@ window.toggleFavorite = function(btn, agentName, event) {
 // ==========================================
 // 7. FACTIONS
 // ==========================================
+const factionTranslations = {
+    "Lièvres rusés": "Cunning Hares",
+    "Usines Belobog": "Belobog Heavy Industries",
+    "Société d'entretien Victoria": "Victoria Housekeeping Co.",
+    "Fils de Calydon": "Sons of Calydon",
+    "Section 6": "Hollow Special Operations Section 6",
+    "Escouade Obole": "Obol Squad",
+    "Division de l'Ordre urbain": "Metropolitan Order Division",
+    "Équipe d'intervention spéciale des Enquêtes criminelles": "C.I.S.R.T.",
+    "Étoiles de la Lyre": "Stars of Lyra",
+    "Forces de défense - Escouade Argent": "Defense Force - Silver Squad",
+    "Oiseaux-moqueurs": "Mockingbirds",
+    "Cimes de Yunkui": "Yunkui Summit",
+    "Maison hantée": "Spook Shack",
+    "Autorité de conformité Krampus": "Krampus Compliance Authority",
+    "Anges de l'illusion": "Angels of Delusion",
+    "Département de stratégie externe": "External Strategy Department",
+    "Département de la patrouille aérienne": "Airspace Patrol Department",
+    "Entente de Dayat": "Void Hunters",
+    "Phaéthon": "Phaethon"
+};
+
 function renderFactions() {
     const generateFactionHTML = (faction, isSidebar) => {
         const imgPath = `assets/Faction/${faction}.png`; 
         const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
-        let displayName = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "N.E.P.S." : faction;
-        let subName = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "Équipe d'intervention spéciale" : '';
-
+        
+        // Traduction dynamique
+        const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+        let displayName = faction;
+        if (isEn && factionTranslations[faction]) {
+            displayName = factionTranslations[faction];
+        }
+        
+        let subName = '';
+        if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+            displayName = "N.E.P.S.";
+            subName = isEn ? "Special Response Team" : "Équipe d'intervention spéciale";
+        }
         if (isSidebar) {
             return `
             <div class="mb-5 px-1 transform-gpu hidden md:block">
@@ -274,17 +306,25 @@ function renderFactions() {
     const sidebarList = document.getElementById('sidebarFactionsList'); if (sidebarList) { const sidebarHTML = factionsData.map(f => generateFactionHTML(f, true)).join(''); sidebarList.innerHTML = sidebarHTML + sidebarHTML; }
 }
 
-window.setFactionFilter = function(faction, fromModal = false) {
-    State.faction = faction; 
+window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = false) {
+    if (!isLangSwitch) State.faction = faction; 
     const tags = document.querySelectorAll('.active-faction-tag');
     const nameLabels = document.querySelectorAll('.active-faction-name');
     
-    const labelText = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "N.E.P.S." : faction;
+    const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+    let labelText = faction;
+    if (isEn && factionTranslations[faction]) {
+        labelText = factionTranslations[faction];
+    }
+    if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+        labelText = "N.E.P.S.";
+    }
+
     nameLabels.forEach(nl => nl.textContent = labelText);
     tags.forEach(t => { t.classList.remove('hidden'); t.classList.add('flex'); });
 
     if (fromModal) window.closeModal('factionModal');
-    renderAgents(); scrollToTop();
+    if (!isLangSwitch) { renderAgents(); scrollToTop(); }
 };
 
 document.querySelectorAll('.clear-faction-btn').forEach(btn => {
@@ -607,16 +647,23 @@ window.closeVideoModal = function() {
     }, 300);
 };
 
-// ==========================================
-// 10. UTILITAIRES & PARALLAXE FLUIDE (60 FPS)
-// ==========================================
 function initLanguageSwitcher() {
     const langSwitcher = document.getElementById('langSwitcher');
     if (langSwitcher) {
         langSwitcher.setAttribute('data-active', currentLang);
         langSwitcher.addEventListener('click', () => {
-            const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; langSwitcher.setAttribute('data-active', newLang); setLanguage(newLang);
+            const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
+            langSwitcher.setAttribute('data-active', newLang); 
+            setLanguage(newLang);
             document.querySelectorAll('.dyn-term').forEach(el => { const term = el.getAttribute('data-term'); if (term) el.textContent = tTerm(term); });
+            
+            // --- NOUVEAU : Rechargement des factions ---
+            renderFactions();
+            if (State.faction) {
+                window.setFactionFilter(State.faction, false, true); // Met à jour le tag sans recharger les agents 2 fois
+            }
+            // -------------------------------------------
+
             renderAgents(); scrollToTop();
             if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { document.getElementById('agentGuideContainer').innerHTML = getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); }
         });
