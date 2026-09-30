@@ -649,14 +649,14 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: { fr: "Impact", en: "Impact" } },
-                { slot: "5", label: { fr: "ATQ % / Taux de PÉN", en: "ATK % / PEN Ratio" } },
-                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Feu", en: "ATK % / Fire DMG" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT / DGT CRIT", en: "ATK % / CRIT Rate / CRIT DMG" } }
             ],
             sub: [
-                { label: { fr: "Taux CRIT (min 50% avec KOTS)", en: "CRIT Rate (min 50% with KOTS)" }, highlight: true },
-                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
-                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
                 { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
