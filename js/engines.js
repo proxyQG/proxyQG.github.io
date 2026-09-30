@@ -1115,20 +1115,20 @@ const W_ENGINES_DB = {
                 en: "Increases ATK by [7.5%]. Landing a critical hit on an enemy will inflict an additional [200%] of ATK as DMG. This effect can trigger once every 8s." 
             },
             { 
-                fr: "Augmente l'ATQ de [8,6 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [230 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
+                fr: "Augmente l'ATQ de [8,6 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [230 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 7.5s.", 
                 en: "Increases ATK by [8.6%]. Landing a critical hit on an enemy will inflict an additional [230%] of ATK as DMG. This effect can trigger once every 8s." 
             },
             { 
-                fr: "Augmente l'ATQ de [9,7 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [260 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
-                en: "Increases ATK by [9.7%]. Landing a critical hit on an enemy will inflict an additional [260%] of ATK as DMG. This effect can trigger once every 8s." 
+                fr: "Augmente l'ATQ de [9,7 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [260 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 7s.", 
+                en: "Increases ATK by [9.7%]. Landing a critical hit on an enemy will inflict an additional [260%] of ATK as DMG. This effect can trigger once every 7s." 
             },
             { 
-                fr: "Augmente l'ATQ de [10,9 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [290 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
-                en: "Increases ATK by [10.9%]. Landing a critical hit on an enemy will inflict an additional [290%] of ATK as DMG. This effect can trigger once every 8s." 
+                fr: "Augmente l'ATQ de [10,9 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [290 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 6.5s.", 
+                en: "Increases ATK by [10.9%]. Landing a critical hit on an enemy will inflict an additional [290%] of ATK as DMG. This effect can trigger once every 6.5s." 
             },
             { 
-                fr: "Augmente l'ATQ de [12 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [320 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 8s.", 
-                en: "Increases ATK by [12%]. Landing a critical hit on an enemy will inflict an additional [320%] of ATK as DMG. This effect can trigger once every 8s." 
+                fr: "Augmente l'ATQ de [12 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [320 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 6s.", 
+                en: "Increases ATK by [12%]. Landing a critical hit on an enemy will inflict an additional [320%] of ATK as DMG. This effect can trigger once every 6s." 
             }
         ]
     },
