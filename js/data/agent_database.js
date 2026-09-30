@@ -421,7 +421,18 @@ export const agentDatabase = {
         skills: [
             { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Anomalie" }, { slot: "5", label: "Ether DMG" }, { slot: "4", label: "Energy Regen" } ], sub: [ { label: "Anomaly Mastery", highlight: true }, { label: "PEN", highlight: false }, { label: "ATK %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther", en: "Ether DMG" } }, 
+                { slot: "4", label: { fr: "Réc. d'énergie", en: "Energy Regen" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "The Vault", img: "W-Engine_The_Vault.png" }, { tag: "Option Anomalie", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Option Soutien", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
         ],
@@ -1054,15 +1065,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio" },
-                { slot: "4", label: "Crit Rate (M0-M3) / Crit DMG (M4-M5) / ATK% (M6)" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT (M0-M3) / DGT CRIT (M4-M5) / ATQ % (M6)", en: "CRIT Rate (M0-M3) / CRIT DMG (M4-M5) / ATK % (M6)" } }
             ],
             sub: [
-                { label: "Crit Rate (jusqu'à 100% en combat)", highlight: true },
-                { label: "Crit DMG = ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (jusqu'à 100% en combat)", en: "CRIT Rate (up to 100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -1155,15 +1166,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Physical DMG%" },
-                { slot: "4", label: "Crit Rate% / Crit DMG%" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Physique %", en: "PEN Ratio % / ATK % / Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -1200,15 +1211,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regen / Anomaly Mastery" },
-                { slot: "5", label: "ATK% / Electric DMG%" },
-                { slot: "4", label: "ATK% / Anomaly Proficiency" }
+                { slot: "6", label: { fr: "Réc. d'énergie / Maîtrise d'Anomalie", en: "Energy Regen / Anomaly Mastery" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Électrique %", en: "ATK % / Electric DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Adresse d'Anomalie", en: "ATK % / Anomaly Proficiency" } }
             ],
             sub: [
-                { label: "ATK % (priorité absorption bouclier)", highlight: true },
-                { label: "Anomaly Proficiency", highlight: true },
-                { label: "Flat ATK", highlight: false },
-                { label: "Flat PEN", highlight: false }
+                { label: { fr: "ATQ % (priorité absorption bouclier)", en: "ATK % (shield absorption priority)" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }
             ]
         },
         engines: [
