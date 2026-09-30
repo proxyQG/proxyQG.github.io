@@ -876,20 +876,20 @@ const W_ENGINES_DB = {
                 en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [10%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [11,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
-                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [11.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+                fr: "Réduit les DGT subis de [8.5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [11,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [8.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [11.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [13 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
-                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [13%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+                fr: "Réduit les DGT subis de [9.5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [13 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [9.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [13%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [14,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
-                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [14.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+                fr: "Réduit les DGT subis de [10.5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [14,5 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [10.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [14.5%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [16 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
-                en: "Reduces DMG taken by [7.5%]. When attacked, the equipper's {Energy Generation Rate} increases by [16%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
+                fr: "Réduit les DGT subis de [12 %]. En subissant une attaque, la {Réc. d'énergie} de l'équipementier augmente de [16 %] pendant 12s. Lorsque l'équipementier quitte le terrain, ce buff est transféré au nouveau personnage déployé et sa durée est réinitialisée. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Reduces DMG taken by [12%]. When attacked, the equipper's {Energy Generation Rate} increases by [16%] for 12s. When the equipper switches off-field, this buff will be transferred to the new on-field character with its duration refreshed. Passive effects of the same name do not stack." 
             }
         ]
     },
@@ -910,20 +910,20 @@ const W_ENGINES_DB = {
                 en: "Increases Max HP by [8%]. When attacked, the equipper's {Impact} is increased by [10%] for 12s." 
             },
             { 
-                fr: "Augmente les PV max de [9,2 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [11,5 %] pendant 12s.", 
-                en: "Increases Max HP by [9.2%]. When attacked, the equipper's {Impact} is increased by [11.5%] for 12s." 
+                fr: "Augmente les PV max de [9 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [11,5 %] pendant 12s.", 
+                en: "Increases Max HP by [9%]. When attacked, the equipper's {Impact} is increased by [11.5%] for 12s." 
             },
             { 
-                fr: "Augmente les PV max de [10,4 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [13 %] pendant 12s.", 
-                en: "Increases Max HP by [10.4%]. When attacked, the equipper's {Impact} is increased by [13%] for 12s." 
+                fr: "Augmente les PV max de [10 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [13 %] pendant 12s.", 
+                en: "Increases Max HP by [10%]. When attacked, the equipper's {Impact} is increased by [13%] for 12s." 
             },
             { 
-                fr: "Augmente les PV max de [11,6 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [14,5 %] pendant 12s.", 
-                en: "Increases Max HP by [11.6%]. When attacked, the equipper's {Impact} is increased by [14.5%] for 12s." 
+                fr: "Augmente les PV max de [11 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [14,5 %] pendant 12s.", 
+                en: "Increases Max HP by [11%]. When attacked, the equipper's {Impact} is increased by [14.5%] for 12s." 
             },
             { 
-                fr: "Augmente les PV max de [12,8 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [16 %] pendant 12s.", 
-                en: "Increases Max HP by [12.8%]. When attacked, the equipper's {Impact} is increased by [16%] for 12s." 
+                fr: "Augmente les PV max de [12,5 %]. En subissant une attaque, l'{Impact} de l'équipementier augmente de [16 %] pendant 12s.", 
+                en: "Increases Max HP by [12.5%]. When attacked, the equipper's {Impact} is increased by [16%] for 12s." 
             }
         ]
     },
@@ -944,20 +944,20 @@ const W_ENGINES_DB = {
                 en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [600%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [690 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
-                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [690%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+                fr: "Réduit les DGT subis de [8,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [690 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [8.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [690%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [780 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
-                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [780%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+                fr: "Réduit les DGT subis de [9,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [780 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [9.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [780%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [870 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
-                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [870%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+                fr: "Réduit les DGT subis de [10,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [870 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [10.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [870%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
             },
             { 
-                fr: "Réduit les DGT subis de [7,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [960 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
-                en: "Reduces DMG taken by [7.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [960%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
+                fr: "Réduit les DGT subis de [10,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [960 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.", 
+                en: "Reduces DMG taken by [10.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [960%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s." 
             }
         ]
     },
@@ -1012,20 +1012,20 @@ const W_ENGINES_DB = {
                 en: "The equipper's attacks inflict [8%] more {Daze} on their main target." 
             },
             { 
-                fr: "Les attaques de l'équipementier infligent [9,2 %] de {Stupeur} supplémentaire à leur cible principale.", 
-                en: "The equipper's attacks inflict [9.2%] more {Daze} on their main target." 
+                fr: "Les attaques de l'équipementier infligent [9 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [9%] more {Daze} on their main target." 
             },
             { 
-                fr: "Les attaques de l'équipementier infligent [10,4 %] de {Stupeur} supplémentaire à leur cible principale.", 
-                en: "The equipper's attacks inflict [10.4%] more {Daze} on their main target." 
+                fr: "Les attaques de l'équipementier infligent [10 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [10%] more {Daze} on their main target." 
             },
             { 
-                fr: "Les attaques de l'équipementier infligent [11,6 %] de {Stupeur} supplémentaire à leur cible principale.", 
-                en: "The equipper's attacks inflict [11.6%] more {Daze} on their main target." 
+                fr: "Les attaques de l'équipementier infligent [11 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [11%] more {Daze} on their main target." 
             },
             { 
-                fr: "Les attaques de l'équipementier infligent [12,8 %] de {Stupeur} supplémentaire à leur cible principale.", 
-                en: "The equipper's attacks inflict [12.8%] more {Daze} on their main target." 
+                fr: "Les attaques de l'équipementier infligent [12 %] de {Stupeur} supplémentaire à leur cible principale.", 
+                en: "The equipper's attacks inflict [12%] more {Daze} on their main target." 
             }
         ]
     },
@@ -1050,8 +1050,8 @@ const W_ENGINES_DB = {
                 en: "While off-field, the equipper's {Energy Regen} increases by [0.52]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [3.5%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
             },
             { 
-                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,59]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [3,9 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
-                en: "While off-field, the equipper's {Energy Regen} increases by [0.59]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [3.9%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,58]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [4 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.58]/s. When an {EX Special Attack} hits an enemy, the equipper's {Physical DMG} increases by [4%], stacking up to 15 times and lasting 1s. Repeated triggers reset the duration." 
             },
             { 
                 fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,65]/s. Lorsqu'une {Attaque spéciale EX} touche un ennemi, les {DGT Physiques} de l'équipementier augmentent de [4,4 %], cumulable jusqu'à 15 fois et d'une durée de 1s. Les déclenchements répétés réinitialisent la durée.", 
