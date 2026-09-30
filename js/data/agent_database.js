@@ -825,8 +825,8 @@ export const agentDatabase = {
             sub: [
                 { label: { fr: "Taux CRIT (100 % en combat)", en: "CRIT Rate (100% in combat)" }, highlight: true },
                 { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
-                { label: { fr: "PÉN fixe", en: "Flat PEN" }, highlight: false },
-                { label: { fr: "ATQ fixe", en: "Flat ATK" }, highlight: false }
+                { label: { fr: "PÉN Flat", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "ATQ Flat", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
