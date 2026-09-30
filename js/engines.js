@@ -42,30 +42,30 @@ const W_ENGINES_DB = {
         img: "W-Engine_Frostfall_Sickle.png",
         stats: { 
             base: "48 - 713", 
-            advancedLabel: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, 
-            advanced: "30 - 75" 
+            advancedLabel: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, 
+            advanced: "12% - 30%" 
         },
-        passiveName: { fr: "Moisson boréale", en: "Boreal Harvest" },
+        passiveName: { fr: "Verdict final", en: "Terminating Verdict" },
         overclocks: [
             { 
-                fr: "Les {DGT de Glace} augmentent de [25 %]. Déclencher {Gel} ou {Désordre} augmente l'ATQ de toute l'équipe de [10 %] pendant 15s.", 
-                en: "{Ice DMG} increases by [25%]. Triggering {Freeze} or {Disorder} increases squad ATK by [10%] for 15s." 
+                fr: "Lorsqu'un équipier d'{attribut Glace} utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, ses {DGT de Glace} augmentent de [20 %] pendant 40s, cumulable jusqu'à 2 fois (une fois par utilisation de compétence). Les déclenchements répétés réinitialisent la durée. À 2 cumuls, les DGT d'{Abloom} infligés par l'équipementier augmentent de [35 %] supplémentaires.", 
+                en: "When an {Ice attribute} equipper uses a {Special Attack} or {EX Special Attack}, their {Ice DMG} is increased by [20%] for 40s, stacking up to 2 times, once per use of a skill. Repeated triggers refresh the duration. At 2 stacks, the equipper's {Abloom} DMG dealt is increased by an additional [35%]." 
             },
             { 
-                fr: "Les {DGT de Glace} augmentent de [28,5 %]. Déclencher {Gel} ou {Désordre} augmente l'ATQ de toute l'équipe de [11,5 %] pendant 15s.", 
-                en: "{Ice DMG} increases by [28.5%]. Triggering {Freeze} or {Disorder} increases squad ATK by [11.5%] for 15s." 
+                fr: "Lorsqu'un équipier d'{attribut Glace} utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, ses {DGT de Glace} augmentent de [23 %] pendant 40s, cumulable jusqu'à 2 fois (une fois par utilisation de compétence). Les déclenchements répétés réinitialisent la durée. À 2 cumuls, les DGT d'{Abloom} infligés par l'équipementier augmentent de [38,75 %] supplémentaires.", 
+                en: "When an {Ice attribute} equipper uses a {Special Attack} or {EX Special Attack}, their {Ice DMG} is increased by [23%] for 40s, stacking up to 2 times, once per use of a skill. Repeated triggers refresh the duration. At 2 stacks, the equipper's {Abloom} DMG dealt is increased by an additional [38.75%]." 
             },
             { 
-                fr: "Les {DGT de Glace} augmentent de [32 %]. Déclencher {Gel} ou {Désordre} augmente l'ATQ de toute l'équipe de [13 %] pendant 15s.", 
-                en: "{Ice DMG} increases by [32%]. Triggering {Freeze} or {Disorder} increases squad ATK by [13%] for 15s." 
+                fr: "Lorsqu'un équipier d'{attribut Glace} utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, ses {DGT de Glace} augmentent de [26 %] pendant 40s, cumulable jusqu'à 2 fois (une fois par utilisation de compétence). Les déclenchements répétés réinitialisent la durée. À 2 cumuls, les DGT d'{Abloom} infligés par l'équipementier augmentent de [42,5 %] supplémentaires.", 
+                en: "When an {Ice attribute} equipper uses a {Special Attack} or {EX Special Attack}, their {Ice DMG} is increased by [26%] for 40s, stacking up to 2 times, once per use of a skill. Repeated triggers refresh the duration. At 2 stacks, the equipper's {Abloom} DMG dealt is increased by an additional [42.5%]." 
             },
             { 
-                fr: "Les {DGT de Glace} augmentent de [35,5 %]. Déclencher {Gel} ou {Désordre} augmente l'ATQ de toute l'équipe de [14,5 %] pendant 15s.", 
-                en: "{Ice DMG} increases by [35.5%]. Triggering {Freeze} or {Disorder} increases squad ATK by [14.5%] for 15s." 
+                fr: "Lorsqu'un équipier d'{attribut Glace} utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, ses {DGT de Glace} augmentent de [29 %] pendant 40s, cumulable jusqu'à 2 fois (une fois par utilisation de compétence). Les déclenchements répétés réinitialisent la durée. À 2 cumuls, les DGT d'{Abloom} infligés par l'équipementier augmentent de [46,25 %] supplémentaires.", 
+                en: "When an {Ice attribute} equipper uses a {Special Attack} or {EX Special Attack}, their {Ice DMG} is increased by [29%] for 40s, stacking up to 2 times, once per use of a skill. Repeated triggers refresh the duration. At 2 stacks, the equipper's {Abloom} DMG dealt is increased by an additional [46.25%]." 
             },
             { 
-                fr: "Les {DGT de Glace} augmentent de [40 %]. Déclencher {Gel} ou {Désordre} augmente l'ATQ de toute l'équipe de [16 %] pendant 15s.", 
-                en: "{Ice DMG} increases by [40%]. Triggering {Freeze} or {Disorder} increases squad ATK by [16%] for 15s." 
+                fr: "Lorsqu'un équipier d'{attribut Glace} utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, ses {DGT de Glace} augmentent de [32 %] pendant 40s, cumulable jusqu'à 2 fois (une fois par utilisation de compétence). Les déclenchements répétés réinitialisent la durée. À 2 cumuls, les DGT d'{Abloom} infligés par l'équipementier augmentent de [50 %] supplémentaires.", 
+                en: "When an {Ice attribute} equipper uses a {Special Attack} or {EX Special Attack}, their {Ice DMG} is increased by [32%] for 40s, stacking up to 2 times, once per use of a skill. Repeated triggers refresh the duration. At 2 stacks, the equipper's {Abloom} DMG dealt is increased by an additional [50%]." 
             }
         ]
     },
