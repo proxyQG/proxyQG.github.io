@@ -530,7 +530,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "10", icon: "Ex.png" }, { name: "Ult", level: "10", icon: "Ultime.png" }, { name: "Assist", level: "7", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact %", en: "Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Spectral Gaze", img: "W-Engine_Spectral_Gaze.png" }, { tag: "Alternatives 5★", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, { tag: "Alternatives 4★ F2P", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
         ],
@@ -1393,15 +1404,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "ATK % / DGT Feu % / PEN Ratio" }, 
-                { slot: "4", label: "Taux CRIT (≥ DGT CRIT)" } 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "ATQ % / DGT Feu % / Taux de PÉN", en: "ATK % / Fire DMG % / PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT", highlight: true }, 
-                { label: "DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: false }, 
-                { label: "PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1446,15 +1457,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "ATK % > DGT Électrique %" }, 
-                { slot: "4", label: "ATK % > DGT CRIT = Taux CRIT" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Électrique %", en: "ATK % > Electric DMG %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT = Taux CRIT", en: "ATK % > CRIT DMG = CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 75% max)", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "DGT CRIT", highlight: false }, 
-                { label: "Flat PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1503,15 +1514,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Feu % > ATK %" }, 
-                { slot: "4", label: "ATK % > DGT CRIT %" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Feu % > ATQ %", en: "PEN Ratio % > Fire DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT %", en: "ATK % > CRIT DMG %" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 75% max)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1560,15 +1571,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Réc. d'énergie = ATK %" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "ATK %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie = ATQ %", en: "Energy Regen = ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
             ], 
             sub: [ 
-                { label: "ATK % (Jusqu'à 3430 ATK globale)", highlight: true }, 
-                { label: "Flat ATK", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "Adresse d'Anomalie", highlight: false } 
+                { label: { fr: "ATQ % (Jusqu'à 3430 ATQ globale)", en: "ATK % (Up to 3430 overall ATK)" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false } 
             ] 
         },
         engines: [
