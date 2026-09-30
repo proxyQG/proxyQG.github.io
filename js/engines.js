@@ -378,7 +378,7 @@ const W_ENGINES_DB = {
             }
         ]
     },
-    "[Reverb] Mark II": {
+    "Reverb - Mark II": {
         name: { fr: "[Réverbération] Mark II", en: "[Reverb] Mark II" },
         rank: "B",
         specialty: "Support",
@@ -412,7 +412,7 @@ const W_ENGINES_DB = {
             }
         ]
     },
-    "[Reverb] Mark III": {
+    "Reverb - Mark III": {
         name: { fr: "[Réverbération] Mark III", en: "[Reverb] Mark III" },
         rank: "B",
         specialty: "Support",
