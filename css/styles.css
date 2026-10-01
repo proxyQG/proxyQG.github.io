@@ -147,3 +147,31 @@ body {
     line-height: 1.1; /* Rapproche les lignes pour que ça reste esthétique */
     max-width: 100%;
 }
+
+
+/* =========================================
+   CORRECTION : NOMS LONGS SUR MOBILE (GUIDE)
+   ========================================= */
+
+/* 1. Coupe radicalement tout ce qui essaie de créer un scroll horizontal dans le guide */
+#agentGuideContainer {
+    overflow-x: hidden;
+}
+
+/* 2. Rend la taille du nom dynamique (rétrécit sur mobile, reste grand sur PC) 
+      et force la coupe des mots trop longs */
+#agentGuideContainer h1,
+#agentGuideContainer .font-display.uppercase {
+    /* clamp(min, idéal, max) : la police s'adapte à la largeur de l'écran (vw) */
+    font-size: clamp(2rem, 10vw, 4rem) !important; 
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    line-height: 1.1 !important;
+}
+
+/* 3. Autorise le conteneur des badges (Rang S, Élément) à passer à la ligne 
+      s'il n'y a plus de place à côté du nom de l'agent */
+#agentGuideContainer > div:first-child .flex {
+    flex-wrap: wrap !important;
+}
