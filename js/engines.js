@@ -34,6 +34,144 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Lunar - Noviluna": {
+        name: { fr: "Lune Nouvelle", en: "[Lunar] Noviluna" },
+        rank: "B",
+        specialty: "Support",
+        img: "Lunar_Noviluna.png",
+        stats: { 
+            base: "32 - 475", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "6.4% - 16%" 
+        },
+        passiveName: { fr: "Nouvelle Lune", en: "New Moon" },
+        overclocks: [
+            { 
+                fr: "Lancer une {Attaque spéciale EX} génère [3] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s.", 
+                en: "Launching an {EX Special Attack} generates [3] Energy for the equipper. This effect can trigger once every 12s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} génère [3,5] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s.", 
+                en: "Launching an {EX Special Attack} generates [3.5] Energy for the equipper. This effect can trigger once every 12s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} génère [4] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s.", 
+                en: "Launching an {EX Special Attack} generates [4] Energy for the equipper. This effect can trigger once every 12s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} génère [4,5] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s.", 
+                en: "Launching an {EX Special Attack} generates [4.5] Energy for the equipper. This effect can trigger once every 12s." 
+            },
+            { 
+                fr: "Lancer une {Attaque spéciale EX} génère [5] points d'énergie pour l'équipementier. Cet effet peut se déclencher une fois toutes les 12s.", 
+                en: "Launching an {EX Special Attack} generates [5] Energy for the equipper. This effect can trigger once every 12s." 
+            }
+        ]
+    },
+    "Zanshin Herb Case": {
+        name: { fr: "Étui à herbes Zanshin", en: "Zanshin Herb Case" },
+        rank: "S",
+        specialty: "Anomaly",
+        element: "Electric",
+        img: "W-Engine_Zanshin_Herb_Case.png",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
+            advanced: "19.2% - 48%" 
+        },
+        passiveName: { fr: "Croissance dans l'adversité", en: "Growth Through Adversity" },
+        overclocks: [
+            { 
+                fr: "Augmente le Taux CRIT de [10 %]. Les {DGT Électriques} des {Attaques bondissantes} augmentent de [40 %]. Lorsqu'un membre de l'escouade inflige une Anomalie d'attribut ou étourdit un ennemi, le Taux CRIT de l'équipementier augmente de [10 %] supplémentaires pendant 12s.", 
+                en: "CRIT Rate increases by [10%]. {Dash Attack} {Electric DMG} increases by [40%]. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional [10%] for 12s." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [11,5 %]. Les {DGT Électriques} des {Attaques bondissantes} augmentent de [46 %]. Lorsqu'un membre de l'escouade inflige une Anomalie d'attribut ou étourdit un ennemi, le Taux CRIT de l'équipementier augmente de [11,5 %] supplémentaires pendant 12s.", 
+                en: "CRIT Rate increases by [11.5%]. {Dash Attack} {Electric DMG} increases by [46%]. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional [11.5%] for 12s." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [13 %]. Les {DGT Électriques} des {Attaques bondissantes} augmentent de [52 %]. Lorsqu'un membre de l'escouade inflige une Anomalie d'attribut ou étourdit un ennemi, le Taux CRIT de l'équipementier augmente de [13 %] supplémentaires pendant 12s.", 
+                en: "CRIT Rate increases by [13%]. {Dash Attack} {Electric DMG} increases by [52%]. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional [13%] for 12s." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [14,5 %]. Les {DGT Électriques} des {Attaques bondissantes} augmentent de [58 %]. Lorsqu'un membre de l'escouade inflige une Anomalie d'attribut ou étourdit un ennemi, le Taux CRIT de l'équipementier augmente de [14,5 %] supplémentaires pendant 12s.", 
+                en: "CRIT Rate increases by [14.5%]. {Dash Attack} {Electric DMG} increases by [58%]. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional [14.5%] for 12s." 
+            },
+            { 
+                fr: "Augmente le Taux CRIT de [16 %]. Les {DGT Électriques} des {Attaques bondissantes} augmentent de [64 %]. Lorsqu'un membre de l'escouade inflige une Anomalie d'attribut ou étourdit un ennemi, le Taux CRIT de l'équipementier augmente de [16 %] supplémentaires pendant 12s.", 
+                en: "CRIT Rate increases by [16%]. {Dash Attack} {Electric DMG} increases by [64%]. When any squad member applies an Attribute Anomaly or Stuns an enemy, the equipper's CRIT Rate increases by an additional [16%] for 12s." 
+            }
+        ]
+    },
+    "Street Superstar": {
+        name: { fr: "Superstar des rues", en: "Street Superstar" },
+        rank: "A",
+        specialty: "Attack",
+        img: "W-Engine_Street_Superstar.png",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Barres enflammées", en: "Flaming Bars" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [15 %].", 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [15%]." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [17,25 %].", 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [17.25%]." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [19,5 %].", 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [19.5%]." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [21,75 %].", 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [21.75%]." 
+            },
+            { 
+                fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [24 %].", 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [24%]." 
+            }
+        ]
+    },
+    "Drill Rig - Red Axis": {
+        name: { fr: "Foreuse - Axe rouge", en: "Drill Rig - Red Axis" },
+        rank: "A",
+        specialty: "Attack",
+        element: "Electric",
+        img: "W-Engine_Drill_Rig_Red_Axis.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "20% - 50%" 
+        },
+        passiveName: { fr: "Générateur infernal", en: "Hell's Generator" },
+        overclocks: [
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX} ou d'un {Enchaînement}, les {DGT Électriques} des {Attaques de base} et des {Attaques bondissantes} augmentent de [50 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 15s.", 
+                en: "When launching an {EX Special Attack} or {Chain Attack}, {Electric DMG} from {Basic Attacks} and {Dash Attacks} increases by [50%] for 10s. This effect can trigger once every 15s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX} ou d'un {Enchaînement}, les {DGT Électriques} des {Attaques de base} et des {Attaques bondissantes} augmentent de [57,5 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 15s.", 
+                en: "When launching an {EX Special Attack} or {Chain Attack}, {Electric DMG} from {Basic Attacks} and {Dash Attacks} increases by [57.5%] for 10s. This effect can trigger once every 15s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX} ou d'un {Enchaînement}, les {DGT Électriques} des {Attaques de base} et des {Attaques bondissantes} augmentent de [65 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 15s.", 
+                en: "When launching an {EX Special Attack} or {Chain Attack}, {Electric DMG} from {Basic Attacks} and {Dash Attacks} increases by [65%] for 10s. This effect can trigger once every 15s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX} ou d'un {Enchaînement}, les {DGT Électriques} des {Attaques de base} et des {Attaques bondissantes} augmentent de [72,5 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 15s.", 
+                en: "When launching an {EX Special Attack} or {Chain Attack}, {Electric DMG} from {Basic Attacks} and {Dash Attacks} increases by [72.5%] for 10s. This effect can trigger once every 15s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX} ou d'un {Enchaînement}, les {DGT Électriques} des {Attaques de base} et des {Attaques bondissantes} augmentent de [80 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 15s.", 
+                en: "When launching an {EX Special Attack} or {Chain Attack}, {Electric DMG} from {Basic Attacks} and {Dash Attacks} increases by [80%] for 10s. This effect can trigger once every 15s." 
+            }
+        ]
+    },
     "Frostfall Sickle": {
         name: { fr: "Faucille de givre-chute", en: "Frostfall Sickle" },
         rank: "S",
