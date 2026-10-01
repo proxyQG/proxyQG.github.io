@@ -795,6 +795,7 @@ const W_ENGINES_DB = {
         name: { fr: "Le Soufre", en: "The Brimstone" },
         rank: "S",
         specialty: "Attack",
+        element: "Fire",
         img: "W-Engine_The_Brimstone.png",
         stats: { 
             base: "46 - 684", 
