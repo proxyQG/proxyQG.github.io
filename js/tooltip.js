@@ -1,10 +1,32 @@
 // js/tooltip.js
-import { tTerm } from './i18n.js';
-
 (function() {
     let tooltipEl = null;
-    let overlayEl = null; // NOUVEAU : L'overlay sombre
+    let overlayEl = null; // L'overlay sombre
     let currentEngineKey = null;
+    
+    // Dictionnaire local pour traduire Rôle et Attribut sans faire planter le script
+    const ttDict = {
+        'Physical': { fr: 'Physique', en: 'Physical' },
+        'Fire': { fr: 'Feu', en: 'Fire' },
+        'Ice': { fr: 'Glace', en: 'Ice' },
+        'Electric': { fr: 'Électrique', en: 'Electric' },
+        'Ether': { fr: 'Éther', en: 'Ether' },
+        'Wind': { fr: 'Vent', en: 'Wind' },
+        'Lumiflux': { fr: 'Lumiflux', en: 'Lumiflux' },
+        'Honed Edge': { fr: 'Lame affûtée', en: 'Honed Edge' },
+        'Auric Ink': { fr: 'Sépia', en: 'Auric Ink' },
+        'Attack': { fr: 'Attaque', en: 'Attack' },
+        'Stun': { fr: 'Étourdissement', en: 'Stun' },
+        'Anomaly': { fr: 'Anomalie', en: 'Anomaly' },
+        'Support': { fr: 'Soutien', en: 'Support' },
+        'Defense': { fr: 'Défense', en: 'Defense' }
+    };
+
+    function ttTranslate(term, lang) {
+        if (!term) return '';
+        if (ttDict[term]) return ttDict[term][lang] || term;
+        return term;
+    }
     
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
@@ -81,10 +103,10 @@ import { tTerm } from './i18n.js';
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
             document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
             
-            // CORRECTION ICI : On utilise tTerm() pour traduire specialty et element
+            // ICI : On utilise notre dictionnaire local ttTranslate()
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
-                              <span class="tt-tag dyn-term" data-term="${data.specialty}">${tTerm(data.specialty)}</span>
-                              ${data.element ? `<span class="tt-tag dyn-term" data-term="${data.element}">${tTerm(data.element)}</span>` : ''}`;
+                              <span class="tt-tag dyn-term" data-term="${data.specialty}">${ttTranslate(data.specialty, lang)}</span>
+                              ${data.element ? `<span class="tt-tag dyn-term" data-term="${data.element}">${ttTranslate(data.element, lang)}</span>` : ''}`;
             document.getElementById('tt-tags').innerHTML = tagsHtml;
             
             document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
