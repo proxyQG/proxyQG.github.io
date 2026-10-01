@@ -147,29 +147,3 @@ body {
     line-height: 1.1; /* Rapproche les lignes pour que ça reste esthétique */
     max-width: 100%;
 }
-
-
-/* =========================================
-   CORRECTION ESTHÉTIQUE : NOM DE L'AGENT SUR MOBILE
-   ========================================= */
-
-@media (max-width: 768px) {
-    /* On cible UNIQUEMENT les textes de très grande taille pour isoler le nom de l'agent */
-    #agentGuideContainer [class*="text-5xl"],
-    #agentGuideContainer [class*="text-6xl"],
-    #agentGuideContainer [class*="text-7xl"],
-    #agentGuideContainer [class*="text-8xl"],
-    #agentGuideContainer [class*="text-9xl"] {
-        /* La taille s'ajustera parfaitement à la largeur de l'écran (clamp) */
-        font-size: clamp(1.8rem, 10vw, 3.5rem) !important; 
-        line-height: 1.1 !important;
-        white-space: normal !important;
-        word-break: keep-all !important; /* Empêche de couper le nom au milieu d'une lettre */
-    }
-}
-
-/* Empêche l'écran mobile de glisser vers la droite */
-html, body {
-    max-width: 100vw;
-    overflow-x: hidden;
-}
