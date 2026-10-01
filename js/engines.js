@@ -795,6 +795,7 @@ const W_ENGINES_DB = {
         name: { fr: "Le Soufre", en: "The Brimstone" },
         rank: "S",
         specialty: "Attack",
+        element: "Fire",
         img: "W-Engine_The_Brimstone.png",
         stats: { 
             base: "46 - 684", 
@@ -995,7 +996,7 @@ const W_ENGINES_DB = {
             }
         ]
     },
-    "Vortex - Arrow": {
+    "Vortex Arrow": {
         name: { fr: "Flèche Vortex", en: "Vortex Arrow" },
         rank: "B",
         specialty: "Stun",
