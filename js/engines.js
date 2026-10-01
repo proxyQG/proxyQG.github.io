@@ -2,8 +2,8 @@ const W_ENGINES_DB = {
     "Practiced Perfection": {
         name: { fr: "Perfection de la pratique", en: "Practiced Perfection" },
         rank: "S",
-        specialty: "Anomaly",
-        element: "Physical",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
+        element: { fr: "Physique", en: "Physical" },
         img: "W-Engine_Practiced_Perfection.png",
         stats: { 
             base: "48 - 713", 
@@ -37,8 +37,8 @@ const W_ENGINES_DB = {
     "Frostfall Sickle": {
         name: { fr: "Faucille de givre-chute", en: "Frostfall Sickle" },
         rank: "S",
-        specialty: "Anomaly",
-        element: "Ice",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
+        element: { fr: "Glace", en: "Ice" },
         img: "W-Engine_Frostfall_Sickle.png",
         stats: { 
             base: "48 - 713", 
@@ -72,8 +72,8 @@ const W_ENGINES_DB = {
     "Sharpened Stinger": {
         name: { fr: "Dard Aiguisé", en: "Sharpened Stinger" },
         rank: "S",
-        specialty: "Anomaly",
-        element: "Physical",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
+        element: { fr: "Physique", en: "Physical" },
         img: "W-Engine_Sharpened_Stinger.png",
         stats: { 
             base: "48 - 713", 
@@ -107,7 +107,7 @@ const W_ENGINES_DB = {
     "Weeping Gemini": {
         name: { fr: "Gémeaux en pleurs", en: "Weeping Gemini" },
         rank: "A",
-        specialty: "Anomaly",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
         img: "W-Engine_Weeping_Gemini.png",
         stats: { 
             base: "40 - 594", 
@@ -141,8 +141,8 @@ const W_ENGINES_DB = {
     "Roaring Ride": {
         name: { fr: "Virée rugissante", en: "Roaring Ride" },
         rank: "A",
-        specialty: "Anomaly",
-        element: "Physical",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
+        element: { fr: "Physique", en: "Physical" },
         img: "W-Engine_Roaring_Ride.png",
         stats: { 
             base: "42 - 624", 
@@ -176,7 +176,7 @@ const W_ENGINES_DB = {
     "Kaboom the Cannon": {
         name: { fr: "Kaboom le canon", en: "Kaboom the Cannon" },
         rank: "A",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "W-Engine_Kaboom_the_Cannon.png",
         stats: { 
             base: "42 - 624", 
@@ -210,7 +210,7 @@ const W_ENGINES_DB = {
     "Elegant Vanity": {
         name: { fr: "Vanité élégante", en: "Elegant Vanity" },
         rank: "S",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "W-Engine_Elegant_Vanity.png",
         stats: { 
             base: "48 - 713", 
@@ -244,8 +244,8 @@ const W_ENGINES_DB = {
     "Bashful Demon": {
         name: { fr: "Démon timide", en: "Bashful Demon" },
         rank: "A",
-        specialty: "Support",
-        element: "Ice",
+        specialty: { fr: "Soutien", en: "Support" },
+        element: { fr: "Glace", en: "Ice" },
         img: "W-Engine_Bashful_Demon.png",
         stats: { 
             base: "42 - 624", 
@@ -279,7 +279,7 @@ const W_ENGINES_DB = {
     "Unfettered Game Ball": {
         name: { fr: "Balle de jeu sans entraves", en: "Unfettered Game Ball" },
         rank: "A",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "W-Engine_Unfettered_Game_Ball.png",
         stats: { 
             base: "40 - 594", 
@@ -313,7 +313,7 @@ const W_ENGINES_DB = {
     "Weeping Cradle": {
         name: { fr: "Berceau en pleurs", en: "Weeping Cradle" },
         rank: "S",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "W-Engine_Weeping_Cradle.png",
         stats: { 
             base: "46 - 684", 
@@ -347,7 +347,7 @@ const W_ENGINES_DB = {
     "Slice of Time": {
         name: { fr: "Tranche de temps", en: "Slice of Time" },
         rank: "A",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "W-Engine_Slice_of_Time.png",
         stats: { 
             base: "40 - 594", 
@@ -381,7 +381,7 @@ const W_ENGINES_DB = {
     "Reverb - Mark II": {
         name: { fr: "[Réverbération] Mark II", en: "[Reverb] Mark II" },
         rank: "B",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "Reverb_Mark_II.png",
         stats: { 
             base: "32 - 475", 
@@ -415,7 +415,7 @@ const W_ENGINES_DB = {
     "Reverb - Mark III": {
         name: { fr: "[Réverbération] Mark III", en: "[Reverb] Mark III" },
         rank: "B",
-        specialty: "Support",
+        specialty: { fr: "Soutien", en: "Support" },
         img: "Reverb_Mark_III.png",
         stats: { 
             base: "32 - 475", 
@@ -449,7 +449,7 @@ const W_ENGINES_DB = {
     "Fusion Compiler": {
         name: { fr: "Compilateur de fusion", en: "Fusion Compiler" },
         rank: "S",
-        specialty: "Anomaly",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
         img: "W-Engine_Fusion_Compiler.png",
         stats: { 
             base: "46 - 684", 
@@ -483,8 +483,8 @@ const W_ENGINES_DB = {
     "Timeweaver": {
         name: { fr: "Tisseur de temps", en: "Timeweaver" },
         rank: "S",
-        specialty: "Anomaly",
-        element: "Electric",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
+        element: { fr: "Électrique", en: "Electric" },
         img: "W-Engine_Timeweaver.png",
         stats: { 
             base: "48 - 713", 
@@ -518,7 +518,7 @@ const W_ENGINES_DB = {
     "Magnetic Storm - Alpha": {
         name: { fr: "[Tempête Magnétique] Alpha", en: "[Magnetic Storm] Alpha" },
         rank: "B",
-        specialty: "Anomaly",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
         img: "Magnetic_Storm_Alpha.png",
         stats: { 
             base: "32 - 475", 
@@ -552,8 +552,8 @@ const W_ENGINES_DB = {
     "Hellfire Gears": {
         name: { fr: "Engrenages des flammes infernales", en: "Hellfire Gears" },
         rank: "S",
-        specialty: "Stun",
-        element: "Fire",
+        specialty: { fr: "Étourdissement", en: "Stun" },
+        element: { fr: "Feu", en: "Fire" },
         img: "W-Engine_Hellfire_Gears.png",
         stats: { 
             base: "46 - 684", 
@@ -587,7 +587,7 @@ const W_ENGINES_DB = {
     "The Restrained": {
         name: { fr: "Le Restreint", en: "The Restrained" },
         rank: "S",
-        specialty: "Stun",
+        specialty: { fr: "Étourdissement", en: "Stun" },
         img: "W-Engine_The_Restrained.png",
         stats: { 
             base: "46 - 684", 
@@ -621,7 +621,7 @@ const W_ENGINES_DB = {
     "Precious Fossilized Core": {
         name: { fr: "Noyau fossilisé précieux", en: "Precious Fossilized Core" },
         rank: "A",
-        specialty: "Stun",
+        specialty: { fr: "Étourdissement", en: "Stun" },
         img: "W-Engine_Precious_Fossilized.png",
         stats: { 
             base: "40 - 594", 
@@ -655,7 +655,7 @@ const W_ENGINES_DB = {
     "Six Shooter": {
         name: { fr: "Six coups", en: "Six Shooter" },
         rank: "A",
-        specialty: "Stun",
+        specialty: { fr: "Étourdissement", en: "Stun" },
         img: "W-Engine_Six_Shooter.png",
         stats: { 
             base: "40 - 594", 
@@ -689,8 +689,8 @@ const W_ENGINES_DB = {
     "Heartstring Nocturne": {
         name: { fr: "Nocturne des cordes du cœur", en: "Heartstring Nocturne" },
         rank: "S",
-        specialty: "Attack",
-        element: "Fire",
+        specialty: { fr: "Attaque", en: "Attack" },
+        element: { fr: "Feu", en: "Fire" },
         img: "W-Engine_Heartstring_Nocturne.png",
         stats: { 
             base: "48 - 713", 
@@ -724,8 +724,8 @@ const W_ENGINES_DB = {
     "Cordis Germina": {
         name: { fr: "Cordis Germina", en: "Cordis Germina" },
         rank: "S",
-        specialty: "Attack",
-        element: "Electric",
+        specialty: { fr: "Attaque", en: "Attack" },
+        element: { fr: "Électrique", en: "Electric" },
         img: "W-Engine_Cordis_Germina.png",
         stats: { 
             base: "48 - 713", 
@@ -759,8 +759,8 @@ const W_ENGINES_DB = {
     "Myriad Eclipse": {
         name: { fr: "Éclipse de la myriade", en: "Myriad Eclipse" },
         rank: "S",
-        specialty: "Attack",
-        element: "Ice",
+        specialty: { fr: "Attaque", en: "Attack" },
+        element: { fr: "Glace", en: "Ice" },
         img: "W-Engine_Myriad_Eclipse.png",
         stats: { 
             base: "48 - 713", 
@@ -794,7 +794,8 @@ const W_ENGINES_DB = {
     "The Brimstone": {
         name: { fr: "Le Soufre", en: "The Brimstone" },
         rank: "S",
-        specialty: "Attack",
+        specialty: { fr: "Attaque", en: "Attack" },
+        element: { fr: "Feu", en: "Fire" },
         img: "W-Engine_The_Brimstone.png",
         stats: { 
             base: "46 - 684", 
@@ -828,7 +829,7 @@ const W_ENGINES_DB = {
     "Starlight Engine": {
         name: { fr: "Moteur Starlight", en: "Starlight Engine" },
         rank: "A",
-        specialty: "Attack",
+        specialty: { fr: "Attaque", en: "Attack" },
         img: "Starlight_Engine.webp",
         stats: { 
             base: "40 - 594", 
@@ -862,7 +863,7 @@ const W_ENGINES_DB = {
     "Spring Embrace": {
         name: { fr: "Étreinte printanière", en: "Spring Embrace" },
         rank: "A",
-        specialty: "Defense",
+        specialty: { fr: "Défense", en: "Defense" },
         img: "W-Engine_Spring_Embrace.png",
         stats: { 
             base: "40 - 594", 
@@ -896,7 +897,7 @@ const W_ENGINES_DB = {
     "Original Transmorpher": {
         name: { fr: "Transmorpheur original", en: "Original Transmorpher" },
         rank: "A",
-        specialty: "Defense",
+        specialty: { fr: "Défense", en: "Defense" },
         img: "W-Engine_Original_Transmorpher.png",
         stats: { 
             base: "40 - 594", 
@@ -930,7 +931,7 @@ const W_ENGINES_DB = {
     "Big Cylinder": {
         name: { fr: "Gros Cylindre", en: "Big Cylinder" },
         rank: "A",
-        specialty: "Defense",
+        specialty: { fr: "Défense", en: "Defense" },
         img: "W-Engine_Big_Cylinder.png",
         stats: { 
             base: "42 - 624", 
@@ -964,7 +965,7 @@ const W_ENGINES_DB = {
     "Identity Base": {
         name: { fr: "Base Identité", en: "Identity Base" },
         rank: "B",
-        specialty: "Defense",
+        specialty: { fr: "Défense", en: "Defense" },
         img: "Identity_Base.webp",
         stats: { 
             base: "32 - 475", 
@@ -998,7 +999,7 @@ const W_ENGINES_DB = {
     "Vortex - Arrow": {
         name: { fr: "Flèche Vortex", en: "Vortex Arrow" },
         rank: "B",
-        specialty: "Stun",
+        specialty: { fr: "Étourdissement", en: "Stun" },
         img: "Vortex_Arrow.webp",
         stats: { 
             base: "32 - 475", 
@@ -1032,7 +1033,7 @@ const W_ENGINES_DB = {
     "Housekeeper": {
         name: { fr: "Gouvernante", en: "Housekeeper" },
         rank: "A",
-        specialty: "Attack",
+        specialty: { fr: "Attaque", en: "Attack" },
         img: "W-Engine_Housekeeper.png",
         stats: { 
             base: "42 - 624", 
@@ -1066,8 +1067,8 @@ const W_ENGINES_DB = {
     "Steel Cushion": {
         name: { fr: "Coussin d'acier", en: "Steel Cushion" },
         rank: "S",
-        specialty: "Attack",
-        element: "Physical",
+        specialty: { fr: "Attaque", en: "Attack" },
+        element: { fr: "Physique", en: "Physical" },
         img: "W-Engine_Steel_Cushion.png",
         stats: { 
             base: "46 - 684", 
@@ -1101,7 +1102,7 @@ const W_ENGINES_DB = {
     "Cannon Rotor": {
         name: { fr: "Rotor canon", en: "Cannon Rotor" },
         rank: "A",
-        specialty: "Attack",
+        specialty: { fr: "Attaque", en: "Attack" },
         img: "W-Engine_Cannon_Rotor.png",
         stats: { 
             base: "40 - 594", 
@@ -1135,7 +1136,7 @@ const W_ENGINES_DB = {
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
-        specialty: "Anomaly",
+        specialty: { fr: "Anomalie", en: "Anomaly" },
         img: "W-Engine_Electro-Lip_Gloss.png",
         stats: { 
             base: "40 - 594", 
