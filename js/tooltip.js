@@ -1,4 +1,6 @@
 // js/tooltip.js
+import { tTerm } from './i18n.js';
+
 (function() {
     let tooltipEl = null;
     let overlayEl = null; // NOUVEAU : L'overlay sombre
@@ -79,9 +81,10 @@
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
             document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
             
+            // CORRECTION ICI : On utilise tTerm() pour traduire specialty et element
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
-                              <span class="tt-tag">${data.specialty}</span>
-                              ${data.element ? `<span class="tt-tag">${data.element}</span>` : ''}`;
+                              <span class="tt-tag dyn-term" data-term="${data.specialty}">${tTerm(data.specialty)}</span>
+                              ${data.element ? `<span class="tt-tag dyn-term" data-term="${data.element}">${tTerm(data.element)}</span>` : ''}`;
             document.getElementById('tt-tags').innerHTML = tagsHtml;
             
             document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
