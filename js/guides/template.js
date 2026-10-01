@@ -6,12 +6,12 @@ import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats } from '../i18n.j
 
 function buildHeader(agentName, data, c, iconName) {
     return `
-    <div class="flex items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1">
-        <div class="flex flex-col">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
+        <div class="flex flex-col flex-1 min-w-0">
             <span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${tData(data.factionTitle)}</span>
-            <h2 class="text-5xl sm:text-7xl md:text-8xl font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${agentName}</h2>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${agentName}</h2>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap items-end gap-2 shrink-0">
             <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${iconName.replace('.png', '.webp')}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain filter" style="drop-shadow: 0 0 8px ${c};"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${data.rank}</div>
         </div>
