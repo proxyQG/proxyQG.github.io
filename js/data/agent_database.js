@@ -1203,8 +1203,8 @@ export const agentDatabase = {
             { tag: "Option F2P", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Miyabi Carry (Rank 45) 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 02", tag: "Mono Glace Stun (Rank 176)", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 01", tag: "Miyabi Carry 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 02", tag: "Mono Glace Stun", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
             { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, videoId: "x2bny1irV7c", startTime: 42, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] }
         ]
     },
