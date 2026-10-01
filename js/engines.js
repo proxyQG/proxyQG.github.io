@@ -142,7 +142,7 @@ const W_ENGINES_DB = {
         rank: "A",
         specialty: "Attack",
         element: "Electric",
-        img: "W-Engine_Drill_Rig_Red_Axis.png",
+        img: "W-Engine_Drill_Rig_-_Red_Axis.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
