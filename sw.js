@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proxyqg-v3'; // Version 3 pour forcer la mise à jour
+const CACHE_NAME = 'proxyqg-v4'; 
 
 const ASSETS_TO_CACHE = [
     './',
@@ -62,12 +62,22 @@ self.addEventListener('fetch', event => {
                 return networkResponse;
             })
             .catch(async () => {
-                const cachedResponse = await caches.match(event.request);
-                if (cachedResponse) return cachedResponse;
-                // Si la page demandée n'est pas trouvée hors-ligne, renvoie l'accueil
-                if (event.request.mode === 'navigate') {
-                    return caches.match('./index.html');
-                }
-            })
+            // ignoreSearch: true permet d'ouvrir les liens de partage (?agent=...) même hors-ligne
+            const cachedResponse = await caches.match(event.request, { ignoreSearch: true });
+            if (cachedResponse) return cachedResponse;
+
+            // Secours navigation vers l'accueil
+            if (event.request.mode === 'navigate') {
+                const indexFallback = await caches.match('./index.html');
+                if (indexFallback) return indexFallback;
+            }
+
+            // Réponse de secours propre pour éviter l'erreur rouge dans la console
+            return new Response('Ressource indisponible hors-ligne', {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
+            });
+        })
     );
 });
