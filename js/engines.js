@@ -1965,6 +1965,177 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Cauldron of Clarity": {
+        name: { fr: "Chaudron de clarté", en: "Cauldron of Clarity" },
+        rank: "A",
+        specialty: "Auric Ink",
+        img: "W-Engine_Cauldron_of_Clarity.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "PV %", en: "HP" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Arcane d'invocation", en: "Summoning Arcanum" },
+        overclocks: [
+            { 
+                fr: "Lorsque l'équipementier active une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les DGT de l'équipementier de [4 %], jusqu'à 3 cumuls, pendant 20s. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée. À 3 cumuls, le {Taux CRIT} de l'équipementier augmente de [6,5 %].", 
+                en: "When the equipper activates an {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's DMG by [4%], up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's {CRIT Rate} increases by [6.5%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier active une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les DGT de l'équipementier de [4,6 %], jusqu'à 3 cumuls, pendant 20s. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée. À 3 cumuls, le {Taux CRIT} de l'équipementier augmente de [7,5 %].", 
+                en: "When the equipper activates an {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's DMG by [4.6%], up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's {CRIT Rate} increases by [7.5%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier active une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les DGT de l'équipementier de [5,2 %], jusqu'à 3 cumuls, pendant 20s. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée. À 3 cumuls, le {Taux CRIT} de l'équipementier augmente de [8,5 %].", 
+                en: "When the equipper activates an {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's DMG by [5.2%], up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's {CRIT Rate} increases by [8.5%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier active une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les DGT de l'équipementier de [5,8 %], jusqu'à 3 cumuls, pendant 20s. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée. À 3 cumuls, le {Taux CRIT} de l'équipementier augmente de [9,5 %].", 
+                en: "When the equipper activates an {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's DMG by [5.8%], up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's {CRIT Rate} increases by [9.5%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier active une {Attaque spéciale EX}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les DGT de l'équipementier de [6,4 %], jusqu'à 3 cumuls, pendant 20s. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée. À 3 cumuls, le {Taux CRIT} de l'équipementier augmente de [10,4 %].", 
+                en: "When the equipper activates an {EX Special Attack}, they gain 1 stack of a buff. Each stack increases the equipper's DMG by [6.4%], up to 3 stacks, and lasting 20s. This effect can trigger once every 0.5s, and repeated triggers reset the duration. At 3 stacks, the equipper's {CRIT Rate} increases by [10.4%]." 
+            }
+        ]
+    },
+    "Radiowave Journey": {
+        name: { fr: "Périple des ondes", en: "Radiowave Journey" },
+        rank: "A",
+        specialty: "Auric Ink",
+        img: "W-Engine_Radiowave_Journey.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "PV %", en: "HP" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Pas légers", en: "Easy Strides" },
+        overclocks: [
+            { 
+                fr: "Lors du lancement d'un {Enchaînement} ou d'un {Ultime}, l'équipementier gagne 1 cumul d'amélioration. Chaque cumul augmente la {Force brute} de l'équipementier de [80], cumulable jusqu'à 3 fois et d'une durée de 12s. La durée de chaque cumul est calculée séparément.", 
+                en: "When launching a {Chain Attack} or {Ultimate}, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's {Sheer Force} by [80], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lors du lancement d'un {Enchaînement} ou d'un {Ultime}, l'équipementier gagne 1 cumul d'amélioration. Chaque cumul augmente la {Force brute} de l'équipementier de [92], cumulable jusqu'à 3 fois et d'une durée de 12s. La durée de chaque cumul est calculée séparément.", 
+                en: "When launching a {Chain Attack} or {Ultimate}, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's {Sheer Force} by [92], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lors du lancement d'un {Enchaînement} ou d'un {Ultime}, l'équipementier gagne 1 cumul d'amélioration. Chaque cumul augmente la {Force brute} de l'équipementier de [104], cumulable jusqu'à 3 fois et d'une durée de 12s. La durée de chaque cumul est calculée séparément.", 
+                en: "When launching a {Chain Attack} or {Ultimate}, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's {Sheer Force} by [104], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lors du lancement d'un {Enchaînement} ou d'un {Ultime}, l'équipementier gagne 1 cumul d'amélioration. Chaque cumul augmente la {Force brute} de l'équipementier de [116], cumulable jusqu'à 3 fois et d'une durée de 12s. La durée de chaque cumul est calculée séparément.", 
+                en: "When launching a {Chain Attack} or {Ultimate}, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's {Sheer Force} by [116], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Lors du lancement d'un {Enchaînement} ou d'un {Ultime}, l'équipementier gagne 1 cumul d'amélioration. Chaque cumul augmente la {Force brute} de l'équipementier de [128], cumulable jusqu'à 3 fois et d'une durée de 12s. La durée de chaque cumul est calculée séparément.", 
+                en: "When launching a {Chain Attack} or {Ultimate}, the equipper gains 1 stack of a buff effect. Each stack increases the equipper's {Sheer Force} by [128], stacking up to 3 times, and lasting 12s. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Puzzle Sphere": {
+        name: { fr: "Sphère casse-tête", en: "Puzzle Sphere" },
+        rank: "A",
+        specialty: "Auric Ink",
+        img: "W-Engine_Puzzle_Sphere.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Artisanat ingénieux", en: "Ingenious Craft" },
+        overclocks: [
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX}, les {DGT CRIT} de l'équipementier augmentent de [16 %] pendant 12s. De plus, si les PV actuels de la cible sont inférieurs à 50 % de ses PV max, les DGT de l'{Attaque spéciale EX} augmentent de [20 %].", 
+                en: "Upon launching an {EX Special Attack}, the equipper's {CRIT DMG} increases by [16%] for 12s. Additionally, if the target's current HP is below 50% of their Max HP, {EX Special Attack} DMG increases by [20%]." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX}, les {DGT CRIT} de l'équipementier augmentent de [18,4 %] pendant 12s. De plus, si les PV actuels de la cible sont inférieurs à 50 % de ses PV max, les DGT de l'{Attaque spéciale EX} augmentent de [23 %].", 
+                en: "Upon launching an {EX Special Attack}, the equipper's {CRIT DMG} increases by [18.4%] for 12s. Additionally, if the target's current HP is below 50% of their Max HP, {EX Special Attack} DMG increases by [23%]." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX}, les {DGT CRIT} de l'équipementier augmentent de [20,8 %] pendant 12s. De plus, si les PV actuels de la cible sont inférieurs à 50 % de ses PV max, les DGT de l'{Attaque spéciale EX} augmentent de [26 %].", 
+                en: "Upon launching an {EX Special Attack}, the equipper's {CRIT DMG} increases by [20.8%] for 12s. Additionally, if the target's current HP is below 50% of their Max HP, {EX Special Attack} DMG increases by [26%]." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX}, les {DGT CRIT} de l'équipementier augmentent de [23,2 %] pendant 12s. De plus, si les PV actuels de la cible sont inférieurs à 50 % de ses PV max, les DGT de l'{Attaque spéciale EX} augmentent de [29 %].", 
+                en: "Upon launching an {EX Special Attack}, the equipper's {CRIT DMG} increases by [23.2%] for 12s. Additionally, if the target's current HP is below 50% of their Max HP, {EX Special Attack} DMG increases by [29%]." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Attaque spéciale EX}, les {DGT CRIT} de l'équipementier augmentent de [25,6 %] pendant 12s. De plus, si les PV actuels de la cible sont inférieurs à 50 % de ses PV max, les DGT de l'{Attaque spéciale EX} augmentent de [32 %].", 
+                en: "Upon launching an {EX Special Attack}, the equipper's {CRIT DMG} increases by [25.6%] for 12s. Additionally, if the target's current HP is below 50% of their Max HP, {EX Special Attack} DMG increases by [32%]." 
+            }
+        ]
+    },
+    "Tremor Trigram Vessel": {
+        name: { fr: "Vaisseau des trigrammes de séisme", en: "Tremor Trigram Vessel" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Tremor_Trigram_Vessel.webp",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Cartographie des méridiens", en: "Meridian Mapping" },
+        overclocks: [
+            { 
+                fr: "Les DGT de l'{Attaque spéciale EX} et de l'{Ultime} de l'équipementier augmentent de [25 %]. Chaque fois qu'un membre de l'escouade subit des DGT ou récupère des PV, l'équipementier gagne [2] points d'énergie (déclenchement toutes les 5s).", 
+                en: "The equipper's {EX Special Attack} and {Ultimate} DMG increases by [25%]. Whenever any squad member takes DMG or recovers HP, the equipper gains [2] Energy. This effect can trigger once every 5s." 
+            },
+            { 
+                fr: "Les DGT de l'{Attaque spéciale EX} et de l'{Ultime} de l'équipementier augmentent de [28,75 %]. Chaque fois qu'un membre de l'escouade subit des DGT ou récupère des PV, l'équipementier gagne [2,3] points d'énergie (déclenchement toutes les 5s).", 
+                en: "The equipper's {EX Special Attack} and {Ultimate} DMG increases by [28.75%]. Whenever any squad member takes DMG or recovers HP, the equipper gains [2.3] Energy. This effect can trigger once every 5s." 
+            },
+            { 
+                fr: "Les DGT de l'{Attaque spéciale EX} et de l'{Ultime} de l'équipementier augmentent de [32,5 %]. Chaque fois qu'un membre de l'escouade subit des DGT ou récupère des PV, l'équipementier gagne [2,6] points d'énergie (déclenchement toutes les 5s).", 
+                en: "The equipper's {EX Special Attack} and {Ultimate} DMG increases by [32.5%]. Whenever any squad member takes DMG or recovers HP, the equipper gains [2.6] Energy. This effect can trigger once every 5s." 
+            },
+            { 
+                fr: "Les DGT de l'{Attaque spéciale EX} et de l'{Ultime} de l'équipementier augmentent de [36,25 %]. Chaque fois qu'un membre de l'escouade subit des DGT ou récupère des PV, l'équipementier gagne [2,9] points d'énergie (déclenchement toutes les 5s).", 
+                en: "The equipper's {EX Special Attack} and {Ultimate} DMG increases by [36.25%]. Whenever any squad member takes DMG or recovers HP, the equipper gains [2.9] Energy. This effect can trigger once every 5s." 
+            },
+            { 
+                fr: "Les DGT de l'{Attaque spéciale EX} et de l'{Ultime} de l'équipementier augmentent de [40 %]. Chaque fois qu'un membre de l'escouade subit des DGT ou récupère des PV, l'équipementier gagne [3,2] points d'énergie (déclenchement toutes les 5s).", 
+                en: "The equipper's {EX Special Attack} and {Ultimate} DMG increases by [40%]. Whenever any squad member takes DMG or recovers HP, the equipper gains [3.2] Energy. This effect can trigger once every 5s." 
+            }
+        ]
+    },
+    "Metanukimorphosis": {
+        name: { fr: "Métanukimorphose", en: "Metanukimorphosis" },
+        rank: "S",
+        specialty: "Support",
+        element: "Physical",
+        img: "W-Engine_Metanukimorphosis.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "24% - 60%" 
+        },
+        passiveName: { fr: "Délicieusement ingénieux", en: "Exquisitely Ingenious" },
+        overclocks: [
+            { 
+                fr: "Lorsque l'{Attaque spéciale EX} ou l'{Ultime} de l'équipementier inflige des {DGT Physiques}, sa {Maîtrise d'Anomalie} augmente de [30] pendant 40s. Lorsque l'{Onde de choc} de l'équipementier touche un ennemi, l'{Adresse d'Anomalie} de tous les membres de l'escouade augmente de [60] pendant 40s. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "When the equipper's {EX Special Attack} or {Ultimate} deals {Physical DMG}, their {Anomaly Mastery} increases by [30] for 40s. When the equipper's {Aftershock} hits an enemy, all squad members' {Anomaly Proficiency} increases by [60] for 40s. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Lorsque l'{Attaque spéciale EX} ou l'{Ultime} de l'équipementier inflige des {DGT Physiques}, sa {Maîtrise d'Anomalie} augmente de [34,5] pendant 40s. Lorsque l'{Onde de choc} de l'équipementier touche un ennemi, l'{Adresse d'Anomalie} de tous les membres de l'escouade augmente de [69] pendant 40s. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "When the equipper's {EX Special Attack} or {Ultimate} deals {Physical DMG}, their {Anomaly Mastery} increases by [34.5] for 40s. When the equipper's {Aftershock} hits an enemy, all squad members' {Anomaly Proficiency} increases by [69] for 40s. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Lorsque l'{Attaque spéciale EX} ou l'{Ultime} de l'équipementier inflige des {DGT Physiques}, sa {Maîtrise d'Anomalie} augmente de [39] pendant 40s. Lorsque l'{Onde de choc} de l'équipementier touche un ennemi, l'{Adresse d'Anomalie} de tous les membres de l'escouade augmente de [78] pendant 40s. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "When the equipper's {EX Special Attack} or {Ultimate} deals {Physical DMG}, their {Anomaly Mastery} increases by [39] for 40s. When the equipper's {Aftershock} hits an enemy, all squad members' {Anomaly Proficiency} increases by [78] for 40s. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Lorsque l'{Attaque spéciale EX} ou l'{Ultime} de l'équipementier inflige des {DGT Physiques}, sa {Maîtrise d'Anomalie} augmente de [43,5] pendant 40s. Lorsque l'{Onde de choc} de l'équipementier touche un ennemi, l'{Adresse d'Anomalie} de tous les membres de l'escouade augmente de [87] pendant 40s. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "When the equipper's {EX Special Attack} or {Ultimate} deals {Physical DMG}, their {Anomaly Mastery} increases by [43.5] for 40s. When the equipper's {Aftershock} hits an enemy, all squad members' {Anomaly Proficiency} increases by [87] for 40s. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Lorsque l'{Attaque spéciale EX} ou l'{Ultime} de l'équipementier inflige des {DGT Physiques}, sa {Maîtrise d'Anomalie} augmente de [48] pendant 40s. Lorsque l'{Onde de choc} de l'équipementier touche un ennemi, l'{Adresse d'Anomalie} de tous les membres de l'escouade augmente de [96] pendant 40s. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "When the equipper's {EX Special Attack} or {Ultimate} deals {Physical DMG}, their {Anomaly Mastery} increases by [48] for 40s. When the equipper's {Aftershock} hits an enemy, all squad members' {Anomaly Proficiency} increases by [96] for 40s. Only one instance of this effect can exist in the same squad." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
