@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proxyqg-v4'; 
+const CACHE_NAME = 'proxyqg-v5'; 
 
 const ASSETS_TO_CACHE = [
     './',
@@ -10,12 +10,12 @@ const ASSETS_TO_CACHE = [
     './js/engines.js',
     './js/tooltip.js',
     './js/i18n.js',
-    './guides/index.js',
-    './guides/template.js',
-    './guides/generic.js',
-    './data/agent_database.js',
-    './data/mindscapes.js',
-    './data/agents.js',
+    './js/guides/index.js',
+    './js/guides/template.js',
+    './js/guides/generic.js',
+    './js/data/agent_database.js',
+    './js/data/mindscapes.js',
+    './js/data/agents.js',
     './assets/Icone/logo-192.png',
     './assets/Icone/logo-512.png'
 ];
