@@ -1271,6 +1271,111 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "The Vault": {
+        name: { fr: "Le Coffre-fort", en: "The Vault" },
+        rank: "A",
+        specialty: "Support",
+        element: "Ether",
+        img: "W-Engine_The_Vault.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "20% - 50%" 
+        },
+        passiveName: { fr: "Appât du gain", en: "Money-Lover" },
+        overclocks: [
+            { 
+                fr: "Infliger des {DGT d'Éther} avec une {Attaque spéciale EX}, un {Enchaînement} ou un {Ultime} augmente les DGT infligés par tous les membres de l'escouade à la cible de [15 %] et augmente la {Réc. d'énergie} de l'équipementier de [0,5]/s pendant 2s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Dealing {Ether DMG} using an {EX Special Attack}, {Chain Attack}, or {Ultimate} increases all units' DMG against the target by [15%] and increases the equipper's {Energy Regen} by [0.5]/s for 2s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Infliger des {DGT d'Éther} avec une {Attaque spéciale EX}, un {Enchaînement} ou un {Ultime} augmente les DGT infligés par tous les membres de l'escouade à la cible de [17,25 %] et augmente la {Réc. d'énergie} de l'équipementier de [0,58]/s pendant 2s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Dealing {Ether DMG} using an {EX Special Attack}, {Chain Attack}, or {Ultimate} increases all units' DMG against the target by [17.25%] and increases the equipper's {Energy Regen} by [0.58]/s for 2s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Infliger des {DGT d'Éther} avec une {Attaque spéciale EX}, un {Enchaînement} ou un {Ultime} augmente les DGT infligés par tous les membres de l'escouade à la cible de [19,5 %] et augmente la {Réc. d'énergie} de l'équipementier de [0,65]/s pendant 2s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Dealing {Ether DMG} using an {EX Special Attack}, {Chain Attack}, or {Ultimate} increases all units' DMG against the target by [19.5%] and increases the equipper's {Energy Regen} by [0.65]/s for 2s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Infliger des {DGT d'Éther} avec une {Attaque spéciale EX}, un {Enchaînement} ou un {Ultime} augmente les DGT infligés par tous les membres de l'escouade à la cible de [21,75 %] et augmente la {Réc. d'énergie} de l'équipementier de [0,72]/s pendant 2s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Dealing {Ether DMG} using an {EX Special Attack}, {Chain Attack}, or {Ultimate} increases all units' DMG against the target by [21.75%] and increases the equipper's {Energy Regen} by [0.72]/s for 2s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Infliger des {DGT d'Éther} avec une {Attaque spéciale EX}, un {Enchaînement} ou un {Ultime} augmente les DGT infligés par tous les membres de l'escouade à la cible de [24 %] et augmente la {Réc. d'énergie} de l'équipementier de [0,8]/s pendant 2s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "Dealing {Ether DMG} using an {EX Special Attack}, {Chain Attack}, or {Ultimate} increases all units' DMG against the target by [24%] and increases the equipper's {Energy Regen} by [0.8]/s for 2s. Passive effects of the same name do not stack." 
+            }
+        ]
+    },
+    "Cloudcleave Radiance": {
+        name: { fr: "Clarté fendeuse de nuages", en: "Cloudcleave Radiance" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Physical",
+        img: "W-Engine_Cloudcleave_Radiance.png",
+        stats: { 
+            base: "50 - 743", 
+            advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
+            advanced: "19.2% - 48%" 
+        },
+        passiveName: { fr: "Âme de jade, cœur de glace", en: "Jade Soul, Frozen Heart" },
+        overclocks: [
+            { 
+                fr: "Les DGT de l'équipementier ignorent [20 %] de la {RÉS Physique} de la cible. Lorsque l'équipementier active un {Voile d'éther}, ses DGT augmentent de [25 %] et ses {DGT CRIT} augmentent de [25 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "The equipper's DMG ignores [20%] of the target's {Physical RES}. When the equipper activates an {Ether Veil}, the equipper's DMG increases by [25%] and {CRIT DMG} increases by [25%] for 40s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT de l'équipementier ignorent [22 %] de la {RÉS Physique} de la cible. Lorsque l'équipementier active un {Voile d'éther}, ses DGT augmentent de [28,75 %] et ses {DGT CRIT} augmentent de [28,75 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "The equipper's DMG ignores [22%] of the target's {Physical RES}. When the equipper activates an {Ether Veil}, the equipper's DMG increases by [28.75%] and {CRIT DMG} increases by [28.75%] for 40s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT de l'équipementier ignorent [24 %] de la {RÉS Physique} de la cible. Lorsque l'équipementier active un {Voile d'éther}, ses DGT augmentent de [32,5 %] et ses {DGT CRIT} augmentent de [32,5 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "The equipper's DMG ignores [24%] of the target's {Physical RES}. When the equipper activates an {Ether Veil}, the equipper's DMG increases by [32.5%] and {CRIT DMG} increases by [32.5%] for 40s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT de l'équipementier ignorent [26 %] de la {RÉS Physique} de la cible. Lorsque l'équipementier active un {Voile d'éther}, ses DGT augmentent de [36,25 %] et ses {DGT CRIT} augmentent de [36,25 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "The equipper's DMG ignores [26%] of the target's {Physical RES}. When the equipper activates an {Ether Veil}, the equipper's DMG increases by [36.25%] and {CRIT DMG} increases by [36.25%] for 40s. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Les DGT de l'équipementier ignorent [28 %] de la {RÉS Physique} de la cible. Lorsque l'équipementier active un {Voile d'éther}, ses DGT augmentent de [40 %] et ses {DGT CRIT} augmentent de [40 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.", 
+                en: "The equipper's DMG ignores [28%] of the target's {Physical RES}. When the equipper activates an {Ether Veil}, the equipper's DMG increases by [40%] and {CRIT DMG} increases by [40%] for 40s. Repeated triggers reset the duration." 
+            }
+        ]
+    },
+    "Starlight Engine Replica": {
+        name: { fr: "Réplique du Moteur Starlight", en: "Starlight Engine Replica" },
+        rank: "A",
+        specialty: "Attack",
+        element: "Physical",
+        img: "W-Engine_Starlight_Engine_Replica.png",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Rayon de chevalier : Changement", en: "Knight Beam: Change" },
+        overclocks: [
+            { 
+                fr: "Augmente les {DGT Physiques} de l'équipementier de [36 %] pendant 8s lorsqu'une {Attaque de base} ou une {Attaque bondissante} touche un ennemi situé à au moins 6 mètres.", 
+                en: "Increases the equipper's {Physical DMG} by [36%] for 8s upon hitting an enemy at least 6 meters away with a {Basic Attack} or {Dash Attack}." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de l'équipementier de [41,4 %] pendant 8s lorsqu'une {Attaque de base} ou une {Attaque bondissante} touche un ennemi situé à au moins 6 mètres.", 
+                en: "Increases the equipper's {Physical DMG} by [41.4%] for 8s upon hitting an enemy at least 6 meters away with a {Basic Attack} or {Dash Attack}." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de l'équipementier de [46,8 %] pendant 8s lorsqu'une {Attaque de base} ou une {Attaque bondissante} touche un ennemi situé à au moins 6 mètres.", 
+                en: "Increases the equipper's {Physical DMG} by [46.8%] for 8s upon hitting an enemy at least 6 meters away with a {Basic Attack} or {Dash Attack}." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de l'équipementier de [52,2 %] pendant 8s lorsqu'une {Attaque de base} ou une {Attaque bondissante} touche un ennemi situé à au moins 6 mètres.", 
+                en: "Increases the equipper's {Physical DMG} by [52.2%] for 8s upon hitting an enemy at least 6 meters away with a {Basic Attack} or {Dash Attack}." 
+            },
+            { 
+                fr: "Augmente les {DGT Physiques} de l'équipementier de [57,5 %] pendant 8s lorsqu'une {Attaque de base} ou une {Attaque bondissante} touche un ennemi situé à au moins 6 mètres.", 
+                en: "Increases the equipper's {Physical DMG} by [57.5%] for 8s upon hitting an enemy at least 6 meters away with a {Basic Attack} or {Dash Attack}." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
