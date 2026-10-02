@@ -2136,6 +2136,180 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Thoughtbop": {
+        name: { fr: "Pensée bondissante", en: "Thoughtbop" },
+        rank: "S",
+        specialty: "Support",
+        element: "Physical",
+        img: "W-Engine_Thoughtbop.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "24% - 60%" 
+        },
+        passiveName: { fr: "Monologue en décibels", en: "Decibel Monologue" },
+        overclocks: [
+            { 
+                fr: "Tant que le porteur n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,6]/s. Lorsque le porteur utilise une {Attaque spéciale EX} et inflige des {DGT Physiques}, tous les membres de l'escouade gagnent un buff augmentant les DGT infligés de [12,5 %] pendant 40s (cumulable 2 fois, réinitialise la durée). À 2 cumuls, les personnages gagnent [10 %] d'ATQ supplémentaire. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "While not the active character, the equipper's {Energy Regen} increases by [0.6]/s. When the equipper uses an {EX Special Attack} and deals {Physical DMG}, all squad members gain a buff that increases DMG dealt by [12.5%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional [10%] ATK. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Tant que le porteur n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,69]/s. Lorsque le porteur utilise une {Attaque spéciale EX} et inflige des {DGT Physiques}, tous les membres de l'escouade gagnent un buff augmentant les DGT infligés de [14,4 %] pendant 40s (cumulable 2 fois, réinitialise la durée). À 2 cumuls, les personnages gagnent [11,5 %] d'ATQ supplémentaire. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "While not the active character, the equipper's {Energy Regen} increases by [0.69]/s. When the equipper uses an {EX Special Attack} and deals {Physical DMG}, all squad members gain a buff that increases DMG dealt by [14.4%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional [11.5%] ATK. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Tant que le porteur n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,78]/s. Lorsque le porteur utilise une {Attaque spéciale EX} et inflige des {DGT Physiques}, tous les membres de l'escouade gagnent un buff augmentant les DGT infligés de [16,2 %] pendant 40s (cumulable 2 fois, réinitialise la durée). À 2 cumuls, les personnages gagnent [13 %] d'ATQ supplémentaire. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "While not the active character, the equipper's {Energy Regen} increases by [0.78]/s. When the equipper uses an {EX Special Attack} and deals {Physical DMG}, all squad members gain a buff that increases DMG dealt by [16.2%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional [13%] ATK. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Tant que le porteur n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,87]/s. Lorsque le porteur utilise une {Attaque spéciale EX} et inflige des {DGT Physiques}, tous les membres de l'escouade gagnent un buff augmentant les DGT infligés de [18,1 %] pendant 40s (cumulable 2 fois, réinitialise la durée). À 2 cumuls, les personnages gagnent [14,5 %] d'ATQ supplémentaire. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "While not the active character, the equipper's {Energy Regen} increases by [0.87]/s. When the equipper uses an {EX Special Attack} and deals {Physical DMG}, all squad members gain a buff that increases DMG dealt by [18.1%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional [14.5%] ATK. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "Tant que le porteur n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,96]/s. Lorsque le porteur utilise une {Attaque spéciale EX} et inflige des {DGT Physiques}, tous les membres de l'escouade gagnent un buff augmentant les DGT infligés de [20 %] pendant 40s (cumulable 2 fois, réinitialise la durée). À 2 cumuls, les personnages gagnent [16 %] d'ATQ supplémentaire. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "While not the active character, the equipper's {Energy Regen} increases by [0.96]/s. When the equipper uses an {EX Special Attack} and deals {Physical DMG}, all squad members gain a buff that increases DMG dealt by [20%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. At 2 stacks, characters gain an additional [16%] ATK. Only one instance of this effect can exist in the same squad." 
+            }
+        ]
+    },
+    "Bellicose Blaze": {
+        name: { fr: "Flamme belliqueuse", en: "Bellicose Blaze" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Fire",
+        img: "W-Engine_Bellicose_Blaze.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "24% - 60%" 
+        },
+        passiveName: { fr: "Chœur dévoreur de flammes", en: "Flame-Devouring Choir" },
+        overclocks: [
+            { 
+                fr: "Augmente le {Taux CRIT} de [20 %]. Lorsque le porteur déclenche une {Onde de choc} infligeant des {DGT de Feu}, ses attaques ignorent [15 %] de la DÉF de la cible pendant 8s. Se cumule une fois toutes les 3s (jusqu'à 2 cumuls, réinitialise la durée).", 
+                en: "Increases {CRIT Rate} by [20%]. When the equipper triggers an {Aftershock} that deals {Fire DMG}, their attacks ignore [15%] of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [23 %]. Lorsque le porteur déclenche une {Onde de choc} infligeant des {DGT de Feu}, ses attaques ignorent [17,25 %] de la DÉF de la cible pendant 8s. Se cumule une fois toutes les 3s (jusqu'à 2 cumuls, réinitialise la durée).", 
+                en: "Increases {CRIT Rate} by [23%]. When the equipper triggers an {Aftershock} that deals {Fire DMG}, their attacks ignore [17.25%] of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [26 %]. Lorsque le porteur déclenche une {Onde de choc} infligeant des {DGT de Feu}, ses attaques ignorent [19,5 %] de la DÉF de la cible pendant 8s. Se cumule une fois toutes les 3s (jusqu'à 2 cumuls, réinitialise la durée).", 
+                en: "Increases {CRIT Rate} by [26%]. When the equipper triggers an {Aftershock} that deals {Fire DMG}, their attacks ignore [19.5%] of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [29 %]. Lorsque le porteur déclenche une {Onde de choc} infligeant des {DGT de Feu}, ses attaques ignorent [21,75 %] de la DÉF de la cible pendant 8s. Se cumule une fois toutes les 3s (jusqu'à 2 cumuls, réinitialise la durée).", 
+                en: "Increases {CRIT Rate} by [29%]. When the equipper triggers an {Aftershock} that deals {Fire DMG}, their attacks ignore [21.75%] of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [32 %]. Lorsque le porteur déclenche une {Onde de choc} infligeant des {DGT de Feu}, ses attaques ignorent [24 %] de la DÉF de la cible pendant 8s. Se cumule une fois toutes les 3s (jusqu'à 2 cumuls, réinitialise la durée).", 
+                en: "Increases {CRIT Rate} by [32%]. When the equipper triggers an {Aftershock} that deals {Fire DMG}, their attacks ignore [24%] of the target's DEF for 8s. Can stack once every 3s, up to 2 stacks. Repeated triggers reset the duration." 
+            }
+        ]
+    },
+    "Gilded Blossom": {
+        name: { fr: "Fleur dorée", en: "Gilded Blossom" },
+        rank: "A",
+        specialty: "Attack",
+        img: "Gilded_Blossom.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Mesures antivol extraordinaires", en: "Extraordinary Anti-Theft Measures" },
+        overclocks: [
+            { 
+                fr: "L'ATQ augmente de [6 %], et les DGT infligés par les {Attaques spéciales EX} augmentent de [15 %].", 
+                en: "ATK increases by [6%], and DMG dealt by {EX Special Attacks} increases by [15%]." 
+            },
+            { 
+                fr: "L'ATQ augmente de [6,9 %], et les DGT infligés par les {Attaques spéciales EX} augmentent de [17,25 %].", 
+                en: "ATK increases by [6.9%], and DMG dealt by {EX Special Attacks} increases by [17.25%]." 
+            },
+            { 
+                fr: "L'ATQ augmente de [7,8 %], et les DGT infligés par les {Attaques spéciales EX} augmentent de [19,5 %].", 
+                en: "ATK increases by [7.8%], and DMG dealt by {EX Special Attacks} increases by [19.5%]." 
+            },
+            { 
+                fr: "L'ATQ augmente de [8,7 %], et les DGT infligés par les {Attaques spéciales EX} augmentent de [21,75 %].", 
+                en: "ATK increases by [8.7%], and DMG dealt by {EX Special Attacks} increases by [21.75%]." 
+            },
+            { 
+                fr: "L'ATQ augmente de [9,6 %], et les DGT infligés par les {Attaques spéciales EX} augmentent de [24 %].", 
+                en: "ATK increases by [9.6%], and DMG dealt by {EX Special Attacks} increases by [24%]." 
+            }
+        ]
+    },
+    "Kraken's Cradle": {
+        name: { fr: "Berceau du kraken", en: "Kraken's Cradle" },
+        rank: "S",
+        specialty: "Auric Ink",
+        element: "Ice",
+        img: "W-Engine_Krakens_Cradle.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "PV %", en: "HP" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Caresse sincère", en: "Heartfelt Caress" },
+        overclocks: [
+            { 
+                fr: "Lorsque les PV du porteur diminuent, ses {DGT de Glace bruts} augmentent de [6 %] pendant 25s (cumulable jusqu'à 3 fois, durée calculée séparément, déclenchement toutes les 0,5s). Lorsque les PV du porteur tombent à 50 % des PV max ou moins, le {Taux CRIT} augmente de [20 %].", 
+                en: "When the equipper's HP decreases, their {Ice Sheer DMG} increases by [6%], stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, {CRIT Rate} increases by [20%]." 
+            },
+            { 
+                fr: "Lorsque les PV du porteur diminuent, ses {DGT de Glace bruts} augmentent de [7 %] pendant 25s (cumulable jusqu'à 3 fois, durée calculée séparément, déclenchement toutes les 0,5s). Lorsque les PV du porteur tombent à 50 % des PV max ou moins, le {Taux CRIT} augmente de [23 %].", 
+                en: "When the equipper's HP decreases, their {Ice Sheer DMG} increases by [7%], stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, {CRIT Rate} increases by [23%]." 
+            },
+            { 
+                fr: "Lorsque les PV du porteur diminuent, ses {DGT de Glace bruts} augmentent de [8 %] pendant 25s (cumulable jusqu'à 3 fois, durée calculée séparément, déclenchement toutes les 0,5s). Lorsque les PV du porteur tombent à 50 % des PV max ou moins, le {Taux CRIT} augmente de [26 %].", 
+                en: "When the equipper's HP decreases, their {Ice Sheer DMG} increases by [8%], stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, {CRIT Rate} increases by [26%]." 
+            },
+            { 
+                fr: "Lorsque les PV du porteur diminuent, ses {DGT de Glace bruts} augmentent de [9 %] pendant 25s (cumulable jusqu'à 3 fois, durée calculée séparément, déclenchement toutes les 0,5s). Lorsque les PV du porteur tombent à 50 % des PV max ou moins, le {Taux CRIT} augmente de [29 %].", 
+                en: "When the equipper's HP decreases, their {Ice Sheer DMG} increases by [9%], stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, {CRIT Rate} increases by [29%]." 
+            },
+            { 
+                fr: "Lorsque les PV du porteur diminuent, ses {DGT de Glace bruts} augmentent de [10 %] pendant 25s (cumulable jusqu'à 3 fois, durée calculée séparément, déclenchement toutes les 0,5s). Lorsque les PV du porteur tombent à 50 % des PV max ou moins, le {Taux CRIT} augmente de [32 %].", 
+                en: "When the equipper's HP decreases, their {Ice Sheer DMG} increases by [10%], stacking up to 3 times and lasting 25s. The duration of each stack is calculated separately. This effect can trigger once every 0.5s. When the equipper's HP falls to 50% of Max HP or below, {CRIT Rate} increases by [32%]." 
+            }
+        ]
+    },
+    "Grill O'Wisp": {
+        name: { fr: "Feu follet grillé", en: "Grill O'Wisp" },
+        rank: "A",
+        specialty: "Auric Ink",
+        element: "Fire",
+        img: "W-Engine_Grill_O_Wisp.webp",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "PV %", en: "HP" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Feu en cage", en: "Caged Fire" },
+        overclocks: [
+            { 
+                fr: "Les {DGT de Feu} du porteur augmentent de [15 %]. Lorsque les PV du porteur diminuent, son {Taux CRIT} augmente de [15 %] pendant 5s.", 
+                en: "The equipper's {Fire DMG} increases by [15%]. When the equipper's HP decreases, their {CRIT Rate} increases by [15%] for 5s." 
+            },
+            { 
+                fr: "Les {DGT de Feu} du porteur augmentent de [17,25 %]. Lorsque les PV du porteur diminuent, son {Taux CRIT} augmente de [17,25 %] pendant 5s.", 
+                en: "The equipper's {Fire DMG} increases by [17.25%]. When the equipper's HP decreases, their {CRIT Rate} increases by [17.25%] for 5s." 
+            },
+            { 
+                fr: "Les {DGT de Feu} du porteur augmentent de [19,5 %]. Lorsque les PV du porteur diminuent, son {Taux CRIT} augmente de [19,5 %] pendant 5s.", 
+                en: "The equipper's {Fire DMG} increases by [19.5%]. When the equipper's HP decreases, their {CRIT Rate} increases by [19.5%] for 5s." 
+            },
+            { 
+                fr: "Les {DGT de Feu} du porteur augmentent de [21,75 %]. Lorsque les PV du porteur diminuent, son {Taux CRIT} augmente de [21,75 %] pendant 5s.", 
+                en: "The equipper's {Fire DMG} increases by [21.75%]. When the equipper's HP decreases, their {CRIT Rate} increases by [21.75%] for 5s." 
+            },
+            { 
+                fr: "Les {DGT de Feu} du porteur augmentent de [24 %]. Lorsque les PV du porteur diminuent, son {Taux CRIT} augmente de [24 %] pendant 5s.", 
+                en: "The equipper's {Fire DMG} increases by [24%]. When the equipper's HP decreases, their {CRIT Rate} increases by [24%] for 5s." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
