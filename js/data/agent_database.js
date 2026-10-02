@@ -352,7 +352,7 @@ export const agentDatabase = {
         stats: [ { label: "Ad. d'Anomalie", value: "400+" }, { label: "Attaque", value: "2300+" }, { label: "Ma. d'Anomalie", value: "= 198" } ],
         discs: [
             { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Phaethon_Melody", set2: "Freedom_Blues", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", note: { fr: "Non négociable. Indispensable pour récupérer +30 d'AP.", en: "Non-negotiable. Crucial to gain +30 Anomaly Proficiency." } },
-            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Phaethon_Melody", set2: "Chaos_Metal", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaos Metal", note: "" },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Phaethon_Melody", set2: "Chaotic_Metal", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaotic Metal", note: "" },
             { tag: { fr: "Set 3 (99.53%)", en: "Set 3 (99.53%)" }, set1: "Phaethon_Melody", set2: "Puffer_Electro", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Puffer Electro", note: "" }
         ],
         skills: [
