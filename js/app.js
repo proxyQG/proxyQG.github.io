@@ -560,18 +560,21 @@ function initKeyboardNavigation() {
             else if (modalVideo && !modalVideo.classList.contains('hidden')) window.closeVideoModal(); // NOUVEAU
         }
         if (modalAgent && !modalAgent.classList.contains('hidden')) {
-            // Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
+            // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
+           // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                if (typeof window.closeTooltip === 'function') {
-                    window.closeTooltip();
-                } else {
-                    const tooltip = document.getElementById('tooltip') || document.getElementById('engineTooltip');
-                    if (tooltip) tooltip.classList.add('hidden');
+                if (typeof window.hideTooltip === 'function') {
+                    window.hideTooltip();
                 }
             }
 
-            if (e.key === 'ArrowLeft' && State.modalIndex > 0) window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
-            if (e.key === 'ArrowRight' && State.modalIndex < State.filteredAgents.length - 1 && State.modalIndex !== -1) window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name);
+            // 2. Change d'agent avec les flèches
+            if (e.key === 'ArrowLeft' && State.modalIndex > 0) {
+                window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
+            }
+            if (e.key === 'ArrowRight' && State.modalIndex < State.filteredAgents.length - 1 && State.modalIndex !== -1) {
+                window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name);
+            }
         }
     });
 }
