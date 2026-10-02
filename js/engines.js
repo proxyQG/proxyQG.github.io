@@ -1376,6 +1376,143 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Steam Oven": {
+        name: { fr: "Four à vapeur", en: "Steam Oven" },
+        rank: "A",
+        specialty: "Stun",
+        img: "W-Engine_Steam_Oven.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
+            advanced: "20% - 50%" 
+        },
+        passiveName: { fr: "Bouillon épais", en: "Thick Broth" },
+        overclocks: [
+            { 
+                fr: "Pour chaque tranche de 10 points d'énergie accumulée, l'{Impact} de l'équipementier augmente de [2 %], cumulable jusqu'à 8 fois. Après avoir consommé de l'énergie, ce bonus persiste pendant 8s supplémentaires. La durée de chaque cumul est calculée séparément.", 
+                en: "For every 10 Energy accumulated, the equipper's {Impact} is increased by [2%], stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Pour chaque tranche de 10 points d'énergie accumulée, l'{Impact} de l'équipementier augmente de [2,3 %], cumulable jusqu'à 8 fois. Après avoir consommé de l'énergie, ce bonus persiste pendant 8s supplémentaires. La durée de chaque cumul est calculée séparément.", 
+                en: "For every 10 Energy accumulated, the equipper's {Impact} is increased by [2.3%], stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Pour chaque tranche de 10 points d'énergie accumulée, l'{Impact} de l'équipementier augmente de [2,6 %], cumulable jusqu'à 8 fois. Après avoir consommé de l'énergie, ce bonus persiste pendant 8s supplémentaires. La durée de chaque cumul est calculée séparément.", 
+                en: "For every 10 Energy accumulated, the equipper's {Impact} is increased by [2.6%], stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Pour chaque tranche de 10 points d'énergie accumulée, l'{Impact} de l'équipementier augmente de [2,9 %], cumulable jusqu'à 8 fois. Après avoir consommé de l'énergie, ce bonus persiste pendant 8s supplémentaires. La durée de chaque cumul est calculée séparément.", 
+                en: "For every 10 Energy accumulated, the equipper's {Impact} is increased by [2.9%], stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Pour chaque tranche de 10 points d'énergie accumulée, l'{Impact} de l'équipementier augmente de [3,2 %], cumulable jusqu'à 8 fois. Après avoir consommé de l'énergie, ce bonus persiste pendant 8s supplémentaires. La durée de chaque cumul est calculée séparément.", 
+                en: "For every 10 Energy accumulated, the equipper's {Impact} is increased by [3.2%], stacking up to 8 times. After Energy is consumed, this bonus remains for 8 more seconds. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Peacekeeper - Specialized": {
+        name: { fr: "Pacificateur - Spécialisé", en: "Peacekeeper - Specialized" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Peacekeeper_-_Specialized.webp",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "10% - 25%" 
+        },
+        passiveName: { fr: "Technique de parade standard", en: "Standard Blocking Technique" },
+        overclocks: [
+            { 
+                fr: "Sous l'effet d'un bouclier, la {Réc. d'énergie} de l'équipementier augmente de [0,4]/s. Le taux d'accumulation d'Anomalie des {Attaques spéciales EX} et des {Attaques d'assistance} augmente de [36 %].", 
+                en: "While Shielded, the equipper's {Energy Regen} increases by [0.4]/s. The Anomaly Buildup of {EX Special Attacks} and {Assist Follow-Ups} increases by [36%]." 
+            },
+            { 
+                fr: "Sous l'effet d'un bouclier, la {Réc. d'énergie} de l'équipementier augmente de [0,46]/s. Le taux d'accumulation d'Anomalie des {Attaques spéciales EX} et des {Attaques d'assistance} augmente de [40,75 %].", 
+                en: "While Shielded, the equipper's {Energy Regen} increases by [0.46]/s. The Anomaly Buildup of {EX Special Attacks} and {Assist Follow-Ups} increases by [40.75%]." 
+            },
+            { 
+                fr: "Sous l'effet d'un bouclier, la {Réc. d'énergie} de l'équipementier augmente de [0,52]/s. Le taux d'accumulation d'Anomalie des {Attaques spéciales EX} et des {Attaques d'assistance} augmente de [45,5 %].", 
+                en: "While Shielded, the equipper's {Energy Regen} increases by [0.52]/s. The Anomaly Buildup of {EX Special Attacks} and {Assist Follow-Ups} increases by [45.5%]." 
+            },
+            { 
+                fr: "Sous l'effet d'un bouclier, la {Réc. d'énergie} de l'équipementier augmente de [0,58]/s. Le taux d'accumulation d'Anomalie des {Attaques spéciales EX} et des {Attaques d'assistance} augmente de [50,25 %].", 
+                en: "While Shielded, the equipper's {Energy Regen} increases by [0.58]/s. The Anomaly Buildup of {EX Special Attacks} and {Assist Follow-Ups} increases by [50.25%]." 
+            },
+            { 
+                fr: "Sous l'effet d'un bouclier, la {Réc. d'énergie} de l'équipementier augmente de [0,64]/s. Le taux d'accumulation d'Anomalie des {Attaques spéciales EX} et des {Attaques d'assistance} augmente de [55 %].", 
+                en: "While Shielded, the equipper's {Energy Regen} increases by [0.64]/s. The Anomaly Buildup of {EX Special Attacks} and {Assist Follow-Ups} increases by [55%]." 
+            }
+        ]
+    },
+    "Bunny Band": {
+        name: { fr: "Boule de lapins", en: "Bunny Band" },
+        rank: "A",
+        specialty: "Defense",
+        img: "W-Engine_Bunny_Band.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "DÉF %", en: "DEF %" }, 
+            advanced: "16% - 40%" 
+        },
+        passiveName: { fr: "Caressez le lapin", en: "Pet the Bunny" },
+        overclocks: [
+            { 
+                fr: "Augmente les {PV max} de [8 %]. Augmente l'ATQ de l'équipementier de [10 %] lorsqu'il est sous l'effet d'un bouclier.", 
+                en: "Increases {Max HP} by [8%]. Increases the equipper's ATK by [10%] when they are shielded." 
+            },
+            { 
+                fr: "Augmente les {PV max} de [9,2 %]. Augmente l'ATQ de l'équipementier de [11,5 %] lorsqu'il est sous l'effet d'un bouclier.", 
+                en: "Increases {Max HP} by [9.2%]. Increases the equipper's ATK by [11.5%] when they are shielded." 
+            },
+            { 
+                fr: "Augmente les {PV max} de [10,4 %]. Augmente l'ATQ de l'équipementier de [13 %] lorsqu'il est sous l'effet d'un bouclier.", 
+                en: "Increases {Max HP} by [10.4%]. Increases the equipper's ATK by [13%] when they are shielded." 
+            },
+            { 
+                fr: "Augmente les {PV max} de [11,6 %]. Augmente l'ATQ de l'équipementier de [14,5 %] lorsqu'il est sous l'effet d'un bouclier.", 
+                en: "Increases {Max HP} by [11.6%]. Increases the equipper's ATK by [14.5%] when they are shielded." 
+            },
+            { 
+                fr: "Augmente les {PV max} de [12,8 %]. Augmente l'ATQ de l'équipementier de [16 %] lorsqu'il est sous l'effet d'un bouclier.", 
+                en: "Increases {Max HP} by [12.8%]. Increases the equipper's ATK by [16%] when they are shielded." 
+            }
+        ]
+    },
+    "Deep Sea Visitor": {
+        name: { fr: "Visiteur des grands fonds", en: "Deep Sea Visitor" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Ice",
+        img: "W-Engine_Deep_Sea_Visitor.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Seigneur des mers", en: "Lord of Seas" },
+        overclocks: [
+            { 
+                fr: "Augmente les {DGT de Glace} de [25 %]. Lorsqu'une {Attaque de base} touche un ennemi, le {Taux CRIT} de l'équipementier augmente de [10 %] pendant 8s. Lorsqu'une {Attaque bondissante} inflige des {DGT de Glace}, le {Taux CRIT} de l'équipementier augmente de [10 %] supplémentaires pendant 15s. La durée de chaque effet est calculée séparément.", 
+                en: "Increases {Ice DMG} by [25%]. Upon hitting an enemy with a {Basic Attack}, the equipper's {CRIT Rate} increases by [10%] for 8s. When dealing {Ice DMG} with a {Dash Attack}, the equipper's {CRIT Rate} increases by an additional [10%] for 15s. The duration of each effect is calculated separately." 
+            },
+            { 
+                fr: "Augmente les {DGT de Glace} de [31,5 %]. Lorsqu'une {Attaque de base} touche un ennemi, le {Taux CRIT} de l'équipementier augmente de [12,5 %] pendant 8s. Lorsqu'une {Attaque bondissante} inflige des {DGT de Glace}, le {Taux CRIT} de l'équipementier augmente de [12,5 %] supplémentaires pendant 15s. La durée de chaque effet est calculée séparément.", 
+                en: "Increases {Ice DMG} by [31.5%]. Upon hitting an enemy with a {Basic Attack}, the equipper's {CRIT Rate} increases by [12.5%] for 8s. When dealing {Ice DMG} with a {Dash Attack}, the equipper's {CRIT Rate} increases by an additional [12.5%] for 15s. The duration of each effect is calculated separately." 
+            },
+            { 
+                fr: "Augmente les {DGT de Glace} de [37,5 %]. Lorsqu'une {Attaque de base} touche un ennemi, le {Taux CRIT} de l'équipementier augmente de [15 %] pendant 8s. Lorsqu'une {Attaque bondissante} inflige des {DGT de Glace}, le {Taux CRIT} de l'équipementier augmente de [15 %] supplémentaires pendant 15s. La durée de chaque effet est calculée séparément.", 
+                en: "Increases {Ice DMG} by [37.5%]. Upon hitting an enemy with a {Basic Attack}, the equipper's {CRIT Rate} increases by [15%] for 8s. When dealing {Ice DMG} with a {Dash Attack}, the equipper's {CRIT Rate} increases by an additional [15%] for 15s. The duration of each effect is calculated separately." 
+            },
+            { 
+                fr: "Augmente les {DGT de Glace} de [44 %]. Lorsqu'une {Attaque de base} touche un ennemi, le {Taux CRIT} de l'équipementier augmente de [17,5 %] pendant 8s. Lorsqu'une {Attaque bondissante} inflige des {DGT de Glace}, le {Taux CRIT} de l'équipementier augmente de [17,5 %] supplémentaires pendant 15s. La durée de chaque effet est calculée séparément.", 
+                en: "Increases {Ice DMG} by [44%]. Upon hitting an enemy with a {Basic Attack}, the equipper's {CRIT Rate} increases by [17.5%] for 8s. When dealing {Ice DMG} with a {Dash Attack}, the equipper's {CRIT Rate} increases by an additional [17.5%] for 15s. The duration of each effect is calculated separately." 
+            },
+            { 
+                fr: "Augmente les {DGT de Glace} de [50 %]. Lorsqu'une {Attaque de base} touche un ennemi, le {Taux CRIT} de l'équipementier augmente de [20 %] pendant 8s. Lorsqu'une {Attaque bondissante} inflige des {DGT de Glace}, le {Taux CRIT} de l'équipementier augmente de [20 %] supplémentaires pendant 15s. La durée de chaque effet est calculée séparément.", 
+                en: "Increases {Ice DMG} by [50%]. Upon hitting an enemy with a {Basic Attack}, the equipper's {CRIT Rate} increases by [20%] for 8s. When dealing {Ice DMG} with a {Dash Attack}, the equipper's {CRIT Rate} increases by an additional [20%] for 15s. The duration of each effect is calculated separately." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
