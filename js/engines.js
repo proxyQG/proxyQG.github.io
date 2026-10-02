@@ -1651,6 +1651,146 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Blazing Laurel": {
+        name: { fr: "Laurier ardent", en: "Blazing Laurel" },
+        rank: "S",
+        specialty: "Stun",
+        element: "Fire",
+        img: "W-Engine_Blazing_Laurel.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "7.2% - 18%" 
+        },
+        passiveName: { fr: "Flamme fluide", en: "Flowing Flame" },
+        overclocks: [
+            { 
+                fr: "Lors du lancement d'une {Assistance rapide} ou d'une {Assistance parfaite}, l'{Impact} de l'équipementier augmente de [25 %] pendant 8s. Lorsque l'équipementier lance et touche un ennemi avec une {Attaque de base}, il applique {Flétrissure} à la cible pendant 30s (cumulable jusqu'à 20 fois, réinitialise la durée). Lorsqu'un membre de l'escouade touche un ennemi, pour chaque cumul de {Flétrissure} sur la cible, les DGT CRIT des {DGT de Glace} et des {DGT de Feu} infligés par cette attaque augmentent de [1,5 %]. Cet effet ne peut être actif qu'une seule fois dans la même escouade.", 
+                en: "Upon launching a {Quick Assist} or {Perfect Assist}, the equipper's Impact increases by [25%] for 8s. When the equipper launches and hits an enemy with a {Basic Attack}, apply {Wilt} to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of {Wilt} applied to the target, the CRIT DMG of the {Ice DMG} and {Fire DMG} dealt by that attack increases by [1.5%]. Only one of this effect can be active at a time in the same squad." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Assistance rapide} ou d'une {Assistance parfaite}, l'{Impact} de l'équipementier augmente de [28,75 %] pendant 8s. Lorsque l'équipementier lance et touche un ennemi avec une {Attaque de base}, il applique {Flétrissure} à la cible pendant 30s (cumulable jusqu'à 20 fois, réinitialise la durée). Lorsqu'un membre de l'escouade touche un ennemi, pour chaque cumul de {Flétrissure} sur la cible, les DGT CRIT des {DGT de Glace} et des {DGT de Feu} infligés par cette attaque augmentent de [1,725 %]. Cet effet ne peut être actif qu'une seule fois dans la même escouade.", 
+                en: "Upon launching a {Quick Assist} or {Perfect Assist}, the equipper's Impact increases by [28.75%] for 8s. When the equipper launches and hits an enemy with a {Basic Attack}, apply {Wilt} to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of {Wilt} applied to the target, the CRIT DMG of the {Ice DMG} and {Fire DMG} dealt by that attack increases by [1.725%]. Only one of this effect can be active at a time in the same squad." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Assistance rapide} ou d'une {Assistance parfaite}, l'{Impact} de l'équipementier augmente de [32,5 %] pendant 8s. Lorsque l'équipementier lance et touche un ennemi avec une {Attaque de base}, il applique {Flétrissure} à la cible pendant 30s (cumulable jusqu'à 20 fois, réinitialise la durée). Lorsqu'un membre de l'escouade touche un ennemi, pour chaque cumul de {Flétrissure} sur la cible, les DGT CRIT des {DGT de Glace} et des {DGT de Feu} infligés par cette attaque augmentent de [1,95 %]. Cet effet ne peut être actif qu'une seule fois dans la même escouade.", 
+                en: "Upon launching a {Quick Assist} or {Perfect Assist}, the equipper's Impact increases by [32.5%] for 8s. When the equipper launches and hits an enemy with a {Basic Attack}, apply {Wilt} to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of {Wilt} applied to the target, the CRIT DMG of the {Ice DMG} and {Fire DMG} dealt by that attack increases by [1.95%]. Only one of this effect can be active at a time in the same squad." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Assistance rapide} ou d'une {Assistance parfaite}, l'{Impact} de l'équipementier augmente de [36,25 %] pendant 8s. Lorsque l'équipementier lance et touche un ennemi avec une {Attaque de base}, il applique {Flétrissure} à la cible pendant 30s (cumulable jusqu'à 20 fois, réinitialise la durée). Lorsqu'un membre de l'escouade touche un ennemi, pour chaque cumul de {Flétrissure} sur la cible, les DGT CRIT des {DGT de Glace} et des {DGT de Feu} infligés par cette attaque augmentent de [2,175 %]. Cet effet ne peut être actif qu'une seule fois dans la même escouade.", 
+                en: "Upon launching a {Quick Assist} or {Perfect Assist}, the equipper's Impact increases by [36.25%] for 8s. When the equipper launches and hits an enemy with a {Basic Attack}, apply {Wilt} to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of {Wilt} applied to the target, the CRIT DMG of the {Ice DMG} and {Fire DMG} dealt by that attack increases by [2.175%]. Only one of this effect can be active at a time in the same squad." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Assistance rapide} ou d'une {Assistance parfaite}, l'{Impact} de l'équipementier augmente de [40 %] pendant 8s. Lorsque l'équipementier lance et touche un ennemi avec une {Attaque de base}, il applique {Flétrissure} à la cible pendant 30s (cumulable jusqu'à 20 fois, réinitialise la durée). Lorsqu'un membre de l'escouade touche un ennemi, pour chaque cumul de {Flétrissure} sur la cible, les DGT CRIT des {DGT de Glace} et des {DGT de Feu} infligés par cette attaque augmentent de [2,4 %]. Cet effet ne peut être actif qu'une seule fois dans la même escouade.", 
+                en: "Upon launching a {Quick Assist} or {Perfect Assist}, the equipper's Impact increases by [40%] for 8s. When the equipper launches and hits an enemy with a {Basic Attack}, apply {Wilt} to the target for 30s, stacking up to 20 times, repeated triggers reset the duration. When any squad member hits an enemy, for every stack of {Wilt} applied to the target, the CRIT DMG of the {Ice DMG} and {Fire DMG} dealt by that attack increases by [2.4%]. Only one of this effect can be active at a time in the same squad." 
+            }
+        ]
+    },
+    "Hailstorm Shrine": {
+        name: { fr: "Sanctuaire de la tempête de grêle", en: "Hailstorm Shrine" },
+        rank: "S",
+        specialty: "Anomaly",
+        element: "Ice",
+        img: "W-Engine_Hailstorm_Shrine.webp",
+        stats: { 
+            base: "50 - 743", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Étoile teintée de givre", en: "Frost-Stained Star" },
+        overclocks: [
+            { 
+                fr: "Les {DGT CRIT} augmentent de [50 %]. Lors de l'utilisation d'une {Attaque spéciale EX} ou lorsqu'un membre de l'escouade inflige une Anomalie d'attribut à un ennemi, les {DGT de Glace} de l'équipementier augmentent de [20 %], cumulable jusqu'à 2 fois et d'une durée de 15s. La durée de chaque cumul est calculée séparément.", 
+                en: "CRIT DMG increases by [50%]. When using an {EX Special Attack} or when any squad member applies an Attribute Anomaly to an enemy, the equipper's {Ice DMG} increases by [20%], stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [57,5 %]. Lors de l'utilisation d'une {Attaque spéciale EX} ou lorsqu'un membre de l'escouade inflige une Anomalie d'attribut à un ennemi, les {DGT de Glace} de l'équipementier augmentent de [23 %], cumulable jusqu'à 2 fois et d'une durée de 15s. La durée de chaque cumul est calculée séparément.", 
+                en: "CRIT DMG increases by [57.5%]. When using an {EX Special Attack} or when any squad member applies an Attribute Anomaly to an enemy, the equipper's {Ice DMG} increases by [23%], stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [65 %]. Lors de l'utilisation d'une {Attaque spéciale EX} ou lorsqu'un membre de l'escouade inflige une Anomalie d'attribut à un ennemi, les {DGT de Glace} de l'équipementier augmentent de [26 %], cumulable jusqu'à 2 fois et d'une durée de 15s. La durée de chaque cumul est calculée séparément.", 
+                en: "CRIT DMG increases by [65%]. When using an {EX Special Attack} or when any squad member applies an Attribute Anomaly to an enemy, the equipper's {Ice DMG} increases by [26%], stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [72,5 %]. Lors de l'utilisation d'une {Attaque spéciale EX} ou lorsqu'un membre de l'escouade inflige une Anomalie d'attribut à un ennemi, les {DGT de Glace} de l'équipementier augmentent de [29 %], cumulable jusqu'à 2 fois et d'une durée de 15s. La durée de chaque cumul est calculée séparément.", 
+                en: "CRIT DMG increases by [72.5%]. When using an {EX Special Attack} or when any squad member applies an Attribute Anomaly to an enemy, the equipper's {Ice DMG} increases by [29%], stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [80 %]. Lors de l'utilisation d'une {Attaque spéciale EX} ou lorsqu'un membre de l'escouade inflige une Anomalie d'attribut à un ennemi, les {DGT de Glace} de l'équipementier augmentent de [32 %], cumulable jusqu'à 2 fois et d'une durée de 15s. La durée de chaque cumul est calculée séparément.", 
+                en: "CRIT DMG increases by [80%]. When using an {EX Special Attack} or when any squad member applies an Attribute Anomaly to an enemy, the equipper's {Ice DMG} increases by [32%], stacking up to 2 times and lasting 15s. The duration of each stack is calculated separately." 
+            }
+        ]
+    },
+    "Severed Innocence": {
+        name: { fr: "Innocence brisée", en: "Severed Innocence" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Electric",
+        img: "W-Engine_Severed_Innocence.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
+            advanced: "19.2% - 48%" 
+        },
+        passiveName: { fr: "Floraison paisible", en: "Tranquil Blossom" },
+        overclocks: [
+            { 
+                fr: "Les {DGT CRIT} augmentent de [30 %]. Lorsque l'équipementier touche avec une {Attaque de base}, une {Attaque spéciale} ou une {Onde de choc}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT CRIT} de l'équipementier de [10 %] supplémentaires, cumulable jusqu'à 3 fois. Cet effet dure 30s, la durée de chaque cumul étant calculée séparément, et ne peut être déclenché qu'une seule fois par utilisation de compétence. À 3 cumuls, les {DGT Électriques} de l'équipementier augmentent de [20 %].", 
+                en: "CRIT DMG increased by [30%]. When the equipper lands a hit with a {Basic Attack}, {Special Attack}, or {Aftershock}, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional [10%], stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's {Electric DMG} increases by [20%]." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [34,5 %]. Lorsque l'équipementier touche avec une {Attaque de base}, une {Attaque spéciale} ou une {Onde de choc}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT CRIT} de l'équipementier de [11,5 %] supplémentaires, cumulable jusqu'à 3 fois. Cet effet dure 30s, la durée de chaque cumul étant calculée séparément, et ne peut être déclenché qu'une seule fois par utilisation de compétence. À 3 cumuls, les {DGT Électriques} de l'équipementier augmentent de [23 %].", 
+                en: "CRIT DMG increased by [34.5%]. When the equipper lands a hit with a {Basic Attack}, {Special Attack}, or {Aftershock}, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional [11.5%], stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's {Electric DMG} increases by [23%]." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [39 %]. Lorsque l'équipementier touche avec une {Attaque de base}, une {Attaque spéciale} ou une {Onde de choc}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT CRIT} de l'équipementier de [13 %] supplémentaires, cumulable jusqu'à 3 fois. Cet effet dure 30s, la durée de chaque cumul étant calculée séparément, et ne peut être déclenché qu'une seule fois par utilisation de compétence. À 3 cumuls, les {DGT Électriques} de l'équipementier augmentent de [26 %].", 
+                en: "CRIT DMG increased by [39%]. When the equipper lands a hit with a {Basic Attack}, {Special Attack}, or {Aftershock}, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional [13%], stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's {Electric DMG} increases by [26%]." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [43,5 %]. Lorsque l'équipementier touche avec une {Attaque de base}, une {Attaque spéciale} ou une {Onde de choc}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT CRIT} de l'équipementier de [14,5 %] supplémentaires, cumulable jusqu'à 3 fois. Cet effet dure 30s, la durée de chaque cumul étant calculée séparément, et ne peut être déclenché qu'une seule fois par utilisation de compétence. À 3 cumuls, les {DGT Électriques} de l'équipementier augmentent de [29 %].", 
+                en: "CRIT DMG increased by [43.5%]. When the equipper lands a hit with a {Basic Attack}, {Special Attack}, or {Aftershock}, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional [14.5%], stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's {Electric DMG} increases by [29%]." 
+            },
+            { 
+                fr: "Les {DGT CRIT} augmentent de [48 %]. Lorsque l'équipementier touche avec une {Attaque de base}, une {Attaque spéciale} ou une {Onde de choc}, il gagne 1 cumul d'amélioration. Chaque cumul augmente les {DGT CRIT} de l'équipementier de [16 %] supplémentaires, cumulable jusqu'à 3 fois. Cet effet dure 30s, la durée de chaque cumul étant calculée séparément, et ne peut être déclenché qu'une seule fois par utilisation de compétence. À 3 cumuls, les {DGT Électriques} de l'équipementier augmentent de [32 %].", 
+                en: "CRIT DMG increased by [48%]. When the equipper lands a hit with a {Basic Attack}, {Special Attack}, or {Aftershock}, they gain 1 stack of a buff. Each stack increases the equipper's CRIT DMG by an additional [16%], stacking up to 3 times. The effect lasts for 30s, with each stack's duration calculated separately, and can only be triggered once per use of a skill. With all 3 stacks, the equipper's {Electric DMG} increases by [32%]." 
+            }
+        ]
+    },
+    "Spectral Gaze": {
+        name: { fr: "Regard spectral", en: "Spectral Gaze" },
+        rank: "S",
+        specialty: "Stun",
+        element: "Electric",
+        img: "W-Engine_Spectral_Gaze.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
+            advanced: "9.6% - 24%" 
+        },
+        passiveName: { fr: "Traqueur de vent", en: "Wind Seeker" },
+        overclocks: [
+            { 
+                fr: "Lorsque l'équipementier touche un ennemi avec une {Onde de choc} infligeant des {DGT Électriques}, la DÉF de la cible est réduite de [25 %] pendant 5s. Les effets passifs du même nom ne se cumulent pas. Lorsque cet effet se déclenche, si l'équipementier n'est pas le personnage actif, il gagne 1 cumul de {Verrou spirituel} (maximum 3 cumuls, une seule fois par compétence). Chaque cumul de {Verrou spirituel} augmente l'{Impact} de l'équipementier de [4 %] pendant 12s (durée calculée séparément). Au maximum de cumuls, l'{Impact} de l'équipementier augmente de [8 %] supplémentaires.", 
+                en: "When the equipper hits an enemy with {Aftershock}, causing {Electric DMG}, the target's DEF is reduced by [25%] for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of {Spirit Lock}, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of {Spirit Lock} increases the equipper's Impact by [4%], lasting 12s. The duration of each stack is calculated separately. At full stacks of {Spirit Lock}, the equipper's Impact increases by an additional [8%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier touche un ennemi avec une {Onde de choc} infligeant des {DGT Électriques}, la DÉF de la cible est réduite de [28,75 %] pendant 5s. Les effets passifs du même nom ne se cumulent pas. Lorsque cet effet se déclenche, si l'équipementier n'est pas le personnage actif, il gagne 1 cumul de {Verrou spirituel} (maximum 3 cumuls, une seule fois par compétence). Chaque cumul de {Verrou spirituel} augmente l'{Impact} de l'équipementier de [4,6 %] pendant 12s (durée calculée séparément). Au maximum de cumuls, l'{Impact} de l'équipementier augmente de [9,2 %] supplémentaires.", 
+                en: "When the equipper hits an enemy with {Aftershock}, causing {Electric DMG}, the target's DEF is reduced by [28.75%] for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of {Spirit Lock}, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of {Spirit Lock} increases the equipper's Impact by [4.6%], lasting 12s. The duration of each stack is calculated separately. At full stacks of {Spirit Lock}, the equipper's Impact increases by an additional [9.2%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier touche un ennemi avec une {Onde de choc} infligeant des {DGT Électriques}, la DÉF de la cible est réduite de [32,5 %] pendant 5s. Les effets passifs du même nom ne se cumulent pas. Lorsque cet effet se déclenche, si l'équipementier n'est pas le personnage actif, il gagne 1 cumul de {Verrou spirituel} (maximum 3 cumuls, une seule fois par compétence). Chaque cumul de {Verrou spirituel} augmente l'{Impact} de l'équipementier de [5,2 %] pendant 12s (durée calculée séparément). Au maximum de cumuls, l'{Impact} de l'équipementier augmente de [10,4 %] supplémentaires.", 
+                en: "When the equipper hits an enemy with {Aftershock}, causing {Electric DMG}, the target's DEF is reduced by [32.5%] for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of {Spirit Lock}, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of {Spirit Lock} increases the equipper's Impact by [5.2%], lasting 12s. The duration of each stack is calculated separately. At full stacks of {Spirit Lock}, the equipper's Impact increases by an additional [10.4%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier touche un ennemi avec une {Onde de choc} infligeant des {DGT Électriques}, la DÉF de la cible est réduite de [36,25 %] pendant 5s. Les effets passifs du même nom ne se cumulent pas. Lorsque cet effet se déclenche, si l'équipementier n'est pas le personnage actif, il gagne 1 cumul de {Verrou spirituel} (maximum 3 cumuls, une seule fois par compétence). Chaque cumul de {Verrou spirituel} augmente l'{Impact} de l'équipementier de [5,8 %] pendant 12s (durée calculée séparément). Au maximum de cumuls, l'{Impact} de l'équipementier augmente de [11,6 %] supplémentaires.", 
+                en: "When the equipper hits an enemy with {Aftershock}, causing {Electric DMG}, the target's DEF is reduced by [36.25%] for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of {Spirit Lock}, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of {Spirit Lock} increases the equipper's Impact by [5.8%], lasting 12s. The duration of each stack is calculated separately. At full stacks of {Spirit Lock}, the equipper's Impact increases by an additional [11.6%]." 
+            },
+            { 
+                fr: "Lorsque l'équipementier touche un ennemi avec une {Onde de choc} infligeant des {DGT Électriques}, la DÉF de la cible est réduite de [40 %] pendant 5s. Les effets passifs du même nom ne se cumulent pas. Lorsque cet effet se déclenche, si l'équipementier n'est pas le personnage actif, il gagne 1 cumul de {Verrou spirituel} (maximum 3 cumuls, une seule fois par compétence). Chaque cumul de {Verrou spirituel} augmente l'{Impact} de l'équipementier de [6,4 %] pendant 12s (durée calculée séparément). Au maximum de cumuls, l'{Impact} de l'équipementier augmente de [12,8 %] supplémentaires.", 
+                en: "When the equipper hits an enemy with {Aftershock}, causing {Electric DMG}, the target's DEF is reduced by [40%] for 5s. Passive effects of the same name do not stack. When this effect is triggered, if the equipper is not the active character, they gain 1 stack of {Spirit Lock}, up to a maximum of 3 stacks. This can trigger only once per use of a skill. Each stack of {Spirit Lock} increases the equipper's Impact by [6.4%], lasting 12s. The duration of each stack is calculated separately. At full stacks of {Spirit Lock}, the equipper's Impact increases by an additional [12.8%]." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
