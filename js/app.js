@@ -613,8 +613,8 @@ window.openVideoModal = function(videoId, startTime, event) {
     // On crée le lecteur avec l'API YouTube
     if (typeof YT !== 'undefined' && YT.Player) {
         currentPlayer = new YT.Player('yt-player', {
-            height: '100%', // <-- FORCAGE DE LA HAUTEUR À 100%
-            width: '100%',  // <-- FORCAGE DE LA LARGEUR À 100%
+            height: '100%', 
+            width: '100%',  
             videoId: videoId,
             playerVars: {
                 'autoplay': 1,
@@ -623,11 +623,20 @@ window.openVideoModal = function(videoId, startTime, event) {
                 'modestbranding': 1
             },
             events: {
+                'onReady': function(e) {
+                    // CORRECTION : Affiche le lecteur dès qu'il est prêt. 
+                    // Indispensable pour voir les pubs et cliquer sur "Ignorer" !
+                    const wrapper = document.getElementById('yt-wrapper');
+                    if (wrapper) {
+                        wrapper.classList.remove('opacity-0');
+                        wrapper.classList.add('opacity-100');
+                    }
+                },
                 'onStateChange': function(e) {
-                    // e.data === 1 signifie "PLAYING"
-                    if (e.data === 1) {
+                    // Sécurité : On affiche aussi si l'état passe à "En cours de lecture" (1) ou "Mise en mémoire tampon" (3)
+                    if (e.data === 1 || e.data === 3) {
                         const wrapper = document.getElementById('yt-wrapper');
-                        if (wrapper) {
+                        if (wrapper && wrapper.classList.contains('opacity-0')) {
                             wrapper.classList.remove('opacity-0');
                             wrapper.classList.add('opacity-100');
                         }
