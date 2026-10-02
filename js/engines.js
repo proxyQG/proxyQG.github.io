@@ -1900,7 +1900,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Stun",
         element: "Fire",
-        img: "W-Engine_Roaring_Furnace.webp",
+        img: "W-Engine_Roaring_Fur-nace.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "ATQ %", en: "ATK" }, 
