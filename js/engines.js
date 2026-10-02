@@ -1791,6 +1791,180 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Box Cutter": {
+        name: { fr: "Cutter", en: "Box Cutter" },
+        rank: "A",
+        specialty: "Stun",
+        element: "Physical",
+        img: "W-Engine_Box_Cutter.webp",
+        stats: { 
+            base: "42 - 624", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "6% - 15%" 
+        },
+        passiveName: { fr: "Attention aux doigts", en: "Watch your Fingers" },
+        overclocks: [
+            { 
+                fr: "Lors du lancement d'une {Onde de choc}, les {DGT Physiques} de l'équipementier augmentent de [15 %] et la {Stupeur} infligée augmente de [10 %] pendant 10s.", 
+                en: "When launching an {Aftershock}, the equipper's {Physical DMG} increases by [15%], and their {Daze} inflicted increases by [10%] for 10s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Onde de choc}, les {DGT Physiques} de l'équipementier augmentent de [17,25 %] et la {Stupeur} infligée augmente de [11,5 %] pendant 10s.", 
+                en: "When launching an {Aftershock}, the equipper's {Physical DMG} increases by [17.25%], and their {Daze} inflicted increases by [11.5%] for 10s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Onde de choc}, les {DGT Physiques} de l'équipementier augmentent de [19,5 %] et la {Stupeur} infligée augmente de [13 %] pendant 10s.", 
+                en: "When launching an {Aftershock}, the equipper's {Physical DMG} increases by [19.5%], and their {Daze} inflicted increases by [13%] for 10s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Onde de choc}, les {DGT Physiques} de l'équipementier augmentent de [21,75 %] et la {Stupeur} infligée augmente de [14,5 %] pendant 10s.", 
+                en: "When launching an {Aftershock}, the equipper's {Physical DMG} increases by [21.75%], and their {Daze} inflicted increases by [14.5%] for 10s." 
+            },
+            { 
+                fr: "Lors du lancement d'une {Onde de choc}, les {DGT Physiques} de l'équipementier augmentent de [24 %] et la {Stupeur} infligée augmente de [16 %] pendant 10s.", 
+                en: "When launching an {Aftershock}, the equipper's {Physical DMG} increases by [24%], and their {Daze} inflicted increases by [16%] for 10s." 
+            }
+        ]
+    },
+    "Marcato Desire": {
+        name: { fr: "Désir Marcato", en: "Marcato Desire" },
+        rank: "A",
+        specialty: "Attack",
+        img: "Marcato_Desire.webp",
+        stats: { 
+            base: "40 - 594", 
+            advancedLabel: { fr: "Taux CRIT", en: "Crit Rate" }, 
+            advanced: "8% - 20%" 
+        },
+        passiveName: { fr: "Mettre le feu", en: "Get Everyone Fired Up" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [6 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [6 %] supplémentaires.", 
+                en: "When an {EX Special Attack} or {Chain Attack} hits an enemy, the equipper's ATK increases by [6%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [6%]." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [6,9 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [6,9 %] supplémentaires.", 
+                en: "When an {EX Special Attack} or {Chain Attack} hits an enemy, the equipper's ATK increases by [6.9%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [6.9%]." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [7,8 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [7,8 %] supplémentaires.", 
+                en: "When an {EX Special Attack} or {Chain Attack} hits an enemy, the equipper's ATK increases by [7.8%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [7.8%]." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [8,7 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [8,7 %] supplémentaires.", 
+                en: "When an {EX Special Attack} or {Chain Attack} hits an enemy, the equipper's ATK increases by [8.7%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [8.7%]." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [9,6 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [9,6 %] supplémentaires.", 
+                en: "When an {EX Special Attack} ou un {Enchaînement} hits an enemy, the equipper's ATK increases by [9.6%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [9.6%]." 
+            }
+        ]
+    },
+    "Flight of Fancy": {
+        name: { fr: "Vol de fantaisie", en: "Flight of Fancy" },
+        rank: "S",
+        specialty: "Anomaly",
+        element: "Ether",
+        img: "W-Engine_Flight_of_Fancy.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, 
+            advanced: "36 - 90" 
+        },
+        passiveName: { fr: "Plumes aux pointes argentées", en: "Silver Spiked Feathers" },
+        overclocks: [
+            { 
+                fr: "Augmente le {Taux d'accumulation d'Anomalie} de [40 %]. Lorsque l'équipementier inflige des {DGT d'Éther}, son {Adresse d'Anomalie} augmente de [20] pendant 5s, cumulable jusqu'à 6 fois. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée.", 
+                en: "Increases {Anomaly Buildup Rate} by [40%]. When the equipper deals {Ether DMG}, their {Anomaly Proficiency} increases by [20] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux d'accumulation d'Anomalie} de [46 %]. Lorsque l'équipementier inflige des {DGT d'Éther}, son {Adresse d'Anomalie} augmente de [23] pendant 5s, cumulable jusqu'à 6 fois. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée.", 
+                en: "Increases {Anomaly Buildup Rate} by [46%]. When the equipper deals {Ether DMG}, their {Anomaly Proficiency} increases by [23] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux d'accumulation d'Anomalie} de [52 %]. Lorsque l'équipementier inflige des {DGT d'Éther}, son {Adresse d'Anomalie} augmente de [26] pendant 5s, cumulable jusqu'à 6 fois. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée.", 
+                en: "Increases {Anomaly Buildup Rate} by [52%]. When the equipper deals {Ether DMG}, their {Anomaly Proficiency} increases by [26] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux d'accumulation d'Anomalie} de [58 %]. Lorsque l'équipementier inflige des {DGT d'Éther}, son {Adresse d'Anomalie} augmente de [29] pendant 5s, cumulable jusqu'à 6 fois. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée.", 
+                en: "Increases {Anomaly Buildup Rate} by [58%]. When the equipper deals {Ether DMG}, their {Anomaly Proficiency} increases by [29] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration." 
+            },
+            { 
+                fr: "Augmente le {Taux d'accumulation d'Anomalie} de [64 %]. Lorsque l'équipementier inflige des {DGT d'Éther}, son {Adresse d'Anomalie} augmente de [32] pendant 5s, cumulable jusqu'à 6 fois. Cet effet peut se déclencher une fois toutes les 0,5s et les déclenchements répétés réinitialisent la durée.", 
+                en: "Increases {Anomaly Buildup Rate} by [64%]. When the equipper deals {Ether DMG}, their {Anomaly Proficiency} increases by [32] for 5s, stacking up to 6 times. This effect can trigger once every 0.5s, and repeated triggers reset the duration." 
+            }
+        ]
+    },
+    "Roaring Fur-nace": {
+        name: { fr: "Fournaise ronronnante", en: "Roaring Fur-nace" },
+        rank: "S",
+        specialty: "Stun",
+        element: "Fire",
+        img: "W-Engine_Roaring_Furnace.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Éveil de l'esprit du tigre", en: "Tiger Spirit Rising" },
+        overclocks: [
+            { 
+                fr: "La {Stupeur} infligée par l'{Attaque spéciale EX}, l'{Enchaînement} et l'{Ultime} de l'équipementier augmente de [28 %]. Lors de l'utilisation d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Feu}, les DGT infligés par tous les membres de l'escouade augmentent de [10 %], cumulable jusqu'à 2 fois et d'une durée de 30s. La durée de chaque cumul est calculée séparément. Se déclenche une fois par utilisation de compétence. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "The {Daze} dealt by the equipper's {EX Special Attack}, {Chain Attack}, and {Ultimate} increases by [28%]. When using a {Chain Attack} or {Ultimate} to deal {Fire DMG}, the DMG dealt by all squad members increases by [10%], stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "La {Stupeur} infligée par l'{Attaque spéciale EX}, l'{Enchaînement} et l'{Ultime} de l'équipementier augmente de [32,2 %]. Lors de l'utilisation d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Feu}, les DGT infligés par tous les membres de l'escouade augmentent de [11,5 %], cumulable jusqu'à 2 fois et d'une durée de 30s. La durée de chaque cumul est calculée séparément. Se déclenche une fois par utilisation de compétence. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "The {Daze} dealt by the equipper's {EX Special Attack}, {Chain Attack}, and {Ultimate} increases by [32.2%]. When using a {Chain Attack} or {Ultimate} to deal {Fire DMG}, the DMG dealt by all squad members increases by [11.5%], stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "La {Stupeur} infligée par l'{Attaque spéciale EX}, l'{Enchaînement} et l'{Ultime} de l'équipementier augmente de [36,4 %]. Lors de l'utilisation d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Feu}, les DGT infligés par tous les membres de l'escouade augmentent de [13 %], cumulable jusqu'à 2 fois et d'une durée de 30s. La durée de chaque cumul est calculée séparément. Se déclenche une fois par utilisation de compétence. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "The {Daze} dealt by the equipper's {EX Special Attack}, {Chain Attack}, and {Ultimate} increases by [36.4%]. When using a {Chain Attack} or {Ultimate} to deal {Fire DMG}, the DMG dealt by all squad members increases by [13%], stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "La {Stupeur} infligée par l'{Attaque spéciale EX}, l'{Enchaînement} et l'{Ultime} de l'équipementier augmente de [40,6 %]. Lors de l'utilisation d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Feu}, les DGT infligés par tous les membres de l'escouade augmentent de [14,5 %], cumulable jusqu'à 2 fois et d'une durée de 30s. La durée de chaque cumul est calculée séparément. Se déclenche une fois par utilisation de compétence. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "The {Daze} dealt by the equipper's {EX Special Attack}, {Chain Attack}, and {Ultimate} increases by [40.6%]. When using a {Chain Attack} or {Ultimate} to deal {Fire DMG}, the DMG dealt by all squad members increases by [14.5%], stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad." 
+            },
+            { 
+                fr: "La {Stupeur} infligée par l'{Attaque spéciale EX}, l'{Enchaînement} et l'{Ultime} de l'équipementier augmente de [44,8 %]. Lors de l'utilisation d'un {Enchaînement} ou d'un {Ultime} pour infliger des {DGT de Feu}, les DGT infligés par tous les membres de l'escouade augmentent de [16 %], cumulable jusqu'à 2 fois et d'une durée de 30s. La durée de chaque cumul est calculée séparément. Se déclenche une fois par utilisation de compétence. Une seule instance de cet effet peut exister dans la même escouade.", 
+                en: "The {Daze} dealt by the equipper's {EX Special Attack}, {Chain Attack}, and {Ultimate} increases by [44.8%]. When using a {Chain Attack} or {Ultimate} to deal {Fire DMG}, the DMG dealt by all squad members increases by [16%], stacking up to 2 times and lasting 30s. The duration of each stack is calculated separately. Triggers once per use of a skill. Only one instance of this effect can exist in the same squad." 
+            }
+        ]
+    },
+    "Qingming Birdcage": {
+        name: { fr: "Cage à oiseaux de Qingming", en: "Qingming Birdcage" },
+        rank: "S",
+        specialty: "Auric Ink",
+        element: "Ether",
+        img: "W-Engine_Qingming_Birdcage.webp",
+        stats: { 
+            base: "50 - 743", 
+            advancedLabel: { fr: "PV %", en: "HP" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Flux de nuages", en: "Cloud Flow" },
+        overclocks: [
+            { 
+                fr: "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, le personnage gagne 1 cumul de l'effet {Compagnon de Qingming}, cumulable jusqu'à 2 fois et d'une durée de 15s. À l'entrée en combat, gagne immédiatement 2 cumuls. Les déclenchements répétés réinitialisent la durée. Chaque cumul de l'effet {Compagnon de Qingming} augmente les {DGT d'Éther} de l'équipementier de [8 %] et augmente les {DGT d'Éther bruts} de l'{Ultime} et de l'{Attaque spéciale EX} de [10 %].", 
+                en: "CRIT Rate increases by [20%]. When the equipper launches an {EX Special Attack}, the character gains 1 stack of {Qingming Companion} effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the {Qingming Companion} effect increases the equipper's {Ether DMG} by [8%], and increases Ultimate and EX Special Attack {Ether Sheer DMG} by [10%]." 
+            },
+            { 
+                fr: "Le {Taux CRIT} augmente de [23 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, le personnage gagne 1 cumul de l'effet {Compagnon de Qingming}, cumulable jusqu'à 2 fois et d'une durée de 15s. À l'entrée en combat, gagne immédiatement 2 cumuls. Les déclenchements répétés réinitialisent la durée. Chaque cumul de l'effet {Compagnon de Qingming} augmente les {DGT d'Éther} de l'équipementier de [9,2 %] et augmente les {DGT d'Éther bruts} de l'{Ultime} et de l'{Attaque spéciale EX} de [11,5 %].", 
+                en: "CRIT Rate increases by [23%]. When the equipper launches an {EX Special Attack}, the character gains 1 stack of {Qingming Companion} effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the {Qingming Companion} effect increases the equipper's {Ether DMG} by [9.2%], and increases Ultimate and EX Special Attack {Ether Sheer DMG} by [11.5%]." 
+            },
+            { 
+                fr: "Le {Taux CRIT} augmente de [26 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, le personnage gagne 1 cumul de l'effet {Compagnon de Qingming}, cumulable jusqu'à 2 fois et d'une durée de 15s. À l'entrée en combat, gagne immédiatement 2 cumuls. Les déclenchements répétés réinitialisent la durée. Chaque cumul de l'effet {Compagnon de Qingming} augmente les {DGT d'Éther} de l'équipementier de [10,4 %] et augmente les {DGT d'Éther bruts} de l'{Ultime} et de l'{Attaque spéciale EX} de [13 %].", 
+                en: "CRIT Rate increases by [26%]. When the equipper launches an {EX Special Attack}, the character gains 1 stack of {Qingming Companion} effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the {Qingming Companion} effect increases the equipper's {Ether DMG} by [10.4%], and increases Ultimate and EX Special Attack {Ether Sheer DMG} by [13%]." 
+            },
+            { 
+                fr: "Le {Taux CRIT} augmente de [29 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, le personnage gagne 1 cumul de l'effet {Compagnon de Qingming}, cumulable jusqu'à 2 fois et d'une durée de 15s. À l'entrée en combat, gagne immédiatement 2 cumuls. Les déclenchements répétés réinitialisent la durée. Chaque cumul de l'effet {Compagnon de Qingming} augmente les {DGT d'Éther} de l'équipementier de [11,6 %] et augmente les {DGT d'Éther bruts} de l'{Ultime} et de l'{Attaque spéciale EX} de [14,5 %].", 
+                en: "CRIT Rate increases by [29%]. When the equipper launches an {EX Special Attack}, the character gains 1 stack of {Qingming Companion} effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the {Qingming Companion} effect increases the equipper's {Ether DMG} by [11.6%], and increases Ultimate and EX Special Attack {Ether Sheer DMG} by [14.5%]." 
+            },
+            { 
+                fr: "Le {Taux CRIT} augmente de [32 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, le personnage gagne 1 cumul de l'effet {Compagnon de Qingming}, cumulable jusqu'à 2 fois et d'une durée de 15s. À l'entrée en combat, gagne immédiatement 2 cumuls. Les déclenchements répétés réinitialisent la durée. Chaque cumul de l'effet {Compagnon de Qingming} augmente les {DGT d'Éther} de l'équipementier de [12,8 %] et augmente les {DGT d'Éther bruts} de l'{Ultime} et de l'{Attaque spéciale EX} de [16 %].", 
+                en: "CRIT Rate increases by [32%]. When the equipper launches an {EX Special Attack}, the character gains 1 stack of {Qingming Companion} effect, stacking up to 2 times and lasting 15s. On entering combat, immediately gain 2 stacks. Repeated triggers reset the duration. Each stack of the {Qingming Companion} effect increases the equipper's {Ether DMG} by [12.8%], and increases Ultimate and EX Special Attack {Ether Sheer DMG} by [16%]." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
