@@ -1513,6 +1513,144 @@ const W_ENGINES_DB = {
             }
         ]
     },
+    "Riot Suppressor Mark VI": {
+        name: { fr: "Répresseur d'émeutes Mark VI", en: "Riot Suppressor Mark VI" },
+        rank: "S",
+        specialty: "Attack",
+        element: "Ether",
+        img: "W-Engine_Riot_Suppressor_Mark_VI.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
+            advanced: "19.2% - 48%" 
+        },
+        passiveName: { fr: "Patrouille de sécurité", en: "Security Patrol" },
+        overclocks: [
+            { 
+                fr: "Augmente le {Taux CRIT} de [15 %]. Lancer une {Attaque spéciale EX} confère à l'équipementier 8 cumuls de Charge (maximum 8). Chaque fois que l'{Attaque de base} ou l'{Attaque bondissante} de l'équipementier inflige des {DGT d'Éther}, consomme 1 cumul de Charge et augmente les DGT de la compétence de [35 %].", 
+                en: "Increases {CRIT Rate} by [15%]. Launching an {EX Special Attack} grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's {Basic Attack} or {Dash Attack} deals {Ether DMG}, consumes a Charge stack and increases the skill's DMG by [35%]." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [18,8 %]. Lancer une {Attaque spéciale EX} confère à l'équipementier 8 cumuls de Charge (maximum 8). Chaque fois que l'{Attaque de base} ou l'{Attaque bondissante} de l'équipementier inflige des {DGT d'Éther}, consomme 1 cumul de Charge et augmente les DGT de la compétence de [43,8 %].", 
+                en: "Increases {CRIT Rate} by [18.8%]. Launching an {EX Special Attack} grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's {Basic Attack} or {Dash Attack} deals {Ether DMG}, consumes a Charge stack and increases the skill's DMG by [43.8%]." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [22,5 %]. Lancer une {Attaque spéciale EX} confère à l'équipementier 8 cumuls de Charge (maximum 8). Chaque fois que l'{Attaque de base} ou l'{Attaque bondissante} de l'équipementier inflige des {DGT d'Éther}, consomme 1 cumul de Charge et augmente les DGT de la compétence de [52,5 %].", 
+                en: "Increases {CRIT Rate} by [22.5%]. Launching an {EX Special Attack} grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's {Basic Attack} or {Dash Attack} deals {Ether DMG}, consumes a Charge stack and increases the skill's DMG by [52.5%]." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [26,3 %]. Lancer une {Attaque spéciale EX} confère à l'équipementier 8 cumuls de Charge (maximum 8). Chaque fois que l'{Attaque de base} ou l'{Attaque bondissante} de l'équipementier inflige des {DGT d'Éther}, consomme 1 cumul de Charge et augmente les DGT de la compétence de [61,3 %].", 
+                en: "Increases {CRIT Rate} by [26.3%]. Launching an {EX Special Attack} grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's {Basic Attack} or {Dash Attack} deals {Ether DMG}, consumes a Charge stack and increases the skill's DMG by [61.3%]." 
+            },
+            { 
+                fr: "Augmente le {Taux CRIT} de [30 %]. Lancer une {Attaque spéciale EX} confère à l'équipementier 8 cumuls de Charge (maximum 8). Chaque fois que l'{Attaque de base} ou l'{Attaque bondissante} de l'équipementier inflige des {DGT d'Éther}, consomme 1 cumul de Charge et augmente les DGT de la compétence de [70 %].", 
+                en: "Increases {CRIT Rate} by [30%]. Launching an {EX Special Attack} grants the equipper 8 Charge stacks, up to a maximum of 8 stacks. Whenever the equipper's {Basic Attack} or {Dash Attack} deals {Ether DMG}, consumes a Charge stack and increases the skill's DMG by [70%]." 
+            }
+        ]
+    },
+    "Ice-Jade Teapot": {
+        name: { fr: "Théière de jade glacé", en: "Ice-Jade Teapot" },
+        rank: "S",
+        specialty: "Stun",
+        img: "W-Engine_Ice-Jade_Teapot.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "7.2% - 18%" 
+        },
+        passiveName: { fr: "Mélodie retentissante", en: "Ringing Melody" },
+        overclocks: [
+            { 
+                fr: "Lorsqu'une {Attaque de base} touche un ennemi, gagne 1 cumul d'{Infusion divine}. Chaque cumul augmente l'{Impact} de l'équipementier de [0,7 %] pendant 8s (cumulable 30 fois, durée calculée séparément). À 15 cumuls ou plus, les DGT de tous les membres de l'escouade augmentent de [20 %] pendant 10s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "When a {Basic Attack} hits an enemy, gain 1 stack of {Tea-riffic}. Each stack of {Tea-riffic} increases the user's {Impact} by [0.7%], stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring {Tea-riffic}, if the equipper possesses stacks of {Tea-riffic} greater than or equal to 15, all squad members' DMG is increased by [20%] for 10s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base} touche un ennemi, gagne 1 cumul d'{Infusion divine}. Chaque cumul augmente l'{Impact} de l'équipementier de [0,88 %] pendant 8s (cumulable 30 fois, durée calculée séparément). À 15 cumuls ou plus, les DGT de tous les membres de l'escouade augmentent de [23 %] pendant 10s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "When a {Basic Attack} hits an enemy, gain 1 stack of {Tea-riffic}. Each stack of {Tea-riffic} increases the user's {Impact} by [0.88%], stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring {Tea-riffic}, if the equipper possesses stacks of {Tea-riffic} greater than or equal to 15, all squad members' DMG is increased by [23%] for 10s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base} touche un ennemi, gagne 1 cumul d'{Infusion divine}. Chaque cumul augmente l'{Impact} de l'équipementier de [1,05 %] pendant 8s (cumulable 30 fois, durée calculée séparément). À 15 cumuls ou plus, les DGT de tous les membres de l'escouade augmentent de [26 %] pendant 10s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "When a {Basic Attack} hits an enemy, gain 1 stack of {Tea-riffic}. Each stack of {Tea-riffic} increases the user's {Impact} by [1.05%], stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring {Tea-riffic}, if the equipper possesses stacks of {Tea-riffic} greater than or equal to 15, all squad members' DMG is increased by [26%] for 10s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base} touche un ennemi, gagne 1 cumul d'{Infusion divine}. Chaque cumul augmente l'{Impact} de l'équipementier de [1,22 %] pendant 8s (cumulable 30 fois, durée calculée séparément). À 15 cumuls ou plus, les DGT de tous les membres de l'escouade augmentent de [29 %] pendant 10s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "When a {Basic Attack} hits an enemy, gain 1 stack of {Tea-riffic}. Each stack of {Tea-riffic} increases the user's {Impact} by [1.22%], stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring {Tea-riffic}, if the equipper possesses stacks of {Tea-riffic} greater than or equal to 15, all squad members' DMG is increased by [29%] for 10s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "Lorsqu'une {Attaque de base} touche un ennemi, gagne 1 cumul d'{Infusion divine}. Chaque cumul augmente l'{Impact} de l'équipementier de [1,4 %] pendant 8s (cumulable 30 fois, durée calculée séparément). À 15 cumuls ou plus, les DGT de tous les membres de l'escouade augmentent de [32 %] pendant 10s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "When a {Basic Attack} hits an enemy, gain 1 stack of {Tea-riffic}. Each stack of {Tea-riffic} increases the user's {Impact} by [1.4%], stacking up to 30 times, and lasting for 8s. The duration of each stack is calculated separately. Upon acquiring {Tea-riffic}, if the equipper possesses stacks of {Tea-riffic} greater than or equal to 15, all squad members' DMG is increased by [32%] for 10s. Passive effects of the same name do not stack." 
+            }
+        ]
+    },
+    "Flamemaker Shaker": {
+        name: { fr: "Secoueur incendiaire", en: "Flamemaker Shaker" },
+        rank: "S",
+        specialty: "Anomaly",
+        element: "Fire",
+        img: "W-Engine_Flamemaker_Shaker.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "ATQ %", en: "ATK" }, 
+            advanced: "12% - 30%" 
+        },
+        passiveName: { fr: "Carburant sur glace", en: "Fuel on the Rocks" },
+        overclocks: [
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,6]/s. Lorsqu'une {Attaque spéciale EX} ou une {Attaque de soutien} touche un ennemi, les DGT de l'équipementier augmentent de [3,5 %] pendant 6s (cumulable 10 fois, déclenchement toutes les 0,3s). En dehors du terrain, l'effet des cumuls est doublé. À 5 cumuls ou plus, l'{Adresse d'Anomalie} augmente de [50] pendant 6s (non cumulable).", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.6]/s. When hitting an enemy with an {EX Special Attack} or {Assist Attack}, the equipper's DMG increases by [3.5%], stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's {Anomaly Proficiency} increases by [50]. This Anomaly Proficiency increase does not stack and lasts for 6s." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,75]/s. Lorsqu'une {Attaque spéciale EX} ou une {Attaque de soutien} touche un ennemi, les DGT de l'équipementier augmentent de [4,4 %] pendant 6s (cumulable 10 fois, déclenchement toutes les 0,3s). En dehors du terrain, l'effet des cumuls est doublé. À 5 cumuls ou plus, l'{Adresse d'Anomalie} augmente de [62] pendant 6s (non cumulable).", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.75]/s. When hitting an enemy with an {EX Special Attack} or {Assist Attack}, the equipper's DMG increases by [4.4%], stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's {Anomaly Proficiency} increases by [62]. This Anomaly Proficiency increase does not stack and lasts for 6s." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [0,9]/s. Lorsqu'une {Attaque spéciale EX} ou une {Attaque de soutien} touche un ennemi, les DGT de l'équipementier augmentent de [5,25 %] pendant 6s (cumulable 10 fois, déclenchement toutes les 0,3s). En dehors du terrain, l'effet des cumuls est doublé. À 5 cumuls ou plus, l'{Adresse d'Anomalie} augmente de [75] pendant 6s (non cumulable).", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [0.9]/s. When hitting an enemy with an {EX Special Attack} or {Assist Attack}, the equipper's DMG increases by [5.25%], stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's {Anomaly Proficiency} increases by [75]. This Anomaly Proficiency increase does not stack and lasts for 6s." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,05]/s. Lorsqu'une {Attaque spéciale EX} ou une {Attaque de soutien} touche un ennemi, les DGT de l'équipementier augmentent de [6,1 %] pendant 6s (cumulable 10 fois, déclenchement toutes les 0,3s). En dehors du terrain, l'effet des cumuls est doublé. À 5 cumuls ou plus, l'{Adresse d'Anomalie} augmente de [88] pendant 6s (non cumulable).", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [1.05]/s. When hitting an enemy with an {EX Special Attack} or {Assist Attack}, the equipper's DMG increases by [6.1%], stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's {Anomaly Proficiency} increases by [88]. This Anomaly Proficiency increase does not stack and lasts for 6s." 
+            },
+            { 
+                fr: "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,2]/s. Lorsqu'une {Attaque spéciale EX} ou une {Attaque de soutien} touche un ennemi, les DGT de l'équipementier augmentent de [7 %] pendant 6s (cumulable 10 fois, déclenchement toutes les 0,3s). En dehors du terrain, l'effet des cumuls est doublé. À 5 cumuls ou plus, l'{Adresse d'Anomalie} augmente de [100] pendant 6s (non cumulable).", 
+                en: "While off-field, the equipper's {Energy Regen} increases by [1.2]/s. When hitting an enemy with an {EX Special Attack} or {Assist Attack}, the equipper's DMG increases by [7%], stacking up to 10 times and lasting for 6s. This effect can trigger once every 0.3s. While off-field, the stack effect is doubled. Repeated triggers reset the duration. Upon obtaining the DMG increase effect, if the number of current stacks is greater than or equal to 5, then the equipper's {Anomaly Proficiency} increases by [100]. This Anomaly Proficiency increase does not stack and lasts for 6s." 
+            }
+        ]
+    },
+    "Tusks of Fury": {
+        name: { fr: "Défenses de fureur", en: "Tusks of Fury" },
+        rank: "S",
+        specialty: "Defense",
+        img: "W-Engine_Tusks_of_Fury.webp",
+        stats: { 
+            base: "48 - 713", 
+            advancedLabel: { fr: "Impact %", en: "Impact" }, 
+            advanced: "7.2% - 18%" 
+        },
+        passiveName: { fr: "Motard invincible", en: "Invincible Rider" },
+        overclocks: [
+            { 
+                fr: "La valeur du bouclier fourni par l'équipementier augmente de [30 %]. Lorsqu'un membre de l'escouade déclenche une {Interruption} ou une {Esquive parfaite}, les DGT de tous les membres de l'escouade augmentent de [18 %] et la {Stupeur} infligée augmente de [12 %] pendant 20s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "The Shield value provided by the equipper increases by [30%]. When any squad member triggers {Interrupt} or {Perfect Dodge}, all squad members' DMG increases by [18%] and {Daze} dealt increases by [12%] for 20s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "La valeur du bouclier fourni par l'équipementier augmente de [37,5 %]. Lorsqu'un membre de l'escouade déclenche une {Interruption} ou une {Esquive parfaite}, les DGT de tous les membres de l'escouade augmentent de [22,5 %] et la {Stupeur} infligée augmente de [15 %] pendant 20s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "The Shield value provided by the equipper increases by [37.5%]. When any squad member triggers {Interrupt} or {Perfect Dodge}, all squad members' DMG increases by [22.5%] and {Daze} dealt increases by [15%] for 20s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "La valeur du bouclier fourni par l'équipementier augmente de [45 %]. Lorsqu'un membre de l'escouade déclenche une {Interruption} ou une {Esquive parfaite}, les DGT de tous les membres de l'escouade augmentent de [27 %] et la {Stupeur} infligée augmente de [18 %] pendant 20s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "The Shield value provided by the equipper increases by [45%]. When any squad member triggers {Interrupt} or {Perfect Dodge}, all squad members' DMG increases by [27%] and {Daze} dealt increases by [18%] for 20s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "La valeur du bouclier fourni par l'équipementier augmente de [52,5 %]. Lorsqu'un membre de l'escouade déclenche une {Interruption} ou une {Esquive parfaite}, les DGT de tous les membres de l'escouade augmentent de [31,5 %] et la {Stupeur} infligée augmente de [21 %] pendant 20s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "The Shield value provided by the equipper increases by [52.5%]. When any squad member triggers {Interrupt} or {Perfect Dodge}, all squad members' DMG increases by [31.5%] and {Daze} dealt increases by [21%] for 20s. Passive effects of the same name do not stack." 
+            },
+            { 
+                fr: "La valeur du bouclier fourni par l'équipementier augmente de [60 %]. Lorsqu'un membre de l'escouade déclenche une {Interruption} ou une {Esquive parfaite}, les DGT de tous les membres de l'escouade augmentent de [36 %] et la {Stupeur} infligée augmente de [24 %] pendant 20s. Les effets passifs du même nom ne se cumulent pas.", 
+                en: "The Shield value provided by the equipper increases by [60%]. When any squad member triggers {Interrupt} or {Perfect Dodge}, all squad members' DMG increases by [36%] and {Daze} dealt increases by [24%] for 20s. Passive effects of the same name do not stack." 
+            }
+        ]
+    },
     "Electro-Lip Gloss": {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
