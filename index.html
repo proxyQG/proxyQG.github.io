@@ -19,6 +19,12 @@
     <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds" />
     <meta property="og:site_name" content="ProxyQG">
     <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées." />
+    <!-- Déclaration de la PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ProxyQG">
+    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
     <link rel="stylesheet" href="css/tooltip.css">
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://proxyqg.github.io/" />
@@ -444,10 +450,25 @@
         
     <!-- API Officielle YouTube -->
     <script src="https://www.youtube.com/iframe_api"></script>
-
+        
     <script src="js/engines.js"></script>
     <script src="js/tooltip.js"></script>
         
     <script type="module" src="js/app.js" defer></script>
+
+        <!-- Enregistrement du Service Worker pour la PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('ServiceWorker enregistré avec succès !', registration.scope);
+                })
+                .catch(err => {
+                    console.error('Échec de l\'enregistrement du ServiceWorker :', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
