@@ -468,30 +468,39 @@
 
         <!-- Enregistrement du Service Worker pour la PWA -->
     <script>
-        if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').then(reg => {
-        console.log('ServiceWorker enregistré avec succès !', reg.scope);
-        
-        // Écoute les nouvelles installations de Service Worker
-        reg.addEventListener('updatefound', () => {
-            const newWorker = reg.installing;
-            
-            newWorker.addEventListener('statechange', () => {
-                // Vérifie si le nouveau Service Worker est installé ET qu'un ancien contrôle déjà la page (ce qui signifie que c'est une mise à jour, pas la première visite)
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                    const toast = document.getElementById('pwa-update-toast');
-                    if (toast) {
-                        // Fait remonter le toast à l'écran
-                        toast.classList.remove('translate-y-32', 'opacity-0');
-                        toast.classList.add('translate-y-0', 'opacity-100');
-                    }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+            console.log('ServiceWorker enregistré avec succès !', reg.scope);
+
+            const showToast = () => {
+                const toast = document.getElementById('pwa-update-toast');
+                if (toast) {
+                    toast.classList.remove('translate-y-32', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
                 }
+            };
+
+            // Cas 1 : Une mise à jour attend déjà (ex : page rechargée)
+            if (reg.waiting && navigator.serviceWorker.controller) {
+                showToast();
+                return;
+            }
+
+            // Cas 2 : Une mise à jour arrive en direct pendant la session
+            reg.addEventListener('updatefound', () => {
+                const newWorker = reg.installing;
+                if (!newWorker) return;
+
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        showToast();
+                    }
+                });
             });
+        }).catch(err => {
+            console.error('Échec de l\'enregistrement du ServiceWorker :', err);
         });
-    }).catch(err => {
-        console.error('Échec de l\'enregistrement du ServiceWorker :', err);
-    });
-}
+    }
 </script>
 <!-- Toast de mise à jour PWA -->
 <div id="pwa-update-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-32 opacity-0 bg-[#d7f70c] text-black px-5 py-3 rounded-full font-black text-xs sm:text-sm shadow-[0_0_20px_rgba(215,247,12,0.4)] transition-all duration-500 z-[9999] cursor-pointer flex items-center gap-3 hover:scale-105" onclick="window.location.reload(true)">
