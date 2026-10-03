@@ -30,7 +30,7 @@ self.addEventListener('install', event => {
             );
         })
     );
-    // Plus de skipWaiting() ici pour laisser le toast faire son travail !
+    self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
