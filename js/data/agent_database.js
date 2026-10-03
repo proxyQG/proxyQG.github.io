@@ -162,7 +162,7 @@ export const agentDatabase = {
             { tag: { fr: "2ème Choix", en: "2nd Choice" }, set1: "White_Water_Ballad", set2: "Woodpecker_Electro", set1Name: "4pc White Water Ballad", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Vous pouvez utiliser Électro pivert si vous avez de meilleures sous-stats sur ces pièces. Assurez-vous simplement de ne pas dépasser la limite de Taux CRIT et privilégiez les sous-stats DGT CRIT.", en: "You can run Woodpecker Electro if you have superior sub-stats on those pieces. Just make sure not to exceed the CRIT Rate cap and prioritize CRIT DMG sub-stats." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -293,7 +293,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "Yunkui_Tales", set2: "Branch_Blade_Song", set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", note: "" }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+             { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -638,7 +638,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "King_of_the_Summit", set2: "Shockstar_Disco", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", note: { fr: "Renforce les dégâts critiques d'équipe via les attaques EX et l'enchaînement.", en: "Boosts team CRIT DMG through EX Special attacks and Chain attacks." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Dodge", level: "10", icon: "Esquive.webp" }, { name: "Basic", level: "9", icon: "Attaque_basic.webp" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Dodge", level: "10", icon: "Esquive.webp" }, { name: "Basic", level: "9", icon: "Attaque_basic.webp" }
         ],
         statPriority: {
             main: [
@@ -702,7 +702,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Branch_Blade_Song", set2: "Polar_Metal", set1Name: "4pc Branch and Blade Song", set2Name: "+ 2pc Polar Metal", note: { fr: "Si vous avez déjà beaucoup de Taux CRIT sur Miyabi, vous pouvez envisager Polar Metal comme alternative pour obtenir plus de DGT Glace.", en: "If you already have high CRIT Rate on Miyabi, consider Polar Metal as an alternative for extra Ice DMG." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
         engines: [
@@ -722,7 +722,7 @@ export const agentDatabase = {
             { tag: "Impact Build II", set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "King of the Summit offre un buff de DGT CRIT à toute l'équipe lorsqu'Anby utilise un EX Spécial ou un Enchaînement.", en: "King of the Summit grants a team-wide CRIT DMG buff whenever Anby lands an EX Special or Chain Attack." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Impact %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT / DGT CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "ATQ Flat", highlight: false } ] },
         engines: [
@@ -742,7 +742,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellente alternative puisque Corin inflige énormément de dégâts avec son Ultime. Cela augmente aussi son ATK après l'Ultime.", en: "Excellent alternative as Corin dishes out huge burst damage with her Ultimate. Also buffs her ATK following her Ultimate." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Core", level: "10", icon: "Core.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" },  { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Physique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
         engines: [
@@ -762,7 +762,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Shadow_Harmony", set2: "Thunder_Metal", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Thunder Metal", note: { fr: "Un 2-pc Thunder Metal peut être envisagé si Soldier 0 Anby possède déjà énormément de Taux CRIT.", en: "A 2pc Thunder Metal can be considered if Soldier 0 Anby already has abundant CRIT Rate." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "ATQ %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false }, { label: "ATQ", highlight: false } ] },
         engines: [
@@ -877,7 +877,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative (DPS)", en: "Alternative (DPS)" }, set1: "Thorned_Rose", set2: "Swing_Jazz", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Swing Jazz", note: { fr: "Si vous jouez Ben en tant que DPS, équipez 4 pièces Thorned Rose pour augmenter ses DGT. Cependant, le buff de Taux CRIT sera moins utile si vous utilisez son Moteur Signature (car il garantit des coups critiques sur ses parades). Complétez avec Swing Jazz pour garder une bonne Réc. d'Énergie.", en: "If running Ben as a DPS, equip 4pc Thorned Rose to boost his DMG. However, the CRIT Rate buff is less impactful with his Signature W-Engine (guaranteed crits on parry). Pair with Swing Jazz for smooth Energy Regen." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Chain", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Chain", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
         ],
        statPriority: { 
             main: [ 
@@ -908,7 +908,7 @@ export const agentDatabase = {
             { tag: { fr: "Efficacité » 90 %", en: "Efficiency » 90%" }, set1: "Swing_Jazz", set2: "Puffer_Electro", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Puffer Electro", note: { fr: "Si Rina est utilisée dans une équipe classique en dehors de l'Anomalie, Swing Jazz est votre set de prédilection. Cela augmente la Réc. d'Énergie de Rina et augmente les dégâts de l'équipe.", en: "If Rina is used in a standard team outside of Anomaly, Swing Jazz is the go-to set. Boosts Rina's Energy Regen and increases squad damage." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
+             { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Récup. d'énergie" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux Crit / Attaque > Adre. d'anomalie" } ], sub: [ { label: "Taux Crit = Dégat Crit", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Adresse d'anomalie", highlight: false } ] },
         engines: [
@@ -955,7 +955,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Thunder_Metal", set2: "Swing_Jazz", set1Name: "4pc Thunder Metal", set2Name: "+ 2pc Swing Jazz", note: { fr: "Thunder Metal augmente l'ATQ de Grace tant que l'ennemi est Choqué, ce qui sera toujours le cas puisque Grace fournit l'état Choc.", en: "Thunder Metal boosts Grace's ATK while enemies are Shocked, which boasts permanent uptime with Grace." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "DGT Électrique / PEN Ratio" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
         engines: [
@@ -1032,7 +1032,6 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
             { name: "Ex", level: "12", icon: "Ex.webp" },
             { name: "Ult", level: "12", icon: "Ultime.webp" },
             { name: "Assist", level: "12", icon: "Assist.webp" },
@@ -1077,7 +1076,6 @@ export const agentDatabase = {
             { tag: { fr: "Alternative (96,16 %)", en: "Alternative (96.16%)" }, set1: "Dawn_Bloom", set2: "Puffer_Electro", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Puffer Electro", note: { fr: "Troisième alternative viable mais moins performante pour renforcer les attaques normales et l'EX Spécial.", en: "Viable 3rd alternative to empower Basic Attacks and EX Special, though lagging slightly behind." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
             { name: "Basic", level: "12", icon: "Attaque_basic.webp" },
             { name: "Ult", level: "12", icon: "Ultime.webp" },
             { name: "Ex", level: "11", icon: "Ex.webp" },
@@ -1221,7 +1219,6 @@ export const agentDatabase = {
             { tag: { fr: "Alternative ATK % (99,33 %)", en: "ATK% Alternative (99.33%)" }, set1: "Woodpecker_Electro", set2: "Astral_Voice", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Astral Voice", note: { fr: "Option solide pour augmenter l'attaque brute (Hormone Punk et Fanged Metal restent également viables).", en: "Solid raw ATK alternative (Hormone Punk and Fanged Metal remain viable)." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
             { name: "Dodge", level: "12", icon: "Esquive.webp" },
             { name: "Ult", level: "12", icon: "Ultime.webp" },
             { name: "Ex", level: "11", icon: "Ex.webp" },
@@ -2619,7 +2616,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative Build", en: "Alternative Build" }, set1: "Hormone_Punk", set2: "Woodpecker_Electro", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellent set si Hugo n'est pas joué avec Dialyn. Fournit une tonne d'ATQ% à chaque fois qu'il entre sur le terrain.", en: "Terrific option when played without Dialyn. Supplies huge ATK% buffs upon taking the field." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DGT CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
         engines: [
