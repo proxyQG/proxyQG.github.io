@@ -302,8 +302,8 @@ const W_ENGINES_DB = {
                 en: "When {EX Special Attack} hits an enemy, 1 of 3 random effects triggers for 5s (triggers every 0.3s). Same effects cannot stack; repeated triggers reset duration. Increases ATK by [10%], {Anomaly Proficiency} by [52], or Anomaly Buildup Rate by [32%]." 
             },
             { 
-                fr: "Lorsqu'une {Attaque spéciale EX} touche un ennemi, l'un des 3 effets aléatoires s'active pour 5s (déclenchement toutes les 0,3s). Les mêmes effets ne se cumulent pas, mais plusieurs différents peuvent coexister : Augmente l'ATQ de [11,5 %], augmente l'{Adresse d'Anomalie} de [58], ou augmente le taux d'accumulation d'Anomalie de [36 %].", 
-                en: "When {EX Special Attack} hits an enemy, 1 of 3 random effects triggers for 5s (triggers every 0.3s). Same effects cannot stack; repeated triggers reset duration. Increases ATK by [11.5%], {Anomaly Proficiency} by [58], or Anomaly Buildup Rate by [36%]." 
+                fr: "Lorsqu'une {Attaque spéciale EX} touche un ennemi, l'un des 3 effets aléatoires s'active pour 5s (déclenchement toutes les 0,3s). Les mêmes effets ne se cumulent pas, mais plusieurs différents peuvent coexister : Augmente l'ATQ de [11,6 %], augmente l'{Adresse d'Anomalie} de [58], ou augmente le taux d'accumulation d'Anomalie de [36 %].", 
+                en: "When {EX Special Attack} hits an enemy, 1 of 3 random effects triggers for 5s (triggers every 0.3s). Same effects cannot stack; repeated triggers reset duration. Increases ATK by [11.6%], {Anomaly Proficiency} by [58], or Anomaly Buildup Rate by [36%]." 
             },
             { 
                 fr: "Lorsqu'une {Attaque spéciale EX} touche un ennemi, l'un des 3 effets aléatoires s'active pour 5s (déclenchement toutes les 0,3s). Les mêmes effets ne se cumulent pas, mais plusieurs différents peuvent coexister : Augmente l'ATQ de [13 %], augmente l'{Adresse d'Anomalie} de [64], ou augmente le taux d'accumulation d'Anomalie de [40 %].", 
