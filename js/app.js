@@ -783,3 +783,4 @@ function initMobileTooltips() {
         }
     });
 }
+window.mesAgents = agents;
