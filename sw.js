@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proxyqg-v6'; 
+const CACHE_NAME = 'proxyqg-v7'; 
 
 const ASSETS_TO_CACHE = [
     './',
