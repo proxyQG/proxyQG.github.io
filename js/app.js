@@ -2,8 +2,7 @@ import { factionsData } from './data/factions.js';
 import { colorMap, iconMap, filterGroups } from './data/agents.js';
 import { getGuideHTML } from './guides/index.js'; 
 import { updateStaticUI, setLanguage, currentLang, tTerm } from './i18n.js';
-const response = await fetch('./js/data/agents.json');
-const agentsData = await response.json();
+let agentsData = [];
 // ==========================================
 // 1. ÉTAT GLOBAL (STATE)
 // ==========================================
@@ -52,7 +51,11 @@ let searchTimeout;
 // ==========================================
 // 3. INITIALISATION
 // ==========================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // On télécharge les données pile au moment où la page est prête
+    const response = await fetch('./js/data/agents.json');
+    agentsData = await response.json();
+
     updateStaticUI();
     initTabs();
     initFilters('.filter-elem-btn', 'element');
@@ -784,4 +787,3 @@ function initMobileTooltips() {
         }
     });
 }
-window.mesAgents = agentsData;
