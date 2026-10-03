@@ -505,7 +505,7 @@ window.closeModal = function(id) {
     m.classList.remove('opacity-100'); setTimeout(() => m.classList.add('hidden'), 300);
 };
 
-window.openAgentDetail = function(agentName) {
+window.openAgentDetail = async function(agentName) {
     const modal = document.getElementById('agentDetailModal');
     if (!modal) return;
     if (modal.parentElement !== document.body) { document.body.appendChild(modal); }
@@ -522,7 +522,7 @@ window.openAgentDetail = function(agentName) {
         splashImg.src = `assets/splash/${agentName}.webp`; 
     }
     if (giantName) giantName.textContent = agentName;
-    if (guideContainer) { guideContainer.innerHTML = getGuideHTML(agentName, agentsData.find(a => a.name === agentName)); }
+    if (guideContainer) { guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName)); }
 
     window.openModal('agentDetailModal');
     
@@ -683,7 +683,7 @@ function initLanguageSwitcher() {
     const langSwitcher = document.getElementById('langSwitcher');
     if (langSwitcher) {
         langSwitcher.setAttribute('data-active', currentLang);
-        langSwitcher.addEventListener('click', () => {
+        langSwitcher.addEventListener('click', async () => {
             const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
             langSwitcher.setAttribute('data-active', newLang); 
             setLanguage(newLang);
@@ -697,7 +697,7 @@ function initLanguageSwitcher() {
             // -------------------------------------------
 
             renderAgents(); scrollToTop();
-            if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { document.getElementById('agentGuideContainer').innerHTML = getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); }
+            if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); }
         });
     }
 }
