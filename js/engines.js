@@ -121,7 +121,7 @@ const W_ENGINES_DB = {
             },
             { 
                 fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [17,25 %].", 
-                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [17.25%]." 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [17.2%]." 
             },
             { 
                 fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [19,5 %].", 
@@ -129,7 +129,7 @@ const W_ENGINES_DB = {
             },
             { 
                 fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [21,75 %].", 
-                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [21.75%]." 
+                en: "Whenever a squad member launches a {Chain Attack}, the equipper gains 1 Charge stack, stacking up to 3 times. Upon activating their own {Ultimate}, the equipper consumes all Charge stacks, and each stack increases the skill's DMG by [21.7%]." 
             },
             { 
                 fr: "Lorsqu'un membre de l'escouade lance un {Enchaînement}, l'équipementier gagne 1 cumul de Charge, cumulable jusqu'à 3 fois. Lors de l'activation de son propre {Ultime}, l'équipementier consomme tous les cumuls de Charge, et chaque cumul augmente les DGT de la compétence de [24 %].", 
