@@ -6,12 +6,12 @@ import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats } from '../i18n.j
 
 function buildHeader(agentName, data, c, iconName) {
     return `
-    <div class="flex items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1">
-        <div class="flex flex-col">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
+        <div class="flex flex-col flex-1 min-w-0">
             <span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${tData(data.factionTitle)}</span>
-            <h2 class="text-5xl sm:text-7xl md:text-8xl font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${agentName}</h2>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${agentName}</h2>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap items-end gap-2 shrink-0">
             <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${iconName.replace('.png', '.webp')}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain filter" style="drop-shadow: 0 0 8px ${c};"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${data.rank}</div>
         </div>
@@ -107,7 +107,8 @@ function buildEngines(data, c, txt) {
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
         <div class="flex flex-col gap-3">
             ${data.engines.map((eng, index) => `
-            <div class="flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
+            <div data-engine="${eng.name}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
+                <div class="sheen"></div> <!-- <-- L'AJOUT EST ICI -->
                 <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="assets/W-Engine/${eng.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover"></div>
                 <div class="flex flex-col justify-center">
                     <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${index === 0 ? c+'20' : 'transparent'}; color: ${index === 0 ? c : '#a1a1aa'};">${tData(eng.tag)}</span>
@@ -124,21 +125,41 @@ function buildTeams(data, c, txt) {
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             ${data.teams.map((team, index) => `
-            <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors" style="hover:border-color: ${c}80;">
+            <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
                 <div class="absolute right-4 -top-5 text-[85px] font-display font-black text-zinc-800/20 italic tracking-tighter leading-none pointer-events-none select-none transform group-hover:scale-110 transition-all duration-700">0${index+1}</div>
-                <div class="flex items-center justify-between mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
-                    <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${tData(team.name)}</span>
-                    <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
-                </div>
-                <div class="flex items-center justify-between gap-2 relative z-10">
-                    ${team.members.map((m, i) => `
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
-                            ${m.img ? `<img src="assets/Agents/${m.img}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${m.color.replace('#','')}?text=${m.initial}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
+                
+                <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
+                    <div class="flex items-center justify-between">
+                        <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${tData(team.name)}</span>
+                        <div class="flex items-center gap-2">
+                            <!-- BOUTON VIDÉO (S'affiche uniquement si videoId existe) -->
+                            ${team.videoId ? `
+                            <button onclick="window.openVideoModal('${team.videoId}', ${team.startTime || 0}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
+                            </button>
+                            ` : ''}
+                            <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
                         </div>
                     </div>
-                    ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
-                    `).join('')}
+                </div>
+
+                <div class="flex items-center justify-between gap-2 relative z-10">
+                    ${team.members.map((m, i) => {
+                        const agentName = m.img ? m.img.replace('.webp', '').replace('.png', '') : '';
+                        const clickEvent = m.img ? `onclick="window.openAgentDetail('${agentName.replace(/'/g, "\\'")}')"` : '';
+                        const cursorClass = m.img ? 'cursor-pointer hover:scale-110 transition-transform duration-300' : '';
+                        const hoverTitle = m.img ? `title="Voir le guide de ${agentName}"` : '';
+
+                        return `
+                        <div class="flex flex-col items-center gap-3 ${cursorClass}" ${clickEvent} ${hoverTitle}>
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
+                                ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${m.color.replace('#','')}?text=${m.initial}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
+                            </div>
+                        </div>
+                        ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
+                        `;
+                    }).join('')}
                 </div>
             </div>`).join('')}
         </div>

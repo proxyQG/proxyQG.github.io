@@ -2,92 +2,95 @@ export const agentDatabase = {
     "Piper": {
         color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
         stats: [
-            { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, value: "≥ 385 - 420+" },
-            { label: { fr: "Attaque", en: "Attack" }, value: "≥ 2600 - 2800+" },
-            { label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, value: "≥ 120 - 150+" }
+            { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, value: "350 - 450+" },
+            { label: { fr: "Attaque", en: "Attack" }, value: "2500 - 2800+" },
+            { label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, value: "150+" }
         ],
         discs: [
             { 
                 tag: { fr: "Assaut / Carry (100 %) 👑", en: "Assault / Carry (100%) 👑" }, 
-                set1: "Fanged_Metal", set2: "Freedom_Blues", 
-                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Freedom Blues", 
+                set1: "Fanged_Metal", set2: "Phaethon_Melody", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", 
                 note: { 
-                    fr: "Le meilleur choix pour maximiser les dégâts personnels d'Assaut (+35 % DGT Physiques) et alimenter de lourds dégâts de Désordre.", 
-                    en: "Optimal set to maximize personal Assault damage (+35% Physical DMG) and trigger massive Disorder bursts." 
+                    fr: "La meilleure option pour maximiser les dégâts d'Assaut (+35 % DGT). L'idéal est qu'un coéquipier/Bangboo aide à appliquer l'Assaut pour profiter du bonus le plus longtemps possible.", 
+                    en: "Best option for direct Anomaly-based Physical damage. The DMG% bonus against enemies inflicted by Assault by any party member for 12 seconds." 
                 } 
             },
             { 
-                tag: { fr: "Support Anomalie", en: "Anomaly Support" }, 
-                set1: "Freedom_Blues", set2: "Swing_Jazz", 
-                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", 
+                tag: { fr: "Alternative 1", en: "Alternative 1" }, 
+                set1: "Fanged_Metal", set2: "Puffer_Electro", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Puffer Electro", 
                 note: { 
-                    fr: "Réduit la résistance à l'anomalie ennemie de 20 % via l'EX Spécial ; idéal dans les compositions double anomalie (Burnice / Jane).", 
-                    en: "Reduces enemy Anomaly Buildup RES by 20% on EX Special; ideal for dual anomaly setups (Burnice / Jane)." 
+                    fr: "Une très bonne alternative au 2pc Phaethon's Melody.", 
+                    en: "A very good alternative to the 2pc Phaethon's Melody." 
                 } 
             },
             { 
-                tag: { fr: "Hybride Énergie", en: "Energy Hybrid" }, 
-                set1: "Freedom_Blues", set2: "Hormone_Punk", 
-                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Hormone Punk", 
+                tag: { fr: "Alternative 2", en: "Alternative 2" }, 
+                set1: "Fanged_Metal", set2: "Chaos_Jazz", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
                 note: { 
-                    fr: "Alternative équilibrée combinant la réduction de résistance et un surcroît d'ATK brute.", 
-                    en: "Balanced alternative combining anomaly shred with raw ATK boosts." 
+                    fr: "Un mélange intéressant pour optimiser les dégâts d'anomalie.", 
+                    en: "An interesting mix to optimize anomaly damage." 
                 } 
             }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
             { name: "Ex", level: "12", icon: "Ex.png" },
+            { name: "Assist", level: "8", icon: "Assist.png" },
             { name: "Ult", level: "11", icon: "Ultime.png" },
             { name: "Basic", level: "9", icon: "Attaque_basic.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" },
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
         statPriority: {
             main: [
-                { slot: "6", label: { fr: "Maîtrise d'Anomalie / ATK %", en: "Anomaly Mastery / ATK%" } },
-                { slot: "5", label: { fr: "DGT Physique % / PEN Ratio", en: "Physical DMG% / PEN Ratio" } },
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "PEN Ratio = ATK% = DGT Physique", en: "PEN Ratio = ATK% = Physical DMG%" } },
                 { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } }
             ],
             sub: [
                 { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
                 { label: { fr: "Attaque %", en: "ATK %" }, highlight: true },
-                { label: { fr: "PEN Flat", en: "Flat PEN" }, highlight: false },
-                { label: { fr: "Attaque Flat", en: "Flat ATK" }, highlight: false }
+                { label: { fr: "PEN = Attaque", en: "PEN = ATK" }, highlight: false }
             ]
         },
         engines: [
-            { tag: { fr: "Signature (100 %) 👑", en: "Signature (100%) 👑" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" },
-            { tag: { fr: "Alternative BP (95 %)", en: "BP Alternative (95%)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" },
+            { tag: { fr: "Signature d'Alice (100 %) 👑", en: "Alice's Signature (100%) 👑" }, name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" },
+            { tag: { fr: "Signature de Jane (98 %)", en: "Jane's Signature (98%)" }, name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.png" },
             { tag: { fr: "F2P Craftable (S5)", en: "F2P Craftable (S5)" }, name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" },
-            { tag: { fr: "Option Boutique", en: "Gadget Store Option" }, name: "Rainforest Gourmet", img: "W-Engine_Rainforest_Gourmet.png" }
+            { tag: { fr: "Signature de Piper", en: "Piper's Signature" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" },
+            { tag: { fr: "Alternative BP (S5)", en: "BP Alternative (S5)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
         ],
         teams: [
             { 
                 name: "TEAM 01", 
-                tag: { fr: "Physique Calydon 👑", en: "Physical Calydon 👑" }, 
+                tag: { fr: "Désordre Ultime 👑", en: "Ultimate Disorder 👑" }, 
+                videoId: "IzMquorLuQU", // <--- L'ID YouTube que tu m'as donné
                 members: [ 
-                    { img: "Burnice.png", color: "#f05432", initial: "B" }, 
-                    { img: "Caesar.png", color: "#e8a838", initial: "C" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" }, 
+                    { img: "Velina.png", color: "#3bbedb", initial: "V" }, 
+                    { img: "Remielle.png", color: "#fba2d0", initial: "R" } 
                 ] 
             },
             { 
                 name: "TEAM 02", 
-                tag: { fr: "Mono Calydon F2P", en: "Mono Calydon F2P" }, 
+                tag: { fr: "Synergie Stun", en: "Stun Synergy" },
+                videoId: "WqzP_JXF2uA",
                 members: [ 
-                    { img: "Lucy.png", color: "#f05432", initial: "L" }, 
-                    { img: "Burnice.png", color: "#f05432", initial: "B" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" },
+                    { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, 
+                    { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } 
                 ] 
             },
             { 
                 name: "TEAM 03", 
-                tag: { fr: "Lièvres rusés / F2P", en: "Cunning Hares / F2P" }, 
+                tag: { fr: "Désordre Mixte", en: "Mixed Disorder" }, 
+                videoId: "IqG8ufUTih0",
+                startTime: 255,
                 members: [ 
-                    { img: "Nicole.png", color: "#f23c8a", initial: "N" }, 
-                    { img: "Corin.png", color: "#e8a838", initial: "C" }, 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" } 
+                    { img: "Piper.png", color: "#e8a838", initial: "P" },
+                    { img: "Vivian.png", color: "#f23c8a", initial: "V" }, 
+                    { img: "Burnice.png", color: "#f05432", initial: "B" } 
                 ] 
             }
         ],
@@ -97,8 +100,8 @@ export const agentDatabase = {
             { rank: "M6", desc: { fr: "Prolonge la durée maximale de l'EX Spécial et augmente ses dégâts d'Assaut finaux.", en: "Extends max EX Special spin duration and significantly increases terminal Assault strike DMG." } }
         ],
         notes: [
-            { fr: "Gestion de la Puissance : Atteindre rapidement 20 cumuls avec l'EX Spécial pour activer le buff d'équipe de +18 % de DGT.", en: "Power Management: Quickly build 20 Power stacks with EX Special to trigger the squad-wide +18% DMG bonus." },
-            { fr: "Annulation d'animation : Après le coup lourd final de la rotation, changer d'agent immédiatement pour éviter l'animation d'essoufflement.", en: "Animation Cancel: Swap out immediately following the heavy slam finisher to cancel her exhaustion recovery animation." }
+            { fr: "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Désordres. L'énorme quantité d'Anomalies de Piper la rend compétitive.", en: "Velina Synergy: Velina is a perfect match for Piper, who struggled with Disorder management. Piper's fast Anomaly build-up makes her competitive with Velina." },
+            { fr: "Synergie Yuzuha : Bien que ce soit un support Anomalie, le fait qu'elle soit Physique permet à Piper de bénéficier facilement de sa Compétence Additionnelle.", en: "Yuzuha Synergy: Being Physical is great for Piper as it's one of the few reliable ways to trigger her Additional Ability." }
         ]
     },
     "Jane": {
@@ -131,7 +134,18 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "DÉF %" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DÉF %", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Crimson Thirst", img: "W-Engine_Crimson_Thirst.png" }, { tag: "Alt F2P (80.55%)", name: "Catty Luck", img: "W-Engine_Catty_Luck.png" }, { tag: "Alt (77.48%)", name: "Bloodmarrow Coffer", img: "W-Engine_Bloodmarrow_Coffer.png" }
         ],
@@ -150,7 +164,18 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "8", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "PEN Ratio / ATQ / DGT Physique" }, { slot: "4", label: "Dégât CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DGT CRIT", highlight: false }, { label: "Attaque %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Physique %", en: "PEN Ratio / ATK % / Physical DMG %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT", en: "CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.png" }, { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative F2P", name: "Gilded Blossom", img: "Gilded_Blossom.png" }, { tag: "Alternative A", name: "Marcato Desire", img: "Marcato_Desire.png" }, { tag: "Alternative A", name: "Street Superstar", img: "W-Engine_Street_Superstar.png" }
         ],
@@ -180,22 +205,62 @@ export const agentDatabase = {
         ]
     },
     "Nangong Yu": {
-        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: "Angels of Delusion",
-        stats: [ { label: "Adre. d'anomalie", value: "350+" }, { label: "Maî. d'Anomalie", value: "150+" }, { label: "Attaque", value: "2800+" } ],
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
+        stats: [ 
+            { label: "Adre. d'anomalie", value: "280 - 350+" }, 
+            { label: "Maî. d'anomalie", value: "173 - 211" }, 
+            { label: "Attaque", value: "2200 - 2500+" } 
+        ],
         discs: [
-            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Phaethon_Melody", set2: "Freedom_Blues", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", note: { fr: "Set idéal.", en: "Ideal set." } },
-            { tag: { fr: "Alternatives", en: "Alternatives" }, set1: "Shining_Aria", set2: "Swing_Jazz", set1Name: "2pc Shining Aria", set2Name: "+ 2pc Swing Jazz", note: "" }
+            { 
+                tag: { fr: "Dégâts Optimaux 👑", en: "Optimal Damage 👑" }, 
+                set1: "Phaethon_Melody", set2: "Chaos_Jazz", 
+                set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
+                note: { 
+                    fr: "Le meilleur set de Nangong pour les dégâts. Excellent pour les phases de burst (surtout lors des étourdissements via les EX Spéciaux) et fonctionne parfaitement avec l'équipe des Idoles.", 
+                    en: "Nangong's best set for damage purposes. Excellent for burst periods from EX Specials during stun, and works perfectly with the Idols team." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative Anomalie", en: "Anomaly Alternative" }, 
+                set1: "Freedom_Blues", set2: "Phaethon_Melody", 
+                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { 
+                    fr: "Si vous avez du mal à maintenir les Désordres ou si l'équipe nécessite un cyclage d'Anomalie très rapide (Miyabi, Alice), ce set est une excellente option de confort.", 
+                    en: "If you are struggling to consistently juggle Disorders or the team has strict fast Anomaly cycling requirements (Miyabi, Alice), this set functions as a decent universal option." 
+                } 
+            }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
+            { name: "Ex", level: "12", icon: "Ex.png" }, 
+            { name: "Chain", level: "11", icon: "Ultime.png" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "8", icon: "Assist.png" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Anomalie" }, { slot: "5", label: "DGT Éther > ATQ" }, { slot: "4", label: "Anomalie" } ], sub: [ { label: "Anomalie", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ % > Taux de PÉN", en: "Ether DMG % = ATK % > PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
-            { tag: "Signature S", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, { tag: "Alternative S", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Signature (100 %)", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, 
+            { tag: "Alternative Stun S (99.33%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
+            { tag: "Alternative Anomalie S (95.86%)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
+            { tag: "Option F2P A (95.16%)", name: "The Simmering Pot", img: "W-Engine_The_Simmering_Pot.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Angels of Delusion", members: [ { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" }, { img: "Aria.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Yanagi", en: "Yanagi Synergy" }, members: [ { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
+            { name: "TEAM 01", tag: { fr: "Désordre Méta 👑", en: "Disorder Meta 👑" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Burnice.png", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 02", tag: { fr: "Anges de l'illusion", en: "Angels of Delusion" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
         ]
     },
     "Burnice": {
@@ -230,7 +295,17 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "", icon: "Core.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "HP %" }, { slot: "5", label: "ICE DMG %" }, { slot: "4", label: "TC / DC" } ], sub: [ { label: "TC / DC", highlight: true }, { label: "HP %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Glace %", en: "Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Moteur S", name: "Kraken's Cradle", img: "W-Engine_Krakens_Cradle.png" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
         ],
@@ -251,7 +326,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "11", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "PEN Ratio (Ice DMG)" }, { slot: "4", label: "Dégât Crit" } ], sub: [ { label: "Taux Crit", highlight: true }, { label: "Attaque % = Dégât Crit", highlight: false }, { label: "PEN / Flat ATK", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN (DGT Glace)", en: "PEN Ratio (Ice DMG)" } }, 
+                { slot: "4", label: { fr: "DGT CRIT", en: "CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "ATQ % = DGT CRIT", en: "ATK % = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.png" }, { tag: "Alt 5★ (99.16%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }, { tag: "Alt Battle Pass", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }
         ],
@@ -266,7 +352,7 @@ export const agentDatabase = {
         stats: [ { label: "Ad. d'Anomalie", value: "400+" }, { label: "Attaque", value: "2300+" }, { label: "Ma. d'Anomalie", value: "= 198" } ],
         discs: [
             { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Phaethon_Melody", set2: "Freedom_Blues", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", note: { fr: "Non négociable. Indispensable pour récupérer +30 d'AP.", en: "Non-negotiable. Crucial to gain +30 Anomaly Proficiency." } },
-            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Phaethon_Melody", set2: "Chaos_Metal", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaos Metal", note: "" },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Phaethon_Melody", set2: "Chaotic_Metal", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaotic Metal", note: "" },
             { tag: { fr: "Set 3 (99.53%)", en: "Set 3 (99.53%)" }, set1: "Phaethon_Melody", set2: "Puffer_Electro", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Puffer Electro", note: "" }
         ],
         skills: [
@@ -334,7 +420,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Attaque" }, { slot: "5", label: "Attaque" }, { slot: "4", label: "Anomalie" } ], sub: [ { label: "Attaque", highlight: true }, { label: "Anomalie", highlight: false }, { label: "Flat PEN / Flat ATK", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Ode of Resurrected Wings", img: "W-Engine_Ode_of_Resurrected_Wings.png" }, { tag: "Alt F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alt Anomalie", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }
         ],
@@ -355,7 +452,18 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Énergie Regen" }, { slot: "5", label: "Wind DMG %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "ATK %", highlight: false }, { label: "Flat PEN = Flat ATK", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Vent %", en: "Wind DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PÉN = Flat ATQ", en: "Flat PEN = Flat ATK" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Joyau Dore", img: "W-Engine_Joyau_Dore.png" }, { tag: "Alt 5★ (90.88%)", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Alt 4★ (87.16%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }
         ],
@@ -376,7 +484,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energie Regen" }, { slot: "5", label: "Dmg Elec > ATQ" }, { slot: "4", label: "Taux Crit" } ], sub: [ { label: "TC (Jusqu'à 100% IG)", highlight: true }, { label: "DC %", highlight: false }, { label: "ATK %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Électrique % > ATQ %", en: "Electric DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Moteur S", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Moteur S", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, { tag: "Moteur A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.png" }
         ],
@@ -387,24 +506,62 @@ export const agentDatabase = {
         ]
     },
     "Banyue": {
-        color: "#f05432", element: "Fire", rank: "S", factionTitle: "Autorité de conformité Krampus",
-        stats: [ { label: "DGT CRIT", value: "≥ 160 %" }, { label: "Taux Crit", value: "≥ 60 %" }, { label: "Force transperçante", value: "≥ 2400" } ],
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { label: "Sheer Force", value: "2200+" }, 
+            { label: "HP", value: "18 000+" }, 
+            { label: "Taux Crit", value: "90 - 100 %", note: { fr: "En combat (Disques et Arme inclus)", en: "In combat (incl. Discs & Weapon)" } } 
+        ],
         discs: [
-            { tag: { fr: "Stun Build 👑", en: "Stun Build 👑" }, set1: "Woodpecker_Electro", set2: "Hormone_Punk", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Hormone Punk", note: "" },
-            { tag: "Set 2", set1: "Inferno_Metal", set2: "Woodpecker_Electro", set1Name: "4pc Inferno Metal", set2Name: "+ 2pc Woodpecker Electro", note: "" },
-            { tag: "Set 3", set1: "Inferno_Metal", set2: "Hormone_Punk", set1Name: "4pc Inferno Metal", set2Name: "+ 2pc Hormone Punk", note: "" }
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "La meilleure (et seule) option à considérer. Fournit des PV%, un effet cumulable de Taux CRIT (jusqu'à 12%), et augmente les DGT Sheer de 10% au maximum de cumuls.", 
+                    en: "The best (and frankly only) option that should be considered on Banyue. Provides HP%, a stackable CRIT Rate up effect, and increases Sheer DMG by 10% at max stacks." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative DGT CRIT", en: "CRIT DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { 
+                    fr: "Excellente alternative pour accompagner le 4-pièces si vous avez besoin de plus de DGT CRIT.", 
+                    en: "Excellent alternative to pair with the 4-piece if you need more CRIT DMG." 
+                } 
+            }
         ],
         skills: [
-            { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+            { name: "Chain", level: "12", icon: "Ultime.png" }, 
+            { name: "Ex", level: "11", icon: "Ex.png" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "8", icon: "Assist.png" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "HP" }, { slot: "5", label: "DMG / HP" }, { slot: "4", label: "TC / DC" } ], sub: [ { label: "TC / DC", highlight: true }, { label: "HP %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT % > Taux CRIT %", en: "CRIT DMG % > CRIT Rate %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false } 
+            ] 
+        },
         engines: [
-            { tag: "Moteur S", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }
+            { tag: "Signature (100%)", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, 
+            { tag: "Alternative S (86.22%)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, 
+            { tag: "Meilleur A-Rank (83.63%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.png" }, 
+            { tag: "Alternative A (82.62%)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" } ] },
-            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" } ] }
         ]
     },
     "Nicole": {
@@ -418,7 +575,18 @@ export const agentDatabase = {
         skills: [
             { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Anomalie" }, { slot: "5", label: "Ether DMG" }, { slot: "4", label: "Energy Regen" } ], sub: [ { label: "Anomaly Mastery", highlight: true }, { label: "PEN", highlight: false }, { label: "ATK %", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther", en: "Ether DMG" } }, 
+                { slot: "4", label: { fr: "Réc. d'énergie", en: "Energy Regen" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "The Vault", img: "W-Engine_The_Vault.png" }, { tag: "Option Anomalie", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Option Soutien", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
         ],
@@ -439,7 +607,19 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact" }, { slot: "5", label: "Ice DMG" }, { slot: "4", label: "Crit Rate / DMG" } ], sub: [ { label: "Crit Rate", highlight: true }, { label: "Crit DMG", highlight: false }, { label: "ATK %", highlight: false }, { label: "PEN", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Glace", en: "Ice DMG" } }, 
+                { slot: "4", label: { fr: "Taux / DGT CRIT", en: "CRIT Rate / DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Moteur A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Moteur A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }, { tag: "Moteur B", name: "Vortex - Arrow", img: "Vortex_Arrow.png" }
         ],
@@ -460,14 +640,26 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "F", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Dodge", level: "10", icon: "Esquive.png" }, { name: "Basic", level: "9", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact" }, { slot: "5", label: "ATK% / PEN Ratio" }, { slot: "4", label: "Crit Rate" } ], sub: [ { label: "Crit Rate (min 50% avec KOTS)", highlight: true }, { label: "Crit DMG = ATK%", highlight: false }, { label: "Flat PEN", highlight: false }, { label: "Flat ATK", highlight: false } ] },
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % / Taux de PÉN", en: "ATK % / PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (min 50% avec KOTS)", en: "CRIT Rate (min 50% with KOTS)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
         engines: [
             { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Lighter.png", color: "#f05432", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 16, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, videoId: "FBYX_6MJVUM", startTime: 13, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Lighter.png", color: "#f05432", initial: "L" } ] }
         ]
     },
     "Trigger": {
@@ -481,7 +673,18 @@ export const agentDatabase = {
         skills: [
             { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "10", icon: "Ex.png" }, { name: "Ult", level: "10", icon: "Ultime.png" }, { name: "Assist", level: "7", icon: "Assist.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Impact %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact %", en: "Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Baseline 100%", name: "Spectral Gaze", img: "W-Engine_Spectral_Gaze.png" }, { tag: "Alternatives 5★", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, { tag: "Alternatives 4★ F2P", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
         ],
@@ -543,7 +746,7 @@ export const agentDatabase = {
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Physique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Housekeeper", img: "W-Engine_Housekeeper.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }, { tag: "Alternative F2P", name: "Lunar - Noviluna", img: "[Lunar] Noviluna.png" }
+            { tag: "Meilleur Moteur", name: "Housekeeper", img: "W-Engine_Housekeeper.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }, { tag: "Alternative F2P", name: "Lunar - Noviluna", img: "Lunar_Noviluna.webp" }
         ],
         teams: [
             { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Caesar.png", color: "#e8a838", initial: "C" } ] },
@@ -611,14 +814,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "ATK % > DGT Éther % = PEN Ratio" }, 
-                { slot: "4", label: "DGT CRIT = Taux CRIT" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Éther % = Taux de PÉN", en: "ATK % > Ether DMG % = PEN Ratio" } }, 
+                { slot: "4", label: { fr: "DGT CRIT = Taux CRIT", en: "CRIT DMG = CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT = DGT CRIT = ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT = DGT CRIT = ATQ %", en: "CRIT Rate = CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -644,14 +847,26 @@ export const agentDatabase = {
         skills: [
             { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energy Regen / ATK%" }, { slot: "5", label: "ATK% / Fire DMG" }, { slot: "4", label: "ATK% / Crit Rate / DMG" } ], sub: [ { label: "ATK%", highlight: true }, { label: "Crit Rate = Crit DMG", highlight: false }, { label: "PEN", highlight: false }, { label: "ATK", highlight: false } ] },
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Feu", en: "ATK % / Fire DMG" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT / DGT CRIT", en: "ATK % / CRIT Rate / CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Équipe Rupture", en: "Rupture Team" }, members: [ { img: "Lucia.png", color: "#f23c8a", initial: "L" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Équipe Anomalie", en: "Anomaly Team" }, members: [ { img: "Caesar.png", color: "#e8a838", initial: "C" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Team débutant", en: "Starter Team" }, members: [ { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Ben.png", color: "#f05432", initial: "B" } ] }
+             { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37]
+             { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
+             { name: "TEAM 03", tag: { fr: "Équipe Populaire", en: "Popular Team" }, videoId: "wov1Rrs2lkI", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Lucy.png", color: "#f05432", initial: "L" }, { img: "Piper.png", color: "#e8a838", initial: "P" } ] } //[cite: 35]
         ]
     },
     "Ben": {
@@ -664,7 +879,18 @@ export const agentDatabase = {
         skills: [
             { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Chain", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
         ],
-        statPriority: { main: [ { slot: "6", label: "Energy Regen ou Impact" }, { slot: "5", label: "DÉF %" }, { slot: "4", label: "DÉF %" } ], sub: [ { label: "DÉF %", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "DGT CRIT", highlight: false } ] },
+       statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie ou Impact", en: "Energy Regen or Impact" } }, 
+                { slot: "5", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "4", label: { fr: "DÉF %", en: "DEF %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: true }, 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
         engines: [
             { tag: "Meilleur Moteur", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" }, { tag: "Alternative 4★", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }, { tag: "Alternative 4★", name: "Big Cylinder", img: "W-Engine_Big_Cylinder.png" }, { tag: "Alternative B", name: "Identity Base", img: "Identity_Base.png" }
         ],
@@ -689,10 +915,37 @@ export const agentDatabase = {
             { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.png" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "", color: "#52525b", role: "Tous les agents<br>Attaque" }, { img: "", color: "#52525b", role: "Tous les agents<br>Stunner" } ] },
-            { name: "TEAM 02", tag: "Premium", members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Rina.png", color: "#3182eb", initial: "R" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
-        ]
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Équipe Désordre", en: "Disorder Team" }, 
+        videoId: "6v-yHGnX09U", 
+        members: [ 
+            { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, 
+            { img: "Jane.webp", color: "#e8a838", initial: "J" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Équipe Électrique", en: "Shock Team" }, 
+        videoId: "dqH4FKu5jTY", 
+        members: [ 
+            { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, 
+            { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Équipe Shiyu", en: "Shiyu Team" }, 
+        videoId: "idYFYexLalI", 
+        members: [ 
+            { img: "Claret.webp", color: "#3182eb", initial: "C" }, 
+            { img: "Norma.webp", color: "#f05432", initial: "N" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    } 
+]
     },
     "Grace": {
         color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
@@ -709,10 +962,38 @@ export const agentDatabase = {
             { tag: "Meilleur Moteur", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, { tag: "Alternative 5★", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }, { tag: "Alternative 4★", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }, { tag: "Alternative F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alternative B", name: "Magnetic Storm - Alpha", img: "Magnetic_Storm_Alpha.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Team Anomalie", en: "Anomaly Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
-        ]
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Remielle Velina (Top Pick)", en: "Remielle Velina (Top Pick)" }, 
+        videoId: "M4wZRaCchCQ", 
+        startTime: 11,
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" } 
+        ] 
+    },
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Velina Yuzuha", en: "Velina Yuzuha" }, 
+        videoId: "QSrpfGwFuN4", 
+        startTime: 25,
+        members: [ 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" }, 
+            { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } 
+        ] 
+    },
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Remielle Alice (Top Score)", en: "Remielle Alice (Top Score)" },  
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Alice.webp", color: "#e8a838", initial: "A" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" } 
+        ] 
+    }
+]
     },
     "Roxy": {
         color: "#3bbedb", element: "Wind", rank: "S", factionTitle: { fr: "Atelier Flint", en: "Flint Workshop" },
@@ -722,9 +1003,33 @@ export const agentDatabase = {
             { label: "Attaque", value: "1800" }
         ],
         discs: [
-            { tag: { fr: "Team Armurier 👑", en: "Armorer Team 👑" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: { fr: "Optimisé pour Claret. Le bonus d'équipe se maintient via les assistances ou en encaissant volontairement un coup avant la phase d'étourdissement.", en: "Tailored for Claret. The squad buff is maintained via Quick Assists or taking a deliberate hit prior to stun phase." } },
-            { tag: { fr: "Team Attaque / Rupture", en: "Attack / Rupture Team" }, set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "Convertit son Taux CRIT très élevé en puissants buffs d'équipe pour vos attaquants (Sigrid, Orphie).", en: "Converts her extremely high CRIT Rate into massive team buffs for your main attackers (Sigrid, Orphie)." } },
-            { tag: { fr: "Alternative Énergie", en: "Energy Alternative" }, set1: "Astral_Voice", set2: "Moonlight_Lullaby", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Alternative identique à Swing Jazz pour alimenter ses longs EX Spéciaux très coûteux.", en: "Identical alternative to Swing Jazz to fuel her lengthy and costly EX Specials." } }
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Swing_Jazz", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "Swing Jazz synergise parfaitement avec Roxy : la régénération d'énergie lui permet d'utiliser ses Attaques Spéciales EX, améliore son Impact et applique un buff de DGT d'équipe sur Enchaînement/Ultime. Le 2-pièces Woodpecker Electro augmente le Taux CRIT, ce qui renforce la puissance du buff de son Passif Principal.", 
+                    en: "Swing Jazz synergizes well with Roxy since Energy Regen lets her use EX Special Attacks, improves her Impact stat, and applies a team-wide DMG buff when using a Chain Attack or Ultimate. Woodpecker Electro is the 2-piece set for this build, as CRIT Rate increases the potency of the buff from her Core Skill." 
+                } 
+            },
+            { 
+                tag: { fr: "2ème Choix", en: "2nd Best" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { 
+                    fr: "Conçu pour les équipes exploitant les Assistances Rapides (que Roxy n'a pas dans son kit). La rotation demande de la précision pour rentabiliser le buff de 15s, mais le gain de DGT en vaut largement la peine.", 
+                    en: "This is a set for a team that has a member or members that can use Quick Assists since Roxy doesn't have this in her kit. While the team rotation for this would be difficult to master due to the 15 second uptime of the buff, it'll be well worth the damage boost this set can provide." 
+                } 
+            },
+            { 
+                tag: { fr: "3ème Choix", en: "3rd Best" }, 
+                set1: "King_of_the_Summit", set2: "Moonlight_Lullaby", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Moonlight Lullaby", 
+                note: { 
+                    fr: "Une excellente alternative qui améliore son Impact et applique un buff de DGT CRIT à l'équipe. Le 2-pièces Moonlight Lullaby est parfait pour pallier ses besoins en régénération d'énergie.", 
+                    en: "King of the Summit is a great alternative set for Roxy since it improves her Impact and applies a CRIT DMG buff to the team. Additionally, equipping a 2-piece Moonlight Lullaby set is excellent for improving her energy regeneration." 
+                } 
+            }
         ],
         skills: [
             { name: "Core", level: "F", icon: "Core.webp" },
@@ -736,15 +1041,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regeneration" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Wind DMG%" },
-                { slot: "4", label: "Crit Rate" }
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } },
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Vent %", en: "PEN Ratio / ATK % / Wind DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
             ],
             sub: [
-                { label: "Crit Rate (100% en combat)", highlight: true },
-                { label: "Crit DMG = ATK %", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (100 % en combat)", en: "CRIT Rate (100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "PÉN Flat", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "ATQ Flat", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -780,16 +1085,16 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio" },
-                { slot: "4", label: "DGT CRIT / ATK %" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "DGT CRIT / ATQ %", en: "CRIT DMG / ATK %" } }
             ],
             sub: [
-                { label: "Taux CRIT (6 rolls max)", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "DGT CRIT", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (6 rolls max)", en: "CRIT Rate (6 rolls max)" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -834,16 +1139,16 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Fire DMG%" },
-                { slot: "4", label: "Crit Rate% / ATK% / Crit DMG%" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Feu %", en: "PEN Ratio % / ATK % / Fire DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / ATQ % / DGT CRIT %", en: "CRIT Rate % / ATK % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Anomaly Proficiency", highlight: false },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -880,15 +1185,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regen / ATK%" },
-                { slot: "5", label: "ATK% / Ice DMG%" },
-                { slot: "4", label: "ATK% / Crit Rate%" }
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Glace %", en: "ATK % / Ice DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT %", en: "ATK % / CRIT Rate %" } }
             ],
             sub: [
-                { label: "ATK % (priorité cap passif)", highlight: true },
-                { label: "Crit Rate = Crit DMG", highlight: false },
-                { label: "PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "ATQ % (priorité cap passif)", en: "ATK % (passive cap priority)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -898,9 +1203,9 @@ export const agentDatabase = {
             { tag: "Option F2P", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Miyabi Carry (Rank 45) 👑", members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 02", tag: "Mono Glace Stun (Rank 176)", members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] }
+            { name: "TEAM 01", tag: "Miyabi Carry 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 02", tag: "Mono Glace Stun", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, videoId: "x2bny1irV7c", startTime: 42, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] }
         ]
     },
     "Nekomata": {
@@ -925,15 +1230,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio" },
-                { slot: "4", label: "Crit Rate (M0-M3) / Crit DMG (M4-M5) / ATK% (M6)" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT (M0-M3) / DGT CRIT (M4-M5) / ATQ % (M6)", en: "CRIT Rate (M0-M3) / CRIT DMG (M4-M5) / ATK % (M6)" } }
             ],
             sub: [
-                { label: "Crit Rate (jusqu'à 100% en combat)", highlight: true },
-                { label: "Crit DMG = ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT (jusqu'à 100% en combat)", en: "CRIT Rate (up to 100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -980,15 +1285,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "Electric DMG %" },
-                { slot: "4", label: "Crit Rate % / Crit DMG %" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -1026,15 +1331,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "ATK %" },
-                { slot: "5", label: "PEN Ratio% / ATK% / Physical DMG%" },
-                { slot: "4", label: "Crit Rate% / Crit DMG%" }
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Physique %", en: "PEN Ratio % / ATK % / Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
             ],
             sub: [
-                { label: "Crit Rate = Crit DMG", highlight: true },
-                { label: "ATK %", highlight: true },
-                { label: "Flat PEN", highlight: false },
-                { label: "Flat ATK", highlight: false }
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
             ]
         },
         engines: [
@@ -1071,15 +1376,15 @@ export const agentDatabase = {
         ],
         statPriority: {
             main: [
-                { slot: "6", label: "Energy Regen / Anomaly Mastery" },
-                { slot: "5", label: "ATK% / Electric DMG%" },
-                { slot: "4", label: "ATK% / Anomaly Proficiency" }
+                { slot: "6", label: { fr: "Réc. d'énergie / Maîtrise d'Anomalie", en: "Energy Regen / Anomaly Mastery" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Électrique %", en: "ATK % / Electric DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Adresse d'Anomalie", en: "ATK % / Anomaly Proficiency" } }
             ],
             sub: [
-                { label: "ATK % (priorité absorption bouclier)", highlight: true },
-                { label: "Anomaly Proficiency", highlight: true },
-                { label: "Flat ATK", highlight: false },
-                { label: "Flat PEN", highlight: false }
+                { label: { fr: "ATQ % (priorité absorption bouclier)", en: "ATK % (shield absorption priority)" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }
             ]
         },
         engines: [
@@ -1130,15 +1435,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "DGT Électrique / ATK %" }, 
-                { slot: "4", label: "Taux CRIT" } 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Électrique / ATQ %", en: "Electric DMG / ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT", highlight: true }, 
-                { label: "DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: false }, 
-                { label: "PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1189,15 +1494,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "DGT Physique / ATK % / PEN Ratio" }, 
-                { slot: "4", label: "Taux CRIT / Adresse d'Anomalie" } 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Physique / ATQ % / Taux de PÉN", en: "Physical DMG / ATK % / PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT / Adresse d'Anomalie", en: "CRIT Rate / Anomaly Proficiency" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT / Adresse d'Anomalie", highlight: true }, 
-                { label: "DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: false }, 
-                { label: "PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT / Adresse d'Anomalie", en: "CRIT Rate / Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1242,15 +1547,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "ATK % / DGT Feu % / PEN Ratio" }, 
-                { slot: "4", label: "Taux CRIT (≥ DGT CRIT)" } 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "ATQ % / DGT Feu % / Taux de PÉN", en: "ATK % / Fire DMG % / PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT", highlight: true }, 
-                { label: "DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: false }, 
-                { label: "PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1295,15 +1600,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "ATK % > DGT Électrique %" }, 
-                { slot: "4", label: "ATK % > DGT CRIT = Taux CRIT" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Électrique %", en: "ATK % > Electric DMG %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT = Taux CRIT", en: "ATK % > CRIT DMG = CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 75% max)", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "DGT CRIT", highlight: false }, 
-                { label: "Flat PEN / Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1352,15 +1657,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Feu % > ATK %" }, 
-                { slot: "4", label: "ATK % > DGT CRIT %" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Feu % > ATQ %", en: "PEN Ratio % > Fire DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT %", en: "ATK % > CRIT DMG %" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 75% max)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1409,15 +1714,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Réc. d'énergie = ATK %" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "ATK %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie = ATQ %", en: "Energy Regen = ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
             ], 
             sub: [ 
-                { label: "ATK % (Jusqu'à 3430 ATK globale)", highlight: true }, 
-                { label: "Flat ATK", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "Adresse d'Anomalie", highlight: false } 
+                { label: { fr: "ATQ % (Jusqu'à 3430 ATQ globale)", en: "ATK % (Up to 3430 overall ATK)" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1460,18 +1765,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Impact" }, 
-                { slot: "5", label: "ATK % = DGT Physique %" }, 
-                { slot: "4", label: "Taux CRIT (Build CRIT) / Adre. d'Anomalie (Build Anomalie)" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % = DGT Physique %", en: "ATK % = Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT (Build CRIT) / Adresse d'Anomalie (Build Anomalie)", en: "CRIT Rate (CRIT Build) / Anomaly Proficiency (Anomaly Build)" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Option Stun S (109.57%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, 
@@ -1513,18 +1818,18 @@ export const agentDatabase = {
             { name: "Assist", level: "8", icon: "Assist.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Impact = ATK %" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "Taux CRIT = ATK %" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT (jusqu'à 50%)", highlight: true }, 
-                { label: "ATK / Flat ATK (jusqu'à 3400)", highlight: true }, 
-                { label: "DGT CRIT", highlight: false }, 
-                { label: "PEN", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact = ATQ %", en: "Impact = ATK %" } },
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = ATQ %", en: "CRIT Rate = ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (Jusqu'à 50%)", en: "CRIT Rate (Up to 50%)" }, highlight: true },
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3400)", en: "ATK % / Flat ATK (Up to 3400)" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
@@ -1631,18 +1936,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "DGT Physique % > ATK %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT > ATK %" } 
-            ], 
-            sub: [ 
-                { label: "ATK % / Flat ATK (Jusqu'à 3000)", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "PEN", highlight: false }, 
-                { label: "HP %", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Physique % > ATQ %", en: "Physical DMG % > ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT > ATQ %", en: "CRIT Rate = CRIT DMG > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3000)", en: "ATK % / Flat ATK (Up to 3000)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "PV %", en: "HP %" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Option S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.png" }, 
@@ -1684,18 +1989,18 @@ export const agentDatabase = {
             { name: "Dodge", level: "8", icon: "Esquive.png" }, 
             { name: "Assist", level: "6", icon: "Assist.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Physique %" }, 
-                { slot: "4", label: "Adresse d'Anomalie > ATK %" } 
-            ], 
-            sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Physique %", en: "PEN Ratio % > Physical DMG %" } },
+                { slot: "4", label: { fr: "Adresse d'Anomalie > ATQ %", en: "Anomaly Proficiency > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" }, 
@@ -1741,18 +2046,18 @@ export const agentDatabase = {
             { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
             { name: "Dodge", level: "6", icon: "Esquive.png" }
         ],
-        statPriority: { 
-            main: [ 
-                { slot: "6", label: "Réc. Énergie / ATK %" }, 
-                { slot: "5", label: "DGT Feu % / ATK %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT" } 
-            ], 
-            sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
-            ] 
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "DGT Feu % / ATQ %", en: "Fire DMG % / ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
         },
         engines: [
             { tag: "Signature (100 %)", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, 
@@ -1800,15 +2105,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "DGT Feu % > HP %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
-                { label: "HP %", highlight: true }, 
-                { label: "Flat HP", highlight: false }, 
-                { label: "ATK %", highlight: false } 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1851,14 +2156,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "HP %" }, 
-                { slot: "4", label: "HP %" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
             ], 
             sub: [ 
-                { label: "HP %", highlight: true }, 
-                { label: "Flat HP", highlight: true }, 
-                { label: "Taux CRIT (≥ DGT CRIT)", highlight: false } 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1903,15 +2208,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "ATK % > DGT Physique % = PEN Ratio" }, 
-                { slot: "4", label: "Taux CRIT" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Physique % = Taux de PÉN", en: "ATK % > Physical DMG % = PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100%)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100%)", en: "CRIT Rate (Up to 100%)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -1960,14 +2265,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "HP %" }, 
-                { slot: "4", label: "HP %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
             ], 
             sub: [ 
-                { label: "HP % / Flat HP (Jusqu'à 27k PV)", highlight: true }, 
-                { label: "Taux CRIT = DGT CRIT", highlight: false }, 
-                { label: "ATK %", highlight: false } 
+                { label: { fr: "PV % / Flat PV (Jusqu'à 27k PV)", en: "HP % / Flat HP (Up to 27k HP)" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2011,15 +2316,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "DGT Éther % = ATK %" }, 
-                { slot: "4", label: "Adresse d'Anomalie" } 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ %", en: "Ether DMG % = ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
             ], 
             sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2067,14 +2372,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie" }, 
-                { slot: "5", label: "ATK %" }, 
-                { slot: "4", label: "ATK %" } 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
             ], 
             sub: [ 
-                { label: "ATK % / Flat ATK (Jusqu'à 3500)", highlight: true }, 
-                { label: "Adresse d'Anomalie", highlight: false }, 
-                { label: "PEN", highlight: false } 
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3500)", en: "ATK % / Flat ATK (Up to 3500)" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2101,45 +2406,45 @@ export const agentDatabase = {
                 tag: { fr: "DPS Anomalie Glace 👑", en: "Ice Anomaly DPS 👑" }, 
                 set1: "Notes_From_the_Chained", set2: "Phaethon_Melody", 
                 set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Phaethon's Melody", 
-                note: { fr: "Un set sur mesure conçu pour l'application constante de Gel et d'Ablooms.", en: "A tailor-made set for her constant Freeze application and Ablooms." } 
+                note: { fr: "Set BiS absolu maximisant les déclenchements de Gel et les DGT d'Abloom.", en: "Absolute BiS set maximizing Freeze triggers and Abloom DMG." } 
             },
             { 
-                tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, 
-                set1: "Notes_From_the_Chained", set2: "Freedom_Blues", 
-                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Freedom Blues", 
-                note: { fr: "Excellente synergie avec des équipes misant lourdement sur le statut Désordre.", en: "Excellent synergy in heavy Disorder-focused team compositions." } 
+                tag: { fr: "Alternative 2pc PÉN", en: "2pc PEN Alternative" }, 
+                set1: "Notes_From_the_Chained", set2: "Puffer_Electro", 
+                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Excellente alternative (98,73 %) si vous possédez de meilleures sous-statistiques.", en: "Excellent alternative (98.73%) if you have better sub-stats." } 
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "6", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "11", icon: "Ex.png" }, 
+            { name: "Chain", level: "10", icon: "Ultime.png" }, 
+            { name: "Basic", level: "10", icon: "Attaque_basic.png" }, 
+            { name: "Assist", level: "10", icon: "Assist.png" }, 
+            { name: "Dodge", level: "1", icon: "Esquive.png" }
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Maîtrise d'Anomalie" }, 
-                { slot: "5", label: "DGT Glace % = ATK %" }, 
-                { slot: "4", label: "Adresse d'Anomalie" } 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > ATQ % > DGT Glace %", en: "PEN Ratio % > ATK % > Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
             ], 
             sub: [ 
-                { label: "Adresse d'Anomalie", highlight: true }, 
-                { label: "ATK %", highlight: true }, 
-                { label: "PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
             { tag: "Signature (100 %)", name: "Frostfall Sickle", img: "W-Engine_Frostfall_Sickle.png" }, 
-            { tag: "Meilleure Option S (99.31%)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
-            { tag: "Option S", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
-            { tag: "Alternative A", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
+            { tag: "Option S BiS (93.41 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
+            { tag: "Option S (90.92 %)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
+            { tag: "Alternative A (90.03 %)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Stun-Abloom 👑", en: "Stun-Abloom Synergy 👑" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Désordre Glace", en: "Ice Disorder" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative F2P", en: "F2P Alternative" }, members: [ { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Méta BiS (Velina / Remielle) 👑", en: "BiS Meta (Velina / Remielle) 👑" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Velina.webp", color: "#3182eb", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Vivian", en: "Vivian Disorder" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Stun-Abloom", en: "Stun-Abloom Synergy" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
         ]
     },
     "Starlight Billy": {
@@ -2176,14 +2481,14 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "HP %" }, 
-                { slot: "5", label: "DGT Physique % > HP %" }, 
-                { slot: "4", label: "Taux CRIT = DGT CRIT = HP %" } 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Physique % > PV %", en: "Physical DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT = DGT CRIT = HP %", highlight: true }, 
-                { label: "Flat HP", highlight: true }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2228,15 +2533,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "Régénération d'Énergie = Impact %" }, 
-                { slot: "5", label: "DGT Feu % > PEN Ratio % > ATK %" }, 
-                { slot: "4", label: "Taux CRIT" } 
+                { slot: "6", label: { fr: "Réc. d'énergie = Impact %", en: "Energy Regen = Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > Taux de PÉN % > ATQ %", en: "Fire DMG % > PEN Ratio % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100% en combat)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "Flat PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [
@@ -2285,15 +2590,15 @@ export const agentDatabase = {
         ],
         statPriority: { 
             main: [ 
-                { slot: "6", label: "ATK %" }, 
-                { slot: "5", label: "PEN Ratio % > DGT Éther %" }, 
-                { slot: "4", label: "Taux CRIT > DGT CRIT" } 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Éther %", en: "PEN Ratio % > Ether DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT > DGT CRIT", en: "CRIT Rate > CRIT DMG" } } 
             ], 
             sub: [ 
-                { label: "Taux CRIT (Jusqu'à 100% en combat)", highlight: true }, 
-                { label: "DGT CRIT = ATK %", highlight: true }, 
-                { label: "Flat PEN", highlight: false }, 
-                { label: "Flat ATK", highlight: false } 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
             ] 
         },
         engines: [

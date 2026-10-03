@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initKeyboardNavigation();
     initModals();
     initMobileDrawer();
+    initMobileTooltips();
     
     renderFactions();
     buildInitialGrid(); // NOUVEAU : Génère le HTML une seule fois
@@ -245,13 +246,45 @@ window.toggleFavorite = function(btn, agentName, event) {
 // ==========================================
 // 7. FACTIONS
 // ==========================================
+const factionTranslations = {
+    "Lièvres rusés": "Cunning Hares",
+    "Usines Belobog": "Belobog Heavy Industries",
+    "Société d'entretien Victoria": "Victoria Housekeeping Co.",
+    "Fils de Calydon": "Sons of Calydon",
+    "Section 6": "Hollow Special Operations Section 6",
+    "Escouade Obole": "Obol Squad",
+    "Division de l'Ordre urbain": "Metropolitan Order Division",
+    "Équipe d'intervention spéciale des Enquêtes criminelles": "C.I.S.R.T.",
+    "Étoiles de la Lyre": "Stars of Lyra",
+    "Forces de défense - Escouade Argent": "Defense Force - Silver Squad",
+    "Oiseaux-moqueurs": "Mockingbirds",
+    "Cimes de Yunkui": "Yunkui Summit",
+    "Maison hantée": "Spook Shack",
+    "Autorité de conformité Krampus": "Krampus Compliance Authority",
+    "Anges de l'illusion": "Angels of Delusion",
+    "Département de stratégie externe": "External Strategy Department",
+    "Département de la patrouille aérienne": "Airspace Patrol Department",
+    "Entente de Dayat": "Void Hunters",
+    "Phaéthon": "Phaethon"
+};
+
 function renderFactions() {
     const generateFactionHTML = (faction, isSidebar) => {
         const imgPath = `assets/Faction/${faction}.png`; 
         const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
-        let displayName = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "N.E.P.S." : faction;
-        let subName = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "Équipe d'intervention spéciale" : '';
-
+        
+        // Traduction dynamique
+        const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+        let displayName = faction;
+        if (isEn && factionTranslations[faction]) {
+            displayName = factionTranslations[faction];
+        }
+        
+        let subName = '';
+        if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+            displayName = "N.E.P.S.";
+            subName = isEn ? "Special Response Team" : "Équipe d'intervention spéciale";
+        }
         if (isSidebar) {
             return `
             <div class="mb-5 px-1 transform-gpu hidden md:block">
@@ -273,17 +306,25 @@ function renderFactions() {
     const sidebarList = document.getElementById('sidebarFactionsList'); if (sidebarList) { const sidebarHTML = factionsData.map(f => generateFactionHTML(f, true)).join(''); sidebarList.innerHTML = sidebarHTML + sidebarHTML; }
 }
 
-window.setFactionFilter = function(faction, fromModal = false) {
-    State.faction = faction; 
+window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = false) {
+    if (!isLangSwitch) State.faction = faction; 
     const tags = document.querySelectorAll('.active-faction-tag');
     const nameLabels = document.querySelectorAll('.active-faction-name');
     
-    const labelText = faction === "Équipe d'intervention spéciale des Enquêtes criminelles" ? "N.E.P.S." : faction;
+    const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+    let labelText = faction;
+    if (isEn && factionTranslations[faction]) {
+        labelText = factionTranslations[faction];
+    }
+    if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+        labelText = "N.E.P.S.";
+    }
+
     nameLabels.forEach(nl => nl.textContent = labelText);
     tags.forEach(t => { t.classList.remove('hidden'); t.classList.add('flex'); });
 
     if (fromModal) window.closeModal('factionModal');
-    renderAgents(); scrollToTop();
+    if (!isLangSwitch) { renderAgents(); scrollToTop(); }
 };
 
 document.querySelectorAll('.clear-faction-btn').forEach(btn => {
@@ -410,7 +451,7 @@ function createCardHTML(agent) {
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
 
     return `
-    <div class="agent-card-container hidden flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
+    <div class="agent-card-container hidden flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onmouseenter="window.preloadSplash('${agent.name.replace(/'/g, "\\'")}')" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 <img src="assets/Agents/${agent.name}.webp" loading="lazy" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
@@ -427,6 +468,21 @@ function createCardHTML(agent) {
 // ==========================================
 // 9. MODALES ET NAVIGATION
 // ==========================================
+
+// --- NOUVEAU : Cache pour éviter de télécharger l'image plusieurs fois ---
+const preloadedSplashes = new Set();
+
+window.preloadSplash = function(agentName) {
+    // Si l'image a déjà été préchargée, on s'arrête
+    if (preloadedSplashes.has(agentName)) return;
+    
+    // Sinon, on la note comme chargée et on lance le téléchargement en arrière-plan
+    preloadedSplashes.add(agentName);
+    const img = new Image();
+    img.src = `assets/splash/${agentName}.webp`;
+};
+// -------------------------------------------------------------------------
+
 window.openModal = function(id) {
     const m = document.getElementById(id);
     if (!m) return;
@@ -492,16 +548,33 @@ function initModals() {
 
 function initKeyboardNavigation() {
     document.addEventListener('keydown', (e) => {
-        const modalAgent = document.getElementById('agentDetailModal'); const modalFaction = document.getElementById('factionModal'); const modalMobileFilter = document.getElementById('mobileFilterModal');
+        const modalAgent = document.getElementById('agentDetailModal'); 
+        const modalFaction = document.getElementById('factionModal'); 
+        const modalMobileFilter = document.getElementById('mobileFilterModal');
+        const modalVideo = document.getElementById('videoModal'); // NOUVEAU
 
         if (e.key === 'Escape') { 
             if (modalAgent && !modalAgent.classList.contains('hidden')) window.closeModal('agentDetailModal'); 
             else if (modalFaction && !modalFaction.classList.contains('hidden')) window.closeModal('factionModal'); 
             else if (modalMobileFilter && !modalMobileFilter.classList.contains('hidden')) window.closeModal('mobileFilterModal');
+            else if (modalVideo && !modalVideo.classList.contains('hidden')) window.closeVideoModal(); // NOUVEAU
         }
         if (modalAgent && !modalAgent.classList.contains('hidden')) {
-            if (e.key === 'ArrowLeft' && State.modalIndex > 0) window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
-            if (e.key === 'ArrowRight' && State.modalIndex < State.filteredAgents.length - 1 && State.modalIndex !== -1) window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name);
+            // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
+           // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                if (typeof window.hideTooltip === 'function') {
+                    window.hideTooltip();
+                }
+            }
+
+            // 2. Change d'agent avec les flèches
+            if (e.key === 'ArrowLeft' && State.modalIndex > 0) {
+                window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
+            }
+            if (e.key === 'ArrowRight' && State.modalIndex < State.filteredAgents.length - 1 && State.modalIndex !== -1) {
+                window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name);
+            }
         }
     });
 }
@@ -526,16 +599,99 @@ function checkUrlForAgent() {
     } else if (fastMask) fastMask.remove();
 }
 
-// ==========================================
-// 10. UTILITAIRES & PARALLAXE FLUIDE (60 FPS)
-// ==========================================
+let currentPlayer = null; // Va stocker notre lecteur vidéo intelligent
+
+window.openVideoModal = function(videoId, startTime, event) {
+    if(event) event.stopPropagation(); 
+    
+    const modal = document.getElementById('videoModal');
+    const container = document.getElementById('youtubeContainer');
+    const content = document.getElementById('videoModalContent');
+    if (!modal || !container) return;
+
+    // Ajout d'un fond noir (bg-black) au wrapper pour masquer le Bangboo
+    container.innerHTML = `
+        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500 bg-black">
+            <div id="yt-player"></div>
+        </div>
+    `;
+
+    // Ouverture de la modale
+    modal.classList.remove('hidden');
+    void modal.offsetWidth; 
+    modal.classList.add('opacity-100');
+    content.classList.remove('scale-95');
+    content.classList.add('scale-100');
+
+    // On crée le lecteur avec l'API YouTube
+    if (typeof YT !== 'undefined' && YT.Player) {
+        currentPlayer = new YT.Player('yt-player', {
+            height: '100%', // <-- FORCAGE DE LA HAUTEUR À 100%
+            width: '100%',  // <-- FORCAGE DE LA LARGEUR À 100%
+            videoId: videoId,
+            playerVars: {
+                'autoplay': 1,
+                'start': startTime || 0,
+                'rel': 0,
+                'modestbranding': 1
+            },
+            events: {
+                'onStateChange': function(e) {
+                    // e.data === 1 signifie "PLAYING"
+                    if (e.data === 1) {
+                        const wrapper = document.getElementById('yt-wrapper');
+                        if (wrapper) {
+                            wrapper.classList.remove('opacity-0');
+                            wrapper.classList.add('opacity-100');
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        // Sécurité si l'API est bloquée
+        container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime||0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+};
+
+// Fonction pour fermer la vidéo
+window.closeVideoModal = function() {
+    const modal = document.getElementById('videoModal');
+    const container = document.getElementById('youtubeContainer');
+    const content = document.getElementById('videoModalContent');
+    if (!modal) return;
+
+    modal.classList.remove('opacity-100');
+    content.classList.remove('scale-100');
+    content.classList.add('scale-95');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        if (currentPlayer && typeof currentPlayer.destroy === 'function') {
+            currentPlayer.destroy();
+            currentPlayer = null;
+        }
+        if (container) container.innerHTML = ''; 
+    }, 300);
+};
+
 function initLanguageSwitcher() {
     const langSwitcher = document.getElementById('langSwitcher');
     if (langSwitcher) {
         langSwitcher.setAttribute('data-active', currentLang);
         langSwitcher.addEventListener('click', () => {
-            const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; langSwitcher.setAttribute('data-active', newLang); setLanguage(newLang);
+            const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
+            langSwitcher.setAttribute('data-active', newLang); 
+            setLanguage(newLang);
             document.querySelectorAll('.dyn-term').forEach(el => { const term = el.getAttribute('data-term'); if (term) el.textContent = tTerm(term); });
+            
+            // --- NOUVEAU : Rechargement des factions ---
+            renderFactions();
+            if (State.faction) {
+                window.setFactionFilter(State.faction, false, true); // Met à jour le tag sans recharger les agents 2 fois
+            }
+            // -------------------------------------------
+
             renderAgents(); scrollToTop();
             if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { document.getElementById('agentGuideContainer').innerHTML = getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); }
         });
@@ -579,4 +735,51 @@ function initMobileDrawer() {
     if (!DOM.mobileFilterBtn || !DOM.mobileFilterModal) return;
     DOM.mobileFilterBtn.addEventListener('click', () => { window.openModal('mobileFilterModal'); updateAllSliders(State.mode); });
     if (DOM.closeMobileFilterBtn) { DOM.closeMobileFilterBtn.addEventListener('click', () => { window.closeModal('mobileFilterModal'); }); }
+}
+
+
+// ==========================================
+// 12. GESTION MOBILE DES INFOBULLES (TOOLTIPS)
+// ==========================================
+let touchStartY = 0;
+let touchStartX = 0;
+let isScrolling = false;
+
+function initMobileTooltips() {
+    // 1. Détection du début du geste
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        isScrolling = false;
+    }, { passive: true });
+
+    // 2. Si le doigt bouge de plus de 10px, c'est un scroll (pas un tap)
+    document.addEventListener('touchmove', (e) => {
+        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+
+        if (deltaY > 10 || deltaX > 10) {
+            isScrolling = true;
+        }
+    }, { passive: true });
+
+    // 3. Fermer l'infobulle au clic à l'extérieur (sur mobile)
+    document.addEventListener('touchend', (e) => {
+        if (window.innerWidth <= 768 && !isScrolling) {
+            const tooltip = document.getElementById('proxy-tooltip');
+            if (!tooltip) return;
+
+            const isClickInside = tooltip.contains(e.target);
+            // Vérifie si l'élément touché est un déclencheur d'infobulle
+            const isTrigger = e.target.closest('[data-tooltip]') || e.target.closest('.tooltip-trigger');
+
+            if (!isClickInside && !isTrigger && tooltip.classList.contains('visible')) {
+                if (typeof window.hideTooltip === 'function') {
+                    window.hideTooltip();
+                } else {
+                    tooltip.classList.remove('visible');
+                }
+            }
+        }
+    });
 }

@@ -23,11 +23,13 @@ export const iconMap = {
 export const filterGroups = {
     'Ice': ['Ice', 'Frost'],
     'Wind': ['Wind'],
-    'Ether': ['Ether', 'Auric Ink'],
+    'Ether': ['Ether'], 
     'Lumiflux': ['Lumiflux'],
-    'Physical': ['Physical', 'Honed Edge'],
+    'Physical': ['Physical'],
     'Fire': ['Fire'],
     'Electric': ['Electric'],
+    'Honed Edge': ['Honed Edge'],
+    'Auric Ink': ['Auric Ink'],
     'All': ['Ice', 'Frost', 'Wind', 'Ether', 'Auric Ink', 'Lumiflux', 'Physical', 'Honed Edge', 'Fire', 'Electric']
 };
 

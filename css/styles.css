@@ -138,3 +138,12 @@ body {
     .custom-scrollbar::-webkit-scrollbar { width: 12px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.4); border-radius: 6px; }
 }
+
+/* Correction pour les noms d'agents très longs sur mobile */
+#modalGiantNameText {
+    white-space: normal !important; /* Autorise le texte à revenir à la ligne */
+    overflow-wrap: break-word; /* Coupe les mots si vraiment trop longs */
+    word-break: break-word;
+    line-height: 1.1; /* Rapproche les lignes pour que ça reste esthétique */
+    max-width: 100%;
+}
