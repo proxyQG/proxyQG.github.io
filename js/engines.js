@@ -4,7 +4,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Anomaly",
         element: "Physical",
-        img: "W-Engine_Practiced_Perfection.png",
+        img: "W-Engine_Practiced_Perfection.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -38,7 +38,7 @@ const W_ENGINES_DB = {
         name: { fr: "Lune Nouvelle", en: "[Lunar] Noviluna" },
         rank: "B",
         specialty: "Support",
-        img: "Lunar_Noviluna.png",
+        img: "Lunar_Noviluna.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -73,7 +73,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Anomaly",
         element: "Electric",
-        img: "W-Engine_Zanshin_Herb_Case.png",
+        img: "W-Engine_Zanshin_Herb_Case.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
@@ -107,7 +107,7 @@ const W_ENGINES_DB = {
         name: { fr: "Superstar des rues", en: "Street Superstar" },
         rank: "A",
         specialty: "Attack",
-        img: "W-Engine_Street_Superstar.png",
+        img: "W-Engine_Street_Superstar.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "ATQ %", en: "ATK" }, 
@@ -177,7 +177,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Anomaly",
         element: "Ice",
-        img: "W-Engine_Frostfall_Sickle.png",
+        img: "W-Engine_Frostfall_Sickle.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, 
@@ -212,7 +212,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Anomaly",
         element: "Physical",
-        img: "W-Engine_Sharpened_Stinger.png",
+        img: "W-Engine_Sharpened_Stinger.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, 
@@ -246,7 +246,7 @@ const W_ENGINES_DB = {
         name: { fr: "Gémeaux en pleurs", en: "Weeping Gemini" },
         rank: "A",
         specialty: "Anomaly",
-        img: "W-Engine_Weeping_Gemini.png",
+        img: "W-Engine_Weeping_Gemini.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -281,7 +281,7 @@ const W_ENGINES_DB = {
         rank: "A",
         specialty: "Anomaly",
         element: "Physical",
-        img: "W-Engine_Roaring_Ride.png",
+        img: "W-Engine_Roaring_Ride.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -315,7 +315,7 @@ const W_ENGINES_DB = {
         name: { fr: "Kaboom le canon", en: "Kaboom the Cannon" },
         rank: "A",
         specialty: "Support",
-        img: "W-Engine_Kaboom_the_Cannon.png",
+        img: "W-Engine_Kaboom_the_Cannon.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
@@ -349,7 +349,7 @@ const W_ENGINES_DB = {
         name: { fr: "Vanité élégante", en: "Elegant Vanity" },
         rank: "S",
         specialty: "Support",
-        img: "W-Engine_Elegant_Vanity.png",
+        img: "W-Engine_Elegant_Vanity.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -384,7 +384,7 @@ const W_ENGINES_DB = {
         rank: "A",
         specialty: "Support",
         element: "Ice",
-        img: "W-Engine_Bashful_Demon.png",
+        img: "W-Engine_Bashful_Demon.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -418,7 +418,7 @@ const W_ENGINES_DB = {
         name: { fr: "Balle de jeu sans entraves", en: "Unfettered Game Ball" },
         rank: "A",
         specialty: "Support",
-        img: "W-Engine_Unfettered_Game_Ball.png",
+        img: "W-Engine_Unfettered_Game_Ball.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
@@ -452,7 +452,7 @@ const W_ENGINES_DB = {
         name: { fr: "Berceau en pleurs", en: "Weeping Cradle" },
         rank: "S",
         specialty: "Support",
-        img: "W-Engine_Weeping_Cradle.png",
+        img: "W-Engine_Weeping_Cradle.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
@@ -486,7 +486,7 @@ const W_ENGINES_DB = {
         name: { fr: "Tranche de temps", en: "Slice of Time" },
         rank: "A",
         specialty: "Support",
-        img: "W-Engine_Slice_of_Time.png",
+        img: "W-Engine_Slice_of_Time.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
@@ -520,7 +520,7 @@ const W_ENGINES_DB = {
         name: { fr: "[Réverbération] Mark II", en: "[Reverb] Mark II" },
         rank: "B",
         specialty: "Support",
-        img: "Reverb_Mark_II.png",
+        img: "Reverb_Mark_II.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
@@ -554,7 +554,7 @@ const W_ENGINES_DB = {
         name: { fr: "[Réverbération] Mark III", en: "[Reverb] Mark III" },
         rank: "B",
         specialty: "Support",
-        img: "Reverb_Mark_III.png",
+        img: "Reverb_Mark_III.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "PV %", en: "HP %" }, 
@@ -588,7 +588,7 @@ const W_ENGINES_DB = {
         name: { fr: "Compilateur de fusion", en: "Fusion Compiler" },
         rank: "S",
         specialty: "Anomaly",
-        img: "W-Engine_Fusion_Compiler.png",
+        img: "W-Engine_Fusion_Compiler.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "Taux de PÉN", en: "PEN Ratio" }, 
@@ -623,7 +623,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Anomaly",
         element: "Electric",
-        img: "W-Engine_Timeweaver.png",
+        img: "W-Engine_Timeweaver.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -657,7 +657,7 @@ const W_ENGINES_DB = {
         name: { fr: "[Tempête Magnétique] Alpha", en: "[Magnetic Storm] Alpha" },
         rank: "B",
         specialty: "Anomaly",
-        img: "Magnetic_Storm_Alpha.png",
+        img: "Magnetic_Storm_Alpha.webp",
         stats: { 
             base: "32 - 475", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -692,7 +692,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Stun",
         element: "Fire",
-        img: "W-Engine_Hellfire_Gears.png",
+        img: "W-Engine_Hellfire_Gears.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "Impact %", en: "Impact" }, 
@@ -726,7 +726,7 @@ const W_ENGINES_DB = {
         name: { fr: "Le Restreint", en: "The Restrained" },
         rank: "S",
         specialty: "Stun",
-        img: "W-Engine_The_Restrained.png",
+        img: "W-Engine_The_Restrained.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "Impact %", en: "Impact" }, 
@@ -760,7 +760,7 @@ const W_ENGINES_DB = {
         name: { fr: "Noyau fossilisé précieux", en: "Precious Fossilized Core" },
         rank: "A",
         specialty: "Stun",
-        img: "W-Engine_Precious_Fossilized.png",
+        img: "W-Engine_Precious_Fossilized.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Impact %", en: "Impact" }, 
@@ -794,7 +794,7 @@ const W_ENGINES_DB = {
         name: { fr: "Six coups", en: "Six Shooter" },
         rank: "A",
         specialty: "Stun",
-        img: "W-Engine_Six_Shooter.png",
+        img: "W-Engine_Six_Shooter.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Impact %", en: "Impact" }, 
@@ -829,7 +829,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Fire",
-        img: "W-Engine_Heartstring_Nocturne.png",
+        img: "W-Engine_Heartstring_Nocturne.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -864,7 +864,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Electric",
-        img: "W-Engine_Cordis_Germina.png",
+        img: "W-Engine_Cordis_Germina.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -899,7 +899,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Ice",
-        img: "W-Engine_Myriad_Eclipse.png",
+        img: "W-Engine_Myriad_Eclipse.webp",
         stats: { 
             base: "48 - 713", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -934,7 +934,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Fire",
-        img: "W-Engine_The_Brimstone.png",
+        img: "W-Engine_The_Brimstone.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -1002,7 +1002,7 @@ const W_ENGINES_DB = {
         name: { fr: "Étreinte printanière", en: "Spring Embrace" },
         rank: "A",
         specialty: "Defense",
-        img: "W-Engine_Spring_Embrace.png",
+        img: "W-Engine_Spring_Embrace.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -1036,7 +1036,7 @@ const W_ENGINES_DB = {
         name: { fr: "Transmorpheur original", en: "Original Transmorpher" },
         rank: "A",
         specialty: "Defense",
-        img: "W-Engine_Original_Transmorpher.png",
+        img: "W-Engine_Original_Transmorpher.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "PV %", en: "HP %" }, 
@@ -1070,7 +1070,7 @@ const W_ENGINES_DB = {
         name: { fr: "Gros Cylindre", en: "Big Cylinder" },
         rank: "A",
         specialty: "Defense",
-        img: "W-Engine_Big_Cylinder.png",
+        img: "W-Engine_Big_Cylinder.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "DÉF %", en: "DEF %" }, 
@@ -1172,7 +1172,7 @@ const W_ENGINES_DB = {
         name: { fr: "Gouvernante", en: "Housekeeper" },
         rank: "A",
         specialty: "Attack",
-        img: "W-Engine_Housekeeper.png",
+        img: "W-Engine_Housekeeper.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -1207,7 +1207,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Physical",
-        img: "W-Engine_Steel_Cushion.png",
+        img: "W-Engine_Steel_Cushion.webp",
         stats: { 
             base: "46 - 684", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -1241,7 +1241,7 @@ const W_ENGINES_DB = {
         name: { fr: "Rotor canon", en: "Cannon Rotor" },
         rank: "A",
         specialty: "Attack",
-        img: "W-Engine_Cannon_Rotor.png",
+        img: "W-Engine_Cannon_Rotor.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Taux CRIT", en: "CRIT Rate" }, 
@@ -1276,7 +1276,7 @@ const W_ENGINES_DB = {
         rank: "A",
         specialty: "Support",
         element: "Ether",
-        img: "W-Engine_The_Vault.png",
+        img: "W-Engine_The_Vault.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "Réc. d'énergie", en: "Energy Regen" }, 
@@ -1311,7 +1311,7 @@ const W_ENGINES_DB = {
         rank: "S",
         specialty: "Attack",
         element: "Physical",
-        img: "W-Engine_Cloudcleave_Radiance.png",
+        img: "W-Engine_Cloudcleave_Radiance.webp",
         stats: { 
             base: "50 - 743", 
             advancedLabel: { fr: "DGT CRIT", en: "CRIT DMG" }, 
@@ -1346,7 +1346,7 @@ const W_ENGINES_DB = {
         rank: "A",
         specialty: "Attack",
         element: "Physical",
-        img: "W-Engine_Starlight_Engine_Replica.png",
+        img: "W-Engine_Starlight_Engine_Replica.webp",
         stats: { 
             base: "42 - 624", 
             advancedLabel: { fr: "ATQ %", en: "ATK %" }, 
@@ -2314,7 +2314,7 @@ const W_ENGINES_DB = {
         name: { fr: "Gloss électrique", en: "Electro-Lip Gloss" },
         rank: "A",
         specialty: "Anomaly",
-        img: "W-Engine_Electro-Lip_Gloss.png",
+        img: "W-Engine_Electro-Lip_Gloss.webp",
         stats: { 
             base: "40 - 594", 
             advancedLabel: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, 
