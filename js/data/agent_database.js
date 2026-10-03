@@ -2629,3 +2629,4 @@ export const agentDatabase = {
         ]
     }
 };
+window.maDatabase = agentDatabase;
