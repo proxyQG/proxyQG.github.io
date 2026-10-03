@@ -1,8 +1,9 @@
 import { factionsData } from './data/factions.js';
-import { agentsData, colorMap, iconMap, filterGroups } from './data/agents.js';
+import { colorMap, iconMap, filterGroups } from './data/agents.js';
 import { getGuideHTML } from './guides/index.js'; 
 import { updateStaticUI, setLanguage, currentLang, tTerm } from './i18n.js';
-
+const response = await fetch('./js/data/agents.json');
+const agentsData = await response.json();
 // ==========================================
 // 1. ÉTAT GLOBAL (STATE)
 // ==========================================
