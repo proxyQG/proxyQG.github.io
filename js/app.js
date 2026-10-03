@@ -270,7 +270,7 @@ const factionTranslations = {
 
 function renderFactions() {
     const generateFactionHTML = (faction, isSidebar) => {
-        const imgPath = `assets/Faction/${faction}.png`; 
+        const imgPath = `assets/Faction/${faction}.webp`; 
         const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
         
         // Traduction dynamique
