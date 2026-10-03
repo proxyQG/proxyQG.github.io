@@ -36,11 +36,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" },
-            { name: "Ult", level: "11", icon: "Ultime.png" },
-            { name: "Basic", level: "9", icon: "Attaque_basic.png" },
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Basic", level: "9", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -55,11 +55,11 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: { fr: "Signature d'Alice (100 %) 👑", en: "Alice's Signature (100%) 👑" }, name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" },
-            { tag: { fr: "Signature de Jane (98 %)", en: "Jane's Signature (98%)" }, name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.png" },
-            { tag: { fr: "F2P Craftable (S5)", en: "F2P Craftable (S5)" }, name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" },
-            { tag: { fr: "Signature de Piper", en: "Piper's Signature" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" },
-            { tag: { fr: "Alternative BP (S5)", en: "BP Alternative (S5)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
+            { tag: { fr: "Signature d'Alice (100 %) 👑", en: "Alice's Signature (100%) 👑" }, name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" },
+            { tag: { fr: "Signature de Jane (98 %)", en: "Jane's Signature (98%)" }, name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" },
+            { tag: { fr: "F2P Craftable (S5)", en: "F2P Craftable (S5)" }, name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" },
+            { tag: { fr: "Signature de Piper", en: "Piper's Signature" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.webp" },
+            { tag: { fr: "Alternative BP (S5)", en: "BP Alternative (S5)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
         ],
         teams: [
             { 
@@ -67,9 +67,9 @@ export const agentDatabase = {
                 tag: { fr: "Désordre Ultime 👑", en: "Ultimate Disorder 👑" }, 
                 videoId: "IzMquorLuQU", // <--- L'ID YouTube que tu m'as donné
                 members: [ 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" }, 
-                    { img: "Velina.png", color: "#3bbedb", initial: "V" }, 
-                    { img: "Remielle.png", color: "#fba2d0", initial: "R" } 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" }, 
+                    { img: "Velina.webp", color: "#3bbedb", initial: "V" }, 
+                    { img: "Remielle.webp", color: "#fba2d0", initial: "R" } 
                 ] 
             },
             { 
@@ -77,9 +77,9 @@ export const agentDatabase = {
                 tag: { fr: "Synergie Stun", en: "Stun Synergy" },
                 videoId: "WqzP_JXF2uA",
                 members: [ 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" },
-                    { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, 
-                    { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" },
+                    { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, 
+                    { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } 
                 ] 
             },
             { 
@@ -88,9 +88,9 @@ export const agentDatabase = {
                 videoId: "IqG8ufUTih0",
                 startTime: 255,
                 members: [ 
-                    { img: "Piper.png", color: "#e8a838", initial: "P" },
-                    { img: "Vivian.png", color: "#f23c8a", initial: "V" }, 
-                    { img: "Burnice.png", color: "#f05432", initial: "B" } 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" },
+                    { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, 
+                    { img: "Burnice.webp", color: "#f05432", initial: "B" } 
                 ] 
             }
         ],
@@ -112,16 +112,16 @@ export const agentDatabase = {
             { tag: { fr: "Set 2 (99.90%)", en: "Set 2 (99.90%)" }, set1: "Fanged_Metal", set2: "Phaethon_Melody", set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", note: "" }
         ],
         skills: [
-            { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "11", icon: "Assist.png" }, { name: "Ex", level: "10", icon: "Ex.png" }, { name: "Basic", level: "8", icon: "Attaque_basic.png" }
+            { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maitrise Anomalie" }, { slot: "5", label: "Taux de PEN" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adre. Anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Flat PEN / Flat ATK", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.png" }, { tag: "Alt 5★ (100%)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" }, { tag: "Alt F2P (89.12%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }
+            { tag: "Baseline 100%", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" }, { tag: "Alt 5★ (100%)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" }, { tag: "Alt F2P (89.12%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "JD" }, { img: "Velina.png", color: "#3bbedb", initial: "V" }, { img: "Remielle.png", color: "#fba2d0", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Éther", en: "Ether Synergy" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "JD" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Désordre Brûlure", en: "Burn Disorder" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "JD" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Remielle.png", color: "#fba2d0", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Éther", en: "Ether Synergy" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Désordre Brûlure", en: "Burn Disorder" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" } ] }
         ]
     },
     "Claret": {
@@ -132,7 +132,7 @@ export const agentDatabase = {
             { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Thorned_Rose", set2: "Woodpecker_Electro", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Très bonne alternative TC.", en: "Very solid CRIT Rate alternative." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -147,22 +147,22 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "Crimson Thirst", img: "W-Engine_Crimson_Thirst.png" }, { tag: "Alt F2P (80.55%)", name: "Catty Luck", img: "W-Engine_Catty_Luck.png" }, { tag: "Alt (77.48%)", name: "Bloodmarrow Coffer", img: "W-Engine_Bloodmarrow_Coffer.png" }
+            { tag: "Baseline 100%", name: "Crimson Thirst", img: "W-Engine_Crimson_Thirst.webp" }, { tag: "Alt F2P (80.55%)", name: "Catty Luck", img: "W-Engine_Catty_Luck.webp" }, { tag: "Alt (77.48%)", name: "Bloodmarrow Coffer", img: "W-Engine_Bloodmarrow_Coffer.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Velina.png", color: "#3bbedb", initial: "V" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Ye Shunguang": {
-        color: "#e8a838", element: "Honed Edge", elementIcon: "Honed_Edge.png", rank: "S", factionTitle: "Void Hunter",
+        color: "#e8a838", element: "Honed Edge", elementIcon: "Honed_Edge.webp", rank: "S", factionTitle: "Void Hunter",
         stats: [ { label: "Attaque", value: "3000+" }, { label: "Taux Crit", value: "max. 50%" }, { label: "Dégât Crit", value: "180 - 200%+" } ],
         discs: [
             { tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, set1: "White_Water_Ballad", set2: "Branch_Blade_Song", set1Name: "4pc White Water Ballad", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Mélopée des eaux blanches est le set signature de Ye Shunguang, augmentant son Taux CRIT et son ATQ. Le buff devient plus puissant lorsqu'elle active le Voile d'Ether. Vu qu'elle gagne beaucoup de Taux CRIT via ce set et son Core Skill, utilisez le 2-pc Branch and Blade Song pour les DGT CRIT.", en: "White Water Ballad is Ye Shunguang's signature set, boosting her CRIT Rate and ATK. The buff grows stronger when activating Ether Veil. Since she gains plenty of CRIT Rate from this set and Core Skill, run 2pc Branch and Blade Song for CRIT DMG." } },
             { tag: { fr: "2ème Choix", en: "2nd Choice" }, set1: "White_Water_Ballad", set2: "Woodpecker_Electro", set1Name: "4pc White Water Ballad", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Vous pouvez utiliser Électro pivert si vous avez de meilleures sous-stats sur ces pièces. Assurez-vous simplement de ne pas dépasser la limite de Taux CRIT et privilégiez les sous-stats DGT CRIT.", en: "You can run Woodpecker Electro if you have superior sub-stats on those pieces. Just make sure not to exceed the CRIT Rate cap and prioritize CRIT DMG sub-stats." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "8", icon: "Assist.png" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -177,12 +177,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Meilleur Moteur", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.png" }, { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative F2P", name: "Gilded Blossom", img: "Gilded_Blossom.png" }, { tag: "Alternative A", name: "Marcato Desire", img: "Marcato_Desire.png" }, { tag: "Alternative A", name: "Street Superstar", img: "W-Engine_Street_Superstar.png" }
+            { tag: "Meilleur Moteur", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.webp" }, { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }, { tag: "Alternative F2P", name: "Gilded Blossom", img: "Gilded_Blossom.webp" }, { tag: "Alternative A", name: "Marcato Desire", img: "Marcato_Desire.webp" }, { tag: "Alternative A", name: "Street Superstar", img: "W-Engine_Street_Superstar.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Attaque", en: "Dual Attack" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
+            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Attaque", en: "Dual Attack" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
         ]
     },
     "Yanagi": {
@@ -193,15 +193,15 @@ export const agentDatabase = {
             { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Hormone_Punk", set2: "Freedom_Blues", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Freedom Blues", note: { fr: "Envisageable avec Rina, mais moins régulier.", en: "Viable when paired with Rina, though less consistent." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }, { name: "Basic", level: "5", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "5", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "Attaque %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "PEN / ATQ Flat", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alt Standard", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }
+            { tag: "Baseline 100%", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt Standard", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Désordre", en: "Disorder" }, members: [ { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Mono-Élec", en: "Mono-Electric" }, members: [ { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Trigger.png", color: "#e8a838", initial: "T" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Désordre", en: "Disorder" }, members: [ { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Mono-Élec", en: "Mono-Electric" }, members: [ { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Trigger.webp", color: "#e8a838", initial: "T" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Nangong Yu": {
@@ -232,11 +232,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -252,15 +252,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.png" }, 
-            { tag: "Alternative Stun S (99.33%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
-            { tag: "Alternative Anomalie S (95.86%)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
-            { tag: "Option F2P A (95.16%)", name: "The Simmering Pot", img: "W-Engine_The_Simmering_Pot.png" }
+            { tag: "Signature (100 %)", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.webp" }, 
+            { tag: "Alternative Stun S (99.33%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "Alternative Anomalie S (95.86%)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.webp" }, 
+            { tag: "Option F2P A (95.16%)", name: "The Simmering Pot", img: "W-Engine_The_Simmering_Pot.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Désordre Méta 👑", en: "Disorder Meta 👑" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Burnice.png", color: "#f05432", initial: "B" } ] },
-            { name: "TEAM 02", tag: { fr: "Anges de l'illusion", en: "Angels of Delusion" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
+            { name: "TEAM 01", tag: { fr: "Désordre Méta 👑", en: "Disorder Meta 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Burnice.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 02", tag: { fr: "Anges de l'illusion", en: "Angels of Delusion" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
         ]
     },
     "Burnice": {
@@ -272,16 +272,16 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (90%)", en: "Set 3 (90%)" }, set1: "Freedom_Blues", set2: "Swing_Jazz", set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", note: { fr: "Plus intéressant que Chaos Jazz dans la Team Remielle + Velina.", en: "More valuable than Chaos Jazz in the Remielle + Velina team." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "11", icon: "Assist.png" }, { name: "Basic", level: "11", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Récupération d'énergie" }, { slot: "5", label: "Pen Ratio" }, { slot: "4", label: "Adresse d'anomalie" } ], sub: [ { label: "Adresse d'anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "PEN / ATQ Flat", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Flamemaker Shaker", img: "W-Engine_Flamemaker_Shaker.png" }, { tag: "Alt 5★ (98.21%)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }
+            { tag: "Baseline 100%", name: "Flamemaker Shaker", img: "W-Engine_Flamemaker_Shaker.webp" }, { tag: "Alt 5★ (98.21%)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Burnice Hyper", members: [ { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Remielle.png", color: "#fba2d0", initial: "R" }, { img: "Velina.png", color: "#3bbedb", initial: "V" } ] },
-            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] },
-            { name: "TEAM 03", tag: { fr: "Fils de Calydon", en: "Sons of Calydon" }, members: [ { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Piper.png", color: "#e8a838", initial: "P" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }
+            { name: "TEAM 01", tag: "Burnice Hyper", members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] },
+            { name: "TEAM 03", tag: { fr: "Fils de Calydon", en: "Sons of Calydon" }, members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Piper.webp", color: "#e8a838", initial: "P" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }
         ]
     },
     "Yidhari": {
@@ -293,7 +293,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "Yunkui_Tales", set2: "Branch_Blade_Song", set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", note: "" }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+             { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -307,12 +307,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Moteur S", name: "Kraken's Cradle", img: "W-Engine_Krakens_Cradle.png" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
+            { tag: "Moteur S", name: "Kraken's Cradle", img: "W-Engine_Krakens_Cradle.webp" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yidhari.png", color: "#3bbedb", initial: "Y" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Yidhari.png", color: "#3bbedb", initial: "Y" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] },
-            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Yidhari.png", color: "#3bbedb", initial: "Y" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" } ] }
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] }
         ]
     },
     "Ellen": {
@@ -324,7 +324,7 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (92.52%)", en: "Set 3 (92.52%)" }, set1: "Polar_Metal", set2: "Puffer_Electro", set1Name: "4pc Polar Metal", set2Name: "+ 2pc Puffer Electro", note: "" }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "11", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -339,12 +339,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.png" }, { tag: "Alt 5★ (99.16%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }, { tag: "Alt Battle Pass", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }
+            { tag: "Baseline 100%", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.webp" }, { tag: "Alt 5★ (99.16%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, { tag: "Alt Battle Pass", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] },
-            { name: "TEAM 03", tag: "Victoria", members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] },
+            { name: "TEAM 03", tag: "Victoria", members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Vivian": {
@@ -356,16 +356,16 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (99.53%)", en: "Set 3 (99.53%)" }, set1: "Phaethon_Melody", set2: "Puffer_Electro", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Puffer Electro", note: "" }
         ],
         skills: [
-            { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Basic", level: "11", icon: "Attaque_basic.png" }, { name: "Ex", level: "11", icon: "Ex.png" }
+            { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "DGT Éther %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Flat PEN", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.png" }, { tag: "Alt 4★ (93.06%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alt (91.12%)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
+            { tag: "Baseline 100%", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.webp" }, { tag: "Alt 4★ (93.06%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt (91.12%)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Remielle.png", color: "#fba2d0", initial: "R" }, { img: "Promeia.png", color: "#3bbedb", initial: "P" } ] },
-            { name: "TEAM 02", tag: { fr: "Jane Combo", en: "Jane Combo" }, members: [ { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "3ème<br>Agent" } ] }
+            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" } ] },
+            { name: "TEAM 02", tag: { fr: "Jane Combo", en: "Jane Combo" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "3ème<br>Agent" } ] }
         ]
     },
     "Yuzuha": {
@@ -376,16 +376,16 @@ export const agentDatabase = {
             { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Astral_Voice", set2: "Phaethon_Melody", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "À équiper uniquement si elle est jouée avec Sunna.", en: "Equip only if played alongside Sunna." } }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "10", icon: "Ex.png" }, { name: "Ult", level: "10", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "Attaque %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Attaque %", highlight: true }, { label: "Adresse d'Anomalie", highlight: false }, { label: "Flat ATK", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Metanukimorphosis", img: "W-Engine_Metanukimorphosis.png" }, { tag: "Alt 5★ (102.07%)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.png" }, { tag: "Alt 4★ (93.28%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }
+            { tag: "Baseline 100%", name: "Metanukimorphosis", img: "W-Engine_Metanukimorphosis.webp" }, { tag: "Alt 5★ (102.07%)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.webp" }, { tag: "Alt 4★ (93.28%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Velina.png", color: "#3bbedb", initial: "V" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" } ] }
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" } ] }
         ]
     },
     "Seed": {
@@ -397,16 +397,16 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (98.03%)", en: "Set 3 (98.03%)" }, set1: "Dawn_Bloom", set2: "Branch_Blade_Song", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Son meilleur choix si tu la joues sans Dialyn.", en: "Her best option if played without Dialyn." } }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Assist", level: "11", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux Crit" } ], sub: [ { label: "Taux Crit", highlight: true }, { label: "Dégât Crit", highlight: false }, { label: "Attaque %", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }, { tag: "Alt 5★ (91.15%)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.png" }, { tag: "Alt 4★ (90.52%)", name: "Marcato Desire", img: "Marcato_Desire.png" }
+            { tag: "Baseline 100%", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, { tag: "Alt 5★ (91.15%)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, { tag: "Alt 4★ (90.52%)", name: "Marcato Desire", img: "Marcato_Desire.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "Cissia.png", color: "#3182eb", initial: "C" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agents<br>Attaques" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agents<br>Attaques" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] }
         ]
     },
     "Remielle": {
@@ -418,7 +418,7 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (99.20%)", en: "Set 3 (99.20%)" }, set1: "Feathered_Fate", set2: "Astral_Voice", set1Name: "4pc Fated Feathers", set2Name: "+ 2pc Astral Voice", note: { fr: "Okay si cela t'aide à atteindre les 4000 d'attaque.", en: "Decent if it helps you reach the 4000 ATK threshold." } }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -433,12 +433,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "Ode of Resurrected Wings", img: "W-Engine_Ode_of_Resurrected_Wings.png" }, { tag: "Alt F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alt Anomalie", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }
+            { tag: "Baseline 100%", name: "Ode of Resurrected Wings", img: "W-Engine_Ode_of_Resurrected_Wings.webp" }, { tag: "Alt F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt Anomalie", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Remielle.png", color: "#fba2d0", initial: "R" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] },
-            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Remielle.png", color: "#fba2d0", initial: "R" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Velina.png", color: "#3bbedb", initial: "V" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Remielle.png", color: "#fba2d0", initial: "R" }, { img: "Promeia.png", color: "#3bbedb", initial: "P" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" } ] }
+            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] },
+            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" } ] }
         ]
     },
     "Velina": {
@@ -450,7 +450,7 @@ export const agentDatabase = {
             { tag: { fr: "Set 3 (97.39%)", en: "Set 3 (97.39%)" }, set1: "Wuthering_Salon", set2: "Chaos_Jazz", set1Name: "4pc Turmoil's Salon", set2Name: "+ 2pc Chaos Jazz", note: "" }
         ],
         skills: [
-            { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -465,12 +465,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "Joyau Dore", img: "W-Engine_Joyau_Dore.png" }, { tag: "Alt 5★ (90.88%)", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Alt 4★ (87.16%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }
+            { tag: "Baseline 100%", name: "Joyau Dore", img: "W-Engine_Joyau_Dore.webp" }, { tag: "Alt 5★ (90.88%)", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.webp" }, { tag: "Alt 4★ (87.16%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Velina.png", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Promeia.png", color: "#3bbedb", initial: "P" } ] },
-            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Velina.png", color: "#3bbedb", initial: "V" }, { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Velina.png", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] }
+            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" } ] },
+            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] }
         ]
     },
     "Cissia": {
@@ -482,7 +482,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "Dawn_Bloom", set2: "Swing_Jazz", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Swing Jazz", note: "" }
         ],
         skills: [
-            { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+            { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -497,12 +497,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Moteur S", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.png" }, { tag: "Moteur S", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, { tag: "Moteur A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.png" }
+            { tag: "Moteur S", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.webp" }, { tag: "Moteur S", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.webp" }, { tag: "Moteur A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Cissia.png", color: "#3182eb", initial: "C" }, { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "Trigger.png", color: "#e8a838", initial: "T" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Cissia.png", color: "#3182eb", initial: "C" }, { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Cissia.png", color: "#3182eb", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Support" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Trigger.webp", color: "#e8a838", initial: "T" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Support" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
         ]
     },
     "Banyue": {
@@ -533,11 +533,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -553,15 +553,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100%)", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, 
-            { tag: "Alternative S (86.22%)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, 
-            { tag: "Meilleur A-Rank (83.63%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.png" }, 
-            { tag: "Alternative A (82.62%)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }
+            { tag: "Signature (100%)", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.webp" }, 
+            { tag: "Alternative S (86.22%)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "Meilleur A-Rank (83.63%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Alternative A (82.62%)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Banyue.png", color: "#f05432", initial: "B" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] }
         ]
     },
     "Nicole": {
@@ -573,7 +573,7 @@ export const agentDatabase = {
             { tag: { fr: "Support Build II", en: "Support Build II" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: "" }
         ],
         skills: [
-            { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
+            { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -588,12 +588,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "The Vault", img: "W-Engine_The_Vault.png" }, { tag: "Option Anomalie", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Option Soutien", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
+            { tag: "Baseline 100%", name: "The Vault", img: "W-Engine_The_Vault.webp" }, { tag: "Option Anomalie", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Option Soutien", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, { tag: "Alternative", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Miyabi", members: [ { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Astra.png", color: "#f23c8a", initial: "A" }, { img: "Miyabi.png", color: "#3bbedb", initial: "M" } ] },
-            { name: "TEAM 02", tag: "Zhu Yuan", members: [ { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Zhu Yuan.png", color: "#f23c8a", initial: "Z" } ] },
-            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Billy.png", color: "#e8a838", initial: "B" } ] }
+            { name: "TEAM 01", tag: "Miyabi", members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" }, { img: "Miyabi.webp", color: "#3bbedb", initial: "M" } ] },
+            { name: "TEAM 02", tag: "Zhu Yuan", members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Billy.webp", color: "#e8a838", initial: "B" } ] }
         ]
     },
     "Lycaon": {
@@ -605,7 +605,7 @@ export const agentDatabase = {
             { tag: "Crit Build", set1: "King_of_the_Summit", set2: "Woodpecker_Electro", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Woodpecker Electro", note: "" }
         ],
         skills: [
-            { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+            { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -621,12 +621,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Moteur A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Moteur A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }, { tag: "Moteur B", name: "Vortex - Arrow", img: "Vortex_Arrow.png" }
+            { tag: "Baseline 100%", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Moteur A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }, { tag: "Moteur A", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }, { tag: "Moteur B", name: "Vortex - Arrow", img: "Vortex_Arrow.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" } ] },
-            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" }, { img: "Ellen.png", color: "#3bbedb", initial: "E" } ] },
-            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" }, { img: "Corin.png", color: "#e8a838", initial: "C" } ] }
+            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" } ] },
+            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" }, { img: "Ellen.webp", color: "#3bbedb", initial: "E" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" }, { img: "Corin.webp", color: "#e8a838", initial: "C" } ] }
         ]
     },
     "Koleda": {
@@ -638,7 +638,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "King_of_the_Summit", set2: "Shockstar_Disco", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", note: { fr: "Renforce les dégâts critiques d'équipe via les attaques EX et l'enchaînement.", en: "Boosts team CRIT DMG through EX Special attacks and Chain attacks." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "12", icon: "Ultime.png" }, { name: "Assist", level: "12", icon: "Assist.png" }, { name: "Dodge", level: "10", icon: "Esquive.png" }, { name: "Basic", level: "9", icon: "Attaque_basic.png" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Dodge", level: "10", icon: "Esquive.webp" }, { name: "Basic", level: "9", icon: "Attaque_basic.webp" }
         ],
         statPriority: {
             main: [
@@ -654,12 +654,12 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
+            { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Yixuan.png", color: "#e8a838", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 16, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, videoId: "FBYX_6MJVUM", startTime: 13, members: [ { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Lighter.png", color: "#f05432", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Yixuan.webp", color: "#e8a838", initial: "Y" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 16, members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, videoId: "FBYX_6MJVUM", startTime: 13, members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Lighter.webp", color: "#f05432", initial: "L" } ] }
         ]
     },
     "Trigger": {
@@ -671,7 +671,7 @@ export const agentDatabase = {
             { tag: "Set 3", set1: "Astral_Voice", set2: "Woodpecker_Electro", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Très performant si tu maîtrises la mécanique de double switch assist, ou si elle est jouée aux côtés d'Astra Yao.", en: "Highly effective if mastering double switch assist mechanics, or when paired with Astra Yao." } }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "10", icon: "Ex.png" }, { name: "Ult", level: "10", icon: "Ultime.png" }, { name: "Assist", level: "7", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }, { name: "Assist", level: "7", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -686,32 +686,32 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Baseline 100%", name: "Spectral Gaze", img: "W-Engine_Spectral_Gaze.png" }, { tag: "Alternatives 5★", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, { tag: "Alternatives 4★ F2P", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Baseline 100%", name: "Spectral Gaze", img: "W-Engine_Spectral_Gaze.webp" }, { tag: "Alternatives 5★", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, { tag: "Alternatives 4★ F2P", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Premium", members: [ { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Seed.png", color: "#3182eb", initial: "S" }, { img: "Nekomata.png", color: "#e8a838", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "N'importe quel<br>Support" } ] }
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Nekomata.webp", color: "#e8a838", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "N'importe quel<br>Support" } ] }
         ]
     },
     "Miyabi": {
-        color: "#3bbedb", element: "Frost", elementIcon: "Frost.png", rank: "S", factionTitle: { fr: "Section 6", en: "Section 6" },
+        color: "#3bbedb", element: "Frost", elementIcon: "Frost.webp", rank: "S", factionTitle: { fr: "Section 6", en: "Section 6" },
         stats: [ { label: "Taux CRIT", value: "75-95%" }, { label: "Dégat CRIT", value: "150-190%" }, { label: "Attaque", value: "2500 - 3600+" } ],
         discs: [
             { tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, set1: "Branch_Blade_Song", set2: "Woodpecker_Electro", set1Name: "4pc Branch and Blade Song", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Branch & Blade Song est le meilleur disque pour Miyabi car il lui donne du DGT CRIT et augmente ses propres DGT quand un membre de l'équipe applique Gel. Woodpecker Electro est son choix de prédilection en 2 pièces puisqu'elle a besoin de Taux CRIT.", en: "Branch & Blade Song is the best disc set for Miyabi as it grants CRIT DMG and increases her own DMG when an ally inflicts Freeze. Woodpecker Electro is her ideal 2pc choice to secure essential CRIT Rate." } },
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Branch_Blade_Song", set2: "Polar_Metal", set1Name: "4pc Branch and Blade Song", set2Name: "+ 2pc Polar Metal", note: { fr: "Si vous avez déjà beaucoup de Taux CRIT sur Miyabi, vous pouvez envisager Polar Metal comme alternative pour obtenir plus de DGT Glace.", en: "If you already have high CRIT Rate on Miyabi, consider Polar Metal as an alternative for extra Ice DMG." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Assist", level: "8", icon: "Assist.png" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Hailstorm Shrine", img: "W-Engine_Hailstorm_Shrine.png" }, { tag: "Alternative 5★", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, { tag: "Alternative BP", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }, { tag: "Alternative", name: "Roaring Ride", img: "W-Engine_Roaring_Ride.png" }, { tag: "F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }
+            { tag: "Meilleur Moteur", name: "Hailstorm Shrine", img: "W-Engine_Hailstorm_Shrine.webp" }, { tag: "Alternative 5★", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alternative BP", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, { tag: "Alternative", name: "Roaring Ride", img: "W-Engine_Roaring_Ride.webp" }, { tag: "F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Désordre Éther", en: "Ether Disorder" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Duo Anomalie", en: "Dual Anomaly" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] }
+            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Éther", en: "Ether Disorder" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Anomalie", en: "Dual Anomaly" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
         ]
     },
     "Anby": {
@@ -722,16 +722,16 @@ export const agentDatabase = {
             { tag: "Impact Build II", set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "King of the Summit offre un buff de DGT CRIT à toute l'équipe lorsqu'Anby utilise un EX Spécial ou un Enchaînement.", en: "King of the Summit grants a team-wide CRIT DMG buff whenever Anby lands an EX Special or Chain Attack." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.png" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Ult", level: "10", icon: "Ultime.png" }
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Impact %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT / DGT CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "ATQ Flat", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, { tag: "Alternative A", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Meilleur Moteur", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, { tag: "Alternative A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Mono-Électrique", en: "Mono-Electric" }, members: [ { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Astra.png", color: "#f23c8a", initial: "A" }, { img: "Harumasa.png", color: "#3182eb", initial: "H" } ] },
-            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Billy.png", color: "#e8a838", initial: "B" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "", color: "#52525b", role: "Support" }, { img: "", color: "#52525b", role: "DPS" } ] }
+            { name: "TEAM 01", tag: { fr: "Mono-Électrique", en: "Mono-Electric" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" }, { img: "Harumasa.webp", color: "#3182eb", initial: "H" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Billy.webp", color: "#e8a838", initial: "B" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "", color: "#52525b", role: "Support" }, { img: "", color: "#52525b", role: "DPS" } ] }
         ]
     },
     "Corin": {
@@ -742,16 +742,16 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellente alternative puisque Corin inflige énormément de dégâts avec son Ultime. Cela augmente aussi son ATK après l'Ultime.", en: "Excellent alternative as Corin dishes out huge burst damage with her Ultimate. Also buffs her ATK following her Ultimate." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Core", level: "10", icon: "Core.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" },  { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Physique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Housekeeper", img: "W-Engine_Housekeeper.png" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }, { tag: "Alternative F2P", name: "Lunar - Noviluna", img: "Lunar_Noviluna.webp" }
+            { tag: "Meilleur Moteur", name: "Housekeeper", img: "W-Engine_Housekeeper.webp" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }, { tag: "Alternative F2P", name: "Lunar - Noviluna", img: "Lunar_Noviluna.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Caesar.png", color: "#e8a838", initial: "C" } ] },
-            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Billy.png", color: "#e8a838", initial: "B" }, { img: "Anby.png", color: "#3182eb", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
+            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
         ]
     },
     "Soldier 0 Anby": {
@@ -762,16 +762,16 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Shadow_Harmony", set2: "Thunder_Metal", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Thunder Metal", note: { fr: "Un 2-pc Thunder Metal peut être envisagé si Soldier 0 Anby possède déjà énormément de Taux CRIT.", en: "A 2pc Thunder Metal can be considered if Soldier 0 Anby already has abundant CRIT Rate." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "ATQ %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false }, { label: "ATQ", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.png" }, { tag: "Alternative 5★", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.png" }, { tag: "Alternative 4★", name: "Marcato Desire", img: "Marcato_Desire.png" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.png" }, { tag: "Alternative A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.png" }, { tag: "F2P", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Meilleur Moteur", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, { tag: "Alternative 5★", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, { tag: "Alternative 4★", name: "Marcato Desire", img: "Marcato_Desire.webp" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }, { tag: "Alternative A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }, { tag: "F2P", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Hypercarry", members: [ { img: "Soldier 0 Anby.png", color: "#3182eb", initial: "S0A" }, { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Orphie and Magus.png", color: "#f05432", initial: "OM" } ] },
-            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Soldier 0 Anby.png", color: "#3182eb", initial: "S0A" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Soldier 0 Anby.png", color: "#3182eb", initial: "S0A" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "", color: "#52525b", role: "Support" } ] }
+            { name: "TEAM 01", tag: "Hypercarry", members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "OM" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "", color: "#52525b", role: "Support" } ] }
         ]
     },
     "Zhu Yuan": {
@@ -806,11 +806,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Dodge", level: "8", icon: "Esquive.png" }, 
-            { name: "Assist", level: "6", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -825,15 +825,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Meilleur Moteur (100.90%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }, 
-            { tag: "Alternative 5★ (100%)", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" }, 
-            { tag: "Signature (96.05%)", name: "Riot Suppressor Mark VI", img: "W-Engine_Riot_Suppressor_Mark_VI.png" }, 
-            { tag: "Option F2P (87.30%)", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Meilleur Moteur (100.90%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, 
+            { tag: "Alternative 5★ (100%)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, 
+            { tag: "Signature (96.05%)", name: "Riot Suppressor Mark VI", img: "W-Engine_Riot_Suppressor_Mark_VI.webp" }, 
+            { tag: "Option F2P (87.30%)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Zhu Yuan.png", color: "#f23c8a", initial: "ZY" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Zhu Yuan.png", color: "#f23c8a", initial: "ZY" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Free To Play", en: "Free To Play" }, members: [ { img: "Zhu Yuan.png", color: "#f23c8a", initial: "ZY" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Free To Play", en: "Free To Play" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
         ]
     },
     "Lucy": {
@@ -845,7 +845,7 @@ export const agentDatabase = {
             { tag: "Support AP", set1: "Swing_Jazz", set2: "Freedom_Blues", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Freedom Blues", note: "" }
         ],
         skills: [
-            { name: "Ex", level: "", icon: "Ex.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Ult", level: "", icon: "Ultime.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
         ],
         statPriority: {
             main: [
@@ -861,12 +861,12 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
+            { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.webp" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
         ],
         teams: [
-             { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37]
-             { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
-             { name: "TEAM 03", tag: { fr: "Équipe Populaire", en: "Popular Team" }, videoId: "wov1Rrs2lkI", members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Lucy.png", color: "#f05432", initial: "L" }, { img: "Piper.png", color: "#e8a838", initial: "P" } ] } //[cite: 35]
+             { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }, //[cite: 37]
+             { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
+             { name: "TEAM 03", tag: { fr: "Équipe Populaire", en: "Popular Team" }, videoId: "wov1Rrs2lkI", members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Piper.webp", color: "#e8a838", initial: "P" } ] } //[cite: 35]
         ]
     },
     "Ben": {
@@ -877,7 +877,7 @@ export const agentDatabase = {
             { tag: { fr: "Alternative (DPS)", en: "Alternative (DPS)" }, set1: "Thorned_Rose", set2: "Swing_Jazz", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Swing Jazz", note: { fr: "Si vous jouez Ben en tant que DPS, équipez 4 pièces Thorned Rose pour augmenter ses DGT. Cependant, le buff de Taux CRIT sera moins utile si vous utilisez son Moteur Signature (car il garantit des coups critiques sur ses parades). Complétez avec Swing Jazz pour garder une bonne Réc. d'Énergie.", en: "If running Ben as a DPS, equip 4pc Thorned Rose to boost his DMG. However, the CRIT Rate buff is less impactful with his Signature W-Engine (guaranteed crits on parry). Pair with Swing Jazz for smooth Energy Regen." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "", icon: "Ex.png" }, { name: "Chain", level: "", icon: "Ultime.png" }, { name: "Assist", level: "", icon: "Assist.png" }, { name: "Basic", level: "", icon: "Attaque_basic.png" }
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Chain", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
         ],
        statPriority: { 
             main: [ 
@@ -892,12 +892,12 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Meilleur Moteur", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" }, { tag: "Alternative 4★", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }, { tag: "Alternative 4★", name: "Big Cylinder", img: "W-Engine_Big_Cylinder.png" }, { tag: "Alternative B", name: "Identity Base", img: "Identity_Base.png" }
+            { tag: "Meilleur Moteur", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, { tag: "Alternative 4★", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }, { tag: "Alternative 4★", name: "Big Cylinder", img: "W-Engine_Big_Cylinder.webp" }, { tag: "Alternative B", name: "Identity Base", img: "Identity_Base.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Fire-Stun", members: [ { img: "Ben.png", color: "#f05432", initial: "B" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Soldier 11.png", color: "#f05432", initial: "S11" } ] },
-            { name: "TEAM 02", tag: { fr: "Attaque", en: "Attack" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Lucy.png", color: "#f05432", initial: "L" }, { img: "Ben.png", color: "#f05432", initial: "B" } ] },
-            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Lucy.png", color: "#f05432", initial: "L" }, { img: "Ben.png", color: "#f05432", initial: "B" } ] }
+            { name: "TEAM 01", tag: "Fire-Stun", members: [ { img: "Ben.webp", color: "#f05432", initial: "B" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Soldier 11.webp", color: "#f05432", initial: "S11" } ] },
+            { name: "TEAM 02", tag: { fr: "Attaque", en: "Attack" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Ben.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Ben.webp", color: "#f05432", initial: "B" } ] }
         ]
     },
     "Rina": {
@@ -908,11 +908,11 @@ export const agentDatabase = {
             { tag: { fr: "Efficacité » 90 %", en: "Efficiency » 90%" }, set1: "Swing_Jazz", set2: "Puffer_Electro", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Puffer Electro", note: { fr: "Si Rina est utilisée dans une équipe classique en dehors de l'Anomalie, Swing Jazz est votre set de prédilection. Cela augmente la Réc. d'Énergie de Rina et augmente les dégâts de l'équipe.", en: "If Rina is used in a standard team outside of Anomaly, Swing Jazz is the go-to set. Boosts Rina's Energy Regen and increases squad damage." } }
         ],
         skills: [
-            { name: "Core", level: "", icon: "Core.webp" }, { name: "Ex", level: "11", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "11", icon: "Assist.png" }, { name: "Basic", level: "11", icon: "Attaque_basic.png" }
+             { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Récup. d'énergie" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux Crit / Attaque > Adre. d'anomalie" } ], sub: [ { label: "Taux Crit = Dégat Crit", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Adresse d'anomalie", highlight: false } ] },
         engines: [
-            { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.png" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.png" }
+            { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.webp" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.webp" }
         ],
         teams: [
     { 
@@ -955,11 +955,11 @@ export const agentDatabase = {
             { tag: { fr: "Alternative", en: "Alternative" }, set1: "Thunder_Metal", set2: "Swing_Jazz", set1Name: "4pc Thunder Metal", set2Name: "+ 2pc Swing Jazz", note: { fr: "Thunder Metal augmente l'ATQ de Grace tant que l'ennemi est Choqué, ce qui sera toujours le cas puisque Grace fournit l'état Choc.", en: "Thunder Metal boosts Grace's ATK while enemies are Shocked, which boasts permanent uptime with Grace." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Assist", level: "10", icon: "Assist.png" }, { name: "Basic", level: "8", icon: "Attaque_basic.png" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "DGT Électrique / PEN Ratio" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, { tag: "Alternative 5★", name: "Timeweaver", img: "W-Engine_Timeweaver.png" }, { tag: "Alternative 4★", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }, { tag: "Alternative F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }, { tag: "Alternative B", name: "Magnetic Storm - Alpha", img: "Magnetic_Storm_Alpha.png" }
+            { tag: "Meilleur Moteur", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alternative 5★", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }, { tag: "Alternative 4★", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, { tag: "Alternative F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alternative B", name: "Magnetic Storm - Alpha", img: "Magnetic_Storm_Alpha.webp" }
         ],
         teams: [
     { 
@@ -1032,12 +1032,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
-            { name: "Ex", level: "12", icon: "Ex.png" },
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Assist", level: "12", icon: "Assist.png" },
-            { name: "Basic", level: "1", icon: "Attaque_basic.png" },
-            { name: "Dodge", level: "1", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Assist", level: "12", icon: "Assist.webp" },
+            { name: "Basic", level: "1", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "1", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1053,15 +1052,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature 5★", name: "Crimson Moon Casket", img: "W-Engine_Crimson_Moon_Casket.png" },
-            { tag: "Alternative 4★ F2P", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" },
-            { tag: "Alternative 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" },
-            { tag: "Alternative 4★", name: "Six Shooter", img: "W-Engine_Six_Shooter.png" }
+            { tag: "Signature 5★", name: "Crimson Moon Casket", img: "W-Engine_Crimson_Moon_Casket.webp" },
+            { tag: "Alternative 4★ F2P", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" },
+            { tag: "Alternative 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" },
+            { tag: "Alternative 4★", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Team Armurier", en: "Armorer Team" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Claret.png", color: "#3182eb", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Glace Burst", en: "Ice Burst" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Roxy.png", color: "#3bbedb", initial: "R" }, { img: "Orphie and Magus.png", color: "#f05432", initial: "OM" }, { img: "Norma.png", color: "#f05432", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Team Armurier", en: "Armorer Team" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Glace Burst", en: "Ice Burst" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "OM" }, { img: "Norma.webp", color: "#f05432", initial: "N" } ] }
         ]
     },
     "Sigrid": {
@@ -1077,11 +1076,10 @@ export const agentDatabase = {
             { tag: { fr: "Alternative (96,16 %)", en: "Alternative (96.16%)" }, set1: "Dawn_Bloom", set2: "Puffer_Electro", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Puffer Electro", note: { fr: "Troisième alternative viable mais moins performante pour renforcer les attaques normales et l'EX Spécial.", en: "Viable 3rd alternative to empower Basic Attacks and EX Special, though lagging slightly behind." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" },
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Ex", level: "11", icon: "Ex.png" },
-            { name: "Assist", level: "10", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Assist", level: "10", icon: "Assist.webp" }
         ],
         statPriority: {
             main: [
@@ -1098,14 +1096,14 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature 100 %", name: "Knight's Extolment", img: "W-Engine_Knights_Extolments.png" },
-            { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" },
-            { tag: "Alternative F2P", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Signature 100 %", name: "Knight's Extolment", img: "W-Engine_Knights_Extolments.webp" },
+            { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Alternative F2P", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Ultime", en: "Dual Ultimate" }, members: [ { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Sigrid.png", color: "#3bbedb", initial: "S" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "NY" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Ultime", en: "Dual Ultimate" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ],
         mindscapes: [
             { rank: "M1", desc: { fr: "+25 % ATK en combat, progression accélérée des niveaux d'EBA et coup bonus de 100 % de DGT.", en: "+25% in-combat ATK, faster EBA stage progression, and a bonus strike dealing 100% DMG." } },
@@ -1131,11 +1129,11 @@ export const agentDatabase = {
             { tag: { fr: "Alternative (98,75 %)", en: "Alternative (98.75%)" }, set1: "Dawn_Bloom", set2: "Woodpecker_Electro", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Augmente constamment les dégâts de son attaque normale 5 renforcée.", en: "Provides permanent DMG boost to her enhanced Basic 5." } }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" },
-            { name: "Ult", level: "11", icon: "Ultime.png" },
-            { name: "Ex", level: "10", icon: "Ex.png" },
-            { name: "Dodge", level: "8", icon: "Esquive.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Ex", level: "10", icon: "Ex.webp" },
+            { name: "Dodge", level: "8", icon: "Esquive.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: {
             main: [
@@ -1152,16 +1150,16 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature Evelyn (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" },
-            { tag: "Alternative S (95,11 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" },
-            { tag: "Stat Stick S (91,51 %)", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.png" },
-            { tag: "Signature Personnelle", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" },
-            { tag: "F2P (S5) (78,74 %)", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Signature Evelyn (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (95,11 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" },
+            { tag: "Stat Stick S (91,51 %)", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.webp" },
+            { tag: "Signature Personnelle", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "F2P (S5) (78,74 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Deadly Assault Top 👑", en: "Deadly Assault Top 👑" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: "fire missile", members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Deadly Assault Top 👑", en: "Deadly Assault Top 👑" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: "fire missile", members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Soukaku": {
@@ -1177,11 +1175,11 @@ export const agentDatabase = {
             { tag: "Quick Assist", set1: "Astral_Voice", set2: "Phaethon_Melody", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "Confère jusqu'à 24 % de DGT aux équipiers entrant sur le terrain par assistance rapide.", en: "Buffs DMG of allies entering via Quick Assist by up to 24%." } }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" },
-            { name: "Ult", level: "11", icon: "Ultime.png" },
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" },
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1197,15 +1195,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (S5) 👑", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" },
-            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" },
-            { tag: "Alternative Support (S5)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" },
-            { tag: "Option F2P", name: "Slice of Time", img: "W-Engine_Slice_of_Time.png" }
+            { tag: "Signature (S5) 👑", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" },
+            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" },
+            { tag: "Alternative Support (S5)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" },
+            { tag: "Option F2P", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Miyabi Carry 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 02", tag: "Mono Glace Stun", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, videoId: "x2bny1irV7c", startTime: 42, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Lycaon.png", color: "#3bbedb", initial: "L" }, { img: "Soukaku.png", color: "#3bbedb", initial: "S" } ] }
+            { name: "TEAM 01", tag: "Miyabi Carry 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 02", tag: "Mono Glace Stun", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, videoId: "x2bny1irV7c", startTime: 42, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] }
         ]
     },
     "Nekomata": {
@@ -1221,12 +1219,11 @@ export const agentDatabase = {
             { tag: { fr: "Alternative ATK % (99,33 %)", en: "ATK% Alternative (99.33%)" }, set1: "Woodpecker_Electro", set2: "Astral_Voice", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Astral Voice", note: { fr: "Option solide pour augmenter l'attaque brute (Hormone Punk et Fanged Metal restent également viables).", en: "Solid raw ATK alternative (Hormone Punk and Fanged Metal remain viable)." } }
         ],
         skills: [
-            { name: "Core", level: "F", icon: "Core.webp" },
-            { name: "Dodge", level: "12", icon: "Esquive.png" },
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Ex", level: "11", icon: "Ex.png" },
-            { name: "Basic", level: "7", icon: "Attaque_basic.png" },
-            { name: "Assist", level: "1", icon: "Assist.png" }
+            { name: "Dodge", level: "12", icon: "Esquive.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Basic", level: "7", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "1", icon: "Assist.webp" }
         ],
         statPriority: {
             main: [
@@ -1242,16 +1239,16 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" },
-            { tag: "Stat Stick S (99,67 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" },
-            { tag: "Alternative S (96,57 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" },
-            { tag: "Alternative S (95,23 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" },
-            { tag: "Option F2P (86,93 %)", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Signature (100 %)", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" },
+            { tag: "Stat Stick S (99,67 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (96,57 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" },
+            { tag: "Alternative S (95,23 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Option F2P (86,93 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Best-in-Slot 👑", en: "Best-in-Slot 👑" }, members: [ { img: "Nekomata.png", color: "#e8a838", initial: "N" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Pénétration", en: "Penetration" }, members: [ { img: "Nekomata.png", color: "#e8a838", initial: "N" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 03", tag: { fr: "Classique F2P", en: "Classic F2P" }, members: [ { img: "Nekomata.png", color: "#e8a838", initial: "N" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Best-in-Slot 👑", en: "Best-in-Slot 👑" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Pénétration", en: "Penetration" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Classique F2P", en: "Classic F2P" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
         ],
         mindscapes: [
             { rank: "M1", desc: { fr: "La réduction de résistance physique ennemie est active en permanence grâce à la conversion totale en attaques arrière.", en: "Enemy Physical RES shred is permanently active thanks to 100% back-attack conversion." } },
@@ -1277,11 +1274,11 @@ export const agentDatabase = {
             { tag: { fr: "Polyvalent (85,59 %)", en: "All-Rounder (85.59%)" }, set1: "Woodpecker_Electro", set2: "Puffer_Electro", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", note: { fr: "Option constante renforçant le taux critique et l'attaque via l'alternance d'attaques normales et de compétences.", en: "Solid all-rounder boosting CRIT Rate and ATK through steady skill rotations." } }
         ],
         skills: [
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" },
-            { name: "Ex", level: "10", icon: "Ex.png" },
-            { name: "Assist", level: "8", icon: "Assist.png" },
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" },
+            { name: "Ex", level: "10", icon: "Ex.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1297,17 +1294,17 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Top Tier S (105,84 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" },
-            { tag: "Alternative S (102,61 %)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.png" },
-            { tag: "Alternative S (100 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" },
-            { tag: "F2P Burst S5 (93,26 %)", name: "Street Superstar", img: "W-Engine_Street_Superstar.png" },
-            { tag: "F2P Standard S5 (92,96 %)", name: "Starlight Engine", img: "Starlight_Engine.png" },
-            { tag: "Signature A (86,56 %)", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.png" }
+            { tag: "Top Tier S (105,84 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (102,61 %)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" },
+            { tag: "Alternative S (100 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "F2P Burst S5 (93,26 %)", name: "Street Superstar", img: "W-Engine_Street_Superstar.webp" },
+            { tag: "F2P Standard S5 (92,96 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" },
+            { tag: "Signature A (86,56 %)", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Shock Team (Premium) 👑", en: "Shock Team (Premium) 👑" }, members: [ { img: "Anton.png", color: "#3182eb", initial: "A" }, { img: "Grace.png", color: "#3182eb", initial: "G" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Anton.png", color: "#3182eb", initial: "A" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Grace.png", color: "#3182eb", initial: "G" } ] },
-            { name: "TEAM 03", tag: { fr: "F2P Friendly", en: "F2P Friendly" }, members: [ { img: "Anton.png", color: "#3182eb", initial: "A" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Shock Team (Premium) 👑", en: "Shock Team (Premium) 👑" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Grace.webp", color: "#3182eb", initial: "G" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Grace.webp", color: "#3182eb", initial: "G" } ] },
+            { name: "TEAM 03", tag: { fr: "F2P Friendly", en: "F2P Friendly" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
         ]
     },
     "Billy": {
@@ -1323,11 +1320,11 @@ export const agentDatabase = {
             { tag: { fr: "Burst Ultime (98,52 %)", en: "Ultimate Burst (98.52%)" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellent avec des soutiens comme Dialyn permettant de déclencher un ultime à chaque fenêtre d'étourdissement.", en: "Great option alongside supports like Dialyn to drop an Ultimate every stun rotation." } }
         ],
         skills: [
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Ex", level: "11", icon: "Ex.png" },
-            { name: "Dodge", level: "10", icon: "Esquive.png" },
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" },
-            { name: "Assist", level: "6", icon: "Assist.png" }
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Dodge", level: "10", icon: "Esquive.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "6", icon: "Assist.webp" }
         ],
         statPriority: {
             main: [
@@ -1343,16 +1340,16 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Best-in-Slot S5 (116,43 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" },
-            { tag: "Stat Stick S (108,16 %)", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.png" },
-            { tag: "Alternative S (103,20 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" },
-            { tag: "Signature A (100 %)", name: "Starlight Engine Replica", img: "W-Engine_Starlight_Engine_Replica.png" },
-            { tag: "F2P Craftable (91,14 %)", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Best-in-Slot S5 (116,43 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Stat Stick S (108,16 %)", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.webp" },
+            { tag: "Alternative S (103,20 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Signature A (100 %)", name: "Starlight Engine Replica", img: "W-Engine_Starlight_Engine_Replica.webp" },
+            { tag: "F2P Craftable (91,14 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: "Billy Premium 👑", members: [ { img: "Billy.png", color: "#e8a838", initial: "B" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 02", tag: { fr: "F2P Lièvres rusés", en: "F2P Cunning Hares" }, members: [ { img: "Billy.png", color: "#e8a838", initial: "B" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Anby.png", color: "#3182eb", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Duo Faction / Stun", en: "Faction / Stun Duo" }, members: [ { img: "Billy.png", color: "#e8a838", initial: "B" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Seth.png", color: "#3182eb", initial: "S" } ] }
+            { name: "TEAM 01", tag: "Billy Premium 👑", members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "F2P Lièvres rusés", en: "F2P Cunning Hares" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Faction / Stun", en: "Faction / Stun Duo" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Seth.webp", color: "#3182eb", initial: "S" } ] }
         ]
     },
     "Seth": {
@@ -1368,11 +1365,11 @@ export const agentDatabase = {
             { tag: { fr: "Renfort de Bouclier", en: "Shield Reinforce" }, set1: "Proto_Punk", set2: "Swing_Jazz", set1Name: "4pc Proto Punk", set2Name: "+ 2pc Swing Jazz", note: { fr: "Augmente la valeur des boucliers de 15 % et confère 15 % de DGT d'équipe sur parade ou esquive défensive.", en: "Increases shield strength by 15% and grants 15% squad DMG upon defensive assists." } }
         ],
         skills: [
-            { name: "Ult", level: "12", icon: "Ultime.png" },
-            { name: "Ex", level: "11", icon: "Ex.png" },
-            { name: "Assist", level: "11", icon: "Assist.png" },
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" },
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Assist", level: "11", icon: "Assist.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1388,15 +1385,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (S5) 👑", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.png" },
-            { tag: "Alternative Soutien", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" },
-            { tag: "Option Défensive", name: "Bunny Band", img: "W-Engine_Bunny_Band.png" },
-            { tag: "Alternative Impact", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }
+            { tag: "Signature (S5) 👑", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" },
+            { tag: "Alternative Soutien", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" },
+            { tag: "Option Défensive", name: "Bunny Band", img: "W-Engine_Bunny_Band.webp" },
+            { tag: "Alternative Impact", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Anomalie Jane / Vivian 👑", en: "Jane / Vivian Anomaly 👑" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Seth.png", color: "#3182eb", initial: "S" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" } ] },
-            { name: "TEAM 02", tag: { fr: "Désordre Burnice", en: "Burnice Disorder" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Seth.png", color: "#3182eb", initial: "S" }, { img: "Burnice.png", color: "#f05432", initial: "B" } ] },
-            { name: "TEAM 03", tag: { fr: "F2P Ordre Urbain", en: "F2P Public Security" }, members: [ { img: "Billy.png", color: "#e8a838", initial: "B" }, { img: "Seth.png", color: "#3182eb", initial: "S" }, { img: "Anby.png", color: "#3182eb", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Anomalie Jane / Vivian 👑", en: "Jane / Vivian Anomaly 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Burnice", en: "Burnice Disorder" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Burnice.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 03", tag: { fr: "F2P Ordre Urbain", en: "F2P Public Security" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] }
         ]
     },
     "Qingyi": {
@@ -1427,11 +1424,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Dodge", level: "8", icon: "Esquive.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1447,15 +1444,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.png" }, 
-            { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.png" }, 
-            { tag: "F2P Craftable", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" }, 
-            { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Signature (100 %)", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.webp" }, 
+            { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, 
+            { tag: "F2P Craftable", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Zhu Yuan.png", color: "#f23c8a", initial: "Z" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Burst", en: "Burst Synergy" }, members: [ { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative Physique", en: "Physical Alternative" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Burst", en: "Burst Synergy" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Physique", en: "Physical Alternative" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Caesar": {
@@ -1486,11 +1483,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Assist", level: "12", icon: "Assist.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "8", icon: "Esquive.png" }, 
-            { name: "Chain", level: "8", icon: "Ultime.png" }
+            { name: "Assist", level: "12", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Chain", level: "8", icon: "Ultime.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1506,15 +1503,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.png" }, 
-            { tag: "Option Impact A", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }, 
-            { tag: "Option Énergie A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" }, 
-            { tag: "Option Anomalie A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.png" }
+            { tag: "Signature (100 %)", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "Option Impact A", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }, 
+            { tag: "Option Énergie A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, 
+            { tag: "Option Anomalie A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Anomalie 👑", en: "Anomaly Synergy 👑" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Caesar.png", color: "#e8a838", initial: "C" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Deadly Assault", en: "Deadly Assault" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S" }, { img: "Caesar.png", color: "#e8a838", initial: "C" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] },
-            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Corin.png", color: "#e8a838", initial: "C" }, { img: "Caesar.png", color: "#e8a838", initial: "C" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Anomalie 👑", en: "Anomaly Synergy 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Deadly Assault", en: "Deadly Assault" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Lighter": {
@@ -1539,11 +1536,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1559,15 +1556,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, 
-            { tag: "Option Stun S", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.png" }, 
-            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
-            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Signature (100 %)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Option Stun S", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.webp" }, 
+            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Burst Glace", en: "Ice Burst" }, members: [ { img: "Miyabi.png", color: "#3bbedb", initial: "M" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Team Calydon", en: "Calydon Team" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] },
-            { name: "TEAM 03", tag: { fr: "Attaque Orphie", en: "Orphie Attack" }, members: [ { img: "Orphie and Magus.png", color: "#f05432", initial: "O" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Burst Glace", en: "Ice Burst" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Team Calydon", en: "Calydon Team" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Attaque Orphie", en: "Orphie Attack" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Harumasa": {
@@ -1592,11 +1589,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Dodge", level: "12", icon: "Esquive.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "6", icon: "Assist.png" }
+            { name: "Dodge", level: "12", icon: "Esquive.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1612,15 +1609,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }, 
-            { tag: "Option S", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.png" }, 
-            { tag: "Alternative S", name: "The Brimstone", img: "W-Engine_The_Brimstone.png" }, 
-            { tag: "F2P Craftable", name: "Starlight Engine", img: "Starlight_Engine.png" }
+            { tag: "Signature (100 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, 
+            { tag: "Option S", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, 
+            { tag: "Alternative S", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, 
+            { tag: "F2P Craftable", name: "Starlight Engine", img: "Starlight_Engine.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Premium Burst 👑", en: "Premium Burst 👑" }, members: [ { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] },
-            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Duo Électrique", en: "Electric Duo" }, members: [ { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Burst 👑", en: "Premium Burst 👑" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Électrique", en: "Electric Duo" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
         ]
     },
     "Evelyn": {
@@ -1649,11 +1646,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1669,15 +1666,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" }, 
-            { tag: "Stat Stick S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.png" }, 
-            { tag: "Meilleure Option A", name: "Starlight Engine", img: "Starlight_Engine.png" }, 
-            { tag: "Alternative A", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.png" }
+            { tag: "Signature (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" }, 
+            { tag: "Stat Stick S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, 
+            { tag: "Meilleure Option A", name: "Starlight Engine", img: "Starlight_Engine.webp" }, 
+            { tag: "Alternative A", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Premium Meta 👑", en: "Premium Meta 👑" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Koleda.png", color: "#f05432", initial: "K" }, { img: "Lucy.png", color: "#f05432", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Meta 👑", en: "Premium Meta 👑" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }
         ]
     },
     "Astra": {
@@ -1706,11 +1703,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Assist", level: "11", icon: "Assist.png" }, 
-            { name: "Dodge", level: "8", icon: "Esquive.png" }, 
-            { name: "Basic", level: "6", icon: "Attaque_basic.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Basic", level: "6", icon: "Attaque_basic.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1726,15 +1723,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.png" }, 
-            { tag: "Excellente Alternative S", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.png" }, 
-            { tag: "Alternative A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, 
-            { tag: "Alternative Énergie A", name: "The Vault", img: "W-Engine_The_Vault.png" }
+            { tag: "Signature", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.webp" }, 
+            { tag: "Excellente Alternative S", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" }, 
+            { tag: "Alternative A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative Énergie A", name: "The Vault", img: "W-Engine_The_Vault.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Support Attaquant 👑", en: "Attacker Support 👑" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Spéciale", en: "Special Synergy" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Support", en: "Double Support" }, members: [ { img: "Zhu Yuan.png", color: "#f23c8a", initial: "Z" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Support Attaquant 👑", en: "Attacker Support 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Spéciale", en: "Special Synergy" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Support", en: "Double Support" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Pulchra": {
@@ -1759,11 +1756,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Assist", level: "10", icon: "Assist.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "10", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1779,15 +1776,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Option Stun S (109.57%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, 
-            { tag: "Signature (100%)", name: "Box Cutter", img: "W-Engine_Box_Cutter.png" }, 
-            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" }, 
-            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }
+            { tag: "Option Stun S (109.57%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Signature (100%)", name: "Box Cutter", img: "W-Engine_Box_Cutter.webp" }, 
+            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Rupture", en: "Rupture Synergy" }, members: [ { img: "Manato.png", color: "#f05432", initial: "M" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "Yixuan.png", color: "#5d57a6", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Physique Off-field", en: "Physical Off-field" }, members: [ { img: "Soldier 0 Anby.png", color: "#3182eb", initial: "S0" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Support Attaque", en: "Attack Support" }, members: [ { img: "Nekomata.png", color: "#e8a838", initial: "N" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture", en: "Rupture Synergy" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Physique Off-field", en: "Physical Off-field" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Support Attaque", en: "Attack Support" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
         ]
     },
     "Ju Fufu": {
@@ -1812,11 +1809,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1832,21 +1829,21 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.png" }, 
-            { tag: "Meilleure Option S (107.82%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }, 
-            { tag: "Alternative S (99.54%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
-            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Signature (100 %)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.webp" }, 
+            { tag: "Meilleure Option S (107.82%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Alternative S (99.54%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Off-field Stun", en: "Off-field Stun" }, members: [ { img: "Evelyn.png", color: "#f05432", initial: "E" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Lighter.png", color: "#f05432", initial: "L" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Trigger.png", color: "#3182eb", initial: "T" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Off-field Stun", en: "Off-field Stun" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" } ] }
         ]
     },
     "Yixuan": {
         color: "#5d57a6", 
         element: "Auric Ink", 
-        elementIcon: "Auric_Ink.png", 
+        elementIcon: "Auric_Ink.webp", 
         rank: "S", 
         factionTitle: { fr: "Cimes de Yunkui", en: "Yunkui Peaks" },
         stats: [ 
@@ -1873,11 +1870,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -1893,15 +1890,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, 
-            { tag: "Alternative A (85.77 %)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.png" }, 
-            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }, 
-            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.png" }
+            { tag: "Signature (100 %)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "Alternative A (85.77 %)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, 
+            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Rupture Premium 👑", en: "Premium Rupture 👑" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Faction", en: "Faction Synergy" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] }
+            { name: "TEAM 01", tag: { fr: "Rupture Premium 👑", en: "Premium Rupture 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Faction", en: "Faction Synergy" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] }
         ]
     },
     "Pan Yinhu": {
@@ -1930,11 +1927,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Assist", level: "11", icon: "Assist.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -1950,15 +1947,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Option S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.png" }, 
-            { tag: "Signature (A)", name: "Tremor Trigram Vessel", img: "W-Engine_Tremor_Trigram_Vessel.png" }, 
-            { tag: "Alternative A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.png" }, 
-            { tag: "Alternative A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.png" }
+            { tag: "Option S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "Signature (A)", name: "Tremor Trigram Vessel", img: "W-Engine_Tremor_Trigram_Vessel.webp" }, 
+            { tag: "Alternative A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, 
+            { tag: "Alternative A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Rupture (Alternative)", en: "Rupture (Alternative)" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" } ] },
-            { name: "TEAM 03", tag: { fr: "Duo Rupture Yunkui", en: "Yunkui Rupture Duo" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture (Alternative)", en: "Rupture (Alternative)" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Rupture Yunkui", en: "Yunkui Rupture Duo" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Alice": {
@@ -1983,11 +1980,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Dodge", level: "8", icon: "Esquive.png" }, 
-            { name: "Assist", level: "6", icon: "Assist.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
         ],
         statPriority: {
             main: [
@@ -2003,15 +2000,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.png" }, 
-            { tag: "Option On-field S", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.png" }, 
-            { tag: "Option Accessible S", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
-            { tag: "F2P Craftable A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }
+            { tag: "Signature (100 %)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" }, 
+            { tag: "Option On-field S", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" }, 
+            { tag: "Option Accessible S", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, 
+            { tag: "F2P Craftable A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Désordre 👑", en: "Disorder Synergy 👑" }, members: [ { img: "Alice.png", color: "#e8a838", initial: "A" }, { img: "Vivian.png", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Désordre Feu", en: "Fire Disorder" }, members: [ { img: "Alice.png", color: "#e8a838", initial: "A" }, { img: "Burnice.png", color: "#f05432", initial: "B" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative F2P", en: "F2P Alternative" }, members: [ { img: "Alice.png", color: "#e8a838", initial: "A" }, { img: "Yanagi.png", color: "#3182eb", initial: "Y" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Désordre 👑", en: "Disorder Synergy 👑" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Feu", en: "Fire Disorder" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative F2P", en: "F2P Alternative" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Orphie and Magus": {
@@ -2040,11 +2037,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Assist", level: "11", icon: "Assist.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: {
             main: [
@@ -2060,15 +2057,15 @@ export const agentDatabase = {
             ]
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.png" }, 
-            { tag: "Stat Stick S", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.png" }, 
-            { tag: "Alternative S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.png" }, 
-            { tag: "Meilleur F2P A", name: "Gilded Blossom", img: "Gilded_Blossom.png" }
+            { tag: "Signature (100 %)", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.webp" }, 
+            { tag: "Stat Stick S", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" }, 
+            { tag: "Alternative S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, 
+            { tag: "Meilleur F2P A", name: "Gilded Blossom", img: "Gilded_Blossom.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "DPS Principal 👑", en: "Primary DPS 👑" }, members: [ { img: "Orphie and Magus.png", color: "#f05432", initial: "O" }, { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Attaquant", en: "Dual Attacker" }, members: [ { img: "Soldier 0 Anby.png", color: "#3182eb", initial: "S0" }, { img: "Orphie and Magus.png", color: "#f05432", initial: "O" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Orphie and Magus.png", color: "#f05432", initial: "O" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "DPS Principal 👑", en: "Primary DPS 👑" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Attaquant", en: "Dual Attacker" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
         ]
     },
     "Manato": {
@@ -2097,11 +2094,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Assist", level: "11", icon: "Assist.png" }, 
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" }, 
-            { name: "Ex", level: "8", icon: "Ex.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "8", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2117,15 +2114,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature A (100 %)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.png" }, 
-            { tag: "Stat Stick S", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.png" }, 
-            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.png" }, 
-            { tag: "Alternative A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.png" }
+            { tag: "Signature A (100 %)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }, 
+            { tag: "Stat Stick S", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.webp" }, 
+            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, 
+            { tag: "Alternative A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Manato Rupture 👑", en: "Manato Rupture 👑" }, members: [ { img: "Manato.png", color: "#f05432", initial: "M" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Soutien Yunkui", en: "Yunkui Support" }, members: [ { img: "Manato.png", color: "#f05432", initial: "M" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Manato.png", color: "#f05432", initial: "M" }, { img: "Pulchra.png", color: "#e8a838", initial: "P" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] }
+            { name: "TEAM 01", tag: { fr: "Manato Rupture 👑", en: "Manato Rupture 👑" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Soutien Yunkui", en: "Yunkui Support" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
         ]
     },
     "Lucia": {
@@ -2148,11 +2145,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2167,15 +2164,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Dreamlit Hearth", img: "W-Engine_Dreamlit_Hearth.png" }, 
-            { tag: "Alternative Off-field S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, 
-            { tag: "F2P Craftable A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, 
-            { tag: "Alternative Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
+            { tag: "Signature (100 %)", name: "Dreamlit Hearth", img: "W-Engine_Dreamlit_Hearth.webp" }, 
+            { tag: "Alternative Off-field S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, 
+            { tag: "F2P Craftable A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Rupture Yixuan 👑", en: "Yixuan Rupture 👑" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Rupture Manato", en: "Manato Rupture" }, members: [ { img: "Manato.png", color: "#f05432", initial: "M" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 03", tag: { fr: "Rupture Yidhari", en: "Yidhari Rupture" }, members: [ { img: "Yidhari.png", color: "#3bbedb", initial: "Y" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Rupture Yixuan 👑", en: "Yixuan Rupture 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture Manato", en: "Manato Rupture" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Rupture Yidhari", en: "Yidhari Rupture" }, members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
         ]
     },
     "Dialyn": {
@@ -2200,11 +2197,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2220,15 +2217,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Yesterday Calls", img: "W-Engine_Yesterday_Calls.png" }, 
-            { tag: "Alternative Off-field S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
-            { tag: "F2P Énergie A", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" }, 
-            { tag: "F2P Impact A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.png" }
+            { tag: "Signature (100 %)", name: "Yesterday Calls", img: "W-Engine_Yesterday_Calls.webp" }, 
+            { tag: "Alternative Off-field S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Énergie A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "F2P Impact A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Double Ultime 👑", en: "Double Ultimate 👑" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Rupture Burst", en: "Rupture Burst" }, members: [ { img: "Yixuan.png", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Nekomata.png", color: "#e8a838", initial: "N" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Rina.png", color: "#3182eb", initial: "R" } ] }
+            { name: "TEAM 01", tag: { fr: "Double Ultime 👑", en: "Double Ultimate 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture Burst", en: "Rupture Burst" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
         ]
     },
     "Zhao": {
@@ -2257,11 +2254,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2276,14 +2273,14 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Half-Sugar Bunny", img: "W-Engine_Half-Sugar_Bunny.png" }, 
-            { tag: "Option DGT Équipe S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.png" }, 
-            { tag: "F2P Accessible A (68.12%)", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.png" }
+            { tag: "Signature (100 %)", name: "Half-Sugar Bunny", img: "W-Engine_Half-Sugar_Bunny.webp" }, 
+            { tag: "Option DGT Équipe S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "F2P Accessible A (68.12%)", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Zhao.png", color: "#3bbedb", initial: "Z" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Généraliste Attaque", en: "Attack Generalist" }, members: [ { img: "Ellen.png", color: "#3bbedb", initial: "E" }, { img: "Zhao.png", color: "#3bbedb", initial: "Z" }, { img: "Astra.png", color: "#f23c8a", initial: "A" } ] },
-            { name: "TEAM 03", tag: { fr: "Généraliste Anomalie", en: "Anomaly Generalist" }, members: [ { img: "Jane.png", color: "#e8a838", initial: "J" }, { img: "Zhao.png", color: "#3bbedb", initial: "Z" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Généraliste Attaque", en: "Attack Generalist" }, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Généraliste Anomalie", en: "Anomaly Generalist" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ]
     },
     "Aria": {
@@ -2308,11 +2305,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Basic", level: "12", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "11", icon: "Assist.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Chain", level: "8", icon: "Ultime.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "8", icon: "Ultime.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2328,15 +2325,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
-            { tag: "Alternative S (88.05%)", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.png" }, 
-            { tag: "F2P Craftable A", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }, 
-            { tag: "Alternative A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.png" }
+            { tag: "Signature (100 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.webp" }, 
+            { tag: "Alternative S (88.05%)", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.webp" }, 
+            { tag: "F2P Craftable A", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, 
+            { tag: "Alternative A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Duo Illusion 👑", en: "Delusion Duo 👑" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Sunna.png", color: "#e8a838", initial: "S" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Yuzuha.png", color: "#e8a838", initial: "Y" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Trigger.png", color: "#3182eb", initial: "T" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Duo Illusion 👑", en: "Delusion Duo 👑" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ]
     },
     "Sunna": {
@@ -2364,11 +2361,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "11", icon: "Ultime.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Basic", level: "6", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "6", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2383,15 +2380,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.png" }, 
-            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.png" }, 
-            { tag: "Meilleure Option A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.png" }, 
-            { tag: "Alternative de Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.png" }
+            { tag: "Signature (100 %)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.webp" }, 
+            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, 
+            { tag: "Meilleure Option A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative de Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.png", color: "#e8a838", initial: "YS" }, { img: "Zhao.png", color: "#3bbedb", initial: "Z" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Double Illusion", en: "Dual Delusion" }, members: [ { img: "Aria.png", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.png", color: "#f23c8a", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Soutien Généraliste", en: "Generalist Support" }, members: [ { img: "Harumasa.png", color: "#3182eb", initial: "H" }, { img: "Qingyi.png", color: "#3182eb", initial: "Q" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Illusion", en: "Dual Delusion" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Généraliste", en: "Generalist Support" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ]
     },
     "Promeia": {
@@ -2416,11 +2413,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Chain", level: "10", icon: "Ultime.png" }, 
-            { name: "Basic", level: "10", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "10", icon: "Assist.png" }, 
-            { name: "Dodge", level: "1", icon: "Esquive.png" }
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "10", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "10", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "10", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "1", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2436,10 +2433,10 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Frostfall Sickle", img: "W-Engine_Frostfall_Sickle.png" }, 
-            { tag: "Option S BiS (93.41 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.png" }, 
-            { tag: "Option S (90.92 %)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.png" }, 
-            { tag: "Alternative A (90.03 %)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.png" }
+            { tag: "Signature (100 %)", name: "Frostfall Sickle", img: "W-Engine_Frostfall_Sickle.webp" }, 
+            { tag: "Option S BiS (93.41 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.webp" }, 
+            { tag: "Option S (90.92 %)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, 
+            { tag: "Alternative A (90.03 %)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
         ],
         teams: [
             { name: "TEAM 01", tag: { fr: "Méta BiS (Velina / Remielle) 👑", en: "BiS Meta (Velina / Remielle) 👑" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Velina.webp", color: "#3182eb", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
@@ -2473,11 +2470,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2492,15 +2489,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Starlight Rider Faceplate", img: "W-Engine_Starlight_Rider_Faceplate.png" }, 
-            { tag: "Alternative A (84.10%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.png" }, 
-            { tag: "Stat Stick S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.png" }, 
-            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.png" }
+            { tag: "Signature (100 %)", name: "Starlight Rider Faceplate", img: "W-Engine_Starlight_Rider_Faceplate.webp" }, 
+            { tag: "Alternative A (84.10%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Stat Stick S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Starlight Billy.png", color: "#e8a838", initial: "SB" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Starlight Billy.png", color: "#e8a838", initial: "SB" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Trigger.png", color: "#3182eb", initial: "T" } ] },
-            { name: "TEAM 03", tag: { fr: "Alternative A-Rank", en: "A-Rank Alternative" }, members: [ { img: "Starlight Billy.png", color: "#e8a838", initial: "SB" }, { img: "Pan Yinhu.png", color: "#e8a838", initial: "P" }, { img: "Lucia.png", color: "#f23c8a", initial: "L" } ] }
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative A-Rank", en: "A-Rank Alternative" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
         ]
     },
     "Norma": {
@@ -2525,11 +2522,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Ex", level: "12", icon: "Ex.png" }, 
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Basic", level: "8", icon: "Attaque_basic.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2545,15 +2542,15 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Chief Sidekick", img: "W-Engine_Chief_Sidekick.png" }, 
-            { tag: "Alternative S (96.16%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.png" }, 
-            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.png" }, 
-            { tag: "Option Lighter S", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.png" }
+            { tag: "Signature (100 %)", name: "Chief Sidekick", img: "W-Engine_Chief_Sidekick.webp" }, 
+            { tag: "Alternative S (96.16%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Option Lighter S", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Duo E.S.D 👑", en: "E.S.D Duo 👑" }, members: [ { img: "Pyrois.png", color: "#5d57a6", initial: "P" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Attaque Feu", en: "Fire Attack" }, members: [ { img: "Soldier 11.png", color: "#f05432", initial: "S11" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 03", tag: { fr: "Hypercarry Élec", en: "Electric Hypercarry" }, members: [ { img: "Cissia.png", color: "#3182eb", initial: "C" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Duo E.S.D 👑", en: "E.S.D Duo 👑" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Attaque Feu", en: "Fire Attack" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Hypercarry Élec", en: "Electric Hypercarry" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ]
     },
     "Pyrois": {
@@ -2582,11 +2579,11 @@ export const agentDatabase = {
             }
         ],
         skills: [
-            { name: "Chain", level: "12", icon: "Ultime.png" }, 
-            { name: "Basic", level: "11", icon: "Attaque_basic.png" }, 
-            { name: "Ex", level: "11", icon: "Ex.png" }, 
-            { name: "Assist", level: "8", icon: "Assist.png" }, 
-            { name: "Dodge", level: "6", icon: "Esquive.png" }
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
         ],
         statPriority: { 
             main: [ 
@@ -2602,13 +2599,13 @@ export const agentDatabase = {
             ] 
         },
         engines: [
-            { tag: "Signature (100 %)", name: "Sol Exuvia", img: "W-Engine_Sol_Exuvia.png" }, 
-            { tag: "Alternative Nicole S (100.30%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.png" }
+            { tag: "Signature (100 %)", name: "Sol Exuvia", img: "W-Engine_Sol_Exuvia.webp" }, 
+            { tag: "Alternative Nicole S (100.30%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Meta Éther 👑", en: "Ether Meta 👑" }, members: [ { img: "Pyrois.png", color: "#5d57a6", initial: "P" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] },
-            { name: "TEAM 02", tag: { fr: "Synergie Nicole", en: "Nicole Synergy" }, members: [ { img: "Pyrois.png", color: "#5d57a6", initial: "P" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Pyrois.png", color: "#5d57a6", initial: "P" }, { img: "Ju Fufu.png", color: "#f05432", initial: "J" }, { img: "Sunna.png", color: "#e8a838", initial: "S" } ] }
+            { name: "TEAM 01", tag: { fr: "Meta Éther 👑", en: "Ether Meta 👑" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Nicole", en: "Nicole Synergy" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
         ]
     },
     "Hugo": {
@@ -2619,16 +2616,16 @@ export const agentDatabase = {
             { tag: { fr: "Alternative Build", en: "Alternative Build" }, set1: "Hormone_Punk", set2: "Woodpecker_Electro", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellent set si Hugo n'est pas joué avec Dialyn. Fournit une tonne d'ATQ% à chaque fois qu'il entre sur le terrain.", en: "Terrific option when played without Dialyn. Supplies huge ATK% buffs upon taking the field." } }
         ],
         skills: [
-            { name: "Core", level: "12", icon: "Core.webp" }, { name: "Ex", level: "12", icon: "Ex.png" }, { name: "Ult", level: "11", icon: "Ultime.png" }, { name: "Basic", level: "8", icon: "Attaque_basic.png" }
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
         ],
         statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DGT CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
         engines: [
-            { tag: "Meilleur Moteur", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.png" }, { tag: "Alternative 5★", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.png" }, { tag: "Alternative 4★", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.png" }, { tag: "Alternative F2P", name: "Marcato Desire", img: "Marcato_Desire.png" }
+            { tag: "Meilleur Moteur", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.webp" }, { tag: "Alternative 5★", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.webp" }, { tag: "Alternative 4★", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, { tag: "Alternative F2P", name: "Marcato Desire", img: "Marcato_Desire.webp" }
         ],
         teams: [
-            { name: "TEAM 01", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Norma.png", color: "#f05432", initial: "N" }, { img: "Dialyn.png", color: "#e8a838", initial: "D" } ] },
-            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "Anby.png", color: "#3182eb", initial: "A" }, { img: "Nicole.png", color: "#f23c8a", initial: "N" } ] },
-            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Hugo.png", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
+            { name: "TEAM 01", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
         ]
     }
 };

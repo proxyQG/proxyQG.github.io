@@ -47,8 +47,8 @@ function buildDiscs(data, c, txt) {
                 <div class="absolute -top-3 -right-3 text-black text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${index === 0 ? c : '#27272a'}; color: ${index === 0 ? '#000' : '#fff'}; box-shadow: 0 0 15px ${index === 0 ? c+'60' : 'transparent'};">${tData(disc.tag)}</div>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                     <div class="flex -space-x-4">
-                        <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.png" loading="lazy" class="w-full h-full object-cover"></div>
-                        <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.png" loading="lazy" class="w-full h-full object-cover"></div>
+                        <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover"></div>
+                        <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover"></div>
                     </div>
                     <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${tDisc(disc.set1Name)}</span><span class="font-bold text-xs text-zinc-400">${tDisc(disc.set2Name)}</span></div>
                 </div>
