@@ -1,4 +1,4 @@
-const CACHE_NAME = 'proxyqg-v9'; 
+const CACHE_NAME = 'proxyqg-v10'; 
 
 const ASSETS_TO_CACHE = [
     './',
@@ -13,14 +13,13 @@ const ASSETS_TO_CACHE = [
     './js/guides/index.js',
     './js/guides/template.js',
     './js/guides/generic.js',
-    './js/data/agent_database.js',
+    './js/data/agent_database.json', // <-- CORRIGÉ : .json
     './js/data/mindscapes.js',
-    './js/data/agents.js',
+    './js/data/agents.json',         // <-- CORRIGÉ : .json
     './assets/Icone/logo-192.png',
     './assets/Icone/logo-512.png'
 ];
 
-// Installation : mise en cache résiliente (un fichier manquant ne fait plus planter le site)
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(async cache => {
@@ -31,10 +30,9 @@ self.addEventListener('install', event => {
             );
         })
     );
-    self.skipWaiting();
+    // Plus de skipWaiting() ici pour laisser le toast faire son travail !
 });
 
-// Nettoyage des anciens caches
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(keys => 
@@ -44,7 +42,6 @@ self.addEventListener('activate', event => {
     self.clients.claim();
 });
 
-// Gestion des requêtes (Network First avec secours Cache)
 self.addEventListener('fetch', event => {
     if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
         return;
@@ -62,17 +59,14 @@ self.addEventListener('fetch', event => {
                 return networkResponse;
             })
             .catch(async () => {
-            // ignoreSearch: true permet d'ouvrir les liens de partage (?agent=...) même hors-ligne
             const cachedResponse = await caches.match(event.request, { ignoreSearch: true });
             if (cachedResponse) return cachedResponse;
 
-            // Secours navigation vers l'accueil
             if (event.request.mode === 'navigate') {
                 const indexFallback = await caches.match('./index.html');
                 if (indexFallback) return indexFallback;
             }
 
-            // Réponse de secours propre pour éviter l'erreur rouge dans la console
             return new Response('Ressource indisponible hors-ligne', {
                 status: 503,
                 statusText: 'Service Unavailable',
