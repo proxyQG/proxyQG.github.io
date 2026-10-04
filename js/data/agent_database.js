@@ -1,0 +1,2632 @@
+export const agentDatabase = {
+    "Piper": {
+        color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
+        stats: [
+            { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, value: "350 - 450+" },
+            { label: { fr: "Attaque", en: "Attack" }, value: "2500 - 2800+" },
+            { label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" }, value: "150+" }
+        ],
+        discs: [
+            { 
+                tag: { fr: "Assaut / Carry (100 %) 👑", en: "Assault / Carry (100%) 👑" }, 
+                set1: "Fanged_Metal", set2: "Phaethon_Melody", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { 
+                    fr: "La meilleure option pour maximiser les dégâts d'Assaut (+35 % DGT). L'idéal est qu'un coéquipier/Bangboo aide à appliquer l'Assaut pour profiter du bonus le plus longtemps possible.", 
+                    en: "Best option for direct Anomaly-based Physical damage. The DMG% bonus against enemies inflicted by Assault by any party member for 12 seconds." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative 1", en: "Alternative 1" }, 
+                set1: "Fanged_Metal", set2: "Puffer_Electro", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Puffer Electro", 
+                note: { 
+                    fr: "Une très bonne alternative au 2pc Phaethon's Melody.", 
+                    en: "A very good alternative to the 2pc Phaethon's Melody." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative 2", en: "Alternative 2" }, 
+                set1: "Fanged_Metal", set2: "Chaos_Jazz", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
+                note: { 
+                    fr: "Un mélange intéressant pour optimiser les dégâts d'anomalie.", 
+                    en: "An interesting mix to optimize anomaly damage." 
+                } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Basic", level: "9", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "PEN Ratio = ATK% = DGT Physique", en: "PEN Ratio = ATK% = Physical DMG%" } },
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } }
+            ],
+            sub: [
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "Attaque %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PEN = Attaque", en: "PEN = ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: { fr: "Signature d'Alice (100 %) 👑", en: "Alice's Signature (100%) 👑" }, name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" },
+            { tag: { fr: "Signature de Jane (98 %)", en: "Jane's Signature (98%)" }, name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" },
+            { tag: { fr: "F2P Craftable (S5)", en: "F2P Craftable (S5)" }, name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" },
+            { tag: { fr: "Signature de Piper", en: "Piper's Signature" }, name: "Roaring Ride", img: "W-Engine_Roaring_Ride.webp" },
+            { tag: { fr: "Alternative BP (S5)", en: "BP Alternative (S5)" }, name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
+        ],
+        teams: [
+            { 
+                name: "TEAM 01", 
+                tag: { fr: "Désordre Ultime 👑", en: "Ultimate Disorder 👑" }, 
+                videoId: "IzMquorLuQU", // <--- L'ID YouTube que tu m'as donné
+                members: [ 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" }, 
+                    { img: "Velina.webp", color: "#3bbedb", initial: "V" }, 
+                    { img: "Remielle.webp", color: "#fba2d0", initial: "R" } 
+                ] 
+            },
+            { 
+                name: "TEAM 02", 
+                tag: { fr: "Synergie Stun", en: "Stun Synergy" },
+                videoId: "WqzP_JXF2uA",
+                members: [ 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" },
+                    { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, 
+                    { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } 
+                ] 
+            },
+            { 
+                name: "TEAM 03", 
+                tag: { fr: "Désordre Mixte", en: "Mixed Disorder" }, 
+                videoId: "IqG8ufUTih0",
+                startTime: 255,
+                members: [ 
+                    { img: "Piper.webp", color: "#e8a838", initial: "P" },
+                    { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, 
+                    { img: "Burnice.webp", color: "#f05432", initial: "B" } 
+                ] 
+            }
+        ],
+        mindscapes: [
+            { rank: "M1", desc: { fr: "Le nombre de cumuls de Puissance requis passe à 20 max et la vitesse de rotation de l'EX Spécial augmente nettement.", en: "Reduces max Power stacks needed to 20 and noticeably speeds up EX Special spin accumulation." } },
+            { rank: "M2", desc: { fr: "Accélère la vitesse de démarrage du tourbillon et augmente l'Impact des coups continus.", en: "Accelerates tire spin startup speed and increases Daze inflicted during continuous hits." } },
+            { rank: "M6", desc: { fr: "Prolonge la durée maximale de l'EX Spécial et augmente ses dégâts d'Assaut finaux.", en: "Extends max EX Special spin duration and significantly increases terminal Assault strike DMG." } }
+        ],
+        notes: [
+            { fr: "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Désordres. L'énorme quantité d'Anomalies de Piper la rend compétitive.", en: "Velina Synergy: Velina is a perfect match for Piper, who struggled with Disorder management. Piper's fast Anomaly build-up makes her competitive with Velina." },
+            { fr: "Synergie Yuzuha : Bien que ce soit un support Anomalie, le fait qu'elle soit Physique permet à Piper de bénéficier facilement de sa Compétence Additionnelle.", en: "Yuzuha Synergy: Being Physical is great for Piper as it's one of the few reliable ways to trigger her Additional Ability." }
+        ]
+    },
+    "Jane": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Division de l'Ordre urbain", en: "Criminal Behavior Specialist" },
+        stats: [ { label: "Adresse Anomalie", value: "420" }, { label: "Attaque", value: "2600" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Fanged_Metal", set2: "Puffer_Electro", set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Puffer Electro", note: { fr: "Le meilleur choix d'appoint si vous utilisez du Taux de Pénétration (PEN Ratio) sur le disque 5.", en: "The best complementary choice if using PEN Ratio on slot 5." } },
+            { tag: { fr: "Set 2 (99.90%)", en: "Set 2 (99.90%)" }, set1: "Fanged_Metal", set2: "Phaethon_Melody", set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", note: "" }
+        ],
+        skills: [
+            { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Maitrise Anomalie" }, { slot: "5", label: "Taux de PEN" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adre. Anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Flat PEN / Flat ATK", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" }, { tag: "Alt 5★ (100%)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" }, { tag: "Alt F2P (89.12%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Éther", en: "Ether Synergy" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Désordre Brûlure", en: "Burn Disorder" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "JD" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" } ] }
+        ]
+    },
+    "Claret": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Atelier Flint", en: "Member of the Flint Workshop" },
+        stats: [ { label: "Taux Crit", value: "128,9%" }, { label: "DEF", value: "2300- 2600+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Thorned_Rose", set2: "Puffer_Electro", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Puffer Electro", note: { fr: "Son set signature est strictement incontournable. Meilleure option pour le gain de PEN Ratio.", en: "Her signature set is strictly mandatory. Best option for PEN Ratio gain." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Thorned_Rose", set2: "Woodpecker_Electro", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Très bonne alternative TC.", en: "Very solid CRIT Rate alternative." } }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "Crimson Thirst", img: "W-Engine_Crimson_Thirst.webp" }, { tag: "Alt F2P (80.55%)", name: "Catty Luck", img: "W-Engine_Catty_Luck.webp" }, { tag: "Alt (77.48%)", name: "Bloodmarrow Coffer", img: "W-Engine_Bloodmarrow_Coffer.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Ye Shunguang": {
+        color: "#e8a838", element: "Honed Edge", elementIcon: "Honed_Edge.webp", rank: "S", factionTitle: "Void Hunter",
+        stats: [ { label: "Attaque", value: "3000+" }, { label: "Taux Crit", value: "max. 50%" }, { label: "Dégât Crit", value: "180 - 200%+" } ],
+        discs: [
+            { tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, set1: "White_Water_Ballad", set2: "Branch_Blade_Song", set1Name: "4pc White Water Ballad", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Mélopée des eaux blanches est le set signature de Ye Shunguang, augmentant son Taux CRIT et son ATQ. Le buff devient plus puissant lorsqu'elle active le Voile d'Ether. Vu qu'elle gagne beaucoup de Taux CRIT via ce set et son Core Skill, utilisez le 2-pc Branch and Blade Song pour les DGT CRIT.", en: "White Water Ballad is Ye Shunguang's signature set, boosting her CRIT Rate and ATK. The buff grows stronger when activating Ether Veil. Since she gains plenty of CRIT Rate from this set and Core Skill, run 2pc Branch and Blade Song for CRIT DMG." } },
+            { tag: { fr: "2ème Choix", en: "2nd Choice" }, set1: "White_Water_Ballad", set2: "Woodpecker_Electro", set1Name: "4pc White Water Ballad", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Vous pouvez utiliser Électro pivert si vous avez de meilleures sous-stats sur ces pièces. Assurez-vous simplement de ne pas dépasser la limite de Taux CRIT et privilégiez les sous-stats DGT CRIT.", en: "You can run Woodpecker Electro if you have superior sub-stats on those pieces. Just make sure not to exceed the CRIT Rate cap and prioritize CRIT DMG sub-stats." } }
+        ],
+        skills: [
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Physique %", en: "PEN Ratio / ATK % / Physical DMG %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT", en: "CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.webp" }, { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }, { tag: "Alternative F2P", name: "Gilded Blossom", img: "Gilded_Blossom.webp" }, { tag: "Alternative A", name: "Marcato Desire", img: "Marcato_Desire.webp" }, { tag: "Alternative A", name: "Street Superstar", img: "W-Engine_Street_Superstar.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Attaque", en: "Dual Attack" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
+        ]
+    },
+    "Yanagi": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Section 6", en: "Deputy Chief of H.A.N.D" },
+        stats: [ { label: "Adresse d'Anomalie", value: "370+" }, { label: "Attaque", value: "3000+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Chaos_Jazz", set2: "Freedom_Blues", set1Name: "4pc Chaos Jazz", set2Name: "+ 2pc Freedom Blues", note: { fr: "Le meilleur set pour Yanagi. Scaling démesuré en AP.", en: "Best set for Yanagi. Insane Anomaly Proficiency scaling." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Hormone_Punk", set2: "Freedom_Blues", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Freedom Blues", note: { fr: "Envisageable avec Rina, mais moins régulier.", en: "Viable when paired with Rina, though less consistent." } }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "5", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "Attaque %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "PEN / ATQ Flat", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt Standard", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Désordre", en: "Disorder" }, members: [ { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Mono-Élec", en: "Mono-Electric" }, members: [ { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Trigger.webp", color: "#e8a838", initial: "T" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Nangong Yu": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
+        stats: [ 
+            { label: "Adre. d'anomalie", value: "280 - 350+" }, 
+            { label: "Maî. d'anomalie", value: "173 - 211" }, 
+            { label: "Attaque", value: "2200 - 2500+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Dégâts Optimaux 👑", en: "Optimal Damage 👑" }, 
+                set1: "Phaethon_Melody", set2: "Chaos_Jazz", 
+                set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaos Jazz (ou Freedom Blues)", 
+                note: { 
+                    fr: "Le meilleur set de Nangong pour les dégâts. Excellent pour les phases de burst (surtout lors des étourdissements via les EX Spéciaux) et fonctionne parfaitement avec l'équipe des Idoles.", 
+                    en: "Nangong's best set for damage purposes. Excellent for burst periods from EX Specials during stun, and works perfectly with the Idols team." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative Anomalie", en: "Anomaly Alternative" }, 
+                set1: "Freedom_Blues", set2: "Phaethon_Melody", 
+                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { 
+                    fr: "Si vous avez du mal à maintenir les Désordres ou si l'équipe nécessite un cyclage d'Anomalie très rapide (Miyabi, Alice), ce set est une excellente option de confort.", 
+                    en: "If you are struggling to consistently juggle Disorders or the team has strict fast Anomaly cycling requirements (Miyabi, Alice), this set functions as a decent universal option." 
+                } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ % > Taux de PÉN", en: "Ether DMG % = ATK % > PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Neon Fantasies", img: "W-Engine_Neon_Fantasies.webp" }, 
+            { tag: "Alternative Stun S (99.33%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "Alternative Anomalie S (95.86%)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.webp" }, 
+            { tag: "Option F2P A (95.16%)", name: "The Simmering Pot", img: "W-Engine_The_Simmering_Pot.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Désordre Méta 👑", en: "Disorder Meta 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Burnice.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 02", tag: { fr: "Anges de l'illusion", en: "Angels of Delusion" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Glace", en: "Ice Synergy" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
+        ]
+    },
+    "Burnice": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Fils de Calydon", en: "Mixologist" },
+        stats: [ { label: "Réc. d'énergie", value: "2,8" }, { label: "Attaque", value: "2900" }, { label: "Adr. d'anomalie", value: "350" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Chaos_Jazz", set2: "Swing_Jazz", set1Name: "4pc Chaos Jazz", set2Name: "+ 2pc Swing Jazz", note: { fr: "Le meilleur set pour Burnice. Booste ses EX Spéciaux.", en: "Best set for Burnice. Greatly buffs her EX Specials." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Chaos_Jazz", set2: "Puffer_Electro", set1Name: "4pc Chaos Jazz", set2Name: "+ 2pc Puffer Electro", note: "" },
+            { tag: { fr: "Set 3 (90%)", en: "Set 3 (90%)" }, set1: "Freedom_Blues", set2: "Swing_Jazz", set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", note: { fr: "Plus intéressant que Chaos Jazz dans la Team Remielle + Velina.", en: "More valuable than Chaos Jazz in the Remielle + Velina team." } }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Récupération d'énergie" }, { slot: "5", label: "Pen Ratio" }, { slot: "4", label: "Adresse d'anomalie" } ], sub: [ { label: "Adresse d'anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "PEN / ATQ Flat", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Flamemaker Shaker", img: "W-Engine_Flamemaker_Shaker.webp" }, { tag: "Alt 5★ (98.21%)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alt Craftable", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Burnice Hyper", members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] },
+            { name: "TEAM 03", tag: { fr: "Fils de Calydon", en: "Sons of Calydon" }, members: [ { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Piper.webp", color: "#e8a838", initial: "P" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }
+        ]
+    },
+    "Yidhari": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Maison hantée", en: "Spook Shack" },
+        stats: [ { label: "DGT CRIT", value: "≥ 150 %" }, { label: "Taux Crit", value: "≥ 68 %" }, { label: "Force transperçante", value: "≥ 2500" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Yunkui_Tales", set2: "Woodpecker_Electro", set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", note: "" },
+            { tag: "Set 2", set1: "Yunkui_Tales", set2: "Dawn_Bloom", set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Dawn's Bloom", note: "" },
+            { tag: "Set 3", set1: "Yunkui_Tales", set2: "Branch_Blade_Song", set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", note: "" }
+        ],
+        skills: [
+             { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Glace %", en: "Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT / DGT CRIT", en: "CRIT Rate / CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Moteur S", name: "Kraken's Cradle", img: "W-Engine_Krakens_Cradle.webp" }, { tag: "Moteur S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, { tag: "Moteur A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, { tag: "Moteur A", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] }
+        ]
+    },
+    "Ellen": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Société d'entretien Victoria", en: "Victoria Housekeeping" },
+        stats: [ { label: "Taux Crit", value: "90 - 100%" }, { label: "Attaque", value: "2600 - 3000+" }, { label: "Dégât Crit", value: "120% - 180%+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Woodpecker_Electro", set2: "Puffer_Electro", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", note: { fr: "Le meilleur choix universel par défaut. Il surpasse nettement les autres options.", en: "Best universal default choice. Clearly outperforms all other options." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "À égalité ou légèrement supérieur si Ellen est jouée avec Dialyn.", en: "Tied or slightly superior if Ellen is played alongside Dialyn." } },
+            { tag: { fr: "Set 3 (92.52%)", en: "Set 3 (92.52%)" }, set1: "Polar_Metal", set2: "Puffer_Electro", set1Name: "4pc Polar Metal", set2Name: "+ 2pc Puffer Electro", note: "" }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN (DGT Glace)", en: "PEN Ratio (Ice DMG)" } }, 
+                { slot: "4", label: { fr: "DGT CRIT", en: "CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "ATQ % = DGT CRIT", en: "ATK % = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.webp" }, { tag: "Alt 5★ (99.16%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, { tag: "Alt Battle Pass", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] },
+            { name: "TEAM 03", tag: "Victoria", members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Vivian": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Oiseaux-moqueurs", en: "Megadere" },
+        stats: [ { label: "Ad. d'Anomalie", value: "400+" }, { label: "Attaque", value: "2300+" }, { label: "Ma. d'Anomalie", value: "= 198" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Phaethon_Melody", set2: "Freedom_Blues", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", note: { fr: "Non négociable. Indispensable pour récupérer +30 d'AP.", en: "Non-negotiable. Crucial to gain +30 Anomaly Proficiency." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Phaethon_Melody", set2: "Chaotic_Metal", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Chaotic Metal", note: "" },
+            { tag: { fr: "Set 3 (99.53%)", en: "Set 3 (99.53%)" }, set1: "Phaethon_Melody", set2: "Puffer_Electro", set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Puffer Electro", note: "" }
+        ],
+        skills: [
+            { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "DGT Éther %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'anomalie", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Flat PEN", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.webp" }, { tag: "Alt 4★ (93.06%)", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt (91.12%)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Classique", en: "Classic" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" } ] },
+            { name: "TEAM 02", tag: { fr: "Jane Combo", en: "Jane Combo" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "3ème<br>Agent" } ] }
+        ]
+    },
+    "Yuzuha": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Maison hantée", en: "Member of the Spook Shack" },
+        stats: [ { label: "Attaque", value: "3000" }, { label: "Maitrise d'Anomalie", value: "171" }, { label: "Adresse d'Anomalie", value: "200-250+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Moonlight_Lullaby", set2: "Phaethon_Melody", set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "Le set standard obligatoire pour appliquer les buffs d'équipe.", en: "The mandatory standard set to apply team-wide buffs." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Astral_Voice", set2: "Phaethon_Melody", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "À équiper uniquement si elle est jouée avec Sunna.", en: "Equip only if played alongside Sunna." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "Attaque %" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Attaque %", highlight: true }, { label: "Adresse d'Anomalie", highlight: false }, { label: "Flat ATK", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Metanukimorphosis", img: "W-Engine_Metanukimorphosis.webp" }, { tag: "Alt 5★ (102.07%)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.webp" }, { tag: "Alt 4★ (93.28%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" }, { img: "", color: "#52525b", role: "Agents<br>Anomalie" } ] }
+        ]
+    },
+    "Seed": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Escouade Obole", en: "Heavy Weapons Specialist" },
+        stats: [ { label: "Taux Crit", value: "= 85%" }, { label: "Attaque", value: "2800" }, { label: "Dégât Crit", value: "120% - 150%+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Puffer_Electro", set2: "Branch_Blade_Song", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Best-in-Slot si tu la joues dans une équipe avec Dialyn.", en: "Best-in-Slot if played in a team with Dialyn." } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: "" },
+            { tag: { fr: "Set 3 (98.03%)", en: "Set 3 (98.03%)" }, set1: "Dawn_Bloom", set2: "Branch_Blade_Song", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Son meilleur choix si tu la joues sans Dialyn.", en: "Her best option if played without Dialyn." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Attaque" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux Crit" } ], sub: [ { label: "Taux Crit", highlight: true }, { label: "Dégât Crit", highlight: false }, { label: "Attaque %", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, { tag: "Alt 5★ (91.15%)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, { tag: "Alt 4★ (90.52%)", name: "Marcato Desire", img: "Marcato_Desire.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie", en: "Synergy" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "", color: "#52525b", role: "Agents<br>Attaques" }, { img: "", color: "#52525b", role: "Agents<br>Support" } ] }
+        ]
+    },
+    "Remielle": {
+        color: "#fba2d0", element: "Lumiflux", rank: "S", factionTitle: { fr: "Entente de Dayat", en: "Void Hunter" },
+        stats: [ { label: "Attaque", value: "4000" }, { label: "Adre. Anomalie", value: "400" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Feathered_Fate", set2: "Freedom_Blues", set1Name: "4pc Fated Feathers", set2Name: "+ 2pc Freedom Blues", note: { fr: "Temps d'activité moyen (Uptime) : 100%", en: "Average uptime: 100%" } },
+            { tag: { fr: "Set 2 (100%)", en: "Set 2 (100%)" }, set1: "Feathered_Fate", set2: "Chaos_Jazz", set1Name: "4pc Fated Feathers", set2Name: "+ 2pc Chaos Jazz", note: "" },
+            { tag: { fr: "Set 3 (99.20%)", en: "Set 3 (99.20%)" }, set1: "Feathered_Fate", set2: "Astral_Voice", set1Name: "4pc Fated Feathers", set2Name: "+ 2pc Astral Voice", note: { fr: "Okay si cela t'aide à atteindre les 4000 d'attaque.", en: "Decent if it helps you reach the 4000 ATK threshold." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "Ode of Resurrected Wings", img: "W-Engine_Ode_of_Resurrected_Wings.webp" }, { tag: "Alt F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alt Anomalie", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Double Anomalie", en: "Dual Anomaly" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] },
+            { name: "TEAM 02", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Velina.webp", color: "#3bbedb", initial: "V" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Remielle.webp", color: "#fba2d0", initial: "R" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" } ] }
+        ]
+    },
+    "Velina": {
+        color: "#3bbedb", element: "Wind", rank: "S", factionTitle: { fr: "Département de stratégie externe", en: "Administrative Director of the E.S.D" },
+        stats: [ { label: "Adresse d'Anomalie", value: "356" }, { label: "Attaque", value: "2500" }, { label: "Energie Regen", value: "2.88" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Wuthering_Salon", set2: "Moonlight_Lullaby", set1Name: "4pc Turmoil's Salon", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Efficacité avec Promeia + Yuzuha : 100% (Énergie Regen +6%).", en: "Efficiency with Promeia + Yuzuha: 100% (Energy Regen +6%)." } },
+            { tag: { fr: "Set 2 (97.4%)", en: "Set 2 (97.4%)" }, set1: "Wuthering_Salon", set2: "Phaethon_Melody", set1Name: "4pc Turmoil's Salon", set2Name: "+ 2pc Phaethon's Melody", note: "" },
+            { tag: { fr: "Set 3 (97.39%)", en: "Set 3 (97.39%)" }, set1: "Wuthering_Salon", set2: "Chaos_Jazz", set1Name: "4pc Turmoil's Salon", set2Name: "+ 2pc Chaos Jazz", note: "" }
+        ],
+        skills: [
+            { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Vent %", en: "Wind DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PÉN = Flat ATQ", en: "Flat PEN = Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "Joyau Dore", img: "W-Engine_Joyau_Dore.webp" }, { tag: "Alt 5★ (90.88%)", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.webp" }, { tag: "Alt 4★ (87.16%)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Promeia.webp", color: "#3bbedb", initial: "P" } ] },
+            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Velina.webp", color: "#3bbedb", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "", color: "#52525b", role: "Agents<br>Anomalies" } ] }
+        ]
+    },
+    "Cissia": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Division de l'Ordre urbain", en: "Metropolitan Order Division - N.E.P.S." },
+        stats: [ { label: "Taux Crit", value: "50% - 57%" }, { label: "Dégât Crit", value: "110%+" }, { label: "Attaque", value: "2500 - 2700+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: "" },
+            { tag: "Set 2", set1: "Dawn_Bloom", set2: "Branch_Blade_Song", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Branch and Blade Song", note: "" },
+            { tag: "Set 3", set1: "Dawn_Bloom", set2: "Swing_Jazz", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Swing Jazz", note: "" }
+        ],
+        skills: [
+            { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "DGT Électrique % > ATQ %", en: "Electric DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Moteur S", name: "Serpentine Seeker", img: "W-Engine_Serpentine_Seeker.webp" }, { tag: "Moteur S", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.webp" }, { tag: "Moteur A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Trigger.webp", color: "#e8a838", initial: "T" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Support" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
+        ]
+    },
+    "Banyue": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { label: "Sheer Force", value: "2200+" }, 
+            { label: "HP", value: "18 000+" }, 
+            { label: "Taux Crit", value: "90 - 100 %", note: { fr: "En combat (Disques et Arme inclus)", en: "In combat (incl. Discs & Weapon)" } } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "La meilleure (et seule) option à considérer. Fournit des PV%, un effet cumulable de Taux CRIT (jusqu'à 12%), et augmente les DGT Sheer de 10% au maximum de cumuls.", 
+                    en: "The best (and frankly only) option that should be considered on Banyue. Provides HP%, a stackable CRIT Rate up effect, and increases Sheer DMG by 10% at max stacks." 
+                } 
+            },
+            { 
+                tag: { fr: "Alternative DGT CRIT", en: "CRIT DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { 
+                    fr: "Excellente alternative pour accompagner le 4-pièces si vous avez besoin de plus de DGT CRIT.", 
+                    en: "Excellent alternative to pair with the 4-piece if you need more CRIT DMG." 
+                } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "DGT CRIT % > Taux CRIT %", en: "CRIT DMG % > CRIT Rate %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100%)", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.webp" }, 
+            { tag: "Alternative S (86.22%)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "Meilleur A-Rank (83.63%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Alternative A (82.62%)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Banyue.webp", color: "#f05432", initial: "B" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] }
+        ]
+    },
+    "Nicole": {
+        color: "#f23c8a", element: "Ether", rank: "A", factionTitle: { fr: "Lièvres rusés", en: "Cunning Hares" },
+        stats: [ { label: "Maîtrise d'Anomalie", value: "117+" }, { label: "Adresse d'Anomalie", value: "320 à 350+" }, { label: "Energie", value: "2.6 à 3" } ],
+        discs: [
+            { tag: { fr: "Support 👑", en: "Support 👑" }, set1: "Swing_Jazz", set2: "Freedom_Blues", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Freedom Blues", note: "" },
+            { tag: { fr: "Build Anomalie", en: "Anomaly Build" }, set1: "Freedom_Blues", set2: "Swing_Jazz", set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", note: "" },
+            { tag: { fr: "Support Build II", en: "Support Build II" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: "" }
+        ],
+        skills: [
+            { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther", en: "Ether DMG" } }, 
+                { slot: "4", label: { fr: "Réc. d'énergie", en: "Energy Regen" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "The Vault", img: "W-Engine_The_Vault.webp" }, { tag: "Option Anomalie", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Option Soutien", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, { tag: "Alternative", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Miyabi", members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" }, { img: "Miyabi.webp", color: "#3bbedb", initial: "M" } ] },
+            { name: "TEAM 02", tag: "Zhu Yuan", members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Billy.webp", color: "#e8a838", initial: "B" } ] }
+        ]
+    },
+    "Lycaon": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Société d'entretien Victoria", en: "Victoria Housekeeping" },
+        stats: [ { label: "Impact", value: "180 à 194+" }, { label: "Attaque", value: "≈ 2200" }, { label: "Taux Crit", value: "≈ 60%" } ],
+        discs: [
+            { tag: { fr: "Stun Build 👑", en: "Stun Build 👑" }, set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: "" },
+            { tag: "Stun Build II", set1: "King_of_the_Summit", set2: "Polar_Metal", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Polar Metal", note: "" },
+            { tag: "Crit Build", set1: "King_of_the_Summit", set2: "Woodpecker_Electro", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Woodpecker Electro", note: "" }
+        ],
+        skills: [
+            { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Glace", en: "Ice DMG" } }, 
+                { slot: "4", label: { fr: "Taux / DGT CRIT", en: "CRIT Rate / DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Moteur A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }, { tag: "Moteur A", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }, { tag: "Moteur B", name: "Vortex - Arrow", img: "Vortex_Arrow.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Hugo", members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" } ] },
+            { name: "TEAM 02", tag: "Ellen", members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" }, { img: "Ellen.webp", color: "#3bbedb", initial: "E" } ] },
+            { name: "TEAM 03", tag: { fr: "Débutant", en: "Starter" }, members: [ { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" }, { img: "Corin.webp", color: "#e8a838", initial: "C" } ] }
+        ]
+    },
+    "Koleda": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
+        stats: [ { label: "Impact", value: "≥ 180" }, { label: "Taux Crit", value: "≥ 50 %" }, { label: "Attaque", value: "≈ 2000" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "Astral_Voice", set2: "Moonlight_Lullaby", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Configuration axée sur le soutien d'équipe et la régénération d'énergie.", en: "Build focused on team utility and energy regen." } },
+            { tag: "Set 2", set1: "Shockstar_Disco", set2: "Moonlight_Lullaby", set1Name: "4pc Shockstar Disco", set2Name: "+ 2pc Moonlight Lullaby", note: { fr: "Optimise l'impact brut et l'étourdissement rapide des cibles.", en: "Optimizes raw impact and fast daze buildup on targets." } },
+            { tag: "Set 3", set1: "King_of_the_Summit", set2: "Shockstar_Disco", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", note: { fr: "Renforce les dégâts critiques d'équipe via les attaques EX et l'enchaînement.", en: "Boosts team CRIT DMG through EX Special attacks and Chain attacks." } }
+        ],
+        skills: [
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "12", icon: "Ultime.webp" }, { name: "Assist", level: "12", icon: "Assist.webp" }, { name: "Dodge", level: "10", icon: "Esquive.webp" }, { name: "Basic", level: "9", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % / Taux de PÉN", en: "ATK % / PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (min 50% avec KOTS)", en: "CRIT Rate (min 50% with KOTS)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }, { tag: "Alternative A", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Rupture Yunkui", en: "Yunkui Rupture" }, videoId: "4czPnCOoJxc", members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Yixuan.webp", color: "#e8a838", initial: "Y" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Armurier Élec", en: "Electro Armorer" }, videoId: "2FMcm68qpWk", startTime: 16, members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, videoId: "FBYX_6MJVUM", startTime: 13, members: [ { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Lighter.webp", color: "#f05432", initial: "L" } ] }
+        ]
+    },
+    "Trigger": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Escouade Obole", en: "Sniper" },
+        stats: [ { label: "Taux Crit", value: "90%" }, { label: "Impact", value: "162 - 186 +" }, { label: "Attaque", value: "1700 - 2200+" } ],
+        discs: [
+            { tag: { fr: "Set 1 👑", en: "Set 1 👑" }, set1: "King_of_the_Summit", set2: "Woodpecker_Electro", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Le meilleur choix absolu pour maximiser ses dégâts et son impact sur l'équipe. Le choix le plus pratique pour atteindre le palier des 90% de Taux CRIT.", en: "The absolute best choice to maximize personal damage and team impact. Most practical pick to hit the 90% CRIT Rate threshold." } },
+            { tag: "Set 2", set1: "Shadow_Harmony", set2: "King_of_the_Summit", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc King of the Summit", note: { fr: "La meilleure alternative sans son Moteur Signature pour compenser le manque de Taux CRIT et se rapprocher du cap des 90%.", en: "Best alternative without her Signature W-Engine to compensate for missing CRIT Rate and reach the 90% cap." } },
+            { tag: "Set 3", set1: "Astral_Voice", set2: "Woodpecker_Electro", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Très performant si tu maîtrises la mécanique de double switch assist, ou si elle est jouée aux côtés d'Astra Yao.", en: "Highly effective if mastering double switch assist mechanics, or when paired with Astra Yao." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "10", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }, { name: "Assist", level: "7", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact %", en: "Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Baseline 100%", name: "Spectral Gaze", img: "W-Engine_Spectral_Gaze.webp" }, { tag: "Alternatives 5★", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, { tag: "Alternatives 4★ F2P", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Premium", members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Élec", en: "Dual Shock" }, members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Seed.webp", color: "#3182eb", initial: "S" }, { img: "Nekomata.webp", color: "#e8a838", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "N'importe quel<br>Support" } ] }
+        ]
+    },
+    "Miyabi": {
+        color: "#3bbedb", element: "Frost", elementIcon: "Frost.webp", rank: "S", factionTitle: { fr: "Section 6", en: "Section 6" },
+        stats: [ { label: "Taux CRIT", value: "75-95%" }, { label: "Dégat CRIT", value: "150-190%" }, { label: "Attaque", value: "2500 - 3600+" } ],
+        discs: [
+            { tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, set1: "Branch_Blade_Song", set2: "Woodpecker_Electro", set1Name: "4pc Branch and Blade Song", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Branch & Blade Song est le meilleur disque pour Miyabi car il lui donne du DGT CRIT et augmente ses propres DGT quand un membre de l'équipe applique Gel. Woodpecker Electro est son choix de prédilection en 2 pièces puisqu'elle a besoin de Taux CRIT.", en: "Branch & Blade Song is the best disc set for Miyabi as it grants CRIT DMG and increases her own DMG when an ally inflicts Freeze. Woodpecker Electro is her ideal 2pc choice to secure essential CRIT Rate." } },
+            { tag: { fr: "Alternative", en: "Alternative" }, set1: "Branch_Blade_Song", set2: "Polar_Metal", set1Name: "4pc Branch and Blade Song", set2Name: "+ 2pc Polar Metal", note: { fr: "Si vous avez déjà beaucoup de Taux CRIT sur Miyabi, vous pouvez envisager Polar Metal comme alternative pour obtenir plus de DGT Glace.", en: "If you already have high CRIT Rate on Miyabi, consider Polar Metal as an alternative for extra Ice DMG." } }
+        ],
+        skills: [
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Assist", level: "8", icon: "Assist.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Hailstorm Shrine", img: "W-Engine_Hailstorm_Shrine.webp" }, { tag: "Alternative 5★", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alternative BP", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, { tag: "Alternative", name: "Roaring Ride", img: "W-Engine_Roaring_Ride.webp" }, { tag: "F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Éther", en: "Ether Disorder" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Anomalie", en: "Dual Anomaly" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
+        ]
+    },
+    "Anby": {
+        color: "#3182eb", element: "Electric", rank: "A", factionTitle: { fr: "Lièvres Rusés", en: "Cunning Hares" },
+        stats: [ { label: "Impact", value: "≥ 189" }, { label: "Taux Crit", value: "≥ 50%" }, { label: "Attaque", value: "≥ 2400" } ],
+        discs: [
+            { tag: { fr: "Impact Build 👑", en: "Impact Build 👑" }, set1: "Shockstar_Disco", set2: "Swing_Jazz", set1Name: "4pc Shockstar Disco", set2Name: "+ 2pc Swing Jazz", note: { fr: "Shockstar Disco augmente l'Impact d'Anby et permet à ses Attaques de Base d'infliger plus de Choc. Le 2-pièces Swing Jazz augmente sa Réc. d'Énergie pour lui permettre d'utiliser plus d'EX Spéciaux.", en: "Shockstar Disco increases Anby's Impact and allows Basic Attacks to inflict more Daze. 2pc Swing Jazz provides Energy Regen to fuel frequent EX Specials." } },
+            { tag: "Impact Build II", set1: "King_of_the_Summit", set2: "Swing_Jazz", set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", note: { fr: "King of the Summit offre un buff de DGT CRIT à toute l'équipe lorsqu'Anby utilise un EX Spécial ou un Enchaînement.", en: "King of the Summit grants a team-wide CRIT DMG buff whenever Anby lands an EX Special or Chain Attack." } }
+        ],
+        skills: [
+             { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "10", icon: "Ultime.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Impact %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT / DGT CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "ATQ Flat", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, { tag: "Alternative A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Mono-Électrique", en: "Mono-Electric" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" }, { img: "Harumasa.webp", color: "#3182eb", initial: "H" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Billy.webp", color: "#e8a838", initial: "B" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "", color: "#52525b", role: "Support" }, { img: "", color: "#52525b", role: "DPS" } ] }
+        ]
+    },
+    "Corin": {
+        color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Société d'entretien Victoria", en: "Victoria Housekeeping" },
+        stats: [ { label: "Taux Crit", value: "≥ 80%" }, { label: "Dégât Crit", value: "≥ 160%" }, { label: "Attaque", value: "≥ 3000" } ],
+        discs: [
+            { tag: { fr: "Physical DPS Build 👑", en: "Physical DPS Build 👑" }, set1: "Fanged_Metal", set2: "Woodpecker_Electro", set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Fanged Metal augmente les DGT Physiques de Corin et ses dégâts contre les ennemis sous Assaut. Le 2-pc Woodpecker augmente son Taux CRIT de 8%.", en: "Fanged Metal boosts Corin's Physical DMG and damage dealt against Assaulted targets. 2pc Woodpecker provides a flat +8% CRIT Rate." } },
+            { tag: { fr: "Alternative", en: "Alternative" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellente alternative puisque Corin inflige énormément de dégâts avec son Ultime. Cela augmente aussi son ATK après l'Ultime.", en: "Excellent alternative as Corin dishes out huge burst damage with her Ultimate. Also buffs her ATK following her Ultimate." } }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" },  { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Physique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "DGT CRIT", highlight: true }, { label: "Taux CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Housekeeper", img: "W-Engine_Housekeeper.webp" }, { tag: "Alternative 5★", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }, { tag: "Alternative F2P", name: "Lunar - Noviluna", img: "Lunar_Noviluna.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Team Premium", en: "Premium Team" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Support" } ] }
+        ]
+    },
+    "Soldier 0 Anby": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Forces de défense - Escouade Argent", en: "Silver Squad" },
+        stats: [ { label: "Taux Crit", value: "≥ 60 %" }, { label: "Dégât Crit", value: "≥ 170 %" }, { label: "Attaque", value: "≥ 2800" } ],
+        discs: [
+            { tag: { fr: "DPS Build 👑", en: "DPS Build 👑" }, set1: "Shadow_Harmony", set2: "Woodpecker_Electro", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Shadow of Harmony est le meilleur set de Soldier 0 Anby puisqu'il augmente les DGT de son Aftershock et son Taux CRIT. Utilisez un 2-pc Woodpecker Electro pour obtenir encore plus de Taux CRIT.", en: "Shadow Harmony is Soldier 0 Anby's best set, boosting Aftershock DMG and CRIT Rate. Run 2pc Woodpecker Electro to push her CRIT Rate further." } },
+            { tag: { fr: "Alternative", en: "Alternative" }, set1: "Shadow_Harmony", set2: "Thunder_Metal", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Thunder Metal", note: { fr: "Un 2-pc Thunder Metal peut être envisagé si Soldier 0 Anby possède déjà énormément de Taux CRIT.", en: "A 2pc Thunder Metal can be considered if Soldier 0 Anby already has abundant CRIT Rate." } }
+        ],
+        skills: [
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "ATQ %" }, { slot: "5", label: "DGT Électrique %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false }, { label: "ATQ", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, { tag: "Alternative 5★", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, { tag: "Alternative 4★", name: "Marcato Desire", img: "Marcato_Desire.webp" }, { tag: "Alternative BP", name: "Cannon Rotor", img: "W-Engine_Cannon_Rotor.webp" }, { tag: "Alternative A", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }, { tag: "F2P", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Hypercarry", members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "OM" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative", en: "Alternative" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0A" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "", color: "#52525b", role: "Support" } ] }
+        ]
+    },
+    "Zhu Yuan": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Division de l'Ordre urbain", en: "Public Security" },
+        stats: [ 
+            { label: "DGT CRIT", value: "160 - 180 %+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "60 - 70 %", 
+                note: { fr: "Max 55% avec Nicole M6", en: "Max 55% with Nicole M6" } 
+            }, 
+            { label: "Attaque", value: "3000+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Set 1 👑", en: "Set 1 👑" }, 
+                set1: "Chaotic_Metal", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Chaotic Metal", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "Le meilleur choix pour un DPS Éther. Confère jusqu'à 53% de DGT CRIT. Nécessite Nicole pour appliquer la Corruption facilement.", en: "Competitive option for Ether DPS, granting up to 53% CRIT DMG. Requires another source of Ether application such as Nicole." } 
+            },
+            { 
+                tag: { fr: "Burst Dialyn", en: "Dialyn Burst" }, 
+                set1: "Puffer_Electro", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "Le set le plus puissant si vous jouez avec Dialyn. La rotation 'Double Ultime' permet à Puffer Electro de surpasser Chaotic Metal.", en: "Strongest set reliant on Dialyn. Allowing for double Ultimate rotations leads it to outperform Chaotic Metal." } 
+            },
+            { 
+                tag: { fr: "Alternatif", en: "Alternative" }, 
+                set1: "Woodpecker_Electro", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Option polyvalente offrant beaucoup de Taux CRIT et d'ATK% avec des conditions très générales.", en: "Versatile option providing extra CRIT Rate and ATK% triggered using very general conditions." } 
+            }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Éther % = Taux de PÉN", en: "ATK % > Ether DMG % = PEN Ratio" } }, 
+                { slot: "4", label: { fr: "DGT CRIT = Taux CRIT", en: "CRIT DMG = CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT = ATQ %", en: "CRIT Rate = CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Meilleur Moteur (100.90%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, 
+            { tag: "Alternative 5★ (100%)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, 
+            { tag: "Signature (96.05%)", name: "Riot Suppressor Mark VI", img: "W-Engine_Riot_Suppressor_Mark_VI.webp" }, 
+            { tag: "Option F2P (87.30%)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Free To Play", en: "Free To Play" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "ZY" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
+        ]
+    },
+    "Lucy": {
+        color: "#f05432", element: "Fire", rank: "A", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
+        stats: [ { label: "Taux Crit", value: "≈ 60.2 %" }, { label: "Dégât Crit", value: "≈ 157.2 %" }, { label: "Attaque", value: "2725" } ],
+        discs: [
+            { tag: { fr: "Support 👑", en: "Support 👑" }, set1: "Swing_Jazz", set2: "Woodpecker_Electro", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Woodpecker Electro", note: "" },
+            { tag: "DPS", set1: "Swing_Jazz", set2: "Woodpecker_Electro", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Woodpecker Electro", note: "" },
+            { tag: "Support AP", set1: "Swing_Jazz", set2: "Freedom_Blues", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Freedom Blues", note: "" }
+        ],
+        skills: [
+            { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Ult", level: "", icon: "Ultime.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Feu", en: "ATK % / Fire DMG" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT / DGT CRIT", en: "ATK % / CRIT Rate / CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, { tag: "Alternative A", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.webp" }, { tag: "Alternative A", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
+        ],
+        teams: [
+             { name: "TEAM 01", tag: { fr: "Équipe Désordre", en: "Disorder Team" }, videoId: "umoH0a2p9W4", members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }, //[cite: 37]
+             { name: "TEAM 02", tag: { fr: "Équipe Attaque", en: "Attack Team" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }, //[cite: 37, 38]
+             { name: "TEAM 03", tag: { fr: "Équipe Populaire", en: "Popular Team" }, videoId: "wov1Rrs2lkI", members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Piper.webp", color: "#e8a838", initial: "P" } ] } //[cite: 35]
+        ]
+    },
+    "Ben": {
+        color: "#f05432", element: "Fire", rank: "A", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
+        stats: [ { label: "Energie Regen", value: "≥ 2.8" }, { label: "Defense", value: "≥ 2013" }, { label: "Attaque", value: "≥ 3657" } ],
+        discs: [
+            { tag: { fr: "Defense Build 👑", en: "Defense Build 👑" }, set1: "Swing_Jazz", set2: "Soul_Rock", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Soul Rock", note: { fr: "Swing Jazz augmente la Réc. d'Énergie de Ben et lui permet de buffer les DGT de l'équipe via son Enchaînement. Complétez avec Soul Rock pour augmenter sa DÉF.", en: "Swing Jazz boosts Ben's Energy Regen and buffs squad DMG on Chain Attack. Pair with Soul Rock to maximize his DEF." } },
+            { tag: { fr: "Alternative (DPS)", en: "Alternative (DPS)" }, set1: "Thorned_Rose", set2: "Swing_Jazz", set1Name: "4pc Thorned Rose", set2Name: "+ 2pc Swing Jazz", note: { fr: "Si vous jouez Ben en tant que DPS, équipez 4 pièces Thorned Rose pour augmenter ses DGT. Cependant, le buff de Taux CRIT sera moins utile si vous utilisez son Moteur Signature (car il garantit des coups critiques sur ses parades). Complétez avec Swing Jazz pour garder une bonne Réc. d'Énergie.", en: "If running Ben as a DPS, equip 4pc Thorned Rose to boost his DMG. However, the CRIT Rate buff is less impactful with his Signature W-Engine (guaranteed crits on parry). Pair with Swing Jazz for smooth Energy Regen." } }
+        ],
+        skills: [
+             { name: "Ex", level: "", icon: "Ex.webp" }, { name: "Chain", level: "", icon: "Ultime.webp" }, { name: "Assist", level: "", icon: "Assist.webp" }, { name: "Basic", level: "", icon: "Attaque_basic.webp" }
+        ],
+       statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie ou Impact", en: "Energy Regen or Impact" } }, 
+                { slot: "5", label: { fr: "DÉF %", en: "DEF %" } }, 
+                { slot: "4", label: { fr: "DÉF %", en: "DEF %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "DÉF %", en: "DEF %" }, highlight: true }, 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: false }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, { tag: "Alternative 4★", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }, { tag: "Alternative 4★", name: "Big Cylinder", img: "W-Engine_Big_Cylinder.webp" }, { tag: "Alternative B", name: "Identity Base", img: "Identity_Base.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Fire-Stun", members: [ { img: "Ben.webp", color: "#f05432", initial: "B" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Soldier 11.webp", color: "#f05432", initial: "S11" } ] },
+            { name: "TEAM 02", tag: { fr: "Attaque", en: "Attack" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Ben.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 03", tag: "Free To Play", members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" }, { img: "Ben.webp", color: "#f05432", initial: "B" } ] }
+        ]
+    },
+    "Rina": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Société d'entretien Victoria", en: "Victoria Housekeeping" },
+        stats: [ { label: "Pen Ratio", value: "70%" }, { label: "Attaque", value: "2300" }, { label: "TC / DC", value: "un peu" } ],
+        discs: [
+            { tag: { fr: "Efficacité » 100 % 👑", en: "Efficiency » 100% 👑" }, set1: "Moonlight_Lullaby", set2: "Puffer_Electro", set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Puffer Electro", note: { fr: "Pour optimiser ses bonus. Yep rien de plus.", en: "To maximize her buffs. Yep, that's it." } },
+            { tag: { fr: "Efficacité » 90 %", en: "Efficiency » 90%" }, set1: "Swing_Jazz", set2: "Puffer_Electro", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Puffer Electro", note: { fr: "Si Rina est utilisée dans une équipe classique en dehors de l'Anomalie, Swing Jazz est votre set de prédilection. Cela augmente la Réc. d'Énergie de Rina et augmente les dégâts de l'équipe.", en: "If Rina is used in a standard team outside of Anomaly, Swing Jazz is the go-to set. Boosts Rina's Energy Regen and increases squad damage." } }
+        ],
+        skills: [
+             { name: "Ex", level: "11", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "11", icon: "Assist.webp" }, { name: "Basic", level: "11", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Récup. d'énergie" }, { slot: "5", label: "PEN Ratio" }, { slot: "4", label: "Taux Crit / Attaque > Adre. d'anomalie" } ], sub: [ { label: "Taux Crit = Dégat Crit", highlight: true }, { label: "Attaque %", highlight: false }, { label: "Adresse d'anomalie", highlight: false } ] },
+        engines: [
+            { tag: "Baseline 100%", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, { tag: "Alternative A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }, { tag: "Alternative A", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }, { tag: "Alternative B", name: "Reverb - Mark II", img: "Reverb_Mark_II.webp" }, { tag: "Alternative B", name: "Reverb - Mark III", img: "Reverb_Mark_III.webp" }
+        ],
+        teams: [
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Équipe Désordre", en: "Disorder Team" }, 
+        videoId: "6v-yHGnX09U", 
+        members: [ 
+            { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, 
+            { img: "Jane.webp", color: "#e8a838", initial: "J" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Équipe Électrique", en: "Shock Team" }, 
+        videoId: "dqH4FKu5jTY", 
+        members: [ 
+            { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, 
+            { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    }, 
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Équipe Shiyu", en: "Shiyu Team" }, 
+        videoId: "idYFYexLalI", 
+        members: [ 
+            { img: "Claret.webp", color: "#3182eb", initial: "C" }, 
+            { img: "Norma.webp", color: "#f05432", initial: "N" }, 
+            { img: "Rina.webp", color: "#3182eb", initial: "R" } 
+        ] 
+    } 
+]
+    },
+    "Grace": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
+        stats: [ { label: "Adre. d'Anomalie", value: "410" }, { label: "Maî. d'Anomalie", value: "151" }, { label: "Attaque", value: "2600" } ],
+        discs: [
+            { tag: { fr: "Anomaly Build 👑", en: "Anomaly Build 👑" }, set1: "Freedom_Blues", set2: "Swing_Jazz", set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Swing Jazz", note: { fr: "Ce build augmente l'Adresse et la Maîtrise d'Anomalie de Grace, ce qui profite à son style de jeu Choc. Les DGT Électriques ou le PEN Ratio sont équivalents en termes d'augmentation des dégâts.", en: "This build maximizes Grace's Anomaly Proficiency and Mastery for Shock playstyles. Electric DMG and PEN Ratio perform similarly in damage scaling." } },
+            { tag: { fr: "Alternative", en: "Alternative" }, set1: "Thunder_Metal", set2: "Swing_Jazz", set1Name: "4pc Thunder Metal", set2Name: "+ 2pc Swing Jazz", note: { fr: "Thunder Metal augmente l'ATQ de Grace tant que l'ennemi est Choqué, ce qui sera toujours le cas puisque Grace fournit l'état Choc.", en: "Thunder Metal boosts Grace's ATK while enemies are Shocked, which boasts permanent uptime with Grace." } }
+        ],
+        skills: [
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Assist", level: "10", icon: "Assist.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Maîtrise d'Anomalie" }, { slot: "5", label: "DGT Électrique / PEN Ratio" }, { slot: "4", label: "Adresse d'Anomalie" } ], sub: [ { label: "Adresse d'Anomalie", highlight: true }, { label: "ATQ %", highlight: false }, { label: "PEN", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, { tag: "Alternative 5★", name: "Timeweaver", img: "W-Engine_Timeweaver.webp" }, { tag: "Alternative 4★", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, { tag: "Alternative F2P", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }, { tag: "Alternative B", name: "Magnetic Storm - Alpha", img: "Magnetic_Storm_Alpha.webp" }
+        ],
+        teams: [
+    { 
+        name: "TEAM 01", 
+        tag: { fr: "Remielle Velina (Top Pick)", en: "Remielle Velina (Top Pick)" }, 
+        videoId: "M4wZRaCchCQ", 
+        startTime: 11,
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" } 
+        ] 
+    },
+    { 
+        name: "TEAM 02", 
+        tag: { fr: "Velina Yuzuha", en: "Velina Yuzuha" }, 
+        videoId: "QSrpfGwFuN4", 
+        startTime: 25,
+        members: [ 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" }, 
+            { img: "Velina.webp", color: "#3182eb", initial: "V" }, 
+            { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } 
+        ] 
+    },
+    { 
+        name: "TEAM 03", 
+        tag: { fr: "Remielle Alice (Top Score)", en: "Remielle Alice (Top Score)" },  
+        members: [ 
+            { img: "Remielle.webp", color: "#f23c8a", initial: "R" }, 
+            { img: "Alice.webp", color: "#e8a838", initial: "A" }, 
+            { img: "Grace.webp", color: "#3182eb", initial: "G" } 
+        ] 
+    }
+]
+    },
+    "Roxy": {
+        color: "#3bbedb", element: "Wind", rank: "S", factionTitle: { fr: "Atelier Flint", en: "Flint Workshop" },
+        stats: [
+            { label: "Taux Crit", value: "60 - 90%" },
+            { label: "Récup. d'énergie", value: "3.12" },
+            { label: "Attaque", value: "1800" }
+        ],
+        discs: [
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Swing_Jazz", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { 
+                    fr: "Swing Jazz synergise parfaitement avec Roxy : la régénération d'énergie lui permet d'utiliser ses Attaques Spéciales EX, améliore son Impact et applique un buff de DGT d'équipe sur Enchaînement/Ultime. Le 2-pièces Woodpecker Electro augmente le Taux CRIT, ce qui renforce la puissance du buff de son Passif Principal.", 
+                    en: "Swing Jazz synergizes well with Roxy since Energy Regen lets her use EX Special Attacks, improves her Impact stat, and applies a team-wide DMG buff when using a Chain Attack or Ultimate. Woodpecker Electro is the 2-piece set for this build, as CRIT Rate increases the potency of the buff from her Core Skill." 
+                } 
+            },
+            { 
+                tag: { fr: "2ème Choix", en: "2nd Best" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { 
+                    fr: "Conçu pour les équipes exploitant les Assistances Rapides (que Roxy n'a pas dans son kit). La rotation demande de la précision pour rentabiliser le buff de 15s, mais le gain de DGT en vaut largement la peine.", 
+                    en: "This is a set for a team that has a member or members that can use Quick Assists since Roxy doesn't have this in her kit. While the team rotation for this would be difficult to master due to the 15 second uptime of the buff, it'll be well worth the damage boost this set can provide." 
+                } 
+            },
+            { 
+                tag: { fr: "3ème Choix", en: "3rd Best" }, 
+                set1: "King_of_the_Summit", set2: "Moonlight_Lullaby", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Moonlight Lullaby", 
+                note: { 
+                    fr: "Une excellente alternative qui améliore son Impact et applique un buff de DGT CRIT à l'équipe. Le 2-pièces Moonlight Lullaby est parfait pour pallier ses besoins en régénération d'énergie.", 
+                    en: "King of the Summit is a great alternative set for Roxy since it improves her Impact and applies a CRIT DMG buff to the team. Additionally, equipping a 2-piece Moonlight Lullaby set is excellent for improving her energy regeneration." 
+                } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Assist", level: "12", icon: "Assist.webp" },
+            { name: "Basic", level: "1", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "1", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } },
+                { slot: "5", label: { fr: "Taux de PÉN / ATQ % / DGT Vent %", en: "PEN Ratio / ATK % / Wind DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (100 % en combat)", en: "CRIT Rate (100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: false },
+                { label: { fr: "PÉN Flat", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "ATQ Flat", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature 5★", name: "Crimson Moon Casket", img: "W-Engine_Crimson_Moon_Casket.webp" },
+            { tag: "Alternative 4★ F2P", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" },
+            { tag: "Alternative 5★", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" },
+            { tag: "Alternative 4★", name: "Six Shooter", img: "W-Engine_Six_Shooter.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Team Armurier", en: "Armorer Team" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Claret.webp", color: "#3182eb", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Glace Burst", en: "Ice Burst" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Roxy.webp", color: "#3bbedb", initial: "R" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "OM" }, { img: "Norma.webp", color: "#f05432", initial: "N" } ] }
+        ]
+    },
+    "Sigrid": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Département de la patrouille aérienne", en: "Air Patrol Department" },
+        stats: [
+            { label: "Taux Crit", value: "33.8%" },
+            { label: "Attaque", value: "3000 - 3400+" },
+            { label: "Dégât Crit", value: "150% - 210%+" }
+        ],
+        discs: [
+            { tag: { fr: "Avec Dialyn (100 %) 👑", en: "With Dialyn (100%) 👑" }, set1: "Puffer_Electro", set2: "Polar_Metal", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Polar Metal", note: { fr: "Configuration indispensable avec Dialyn pour exploiter le double ultime sous étourdissement et combler le manque de DGT Glace.", en: "Mandatory setup with Dialyn to abuse the double Ultimate in stun and cover missing Ice DMG." } },
+            { tag: { fr: "Sans Dialyn (98,16 %)", en: "Without Dialyn (98.16%)" }, set1: "Hormone_Punk", set2: "Puffer_Electro", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Puffer Electro", note: { fr: "Meilleure option en duo avec Norma ou Rina. Plus régulier que Dawn's Bloom qui sature les bonus avec Weeping Cradle.", en: "Best option paired with Norma or Rina. More consistent than Dawn's Bloom which oversaturates bonuses alongside Weeping Cradle." } },
+            { tag: { fr: "Alternative (96,16 %)", en: "Alternative (96.16%)" }, set1: "Dawn_Bloom", set2: "Puffer_Electro", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Puffer Electro", note: { fr: "Troisième alternative viable mais moins performante pour renforcer les attaques normales et l'EX Spécial.", en: "Viable 3rd alternative to empower Basic Attacks and EX Special, though lagging slightly behind." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Assist", level: "10", icon: "Assist.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "DGT CRIT / ATQ %", en: "CRIT DMG / ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (6 rolls max)", en: "CRIT Rate (6 rolls max)" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature 100 %", name: "Knight's Extolment", img: "W-Engine_Knights_Extolments.webp" },
+            { tag: "Alternative 5★", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Alternative F2P", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Plafond Burst 👑", en: "Burst Ceiling 👑" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Ultime", en: "Dual Ultimate" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Sigrid.webp", color: "#3bbedb", initial: "S" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ],
+        mindscapes: [
+            { rank: "M1", desc: { fr: "+25 % ATK en combat, progression accélérée des niveaux d'EBA et coup bonus de 100 % de DGT.", en: "+25% in-combat ATK, faster EBA stage progression, and a bonus strike dealing 100% DMG." } },
+            { rank: "M2", desc: { fr: "+10 % de décibels et gain de dégâts massif ; permet de caler un ultime additionnel par combat.", en: "+10% Decibels and massive damage amplification; enables an extra Ultimate per combat." } },
+            { rank: "M4", desc: { fr: "Bonus permanent de +80 % de dégâts.", en: "Permanent +80% damage bonus." } }
+        ],
+        notes: [
+            { fr: "Plafond CRIT : Ne pas dépasser 34 % sur la fiche de stats hors combat (85,4 % innés sous forme renforcée).", en: "CRIT Cap: Do not exceed 34% on out-of-combat stat sheet (85.4% innate in enhanced state)." },
+            { fr: "Moteurs : Proscrire formellement les armes à sous-stat Taux CRIT (comme Myriad Eclipse).", en: "W-Engines: Strictly avoid weapons with CRIT Rate secondary stats (e.g. Myriad Eclipse)." },
+            { fr: "Arme vs Mindscapes : Si The Brimstone R5 est déjà en ta possession, priorise directement le M1/M2 plutôt que son arme signature.", en: "Weapon vs Mindscapes: If you already own The Brimstone R5, prioritize her M1/M2 over signature W-Engine." }
+        ]
+    },
+    "Soldier 11": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Escouade Obole", en: "Obol Squad" },
+        stats: [
+            { label: "Attaque", value: "2800 - 3000+" },
+            { label: "Taux Crit", value: "≥ 80 %" },
+            { label: "Dégât Crit", value: "≥ 140 %" }
+        ],
+        discs: [
+            { tag: { fr: "Dialyn Burst (100 %) 👑", en: "Dialyn Burst (100%) 👑" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Configuration optimale avec Dialyn pour convertir les attaques en chaîne en ultime dès l'ouverture.", en: "Optimal setup with Dialyn to convert Chain Attacks into an immediate opening Ultimate." } },
+            { tag: { fr: "Polyvalent (98,82 %)", en: "All-Rounder (98.82%)" }, set1: "Woodpecker_Electro", set2: "Puffer_Electro", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", note: { fr: "Set régulier profitant du spam d'attaques normales et des contre-attaques après esquive.", en: "Consistent all-rounder capitalizing on Basic Attack spam and frequent Dodge Counters." } },
+            { tag: { fr: "Alternative (98,75 %)", en: "Alternative (98.75%)" }, set1: "Dawn_Bloom", set2: "Woodpecker_Electro", set1Name: "4pc Dawn's Bloom", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Augmente constamment les dégâts de son attaque normale 5 renforcée.", en: "Provides permanent DMG boost to her enhanced Basic 5." } }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Ex", level: "10", icon: "Ex.webp" },
+            { name: "Dodge", level: "8", icon: "Esquive.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Feu %", en: "PEN Ratio % / ATK % / Fire DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / ATQ % / DGT CRIT %", en: "CRIT Rate % / ATK % / CRIT DMG %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature Evelyn (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (95,11 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" },
+            { tag: "Stat Stick S (91,51 %)", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.webp" },
+            { tag: "Signature Personnelle", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "F2P (S5) (78,74 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Deadly Assault Top 👑", en: "Deadly Assault Top 👑" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: "fire missile", members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Soukaku": {
+        color: "#3bbedb", element: "Ice", rank: "A", factionTitle: { fr: "Section 6", en: "Section 6" },
+        stats: [
+            { label: "Attaque (Cap)", value: "2500 - 2777" },
+            { label: "Taux Crit", value: "50 % - 60 %" },
+            { label: "Dégât Crit", value: "100 % - 120 %" }
+        ],
+        discs: [
+            { tag: { fr: "Support Anomalie 👑", en: "Anomaly Support 👑" }, set1: "Freedom_Blues", set2: "Phaethon_Melody", set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "Applique 20 % de réduction de résistance à l'anomalie Glace via l'EX Spécial, parfait pour Miyabi.", en: "Applies 20% Ice Anomaly Buildup RES reduction on EX Special, ideal for Miyabi." } },
+            { tag: { fr: "Support Généraliste", en: "General Support" }, set1: "Moonlight_Lullaby", set2: "Phaethon_Melody", set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "Fournit 20 % de régénération d'énergie et un buff de 18 % DGT d'équipe durant 25 s.", en: "Provides 20% Energy Regen and a massive 18% team DMG buff for 25s." } },
+            { tag: "Quick Assist", set1: "Astral_Voice", set2: "Phaethon_Melody", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Phaethon's Melody", note: { fr: "Confère jusqu'à 24 % de DGT aux équipiers entrant sur le terrain par assistance rapide.", en: "Buffs DMG of allies entering via Quick Assist by up to 24%." } }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" },
+            { name: "Ult", level: "11", icon: "Ultime.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Glace %", en: "ATK % / Ice DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Taux CRIT %", en: "ATK % / CRIT Rate %" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ % (priorité cap passif)", en: "ATK % (passive cap priority)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (S5) 👑", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" },
+            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" },
+            { tag: "Alternative Support (S5)", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" },
+            { tag: "Option F2P", name: "Slice of Time", img: "W-Engine_Slice_of_Time.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Miyabi Carry 👑", videoId: "OAEGL2k9x7E", startTime: 10, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 02", tag: "Mono Glace Stun", videoId: "aieNDjucdFM", startTime: 5, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Classique Ellen", en: "Classic Ellen" }, videoId: "x2bny1irV7c", startTime: 42, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Lycaon.webp", color: "#3bbedb", initial: "L" }, { img: "Soukaku.webp", color: "#3bbedb", initial: "S" } ] }
+        ]
+    },
+    "Nekomata": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Lièvres rusés", en: "Cunning Hares" },
+        stats: [
+            { label: "Taux Crit", value: "70% - 80%+" },
+            { label: "Attaque", value: "2500 - 3100+" },
+            { label: "Dégât Crit", value: "140% - 160%+" }
+        ],
+        discs: [
+            { tag: { fr: "Meilleur Set (100 %) 👑", en: "Best Set (100%) 👑" }, set1: "Woodpecker_Electro", set2: "Puffer_Electro", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", note: { fr: "Configuration optimale (100 % DPS). Maintien constant des 3 cumuls grâce à l'enchaînement de l'EX et de la contre-esquive renforcée.", en: "Optimal setup (100% DPS). Sustains max 3 stacks effortlessly by chaining EX and Enhanced Dodge Counters." } },
+            { tag: { fr: "Alternative DGT CRIT (99,55 %)", en: "CRIT DMG Alternative (99.55%)" }, set1: "Woodpecker_Electro", set2: "Branch_Blade_Song", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Très performant si l'apport en pénétration d'équipe (Rina / Sunna M1) est déjà important.", en: "Highly potent if team PEN Ratio support (Rina / Sunna M1) is already high." } },
+            { tag: { fr: "Alternative ATK % (99,33 %)", en: "ATK% Alternative (99.33%)" }, set1: "Woodpecker_Electro", set2: "Astral_Voice", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Astral Voice", note: { fr: "Option solide pour augmenter l'attaque brute (Hormone Punk et Fanged Metal restent également viables).", en: "Solid raw ATK alternative (Hormone Punk and Fanged Metal remain viable)." } }
+        ],
+        skills: [
+            { name: "Dodge", level: "12", icon: "Esquive.webp" },
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Basic", level: "7", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "1", icon: "Assist.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN", en: "PEN Ratio" } },
+                { slot: "4", label: { fr: "Taux CRIT (M0-M3) / DGT CRIT (M4-M5) / ATQ % (M6)", en: "CRIT Rate (M0-M3) / CRIT DMG (M4-M5) / ATK % (M6)" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (jusqu'à 100% en combat)", en: "CRIT Rate (up to 100% in combat)" }, highlight: true },
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" },
+            { tag: "Stat Stick S (99,67 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (96,57 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" },
+            { tag: "Alternative S (95,23 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Option F2P (86,93 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Best-in-Slot 👑", en: "Best-in-Slot 👑" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Pénétration", en: "Penetration" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Classique F2P", en: "Classic F2P" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
+        ],
+        mindscapes: [
+            { rank: "M1", desc: { fr: "La réduction de résistance physique ennemie est active en permanence grâce à la conversion totale en attaques arrière.", en: "Enemy Physical RES shred is permanently active thanks to 100% back-attack conversion." } },
+            { rank: "M4", desc: { fr: "Confère jusqu'à +14 % Taux CRIT, permettant d'équiper un Disque 4 en DGT CRIT.", en: "Grants up to +14% CRIT Rate, allowing slot 4 disc to run CRIT DMG." } },
+            { rank: "M6", desc: { fr: "Ajoute +54 % DGT CRIT supplémentaires, saturant le multiplicateur et justifiant le passage du Disque 4 en ATK %.", en: "Adds +54% CRIT DMG, saturating the stat and favoring ATK% on slot 4." } }
+        ],
+        notes: [
+            { fr: "Énergie Ronronnante : Conserver 40 à 55 points avant le stun pour lancer directement la contre-esquive renforcée en maintenant l'attaque normale.", en: "Purr Energy: Pool 40-55 points prior to stun to unleash Enhanced Dodge Counter by holding Basic Attack." },
+            { fr: "Attaques de dos : Le déclenchement de la contre-esquive confère 40 s où toutes les frappes sont comptabilisées comme des attaques arrière (+60 % DGT).", en: "Back-Attacks: Enhanced Dodge Counter activation grants 40s where all hits register as back-attacks (+60% DMG)." },
+            { fr: "Maintien Woodpecker : Placer une attaque normale entre l'EX Spécial et la contre-esquive pour garantir les 3 cumuls du set.", en: "Woodpecker Upkeep: Insert a swift Basic Attack between EX Special and Dodge Counter to maintain 3 stacks." }
+        ]
+    },
+    "Anton": {
+        color: "#3182eb", element: "Electric", rank: "A", factionTitle: { fr: "Usines Belobog", en: "Belobog Heavy Industries" },
+        stats: [
+            { label: "Attaque", value: "2300 - 2800+" },
+            { label: "Taux Crit", value: "70 % - 100 %" },
+            { label: "Dégât Crit", value: "120 % - 160 %+" }
+        ],
+        discs: [
+            { tag: { fr: "Meilleur Set (100 %) 👑", en: "Best Set (100%) 👑" }, set1: "Thunder_Metal", set2: "Woodpecker_Electro", set1Name: "4pc Thunder Metal", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Apporte +28 % d'ATK en combat tant qu'un ennemi subit l'état Électrocution, avec un maintien quasi permanent aux côtés de Grace.", en: "Grants +28% in-combat ATK against Shocked targets, with near 100% uptime alongside Grace." } },
+            { tag: { fr: "Burst Ultime (88,93 %)", en: "Ultimate Burst (88.93%)" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Maximise la fenêtre de burst après le déclenchement de l'ultime durant l'étourdissement du boss.", en: "Maximizes post-Ultimate burst windows during boss stun phases." } },
+            { tag: { fr: "Polyvalent (85,59 %)", en: "All-Rounder (85.59%)" }, set1: "Woodpecker_Electro", set2: "Puffer_Electro", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", note: { fr: "Option constante renforçant le taux critique et l'attaque via l'alternance d'attaques normales et de compétences.", en: "Solid all-rounder boosting CRIT Rate and ATK through steady skill rotations." } }
+        ],
+        skills: [
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" },
+            { name: "Ex", level: "10", icon: "Ex.webp" },
+            { name: "Assist", level: "8", icon: "Assist.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Électrique %", en: "Electric DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Top Tier S (105,84 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Alternative S (102,61 %)", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" },
+            { tag: "Alternative S (100 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "F2P Burst S5 (93,26 %)", name: "Street Superstar", img: "W-Engine_Street_Superstar.webp" },
+            { tag: "F2P Standard S5 (92,96 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" },
+            { tag: "Signature A (86,56 %)", name: "Drill Rig - Red Axis", img: "W-Engine_Drill_Rig_-_Red_Axis.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Shock Team (Premium) 👑", en: "Shock Team (Premium) 👑" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Grace.webp", color: "#3182eb", initial: "G" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Grace.webp", color: "#3182eb", initial: "G" } ] },
+            { name: "TEAM 03", tag: { fr: "F2P Friendly", en: "F2P Friendly" }, members: [ { img: "Anton.webp", color: "#3182eb", initial: "A" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
+        ]
+    },
+    "Billy": {
+        color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Lièvres rusés", en: "Cunning Hares" },
+        stats: [
+            { label: "Attaque", value: "2400 - 2800+" },
+            { label: "Taux Crit", value: "70 % - 80 %" },
+            { label: "Dégât Crit", value: "140 % - 160 %+" }
+        ],
+        discs: [
+            { tag: { fr: "Meilleur Set (101,96 %) 👑", en: "Best Set (101.96%) 👑" }, set1: "Woodpecker_Electro", set2: "Branch_Blade_Song", set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Branch and Blade Song", note: { fr: "Maintien très facile de 2 à 3 cumuls d'ATK via le tir accroupi, les tirs roulés et les contre-esquives.", en: "Effortlessly maintains 2-3 ATK stacks via Crouching Fire, Rolling Shots, and Dodge Counters." } },
+            { tag: { fr: "Régularité (101,08 %)", en: "Consistency (101.08%)" }, set1: "Shadow_Harmony", set2: "Woodpecker_Electro", set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "L'option la plus constante grâce à l'enchaînement des attaques de sprint à 360° pour cumuler le Taux CRIT sans gestion complexe.", en: "Most consistent set looping 360 Dash Attacks for effortless CRIT Rate upkeep." } },
+            { tag: { fr: "Burst Ultime (98,52 %)", en: "Ultimate Burst (98.52%)" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellent avec des soutiens comme Dialyn permettant de déclencher un ultime à chaque fenêtre d'étourdissement.", en: "Great option alongside supports like Dialyn to drop an Ultimate every stun rotation." } }
+        ],
+        skills: [
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Dodge", level: "10", icon: "Esquive.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Assist", level: "6", icon: "Assist.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "Taux de PÉN % / ATQ % / DGT Physique %", en: "PEN Ratio % / ATK % / Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT % / DGT CRIT %", en: "CRIT Rate % / CRIT DMG %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Best-in-Slot S5 (116,43 %)", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" },
+            { tag: "Stat Stick S (108,16 %)", name: "Cloudcleave Radiance", img: "W-Engine_Cloudcleave_Radiance.webp" },
+            { tag: "Alternative S (103,20 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" },
+            { tag: "Signature A (100 %)", name: "Starlight Engine Replica", img: "W-Engine_Starlight_Engine_Replica.webp" },
+            { tag: "F2P Craftable (91,14 %)", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: "Billy Premium 👑", members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "F2P Lièvres rusés", en: "F2P Cunning Hares" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Faction / Stun", en: "Faction / Stun Duo" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Seth.webp", color: "#3182eb", initial: "S" } ] }
+        ]
+    },
+    "Seth": {
+        color: "#3182eb", element: "Electric", rank: "A", factionTitle: { fr: "Division de l'Ordre urbain", en: "Public Security" },
+        stats: [
+            { label: "Attaque (Bouclier)", value: "2600 - 3200+ (Cap 3750)" },
+            { label: "PV", value: "≥ 11 000" },
+            { label: "Prof. d'anomalie", value: "200 - 300+ (Optionnel)" }
+        ],
+        discs: [
+            { tag: { fr: "Soutien Ultime 👑", en: "Ultimate Support 👑" }, set1: "Astral_Voice", set2: "Swing_Jazz", set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", note: { fr: "Le meilleur set de soutien grâce aux aides rapides qui confèrent un buff d'équipe pouvant atteindre 24 % de DGT.", en: "Best support set triggering via Quick Assists for up to +24% team DMG." } },
+            { tag: { fr: "Buff Dégâts d'équipe", en: "Team DMG Buff" }, set1: "Swing_Jazz", set2: "Proto_Punk", set1Name: "4pc Swing Jazz", set2Name: "+ 2pc Proto Punk", note: { fr: "Accorde 15 % de dégâts à l'escouade pendant 12 s après un enchaînement ou un ultime.", en: "Grants 15% team DMG for 12s following Chain Attacks or Ultimates." } },
+            { tag: { fr: "Renfort de Bouclier", en: "Shield Reinforce" }, set1: "Proto_Punk", set2: "Swing_Jazz", set1Name: "4pc Proto Punk", set2Name: "+ 2pc Swing Jazz", note: { fr: "Augmente la valeur des boucliers de 15 % et confère 15 % de DGT d'équipe sur parade ou esquive défensive.", en: "Increases shield strength by 15% and grants 15% squad DMG upon defensive assists." } }
+        ],
+        skills: [
+            { name: "Ult", level: "12", icon: "Ultime.webp" },
+            { name: "Ex", level: "11", icon: "Ex.webp" },
+            { name: "Assist", level: "11", icon: "Assist.webp" },
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" },
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / Maîtrise d'Anomalie", en: "Energy Regen / Anomaly Mastery" } },
+                { slot: "5", label: { fr: "ATQ % / DGT Électrique %", en: "ATK % / Electric DMG %" } },
+                { slot: "4", label: { fr: "ATQ % / Adresse d'Anomalie", en: "ATK % / Anomaly Proficiency" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ % (priorité absorption bouclier)", en: "ATK % (shield absorption priority)" }, highlight: true },
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false },
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (S5) 👑", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" },
+            { tag: "Alternative Soutien", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" },
+            { tag: "Option Défensive", name: "Bunny Band", img: "W-Engine_Bunny_Band.webp" },
+            { tag: "Alternative Impact", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Anomalie Jane / Vivian 👑", en: "Jane / Vivian Anomaly 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Burnice", en: "Burnice Disorder" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Burnice.webp", color: "#f05432", initial: "B" } ] },
+            { name: "TEAM 03", tag: { fr: "F2P Ordre Urbain", en: "F2P Public Security" }, members: [ { img: "Billy.webp", color: "#e8a838", initial: "B" }, { img: "Seth.webp", color: "#3182eb", initial: "S" }, { img: "Anby.webp", color: "#3182eb", initial: "A" } ] }
+        ]
+    },
+    "Qingyi": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Division de l'Ordre urbain", en: "Public Security" },
+        stats: [ 
+            { label: "Impact", value: "169 - 193+" }, 
+            { label: "Taux Crit", value: "≥ 50 %" }, 
+            { label: "Attaque", value: "1800 - 2000+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun Optimal 👑", en: "Best Stun 👑" }, 
+                set1: "King_of_the_Summit", set2: "Shockstar_Disco", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Nécessite au moins 50% de Taux CRIT. Ne pas équiper en double dans l'équipe.", en: "Requires 50% CRIT Rate or higher. You cannot run this set multiple times on the same team." } 
+            },
+            { 
+                tag: { fr: "Soutien Généraliste", en: "Generalist Support" }, 
+                set1: "Astral_Voice", set2: "King_of_the_Summit", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc King of the Summit", 
+                note: { fr: "Le meilleur buff de DGT du jeu via les Assistances Rapides.", en: "The biggest DMG buff provided via Quick Assists." } 
+            },
+            { 
+                tag: { fr: "Niche (Assistances)", en: "Niche (Assists)" }, 
+                set1: "Proto_Punk", set2: "King_of_the_Summit", 
+                set1Name: "4pc Proto Punk", set2Name: "+ 2pc King of the Summit", 
+                note: { fr: "Utile pour les équipes qui déclenchent souvent des Assistances Parfaites.", en: "Used for teams that are in the position of triggering Perfect Assists often." } 
+            }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Électrique / ATQ %", en: "Electric DMG / ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.webp" }, 
+            { tag: "Alternative 5★", name: "The Restrained", img: "W-Engine_The_Restrained.webp" }, 
+            { tag: "F2P Craftable", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Alternative A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Meta Shiyu 👑", en: "Shiyu Meta 👑" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Burst", en: "Burst Synergy" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Physique", en: "Physical Alternative" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Caesar": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
+        stats: [ 
+            { label: "Impact", value: "145 - 170+" }, 
+            { label: "Attaque", value: "1400 - 2000+" }, 
+            { label: "HP", value: "12 000+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Soutien Général 👑", en: "Best Support 👑" }, 
+                set1: "Astral_Voice", set2: "Shockstar_Disco", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Le set de soutien idéal pour booster les dégâts via les Assistances Rapides.", en: "Best generalist Support set, buffing DMG via Quick Assists." } 
+            },
+            { 
+                tag: { fr: "Boucliers & Assistances", en: "Shields & Assists" }, 
+                set1: "Proto_Punk", set2: "Shockstar_Disco", 
+                set1Name: "4pc Proto Punk", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Augmente la taille des boucliers et les dégâts de l'équipe lors des Assistances Parfaites.", en: "Increases Shield potency and squad DMG when triggering Perfect Assists." } 
+            },
+            { 
+                tag: { fr: "Support Anomalie", en: "Anomaly Support" }, 
+                set1: "Freedom_Blues", set2: "Shockstar_Disco", 
+                set1Name: "4pc Freedom Blues", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Le choix privilégié lorsqu'elle accompagne un DPS d'Anomalie Physique.", en: "Strong set option when supporting Physical Anomaly DPS Agents." } 
+            }
+        ],
+        skills: [
+            { name: "Assist", level: "12", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Chain", level: "8", icon: "Ultime.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "DGT Physique / ATQ % / Taux de PÉN", en: "Physical DMG / ATK % / PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT / Adresse d'Anomalie", en: "CRIT Rate / Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT / Adresse d'Anomalie", en: "CRIT Rate / Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "Option Impact A", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }, 
+            { tag: "Option Énergie A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, 
+            { tag: "Option Anomalie A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Anomalie 👑", en: "Anomaly Synergy 👑" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Deadly Assault", en: "Deadly Assault" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Corin.webp", color: "#e8a838", initial: "C" }, { img: "Caesar.webp", color: "#e8a838", initial: "C" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Lighter": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
+        stats: [ 
+            { label: "Impact", value: "170 - 195+" }, 
+            { label: "Taux Crit", value: "≥ 50 %" }, 
+            { label: "Attaque", value: "1700 - 2000+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun Optimal 👑", en: "Best Stun 👑" }, 
+                set1: "King_of_the_Summit", set2: "Shockstar_Disco", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Le meilleur set de Stun actuel. Nécessite 50% de Taux CRIT pour maintenir le bonus de l'équipe.", en: "New best Stun set. Requires 50% CRIT Rate to maintain the squad-wide CRIT DMG buff." } 
+            },
+            { 
+                tag: { fr: "Soutien Généraliste", en: "Generalist Support" }, 
+                set1: "Astral_Voice", set2: "King_of_the_Summit", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc King of the Summit", 
+                note: { fr: "Excellent set de soutien généraliste si votre équipe utilise les assistances rapides.", en: "Best generalist Support set, buffing DMG via Quick Assists." } 
+            }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Impact", en: "Impact" } }, 
+                { slot: "5", label: { fr: "ATQ % / DGT Feu % / Taux de PÉN", en: "ATK % / Fire DMG % / PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT", en: "CRIT Rate" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false }, 
+                { label: { fr: "PÉN / Flat ATQ", en: "PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Option Stun S", name: "Ice-Jade Teapot", img: "W-Engine_Ice-Jade_Teapot.webp" }, 
+            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Burst Glace", en: "Ice Burst" }, members: [ { img: "Miyabi.webp", color: "#3bbedb", initial: "M" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Team Calydon", en: "Calydon Team" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Attaque Orphie", en: "Orphie Attack" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Harumasa": {
+        color: "#3182eb", element: "Electric", rank: "S", factionTitle: { fr: "Section 6", en: "Section 6" },
+        stats: [ 
+            { label: "Attaque", value: "2600 - 3400+" }, 
+            { label: "Taux Crit", value: "max. 75 %" }, 
+            { label: "Dégât Crit", value: "150 - 190 %" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Thunder_Metal", set2: "Hormone_Punk", 
+                set1Name: "4pc Thunder Metal", set2Name: "+ 2pc Hormone Punk", 
+                note: { fr: "La plus grande source d'ATK% pour Harumasa. Nécessite qu'un agent Électrique maintienne l'état Choc sur l'ennemi.", en: "Highest source of ATK%. Requires Shock to be active, limiting comps to those with Electric Agents." } 
+            },
+            { 
+                tag: { fr: "Alternative Polyvalente", en: "Versatile Alternative" }, 
+                set1: "Shadow_Harmony", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Offre moins d'ATK brute, mais beaucoup plus simple à gérer en combat tout en offrant d'excellents dégâts.", en: "Easiest set to manage while still offering significant damage gains without strict combo management." } 
+            }
+        ],
+        skills: [
+            { name: "Dodge", level: "12", icon: "Esquive.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Électrique %", en: "ATK % > Electric DMG %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT = Taux CRIT", en: "ATK % > CRIT DMG = CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Flat PÉN / Flat ATQ", en: "Flat PEN / Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }, 
+            { tag: "Option S", name: "Zanshin Herb Case", img: "W-Engine_Zanshin_Herb_Case.webp" }, 
+            { tag: "Alternative S", name: "The Brimstone", img: "W-Engine_The_Brimstone.webp" }, 
+            { tag: "F2P Craftable", name: "Starlight Engine", img: "Starlight_Engine.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Premium Burst 👑", en: "Premium Burst 👑" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Alternative Stun", en: "Stun Alternative" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Électrique", en: "Electric Duo" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
+        ]
+    },
+    "Evelyn": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Étoiles de la Lyre", en: "Lyre Stars" },
+        stats: [ 
+            { label: "DGT CRIT", value: "160 - 200 %+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "80 - 100 %", 
+                note: { fr: "Min. 55% requis sur la fiche de stat", en: "Min. 55% required on stat screen" } 
+            }, 
+            { label: "Attaque", value: "2600 - 3400+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "DPS Build 👑", en: "DPS Build 👑" }, 
+                set1: "Woodpecker_Electro", set2: "Puffer_Electro", 
+                set1Name: "4pc Woodpecker Electro", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Le meilleur choix absolu pour maintenir un buff constant et optimiser les dégâts de son Ultime.", en: "Absolute best choice to maintain constant buffs and optimize Ultimate burst DMG." } 
+            },
+            { 
+                tag: { fr: "Alternative Feu", en: "Fire Alternative" }, 
+                set1: "Inferno_Metal", set2: "Puffer_Electro", 
+                set1Name: "4pc Inferno Metal", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Une excellente option à 95% d'efficacité si vous pouvez maintenir les ennemis brûlés.", en: "Excellent 95% efficiency option if you can keep enemies burning." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Feu % > ATQ %", en: "PEN Ratio % > Fire DMG % > ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ % > DGT CRIT %", en: "ATK % > CRIT DMG %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 75% max)", en: "CRIT Rate (Up to 75% max)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" }, 
+            { tag: "Stat Stick S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, 
+            { tag: "Meilleure Option A", name: "Starlight Engine", img: "Starlight_Engine.webp" }, 
+            { tag: "Alternative A", name: "Steel Cushion", img: "W-Engine_Steel_Cushion.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Premium Meta 👑", en: "Premium Meta 👑" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Lighter", en: "Lighter Synergy" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Feu", en: "Dual Fire" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Koleda.webp", color: "#f05432", initial: "K" }, { img: "Lucy.webp", color: "#f05432", initial: "L" } ] }
+        ]
+    },
+    "Astra": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Étoiles de la Lyre", en: "Lyre Stars" },
+        stats: [ 
+            { 
+                label: "Attaque", 
+                value: "3430+", 
+                note: { fr: "Cap vital pour maxer le buff de l'équipe", en: "Vital cap to maximize team-wide buff" } 
+            }, 
+            { label: "Réc. d'énergie", value: "0 - 130 %" }, 
+            { label: "HP", value: "10 500+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Meilleur Set 👑", en: "Best Set 👑" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Son meilleur set de loin. Le 4-pièces se cumule facilement grâce aux nombreuses assistances rapides qu'Astra génère.", en: "Her best set by a long shot. The 4-piece stacks quickly thanks to the Quick Assists she continually grants." } 
+            },
+            { 
+                tag: { fr: "Alternative (Support secondaire)", en: "Alternative (Secondary Support)" }, 
+                set1: "Moonlight_Lullaby", set2: "Swing_Jazz", 
+                set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "À utiliser uniquement si un autre agent de l'équipe est déjà équipé du set Astral Voice complet.", en: "Only use this set if another Agent is already wielding the full Astral Voice set." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Basic", level: "6", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie = ATQ %", en: "Energy Regen = ATK %" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "ATQ % (Jusqu'à 3430 ATQ globale)", en: "ATK % (Up to 3430 overall ATK)" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature", name: "Elegant Vanity", img: "W-Engine_Elegant_Vanity.webp" }, 
+            { tag: "Excellente Alternative S", name: "Bashful Demon", img: "W-Engine_Bashful_Demon.webp" }, 
+            { tag: "Alternative A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative Énergie A", name: "The Vault", img: "W-Engine_The_Vault.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Support Attaquant 👑", en: "Attacker Support 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Spéciale", en: "Special Synergy" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Support", en: "Double Support" }, members: [ { img: "Zhu Yuan.webp", color: "#f23c8a", initial: "Z" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Pulchra": {
+        color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Fils de Calydon", en: "Sons of Calydon" },
+        stats: [ 
+            { label: "Impact", value: "169 - 189+" }, 
+            { label: "Taux Crit", value: "50 - 60 %+" }, 
+            { label: "Adre. d'Anomalie", value: "250 - 300+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun / CRIT 👑", en: "Stun / CRIT 👑" }, 
+                set1: "King_of_the_Summit", set2: "Shockstar_Disco", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Meilleur set si vous atteignez 50% de Taux CRIT. Fournit un puissant buff d'équipe de +30% DGT CRIT.", en: "Best set if you can hit 50% CRIT Rate. Provides a massive team-wide +30% CRIT DMG buff." } 
+            },
+            { 
+                tag: { fr: "Support Général", en: "General Support" }, 
+                set1: "Astral_Voice", set2: "King_of_the_Summit", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc King of the Summit", 
+                note: { fr: "Excellent pour buffer les dégâts via les Assistances rapides si l'équipe le permet.", en: "Great for buffing DMG via Quick Assists if team comp allows it." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "10", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact", en: "Impact" } },
+                { slot: "5", label: { fr: "ATQ % = DGT Physique %", en: "ATK % = Physical DMG %" } },
+                { slot: "4", label: { fr: "Taux CRIT (Build CRIT) / Adresse d'Anomalie (Build Anomalie)", en: "CRIT Rate (CRIT Build) / Anomaly Proficiency (Anomaly Build)" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Option Stun S (109.57%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Signature (100%)", name: "Box Cutter", img: "W-Engine_Box_Cutter.webp" }, 
+            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Alternative S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture", en: "Rupture Synergy" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Physique Off-field", en: "Physical Off-field" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Support Attaque", en: "Attack Support" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] }
+        ]
+    },
+    "Ju Fufu": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Cimes de Yunkui", en: "Yunkui Peaks" },
+        stats: [ 
+            { label: "Impact", value: "139 - 160+" }, 
+            { label: "Attaque", value: "3100 - 3400" }, 
+            { label: "Taux Crit", value: "≥ 50 %" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun Optimal 👑", en: "Best Stun 👑" }, 
+                set1: "King_of_the_Summit", set2: "Shockstar_Disco", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Shockstar Disco", 
+                note: { fr: "Meilleur set si l'équipe a besoin du buff de DGT CRIT (nécessite 50% de Taux CRIT).", en: "Best set if the squad needs the CRIT DMG buff (requires 50% CRIT Rate)." } 
+            },
+            { 
+                tag: { fr: "Alternative Soutien", en: "Support Alternative" }, 
+                set1: "Swing_Jazz", set2: "King_of_the_Summit", 
+                set1Name: "4pc Swing Jazz", set2Name: "+ 2pc King of the Summit", 
+                note: { fr: "Confère un buff de dégâts de 15% à l'équipe. À utiliser si un autre membre possède déjà King of the Summit.", en: "Grants a 15% team DMG buff. Use if King of the Summit is already equipped by a teammate." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Impact = ATQ %", en: "Impact = ATK %" } },
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = ATQ %", en: "CRIT Rate = ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT (Jusqu'à 50%)", en: "CRIT Rate (Up to 50%)" }, highlight: true },
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3400)", en: "ATK % / Flat ATK (Up to 3400)" }, highlight: true },
+                { label: { fr: "DGT CRIT", en: "CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Roaring Fur-nace", img: "W-Engine_Roaring_Fur-nace.webp" }, 
+            { tag: "Meilleure Option S (107.82%)", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }, 
+            { tag: "Alternative S (99.54%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Off-field Stun", en: "Off-field Stun" }, members: [ { img: "Evelyn.webp", color: "#f05432", initial: "E" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Lighter.webp", color: "#f05432", initial: "L" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" } ] }
+        ]
+    },
+    "Yixuan": {
+        color: "#5d57a6", 
+        element: "Auric Ink", 
+        elementIcon: "Auric_Ink.webp", 
+        rank: "S", 
+        factionTitle: { fr: "Cimes de Yunkui", en: "Yunkui Peaks" },
+        stats: [ 
+            { label: "Sheer Force", value: "2100 - 2400" }, 
+            { label: "HP", value: "16 000 - 18 000+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "80 - 90 %", 
+                note: { fr: "Bonus de disques inclus", en: "Including Disc Drive Bonus" } 
+            } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Build Optimal 👑", en: "Optimal Build 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "La meilleure (et seule) option à considérer. Fournit des PV%, du Taux CRIT cumulable et augmente les DGT Sheer.", en: "The best (and frankly only) option to consider. Provides HP%, stackable CRIT Rate and boosts Sheer DMG." } 
+            },
+            { 
+                tag: { fr: "Alternative DGT CRIT", en: "CRIT DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Si vous atteignez déjà votre cap de Taux CRIT, ce 2-pièces apportera de précieux DGT CRIT.", en: "If CRIT Rate is already capped, this 2-pc will provide valuable CRIT DMG." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: "HP %" }, 
+                { slot: "5", label: "DGT Éther % > HP %" }, 
+                { slot: "4", label: "Taux CRIT = DGT CRIT" } 
+            ], 
+            sub: [ 
+                { label: "Taux CRIT = DGT CRIT", highlight: true }, 
+                { label: "HP %", highlight: true }, 
+                { label: "ATK %", highlight: false }, 
+                { label: "Flat HP", highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "Alternative A (85.77 %)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, 
+            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Rupture Premium 👑", en: "Premium Rupture 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Faction", en: "Faction Synergy" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Physique", en: "Physical Support" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] }
+        ]
+    },
+    "Pan Yinhu": {
+        color: "#e8a838", element: "Physical", rank: "A", factionTitle: { fr: "Cimes de Yunkui", en: "Yunkui Peaks" },
+        stats: [ 
+            { 
+                label: "Attaque", 
+                value: "3000+", 
+                note: { fr: "L'unique cap requis", en: "The only required cap" } 
+            }, 
+            { label: "HP", value: "10 000+" }, 
+            { label: "DEF", value: "800+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Soutien Généraliste 👑", en: "Generalist Support 👑" }, 
+                set1: "Astral_Voice", set2: "Hormone_Punk", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Hormone Punk", 
+                note: { fr: "Meilleur set de soutien global pour buffer les dégâts via les Assistances rapides. Le 2-pièces Hormone Punk aide à atteindre les 3000 d'ATK.", en: "Best generalist Support set buffing DMG via Quick Assists. 2pc Hormone Punk helps reach the 3000 ATK requirement." } 
+            },
+            { 
+                tag: { fr: "Niche (Assistances)", en: "Niche (Assists)" }, 
+                set1: "Proto_Punk", set2: "Hormone_Punk", 
+                set1Name: "4pc Proto Punk", set2Name: "+ 2pc Hormone Punk", 
+                note: { fr: "Option de soutien si vous déclenchez très souvent des Assistances Parfaites.", en: "Niche supportive set if you constantly trigger Perfect Assists." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } },
+                { slot: "5", label: { fr: "DGT Physique % > ATQ %", en: "Physical DMG % > ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT > ATQ %", en: "CRIT Rate = CRIT DMG > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3000)", en: "ATK % / Flat ATK (Up to 3000)" }, highlight: true },
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "PV %", en: "HP %" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Option S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "Signature (A)", name: "Tremor Trigram Vessel", img: "W-Engine_Tremor_Trigram_Vessel.webp" }, 
+            { tag: "Alternative A", name: "Spring Embrace", img: "W-Engine_Spring_Embrace.webp" }, 
+            { tag: "Alternative A", name: "Peacekeeper - Specialized", img: "W-Engine_Peacekeeper_-_Specialized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Rupture 👑", en: "Rupture Synergy 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture (Alternative)", en: "Rupture (Alternative)" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" } ] },
+            { name: "TEAM 03", tag: { fr: "Duo Rupture Yunkui", en: "Yunkui Rupture Duo" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Alice": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Maison hantée", en: "Spook Shack" },
+        stats: [ 
+            { label: "Adre. d'Anomalie", value: "330 - 420+" }, 
+            { label: "Maî. d'Anomalie", value: "184+" }, 
+            { label: "Attaque", value: "2600 - 2900+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "DPS Anomalie 👑", en: "Anomaly DPS 👑" }, 
+                set1: "Fanged_Metal", set2: "Phaethon_Melody", 
+                set1Name: "4pc Fanged Metal", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { fr: "Meilleure option pour un DPS Physique axé Anomalie, accordant +35% de DGT contre les ennemis sous l'effet Assaut.", en: "Best option for direct Anomaly Physical DPS, granting 35% increased DMG against Assaulted enemies." } 
+            },
+            { 
+                tag: { fr: "Alternative Niche", en: "Niche Alternative" }, 
+                set1: "Hormone_Punk", set2: "Phaethon_Melody", 
+                set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { fr: "Performant sur ses fenêtres de burst, mais moins consistant que Fanged Metal car Alice passe beaucoup de temps sur le terrain.", en: "Strong burst windows, but less consistent than Fanged Metal due to her high on-field presence." } 
+            }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "8", icon: "Esquive.webp" }, 
+            { name: "Assist", level: "6", icon: "Assist.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } },
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Physique %", en: "PEN Ratio % > Physical DMG %" } },
+                { slot: "4", label: { fr: "Adresse d'Anomalie > ATQ %", en: "Anomaly Proficiency > ATK %" } }
+            ],
+            sub: [
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Practiced Perfection", img: "W-Engine_Practiced_Perfection.webp" }, 
+            { tag: "Option On-field S", name: "Sharpened Stinger", img: "W-Engine_Sharpened_Stinger.webp" }, 
+            { tag: "Option Accessible S", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, 
+            { tag: "F2P Craftable A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Désordre 👑", en: "Disorder Synergy 👑" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Feu", en: "Fire Disorder" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Burnice.webp", color: "#f05432", initial: "B" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative F2P", en: "F2P Alternative" }, members: [ { img: "Alice.webp", color: "#e8a838", initial: "A" }, { img: "Yanagi.webp", color: "#3182eb", initial: "Y" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Orphie and Magus": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Enquêtes Criminelles", en: "N.E.P.S." },
+        stats: [ 
+            { 
+                label: "Taux Crit", 
+                value: "90 - 100 %", 
+                note: { fr: "Passifs inclus", en: "Including passives" } 
+            }, 
+            { label: "DGT CRIT", value: "120 %+" }, 
+            { label: "Réc. Énergie", value: "80 %+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "DPS Principal 👑", en: "Main DPS 👑" }, 
+                set1: "Shadow_Harmony", set2: "Swing_Jazz", 
+                set1Name: "4pc Shadow Harmony", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Meilleur set pour ses dégâts personnels. Facile à jouer et nécessite très peu de gestion.", en: "Best set for Orphie's personal damage. Easy to play around and requires very little maintenance." } 
+            },
+            { 
+                tag: { fr: "Support Attaquant", en: "Attacker Support" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Set de buff extrêmement puissant, particulièrement utile dans les compositions à double attaquant.", en: "Best usable buffing set, highly recommended in Dual Attacker compositions." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: {
+            main: [
+                { slot: "6", label: { fr: "Réc. d'énergie / ATQ %", en: "Energy Regen / ATK %" } },
+                { slot: "5", label: { fr: "DGT Feu % / ATQ %", en: "Fire DMG % / ATK %" } },
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } }
+            ],
+            sub: [
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true },
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true },
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false },
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false }
+            ]
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Bellicose Blaze", img: "W-Engine_Bellicose_Blaze.webp" }, 
+            { tag: "Stat Stick S", name: "Heartstring Nocturne", img: "W-Engine_Heartstring_Nocturne.webp" }, 
+            { tag: "Alternative S", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, 
+            { tag: "Meilleur F2P A", name: "Gilded Blossom", img: "Gilded_Blossom.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "DPS Principal 👑", en: "Primary DPS 👑" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Attaquant", en: "Dual Attacker" }, members: [ { img: "Soldier 0 Anby.webp", color: "#3182eb", initial: "S0" }, { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Orphie and Magus.webp", color: "#f05432", initial: "O" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
+        ]
+    },
+    "Manato": {
+        color: "#f05432", element: "Fire", rank: "A", factionTitle: { fr: "Maison hantée", en: "Spook Shack" },
+        stats: [ 
+            { label: "Sheer Force", value: "2100 - 2400+" }, 
+            { label: "HP", value: "18 000+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "44 - 66 %", 
+                note: { fr: "Atteint 90 à 100% en combat", en: "Reaches 90-100% in-combat" } 
+            } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Build Optimal 👑", en: "Optimal Build 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "Le meilleur choix absolu pour maximiser ses DGT durant l'étourdissement en exploitant sa synergie avec les HP.", en: "The best option to maximize his damage during Stun while scaling off his HP." } 
+            },
+            { 
+                tag: { fr: "Alternative DGT CRIT", en: "CRIT DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Une alternative solide si vous n'avez pas besoin des 8% de Taux CRIT de Woodpecker Electro.", en: "Solid alternative if you do not need the 8% CRIT Rate from Woodpecker Electro." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "8", icon: "Ex.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > PV %", en: "Fire DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: true }, 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature A (100 %)", name: "Grill O'Wisp", img: "W-Engine_Grill_O_Wisp.webp" }, 
+            { tag: "Stat Stick S", name: "Wrathful Vajra", img: "W-Engine_Wrathful_Vajra.webp" }, 
+            { tag: "Alternative A", name: "Radiowave Journey", img: "W-Engine_Radiowave_Journey.webp" }, 
+            { tag: "Alternative A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Manato Rupture 👑", en: "Manato Rupture 👑" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Soutien Yunkui", en: "Yunkui Support" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Pulchra.webp", color: "#e8a838", initial: "P" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] }
+        ]
+    },
+    "Lucia": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Maison hantée", en: "Spook Shack" },
+        stats: [ 
+            { 
+                label: "HP", 
+                value: "22 000 - 24 000+", 
+                note: { fr: "Focus vital pour maxer le buff de Sheer Force", en: "Vital focus to maximize Sheer Force buff" } 
+            }, 
+            { label: "Attaque", value: "1800+" }, 
+            { label: "DEF", value: "800+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Soutien Optimal 👑", en: "Optimal Support 👑" }, 
+                set1: "Moonlight_Lullaby", set2: "Yunkui_Tales", 
+                set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Yunkui Tales", 
+                note: { fr: "Le set ultime pour tout Agent de Soutien. Fournit 20% de Réc. Énergie et un énorme buff de DGT d'équipe (18%) qui dure très longtemps (25s) via un simple EX Spécial.", en: "The ultimate set for Support Agents. Provides Energy Regen and a massive 18% team DMG buff that lasts 25s, easily triggered via EX Special." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "PV %", en: "HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Taux CRIT (≥ DGT CRIT)", en: "CRIT Rate (≥ CRIT DMG)" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Dreamlit Hearth", img: "W-Engine_Dreamlit_Hearth.webp" }, 
+            { tag: "Alternative Off-field S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, 
+            { tag: "F2P Craftable A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Rupture Yixuan 👑", en: "Yixuan Rupture 👑" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture Manato", en: "Manato Rupture" }, members: [ { img: "Manato.webp", color: "#f05432", initial: "M" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Rupture Yidhari", en: "Yidhari Rupture" }, members: [ { img: "Yidhari.webp", color: "#3bbedb", initial: "Y" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
+        ]
+    },
+    "Dialyn": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { label: "Taux Crit", value: "80 - 100 %" }, 
+            { label: "DGT CRIT", value: "100 %+" }, 
+            { label: "Attaque", value: "2400+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun Optimal 👑", en: "Best Stun 👑" }, 
+                set1: "King_of_the_Summit", set2: "Woodpecker_Electro", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "Le set Stun de facto. Comme elle build du Taux CRIT naturellement, le palier de 50% pour activer le buff d'équipe est garanti.", en: "De facto best Stunner set. As she naturally builds CRIT Rate, the 50% threshold for the team buff is guaranteed." } 
+            },
+            { 
+                tag: { fr: "Alternative Énergie", en: "Energy Alternative" }, 
+                set1: "King_of_the_Summit", set2: "Swing_Jazz", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "À utiliser si vous avez déjà atteint le cap de Taux CRIT et que vous avez besoin de Régénération d'Énergie pour spammer ses EX Spéciaux.", en: "Use if CRIT Rate is capped and you need Energy Regen to sustain EX Special spam." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ % > DGT Physique % = Taux de PÉN", en: "ATK % > Physical DMG % = PEN Ratio" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100%)", en: "CRIT Rate (Up to 100%)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Yesterday Calls", img: "W-Engine_Yesterday_Calls.webp" }, 
+            { tag: "Alternative Off-field S", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Énergie A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "F2P Impact A", name: "Precious Fossilized Core", img: "W-Engine_Precious_Fossilized.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Double Ultime 👑", en: "Double Ultimate 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Rupture Burst", en: "Rupture Burst" }, members: [ { img: "Yixuan.webp", color: "#5d57a6", initial: "Y" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Physique", en: "Physical Synergy" }, members: [ { img: "Nekomata.webp", color: "#e8a838", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Rina.webp", color: "#3182eb", initial: "R" } ] }
+        ]
+    },
+    "Zhao": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { 
+                label: "HP", 
+                value: "25 000+", 
+                note: { fr: "Focus jusqu'à 27 000 PV initiaux", en: "Focus until 27,000 Initial HP" } 
+            }, 
+            { label: "Attaque", value: "1900+" }, 
+            { label: "Taux Crit", value: "30 %+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Soutien Optimal 👑", en: "Optimal Support 👑" }, 
+                set1: "Bunny_in_Wonderland", set2: "Yunkui_Tales", 
+                set1Name: "4pc Bunny in Wonderland", set2Name: "+ 2pc Yunkui Tales", 
+                note: { fr: "Son meilleur choix absolu. Le 4-pièces donne un buff d'équipe de 18% DGT très facile à maintenir, et le 2-pièces Yunkui l'aide à atteindre ses cap de PV.", en: "Easily best-in-slot. Grants a highly maintainable 18% team DMG buff, while the 2-pc helps meet her steep HP thresholds." } 
+            },
+            { 
+                tag: { fr: "Alternative Soutien", en: "Support Alternative" }, 
+                set1: "Astral_Voice", set2: "Moonlight_Lullaby", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Moonlight Lullaby", 
+                note: { fr: "Une bonne alternative si gérée correctement via ses nombreuses Assistances Rapides et activations d'Ether Veil.", en: "Handy alternative via Quick Assists and Ether Veil activations, though harder to maintain max stacks." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "4", label: { fr: "PV %", en: "HP %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "PV % / Flat PV (Jusqu'à 27k PV)", en: "HP % / Flat HP (Up to 27k HP)" }, highlight: true }, 
+                { label: { fr: "Taux CRIT = DGT CRIT", en: "CRIT Rate = CRIT DMG" }, highlight: false }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Half-Sugar Bunny", img: "W-Engine_Half-Sugar_Bunny.webp" }, 
+            { tag: "Option DGT Équipe S", name: "Tusks of Fury", img: "W-Engine_Tusks_of_Fury.webp" }, 
+            { tag: "F2P Accessible A (68.12%)", name: "Original Transmorpher", img: "W-Engine_Original_Transmorpher.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Généraliste Attaque", en: "Attack Generalist" }, members: [ { img: "Ellen.webp", color: "#3bbedb", initial: "E" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Astra.webp", color: "#f23c8a", initial: "A" } ] },
+            { name: "TEAM 03", tag: { fr: "Généraliste Anomalie", en: "Anomaly Generalist" }, members: [ { img: "Jane.webp", color: "#e8a838", initial: "J" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ]
+    },
+    "Aria": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
+        stats: [ 
+            { label: "Adre. d'Anomalie", value: "330 - 420+" }, 
+            { label: "Maî. d'Anomalie", value: "184 - 244" }, 
+            { label: "Attaque", value: "2600 - 2900+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "DPS Anomalie 👑", en: "Anomaly DPS 👑" }, 
+                set1: "Phaethon_Melody", set2: "Freedom_Blues", 
+                set1Name: "4pc Phaethon's Melody", set2Name: "+ 2pc Freedom Blues", 
+                note: { fr: "Le set offrant le plus haut plafond de dégâts, mais nécessite une gestion active (buff de 8s) et beaucoup de Réc. d'Énergie sur le reste de l'équipe.", en: "Highest DMG ceiling option, but strict to play. Requires constant juggling between Agents to maintain its 8s buff timer." } 
+            },
+            { 
+                tag: { fr: "Alternative Confort", en: "Comfort Alternative" }, 
+                set1: "Shining_Aria", set2: "Phaethon_Melody", 
+                set1Name: "4pc Shining Aria", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { fr: "Une option sans prise de tête. Légèrement moins forte sur le papier, mais beaucoup plus facile à exploiter en combat réel.", en: "Hassle-free pick. Falls short of being the strongest on paper, but far easier to use in actual combat." } 
+            }
+        ],
+        skills: [
+            { name: "Basic", level: "12", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "11", icon: "Assist.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "8", icon: "Ultime.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "DGT Éther % = ATQ %", en: "Ether DMG % = ATK %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.webp" }, 
+            { tag: "Alternative S (88.05%)", name: "Flight of Fancy", img: "W-Engine_Flight_of_Fancy.webp" }, 
+            { tag: "F2P Craftable A", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }, 
+            { tag: "Alternative A", name: "Weeping Gemini", img: "W-Engine_Weeping_Gemini.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Duo Illusion 👑", en: "Delusion Duo 👑" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative Off-field", en: "Off-field Alternative" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ]
+    },
+    "Sunna": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Anges de l'illusion", en: "Angels of Delusion" },
+        stats: [ 
+            { 
+                label: "Attaque", 
+                value: "3500+", 
+                note: { fr: "L'unique cap vital pour ses buffs", en: "The only vital cap for her buffs" } 
+            }, 
+            { label: "Réc. d'énergie", value: "Priorité absolue" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Soutien Optimal 👑", en: "Optimal Support 👑" }, 
+                set1: "Moonlight_Lullaby", set2: "Swing_Jazz", 
+                set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Maintient facilement le buff de DGT d'équipe de Moonlight grâce au faible coût de son EX Spécial. Le 2-pièces Swing Jazz est obligatoire vu sa faible Réc. Énergie de base.", en: "Easily maintains Moonlight's team DMG buff. 2-pc Swing Jazz is strictly required due to her very low base Energy Regen." } 
+            },
+            { 
+                tag: { fr: "Option ATK (Si besoin)", en: "ATK Option (If needed)" }, 
+                set1: "Moonlight_Lullaby", set2: "Hormone_Punk", 
+                set1Name: "4pc Moonlight Lullaby", set2Name: "+ 2pc Hormone Punk", 
+                note: { fr: "À utiliser uniquement si vous avez du mal à atteindre les 3500 d'ATK requis.", en: "Use only if you are struggling to meet her 3500 Core Passive ATK threshold." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "11", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "6", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie", en: "Energy Regen" } }, 
+                { slot: "5", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "4", label: { fr: "ATQ %", en: "ATK %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "ATQ % / Flat ATQ (Jusqu'à 3500)", en: "ATK % / Flat ATK (Up to 3500)" }, highlight: true }, 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: false }, 
+                { label: { fr: "PÉN", en: "PEN" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Thoughtbop", img: "W-Engine_Thoughtbop.webp" }, 
+            { tag: "Alternative S", name: "Weeping Cradle", img: "W-Engine_Weeping_Cradle.webp" }, 
+            { tag: "Meilleure Option A", name: "Kaboom the Cannon", img: "W-Engine_Kaboom_the_Cannon.webp" }, 
+            { tag: "Alternative de Niche A", name: "Unfettered Game Ball", img: "W-Engine_Unfettered_Game_Ball.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Synergie Épée 👑", en: "Sword Synergy 👑" }, members: [ { img: "Ye Shunguang.webp", color: "#e8a838", initial: "YS" }, { img: "Zhao.webp", color: "#3bbedb", initial: "Z" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Double Illusion", en: "Dual Delusion" }, members: [ { img: "Aria.webp", color: "#f23c8a", initial: "A" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Soutien Généraliste", en: "Generalist Support" }, members: [ { img: "Harumasa.webp", color: "#3182eb", initial: "H" }, { img: "Qingyi.webp", color: "#3182eb", initial: "Q" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ]
+    },
+    "Promeia": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Autorité de conformité Krampus", en: "Krampus Compliance Authority" },
+        stats: [ 
+            { label: "Adre. d'Anomalie", value: "287 - 350+" }, 
+            { label: "Maî. d'Anomalie", value: "184 - 248" }, 
+            { label: "Attaque", value: "2600 - 2900+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "DPS Anomalie Glace 👑", en: "Ice Anomaly DPS 👑" }, 
+                set1: "Notes_From_the_Chained", set2: "Phaethon_Melody", 
+                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Phaethon's Melody", 
+                note: { fr: "Set BiS absolu maximisant les déclenchements de Gel et les DGT d'Abloom.", en: "Absolute BiS set maximizing Freeze triggers and Abloom DMG." } 
+            },
+            { 
+                tag: { fr: "Alternative 2pc PÉN", en: "2pc PEN Alternative" }, 
+                set1: "Notes_From_the_Chained", set2: "Puffer_Electro", 
+                set1Name: "4pc Notes From the Chained", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Excellente alternative (98,73 %) si vous possédez de meilleures sous-statistiques.", en: "Excellent alternative (98.73%) if you have better sub-stats." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Chain", level: "10", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "10", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "10", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "1", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Maîtrise d'Anomalie", en: "Anomaly Mastery" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > ATQ % > DGT Glace %", en: "PEN Ratio % > ATK % > Ice DMG %" } }, 
+                { slot: "4", label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Adresse d'Anomalie", en: "Anomaly Proficiency" }, highlight: true }, 
+                { label: { fr: "ATQ %", en: "ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Frostfall Sickle", img: "W-Engine_Frostfall_Sickle.webp" }, 
+            { tag: "Option S BiS (93.41 %)", name: "Angel in the Shell", img: "W-Engine_Angel_in_the_Shell.webp" }, 
+            { tag: "Option S (90.92 %)", name: "Fusion Compiler", img: "W-Engine_Fusion_Compiler.webp" }, 
+            { tag: "Alternative A (90.03 %)", name: "Electro-Lip Gloss", img: "W-Engine_Electro-Lip_Gloss.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Méta BiS (Velina / Remielle) 👑", en: "BiS Meta (Velina / Remielle) 👑" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Velina.webp", color: "#3182eb", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 02", tag: { fr: "Désordre Vivian", en: "Vivian Disorder" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Vivian.webp", color: "#f23c8a", initial: "V" }, { img: "Remielle.webp", color: "#f23c8a", initial: "R" } ] },
+            { name: "TEAM 03", tag: { fr: "Synergie Stun-Abloom", en: "Stun-Abloom Synergy" }, videoId: "", members: [ { img: "Promeia.webp", color: "#3bbedb", initial: "P" }, { img: "Nangong Yu.webp", color: "#f23c8a", initial: "NY" }, { img: "Yuzuha.webp", color: "#e8a838", initial: "Y" } ] }
+        ]
+    },
+    "Starlight Billy": {
+        color: "#e8a838", element: "Physical", rank: "S", factionTitle: { fr: "Lièvres rusés", en: "Cunning Hares" },
+        stats: [ 
+            { label: "Sheer Force", value: "2200+" }, 
+            { label: "HP", value: "18 000+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "90 - 100 %", 
+                note: { fr: "En combat, disques et arme inclus", en: "In combat, including discs & signature" } 
+            } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Build Optimal 👑", en: "Optimal Build 👑" }, 
+                set1: "Yunkui_Tales", set2: "Woodpecker_Electro", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Woodpecker Electro", 
+                note: { fr: "Le seul set 4-pièces viable pour Billy. Utilisez 'Cool Wheelies' souvent pour maintenir le buff.", en: "The only real viable 4-piece set. Be sure to use 'Cool Wheelies' often to maintain the buff." } 
+            },
+            { 
+                tag: { fr: "Alternative DGT", en: "DMG Alternative" }, 
+                set1: "Yunkui_Tales", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Yunkui Tales", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Une bonne option si vous atteignez déjà votre cap de Taux CRIT.", en: "A good option if you are already capped on CRIT Rate." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "PV %", en: "HP %" } }, 
+                { slot: "5", label: { fr: "DGT Physique % > PV %", en: "Physical DMG % > HP %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT = DGT CRIT = PV %", en: "CRIT Rate = CRIT DMG = HP %" }, highlight: true }, 
+                { label: { fr: "Flat PV", en: "Flat HP" }, highlight: true }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Starlight Rider Faceplate", img: "W-Engine_Starlight_Rider_Faceplate.webp" }, 
+            { tag: "Alternative A (84.10%)", name: "Cauldron of Clarity", img: "W-Engine_Cauldron_of_Clarity.webp" }, 
+            { tag: "Stat Stick S", name: "Qingming Birdcage", img: "W-Engine_Qingming_Birdcage.webp" }, 
+            { tag: "F2P Craftable A", name: "Puzzle Sphere", img: "W-Engine_Puzzle_Sphere.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Premium Rupture 👑", en: "Premium Rupture 👑" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Stun", en: "Stun Synergy" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Trigger.webp", color: "#3182eb", initial: "T" } ] },
+            { name: "TEAM 03", tag: { fr: "Alternative A-Rank", en: "A-Rank Alternative" }, members: [ { img: "Starlight Billy.webp", color: "#e8a838", initial: "SB" }, { img: "Pan Yinhu.webp", color: "#e8a838", initial: "P" }, { img: "Lucia.webp", color: "#f23c8a", initial: "L" } ] }
+        ]
+    },
+    "Norma": {
+        color: "#f05432", element: "Fire", rank: "S", factionTitle: { fr: "Département de stratégie externe", en: "External Strategy Department" },
+        stats: [ 
+            { label: "Taux Crit", value: "80 - 100 %" }, 
+            { label: "DGT CRIT", value: "100 %+" }, 
+            { label: "Attaque", value: "2400+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Stun Optimal 👑", en: "Best Stun 👑" }, 
+                set1: "King_of_the_Summit", set2: "Swing_Jazz", 
+                set1Name: "4pc King of the Summit", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Son set naturel. Elle maintient facilement le buff d'équipe grâce au faible coût de son EX Spécial.", en: "Her natural choice. She maintains the team buff easily owing to her low cost EX Special." } 
+            },
+            { 
+                tag: { fr: "Alternative Soutien", en: "Support Alternative" }, 
+                set1: "Astral_Voice", set2: "Swing_Jazz", 
+                set1Name: "4pc Astral Voice", set2Name: "+ 2pc Swing Jazz", 
+                note: { fr: "Une excellente option de soutien. Norma possède l'une des Assistances Rapides les plus accessibles du jeu (en maintenant l'Attaque de Base).", en: "A great generalist Support set. Norma has some of the most accessible Quick Assists in the game (hold Basic)." } 
+            }
+        ],
+        skills: [
+            { name: "Ex", level: "12", icon: "Ex.webp" }, 
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Basic", level: "8", icon: "Attaque_basic.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "Réc. d'énergie = Impact %", en: "Energy Regen = Impact %" } }, 
+                { slot: "5", label: { fr: "DGT Feu % > Taux de PÉN % > ATQ %", en: "Fire DMG % > PEN Ratio % > ATK %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT", en: "CRIT Rate" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Chief Sidekick", img: "W-Engine_Chief_Sidekick.webp" }, 
+            { tag: "Alternative S (96.16%)", name: "Hellfire Gears", img: "W-Engine_Hellfire_Gears.webp" }, 
+            { tag: "F2P Craftable A", name: "Steam Oven", img: "W-Engine_Steam_Oven.webp" }, 
+            { tag: "Option Lighter S", name: "Blazing Laurel", img: "W-Engine_Blazing_Laurel.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Duo E.S.D 👑", en: "E.S.D Duo 👑" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Attaque Feu", en: "Fire Attack" }, members: [ { img: "Soldier 11.webp", color: "#f05432", initial: "S11" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 03", tag: { fr: "Hypercarry Élec", en: "Electric Hypercarry" }, members: [ { img: "Cissia.webp", color: "#3182eb", initial: "C" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ]
+    },
+    "Pyrois": {
+        color: "#f23c8a", element: "Ether", rank: "S", factionTitle: { fr: "Phaéthon", en: "Phaethon" },
+        stats: [ 
+            { label: "Attaque", value: "2800 - 3200+" }, 
+            { 
+                label: "Taux Crit", 
+                value: "57 - 72 %", 
+                note: { fr: "Avant d'équiper Sol Exuvia et M1", en: "Before equipping Sol Exuvia and M1" } 
+            }, 
+            { label: "DGT CRIT", value: "140 - 180 %+" } 
+        ],
+        discs: [
+            { 
+                tag: { fr: "Build Optimal 👑", en: "Optimal Build 👑" }, 
+                set1: "The_Sky_Ablaze", set2: "Puffer_Electro", 
+                set1Name: "4pc The Sky Ablaze", set2Name: "+ 2pc Puffer Electro", 
+                note: { fr: "Le set taillé sur mesure pour Pyrois. Offre de puissants DGT CRIT et un buff d'ATK % quasiment permanent grâce au faible coût de ses EX et Ultimes.", en: "Tailor-made set for Pyrois. Grants high unconditional CRIT DMG and near-permanent ATK% buff owing to low-cost EXs and Ultimates." } 
+            },
+            { 
+                tag: { fr: "Alternative Ultime", en: "Ultimate Alternative" }, 
+                set1: "Puffer_Electro", set2: "Branch_Blade_Song", 
+                set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Branch and Blade Song", 
+                note: { fr: "Une option compétitive centrée sur son Ultime à faible coût (2000 Décibels), bien que le buff ne couvre pas toute la durée de l'étourdissement.", en: "Competitive option focusing on his low-cost Ultimate (2000 Decibels), though the buff won't last the full stun duration." } 
+            }
+        ],
+        skills: [
+            { name: "Chain", level: "12", icon: "Ultime.webp" }, 
+            { name: "Basic", level: "11", icon: "Attaque_basic.webp" }, 
+            { name: "Ex", level: "11", icon: "Ex.webp" }, 
+            { name: "Assist", level: "8", icon: "Assist.webp" }, 
+            { name: "Dodge", level: "6", icon: "Esquive.webp" }
+        ],
+        statPriority: { 
+            main: [ 
+                { slot: "6", label: { fr: "ATQ %", en: "ATK %" } }, 
+                { slot: "5", label: { fr: "Taux de PÉN % > DGT Éther %", en: "PEN Ratio % > Ether DMG %" } }, 
+                { slot: "4", label: { fr: "Taux CRIT > DGT CRIT", en: "CRIT Rate > CRIT DMG" } } 
+            ], 
+            sub: [ 
+                { label: { fr: "Taux CRIT (Jusqu'à 100% en combat)", en: "CRIT Rate (Up to 100% in combat)" }, highlight: true }, 
+                { label: { fr: "DGT CRIT = ATQ %", en: "CRIT DMG = ATK %" }, highlight: true }, 
+                { label: { fr: "Flat PÉN", en: "Flat PEN" }, highlight: false }, 
+                { label: { fr: "Flat ATQ", en: "Flat ATK" }, highlight: false } 
+            ] 
+        },
+        engines: [
+            { tag: "Signature (100 %)", name: "Sol Exuvia", img: "W-Engine_Sol_Exuvia.webp" }, 
+            { tag: "Alternative Nicole S (100.30%)", name: "Cordis Germina", img: "W-Engine_Cordis_Germina.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Meta Éther 👑", en: "Ether Meta 👑" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] },
+            { name: "TEAM 02", tag: { fr: "Synergie Nicole", en: "Nicole Synergy" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Confort Stun", en: "Stun Comfort" }, members: [ { img: "Pyrois.webp", color: "#5d57a6", initial: "P" }, { img: "Ju Fufu.webp", color: "#f05432", initial: "J" }, { img: "Sunna.webp", color: "#e8a838", initial: "S" } ] }
+        ]
+    },
+    "Hugo": {
+        color: "#3bbedb", element: "Ice", rank: "S", factionTitle: { fr: "Oiseaux-moqueurs", en: "Mockingbirds" },
+        stats: [ { label: "Attaque", value: "2600 - 3000+" }, { label: "Taux Crit", value: "70 - 88%" }, { label: "Dégât Crit", value: "160 - 200%+" } ],
+        discs: [
+            { tag: { fr: "DPS Build 👑", en: "DPS Build 👑" }, set1: "Puffer_Electro", set2: "Woodpecker_Electro", set1Name: "4pc Puffer Electro", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Fonctionne le mieux avec Dialyn pour lancer plus d'Ultimes. Augmente le Taux CRIT et les DGT CRIT nécessaires pour optimiser la 'Totalisation'.", en: "Synergizes best with Dialyn for frequent Ultimates. Builds CRIT Rate & CRIT DMG needed for 'Tally' optimization." } },
+            { tag: { fr: "Alternative Build", en: "Alternative Build" }, set1: "Hormone_Punk", set2: "Woodpecker_Electro", set1Name: "4pc Hormone Punk", set2Name: "+ 2pc Woodpecker Electro", note: { fr: "Excellent set si Hugo n'est pas joué avec Dialyn. Fournit une tonne d'ATQ% à chaque fois qu'il entre sur le terrain.", en: "Terrific option when played without Dialyn. Supplies huge ATK% buffs upon taking the field." } }
+        ],
+        skills: [
+             { name: "Ex", level: "12", icon: "Ex.webp" }, { name: "Ult", level: "11", icon: "Ultime.webp" }, { name: "Basic", level: "8", icon: "Attaque_basic.webp" }
+        ],
+        statPriority: { main: [ { slot: "6", label: "Attaque %" }, { slot: "5", label: "DGT Glace %" }, { slot: "4", label: "Taux CRIT / DGT CRIT" } ], sub: [ { label: "Taux CRIT", highlight: true }, { label: "DGT CRIT", highlight: false }, { label: "ATQ %", highlight: false } ] },
+        engines: [
+            { tag: "Meilleur Moteur", name: "Myriad Eclipse", img: "W-Engine_Myriad_Eclipse.webp" }, { tag: "Alternative 5★", name: "Deep Sea Visitor", img: "W-Engine_Deep_Sea_Visitor.webp" }, { tag: "Alternative 4★", name: "Severed Innocence", img: "W-Engine_Severed_Innocence.webp" }, { tag: "Alternative F2P", name: "Marcato Desire", img: "Marcato_Desire.webp" }
+        ],
+        teams: [
+            { name: "TEAM 01", tag: { fr: "Double Stun", en: "Dual Stun" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Norma.webp", color: "#f05432", initial: "N" }, { img: "Dialyn.webp", color: "#e8a838", initial: "D" } ] },
+            { name: "TEAM 02", tag: { fr: "Team F2P", en: "F2P Team" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "Anby.webp", color: "#3182eb", initial: "A" }, { img: "Nicole.webp", color: "#f23c8a", initial: "N" } ] },
+            { name: "TEAM 03", tag: { fr: "Flexible", en: "Flexible" }, members: [ { img: "Hugo.webp", color: "#3bbedb", initial: "H" }, { img: "", color: "#52525b", role: "Agent<br>Stun" }, { img: "", color: "#52525b", role: "Agent<br>Stun" } ] }
+        ]
+    }
+};
+window.maDatabase = agentDatabase;
