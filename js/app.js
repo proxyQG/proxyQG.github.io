@@ -830,13 +830,14 @@ if (installBtn) {
         if (isIos()) {
             // SUR IPHONE : Affiche notre modale d'aide personnalisée
             iosModal.classList.remove('hidden');
-            iosModal.classList.add('flex'); // On force le display flex ici
+            iosModal.classList.add('flex'); // Centre le contenu
             
-            // Petit délai pour déclencher l'animation d'opacité Tailwind
-            setTimeout(() => {
-                iosModal.classList.remove('opacity-0'); // Indispensable pour Tailwind
-                iosModal.classList.add('opacity-100');
-            }, 10);
+            // Astuce technique : force le navigateur à actualiser la position (reflow)
+            void iosModal.offsetWidth;
+            
+            // Lancement de l'animation d'apparition
+            iosModal.classList.remove('opacity-0');
+            iosModal.classList.add('opacity-100');
         } else if (deferredPrompt) {
             // SUR ANDROID / PC : Lance la fenêtre d'installation native
             deferredPrompt.prompt();
@@ -854,22 +855,23 @@ if (installBtn) {
         }
     });
 
-    // 5. Fermeture de la modale iOS via le bouton croix
+    // 5. Fermeture de la modale iOS via le bouton croix ou clic extérieur
     if (closeIosModalBtn && iosModal) {
         const closeIosModal = () => {
             iosModal.classList.remove('opacity-100');
-            iosModal.classList.add('opacity-0'); // Indispensable pour l'animation de fermeture
+            iosModal.classList.add('opacity-0'); 
             
+            // Attend la fin du fondu (300ms) pour vraiment cacher la fenêtre
             setTimeout(() => {
                 iosModal.classList.add('hidden');
                 iosModal.classList.remove('flex');
             }, 300);
         };
 
-        // Fermeture via le bouton X
+        // Fermeture au clic sur la croix
         closeIosModalBtn.addEventListener('click', closeIosModal);
         
-        // BONUS UX : Fermeture en cliquant à l'extérieur de la boîte
+        // BONUS UX : Fermeture en cliquant dans le fond noir
         iosModal.addEventListener('click', (e) => {
             if (e.target === iosModal) {
                 closeIosModal();
