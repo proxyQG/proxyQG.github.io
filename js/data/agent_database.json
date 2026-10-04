@@ -3436,7 +3436,7 @@
                 "value": "320 à 350+"
             },
             {
-                "label": "Energie",
+                "label": "Énergie",
                 "value": "2.6 à 3"
             }
         ],
@@ -3451,9 +3451,10 @@
                 "set1Name": "4pc Moonlight Lullaby",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-    "fr": "Top méta Support : +18 % DGT d'équipe pendant 25 s via Attaque EX/Ultime et +20 % Réc. d'énergie.",
-    "en": "Top meta Support: +18% team DMG for 25s via EX Special/Ultimate and +20% Energy Regen."
-},
+                    "fr": "Top méta Support : +18 % DGT d'équipe pendant 25 s via Attaque EX/Ultime et +20 % Réc. d'énergie.",
+                    "en": "Top meta Support: +18% team DMG for 25s via EX Special/Ultimate and +20% Energy Regen."
+                }
+            },
             {
                 "tag": {
                     "fr": "Support Assaut rapide",
@@ -3464,9 +3465,10 @@
                 "set1Name": "4pc Astral Voice",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-    "fr": "Buff massif (+24 % DGT) sur l'Aide rapide (Quick Assist) et +10 % ATQ, mais moins régulier à maintenir.",
-    "en": "Massive buff (+24% DMG) on Quick Assist and +10% ATK, but harder to maintain 100% uptime."
-},
+                    "fr": "Buff massif (+24 % DGT) sur l'Aide rapide (Quick Assist) et +10 % ATQ, mais moins régulier à maintenir.",
+                    "en": "Massive buff (+24% DMG) on Quick Assist and +10% ATK, but harder to maintain 100% uptime."
+                }
+            },
             {
                 "tag": {
                     "fr": "Support classique",
@@ -3477,9 +3479,10 @@
                 "set1Name": "4pc Swing Jazz",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-    "fr": "Option classique : +15 % DGT d'équipe pendant 12 s après un Ultime/Enchaînement, parfait lors des Stuns.",
-    "en": "Classic option: +15% squad DMG for 12s after Chain Attack/Ultimate, ideal during Stun windows."
-}
+                    "fr": "Option classique : +15 % DGT d'équipe pendant 12 s après un Ultime/Enchaînement, parfait lors des Stuns.",
+                    "en": "Classic option: +15% squad DMG for 12s after Chain Attack/Ultimate, ideal during Stun windows."
+                }
+            }
         ],
         "skills": [
             {
