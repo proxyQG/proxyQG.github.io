@@ -3903,30 +3903,30 @@
                 "set1Name": "4pc Astral Voice",
                 "set2Name": "+ 2pc Moonlight Lullaby",
                 "note": {
-                    "fr": "Configuration axée sur le soutien d'équipe et la régénération d'énergie.",
-                    "en": "Build focused on team utility and energy regen."
+                    "fr": "Option soutien d'équipe, recommandée pour les teams Armorer / Anomalie / Rupture. .",
+                    "en": "Team Support option, recommended for Armorer / Anomaly / Rupture teams."
                 }
             },
             {
                 "tag": "Set 2",
-                "set1": "Shockstar_Disco",
-                "set2": "Moonlight_Lullaby",
-                "set1Name": "4pc Shockstar Disco",
-                "set2Name": "+ 2pc Moonlight Lullaby",
-                "note": {
-                    "fr": "Optimise l'impact brut et l'étourdissement rapide des cibles.",
-                    "en": "Optimizes raw impact and fast daze buildup on targets."
-                }
-            },
-            {
-                "tag": "Set 3",
                 "set1": "King_of_the_Summit",
                 "set2": "Shockstar_Disco",
                 "set1Name": "4pc King of the Summit",
                 "set2Name": "+ 2pc Shockstar Disco",
                 "note": {
-                    "fr": "Renforce les dégâts critiques d'équipe via les attaques EX et l'enchaînement.",
-                    "en": "Boosts team CRIT DMG through EX Special attacks and Chain attacks."
+                    "fr": "Meilleur choix général. Augmente les DGT CRIT de toute l'équipe via les attaques spéciales EX et les enchaînements.",
+                    "en": "Best in slot overall. Boosts team CRIT DMG through EX Special attacks and Chain attacks."
+                }
+            },
+            {
+                "tag": "Set 3",
+                "set1": "Puffer_Electro",
+                "set2": "Shockstar_Disco",
+                "set1Name": "4pc Puffer Electro",
+                "set2Name": "+ 2pc Shockstar Disco",
+                "note": {
+                    "fr": "Alternative offensive pour maximiser ses dégâts personnels dans les équipes Attaque ou Rupture.",
+                    "en": "Offensive option to maximize her personal damage in Attack or Rupture teams."
                 }
             }
         ],
