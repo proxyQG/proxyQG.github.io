@@ -9,7 +9,7 @@ export async function getGuideHTML(agentName) {
     // 1. Si on n'a pas encore chargé la base de données, on le fait maintenant
     if (!cachedDatabase) {
         try {
-            const response = await fetch('./js/data/agent_database.json');
+            const response = await fetch('./js/data/agent_database.json', { cache: 'no-store' });
             cachedDatabase = await response.json();
         } catch (error) {
             console.error("Erreur lors du chargement de la base de données des agents:", error);
