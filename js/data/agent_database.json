@@ -8214,23 +8214,23 @@
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "ATQ % / DGT Électrique %",
-                        "en": "ATK % / Electric DMG %"
+                        "fr": "Attaque %",
+                        "en": "Attak %"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "ATQ % / Adresse d'Anomalie",
-                        "en": "ATK % / Anomaly Proficiency"
+                        "fr": "Attaque %",
+                        "en": "Attak %"
                     }
                 }
             ],
             "sub": [
                 {
                     "label": {
-                        "fr": "ATQ % (priorité absorption bouclier)",
-                        "en": "ATK % (shield absorption priority)"
+                        "fr": "ATQ % (priorité)",
+                        "en": "ATK % (priority)"
                     },
                     "highlight": true
                 },
