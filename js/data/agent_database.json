@@ -1407,6 +1407,11 @@
                 "name": "Basic",
                 "level": "11",
                 "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
