@@ -8215,14 +8215,14 @@
                     "slot": "5",
                     "label": {
                         "fr": "Attaque %",
-                        "en": "Attak %"
+                        "en": "Attack %"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
                         "fr": "Attaque %",
-                        "en": "Attak %"
+                        "en": "Attack %"
                     }
                 }
             ],
