@@ -794,46 +794,68 @@ function initMobileTooltips() {
 
 
 // ==========================================
-// 13. SYSTÈME D'INSTALLATION PWA PREMIUM
+// 13. SYSTÈME D'INSTALLATION PWA PREMIUM (INCLUANT iOS)
 // ==========================================
 let deferredPrompt;
 const installBtn = document.getElementById('pwa-install-btn');
+const iosModal = document.getElementById('ios-install-modal');
+const closeIosModalBtn = document.getElementById('close-ios-modal');
 
 if (installBtn) {
-    // 1. Intercepte l'événement d'installation de Chrome/Edge/Android
+    // 1. Détection iOS et mode standalone (si l'appli est déjà installée sur l'écran d'accueil)
+    const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        return /iphone|ipad|ipod/.test(userAgent);
+    };
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    // 2. FORCER l'affichage du bouton sur iOS (car Apple ne déclenche pas 'beforeinstallprompt')
+    if (isIos() && !isInStandaloneMode()) {
+        installBtn.classList.remove('hidden');
+        installBtn.classList.add('flex');
+    }
+
+    // 3. Intercepte l'événement d'installation standard pour Android / PC
     window.addEventListener('beforeinstallprompt', (e) => {
-        // Empêche le navigateur d'afficher son propre mini-bandeau natif
         e.preventDefault();
-        // Sauvegarde l'événement pour déclencher la modale plus tard
         deferredPrompt = e;
-        // Rend notre bouton premium visible
         installBtn.classList.remove('hidden');
         installBtn.classList.add('flex');
     });
 
-    // 2. Gestion du Clic sur notre bouton
+    // 4. Action au clic sur le bouton d'installation
     installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            // Affiche la vraie boîte de dialogue native d'installation
+        if (isIos()) {
+            // SUR IPHONE : Affiche notre modale d'aide personnalisée
+            iosModal.classList.remove('hidden');
+            // Petit délai pour déclencher l'animation d'opacité Tailwind
+            setTimeout(() => iosModal.classList.add('opacity-100'), 10);
+        } else if (deferredPrompt) {
+            // SUR ANDROID / PC : Lance la fenêtre d'installation native
             deferredPrompt.prompt();
-            // Attend que l'utilisateur choisisse "Installer" ou "Annuler"
             const { outcome } = await deferredPrompt.userChoice;
             
             if (outcome === 'accepted') {
                 console.log('Application ZZZ installée avec succès !');
-                // Cache le bouton avec une petite animation de disparition
                 installBtn.style.opacity = '0';
                 setTimeout(() => {
                     installBtn.classList.add('hidden');
                     installBtn.classList.remove('flex');
                 }, 300);
             }
-            // On vide la variable
             deferredPrompt = null;
         }
     });
 
-    // 3. Sécurité : Cache le bouton si l'appli est déjà installée
+    // 5. Fermeture de la modale iOS via le bouton croix
+    if (closeIosModalBtn && iosModal) {
+        closeIosModalBtn.addEventListener('click', () => {
+            iosModal.classList.remove('opacity-100');
+            setTimeout(() => iosModal.classList.add('hidden'), 300);
+        });
+    }
+
+    // 6. Sécurité globale : Cacher définitivement le bouton si l'appli est confirmée installée
     window.addEventListener('appinstalled', () => {
         installBtn.classList.add('hidden');
         installBtn.classList.remove('flex');
