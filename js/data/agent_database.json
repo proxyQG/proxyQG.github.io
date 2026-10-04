@@ -8110,11 +8110,14 @@
         },
         "stats": [
             {
-                "label": "Attaque (Bouclier)",
-                "value": "2600 - 3200+ (Cap 3750)"
+                "label": {
+                    "fr": "Attaque",
+                    "en": "Attack"
+                },
+                "value": "2600 - 3200+"
             },
             {
-                "label": "PV",
+                "label": "HP",
                 "value": "≥ 11 000"
             },
             {
