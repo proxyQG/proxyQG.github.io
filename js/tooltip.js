@@ -3,6 +3,7 @@
     let tooltipEl = null;
     let overlayEl = null; // L'overlay sombre
     let currentEngineKey = null;
+    let W_ENGINES_DB = null;
     
     // Dictionnaire local pour traduire Rôle et Attribut sans faire planter le script
     const ttDict = {
@@ -67,8 +68,17 @@
             </div>
         `;
         document.body.appendChild(tooltipEl);
-        bindEvents();
-    }
+
+    // NOUVEAU : Chargement du JSON avec l'anti-cache mobile
+    fetch('js/data/engines.json', { cache: 'no-store' })
+        .then(response => response.json())
+        .then(data => {
+            W_ENGINES_DB = data;
+        })
+        .catch(error => console.error("Erreur chargement des moteurs :", error));
+
+    bindEvents();
+}
 
     function parseText(text) {
         if (!text) return "";
@@ -91,6 +101,7 @@
     window.hideTooltip = hideTooltip;
 
     function populateTooltip(engineKey, tier = 0) {
+        if (!W_ENGINES_DB) return false;
         const data = W_ENGINES_DB[engineKey];
         if (!data) return false; 
 
