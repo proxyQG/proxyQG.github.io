@@ -5422,6 +5422,7 @@
                 "note": {
                     "fr": "Meilleur Bonus de Dégâts et activation plus simple que Jazz Swing.",
                     "en": "Better damage bonus and easier to activate than Swing Jazz."
+                }
             },
             {
                 "tag": {
@@ -5449,6 +5450,7 @@
                 "note": {
                     "fr": "Bonne alternative qui augmente tout les dégâts de 15 % pendant 12 secondes.",
                     "en": "A good alternative that increases all damage by 15 per cent for 12 seconds."
+                }
             }
         ],
         "skills": [
