@@ -97,6 +97,17 @@
     <script>
         if (window.location.search.includes('agent=')) document.write('<div id="fast-mask"></div>');
     </script>
+<!-- Nettoyage de l'ancien Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Ancien Service Worker désinstallé.');
+                }
+            });
+        }
+    </script>
 </head>
 <body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden">
     <!-- Google Tag Manager (noscript) -->
