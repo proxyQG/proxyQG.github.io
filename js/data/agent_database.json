@@ -113,7 +113,7 @@
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "PEN Ratio = ATK% = DGT Physique",
+                        "fr": "Taux de PEN = ATK% = DGT Physique",
                         "en": "PEN Ratio = ATK% = Physical DMG%"
                     }
                 },
@@ -385,15 +385,24 @@
             "main": [
                 {
                     "slot": "6",
-                    "label": "Maitrise Anomalie"
+                    "label": {
+                        "fr": "Maîtrise d'Anomalie",
+                        "en": "Anomaly Mastery"
+                    }
                 },
                 {
                     "slot": "5",
-                    "label": "Taux de PEN"
+                    "label": {
+                        "fr": "Taux de PEN",
+                        "en": "PEN Ratio"
+                    }
                 },
                 {
                     "slot": "4",
-                    "label": "Adresse d'Anomalie"
+                    "label": {
+                        "fr": "Adresse d'Anomalie",
+                        "en": "Anomaly Proficiency"
+                    }
                 }
             ],
             "sub": [
