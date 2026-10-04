@@ -502,6 +502,23 @@
             </div>
         </div>
         
+    <!-- Modale d'aide PWA pour iOS -->
+    <div id="ios-install-modal" class="fixed inset-0 z-[400] hidden flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="bg-[#1a1a1a] text-white p-6 rounded-2xl max-w-sm mx-4 border border-zinc-700 relative shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+            <button id="close-ios-modal" class="absolute top-4 right-4 text-zinc-400 hover:text-yellow-400 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-xl font-display font-black uppercase mb-4 tracking-wide text-yellow-400">Installer sur iPhone</h3>
+            <p class="mb-4 text-zinc-400 text-sm">Apple bloque l'installation en un clic. Pour ajouter ProxyQG à votre appareil :</p>
+            
+            <ol class="list-decimal pl-4 text-zinc-300 text-sm space-y-3 font-medium">
+                <li>Appuyez sur l'icône <b>Partager</b> <svg class="inline w-5 h-5 mx-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg> en bas de votre navigateur Safari.</li>
+                <li>Faites défiler et sélectionnez <br><b class="text-white bg-zinc-800 px-2 py-1.5 rounded mt-1.5 inline-block border border-zinc-700 shadow-inner">Sur l'écran d'accueil ➕</b></li>
+            </ol>
+        </div>
+    </div>
+
     <!-- API Officielle YouTube -->
     <script src="https://www.youtube.com/iframe_api"></script>
         
