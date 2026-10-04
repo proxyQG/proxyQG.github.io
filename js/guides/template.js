@@ -65,9 +65,12 @@ function buildSkills(data, c, txt) {
         <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-wrap items-center justify-between sm:justify-start gap-3 md:gap-5">
             ${data.skills.map((skill, index) => `
             <div class="flex flex-col items-center gap-2 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
-                <div class="${index === 0 ? 'relative' : 'w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
-                    ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
-                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover">
+                <div class="${index === 0 ? 'relative' : 'w-12 h-12 rounded-full border-2 border-zinc-700 bg-black flex items-center justify-center overflow-hidden'}">
+                    ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 flex items-center justify-center overflow-hidden" style="border-color: ${c};">` : ''}
+                    
+                    <!-- CORRECTION DE L'ICÔNE : Taille réduite à 70% et décalage d'1px vers le bas (translate-y-[1px]) pour l'effet de centrage parfait -->
+                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-[70%] h-[70%] object-contain translate-y-[1px]">
+                    
                     ${index === 0 ? `</div>` : ''}
                 </div>
                 <span class="text-[10px] font-black uppercase tracking-wider" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
