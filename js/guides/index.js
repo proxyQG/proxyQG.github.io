@@ -20,7 +20,7 @@ export async function getGuideHTML(agentName) {
     // NOUVEAU : Chargement des mindscapes
 if (!cachedMindscapes) {
     try {
-        const msResponse = await fetch('./js/data/mindscapes.json', { cache: 'no-store' });
+        const msResponse = await fetch('./js/data/mindscapes.json');
         cachedMindscapes = await msResponse.json();
     } catch (error) {
         console.error("Erreur lors du chargement des mindscapes:", error);
