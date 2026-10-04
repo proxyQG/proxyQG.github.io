@@ -3502,22 +3502,22 @@
                 {
                     "slot": "6",
                     "label": {
-                        "fr": "Maîtrise d'Anomalie",
-                        "en": "Anomaly Mastery"
+                        "fr": "Réc. d'énergie",
+                        "en": "Energy Regen"
                     }
                 },
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "DGT Éther",
-                        "en": "Ether DMG"
+                        "fr": "DGT Éther > ATQ %",
+                        "en": "Ether DMG > ATK %"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "Réc. d'énergie",
-                        "en": "Energy Regen"
+                        "fr": "Adresse d'Anomalie = ATQ %",
+                        "en": "Anomaly Proficiency = ATK %"
                     }
                 }
             ],
