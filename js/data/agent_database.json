@@ -313,12 +313,18 @@
         },
         "stats": [
             {
-                "label": "Adresse Anomalie",
-                "value": "420"
+                "label": {
+                    "fr": "Adresse d'Anomalie",
+                    "en": "Anomaly Proficiency"
+                },
+                "value": "375 - 420+"
             },
             {
-                "label": "Attaque",
-                "value": "2600"
+                "label": {
+                    "fr": "Attaque",
+                    "en": "Attack"
+                },
+                "value": "2300 - 2800+"
             }
         ],
         "discs": [
