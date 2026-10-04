@@ -62,22 +62,31 @@ function buildSkills(data, c, txt) {
     <div class="h-fit">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
         <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-wrap items-center justify-between sm:justify-start gap-3 md:gap-5">
-            ${data.skills.map((skill, index) => `
-            <div class="flex flex-col items-center gap-2 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
+            ${data.skills.map((skill, index) => {
                 
-                <!-- Le conteneur (le cercle) possède 'overflow-hidden' et 'relative' pour agir comme un masque -->
-                <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
-                    ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
-                    
-                    <!-- LA MÉTHODE "TEAMS" : w-full h-full object-cover pour remplir, scale-[1.15] pour zoomer et couper les bords transparents -->
-                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center scale-[1.15]">
-                    
-                    ${index === 0 ? `</div>` : ''}
+                // CRÉATION DE LA RÈGLE DE ZOOM DYNAMIQUE
+                // On vérifie si le nom de la compétence nécessite un zoom plus important
+                const skillName = skill.name.toUpperCase();
+                const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
+                
+                // On applique 135% de zoom pour les petites icônes, et 115% pour les grandes
+                const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
+
+                return `
+                <div class="flex flex-col items-center gap-2 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
+                    <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
+                        ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
+                        
+                        <!-- L'image utilise maintenant la variable scaleClass définie plus haut -->
+                        <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+                        
+                        ${index === 0 ? `</div>` : ''}
+                    </div>
+                    <span class="text-[10px] font-black uppercase tracking-wider" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-wider" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
-            </div>
-            ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
-            `).join('')}
+                ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
+                `;
+            }).join('')}
         </div>
     </div>`;
 }
