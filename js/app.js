@@ -825,19 +825,14 @@ if (installBtn) {
 
     // 4. Action au clic sur le bouton d'installation
     installBtn.addEventListener('click', async () => {
-        console.log("Bouton APP cliqué ! Mode iOS :", isIos());
-        
         if (isIos()) {
-            // SUR IPHONE : Affiche notre modale d'aide personnalisée
-            iosModal.classList.remove('hidden');
-            iosModal.classList.add('flex'); // Centre le contenu
+            // SUR IPHONE : Affiche via style direct (Méthode infaillible)
+            iosModal.style.display = 'flex';
             
-            // Astuce technique : force le navigateur à actualiser la position (reflow)
-            void iosModal.offsetWidth;
+            // Astuce pour forcer l'actualisation visuelle avant le fondu
+            void iosModal.offsetWidth; 
             
-            // Lancement de l'animation d'apparition
-            iosModal.classList.remove('opacity-0');
-            iosModal.classList.add('opacity-100');
+            iosModal.style.opacity = '1';
         } else if (deferredPrompt) {
             // SUR ANDROID / PC : Lance la fenêtre d'installation native
             deferredPrompt.prompt();
@@ -858,13 +853,11 @@ if (installBtn) {
     // 5. Fermeture de la modale iOS via le bouton croix ou clic extérieur
     if (closeIosModalBtn && iosModal) {
         const closeIosModal = () => {
-            iosModal.classList.remove('opacity-100');
-            iosModal.classList.add('opacity-0'); 
+            iosModal.style.opacity = '0'; 
             
-            // Attend la fin du fondu (300ms) pour vraiment cacher la fenêtre
+            // Attend la fin du fondu (300ms) pour cacher la div
             setTimeout(() => {
-                iosModal.classList.add('hidden');
-                iosModal.classList.remove('flex');
+                iosModal.style.display = 'none';
             }, 300);
         };
 
