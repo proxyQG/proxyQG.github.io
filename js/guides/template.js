@@ -64,12 +64,13 @@ function buildSkills(data, c, txt) {
         <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-wrap items-center justify-between sm:justify-start gap-3 md:gap-5">
             ${data.skills.map((skill, index) => `
             <div class="flex flex-col items-center gap-2 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
-                <!-- AJOUT : 'relative' sur les cercles pour bloquer l'image à l'intérieur, retrait du flex -->
+                
+                <!-- Le conteneur (le cercle) possède 'overflow-hidden' et 'relative' pour agir comme un masque -->
                 <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
-                    ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="relative w-12 h-12 rounded-full border-2 bg-black z-10 overflow-hidden" style="border-color: ${c};">` : ''}
+                    ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
                     
-                    <!-- CORRECTION ABSOLUE : absolute inset-0 force le centrage. scale-110 donne un bel impact massif. translate-y-[2px] corrige le défaut visuel du logo d'origine. -->
-                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="absolute inset-0 w-full h-full object-cover object-center scale-110 translate-y-[2px]">
+                    <!-- LA MÉTHODE "TEAMS" : w-full h-full object-cover pour remplir, scale-[1.15] pour zoomer et couper les bords transparents -->
+                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center scale-[1.15]">
                     
                     ${index === 0 ? `</div>` : ''}
                 </div>
