@@ -67,8 +67,9 @@ function buildSkills(data, c, txt) {
                 <div class="${index === 0 ? 'relative' : 'w-12 h-12 rounded-full border-2 border-zinc-700 bg-black flex items-center justify-center overflow-hidden'}">
                     ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 flex items-center justify-center overflow-hidden" style="border-color: ${c};">` : ''}
                     
-                    <!-- AJUSTEMENT ICI : Taille passée à 90% pour bien remplir le cercle -->
-                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-[90%] h-[90%] object-contain translate-y-[1px]">
+                    <!-- RETOUR À L'ORIGINAL : w-full h-full pour remplir le cercle. 
+                         AJOUTS : scale-[1.05] pour bien fusionner avec les bords, et translate-y-[1.5px] pour le centrage optique parfait -->
+                    <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center scale-[1.05] translate-y-[1.5px]">
                     
                     ${index === 0 ? `</div>` : ''}
                 </div>
