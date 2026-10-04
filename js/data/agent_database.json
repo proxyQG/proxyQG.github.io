@@ -8117,12 +8117,18 @@
                 "value": "2600 - 3200+"
             },
             {
-                "label": "HP",
-                "value": "≥ 11 000"
+                "label": {
+                    "fr": "PV",
+                    "en": "HP"
+                },
+                "value": "11000+"
             },
             {
-                "label": "Prof. d'anomalie",
-                "value": "200 - 300+ (Optionnel)"
+                "label": {
+                    "fr": "Adresse d'Anomalie",
+                    "en": "Anomaly Proficiency"
+                },
+                "value": "200 - 300+"
             }
         ],
         "discs": [
