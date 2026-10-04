@@ -5398,15 +5398,15 @@
         "stats": [
             {
                 "label": "Taux Crit",
-                "value": "≈ 60.2 %"
+                "value": "40%-60%+"
             },
             {
                 "label": "Dégât Crit",
-                "value": "≈ 157.2 %"
+                "value": "100%-120%+"
             },
             {
                 "label": "Attaque",
-                "value": "2725"
+                "value": "2700"
             }
         ],
         "discs": [
