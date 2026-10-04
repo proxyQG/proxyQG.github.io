@@ -59,32 +59,35 @@ function buildDiscs(data, c, txt) {
 
 function buildSkills(data, c, txt) {
     return `
-    <div class="h-fit">
+    <div class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
-        <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-wrap items-center justify-between sm:justify-start gap-3 md:gap-5">
+        
+        <!-- CORRECTIONS MOBILE : 
+             1. flex-nowrap pour forcer sur une seule ligne
+             2. overflow-x-auto pour permettre le défilement horizontal (swipe)
+             3. Masquage de la barre de défilement native avec les classes personnalisées Tailwind -->
+        <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-start gap-4 md:gap-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             ${data.skills.map((skill, index) => {
                 
-                // CRÉATION DE LA RÈGLE DE ZOOM DYNAMIQUE
-                // On vérifie si le nom de la compétence nécessite un zoom plus important
                 const skillName = skill.name.toUpperCase();
                 const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
-                
-                // On applique 135% de zoom pour les petites icônes, et 115% pour les grandes
                 const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
 
                 return `
-                <div class="flex flex-col items-center gap-2 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
+                <!-- AJOUT : shrink-0 pour empêcher les icônes de s'écraser si l'écran est petit -->
+                <div class="flex flex-col items-center gap-2 shrink-0 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
                     <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
                         ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
                         
-                        <!-- L'image utilise maintenant la variable scaleClass définie plus haut -->
                         <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
                         
                         ${index === 0 ? `</div>` : ''}
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-wider" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
+                    <!-- AJOUT : whitespace-nowrap pour éviter que le texte ne se coupe sur deux lignes -->
+                    <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
                 </div>
-                ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
+                <!-- AJOUT : shrink-0 sur la flèche également -->
+                ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
                 `;
             }).join('')}
         </div>
