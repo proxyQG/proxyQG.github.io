@@ -2913,6 +2913,144 @@
       }
     ]
   },
+  "Dreamlit Hearth": {
+    "name": { "fr": "Foyer onirique", "en": "Dreamlit Hearth" },
+    "rank": "S",
+    "specialty": "Support",
+    "img": "W-Engine_Dreamlit_Hearth.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": { "fr": "Épopée des marées lunaires", "en": "Moontide Epic" },
+    "overclocks": [
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,4]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [25 %] de DGT supplémentaires et [15 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's Energy Regen increases by [0.4]/s. When the equipper activates {Ether Veil} or extends its duration, all squad members gain [25%] increased DMG and [15%] increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,46]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [28,75 %] de DGT supplémentaires et [17,25 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's Energy Regen increases by [0.46]/s. When the equipper activates {Ether Veil} or extends its duration, all squad members gain [28.75%] increased DMG and [17.25%] increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,52]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [32,5 %] de DGT supplémentaires et [19,5 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's Energy Regen increases by [0.52]/s. When the equipper activates {Ether Veil} or extends its duration, all squad members gain [32.5%] increased DMG and [19.5%] increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,58]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [36,25 %] de DGT supplémentaires et [21,75 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's Energy Regen increases by [0.58]/s. When the equipper activates {Ether Veil} or extends its duration, all squad members gain [36.25%] increased DMG and [21.75%] increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,64]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [40 %] de DGT supplémentaires et [24 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's Energy Regen increases by [0.64]/s. When the equipper activates {Ether Veil} or extends its duration, all squad members gain [40%] increased DMG and [24%] increased Max HP for 45s. Repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+      }
+    ]
+  },
+  "Yesterday Calls": {
+    "name": { "fr": "L'appel d'hier", "en": "Yesterday Calls" },
+    "rank": "S",
+    "specialty": "Stun",
+    "element": "Lumiflux",
+    "img": "W-Engine_Yesterday_Calls.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": { "fr": "Taux CRIT", "en": "CRIT Rate" },
+      "advanced": "9.6% - 24%"
+    },
+    "passiveName": { "fr": "24h/24, 7j/7", "en": "24/7" },
+    "overclocks": [
+      {
+        "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,5]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [9 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [30 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
+        "en": "While off-field, the equipper's Energy Regen increases by [1.5]/s. When the equipper deals {Physical DMG} with an {EX Special Attack}, the Daze dealt by the equipper's attacks increases by [9%] for 10s, stacking up to 3 times. At 3 stacks, all squad members gain [30%] additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad."
+      },
+      {
+        "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,7]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [10,4 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [34,5 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
+        "en": "While off-field, the equipper's Energy Regen increases by [1.7]/s. When the equipper deals {Physical DMG} with an {EX Special Attack}, the Daze dealt by the equipper's attacks increases by [10.4%] for 10s, stacking up to 3 times. At 3 stacks, all squad members gain [34.5%] additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad."
+      },
+      {
+        "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,9]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [11,8 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [39 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
+        "en": "While off-field, the equipper's Energy Regen increases by [1.9]/s. When the equipper deals {Physical DMG} with an {EX Special Attack}, the Daze dealt by the equipper's attacks increases by [11.8%] for 10s, stacking up to 3 times. At 3 stacks, all squad members gain [39%] additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad."
+      },
+      {
+        "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [2,1]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [13,1 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [43,5 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
+        "en": "While off-field, the equipper's Energy Regen increases by [2.1]/s. When the equipper deals {Physical DMG} with an {EX Special Attack}, the Daze dealt by the equipper's attacks increases by [13.1%] for 10s, stacking up to 3 times. At 3 stacks, all squad members gain [43.5%] additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad."
+      },
+      {
+        "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [2,3]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [14,5 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [48 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
+        "en": "While off-field, the equipper's Energy Regen increases by [2.3]/s. When the equipper deals {Physical DMG} with an {EX Special Attack}, the Daze dealt by the equipper's attacks increases by [14.5%] for 10s, stacking up to 3 times. At 3 stacks, all squad members gain [48%] additional CRIT DMG for 40s. Repeated triggers reset the duration. Only one instance of this CRIT DMG boost effect can exist in the same squad."
+      }
+    ]
+  },
+  "Half-Sugar Bunny": {
+    "name": { "fr": "Lapin mi-sucré", "en": "Half-Sugar Bunny" },
+    "rank": "S",
+    "specialty": "Defense",
+    "img": "W-Engine_Half-Sugar_Bunny.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": { "fr": "Douceur fragile", "en": "Fragile Sweetness" },
+    "overclocks": [
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,46]/s. Tous les membres de l'escouade gagnent [10 %] d'ATQ et [10 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [30 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's Energy Regen increases by [0.46]/s. All squad members gain [10%] ATK and [10%] Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an {Ether Veil}, all squad members gain [30%] CRIT DMG for 60s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,53]/s. Tous les membres de l'escouade gagnent [11,5 %] d'ATQ et [11,5 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [34,5 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's Energy Regen increases by [0.53]/s. All squad members gain [11.5%] ATK and [11.5%] Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an {Ether Veil}, all squad members gain [34.5%] CRIT DMG for 60s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,60]/s. Tous les membres de l'escouade gagnent [13 %] d'ATQ et [13 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [39 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's Energy Regen increases by [0.60]/s. All squad members gain [13%] ATK and [13%] Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an {Ether Veil}, all squad members gain [39%] CRIT DMG for 60s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,67]/s. Tous les membres de l'escouade gagnent [14,5 %] d'ATQ et [14,5 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [43,5 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's Energy Regen increases by [0.67]/s. All squad members gain [14.5%] ATK and [14.5%] Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an {Ether Veil}, all squad members gain [43.5%] CRIT DMG for 60s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,74]/s. Tous les membres de l'escouade gagnent [16 %] d'ATQ et [16 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [48 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's Energy Regen increases by [0.74]/s. All squad members gain [16%] ATK and [16%] Max HP. Only one instance of this effect can exist in the same squad. When the equipper activates or extends an {Ether Veil}, all squad members gain [48%] CRIT DMG for 60s. Repeated triggers reset the duration."
+      }
+    ]
+  },
+  "Wrathful Vajra": {
+    "name": { "fr": "Vajra courroucé", "en": "Wrathful Vajra" },
+    "rank": "S",
+    "specialty": "Rupture",
+    "element": "Fire",
+    "img": "W-Engine_Wrathful_Vajra.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": { "fr": "Feu karmique purificateur", "en": "Purging Karmic Fire" },
+    "overclocks": [
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [9 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
+        "en": "CRIT Rate increases by [20%]. When the equipper launches an {EX Special Attack}, their {Fire Sheer DMG} increases by [9%], stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [23 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [10,35 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
+        "en": "CRIT Rate increases by [23%]. When the equipper launches an {EX Special Attack}, their {Fire Sheer DMG} increases by [10.35%], stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [26 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [11,7 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
+        "en": "CRIT Rate increases by [26%]. When the equipper launches an {EX Special Attack}, their {Fire Sheer DMG} increases by [11.7%], stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [29 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [13,05 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
+        "en": "CRIT Rate increases by [29%]. When the equipper launches an {EX Special Attack}, their {Fire Sheer DMG} increases by [13.05%], stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [32 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [14,4 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
+        "en": "CRIT Rate increases by [32%]. When the equipper launches an {EX Special Attack}, their {Fire Sheer DMG} increases by [14.4%], stacking up to 2 times and lasting 20s. The duration of each stack is calculated separately."
+      }
+    ]
+  },
   "Electro-Lip Gloss": {
     "name": {
       "fr": "Gloss électrique",
