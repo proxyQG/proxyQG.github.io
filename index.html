@@ -139,25 +139,32 @@
         </div>
     </div>
 
-    <header class="bg-black py-4 border-b border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.9)] z-50 shrink-0 relative transition-all flex items-center justify-between px-4 md:px-10">
-        <div class="w-20 md:w-32"></div>
-        <a href="index.html" class="flex items-center justify-center gap-4 relative z-10 hover:scale-105 transition-transform duration-500 cursor-pointer">
-            <div class="bg-yellow-400 px-5 py-1.5 skew-x-[-15deg] shadow-[0_0_15px_rgba(232,168,56,0.3)]"><span class="block text-black font-display font-black italic text-3xl skew-x-[15deg]">ZZZ</span></div>
-            <h1 class="text-white font-display font-black italic text-3xl uppercase chromatic-text drop-shadow-lg">GUIDES</h1>
+    <header class="bg-black py-3 md:py-4 border-b border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.9)] z-50 shrink-0 relative transition-all flex items-center justify-between px-3 md:px-10">
+        
+        <!-- 1. Espace vide à gauche (flex-1 pour équilibrer le centrage) -->
+        <div class="flex-1 flex justify-start"></div>
+        
+        <!-- 2. Logo Central (Taille ajustée sur mobile pour éviter les bugs) -->
+        <a href="index.html" class="shrink-0 flex items-center justify-center gap-2 md:gap-4 relative z-10 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <div class="bg-yellow-400 px-3 md:px-5 py-1 md:py-1.5 skew-x-[-15deg] shadow-[0_0_15px_rgba(232,168,56,0.3)]">
+                <span class="block text-black font-display font-black italic text-xl md:text-3xl skew-x-[15deg]">ZZZ</span>
+            </div>
+            <h1 class="text-white font-display font-black italic text-xl md:text-3xl uppercase chromatic-text drop-shadow-lg">GUIDES</h1>
         </a>
-        <div class="flex items-center justify-end gap-3 md:gap-5 min-w-[80px]">
-            <!-- BOUTON D'INSTALLATION PWA (Invisible par défaut) -->
-            <button id="pwa-install-btn" class="hidden group relative overflow-hidden items-center justify-center gap-2 px-4 py-1.5 rounded-full font-black uppercase text-xs tracking-wide bg-[#1a1a1a] border border-[#e2ff00]/40 text-[#e2ff00] transition-all duration-300 hover:border-[#e2ff00] hover:shadow-[0_0_15px_rgba(226,255,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer z-50">
-                <!-- Icône Téléchargement -->
-                <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        
+        <!-- 3. Conteneur Droit (Bouton + Langue) avec protection anti-écrasement -->
+        <div class="flex-1 flex items-center justify-end gap-2 md:gap-4 shrink-0">
+            <!-- Bouton PWA (Rond sur mobile, Pilule sur PC) -->
+            <button id="pwa-install-btn" class="hidden group relative overflow-hidden items-center justify-center gap-2 w-9 h-9 p-0 md:w-auto md:h-auto md:px-4 md:py-1.5 rounded-full font-black uppercase text-xs tracking-wide bg-[#1a1a1a] border border-[#e2ff00]/40 text-[#e2ff00] transition-all duration-300 hover:border-[#e2ff00] hover:shadow-[0_0_15px_rgba(226,255,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 z-50">
+                <svg class="w-4 h-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <span class="relative z-10 hidden sm:block">Installer l'App</span>
-                <!-- Calque de brillance au survol -->
-                <div class="absolute inset-0 w-[50%] bg-gradient-to-r from-transparent via-[#e2ff00]/20 to-transparent -translate-x-full group-hover:animate-shine z-0"></div>
+                <span class="relative z-10 hidden sm:block whitespace-nowrap">Installer l'App</span>
+                <div class="absolute inset-0 w-[50%] bg-gradient-to-r from-transparent via-[#e2ff00]/20 to-transparent -translate-x-full group-hover:animate-shine z-0 hidden md:block"></div>
             </button>
 
-            <div id="langSwitcher" class="lang-switch-wrap" data-active="fr">
+            <!-- Bouton Langue (Protégé avec shrink-0) -->
+            <div id="langSwitcher" class="lang-switch-wrap shrink-0" data-active="fr">
                 <div class="lang-indicator"></div>
                 <div class="lang-option fr">FR</div>
                 <div class="lang-option en">EN</div>
