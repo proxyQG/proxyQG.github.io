@@ -4582,24 +4582,24 @@
                     "fr": "Impact Build 👑",
                     "en": "Impact Build 👑"
                 },
-                "set1": "Shockstar_Disco",
-                "set2": "Swing_Jazz",
-                "set1Name": "4pc Shockstar Disco",
-                "set2Name": "+ 2pc Swing Jazz",
+                "set1": "King_of_the_Summit",
+                "set2": "Shockstar_Disco",
+                "set1Name": "4pc King of the Summit",
+                "set2Name": "+ 2pc Shockstar Disco",
                 "note": {
-                    "fr": "Shockstar Disco augmente l'Impact d'Anby et permet à ses Attaques de Base d'infliger plus de Choc. Le 2-pièces Swing Jazz augmente sa Réc. d'Énergie pour lui permettre d'utiliser plus d'EX Spéciaux.",
-                    "en": "Shockstar Disco increases Anby's Impact and allows Basic Attacks to inflict more Daze. 2pc Swing Jazz provides Energy Regen to fuel frequent EX Specials."
+                    "fr": "Meilleur ensemble « Stun » , et jusqu’à 30 % de DGT Crit pour toute l’équipe pendant 15s, à condition que l'agent qui porte l’ensemble dispose d’un TC de 50 %+. Attention cet ensemble ne sera pas efficace si le reste de votre équipe n’est pas axé sur le CRIT.",
+                    "en": "Best Stun set, up to 30% CRIT DMG for the entire squad for 15s on the condition that the equipper has 50% CRIT Rate. However be mindful this  4PC will not be effective if you aren’t building the rest of your team on CRIT"
                 }
             },
             {
                 "tag": "Impact Build II",
-                "set1": "King_of_the_Summit",
-                "set2": "Swing_Jazz",
-                "set1Name": "4pc King of the Summit",
-                "set2Name": "+ 2pc Swing Jazz",
+                "set1": "Astral_Voice",
+                "set2": "King_of_the_Summit",
+                "set1Name": "4pc Astral Voice",
+                "set2Name": "+ 2pc King of the Summit",
                 "note": {
-                    "fr": "King of the Summit offre un buff de DGT CRIT à toute l'équipe lorsqu'Anby utilise un EX Spécial ou un Enchaînement.",
-                    "en": "King of the Summit grants a team-wide CRIT DMG buff whenever Anby lands an EX Special or Chain Attack."
+                    "fr": "Le meilleur ensemble de soutien générale, offrant un bonus d'ATK de 10 %, mais surtout augmentant les dégâts infligés par les personnages entrant sur le terrain via les « Quick Assists » de plus de 24 %.",
+                    "en": "Best generalist Support set, providing a useful 10% ATK but most importantly buffing DMG dealt by characters entering the field via Quick Assists by upwards of 24%."
                 }
             }
         ],
