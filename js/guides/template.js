@@ -1,5 +1,4 @@
 import { iconMap } from '../data/agents.js';
-import { mindscapesData } from '../data/mindscapes.js';
 import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats } from '../i18n.js';
 
 // --- BLOCS DE CONSTRUCTION (COMPOSANTS) ---
@@ -187,13 +186,13 @@ function buildMindscapes(mindscapes, c) {
 
 // --- FONCTION PRINCIPALE (ASSEMBLAGE) ---
 
-export function generateGuideFromData(agentName, data) {
+export function generateGuideFromData(agentName, data, mindscapesDB) {
     const iconName = data.elementIcon || iconMap[data.element] || 'physique.png';
     const c = data.color;
     const txt = ui[currentLang];
     
     // Récupération des données Mindscapes depuis le fichier séparé
-    const mindscapes = mindscapesData ? mindscapesData[agentName] : null;
+    const mindscapes = mindscapesDB ? mindscapesDB[agentName] : null;
 
     return `
     <div class="max-w-[1400px] w-full mx-auto pb-20 pt-4 text-zinc-100">
