@@ -1413,11 +1413,14 @@
             "main": [
                 {
                     "slot": "6",
-                    "label": "Récupération d'énergie"
+                    "label": "Récup d'énergie"
                 },
                 {
                     "slot": "5",
-                    "label": "Pen Ratio"
+                    "label": {
+                        "fr": "Taux de PEN",
+                        "en": "PEN Ratio"
+                    }
                 },
                 {
                     "slot": "4",
