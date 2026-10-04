@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('./js/data/agents.json');
     agentsData = await response.json();
 
+    // NOUVEAU : Chargement de tes factions avec anti-cache :
+    const factionsResponse = await fetch('./js/data/factions.json', { cache: 'no-store' });
+    factionsData = await factionsResponse.json();
+
     updateStaticUI();
     initTabs();
     initFilters('.filter-elem-btn', 'element');
