@@ -821,29 +821,22 @@ if (installBtn) {
         installBtn.classList.add('flex');
     });
 
-    // 4. Action au clic avec DEBUG et FORCE BRUTE
+    // 4. Action au clic (avec les nouveaux IDs furtifs)
     installBtn.addEventListener('click', async (e) => {
-        e.preventDefault(); // Sécurité pour empêcher tout saut de page
+        e.preventDefault(); 
         
-        const iosModal = document.getElementById('ios-install-modal');
-
-        // DEBUG EXTRÊME DANS LA CONSOLE (tu dois voir ces lignes !)
-        console.log("🚨 [TEST PWA] Clic détecté sur le bouton APP !");
-        console.log("🚨 [TEST PWA] Appareil iOS (ou émulé) détecté ? :", isIos());
-        console.log("🚨 [TEST PWA] La modale HTML est-elle trouvée ? :", !!iosModal);
+        // LA CORRECTION EST ICI : On cherche le nouveau nom !
+        const iosModal = document.getElementById('apple-guide-box');
 
         if (isIos()) {
             if (!iosModal) {
-                alert("Erreur critique : La modale 'ios-install-modal' est introuvable dans ton index.html !");
+                alert("Erreur critique : La modale 'apple-guide-box' est introuvable !");
                 return;
             }
 
-            // SUR IPHONE : Force l'affichage avec "important" pour écraser Tailwind
+            // SUR IPHONE : Force l'affichage
             iosModal.style.setProperty('display', 'flex', 'important');
-            
-            // Reflow : force le navigateur à prendre en compte le flex avant l'opacité
             void iosModal.offsetWidth; 
-            
             iosModal.style.setProperty('opacity', '1', 'important');
 
         } else if (deferredPrompt) {
@@ -862,14 +855,14 @@ if (installBtn) {
     });
 
     // 5. Fermeture de la modale iOS
-    // On écoute tout le document pour être sûr que le clic est capté
     document.addEventListener('click', (e) => {
-        const iosModal = document.getElementById('ios-install-modal');
-        const closeBtn = document.getElementById('close-ios-modal');
+        // LA CORRECTION EST ICI AUSSI : Nouveaux noms !
+        const iosModal = document.getElementById('apple-guide-box');
+        const closeBtn = document.getElementById('close-guide-box');
 
         if (!iosModal || iosModal.style.display === 'none') return;
 
-        // Si on clique sur la croix OU sur le fond sombre
+        // Clic sur la croix ou dans le vide
         if (e.target === closeBtn || closeBtn?.contains(e.target) || e.target === iosModal) {
             iosModal.style.setProperty('opacity', '0', 'important');
             setTimeout(() => {
@@ -878,7 +871,7 @@ if (installBtn) {
         }
     });
 
-    // 6. Sécurité globale : Cacher le bouton si l'appli est déjà installée
+    // 6. Sécurité globale
     window.addEventListener('appinstalled', () => {
         installBtn.classList.add('hidden');
         installBtn.classList.remove('flex');
