@@ -35,11 +35,15 @@
         // 1. Création de l'Overlay
         overlayEl = document.createElement('div');
         overlayEl.id = 'proxy-tooltip-overlay';
+        overlayEl.style.willChange = 'opacity'; // <-- AJOUT (Prépare le GPU)
+        overlayEl.style.transform = 'translateZ(0)';
         document.body.appendChild(overlayEl);
 
         // 2. Création de l'Infobulle
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
+        tooltipEl.style.willChange = 'transform, opacity'; // <-- AJOUT
+        tooltipEl.style.transform = 'translateZ(0)';
         tooltipEl.innerHTML = `
             <div class="tt-header">
                 <span id="tt-name"></span>
@@ -164,8 +168,13 @@
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
-                    tooltipEl.classList.add('visible');
-                    overlayEl.classList.add('visible'); // Affiche l'overlay
+                    // Sépare le calcul du DOM de l'animation CSS pour supprimer les saccades
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            tooltipEl.classList.add('visible');
+                            overlayEl.classList.add('visible');
+                        });
+                    });
                 }
             }
         });
