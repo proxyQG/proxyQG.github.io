@@ -791,3 +791,51 @@ function initMobileTooltips() {
         }
     });
 }
+
+
+// ==========================================
+// 13. SYSTÈME D'INSTALLATION PWA PREMIUM
+// ==========================================
+let deferredPrompt;
+const installBtn = document.getElementById('pwa-install-btn');
+
+if (installBtn) {
+    // 1. Intercepte l'événement d'installation de Chrome/Edge/Android
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Empêche le navigateur d'afficher son propre mini-bandeau natif
+        e.preventDefault();
+        // Sauvegarde l'événement pour déclencher la modale plus tard
+        deferredPrompt = e;
+        // Rend notre bouton premium visible
+        installBtn.classList.remove('hidden');
+        installBtn.classList.add('flex');
+    });
+
+    // 2. Gestion du Clic sur notre bouton
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            // Affiche la vraie boîte de dialogue native d'installation
+            deferredPrompt.prompt();
+            // Attend que l'utilisateur choisisse "Installer" ou "Annuler"
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('Application ZZZ installée avec succès !');
+                // Cache le bouton avec une petite animation de disparition
+                installBtn.style.opacity = '0';
+                setTimeout(() => {
+                    installBtn.classList.add('hidden');
+                    installBtn.classList.remove('flex');
+                }, 300);
+            }
+            // On vide la variable
+            deferredPrompt = null;
+        }
+    });
+
+    // 3. Sécurité : Cache le bouton si l'appli est déjà installée
+    window.addEventListener('appinstalled', () => {
+        installBtn.classList.add('hidden');
+        installBtn.classList.remove('flex');
+    });
+}
