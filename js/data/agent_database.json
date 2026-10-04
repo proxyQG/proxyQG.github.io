@@ -1334,16 +1334,16 @@
         },
         "stats": [
             {
-                "label": "Réc. d'énergie",
+                "label": "Récup d'énergie",
                 "value": "2,8"
             },
             {
                 "label": "Attaque",
-                "value": "2900"
+                "value": "2500 - 3200+"
             },
             {
-                "label": "Adr. d'anomalie",
-                "value": "350"
+                "label": "Adresse d'Anomalie",
+                "value": "350 - 400+"
             }
         ],
         "discs": [
