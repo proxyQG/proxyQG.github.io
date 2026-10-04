@@ -825,11 +825,18 @@ if (installBtn) {
 
     // 4. Action au clic sur le bouton d'installation
     installBtn.addEventListener('click', async () => {
+        console.log("Bouton APP cliqué ! Mode iOS :", isIos());
+        
         if (isIos()) {
             // SUR IPHONE : Affiche notre modale d'aide personnalisée
             iosModal.classList.remove('hidden');
+            iosModal.classList.add('flex'); // On force le display flex ici
+            
             // Petit délai pour déclencher l'animation d'opacité Tailwind
-            setTimeout(() => iosModal.classList.add('opacity-100'), 10);
+            setTimeout(() => {
+                iosModal.classList.remove('opacity-0'); // Indispensable pour Tailwind
+                iosModal.classList.add('opacity-100');
+            }, 10);
         } else if (deferredPrompt) {
             // SUR ANDROID / PC : Lance la fenêtre d'installation native
             deferredPrompt.prompt();
@@ -849,9 +856,24 @@ if (installBtn) {
 
     // 5. Fermeture de la modale iOS via le bouton croix
     if (closeIosModalBtn && iosModal) {
-        closeIosModalBtn.addEventListener('click', () => {
+        const closeIosModal = () => {
             iosModal.classList.remove('opacity-100');
-            setTimeout(() => iosModal.classList.add('hidden'), 300);
+            iosModal.classList.add('opacity-0'); // Indispensable pour l'animation de fermeture
+            
+            setTimeout(() => {
+                iosModal.classList.add('hidden');
+                iosModal.classList.remove('flex');
+            }, 300);
+        };
+
+        // Fermeture via le bouton X
+        closeIosModalBtn.addEventListener('click', closeIosModal);
+        
+        // BONUS UX : Fermeture en cliquant à l'extérieur de la boîte
+        iosModal.addEventListener('click', (e) => {
+            if (e.target === iosModal) {
+                closeIosModal();
+            }
         });
     }
 
