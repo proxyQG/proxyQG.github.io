@@ -3443,37 +3443,43 @@
         "discs": [
             {
                 "tag": {
-                    "fr": "Support 👑",
-                    "en": "Support 👑"
+                    "fr": "Support optimal 👑",
+                    "en": "Best Support 👑"
                 },
-                "set1": "Swing_Jazz",
-                "set2": "Freedom_Blues",
-                "set1Name": "4pc Swing Jazz",
-                "set2Name": "+ 2pc Freedom Blues",
-                "note": ""
-            },
+                "set1": "Moonlight_Lullaby",
+                "set2": "Phaethons_Melody",
+                "set1Name": "4pc Moonlight Lullaby",
+                "set2Name": "+ 2pc Phaethon's Melody",
+                "note": {
+    "fr": "Top méta Support : +18 % DGT d'équipe pendant 25 s via Attaque EX/Ultime et +20 % Réc. d'énergie.",
+    "en": "Top meta Support: +18% team DMG for 25s via EX Special/Ultimate and +20% Energy Regen."
+},
             {
                 "tag": {
-                    "fr": "Build Anomalie",
-                    "en": "Anomaly Build"
-                },
-                "set1": "Freedom_Blues",
-                "set2": "Swing_Jazz",
-                "set1Name": "4pc Freedom Blues",
-                "set2Name": "+ 2pc Swing Jazz",
-                "note": ""
-            },
-            {
-                "tag": {
-                    "fr": "Support Build II",
-                    "en": "Support Build II"
+                    "fr": "Support Assaut rapide",
+                    "en": "Quick Assist Support"
                 },
                 "set1": "Astral_Voice",
-                "set2": "Swing_Jazz",
+                "set2": "Phaethons_Melody",
                 "set1Name": "4pc Astral Voice",
-                "set2Name": "+ 2pc Swing Jazz",
-                "note": ""
-            }
+                "set2Name": "+ 2pc Phaethon's Melody",
+                "note": {
+    "fr": "Buff massif (+24 % DGT) sur l'Aide rapide (Quick Assist) et +10 % ATQ, mais moins régulier à maintenir.",
+    "en": "Massive buff (+24% DMG) on Quick Assist and +10% ATK, but harder to maintain 100% uptime."
+},
+            {
+                "tag": {
+                    "fr": "Support classique",
+                    "en": "Classic Support"
+                },
+                "set1": "Swing_Jazz",
+                "set2": "Phaethons_Melody",
+                "set1Name": "4pc Swing Jazz",
+                "set2Name": "+ 2pc Phaethon's Melody",
+                "note": {
+    "fr": "Option classique : +15 % DGT d'équipe pendant 12 s après un Ultime/Enchaînement, parfait lors des Stuns.",
+    "en": "Classic option: +15% squad DMG for 12s after Chain Attack/Ultimate, ideal during Stun windows."
+}
         ],
         "skills": [
             {
@@ -3570,7 +3576,10 @@
         "teams": [
             {
                 "name": "TEAM 01",
-                "tag": "Miyabi",
+                "tag": {
+                    "fr": "Méta Absolue",
+                    "en": "Top Meta"
+                },
                 "members": [
                     {
                         "img": "Nicole.webp",
@@ -3578,20 +3587,47 @@
                         "initial": "N"
                     },
                     {
-                        "img": "Astra.webp",
-                        "color": "#f23c8a",
-                        "initial": "A"
+                        "img": "Trigger.webp",
+                        "color": "#3182eb",
+                        "initial": "T"
                     },
                     {
-                        "img": "Miyabi.webp",
-                        "color": "#3bbedb",
-                        "initial": "M"
+                        "img": "Claret.webp",
+                        "color": "#e8a838",
+                        "initial": "C"
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
-                "tag": "Zhu Yuan",
+                "tag": {
+                    "fr": "Alternative Accessible",
+                    "en": "Budget Core"
+                },
+                "members": [
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+                    },
+                    {
+                        "img": "Norma.webp",
+                        "color": "#ff3333",
+                        "initial": "N"
+                    },
+                    {
+                        "img": "Claret.webp",
+                        "color": "#e8a838",
+                        "initial": "C"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 03",
+                "tag": {
+                    "fr": "Classique Éther",
+                    "en": "Classic Ether"
+                },
                 "members": [
                     {
                         "img": "Nicole.webp",
@@ -3607,30 +3643,6 @@
                         "img": "Zhu Yuan.webp",
                         "color": "#f23c8a",
                         "initial": "Z"
-                    }
-                ]
-            },
-            {
-                "name": "TEAM 03",
-                "tag": {
-                    "fr": "Débutant",
-                    "en": "Starter"
-                },
-                "members": [
-                    {
-                        "img": "Nicole.webp",
-                        "color": "#f23c8a",
-                        "initial": "N"
-                    },
-                    {
-                        "img": "Corin.webp",
-                        "color": "#e8a838",
-                        "initial": "C"
-                    },
-                    {
-                        "img": "Billy.webp",
-                        "color": "#e8a838",
-                        "initial": "B"
                     }
                 ]
             }
