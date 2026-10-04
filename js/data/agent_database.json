@@ -4796,18 +4796,28 @@
         ],
         "skills": [
             {
-                "name": "Ex",
-                "level": "12",
-                "icon": "Ex.webp"
-            },
-            {
                 "name": "Ult",
-                "level": "11",
+                "level": "",
                 "icon": "Ultime.webp"
             },
             {
+                "name": "Ex",
+                "level": "",
+                "icon": "Ex.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "",
+                "icon": "Esquive.webp"
+            },
+            {
                 "name": "Basic",
-                "level": "8",
+                "level": "",
                 "icon": "Attaque_basic.webp"
             }
         ],
