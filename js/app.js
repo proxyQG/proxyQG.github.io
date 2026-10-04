@@ -798,24 +798,22 @@ function initMobileTooltips() {
 // ==========================================
 let deferredPrompt;
 const installBtn = document.getElementById('pwa-install-btn');
-const iosModal = document.getElementById('ios-install-modal');
-const closeIosModalBtn = document.getElementById('close-ios-modal');
 
 if (installBtn) {
-    // 1. Détection iOS et mode standalone (si l'appli est déjà installée sur l'écran d'accueil)
+    // 1. Détection iOS
     const isIos = () => {
         const userAgent = window.navigator.userAgent.toLowerCase();
         return /iphone|ipad|ipod/.test(userAgent);
     };
     const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
-    // 2. FORCER l'affichage du bouton sur iOS (car Apple ne déclenche pas 'beforeinstallprompt')
+    // 2. FORCER l'affichage du bouton sur iOS
     if (isIos() && !isInStandaloneMode()) {
         installBtn.classList.remove('hidden');
         installBtn.classList.add('flex');
     }
 
-    // 3. Intercepte l'événement d'installation standard pour Android / PC
+    // 3. Intercepte l'événement d'installation standard pour PC/Android
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
@@ -823,23 +821,36 @@ if (installBtn) {
         installBtn.classList.add('flex');
     });
 
-    // 4. Action au clic sur le bouton d'installation
-    installBtn.addEventListener('click', async () => {
+    // 4. Action au clic avec DEBUG et FORCE BRUTE
+    installBtn.addEventListener('click', async (e) => {
+        e.preventDefault(); // Sécurité pour empêcher tout saut de page
+        
+        const iosModal = document.getElementById('ios-install-modal');
+
+        // DEBUG EXTRÊME DANS LA CONSOLE (tu dois voir ces lignes !)
+        console.log("🚨 [TEST PWA] Clic détecté sur le bouton APP !");
+        console.log("🚨 [TEST PWA] Appareil iOS (ou émulé) détecté ? :", isIos());
+        console.log("🚨 [TEST PWA] La modale HTML est-elle trouvée ? :", !!iosModal);
+
         if (isIos()) {
-            // SUR IPHONE : Affiche via style direct (Méthode infaillible)
-            iosModal.style.display = 'flex';
+            if (!iosModal) {
+                alert("Erreur critique : La modale 'ios-install-modal' est introuvable dans ton index.html !");
+                return;
+            }
+
+            // SUR IPHONE : Force l'affichage avec "important" pour écraser Tailwind
+            iosModal.style.setProperty('display', 'flex', 'important');
             
-            // Astuce pour forcer l'actualisation visuelle avant le fondu
+            // Reflow : force le navigateur à prendre en compte le flex avant l'opacité
             void iosModal.offsetWidth; 
             
-            iosModal.style.opacity = '1';
+            iosModal.style.setProperty('opacity', '1', 'important');
+
         } else if (deferredPrompt) {
-            // SUR ANDROID / PC : Lance la fenêtre d'installation native
+            // SUR ANDROID / PC : Lance l'installation
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            
             if (outcome === 'accepted') {
-                console.log('Application ZZZ installée avec succès !');
                 installBtn.style.opacity = '0';
                 setTimeout(() => {
                     installBtn.classList.add('hidden');
@@ -850,29 +861,24 @@ if (installBtn) {
         }
     });
 
-    // 5. Fermeture de la modale iOS via le bouton croix ou clic extérieur
-    if (closeIosModalBtn && iosModal) {
-        const closeIosModal = () => {
-            iosModal.style.opacity = '0'; 
-            
-            // Attend la fin du fondu (300ms) pour cacher la div
+    // 5. Fermeture de la modale iOS
+    // On écoute tout le document pour être sûr que le clic est capté
+    document.addEventListener('click', (e) => {
+        const iosModal = document.getElementById('ios-install-modal');
+        const closeBtn = document.getElementById('close-ios-modal');
+
+        if (!iosModal || iosModal.style.display === 'none') return;
+
+        // Si on clique sur la croix OU sur le fond sombre
+        if (e.target === closeBtn || closeBtn?.contains(e.target) || e.target === iosModal) {
+            iosModal.style.setProperty('opacity', '0', 'important');
             setTimeout(() => {
-                iosModal.style.display = 'none';
+                iosModal.style.setProperty('display', 'none', 'important');
             }, 300);
-        };
+        }
+    });
 
-        // Fermeture au clic sur la croix
-        closeIosModalBtn.addEventListener('click', closeIosModal);
-        
-        // BONUS UX : Fermeture en cliquant dans le fond noir
-        iosModal.addEventListener('click', (e) => {
-            if (e.target === iosModal) {
-                closeIosModal();
-            }
-        });
-    }
-
-    // 6. Sécurité globale : Cacher définitivement le bouton si l'appli est confirmée installée
+    // 6. Sécurité globale : Cacher le bouton si l'appli est déjà installée
     window.addEventListener('appinstalled', () => {
         installBtn.classList.add('hidden');
         installBtn.classList.remove('flex');
