@@ -10912,32 +10912,32 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Synergie Désordre 👑",
-                    "en": "Disorder Synergy 👑"
+                    "fr": "Synergie Optimale",
+                    "en": "Optimal Synergy"
                 },
                 "members": [
+                    {
+                        "img": "Remielle.webp",
+                        "color": "#fba2d0",
+                        "initial": "R"
+                    },
                     {
                         "img": "Alice.webp",
                         "color": "#e8a838",
                         "initial": "A"
                     },
                     {
-                        "img": "Vivian.webp",
-                        "color": "#f23c8a",
+                        "img": "Velina.webp",
+                        "color": "#3bbedb",
                         "initial": "V"
-                    },
-                    {
-                        "img": "Yuzuha.webp",
-                        "color": "#e8a838",
-                        "initial": "Y"
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Désordre Feu",
-                    "en": "Fire Disorder"
+                    "fr": "Désordre Mixte",
+                    "en": "Mixed Disorder"
                 },
                 "members": [
                     {
@@ -10946,9 +10946,9 @@
                         "initial": "A"
                     },
                     {
-                        "img": "Burnice.webp",
-                        "color": "#f05432",
-                        "initial": "B"
+                        "img": "Nangong Yu.webp",
+                        "color": "#f23c8a",
+                        "initial": "NY"
                     },
                     {
                         "img": "Yuzuha.webp",
@@ -10960,24 +10960,24 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Alternative F2P",
-                    "en": "F2P Alternative"
+                    "fr": "Double Physique",
+                    "en": "Dual Physical"
                 },
                 "members": [
+                    {
+                        "img": "Remielle.webp",
+                        "color": "#fba2d0",
+                        "initial": "R"
+                    },
                     {
                         "img": "Alice.webp",
                         "color": "#e8a838",
                         "initial": "A"
                     },
                     {
-                        "img": "Yanagi.webp",
-                        "color": "#3182eb",
-                        "initial": "Y"
-                    },
-                    {
-                        "img": "Astra.webp",
-                        "color": "#f23c8a",
-                        "initial": "A"
+                        "img": "Jane.webp",
+                        "color": "#e8a838",
+                        "initial": "J"
                     }
                 ]
             }
