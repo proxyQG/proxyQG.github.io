@@ -5998,19 +5998,24 @@
                 "icon": "Ex.webp"
             },
             {
-                "name": "Ult",
+                "name": "Basic",
                 "level": "11",
+                "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Ult",
+                "level": "8",
                 "icon": "Ultime.webp"
             },
             {
                 "name": "Assist",
-                "level": "11",
+                "level": "5",
                 "icon": "Assist.webp"
             },
             {
-                "name": "Basic",
-                "level": "11",
-                "icon": "Attaque_basic.webp"
+                "name": "Dodge",
+                "level": "1",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
