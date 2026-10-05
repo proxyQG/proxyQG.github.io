@@ -5111,11 +5111,11 @@
             ],
             "sub": [
                 {
-                    "label": "Taux CRIT",
+                    "label": "Taux CRIT = Dégâts CRIT",
                     "highlight": true
                 },
                 {
-                    "label": "ATQ %",
+                    "label": "ATQ%",
                     "highlight": false
                 },
                 {
