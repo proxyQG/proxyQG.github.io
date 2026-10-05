@@ -277,14 +277,14 @@ export function tStats(statStr) {
     if (currentLang === 'fr') return statStr;
 
     return statStr
-        // 1. Mots de liaison et contexte (ex: "jusqu'à 80 %")
-        .replace(/jusqu'à/gi, "until")
+        // 1. Mots de liaison et contexte
+        .replace(/jusqu'à/gi, "Until")
         .replace(/\bou\b/gi, "or")
 
-        // 2. Statistiques principales (On cible les % AVANT les stats brutes pour éviter les conflits)
-        .replace(/ATQ\s*%/gi, "ATK %")
-        .replace(/DEF\s*%/gi, "DEF %")
-        .replace(/PV\s*%/gi, "HP %")
+        // 2. Statistiques principales (suppression de l'espace avant le % pour l'anglais)
+        .replace(/ATQ\s*%/gi, "ATK%")
+        .replace(/DEF\s*%/gi, "DEF%")
+        .replace(/PV\s*%/gi, "HP%")
         .replace(/ATQ|Attaque/gi, "ATK")
         .replace(/DEF|Défense/gi, "DEF")
         .replace(/PV|Points\s*de\s*vie/gi, "HP")
@@ -311,6 +311,7 @@ export function tStats(statStr) {
         
         // 7. Filet de sécurité pour "DGT" isolé
         .replace(/DGT/gi, "DMG");
+} // <-- L'ACCOLADE EST BIEN LÀ !
 
 // Rafraîchissement des balises fixes dans le DOM
 export function updateStaticUI() {
