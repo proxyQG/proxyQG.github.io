@@ -4322,36 +4322,39 @@
         "teams": [
             {
                 "name": "TEAM 01",
-                "tag": "Premium",
+                "tag": {
+                    "fr": "Mono Élec",
+                    "en": "Mono Electric"
+                },
                 "members": [
+                    {
+                        "img": "Claret.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
+                    },
                     {
                         "img": "Trigger.webp",
                         "color": "#3182eb",
                         "initial": "T"
                     },
                     {
-                        "img": "Anby.webp",
+                        "img": "Rina.webp",
                         "color": "#3182eb",
-                        "initial": "A"
-                    },
-                    {
-                        "img": "Astra.webp",
-                        "color": "#f23c8a",
-                        "initial": "A"
+                        "initial": "R"
                     }
                 ]
             },
             {
-                "name": "TEAM 02",
+                "name": "Cissia Hypercarry",
                 "tag": {
                     "fr": "Double Élec",
                     "en": "Dual Shock"
                 },
                 "members": [
                     {
-                        "img": "Trigger.webp",
+                        "img": "Cissia.webp",
                         "color": "#3182eb",
-                        "initial": "T"
+                        "initial": "C"
                     },
                     {
                         "img": "Seed.webp",
@@ -4359,33 +4362,33 @@
                         "initial": "S"
                     },
                     {
-                        "img": "Nekomata.webp",
-                        "color": "#e8a838",
-                        "initial": "N"
+                        "img": "Trigger.webp",
+                        "color": "#3182eb",
+                        "initial": "T"
                     }
                 ]
             },
             {
-                "name": "TEAM 03",
+                "name": "Harmonie Astrale",
                 "tag": {
-                    "fr": "Flexible",
-                    "en": "Flexible"
+                    "fr": "Équipe Premium",
+                    "en": "Premium Team"
                 },
                 "members": [
+                    {
+                        "img": "Cissia.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
+                    },
                     {
                         "img": "Trigger.webp",
                         "color": "#3182eb",
                         "initial": "T"
                     },
                     {
-                        "img": "Hugo.webp",
-                        "color": "#3bbedb",
-                        "initial": "H"
-                    },
-                    {
-                        "img": "",
-                        "color": "#52525b",
-                        "role": "N'importe quel<br>Support"
+                        "img": "Astra.webp",
+                        "color": "#f23c8a",
+                        "initial": "A"
                     }
                 ]
             }
