@@ -275,14 +275,42 @@ export function tStats(statStr) {
     if (typeof statStr === 'object') return tData(statStr);
 
     if (currentLang === 'fr') return statStr;
-    return statStr.replace(/Taux Crit/gi, "CRIT Rate").replace(/Dégât Crit/gi, "CRIT DMG")
-                  .replace(/Attaque/gi, "Attack").replace(/Récup\.? d'énergie/gi, "Energy Regen")
-                  .replace(/Adresse d'Anomalie|Adresse Ano\.|Adre\. Anomalie|Ad\. d'Anomalie/gi, "Anomaly Prof.")
-                  .replace(/Maîtrise d'Anomalie|Maitrise Ano\.|Maî\. d'Anomalie|Ma\. d'Anomalie/gi, "Anomaly Mastery")
-                  .replace(/DGT Glace/gi, "Ice DMG").replace(/DGT Physique/gi, "Physical DMG")
-                  .replace(/DGT Électrique/gi, "Electric DMG").replace(/DGT Éther/gi, "Ether DMG")
-                  .replace(/DGT Feu/gi, "Fire DMG");
-}
+
+    return statStr
+        // 1. Mots de liaison et contexte (ex: "jusqu'à 80 %")
+        .replace(/jusqu'à/gi, "until")
+        .replace(/\bou\b/gi, "or")
+
+        // 2. Statistiques principales (On cible les % AVANT les stats brutes pour éviter les conflits)
+        .replace(/ATQ\s*%/gi, "ATK %")
+        .replace(/DEF\s*%/gi, "DEF %")
+        .replace(/PV\s*%/gi, "HP %")
+        .replace(/ATQ|Attaque/gi, "ATK")
+        .replace(/DEF|Défense/gi, "DEF")
+        .replace(/PV|Points\s*de\s*vie/gi, "HP")
+
+        // 3. Critiques et Pénétration
+        .replace(/Taux\s*Crit(?:ique)?/gi, "CRIT Rate")
+        .replace(/Dégât(?:s)?\s*Crit(?:ique)?|DGT\s*CRIT/gi, "CRIT DMG")
+        .replace(/Taux\s*de\s*PEN/gi, "PEN Ratio")
+
+        // 4. Anomalie (CORRECTION avec la vraie nomenclature ZZZ)
+        .replace(/Ma[îi]trise\s*(?:d')?Anomalie|Ma[îi]\.\s*(?:d')?Anomalie/gi, "Anomaly Prof.")
+        .replace(/Adresse\s*(?:d')?Anomalie|Adre\.\s*(?:d')?Anomalie/gi, "Anomaly Mastery")
+
+        // 5. Énergie et Impact
+        .replace(/Récup(?:ération)?\.?\s*d'énergie/gi, "Energy Regen")
+        .replace(/Impact/gi, "Impact")
+
+        // 6. Dégâts Élémentaires (Couvre "DGT Glace", "Dégâts de Glace", etc.)
+        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Glace/gi, "Ice DMG")
+        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Physique(?:s)?/gi, "Physical DMG")
+        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]lectrique/gi, "Electric DMG")
+        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]ther/gi, "Ether DMG")
+        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Feu/gi, "Fire DMG")
+        
+        // 7. Filet de sécurité pour "DGT" isolé
+        .replace(/DGT/gi, "DMG");
 
 // Rafraîchissement des balises fixes dans le DOM
 export function updateStaticUI() {
