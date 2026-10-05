@@ -189,7 +189,7 @@ export const enginesDict = {
     "Concealed Light": "Lumière dissimulée",
     "Cordis Germina": "Cordis Germina",
     "Crimson Thirst": "Soif écarlate",
-    "Crimson Moon Casket": "Soif écarlate",
+    "Crimson Moon Casket": "Coffret de la lune cramoisie",
     "Deep Sea Visitor": "Visiteur des abysses",
     "Demara Battery Mark II": "Batterie Demara Mark II",
     "Dreamlit Hearth": "Foyer onirique",
