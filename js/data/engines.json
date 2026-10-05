@@ -3511,23 +3511,23 @@
     },
     "overclocks": [
       {
-        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'équipementier augmente de [10 %] et il inflige [15 %] de DGT supplémentaires à la cible.",
+        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'agent augmente de [10 %] et il inflige [15 %] de DGT supplémentaires à la cible.",
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [10%] and they deal an additional [15%] more DMG to the target."
       },
       {
-        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'équipementier augmente de [11,5 %] et il inflige [17,5 %] de DGT supplémentaires à la cible.",
+        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'agent augmente de [11,5 %] et il inflige [17,5 %] de DGT supplémentaires à la cible.",
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [11.5%] and they deal an additional [17.5%] more DMG to the target."
       },
       {
-        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'équipementier augmente de [13 %] et il inflige [20 %] de DGT supplémentaires à la cible.",
+        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'agent augmente de [13 %] et il inflige [20 %] de DGT supplémentaires à la cible.",
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [13%] and they deal an additional [20%] more DMG to the target."
       },
       {
-        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'équipementier augmente de [14,5 %] et il inflige [22,5 %] de DGT supplémentaires à la cible.",
+        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'agent augmente de [14,5 %] et il inflige [22,5 %] de DGT supplémentaires à la cible.",
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [14.5%] and they deal an additional [22.5%] more DMG to the target."
       },
       {
-        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'équipementier augmente de [16 %] et il inflige [25 %] de DGT supplémentaires à la cible.",
+        "fr": "Lorsqu'il y a des ennemis subissant une Anomalie d'attribut sur le terrain, l'ATQ de l'agent augmente de [16 %] et il inflige [25 %] de DGT supplémentaires à la cible.",
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [16%] and they deal an additional [25%] more DMG to the target."
       }
     ]
