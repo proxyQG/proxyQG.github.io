@@ -5087,6 +5087,11 @@
                 "name": "Assist",
                 "level": "",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
