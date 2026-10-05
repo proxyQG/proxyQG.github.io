@@ -9707,20 +9707,6 @@
                         "en": "Flat ATK"
                     },
                     "highlight": true
-                },
-                {
-                    "label": {
-                        "fr": "Taux CRIT = DGT CRIT",
-                        "en": "CRIT Rate = CRIT DMG"
-                    },
-                    "highlight": false
-                },
-                {
-                    "label": {
-                        "fr": "Adresse d'Anomalie",
-                        "en": "Anomaly Proficiency"
-                    },
-                    "highlight": false
                 }
             ]
         },
