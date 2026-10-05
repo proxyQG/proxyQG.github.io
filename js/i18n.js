@@ -301,7 +301,7 @@ export function tStats(statStr) {
         .replace(/Adresse\s*(?:d')?Anomalie|Adre\.\s*(?:d')?Anomalie/gi, "Anomaly Prof.")
 
         // 5. Énergie et Impact
-        .replace(/Récup(?:ération)?\.?\s*d'énergie/gi, "Energy Regen")
+        .replace(/(?:R[ée]c|R[ée]cup(?:[ée]ration)?)\.?\s*d'?[ée]nergie/gi, "Energy Regen")
         .replace(/Impact/gi, "Impact")
 
         // 6. Dégâts Élémentaires (Couvre "DGT Glace", "Dégâts de Glace", etc.)
