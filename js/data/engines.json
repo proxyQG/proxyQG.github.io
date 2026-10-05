@@ -3051,6 +3051,225 @@
       }
     ]
   },
+  "Angel in the Shell": {
+    "name": {
+      "fr": "Ange dans la coquille",
+      "en": "Angel in the Shell"
+    },
+    "rank": "S",
+    "specialty": "Support",
+    "element": "Ether",
+    "img": "W-Engine_Angel_in_the_Shell.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Maîtrise d'Anomalie",
+        "en": "Anomaly Mastery"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Frappe énergique",
+      "en": "Energetic Strike"
+    },
+    "overclocks": [
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [90]. Lorsque l'équipementier est un personnage d'{Éther}, et qu'il entre sur le terrain ou utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, il gagne une amélioration : les DGT infligés aux ennemis subissant une Anomalie d'attribut augmentent de [20 %], et tous les {DGT d'Anomalie d'attribut} qu'il déclenche augmentent de [10 %] pendant 15s. Les déclenchements répétés réinitialisent la durée, et l'effet est dissipé lorsque le personnage quitte le terrain.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [90]. When the equipper is an {Ether} character, and comes on-field or uses a {Special Attack} or {EX Special Attack}, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by [20%], and all {Attribute Anomaly DMG} they trigger increases by [10%], lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [103,5]. Lorsque l'équipementier est un personnage d'{Éther}, et qu'il entre sur le terrain ou utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, il gagne une amélioration : les DGT infligés aux ennemis subissant une Anomalie d'attribut augmentent de [23 %], et tous les {DGT d'Anomalie d'attribut} qu'il déclenche augmentent de [11,5 %] pendant 15s. Les déclenchements répétés réinitialisent la durée, et l'effet est dissipé lorsque le personnage quitte le terrain.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [103.5]. When the equipper is an {Ether} character, and comes on-field or uses a {Special Attack} or {EX Special Attack}, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by [23%], and all {Attribute Anomaly DMG} they trigger increases by [11.5%], lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [117]. Lorsque l'équipementier est un personnage d'{Éther}, et qu'il entre sur le terrain ou utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, il gagne une amélioration : les DGT infligés aux ennemis subissant une Anomalie d'attribut augmentent de [26 %], et tous les {DGT d'Anomalie d'attribut} qu'il déclenche augmentent de [13 %] pendant 15s. Les déclenchements répétés réinitialisent la durée, et l'effet est dissipé lorsque le personnage quitte le terrain.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [117]. When the equipper is an {Ether} character, and comes on-field or uses a {Special Attack} or {EX Special Attack}, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by [26%], and all {Attribute Anomaly DMG} they trigger increases by [13%], lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [130,5]. Lorsque l'équipementier est un personnage d'{Éther}, et qu'il entre sur le terrain ou utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, il gagne une amélioration : les DGT infligés aux ennemis subissant une Anomalie d'attribut augmentent de [29 %], et tous les {DGT d'Anomalie d'attribut} qu'il déclenche augmentent de [14,5 %] pendant 15s. Les déclenchements répétés réinitialisent la durée, et l'effet est dissipé lorsque le personnage quitte le terrain.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [130.5]. When the equipper is an {Ether} character, and comes on-field or uses a {Special Attack} or {EX Special Attack}, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by [29%], and all {Attribute Anomaly DMG} they trigger increases by [14.5%], lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [144]. Lorsque l'équipementier est un personnage d'{Éther}, et qu'il entre sur le terrain ou utilise une {Attaque spéciale} ou une {Attaque spéciale EX}, il gagne une amélioration : les DGT infligés aux ennemis subissant une Anomalie d'attribut augmentent de [32 %], et tous les {DGT d'Anomalie d'attribut} qu'il déclenche augmentent de [16 %] pendant 15s. Les déclenchements répétés réinitialisent la durée, et l'effet est dissipé lorsque le personnage quitte le terrain.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [144]. When the equipper is an {Ether} character, and comes on-field or uses a {Special Attack} or {EX Special Attack}, they gain a buff: DMG dealt to enemies afflicted with Attribute Anomalies increases by [32%], and all {Attribute Anomaly DMG} they trigger increases by [16%], lasting 15s. Repeated triggers reset the duration, and the effect is removed when switching off-field."
+      }
+    ]
+  },
+  "Serpentine Seeker": {
+    "name": {
+      "fr": "Chercheur serpentin",
+      "en": "Serpentine Seeker"
+    },
+    "rank": "S",
+    "specialty": "Anomaly",
+    "element": "Electric",
+    "img": "W-Engine_Serpentine_Seeker.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Réc. d'énergie",
+        "en": "Energy Regen"
+      },
+      "advanced": "24% - 60%"
+    },
+    "passiveName": {
+      "fr": "Venin bio-conçu",
+      "en": "Bioengineered Venom"
+    },
+    "overclocks": [
+      {
+        "fr": "Le {Taux CRIT} augmente de [25 %]. Lorsque l'équipementier consomme au moins 20 points d'énergie en une seule fois, chaque tranche de 20 points d'énergie consommée octroie 3s d'une amélioration : en infligeant des {DGT Électriques}, ignore [28 %] de la DÉF de la cible. Les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s. En entrant en combat, gagne 10s de cette amélioration. Lorsque l'équipementier n'est pas le personnage actif, la durée ne diminue plus.",
+        "en": "{CRIT Rate} increases by [25%]. When the equipper consumes at least 20 Energy in a single instance, every 20 Energy consumed grants 3s of a buff: when dealing {Electric DMG}, ignore [28%] of the target's DEF. Repeated triggers extend the duration, up to a maximum of 30s. When entering combat, gain 10s of this buff. While the equipper is not the active character, the duration no longer decreases."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [28,75 %]. Lorsque l'équipementier consomme au moins 20 points d'énergie en une seule fois, chaque tranche de 20 points d'énergie consommée octroie 3s d'une amélioration : en infligeant des {DGT Électriques}, ignore [31,5 %] de la DÉF de la cible. Les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s. En entrant en combat, gagne 10s de cette amélioration. Lorsque l'équipementier n'est pas le personnage actif, la durée ne diminue plus.",
+        "en": "{CRIT Rate} increases by [28.75%]. When the equipper consumes at least 20 Energy in a single instance, every 20 Energy consumed grants 3s of a buff: when dealing {Electric DMG}, ignore [31.5%] of the target's DEF. Repeated triggers extend the duration, up to a maximum of 30s. When entering combat, gain 10s of this buff. While the equipper is not the active character, the duration no longer decreases."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [32,5 %]. Lorsque l'équipementier consomme au moins 20 points d'énergie en une seule fois, chaque tranche de 20 points d'énergie consommée octroie 3s d'une amélioration : en infligeant des {DGT Électriques}, ignore [35 %] de la DÉF de la cible. Les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s. En entrant en combat, gagne 10s de cette amélioration. Lorsque l'équipementier n'est pas le personnage actif, la durée ne diminue plus.",
+        "en": "{CRIT Rate} increases by [32.5%]. When the equipper consumes at least 20 Energy in a single instance, every 20 Energy consumed grants 3s of a buff: when dealing {Electric DMG}, ignore [35%] of the target's DEF. Repeated triggers extend the duration, up to a maximum of 30s. When entering combat, gain 10s of this buff. While the equipper is not the active character, the duration no longer decreases."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [36,25 %]. Lorsque l'équipementier consomme au moins 20 points d'énergie en une seule fois, chaque tranche de 20 points d'énergie consommée octroie 3s d'une amélioration : en infligeant des {DGT Électriques}, ignore [38,5 %] de la DÉF de la cible. Les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s. En entrant en combat, gagne 10s de cette amélioration. Lorsque l'équipementier n'est pas le personnage actif, la durée ne diminue plus.",
+        "en": "{CRIT Rate} increases by [36.25%]. When the equipper consumes at least 20 Energy in a single instance, every 20 Energy consumed grants 3s of a buff: when dealing {Electric DMG}, ignore [38.5%] of the target's DEF. Repeated triggers extend the duration, up to a maximum of 30s. When entering combat, gain 10s of this buff. While the equipper is not the active character, the duration no longer decreases."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [40 %]. Lorsque l'équipementier consomme au moins 20 points d'énergie en une seule fois, chaque tranche de 20 points d'énergie consommée octroie 3s d'une amélioration : en infligeant des {DGT Électriques}, ignore [42 %] de la DÉF de la cible. Les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s. En entrant en combat, gagne 10s de cette amélioration. Lorsque l'équipementier n'est pas le personnage actif, la durée ne diminue plus.",
+        "en": "{CRIT Rate} increases by [40%]. When the equipper consumes at least 20 Energy in a single instance, every 20 Energy consumed grants 3s of a buff: when dealing {Electric DMG}, ignore [42%] of the target's DEF. Repeated triggers extend the duration, up to a maximum of 30s. When entering combat, gain 10s of this buff. While the equipper is not the active character, the duration no longer decreases."
+      }
+    ]
+  },
+  "Neon Fantasies": {
+    "name": {
+      "fr": "Fantaisies néon",
+      "en": "Neon Fantasies"
+    },
+    "rank": "S",
+    "specialty": "Stun",
+    "element": "Ether",
+    "img": "W-Engine_Neon_Fantasies.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Maîtrise d'Anomalie",
+        "en": "Anomaly Mastery"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Démon du disco",
+      "en": "Disco Demon"
+    },
+    "overclocks": [
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [90]. Lorsque l'{Attaque spéciale EX} ou l'{Attaque de base} de l'équipementier inflige des {DGT d'Éther}, les DGT infligés par tous les membres de l'escouade augmentent de [15 %] pendant 40s, cumulable jusqu'à 2 fois. Cet effet peut se déclencher une fois par utilisation de compétence et les déclenchements répétés réinitialisent la durée. À 2 cumuls, l'{Adresse d'Anomalie} de l'équipementier augmente de [60] supplémentaires. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [90]. When the equipper's {EX Special Attack} or {Basic Attack} deals {Ether DMG}, all squad members' DMG dealt increases by [15%] for 40s, stacking up to 2 times. This effect can trigger once per use of a skill and repeated triggers reset the duration. With 2 stacks, the equipper's {Anomaly Proficiency} increases by an additional [60]. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [103,75]. Lorsque l'{Attaque spéciale EX} ou l'{Attaque de base} de l'équipementier inflige des {DGT d'Éther}, les DGT infligés par tous les membres de l'escouade augmentent de [17,25 %] pendant 40s, cumulable jusqu'à 2 fois. Cet effet peut se déclencher une fois par utilisation de compétence et les déclenchements répétés réinitialisent la durée. À 2 cumuls, l'{Adresse d'Anomalie} de l'équipementier augmente de [69] supplémentaires. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [103.75]. When the equipper's {EX Special Attack} or {Basic Attack} deals {Ether DMG}, all squad members' DMG dealt increases by [17.25%] for 40s, stacking up to 2 times. This effect can trigger once per use of a skill and repeated triggers reset the duration. With 2 stacks, the equipper's {Anomaly Proficiency} increases by an additional [69]. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [117,5]. Lorsque l'{Attaque spéciale EX} ou l'{Attaque de base} de l'équipementier inflige des {DGT d'Éther}, les DGT infligés par tous les membres de l'escouade augmentent de [19,5 %] pendant 40s, cumulable jusqu'à 2 fois. Cet effet peut se déclencher une fois par utilisation de compétence et les déclenchements répétés réinitialisent la durée. À 2 cumuls, l'{Adresse d'Anomalie} de l'équipementier augmente de [78] supplémentaires. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [117.5]. When the equipper's {EX Special Attack} or {Basic Attack} deals {Ether DMG}, all squad members' DMG dealt increases by [19.5%] for 40s, stacking up to 2 times. This effect can trigger once per use of a skill and repeated triggers reset the duration. With 2 stacks, the equipper's {Anomaly Proficiency} increases by an additional [78]. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [131,25]. Lorsque l'{Attaque spéciale EX} ou l'{Attaque de base} de l'équipementier inflige des {DGT d'Éther}, les DGT infligés par tous les membres de l'escouade augmentent de [21,75 %] pendant 40s, cumulable jusqu'à 2 fois. Cet effet peut se déclencher une fois par utilisation de compétence et les déclenchements répétés réinitialisent la durée. À 2 cumuls, l'{Adresse d'Anomalie} de l'équipementier augmente de [87] supplémentaires. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [131.25]. When the equipper's {EX Special Attack} or {Basic Attack} deals {Ether DMG}, all squad members' DMG dealt increases by [21.75%] for 40s, stacking up to 2 times. This effect can trigger once per use of a skill and repeated triggers reset the duration. With 2 stacks, the equipper's {Anomaly Proficiency} increases by an additional [87]. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [145]. Lorsque l'{Attaque spéciale EX} ou l'{Attaque de base} de l'équipementier inflige des {DGT d'Éther}, les DGT infligés par tous les membres de l'escouade augmentent de [24 %] pendant 40s, cumulable jusqu'à 2 fois. Cet effet peut se déclencher une fois par utilisation de compétence et les déclenchements répétés réinitialisent la durée. À 2 cumuls, l'{Adresse d'Anomalie} de l'équipementier augmente de [96] supplémentaires. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [145]. When the equipper's {EX Special Attack} or {Basic Attack} deals {Ether DMG}, all squad members' DMG dealt increases by [24%] for 40s, stacking up to 2 times. This effect can trigger once per use of a skill and repeated triggers reset the duration. With 2 stacks, the equipper's {Anomaly Proficiency} increases by an additional [96]. Only one instance of this effect can exist in the same squad."
+      }
+    ]
+  },
+  "The Simmering Pot": {
+    "name": {
+      "fr": "La Marmite frémissante",
+      "en": "The Simmering Pot"
+    },
+    "rank": "A",
+    "specialty": "Stun",
+    "img": "W-Engine_The_Simmering_Pot.webp",
+    "stats": {
+      "base": "40 - 594",
+      "advancedLabel": {
+        "fr": "Impact %",
+        "en": "Impact %"
+      },
+      "advanced": "6% - 15%"
+    },
+    "passiveName": {
+      "fr": "Fondue à l'huile pimentée",
+      "en": "Red Chili Oil Hot Pot"
+    },
+    "overclocks": [
+      {
+        "fr": "Lors de l'activation d'une {Attaque d'assistance}, la {Stupeur} infligée par l'équipementier à la cible augmente de [7,2 %], et les DGT infligés augmentent de [7,2 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When activating an {Assist Follow-Up}, the equipper's {Daze} inflicted on the target increases by [7.2%], and DMG dealt increases by [7.2%] for 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Lors de l'activation d'une {Attaque d'assistance}, la {Stupeur} infligée par l'équipementier à la cible augmente de [8,275 %], et les DGT infligés augmentent de [8,275 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When activating an {Assist Follow-Up}, the equipper's {Daze} inflicted on the target increases by [8.275%], and DMG dealt increases by [8.275%] for 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Lors de l'activation d'une {Attaque d'assistance}, la {Stupeur} infligée par l'équipementier à la cible augmente de [9,35 %], et les DGT infligés augmentent de [9,35 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When activating an {Assist Follow-Up}, the equipper's {Daze} inflicted on the target increases by [9.35%], and DMG dealt increases by [9.35%] for 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Lors de l'activation d'une {Attaque d'assistance}, la {Stupeur} infligée par l'équipementier à la cible augmente de [10,425 %], et les DGT infligés augmentent de [10,425 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When activating an {Assist Follow-Up}, the equipper's {Daze} inflicted on the target increases by [10.425%], and DMG dealt increases by [10.425%] for 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Lors de l'activation d'une {Attaque d'assistance}, la {Stupeur} infligée par l'équipementier à la cible augmente de [11,5 %], et les DGT infligés augmentent de [11,5 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When activating an {Assist Follow-Up}, the equipper's {Daze} inflicted on the target increases by [11.5%], and DMG dealt increases by [11.5%] for 30s. Repeated triggers reset the duration."
+      }
+    ]
+  },
+  "Starlight Rider Faceplate": {
+    "name": {
+      "fr": "Plaque de Chevalier Starlight",
+      "en": "Starlight Rider Faceplate"
+    },
+    "rank": "S",
+    "specialty": "Defense",
+    "element": "Physical",
+    "img": "W-Engine_Starlight_Rider_Faceplate.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "PV %",
+        "en": "HP %"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Moral de chevalier",
+      "en": "Knight's Morale"
+    },
+    "overclocks": [
+      {
+        "fr": "Augmente le {Taux CRIT} de [20 %]. Lorsque l'équipementier lance une {Attaque spéciale}, ses {DGT Physiques bruts} augmentent de [10 %], cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {CRIT Rate} by [20%]. When the equipper launches a {Special Attack}, their {Physical Sheer DMG} increases by [10%], stacking up to 2 times and lasting 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [23 %]. Lorsque l'équipementier lance une {Attaque spéciale}, ses {DGT Physiques bruts} augmentent de [11,5 %], cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {CRIT Rate} by [23%]. When the equipper launches a {Special Attack}, their {Physical Sheer DMG} increases by [11.5%], stacking up to 2 times and lasting 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [26 %]. Lorsque l'équipementier lance une {Attaque spéciale}, ses {DGT Physiques bruts} augmentent de [13 %], cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {CRIT Rate} by [26%]. When the equipper launches a {Special Attack}, their {Physical Sheer DMG} increases by [13%], stacking up to 2 times and lasting 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [29 %]. Lorsque l'équipementier lance une {Attaque spéciale}, ses {DGT Physiques bruts} augmentent de [14,5 %], cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {CRIT Rate} by [29%]. When the equipper launches a {Special Attack}, their {Physical Sheer DMG} increases by [14.5%], stacking up to 2 times and lasting 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [32 %]. Lorsque l'équipementier lance une {Attaque spéciale}, ses {DGT Physiques bruts} augmentent de [16 %], cumulable jusqu'à 2 fois et d'une durée de 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {CRIT Rate} by [32%]. When the equipper launches a {Special Attack}, their {Physical Sheer DMG} increases by [16%], stacking up to 2 times and lasting 30s. Repeated triggers reset the duration."
+      }
+    ]
+  },
   "Electro-Lip Gloss": {
     "name": {
       "fr": "Gloss électrique",
