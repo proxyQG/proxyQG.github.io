@@ -3270,6 +3270,225 @@
       }
     ]
   },
+  "Joyau Dore": {
+    "name": {
+      "fr": "Joyau doré",
+      "en": "Joyau Dore"
+    },
+    "rank": "S",
+    "specialty": "Support",
+    "element": "Wind",
+    "img": "W-Engine_Joyau_Dore.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Réc. d'énergie",
+        "en": "Energy Regen"
+      },
+      "advanced": "24% - 60%"
+    },
+    "passiveName": {
+      "fr": "Étiquette impeccable",
+      "en": "Flawless Etiquette"
+    },
+    "overclocks": [
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [70]. Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT de Vent}, les DGT infligés par son {Vortex} et ses compétences {Balayées par le vent} augmentent de [7 %] pendant 40s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par utilisation de compétence. À 2 cumuls, tous les membres de l'escouade gagnent [60] d'{Adresse d'Anomalie}. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [70]. When the equipper's {EX Special Attack} deals {Wind DMG}, the DMG dealt by their {Vortex} and {Windswept} increases by [7%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [60] {Anomaly Proficiency}. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [80]. Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT de Vent}, les DGT infligés par son {Vortex} et ses compétences {Balayées par le vent} augmentent de [8 %] pendant 40s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par utilisation de compétence. À 2 cumuls, tous les membres de l'escouade gagnent [69] d'{Adresse d'Anomalie}. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [80]. When the equipper's {EX Special Attack} deals {Wind DMG}, the DMG dealt by their {Vortex} and {Windswept} increases by [8%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [69] {Anomaly Proficiency}. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [90]. Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT de Vent}, les DGT infligés par son {Vortex} et ses compétences {Balayées par le vent} augmentent de [9 %] pendant 40s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par utilisation de compétence. À 2 cumuls, tous les membres de l'escouade gagnent [78] d'{Adresse d'Anomalie}. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [90]. When the equipper's {EX Special Attack} deals {Wind DMG}, the DMG dealt by their {Vortex} and {Windswept} increases by [9%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [78] {Anomaly Proficiency}. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [100]. Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT de Vent}, les DGT infligés par son {Vortex} et ses compétences {Balayées par le vent} augmentent de [10 %] pendant 40s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par utilisation de compétence. À 2 cumuls, tous les membres de l'escouade gagnent [87] d'{Adresse d'Anomalie}. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [100]. When the equipper's {EX Special Attack} deals {Wind DMG}, the DMG dealt by their {Vortex} and {Windswept} increases by [10%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [87] {Anomaly Proficiency}. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [110]. Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT de Vent}, les DGT infligés par son {Vortex} et ses compétences {Balayées par le vent} augmentent de [11 %] pendant 40s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par utilisation de compétence. À 2 cumuls, tous les membres de l'escouade gagnent [96] d'{Adresse d'Anomalie}. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Anomaly Proficiency} increases by [110]. When the equipper's {EX Special Attack} deals {Wind DMG}, the DMG dealt by their {Vortex} and {Windswept} increases by [11%] for 40s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill use. At 2 stacks, all squad members gain [96] {Anomaly Proficiency}. Only one instance of this effect can exist in the same squad."
+      }
+    ]
+  },
+  "Chief Sidekick": {
+    "name": {
+      "fr": "Acolyte en chef",
+      "en": "Chief Sidekick"
+    },
+    "rank": "S",
+    "specialty": "Stun",
+    "element": "Fire",
+    "img": "W-Engine_Chief_Sidekick.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Taux CRIT",
+        "en": "CRIT Rate"
+      },
+      "advanced": "9.6% - 24%"
+    },
+    "passiveName": {
+      "fr": "Adepte du génie",
+      "en": "The Genius's Follower"
+    },
+    "overclocks": [
+      {
+        "fr": "L'{Impact} de l'équipementier augmente de [30], et ses DGT ignorent [15 %] de la {RÉS Feu} de la cible. Lorsque l'équipementier n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,4]/s. Lorsque l'équipementier inflige des {DGT de Feu} avec une {Attaque spéciale EX}, les DGT de tous les agents augmentent de [12,5 %] pendant 30s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par compétence. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Impact} increases by [30], and their DMG ignores [15%] of the target's {Fire RES}. When the equipper is not the active character, {Energy Regen} increases by [0.4]/s. When the equipper deals {Fire DMG} with an {EX Special Attack}, all Agents' DMG increases by [12.5%] for 30s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Impact} de l'équipementier augmente de [33], et ses DGT ignorent [17,25 %] de la {RÉS Feu} de la cible. Lorsque l'équipementier n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,46]/s. Lorsque l'équipementier inflige des {DGT de Feu} avec une {Attaque spéciale EX}, les DGT de tous les agents augmentent de [14,375 %] pendant 30s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par compétence. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Impact} increases by [33], and their DMG ignores [17.25%] of the target's {Fire RES}. When the equipper is not the active character, {Energy Regen} increases by [0.46]/s. When the equipper deals {Fire DMG} with an {EX Special Attack}, all Agents' DMG increases by [14.375%] for 30s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Impact} de l'équipementier augmente de [36], et ses DGT ignorent [19,5 %] de la {RÉS Feu} de la cible. Lorsque l'équipementier n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,52]/s. Lorsque l'équipementier inflige des {DGT de Feu} avec une {Attaque spéciale EX}, les DGT de tous les agents augmentent de [16,25 %] pendant 30s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par compétence. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Impact} increases by [36], and their DMG ignores [19.5%] of the target's {Fire RES}. When the equipper is not the active character, {Energy Regen} increases by [0.52]/s. When the equipper deals {Fire DMG} with an {EX Special Attack}, all Agents' DMG increases by [16.25%] for 30s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Impact} de l'équipementier augmente de [39], et ses DGT ignorent [21,75 %] de la {RÉS Feu} de la cible. Lorsque l'équipementier n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,58]/s. Lorsque l'équipementier inflige des {DGT de Feu} avec une {Attaque spéciale EX}, les DGT de tous les agents augmentent de [18,125 %] pendant 30s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par compétence. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Impact} increases by [39], and their DMG ignores [21.75%] of the target's {Fire RES}. When the equipper is not the active character, {Energy Regen} increases by [0.58]/s. When the equipper deals {Fire DMG} with an {EX Special Attack}, all Agents' DMG increases by [18.125%] for 30s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "L'{Impact} de l'équipementier augmente de [42], et ses DGT ignorent [24 %] de la {RÉS Feu} de la cible. Lorsque l'équipementier n'est pas le personnage actif, sa {Réc. d'énergie} augmente de [0,64]/s. Lorsque l'équipementier inflige des {DGT de Feu} avec une {Attaque spéciale EX}, les DGT de tous les agents augmentent de [20 %] pendant 30s (cumulable jusqu'à 2 fois). Les déclenchements répétés réinitialisent la durée. Cet effet peut se déclencher une fois par compétence. Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "The equipper's {Impact} increases by [42], and their DMG ignores [24%] of the target's {Fire RES}. When the equipper is not the active character, {Energy Regen} increases by [0.64]/s. When the equipper deals {Fire DMG} with an {EX Special Attack}, all Agents' DMG increases by [20%] for 30s, stacking up to 2 times. Repeated triggers reset the duration. This effect can trigger once per skill. Only one instance of this effect can exist in the same squad."
+      }
+    ]
+  },
+  "Sol Exuvia": {
+    "name": {
+      "fr": "Exuvie solaire",
+      "en": "Sol Exuvia"
+    },
+    "rank": "S",
+    "specialty": "Anomaly",
+    "element": "Ether",
+    "img": "W-Engine_Sol_Exuvia.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "ATQ %",
+        "en": "ATK %"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Effet d'éclipse",
+      "en": "Eclipse Effect"
+    },
+    "overclocks": [
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier est Pyrois, l'utilisation d'un {Ultime} confère l'effet Éclipse. Tant que l'effet Éclipse est actif, les DGT infligés par l'équipementier ignorent [16 %] de la {RÉS Éther} de la cible pendant 45s. Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier entre en combat, il gagne l'effet Éclipse.",
+        "en": "{CRIT Rate} increases by [20%]. When the equipper is Pyrois, using an {Ultimate} grants the Eclipse effect. When the Eclipse effect is active, DMG dealt by the equipper ignores [16%] of {Ether RES}, lasting 45s. Repeated triggers reset the duration. When the equipper enters combat, they gain the Eclipse effect."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier est Pyrois, l'utilisation d'un {Ultime} confère l'effet Éclipse. Tant que l'effet Éclipse est actif, les DGT infligés par l'équipementier ignorent [17,5 %] de la {RÉS Éther} de la cible pendant 45s. Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier entre en combat, il gagne l'effet Éclipse.",
+        "en": "{CRIT Rate} increases by [20%]. When the equipper is Pyrois, using an {Ultimate} grants the Eclipse effect. When the Eclipse effect is active, DMG dealt by the equipper ignores [17.5%] of {Ether RES}, lasting 45s. Repeated triggers reset the duration. When the equipper enters combat, they gain the Eclipse effect."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier est Pyrois, l'utilisation d'un {Ultime} confère l'effet Éclipse. Tant que l'effet Éclipse est actif, les DGT infligés par l'équipementier ignorent [19 %] de la {RÉS Éther} de la cible pendant 45s. Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier entre en combat, il gagne l'effet Éclipse.",
+        "en": "{CRIT Rate} increases by [20%]. When the equipper is Pyrois, using an {Ultimate} grants the Eclipse effect. When the Eclipse effect is active, DMG dealt by the equipper ignores [19%] of {Ether RES}, lasting 45s. Repeated triggers reset the duration. When the equipper enters combat, they gain the Eclipse effect."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier est Pyrois, l'utilisation d'un {Ultime} confère l'effet Éclipse. Tant que l'effet Éclipse est actif, les DGT infligés par l'équipementier ignorent [20,5 %] de la {RÉS Éther} de la cible pendant 45s. Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier entre en combat, il gagne l'effet Éclipse.",
+        "en": "{CRIT Rate} increases by [20%]. When the equipper is Pyrois, using an {Ultimate} grants the Eclipse effect. When the Eclipse effect is active, DMG dealt by the equipper ignores [20.5%] of {Ether RES}, lasting 45s. Repeated triggers reset the duration. When the equipper enters combat, they gain the Eclipse effect."
+      },
+      {
+        "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier est Pyrois, l'utilisation d'un {Ultime} confère l'effet Éclipse. Tant que l'effet Éclipse est actif, les DGT infligés par l'équipementier ignorent [22 %] de la {RÉS Éther} de la cible pendant 45s. Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier entre en combat, il gagne l'effet Éclipse.",
+        "en": "{CRIT Rate} increases by [20%]. When the equipper is Pyrois, using an {Ultimate} grants the Eclipse effect. When the Eclipse effect is active, DMG dealt by the equipper ignores [22%] of {Ether RES}, lasting 45s. Repeated triggers reset the duration. When the equipper enters combat, they gain the Eclipse effect."
+      }
+    ]
+  },
+  "Knight's Extolment": {
+    "name": {
+      "fr": "Éloge du chevalier",
+      "en": "Knight's Extolment"
+    },
+    "rank": "S",
+    "specialty": "Anomaly",
+    "element": "Ice",
+    "img": "W-Engine_Knights_Extolment.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "DGT CRIT",
+        "en": "CRIT DMG"
+      },
+      "advanced": "19.2% - 48%"
+    },
+    "passiveName": {
+      "fr": "Rite du chevalier",
+      "en": "Knight's Rite"
+    },
+    "overclocks": [
+      {
+        "fr": "Lorsqu'une attaque puissante d'{Attaque de base} ou d'{Attaque spéciale EX} touche un ennemi, l'équipementier gagne 1 cumul d'{Avantage du combat}, augmentant les {DGT CRIT} de [32 %] pendant 25s (cumulable jusqu'à 2 fois, chaque type de compétence pouvant conférer 1 cumul). Les déclenchements répétés réinitialisent la durée de tous les cumuls. À 2 cumuls, l'équipementier gagne l'effet {Frisson glacial} : ses DGT ignorent [20 %] de la {RÉS Glace} de la cible.",
+        "en": "When the equipper's {Basic Attack} or {EX Special Attack}'s heavy attack hits an enemy, they gain 1 stack of {Battle Edge}, increasing {CRIT DMG} by [32%] for 25s. {Battle Edge} can stack up to 2 times, and each skill type can provide up to 1 stack. Repeated triggers refresh the duration of all {Battle Edge}. At 2 stacks of {Battle Edge}, the equipper gains {Bonechill}: Their DMG ignores [20%] of the target's {Ice RES}."
+      },
+      {
+        "fr": "Lorsqu'une attaque puissante d'{Attaque de base} ou d'{Attaque spéciale EX} touche un ennemi, l'équipementier gagne 1 cumul d'{Avantage du combat}, augmentant les {DGT CRIT} de [36,8 %] pendant 25s (cumulable jusqu'à 2 fois, chaque type de compétence pouvant conférer 1 cumul). Les déclenchements répétés réinitialisent la durée de tous les cumuls. À 2 cumuls, l'équipementier gagne l'effet {Frisson glacial} : ses DGT ignorent [23 %] de la {RÉS Glace} de la cible.",
+        "en": "When the equipper's {Basic Attack} or {EX Special Attack}'s heavy attack hits an enemy, they gain 1 stack of {Battle Edge}, increasing {CRIT DMG} by [36.8%] for 25s. {Battle Edge} can stack up to 2 times, and each skill type can provide up to 1 stack. Repeated triggers refresh the duration of all {Battle Edge}. At 2 stacks of {Battle Edge}, the equipper gains {Bonechill}: Their DMG ignores [23%] of the target's {Ice RES}."
+      },
+      {
+        "fr": "Lorsqu'une attaque puissante d'{Attaque de base} ou d'{Attaque spéciale EX} touche un ennemi, l'équipementier gagne 1 cumul d'{Avantage du combat}, augmentant les {DGT CRIT} de [41,6 %] pendant 25s (cumulable jusqu'à 2 fois, chaque type de compétence pouvant conférer 1 cumul). Les déclenchements répétés réinitialisent la durée de tous les cumuls. À 2 cumuls, l'équipementier gagne l'effet {Frisson glacial} : ses DGT ignorent [26 %] de la {RÉS Glace} de la cible.",
+        "en": "When the equipper's {Basic Attack} or {EX Special Attack}'s heavy attack hits an enemy, they gain 1 stack of {Battle Edge}, increasing {CRIT DMG} by [41.6%] for 25s. {Battle Edge} can stack up to 2 times, and each skill type can provide up to 1 stack. Repeated triggers refresh the duration of all {Battle Edge}. At 2 stacks of {Battle Edge}, the equipper gains {Bonechill}: Their DMG ignores [26%] of the target's {Ice RES}."
+      },
+      {
+        "fr": "Lorsqu'une attaque puissante d'{Attaque de base} ou d'{Attaque spéciale EX} touche un ennemi, l'équipementier gagne 1 cumul d'{Avantage du combat}, augmentant les {DGT CRIT} de [46,4 %] pendant 25s (cumulable jusqu'à 2 fois, chaque type de compétence pouvant conférer 1 cumul). Les déclenchements répétés réinitialisent la durée de tous les cumuls. À 2 cumuls, l'équipementier gagne l'effet {Frisson glacial} : ses DGT ignorent [29 %] de la {RÉS Glace} de la cible.",
+        "en": "When the equipper's {Basic Attack} or {EX Special Attack}'s heavy attack hits an enemy, they gain 1 stack of {Battle Edge}, increasing {CRIT DMG} by [46.4%] for 25s. {Battle Edge} can stack up to 2 times, and each skill type can provide up to 1 stack. Repeated triggers refresh the duration of all {Battle Edge}. At 2 stacks of {Battle Edge}, the equipper gains {Bonechill}: Their DMG ignores [29%] of the target's {Ice RES}."
+      },
+      {
+        "fr": "Lorsqu'une attaque puissante d'{Attaque de base} ou d'{Attaque spéciale EX} touche un ennemi, l'équipementier gagne 1 cumul d'{Avantage du combat}, augmentant les {DGT CRIT} de [51,2 %] pendant 25s (cumulable jusqu'à 2 fois, chaque type de compétence pouvant conférer 1 cumul). Les déclenchements répétés réinitialisent la durée de tous les cumuls. À 2 cumuls, l'équipementier gagne l'effet {Frisson glacial} : ses DGT ignorent [32 %] de la {RÉS Glace} de la cible.",
+        "en": "When the equipper's {Basic Attack} or {EX Special Attack}'s heavy attack hits an enemy, they gain 1 stack of {Battle Edge}, increasing {CRIT DMG} by [51.2%] for 25s. {Battle Edge} can stack up to 2 times, and each skill type can provide up to 1 stack. Repeated triggers refresh the duration of all {Battle Edge}. At 2 stacks of {Battle Edge}, the equipper gains {Bonechill}: Their DMG ignores [32%] of the target's {Ice RES}."
+      }
+    ]
+  },
+  "Ode of Resurrected Wings": {
+    "name": {
+      "fr": "Ode des ailes ressuscitées",
+      "en": "Ode of Resurrected Wings"
+    },
+    "rank": "S",
+    "specialty": "Support",
+    "img": "W-Engine_Ode_of_Resurrected_Wings.webp",
+    "stats": {
+      "base": "50 - 743",
+      "advancedLabel": {
+        "fr": "ATQ %",
+        "en": "ATK %"
+      },
+      "advanced": "14.4% - 36%"
+    },
+    "passiveName": {
+      "fr": "Paradis perdu",
+      "en": "Paradise Lost"
+    },
+    "overclocks": [
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [96]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [20 %] et les DGT infligés par tous les membres de l'escouade augmentent de [30 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {Anomaly Proficiency} by [96]. When the equipper triggers a {Refringe} reaction, they gain [20%] increased {Anomaly DMG}, and all squad members gain [30%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [105,75]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [23 %] et les DGT infligés par tous les membres de l'escouade augmentent de [34,5 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {Anomaly Proficiency} by [105.75]. When the equipper triggers a {Refringe} reaction, they gain [23%] increased {Anomaly DMG}, and all squad members gain [34.5%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [115,5]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [26 %] et les DGT infligés par tous les membres de l'escouade augmentent de [39 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {Anomaly Proficiency} by [115.5]. When the equipper triggers a {Refringe} reaction, they gain [26%] increased {Anomaly DMG}, and all squad members gain [39%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [125,25]. Lorsque l'{Adresse d'Anomalie} de l'équipementier augmente de [125,25]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [29 %] et les DGT infligés par tous les membres de l'escouade augmentent de [43,5 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {Anomaly Proficiency} by [125.25]. When the equipper triggers a {Refringe} reaction, they gain [29%] increased {Anomaly DMG}, and all squad members gain [43.5%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [135]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [32 %] et les DGT infligés par tous les membres de l'escouade augmentent de [48 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases {Anomaly Proficiency} by [135]. When the equipper triggers a {Refringe} reaction, they gain [32%] increased {Anomaly DMG}, and all squad members gain [48%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
+      }
+    ]
+  },
   "Electro-Lip Gloss": {
     "name": {
       "fr": "Gloss électrique",
