@@ -294,9 +294,9 @@ export function tStats(statStr) {
         .replace(/Dégât(?:s)?\s*Crit(?:ique)?|DGT\s*CRIT/gi, "CRIT DMG")
         .replace(/Taux\s*de\s*PEN/gi, "PEN Ratio")
 
-        // 4. Anomalie (CORRECTION avec la vraie nomenclature ZZZ)
-        .replace(/Ma[îi]trise\s*(?:d')?Anomalie|Ma[îi]\.\s*(?:d')?Anomalie/gi, "Anomaly Prof.")
-        .replace(/Adresse\s*(?:d')?Anomalie|Adre\.\s*(?:d')?Anomalie/gi, "Anomaly Mastery")
+        // 4. Anomalie (Correction finale)
+        .replace(/Ma[îi]trise\s*(?:d')?Anomalie|Ma[îi]\.\s*(?:d')?Anomalie/gi, "Anomaly Mastery")
+        .replace(/Adresse\s*(?:d')?Anomalie|Adre\.\s*(?:d')?Anomalie/gi, "Anomaly Prof.")
 
         // 5. Énergie et Impact
         .replace(/Récup(?:ération)?\.?\s*d'énergie/gi, "Energy Regen")
