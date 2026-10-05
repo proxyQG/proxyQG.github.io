@@ -107,9 +107,9 @@ function buildStatPriority(data, c, txt) {
         </div>
         <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
-            <div class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase">
+            <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 ${data.statPriority.sub.map((s, index) => `
-                <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700" style="color: ${s.highlight ? c : '#d4d4d8'};">${tStats(s.label)}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700">&gt;&gt;</span>` : ''}
+                <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${s.highlight ? c : '#d4d4d8'};">${tStats(s.label)}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : ''}
                 `).join('')}
             </div>
         </div>
