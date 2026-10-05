@@ -13529,18 +13529,28 @@
         "skills": [
             {
                 "name": "Ex",
-                "level": "12",
+                "level": "",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Ult",
-                "level": "11",
+                "level": "",
                 "icon": "Ultime.webp"
             },
             {
                 "name": "Basic",
-                "level": "8",
+                "level": "",
                 "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Esquive",
+                "level": "",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
