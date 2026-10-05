@@ -1985,15 +1985,15 @@
         },
         "stats": [
             {
-                "label": "Ad. d'Anomalie",
-                "value": "400+"
+                "label": "Adresse d'Anomalie",
+                "value": "380 - 450+"
             },
             {
                 "label": "Attaque",
                 "value": "2300+"
             },
             {
-                "label": "Ma. d'Anomalie",
+                "label": "Maîtrise d'Anomalie",
                 "value": "= 198"
             }
         ],
