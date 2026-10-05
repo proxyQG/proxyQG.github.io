@@ -62,34 +62,30 @@ function buildSkills(data, c, txt) {
     <div class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
         
-        <!-- CORRECTIONS MOBILE : 
-             1. flex-nowrap pour forcer sur une seule ligne
-             2. overflow-x-auto pour permettre le défilement horizontal (swipe)
-             3. Masquage de la barre de défilement native avec les classes personnalisées Tailwind -->
-        <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-start gap-4 md:gap-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            ${data.skills.map((skill, index) => {
-                
-                const skillName = skill.name.toUpperCase();
-                const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
-                const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
+        <div class="relative">
+            <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-start gap-4 md:gap-5 overflow-x-auto pr-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                ${data.skills.map((skill, index) => {
+                    const skillName = skill.name.toUpperCase();
+                    const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
+                    const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
 
-                return `
-                <!-- AJOUT : shrink-0 pour empêcher les icônes de s'écraser si l'écran est petit -->
-                <div class="flex flex-col items-center gap-2 shrink-0 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
-                    <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
-                        ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
-                        
-                        <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
-                        
-                        ${index === 0 ? `</div>` : ''}
+                    return `
+                    <div class="flex flex-col items-center gap-2 shrink-0 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
+                        <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
+                            ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
+                            
+                            <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+                            
+                            ${index === 0 ? `</div>` : ''}
+                        </div>
+                        <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
                     </div>
-                    <!-- AJOUT : whitespace-nowrap pour éviter que le texte ne se coupe sur deux lignes -->
-                    <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
-                </div>
-                <!-- AJOUT : shrink-0 sur la flèche également -->
-                ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
-                `;
-            }).join('')}
+                    ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
+                    `;
+                }).join('')}
+            </div>
+            <!-- Masque de fondu pour indiquer le swipe -->
+            <div class="absolute right-[1px] top-[1px] bottom-[1px] w-14 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-2xl"></div>
         </div>
     </div>`;
 }
@@ -105,13 +101,15 @@ function buildStatPriority(data, c, txt) {
                 <span class="font-bold uppercase tracking-wider text-sm flex-1 ${index === 0 ? 'text-white' : 'text-zinc-300'}">${tStats(m.label)}</span>
             </div>`).join('')}
         </div>
-        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80">
+        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 relative">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
-            <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 pr-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 ${data.statPriority.sub.map((s, index) => `
                 <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${s.highlight ? c : '#d4d4d8'};">${tStats(s.label)}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : ''}
                 `).join('')}
             </div>
+            <!-- Masque de fondu pour indiquer le swipe -->
+            <div class="absolute right-[1px] bottom-[1px] top-[1px] w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-xl"></div>
         </div>
     </div>`;
 }
