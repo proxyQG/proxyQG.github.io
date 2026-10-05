@@ -35,15 +35,14 @@
         // 1. Création de l'Overlay
         overlayEl = document.createElement('div');
         overlayEl.id = 'proxy-tooltip-overlay';
-        overlayEl.style.willChange = 'opacity'; // <-- AJOUT (Prépare le GPU)
-        overlayEl.style.transform = 'translateZ(0)';
+        overlayEl.style.willChange = 'opacity';
         document.body.appendChild(overlayEl);
 
         // 2. Création de l'Infobulle
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
-        tooltipEl.style.willChange = 'transform, opacity'; // <-- AJOUT
-        tooltipEl.style.transform = 'translateZ(0)';
+        tooltipEl.style.willChange = 'transform, opacity';
+        // SUPPRESSION DE tooltipEl.style.transform = 'translateZ(0)' qui écrasait le centrage CSS
         tooltipEl.innerHTML = `
             <div class="tt-header">
                 <span id="tt-name"></span>
