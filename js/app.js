@@ -607,58 +607,70 @@ function checkUrlForAgent() {
     } else if (fastMask) fastMask.remove();
 }
 
-let currentPlayer = null; // Va stocker notre lecteur vidéo intelligent
+let currentPlayer = null;
+
+function initYTPlayer(videoId, startTime) {
+    currentPlayer = new YT.Player('yt-player', {
+        height: '100%',
+        width: '100%',
+        videoId: videoId,
+        playerVars: {
+            'autoplay': 1,
+            'start': startTime || 0,
+            'rel': 0,
+            'modestbranding': 1
+        },
+        events: {
+            'onStateChange': function(e) {
+                if (e.data === 1) {
+                    const wrapper = document.getElementById('yt-wrapper');
+                    if (wrapper) {
+                        wrapper.classList.remove('opacity-0');
+                        wrapper.classList.add('opacity-100');
+                    }
+                }
+            }
+        }
+    });
+}
 
 window.openVideoModal = function(videoId, startTime, event) {
-    if(event) event.stopPropagation(); 
+    if (event) event.stopPropagation(); 
     
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('youtubeContainer');
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    // Ajout d'un fond noir (bg-black) au wrapper pour masquer le Bangboo
     container.innerHTML = `
         <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500 bg-black">
             <div id="yt-player"></div>
         </div>
     `;
 
-    // Ouverture de la modale
     modal.classList.remove('hidden');
     void modal.offsetWidth; 
     modal.classList.add('opacity-100');
     content.classList.remove('scale-95');
     content.classList.add('scale-100');
 
-    // On crée le lecteur avec l'API YouTube
+    // Si l'API est déjà prête, on lance directement le lecteur
     if (typeof YT !== 'undefined' && YT.Player) {
-        currentPlayer = new YT.Player('yt-player', {
-            height: '100%', // <-- FORCAGE DE LA HAUTEUR À 100%
-            width: '100%',  // <-- FORCAGE DE LA LARGEUR À 100%
-            videoId: videoId,
-            playerVars: {
-                'autoplay': 1,
-                'start': startTime || 0,
-                'rel': 0,
-                'modestbranding': 1
-            },
-            events: {
-                'onStateChange': function(e) {
-                    // e.data === 1 signifie "PLAYING"
-                    if (e.data === 1) {
-                        const wrapper = document.getElementById('yt-wrapper');
-                        if (wrapper) {
-                            wrapper.classList.remove('opacity-0');
-                            wrapper.classList.add('opacity-100');
-                        }
-                    }
-                }
-            }
-        });
+        initYTPlayer(videoId, startTime);
     } else {
-        // Sécurité si l'API est bloquée
-        container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime||0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+        // Sinon, on attend que le script se charge avant d'initialiser
+        window.onYouTubeIframeAPIReady = () => initYTPlayer(videoId, startTime);
+
+        if (!document.getElementById('yt-api')) {
+            const tag = document.createElement('script');
+            tag.id = 'yt-api';
+            tag.src = "https://www.youtube.com/iframe_api";
+            tag.onerror = () => {
+                // Secours direct si les serveurs YouTube ou un bloqueur bloquent l'API
+                container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime || 0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+            };
+            document.head.appendChild(tag);
+        }
     }
 };
 
