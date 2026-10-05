@@ -6217,14 +6217,19 @@
                 "icon": "Ultime.webp"
             },
             {
-                "name": "Assist",
+                "name": "Basic",
                 "level": "10",
+                "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "8",
                 "icon": "Assist.webp"
             },
             {
-                "name": "Basic",
-                "level": "8",
-                "icon": "Attaque_basic.webp"
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
