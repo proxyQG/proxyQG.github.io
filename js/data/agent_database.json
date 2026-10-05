@@ -2465,6 +2465,11 @@
                 "name": "Assist",
                 "level": "11",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "8",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
