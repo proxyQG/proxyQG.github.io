@@ -9609,11 +9609,7 @@
             },
             {
                 "label": "Réc. d'énergie",
-                "value": "0 - 130 %"
-            },
-            {
-                "label": "HP",
-                "value": "10 500+"
+                "value": "2.81/s"
             }
         ],
         "discs": [
