@@ -4447,18 +4447,23 @@
             },
             {
                 "name": "Ult",
-                "level": "11",
+                "level": "12",
                 "icon": "Ultime.webp"
             },
             {
                 "name": "Ex",
-                "level": "11",
+                "level": "12",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Assist",
-                "level": "8",
+                "level": "12",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "12",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
@@ -4478,7 +4483,7 @@
             ],
             "sub": [
                 {
-                    "label": "DGT CRIT",
+                    "label": "Dégât Crit",
                     "highlight": true
                 },
                 {
