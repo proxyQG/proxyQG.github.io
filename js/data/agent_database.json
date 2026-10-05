@@ -993,6 +993,11 @@
                 "name": "Basic",
                 "level": "5",
                 "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "1",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
