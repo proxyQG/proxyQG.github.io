@@ -4483,19 +4483,15 @@
             ],
             "sub": [
                 {
-                    "label": "Dégât Crit",
+                    "label": "Taux CRIT (Jusqu'à 80%)",
                     "highlight": true
                 },
                 {
-                    "label": "Taux CRIT",
+                    "label": "Dégâts CRIT = ATQ%",
                     "highlight": false
                 },
                 {
-                    "label": "ATQ %",
-                    "highlight": false
-                },
-                {
-                    "label": "PEN",
+                    "label": "Adresse d'anomalie = ATQ = PEN",
                     "highlight": false
                 }
             ]
