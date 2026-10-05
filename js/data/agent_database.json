@@ -13585,22 +13585,34 @@
         },
         "engines": [
             {
-                "tag": "Meilleur Moteur",
+                "tag": {
+                    "fr": "Meilleur Moteur",
+                    "en": "Best W-Engine"
+                },
                 "name": "Myriad Eclipse",
                 "img": "W-Engine_Myriad_Eclipse.webp"
             },
             {
-                "tag": "Alternative 5★",
+                "tag": {
+                    "fr": "Alternative 5★",
+                    "en": "5★ Alternative"
+                },
                 "name": "Deep Sea Visitor",
                 "img": "W-Engine_Deep_Sea_Visitor.webp"
             },
             {
-                "tag": "Alternative 4★",
+                "tag": {
+                    "fr": "Alternative 4★",
+                    "en": "4★ Alternative"
+                },
                 "name": "Severed Innocence",
                 "img": "W-Engine_Severed_Innocence.webp"
             },
             {
-                "tag": "Alternative F2P",
+                "tag": {
+                    "fr": "Alternative F2P",
+                    "en": "F2P Alternative"
+                },
                 "name": "Marcato Desire",
                 "img": "Marcato_Desire.webp"
             }
