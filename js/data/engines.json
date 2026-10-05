@@ -3489,6 +3489,137 @@
       }
     ]
   },
+  "Crimson Thirst": {
+    "name": {
+      "fr": "Soif cramoisie",
+      "en": "Crimson Thirst"
+    },
+    "rank": "S",
+    "specialty": "Rupture",
+    "element": "Electric",
+    "img": "W-Engine_Crimson_Thirst.webp",
+    "stats": {
+      "base": "29 - 431",
+      "advancedLabel": {
+        "fr": "DÉF %",
+        "en": "DEF %"
+      },
+      "advanced": "19.2% - 48%"
+    },
+    "passiveName": {
+      "fr": "Soif de sang",
+      "en": "Bloodthirst"
+    },
+    "overclocks": [
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [25 %], et ses {DGT Électriques} augmentent de [15 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou déclenche {Mutilation}, les {DGT Électriques tranchants} augmentent de [10 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's {CRIT Rate} increases by [25%], and {Electric DMG} increases by [15%]. When the equipper uses an {EX Special Attack} or triggers {Maim}, {Electric Sharp DMG} dealt increases by [10%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [27,5 %], et ses {DGT Électriques} augmentent de [17,5 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou déclenche {Mutilation}, les {DGT Électriques tranchants} augmentent de [11,5 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's {CRIT Rate} increases by [27.5%], and {Electric DMG} increases by [17.5%]. When the equipper uses an {EX Special Attack} or triggers {Maim}, {Electric Sharp DMG} dealt increases by [11.5%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [30 %], et ses {DGT Électriques} augmentent de [20 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou déclenche {Mutilation}, les {DGT Électriques tranchants} augmentent de [13 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's {CRIT Rate} increases by [30%], and {Electric DMG} increases by [20%]. When the equipper uses an {EX Special Attack} or triggers {Maim}, {Electric Sharp DMG} dealt increases by [13%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [32,5 %], et ses {DGT Électriques} augmentent de [22,5 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou déclenche {Mutilation}, les {DGT Électriques tranchants} augmentent de [14,5 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's {CRIT Rate} increases by [32.5%], and {Electric DMG} increases by [22.5%]. When the equipper uses an {EX Special Attack} or triggers {Maim}, {Electric Sharp DMG} dealt increases by [14.5%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [35 %], et ses {DGT Électriques} augmentent de [25 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou déclenche {Mutilation}, les {DGT Électriques tranchants} augmentent de [16 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "The equipper's {CRIT Rate} increases by [35%], and {Electric DMG} increases by [25%]. When the equipper uses an {EX Special Attack} or triggers {Maim}, {Electric Sharp DMG} dealt increases by [16%] for 40s. Repeated triggers reset the duration."
+      }
+    ]
+  },
+  "Bloodmarrow Coffer": {
+    "name": {
+      "fr": "Coffre de moelle sanguine",
+      "en": "Bloodmarrow Coffer"
+    },
+    "rank": "A",
+    "specialty": "Rupture",
+    "img": "W-Engine_Bloodmarrow_Coffer.webp",
+    "stats": {
+      "base": "24 - 356",
+      "advancedLabel": {
+        "fr": "Taux CRIT",
+        "en": "CRIT Rate"
+      },
+      "advanced": "8% - 20%"
+    },
+    "passiveName": {
+      "fr": "Moment du descellement",
+      "en": "Moment of Unsealing"
+    },
+    "overclocks": [
+      {
+        "fr": "Lorsque le {Taux CRIT} de l'équipementier dépasse [100 %], chaque tranche de 1 % de Taux CRIT au-delà de 100 % augmente les DGT infligés de [0,48 %], jusqu'à une augmentation maximale de [24 %].",
+        "en": "When the equipper's {CRIT Rate} exceeds [100%], each 1% of CRIT Rate above 100% increases DMG dealt by [0.48%], up to a maximum increase of [24%]."
+      },
+      {
+        "fr": "Lorsque le {Taux CRIT} de l'équipementier dépasse [100 %], chaque tranche de 1 % de Taux CRIT au-delà de 100 % augmente les DGT infligés de [0,56 %], jusqu'à une augmentation maximale de [28 %].",
+        "en": "When the equipper's {CRIT Rate} exceeds [100%], each 1% of CRIT Rate above 100% increases DMG dealt by [0.56%], up to a maximum increase of [28%]."
+      },
+      {
+        "fr": "Lorsque le {Taux CRIT} de l'équipementier dépasse [100 %], chaque tranche de 1 % de Taux CRIT au-delà de 100 % augmente les DGT infligés de [0,64 %], jusqu'à une augmentation maximale de [32 %].",
+        "en": "When the equipper's {CRIT Rate} exceeds [100%], each 1% of CRIT Rate above 100% increases DMG dealt by [0.64%], up to a maximum increase of [32%]."
+      },
+      {
+        "fr": "Lorsque le {Taux CRIT} de l'équipementier dépasse [100 %], chaque tranche de 1 % de Taux CRIT au-delà de 100 % augmente les DGT infligés de [0,72 %], jusqu'à une augmentation maximale de [36 %].",
+        "en": "When the equipper's {CRIT Rate} exceeds [100%], each 1% of CRIT Rate above 100% increases DMG dealt by [0.72%], up to a maximum increase of [36%]."
+      },
+      {
+        "fr": "Lorsque le {Taux CRIT} de l'équipementier dépasse [100 %], chaque tranche de 1 % de Taux CRIT au-delà de 100 % augmente les DGT infligés de [0,8 %], jusqu'à une augmentation maximale de [40 %].",
+        "en": "When the equipper's {CRIT Rate} exceeds [100%], each 1% of CRIT Rate above 100% increases DMG dealt by [0.8%], up to a maximum increase of [40%]."
+      }
+    ]
+  },
+  "Crimson Moon Casket": {
+    "name": {
+      "fr": "Coffret de la lune cramoisie",
+      "en": "Crimson Moon Casket"
+    },
+    "rank": "S",
+    "specialty": "Stun",
+    "element": "Wind",
+    "img": "W-Engine_Crimson_Moon_Casket.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Réc. d'énergie",
+        "en": "Energy Regen"
+      },
+      "advanced": "24% - 60%"
+    },
+    "passiveName": {
+      "fr": "Nuit éternelle sans sommeil",
+      "en": "Sleepless Eternal Night"
+    },
+    "overclocks": [
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [24 %]. Les DGT infligés ignorent [15 %] de la {RÉS Vent} de la cible. Lorsque l'équipementier utilise une {Attaque spéciale EX} pour infliger des {DGT de Vent}, la {Stupeur} infligée augmente de [16 %], et les DGT infligés par tous les autres membres de l'escouade augmentent de [20 %] pendant 50s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet d'augmentation des DGT peut exister dans la même escouade.",
+        "en": "The equipper's {CRIT Rate} increases by [24%]. DMG dealt ignores [15%] of the target's {Wind RES}. When the equipper uses an {EX Special Attack} to deal {Wind DMG}, {Daze} dealt increases by [16%], and DMG dealt by all other squad members increases by [20%], for 50s. Repeated triggers reset the duration. Only one instance of the DMG increase effect can exist in the same squad."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [26 %]. Les DGT infligés ignorent [17,25 %] de la {RÉS Vent} de la cible. Lorsque l'équipementier utilise une {Attaque spéciale EX} pour infliger des {DGT de Vent}, la {Stupeur} infligée augmente de [18,4 %], et les DGT infligés par tous les autres membres de l'escouade augmentent de [23 %] pendant 50s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet d'augmentation des DGT peut exister dans la même escouade.",
+        "en": "The equipper's {CRIT Rate} increases by [26%]. DMG dealt ignores [17.25%] of the target's {Wind RES}. When the equipper uses an {EX Special Attack} to deal {Wind DMG}, {Daze} dealt increases by [18.4%], and DMG dealt by all other squad members increases by [23%], for 50s. Repeated triggers reset the duration. Only one instance of the DMG increase effect can exist in the same squad."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [28 %]. Les DGT infligés ignorent [19,5 %] de la {RÉS Vent} de la cible. Lorsque l'équipementier utilise une {Attaque spéciale EX} pour infliger des {DGT de Vent}, la {Stupeur} infligée augmente de [20,8 %], et les DGT infligés par tous les autres membres de l'escouade augmentent de [26 %] pendant 50s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet d'augmentation des DGT peut exister dans la même escouade.",
+        "en": "The equipper's {CRIT Rate} increases by [28%]. DMG dealt ignores [19.5%] of the target's {Wind RES}. When the equipper uses an {EX Special Attack} to deal {Wind DMG}, {Daze} dealt increases by [20.8%], and DMG dealt by all other squad members increases by [26%], for 50s. Repeated triggers reset the duration. Only one instance of the DMG increase effect can exist in the same squad."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [30 %]. Les DGT infligés ignorent [21,75 %] de la {RÉS Vent} de la cible. Lorsque l'équipementier utilise une {Attaque spéciale EX} pour infliger des {DGT de Vent}, la {Stupeur} infligée augmente de [23,2 %], et les DGT infligés par tous les autres membres de l'escouade augmentent de [29 %] pendant 50s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet d'augmentation des DGT peut exister dans la même escouade.",
+        "en": "The equipper's {CRIT Rate} increases by [30%]. DMG dealt ignores [21.75%] of the target's {Wind RES}. When the equipper uses an {EX Special Attack} to deal {Wind DMG}, {Daze} dealt increases by [23.2%], and DMG dealt by all other squad members increases by [29%], for 50s. Repeated triggers reset the duration. Only one instance of the DMG increase effect can exist in the same squad."
+      },
+      {
+        "fr": "Le {Taux CRIT} de l'équipementier augmente de [32 %]. Les DGT infligés ignorent [24 %] de la {RÉS Vent} de la cible. Lorsque l'équipementier utilise une {Attaque spéciale EX} pour infliger des {DGT de Vent}, la {Stupeur} infligée augmente de [25,6 %], et les DGT infligés par tous les autres membres de l'escouade augmentent de [32 %] pendant 50s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet d'augmentation des DGT peut exister dans la même escouade.",
+        "en": "The equipper's {CRIT Rate} increases by [32%]. DMG dealt ignores [24%] of the target's {Wind RES}. When the equipper uses an {EX Special Attack} to deal {Wind DMG}, {Daze} dealt increases by [25.6%], and DMG dealt by all other squad members increases by [32%], for 50s. Repeated triggers reset the duration. Only one instance of the DMG increase effect can exist in the same squad."
+      }
+    ]
+  },
   "Electro-Lip Gloss": {
     "name": {
       "fr": "Gloss électrique",
