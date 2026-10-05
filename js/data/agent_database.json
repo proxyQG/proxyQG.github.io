@@ -2113,8 +2113,8 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Classique",
-                    "en": "Classic"
+                    "fr": "Lune rosée",
+                    "en": "Pink Moon"
                 },
                 "members": [
                     {
@@ -2137,8 +2137,8 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Jane Combo",
-                    "en": "Jane Combo"
+                    "fr": "Hypercarry",
+                    "en": "Hypercarry"
                 },
                 "members": [
                     {
@@ -2147,9 +2147,9 @@
                         "initial": "V"
                     },
                     {
-                        "img": "Jane.webp",
-                        "color": "#e8a838",
-                        "initial": "J"
+                        "img": "Promeia.webp",
+                        "color": "#3bbedb",
+                        "initial": "P"
                     },
                     {
                         "img": "Yuzuha.webp",
@@ -2161,8 +2161,8 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Flexible",
-                    "en": "Flexible"
+                    "fr": "Équipe Glace",
+                    "en": "Ice Squad"
                 },
                 "members": [
                     {
@@ -2171,19 +2171,19 @@
                         "initial": "V"
                     },
                     {
-                        "img": "",
-                        "color": "#52525b",
-                        "role": "Agents<br>Anomalie"
+                        "img": "Miyabi.webp",
+                        "color": "#5b90f4",
+                        "initial": "M"
                     },
                     {
-                        "img": "",
-                        "color": "#52525b",
-                        "role": "3ème<br>Agent"
+                        "img": "Astra.webp",
+                        "color": "#5b90f4",
+                        "initial": "A"
                     }
                 ]
             }
         ]
-    },
+    },   
     "Yuzuha": {
         "color": "#e8a838",
         "element": "Physical",
