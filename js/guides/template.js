@@ -331,6 +331,10 @@ if (typeof window !== 'undefined') {
 function buildMindscapes(mindscapes, c) {
     if (!mindscapes || !Array.isArray(mindscapes) || mindscapes.length === 0) return '';
 
+    const isEn = currentLang === 'en';
+    const subHeader = isEn ? 'Key Ranks (4/4)' : 'Paliers Clés (4/4)';
+    const statusText = isEn ? 'RESONANCE ACTIVE' : 'RÉSONANCE ACTIVE';
+
     // 1. Boutons Sélecteurs (M1, M2, M4, M6)
     const tabsHTML = mindscapes.map((ms, index) => {
         const isFirst = index === 0;
@@ -361,14 +365,14 @@ function buildMindscapes(mindscapes, c) {
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5 border-b border-zinc-800/80 pb-3">
                 <div class="flex items-center gap-3">
                     <span class="font-black text-xs px-2.5 py-1 rounded-md border tracking-widest uppercase shadow-sm" style="color: ${c}; background-color: ${c}15; border-color: ${c}40;">
-                        CINEMA ${rankText}
+                        ${rankText}
                     </span>
                     <h4 class="text-white font-display font-black uppercase tracking-wide text-base sm:text-lg drop-shadow-md">
                         ${escapeHTML(tData(ms.title))}
                     </h4>
                 </div>
                 <span class="text-[10px] font-mono font-bold tracking-widest uppercase text-zinc-500 hidden sm:inline-block">
-                    RESONANCE ACTIVE
+                    ${statusText}
                 </span>
             </div>
             <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed sm:leading-loose font-normal pr-2 sm:pr-8">
@@ -386,8 +390,8 @@ function buildMindscapes(mindscapes, c) {
     </style>
     <div class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
         <div class="flex items-center justify-between mb-6">
-            <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes Cinema</h3>
-            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hidden sm:inline-block">Paliers Clés (4/4)</span>
+            <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes</h3>
+            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hidden sm:inline-block">${subHeader}</span>
         </div>
 
         <div class="bg-gradient-to-br from-[#121212] via-[#0e0e0e] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden group">
@@ -395,11 +399,11 @@ function buildMindscapes(mindscapes, c) {
             <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full blur-3xl pointer-events-none opacity-20" style="background-color: ${c};"></div>
             
             <!-- Filigrane matriciel géant -->
-            <div class="absolute right-4 bottom-0 text-[100px] sm:text-[130px] font-display font-black text-white/[0.03] italic select-none pointer-events-none leading-none">
-                CINEMA
+            <div class="absolute right-4 bottom-0 text-[80px] sm:text-[110px] font-display font-black text-white/[0.03] italic select-none pointer-events-none leading-none">
+                MINDSCAPES
             </div>
 
-            <!-- Grille des 4 sélecteurs équilibrés -->
+            <!-- Grille des 4 sélecteurs -->
             <div class="grid grid-cols-4 gap-2 sm:gap-3 mb-5 relative z-10 w-full">
                 ${tabsHTML}
             </div>
