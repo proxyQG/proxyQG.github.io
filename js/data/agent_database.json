@@ -6734,6 +6734,11 @@
                 "name": "Assist",
                 "level": "10",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
