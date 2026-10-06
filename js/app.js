@@ -497,19 +497,21 @@ window.openModal = function(id) {
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
-window.closeModal = function(id) {
+window.closeModal = function(id, updateUrl = true) {
     const m = document.getElementById(id);
     if (!m) return;
     if (id === 'agentDetailModal') {
-        const splash = document.getElementById('agentSplashImage'); const guide = document.getElementById('agentGuideContainer');
+        const splash = document.getElementById('agentSplashImage'); 
+        const guide = document.getElementById('agentGuideContainer');
         if (splash) { splash.style.opacity = '0'; splash.style.transform = 'translateY(20px) scale(0.9)'; }
         if (guide) { guide.style.opacity = '0'; guide.style.transform = 'translateX(20px)'; }
-        window.history.pushState({}, '', window.location.pathname); State.modalIndex = -1;
+        if (updateUrl) window.history.pushState({}, '', window.location.pathname); 
+        State.modalIndex = -1;
     }
     m.classList.remove('opacity-100'); setTimeout(() => m.classList.add('hidden'), 300);
 };
 
-window.openAgentDetail = async function(agentName) {
+window.openAgentDetail = async function(agentName, updateUrl = true) {
     const modal = document.getElementById('agentDetailModal');
     if (!modal) return;
     if (modal.parentElement !== document.body) { document.body.appendChild(modal); }
@@ -518,7 +520,7 @@ window.openAgentDetail = async function(agentName) {
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
-    window.history.pushState({}, '', '?' + new URLSearchParams({ agent: agentName }).toString());
+    if (updateUrl) window.history.pushState({}, '', '?' + new URLSearchParams({ agent: agentName }).toString());
     
     if (splashImg) {
         splashImg.style.opacity = '0';
@@ -586,6 +588,18 @@ function initKeyboardNavigation() {
         }
     });
 }
+window.addEventListener('popstate', () => {
+    const modal = document.getElementById('agentDetailModal');
+    const agentParam = new URLSearchParams(window.location.search).get('agent');
+
+    if (modal && !modal.classList.contains('hidden')) {
+        if (!agentParam) {
+            window.closeModal('agentDetailModal', false);
+        } else {
+            window.openAgentDetail(agentParam, false);
+        }
+    }
+});
 
 window.shareCurrentAgent = function() {
     if (State.modalIndex === -1) return;
