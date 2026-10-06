@@ -72,13 +72,25 @@
         `;
         document.body.appendChild(tooltipEl);
 
-    // NOUVEAU : Chargement du JSON avec l'anti-cache mobile
-    fetch('js/data/engines.json', { cache: 'no-store' })
-        .then(response => response.json())
-        .then(data => {
-            W_ENGINES_DB = data;
-        })
-        .catch(error => console.error("Erreur chargement des moteurs :", error));
+    // Chargement avec mise en cache locale (sessionStorage)
+    const storedEngines = sessionStorage.getItem('zzz_engines_db');
+    if (storedEngines) {
+        try {
+            W_ENGINES_DB = JSON.parse(storedEngines);
+        } catch (e) {
+            sessionStorage.removeItem('zzz_engines_db');
+        }
+    }
+
+    if (!W_ENGINES_DB) {
+        fetch('js/data/engines.json')
+            .then(response => response.json())
+            .then(data => {
+                W_ENGINES_DB = data;
+                sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
+            })
+            .catch(error => console.error("Erreur chargement des moteurs :", error));
+    }
 
     bindEvents();
 }
