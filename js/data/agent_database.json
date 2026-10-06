@@ -907,8 +907,8 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Double Attaque",
-                    "en": "Dual Attack"
+                    "fr": "Répondeur de Star",
+                    "en": "Star's voicemail"
                 },
                 "members": [
                     {
@@ -917,14 +917,14 @@
                         "initial": "YS"
                     },
                     {
-                        "img": "Seed.webp",
-                        "color": "#3182eb",
-                        "initial": "S"
+                        "img": "Dialyn.webp",
+                        "color": "#e8a838",
+                        "initial": "D"
                     },
                     {
-                        "img": "",
-                        "color": "#52525b",
-                        "role": "Agent<br>Support"
+                        "img": "Astra.webp",
+                        "color": "#f23c8a",
+                        "initial": "A"
                     }
                 ]
             }
