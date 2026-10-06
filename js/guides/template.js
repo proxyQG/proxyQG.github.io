@@ -288,23 +288,126 @@ function buildTeams(data, c, txt) {
     </div>`;
 }
 
+// --- GESTIONNAIRE D'INTERACTION CINEMA MATRIX ---
+if (typeof window !== 'undefined') {
+    window.setMindscape = function(idx, color) {
+        const modal = document.getElementById('agentDetailModal');
+        if (!modal) return;
+
+        const tabs = modal.querySelectorAll('.ms-tab-btn');
+        const panels = modal.querySelectorAll('.ms-panel-card');
+
+        tabs.forEach((tab, i) => {
+            const isActive = (i === idx);
+            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            if (isActive) {
+                tab.style.backgroundColor = color;
+                tab.style.color = '#000';
+                tab.style.borderColor = color;
+                tab.style.boxShadow = `0 0 18px ${color}60`;
+                tab.classList.add('scale-[1.02]', 'z-10');
+            } else {
+                tab.style.backgroundColor = '#141414';
+                tab.style.color = '#71717a';
+                tab.style.borderColor = '#27272a';
+                tab.style.boxShadow = 'none';
+                tab.classList.remove('scale-[1.02]', 'z-10');
+            }
+        });
+
+        panels.forEach((panel, i) => {
+            if (i === idx) {
+                panel.classList.remove('hidden');
+                panel.style.animation = 'none';
+                void panel.offsetWidth; // Force le recalcul pour rejouer l'animation
+                panel.style.animation = 'msSlideFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+            } else {
+                panel.classList.add('hidden');
+            }
+        });
+    };
+}
+
 function buildMindscapes(mindscapes, c) {
-    if (!mindscapes || !Array.isArray(mindscapes)) return '';
-    const msHTML = mindscapes.map(ms => `
-    <div class="bg-[#121212] border border-zinc-800 rounded-xl p-5 shadow-lg relative overflow-hidden group transition-colors hover:border-zinc-600">
-        <div class="flex items-center gap-3 mb-3">
-            <span class="bg-[#1a1a1a] font-black text-sm px-2.5 py-1 rounded-lg border shadow-sm" style="color: ${c}; border-color:${c}40; box-shadow: 0 0 10px ${c}20;">${escapeHTML(ms.rank)}</span>
-            <h4 class="text-white font-black uppercase tracking-wide text-sm">${escapeHTML(tData(ms.title))}</h4>
-        </div>
-        <p class="text-zinc-400 text-xs leading-relaxed">${escapeHTML(tData(ms.desc))}</p>
-    </div>
-    `).join('');
+    if (!mindscapes || !Array.isArray(mindscapes) || mindscapes.length === 0) return '';
+
+    // 1. Boutons Sélecteurs (M1, M2, M4, M6)
+    const tabsHTML = mindscapes.map((ms, index) => {
+        const isFirst = index === 0;
+        const initialBg = isFirst ? c : '#141414';
+        const initialColor = isFirst ? '#000' : '#71717a';
+        const initialBorder = isFirst ? c : '#27272a';
+        const initialShadow = isFirst ? `box-shadow: 0 0 18px ${c}60;` : '';
+        const initialScale = isFirst ? 'scale-[1.02] z-10' : '';
+        const rankLabel = escapeHTML(ms.rank || `M${index + 1}`);
+
+        return `
+        <button type="button"
+            onclick="window.setMindscape(${index}, '${c}')"
+            aria-selected="${isFirst ? 'true' : 'false'}"
+            class="ms-tab-btn py-2.5 sm:py-3 rounded-xl border font-black text-xs sm:text-sm tracking-wider uppercase transition-all duration-300 select-none cursor-pointer flex items-center justify-center hover:text-white hover:border-zinc-500 ${initialScale}"
+            style="background-color: ${initialBg}; color: ${initialColor}; border-color: ${initialBorder}; ${initialShadow}">
+            ${rankLabel}
+        </button>`;
+    }).join('');
+
+    // 2. Écrans d'affichage holographique
+    const panelsHTML = mindscapes.map((ms, index) => {
+        const isFirst = index === 0;
+        const rankText = escapeHTML(ms.rank || `M${index + 1}`);
+
+        return `
+        <div class="ms-panel-card ${isFirst ? '' : 'hidden'} relative z-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3.5 border-b border-zinc-800/80 pb-3">
+                <div class="flex items-center gap-3">
+                    <span class="font-black text-xs px-2.5 py-1 rounded-md border tracking-widest uppercase shadow-sm" style="color: ${c}; background-color: ${c}15; border-color: ${c}40;">
+                        CINEMA ${rankText}
+                    </span>
+                    <h4 class="text-white font-display font-black uppercase tracking-wide text-base sm:text-lg drop-shadow-md">
+                        ${escapeHTML(tData(ms.title))}
+                    </h4>
+                </div>
+                <span class="text-[10px] font-mono font-bold tracking-widest uppercase text-zinc-500 hidden sm:inline-block">
+                    RESONANCE ACTIVE
+                </span>
+            </div>
+            <p class="text-zinc-300 text-xs sm:text-sm leading-relaxed sm:leading-loose font-normal pr-2 sm:pr-8">
+                ${escapeHTML(tData(ms.desc))}
+            </p>
+        </div>`;
+    }).join('');
 
     return `
+    <style>
+        @keyframes msSlideFade {
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
     <div class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
-        <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">Mindscapes</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            ${msHTML}
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes Cinema</h3>
+            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hidden sm:inline-block">Paliers Clés (4/4)</span>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#121212] via-[#0e0e0e] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden group">
+            <!-- Lueur diffuse de fond -->
+            <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full blur-3xl pointer-events-none opacity-20" style="background-color: ${c};"></div>
+            
+            <!-- Filigrane matriciel géant -->
+            <div class="absolute right-4 bottom-0 text-[100px] sm:text-[130px] font-display font-black text-white/[0.03] italic select-none pointer-events-none leading-none">
+                CINEMA
+            </div>
+
+            <!-- Grille des 4 sélecteurs équilibrés -->
+            <div class="grid grid-cols-4 gap-2 sm:gap-3 mb-5 relative z-10 w-full">
+                ${tabsHTML}
+            </div>
+
+            <!-- Conteneur d'affichage dynamique -->
+            <div class="min-h-[140px] sm:min-h-[100px] flex flex-col justify-center relative">
+                ${panelsHTML}
+            </div>
         </div>
     </div>`;
 }
