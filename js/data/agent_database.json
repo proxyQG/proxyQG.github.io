@@ -768,6 +768,11 @@
                 "name": "Assist",
                 "level": "8",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
@@ -878,8 +883,8 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Team F2P",
-                    "en": "F2P Team"
+                    "fr": " Team accessible",
+                    "en": "Accessible Team"
                 },
                 "members": [
                     {
@@ -888,14 +893,14 @@
                         "initial": "YS"
                     },
                     {
-                        "img": "Anby.webp",
-                        "color": "#3182eb",
-                        "initial": "A"
+                        "img": "Sunna.webp",
+                        "color": "#e8a838",
+                        "initial": "S"
                     },
                     {
-                        "img": "Nicole.webp",
-                        "color": "#f23c8a",
-                        "initial": "N"
+                        "img": "Zhao.webp",
+                        "color": "#3bbedb",
+                        "initial": "Z"
                     }
                 ]
             },
