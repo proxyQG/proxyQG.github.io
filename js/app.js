@@ -616,12 +616,15 @@ window.addEventListener('popstate', () => {
     const modal = document.getElementById('agentDetailModal');
     const agentParam = new URLSearchParams(window.location.search).get('agent');
 
-    if (modal && !modal.classList.contains('hidden')) {
-        if (!agentParam) {
-            window.closeModal('agentDetailModal', false);
-        } else {
-            window.openAgentDetail(agentParam, false);
+    if (agentParam) {
+        // Si un agent est dans l'URL, on le cherche dans les données pour garantir la bonne casse
+        const matchingAgent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
+        if (matchingAgent) {
+            window.openAgentDetail(matchingAgent.name, false);
         }
+    } else if (modal && !modal.classList.contains('hidden')) {
+        // Si l'URL est revenue à l'accueil et que la modale est ouverte, on la ferme
+        window.closeModal('agentDetailModal', false);
     }
 });
 
