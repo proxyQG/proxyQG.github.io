@@ -234,6 +234,59 @@ export const enginesDict = {
     "Joyau Doré": "Joyau doré"
 };
 
+// Optimisation Disques : Une seule RegExp précompilée au lieu de 37 créées en boucle
+const discsKeys = Object.keys(discsDict).sort((a, b) => b.length - a.length);
+const discRegex = new RegExp(discsKeys.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'gi');
+const discsLookup = Object.fromEntries(Object.entries(discsDict).map(([k, v]) => [k.toLowerCase(), v]));
+
+// Optimisation Stats : Annuaire direct O(1) pour les stats les plus fréquentes
+const exactStatsEn = {
+    'ATQ %': 'ATK%',
+    'DEF %': 'DEF%',
+    'PV %': 'HP%',
+    'ATQ': 'ATK',
+    'DEF': 'DEF',
+    'PV': 'HP',
+    'Taux Crit': 'CRIT Rate',
+    'Taux Critique': 'CRIT Rate',
+    'Dégâts Crit': 'CRIT DMG',
+    'DGT CRIT': 'CRIT DMG',
+    'Taux de PEN': 'PEN Ratio',
+    'Impact': 'Impact',
+    'Maîtrise d\'Anomalie': 'Anomaly Mastery',
+    'Adresse d\'Anomalie': 'Anomaly Prof.',
+    'Récup. d\'énergie': 'Energy Regen',
+    'DGT Glace': 'Ice DMG',
+    'DGT Feu': 'Fire DMG',
+    'DGT Physique': 'Physical DMG',
+    'DGT Électrique': 'Electric DMG',
+    'DGT Éther': 'Ether DMG'
+};
+
+// Règles précompilées pour les phrases complexes de stats (ex: combinaisons avec / ou multi-lignes)
+const STAT_RULES = [
+    [/\bjusqu'à\b/gi, "Until"],
+    [/\bou\b/gi, "or"],
+    [/(?:ATQ|Attaque)\s*%/gi, "ATK%"],
+    [/(?:DEF|Défense)\s*%/gi, "DEF%"],
+    [/(?:PV|Points\s*de\s*vie)\s*%/gi, "HP%"],
+    [/\b(?:ATQ|Attaque)\b/gi, "ATK"],
+    [/\b(?:DEF|Défense)\b/gi, "DEF"],
+    [/\b(?:PV|Points\s*de\s*vie)\b/gi, "HP"],
+    [/Taux\s*Crit(?:ique)?/gi, "CRIT Rate"],
+    [/(?:Dégât(?:s)?\s*Crit(?:ique)?|DGT\s*CRIT)/gi, "CRIT DMG"],
+    [/Taux\s*de\s*PEN/gi, "PEN Ratio"],
+    [/(?:Ma[îi]trise|Ma[îi]\.)\s*(?:d')?Anomalie/gi, "Anomaly Mastery"],
+    [/(?:Adresse|Adre\.)\s*(?:d')?Anomalie/gi, "Anomaly Prof."],
+    [/(?:R[ée]cup(?:[ée]ration)?|R[ée]c)\.?\s*d'?[ée]nergie/gi, "Energy Regen"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Glace/gi, "Ice DMG"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Physique(?:s)?/gi, "Physical DMG"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]lectrique/gi, "Electric DMG"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]ther/gi, "Ether DMG"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Feu/gi, "Fire DMG"],
+    [/\bDGT\b/gi, "DMG"]
+];
+
 // Langue active (sauvegardée en LocalStorage)
 export let currentLang = localStorage.getItem('zzz_lang') || 'fr';
 
@@ -256,18 +309,16 @@ export function tEngine(englishName) {
     return enginesDict[englishName] || englishName;
 }
 
-// Traducteur pour les sets de disques
+// Traducteur pour les sets de disques (Exécution en une passe unique)
 export function tDisc(name) {
     if (!name) return '';
     if (currentLang === 'en') {
         return name.replace(/4-pièces/gi, "4pc").replace(/2-pièces/gi, "2pc");
     }
-    let translated = name;
-    Object.keys(discsDict).forEach(enKey => {
-        const regex = new RegExp(enKey, "gi");
-        translated = translated.replace(regex, discsDict[enKey]);
-    });
-    return translated.replace(/4pc/gi, "4-pièces").replace(/2pc/gi, "2-pièces");
+    return name
+        .replace(discRegex, match => discsLookup[match.toLowerCase()] || match)
+        .replace(/4pc/gi, "4-pièces")
+        .replace(/2pc/gi, "2-pièces");
 }
 
 // Traducteur pour les termes de rôles et d'éléments
@@ -277,49 +328,22 @@ export function tTerm(termStr) {
     return terms[termStr][currentLang] || termStr;
 }
 
-// Traducteur pour les statistiques (prend en charge les objets { fr: "...", en: "..." } et les chaînes de repli)
+// Traducteur pour les statistiques (Recherche directe instantanée + repli règles précompilées)
 export function tStats(statStr) {
     if (!statStr) return '';
     if (typeof statStr === 'object') return tData(statStr);
-
     if (currentLang === 'fr') return statStr;
 
-    return statStr
-        // 1. Mots de liaison et contexte
-        .replace(/jusqu'à/gi, "Until")
-        .replace(/\bou\b/gi, "or")
+    // Raccourci direct instantané si le mot correspond exactement
+    if (exactStatsEn[statStr]) return exactStatsEn[statStr];
 
-        // 2. Statistiques principales (suppression de l'espace avant le % pour l'anglais)
-        .replace(/ATQ\s*%/gi, "ATK%")
-        .replace(/DEF\s*%/gi, "DEF%")
-        .replace(/PV\s*%/gi, "HP%")
-        .replace(/ATQ|Attaque/gi, "ATK")
-        .replace(/DEF|Défense/gi, "DEF")
-        .replace(/PV|Points\s*de\s*vie/gi, "HP")
-
-        // 3. Critiques et Pénétration
-        .replace(/Taux\s*Crit(?:ique)?/gi, "CRIT Rate")
-        .replace(/Dégât(?:s)?\s*Crit(?:ique)?|DGT\s*CRIT/gi, "CRIT DMG")
-        .replace(/Taux\s*de\s*PEN/gi, "PEN Ratio")
-
-        // 4. Anomalie (Correction finale)
-        .replace(/Ma[îi]trise\s*(?:d')?Anomalie|Ma[îi]\.\s*(?:d')?Anomalie/gi, "Anomaly Mastery")
-        .replace(/Adresse\s*(?:d')?Anomalie|Adre\.\s*(?:d')?Anomalie/gi, "Anomaly Prof.")
-
-        // 5. Énergie et Impact
-        .replace(/(?:R[ée]c|R[ée]cup(?:[ée]ration)?)\.?\s*d'?[ée]nergie/gi, "Energy Regen")
-        .replace(/Impact/gi, "Impact")
-
-        // 6. Dégâts Élémentaires (Couvre "DGT Glace", "Dégâts de Glace", etc.)
-        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Glace/gi, "Ice DMG")
-        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Physique(?:s)?/gi, "Physical DMG")
-        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]lectrique/gi, "Electric DMG")
-        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]ther/gi, "Ether DMG")
-        .replace(/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Feu/gi, "Fire DMG")
-        
-        // 7. Filet de sécurité pour "DGT" isolé
-        .replace(/DGT/gi, "DMG");
-} // <-- L'ACCOLADE EST BIEN LÀ !
+    // Repli pour les statistiques composées (ex: "Taux Crit / Dégâts Crit")
+    let translated = statStr;
+    for (let i = 0; i < STAT_RULES.length; i++) {
+        translated = translated.replace(STAT_RULES[i][0], STAT_RULES[i][1]);
+    }
+    return translated;
+}
 
 // Rafraîchissement des balises fixes dans le DOM
 export function updateStaticUI() {
