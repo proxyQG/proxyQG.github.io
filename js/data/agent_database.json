@@ -2683,6 +2683,11 @@
                 "name": "Ult",
                 "level": "12",
                 "icon": "Ultime.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
