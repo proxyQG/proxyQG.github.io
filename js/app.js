@@ -183,7 +183,7 @@ function clearSearch() {
 }
 
 function updateDropdownUI(query) {
-    let filtered = query ? agentsData.filter(a => a.name.toLowerCase().startsWith(query.toLowerCase())) : [...agentsData];
+    let filtered = query ? agentsData.filter(a => a.name.toLowerCase().includes(query.toLowerCase())) : [...agentsData];
     filtered.sort((a, b) => a.name.localeCompare(b.name));
 
     const html = filtered.length === 0 
@@ -390,7 +390,7 @@ function renderAgents() {
     // 1. Filtrer en temps réel avec des classes (Zéro Reflow)
     DOM.agentCards.forEach((card) => {
         const agent = card.agent;
-        const matchSearch = agent.name.toLowerCase().startsWith(State.search.toLowerCase());
+        const matchSearch = agent.name.toLowerCase().includes(State.search.toLowerCase());
         
         let matchFilter = true;
         if (State.mode === 'elements') matchFilter = State.filters.element === 'All' || filterGroups[State.filters.element]?.includes(agent.element);
