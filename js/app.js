@@ -561,24 +561,48 @@ function initKeyboardNavigation() {
         const modalAgent = document.getElementById('agentDetailModal'); 
         const modalFaction = document.getElementById('factionModal'); 
         const modalMobileFilter = document.getElementById('mobileFilterModal');
-        const modalVideo = document.getElementById('videoModal'); // NOUVEAU
+        const modalVideo = document.getElementById('videoModal');
+        const tooltip = document.getElementById('proxy-tooltip');
 
         if (e.key === 'Escape') { 
-            if (modalAgent && !modalAgent.classList.contains('hidden')) window.closeModal('agentDetailModal'); 
-            else if (modalFaction && !modalFaction.classList.contains('hidden')) window.closeModal('factionModal'); 
-            else if (modalMobileFilter && !modalMobileFilter.classList.contains('hidden')) window.closeModal('mobileFilterModal');
-            else if (modalVideo && !modalVideo.classList.contains('hidden')) window.closeVideoModal(); // NOUVEAU
+            // 1. Ferme l'infobulle W-Engine en priorité si elle est visible
+            if (tooltip && tooltip.classList.contains('visible')) {
+                if (typeof window.hideTooltip === 'function') window.hideTooltip();
+                return;
+            }
+            // 2. Ferme la vidéo si elle est ouverte
+            if (modalVideo && !modalVideo.classList.contains('hidden')) {
+                window.closeVideoModal();
+                return;
+            }
+            // 3. Ferme la modale des factions
+            if (modalFaction && !modalFaction.classList.contains('hidden')) {
+                window.closeModal('factionModal');
+                return;
+            }
+            // 4. Ferme le tiroir de filtres mobile
+            if (modalMobileFilter && !modalMobileFilter.classList.contains('hidden')) {
+                window.closeModal('mobileFilterModal');
+                return;
+            }
+            // 5. Ferme la fiche agent si aucune surcouche n'est active
+            if (modalAgent && !modalAgent.classList.contains('hidden')) {
+                window.closeModal('agentDetailModal');
+                return;
+            }
         }
+
+        // Navigation entre agents avec les flèches du clavier
         if (modalAgent && !modalAgent.classList.contains('hidden')) {
-            // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
-           // 1. Ferme l'infobulle dès qu'une flèche gauche ou droite est pressée
+            // Empêche la navigation au clavier si la vidéo est active
+            if (modalVideo && !modalVideo.classList.contains('hidden')) return;
+
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
                 if (typeof window.hideTooltip === 'function') {
                     window.hideTooltip();
                 }
             }
 
-            // 2. Change d'agent avec les flèches
             if (e.key === 'ArrowLeft' && State.modalIndex > 0) {
                 window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name);
             }
