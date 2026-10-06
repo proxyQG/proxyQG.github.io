@@ -2905,6 +2905,11 @@
                 "name": "Basic",
                 "level": "",
                 "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
@@ -2975,7 +2980,7 @@
         "teams": [
             {
                 "name": "TEAM 01",
-                "tag": "Hugo",
+                "tag": "Best",
                 "members": [
                     {
                         "img": "Velina.webp",
@@ -2983,9 +2988,9 @@
                         "initial": "V"
                     },
                     {
-                        "img": "Yuzuha.webp",
-                        "color": "#e8a838",
-                        "initial": "Y"
+                        "img": "Remielle.webp",
+                        "color": "#fba2d0",
+                        "initial": "R"
                     },
                     {
                         "img": "Promeia.webp",
@@ -3004,14 +3009,14 @@
                         "initial": "V"
                     },
                     {
-                        "img": "Jane.webp",
-                        "color": "#e8a838",
-                        "initial": "J"
-                    },
-                    {
                         "img": "Yuzuha.webp",
                         "color": "#e8a838",
                         "initial": "Y"
+                    },
+                    {
+                        "img": "Aria.webp",
+                        "color": "#f23c8a",
+                        "initial": "A"
                     }
                 ]
             },
