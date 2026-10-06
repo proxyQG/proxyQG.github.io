@@ -10,6 +10,7 @@ export const ui = {
         all: "Tous",
         allVersions: "Toutes les versions",
         favorites: "Mes Favoris",
+        custom: "Personnalisé",
         activeFaction: "Faction active",
         allFactions: "Toutes les factions",
         return: "Retour",
@@ -34,6 +35,7 @@ export const ui = {
         all: "All",
         allVersions: "All versions",
         favorites: "My Favorites",
+        custom: "Custom",
         activeFaction: "Active faction",
         allFactions: "All factions",
         return: "Back",
@@ -323,5 +325,9 @@ export function updateStaticUI() {
             if (el.tagName === 'INPUT') el.placeholder = ui[currentLang][key];
             else el.innerHTML = ui[currentLang][key];
         }
+    });
+    document.querySelectorAll('.dyn-term').forEach(el => {
+        const term = el.getAttribute('data-term');
+        if (term) el.textContent = tTerm(term);
     });
 }
