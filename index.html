@@ -70,13 +70,6 @@
         .lang-switch-wrap[data-active="en"] .lang-option.en { color: #000; }
         .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #888; }
 
-        @keyframes marqueeVertical {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(0, -50%, 0); }
-        }
-        .marquee-mask { mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent); }
-        .marquee-track-vertical { animation: marqueeVertical 30s linear infinite; display: flex; flex-direction: column; transform: translateZ(0); backface-visibility: hidden; perspective: 1000px; }
-
         .mindscape-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .mindscape-node:hover { transform: scale(1.2); }
         .mindscape-node.active { transform: scale(1.25); box-shadow: 0 0 15px currentColor; }
@@ -88,10 +81,6 @@
             100% { transform: translateY(-200%); }
         }
 
-        /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
-        .agent-card-container, #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
-            will-change: transform, opacity;
-        }
         /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
         .agent-card-container, #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
             will-change: transform, opacity;
@@ -425,7 +414,7 @@
     </div>
 
     <!-- Agent Detail Modal (Flou allégé sur mobile pour les FPS) -->
-    <div id="agentDetailModal" class="fixed inset-0 z-[200] hidden bg-[#050505] carbon-bg overflow-hidden opacity-0 transition-opacity duration-300" style="z-index: 200;">
+    <div id="agentDetailModal" class="fixed inset-0 z-[200] hidden bg-[#050505] carbon-bg overflow-hidden opacity-0 transition-opacity duration-300">
         <div class="crt-overlay"></div>
         <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/90 to-transparent z-[160] flex justify-end items-start p-6 md:p-10 pointer-events-none">
             <div class="flex flex-col md:flex-row gap-4 pointer-events-auto">
