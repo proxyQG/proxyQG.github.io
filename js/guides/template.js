@@ -1,18 +1,30 @@
 import { iconMap } from '../data/agents.js';
 import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats } from '../i18n.js';
 
+// --- FONCTION DE SÉCURISATION (ANTI-XSS) ---
+function escapeHTML(str) {
+    if (typeof str !== 'string') return str ?? '';
+    return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[tag]));
+}
+
 // --- BLOCS DE CONSTRUCTION (COMPOSANTS) ---
 
 function buildHeader(agentName, data, c, iconName) {
     return `
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
-            <span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${tData(data.factionTitle)}</span>
-            <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${agentName}</h2>
+            <span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${escapeHTML(tData(data.factionTitle))}</span>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
         </div>
         <div class="flex flex-wrap items-end gap-2 shrink-0">
             <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${iconName.replace('.png', '.webp')}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain filter" style="drop-shadow: 0 0 8px ${c};"></div>
-            <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${data.rank}</div>
+            <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>
         </div>
     </div>`;
 }
@@ -27,9 +39,9 @@ function buildStats(data, c, txt) {
         <div class="flex flex-col sm:flex-row items-center gap-4 relative z-10">
             ${data.stats.map(stat => `
             <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center">
-                <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">${tStats(stat.label)}</span>
+                <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">${escapeHTML(tStats(stat.label))}</span>
                 <div class="flex flex-col items-end text-right">
-                    <span class="text-white font-black text-xl drop-shadow-md">${stat.value}</span>${stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${tData(stat.note)}</span>` : ''}
+                    <span class="text-white font-black text-xl drop-shadow-md">${escapeHTML(stat.value)}</span>${stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${escapeHTML(tData(stat.note))}</span>` : ''}
                 </div>
             </div>`).join('')}
         </div>
@@ -43,15 +55,15 @@ function buildDiscs(data, c, txt) {
         <div class="flex flex-col gap-5">
             ${data.discs.map((disc, index) => `
             <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
-                <div class="absolute -top-3 -right-3 text-black text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${index === 0 ? c : '#27272a'}; color: ${index === 0 ? '#000' : '#fff'}; box-shadow: 0 0 15px ${index === 0 ? c+'60' : 'transparent'};">${tData(disc.tag)}</div>
+                <div class="absolute -top-3 -right-3 text-black text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${index === 0 ? c : '#27272a'}; color: ${index === 0 ? '#000' : '#fff'}; box-shadow: 0 0 15px ${index === 0 ? c+'60' : 'transparent'};">${escapeHTML(tData(disc.tag))}</div>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                     <div class="flex -space-x-4">
                         <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover"></div>
                         <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover"></div>
                     </div>
-                    <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${tDisc(disc.set1Name)}</span><span class="font-bold text-xs text-zinc-400">${tDisc(disc.set2Name)}</span></div>
+                    <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span><span class="font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span></div>
                 </div>
-                ${disc.note ? `<p class="text-[10px] text-zinc-400 mt-2">${tData(disc.note)}</p>` : ''}
+                ${disc.note ? `<p class="text-[10px] text-zinc-400 mt-2">${escapeHTML(tData(disc.note))}</p>` : ''}
             </div>`).join('')}
         </div>
     </div>`;
@@ -78,7 +90,7 @@ function buildSkills(data, c, txt) {
                             
                             ${index === 0 ? `</div>` : ''}
                         </div>
-                        <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${skill.name}${skill.level ? `(${skill.level})` : ''}</span>
+                        <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${skill.level ? `(${escapeHTML(skill.level)})` : ''}</span>
                     </div>
                     ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
                     `;
@@ -97,15 +109,15 @@ function buildStatPriority(data, c, txt) {
         <div class="flex flex-col gap-2.5 mb-5">
             ${data.statPriority.main.map((m, index) => `
             <div class="flex items-center gap-4 bg-[#121212] p-3.5 rounded-xl border ${index === 0 ? 'border-zinc-600 shadow-lg' : 'border-zinc-800'}">
-                <span class="font-black text-xl w-6 text-center" style="color: ${index === 0 ? c : (index === 1 ? '#ef4444' : '#71717a')};">${m.slot}</span>
-                <span class="font-bold uppercase tracking-wider text-sm flex-1 ${index === 0 ? 'text-white' : 'text-zinc-300'}">${tStats(m.label)}</span>
+                <span class="font-black text-xl w-6 text-center" style="color: ${index === 0 ? c : (index === 1 ? '#ef4444' : '#71717a')};">${escapeHTML(m.slot)}</span>
+                <span class="font-bold uppercase tracking-wider text-sm flex-1 ${index === 0 ? 'text-white' : 'text-zinc-300'}">${escapeHTML(tStats(m.label))}</span>
             </div>`).join('')}
         </div>
         <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 relative">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
             <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 pr-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 ${data.statPriority.sub.map((s, index) => `
-                <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${s.highlight ? c : '#d4d4d8'};">${tStats(s.label)}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : ''}
+                <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${s.highlight ? c : '#d4d4d8'};">${escapeHTML(tStats(s.label))}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : ''}
                 `).join('')}
             </div>
             <!-- Masque de fondu pour indiquer le swipe -->
@@ -120,12 +132,12 @@ function buildEngines(data, c, txt) {
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
         <div class="flex flex-col gap-3">
             ${data.engines.map((eng, index) => `
-            <div data-engine="${eng.name}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
-                <div class="sheen"></div> <!-- <-- L'AJOUT EST ICI -->
+            <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
+                <div class="sheen"></div>
                 <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="assets/W-Engine/${eng.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover"></div>
                 <div class="flex flex-col justify-center">
-                    <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${index === 0 ? c+'20' : 'transparent'}; color: ${index === 0 ? c : '#a1a1aa'};">${tData(eng.tag)}</span>
-                    <span class="font-black text-xs uppercase tracking-wide" style="color: ${index === 0 ? '#fff' : '#d4d4d8'};">${tEngine(eng.name)}</span>
+                    <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${index === 0 ? c+'20' : 'transparent'}; color: ${index === 0 ? c : '#a1a1aa'};">${escapeHTML(tData(eng.tag))}</span>
+                    <span class="font-black text-xs uppercase tracking-wide" style="color: ${index === 0 ? '#fff' : '#d4d4d8'};">${escapeHTML(tEngine(eng.name))}</span>
                 </div>
             </div>`).join('')}
         </div>
@@ -143,16 +155,16 @@ function buildTeams(data, c, txt) {
                 
                 <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
                     <div class="flex items-center justify-between">
-                        <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${tData(team.name)}</span>
+                        <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${escapeHTML(tData(team.name))}</span>
                         <div class="flex items-center gap-2">
                             <!-- BOUTON VIDÉO (S'affiche uniquement si videoId existe) -->
                             ${team.videoId ? `
-                            <button onclick="window.openVideoModal('${team.videoId}', ${team.startTime || 0}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
+                            <button onclick="window.openVideoModal('${escapeHTML(team.videoId)}', ${Number(team.startTime) || 0}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
                                 <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
                             </button>
                             ` : ''}
-                            <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${tData(team.tag)}</span>
+                            <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${escapeHTML(tData(team.tag))}</span>
                         </div>
                     </div>
                 </div>
@@ -162,12 +174,12 @@ function buildTeams(data, c, txt) {
                         const agentName = m.img ? m.img.replace('.webp', '').replace('.png', '') : '';
                         const clickEvent = m.img ? `onclick="window.openAgentDetail('${agentName.replace(/'/g, "\\'")}')"` : '';
                         const cursorClass = m.img ? 'cursor-pointer hover:scale-110 transition-transform duration-300' : '';
-                        const hoverTitle = m.img ? `title="Voir le guide de ${agentName}"` : '';
+                        const hoverTitle = m.img ? `title="Voir le guide de ${escapeHTML(agentName)}"` : '';
 
                         return `
                         <div class="flex flex-col items-center gap-3 ${cursorClass}" ${clickEvent} ${hoverTitle}>
                             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
-                                ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${m.color.replace('#','')}?text=${m.initial}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
+                                ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${(m.color \vert{}\vert{} '#52525b').replace('#','')}?text=${m.initial || ''}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
                             </div>
                         </div>
                         ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
@@ -188,10 +200,10 @@ function buildMindscapes(mindscapes, c) {
             ${mindscapes.map(ms => `
             <div class="bg-[#121212] border border-zinc-800 rounded-xl p-5 shadow-lg relative overflow-hidden group transition-colors hover:border-zinc-600">
                 <div class="flex items-center gap-3 mb-3">
-                    <span class="bg-[#1a1a1a] font-black text-sm px-2.5 py-1 rounded-lg border shadow-sm" style="color: ${c}; border-color:${c}40; box-shadow: 0 0 10px ${c}20;">${ms.rank}</span>
-                    <h4 class="text-white font-black uppercase tracking-wide text-sm">${tData(ms.title)}</h4>
+                    <span class="bg-[#1a1a1a] font-black text-sm px-2.5 py-1 rounded-lg border shadow-sm" style="color: ${c}; border-color:${c}40; box-shadow: 0 0 10px ${c}20;">${escapeHTML(ms.rank)}</span>
+                    <h4 class="text-white font-black uppercase tracking-wide text-sm">${escapeHTML(tData(ms.title))}</h4>
                 </div>
-                <p class="text-zinc-400 text-xs leading-relaxed">${tData(ms.desc)}</p>
+                <p class="text-zinc-400 text-xs leading-relaxed">${escapeHTML(tData(ms.desc))}</p>
             </div>
             `).join('')}
         </div>
@@ -203,7 +215,7 @@ function buildMindscapes(mindscapes, c) {
 export function generateGuideFromData(agentName, data, mindscapesDB) {
     const iconName = data.elementIcon || iconMap[data.element] || 'physique.png';
     const c = data.color;
-    const txt = ui[currentLang];
+    const txt = ui[currentLang] || ui.fr;
     
     // Récupération des données Mindscapes depuis le fichier séparé
     const mindscapes = mindscapesDB ? mindscapesDB[agentName] : null;
