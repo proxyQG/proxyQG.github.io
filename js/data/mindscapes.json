@@ -2708,8 +2708,8 @@
         "en": "Eternity and the Clockwork Doll"
       },
       "desc": {
-        "fr": "Aucun effet de combat spécifié (texte d'histoire uniquement).",
-        "en": "No combat effect specified (lore text only)."
+        "fr": "Les DGT infligés par les attaques ignorent 15 % de la RÉS au Vent de la cible. Lorsque l'Attaque spéciale : Pardonnez-moi de ne pas vous raccompagner fait exploser Yeux de la tempête pour générer une Tempête géante, la cible principale subit l'effet Écho résiduel. Une Tempête géante est générée à l'emplacement de la cible toutes les 3 s, pour un total de 2 Tempêtes géantes supplémentaires. Déclencher cet effet à nouveau cumule le nombre d'occurrences supplémentaires et réinitialise la durée d'Écho résiduel. Les DGT infligés par la Tempête géante augmentent à 250 % de leur valeur d'origine, et la Confusion qu'elle inflige augmente de 20 %.",
+        "en": "The DMG dealt by attacks ignores 15% of the target's Wind RES. When Special Attack: Forgive Me for Not Seeing You Off detonates Eyes of the Storm to generate a Giant Windstorm, the primary target is inflicted with Afterecho. A Giant Windstorm is generated at the target's location every 3s, for a total of 2 additional Giant Windstorms. Repeated triggers stack the number of additional Giant Windstorm instances generated and refresh the duration of Afterecho. The DMG dealt by the Giant Windstorm increases to 250% of its original value, and the Daze it inflicts increases by 20%."
       }
     }
   ],
