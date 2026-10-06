@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     agentsData = await response.json();
 
     // NOUVEAU : Chargement de tes factions avec anti-cache :
-    const factionsResponse = await fetch('./js/data/factions.json', { cache: 'no-store' });
+    const factionsResponse = await fetch('./js/data/factions.json');
     factionsData = await factionsResponse.json();
 
     updateStaticUI();
@@ -282,7 +282,7 @@ function renderFactions() {
         const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
         
         // Traduction dynamique
-        const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+        const isEn = currentLang === 'en';
         let displayName = faction;
         if (isEn && factionTranslations[faction]) {
             displayName = factionTranslations[faction];
@@ -319,7 +319,7 @@ window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = fa
     const tags = document.querySelectorAll('.active-faction-tag');
     const nameLabels = document.querySelectorAll('.active-faction-name');
     
-    const isEn = document.getElementById('langSwitcher')?.getAttribute('data-active') === 'en';
+    const isEn = currentLang === 'en';
     let labelText = faction;
     if (isEn && factionTranslations[faction]) {
         labelText = factionTranslations[faction];
