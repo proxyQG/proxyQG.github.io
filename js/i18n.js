@@ -3,6 +3,8 @@ export const ui = {
     fr: {
         searchPlaceholder: "Rechercher un agent...",
         noSignal: "Aucun signal trouvé",
+        signalAnalyzing: "En cours d'analyse",
+        encryptedArchive: "Les archives de New Eridu pour <span class=\"text-zinc-400 font-bold\">{name}</span> sont actuellement cryptées.",
         emptyStateDesc: "Aucun agent ne correspond à ces critères.",
         elements: "Éléments",
         roles: "Rôles",
@@ -28,6 +30,8 @@ export const ui = {
     en: {
         searchPlaceholder: "Search an agent...",
         noSignal: "No signal found",
+        signalAnalyzing: "Analyzing",
+        encryptedArchive: "New Eridu archives for <span class=\"text-zinc-400 font-bold\">{name}</span> are currently encrypted.",
         emptyStateDesc: "No agent matches these criteria.",
         elements: "Elements",
         roles: "Roles",
