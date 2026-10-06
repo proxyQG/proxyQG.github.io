@@ -580,6 +580,11 @@
                 "name": "Assist",
                 "level": "10",
                 "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "6",
+                "icon": "Esquive.webp"
             }
         ],
         "statPriority": {
@@ -648,55 +653,79 @@
             }
         ],
         "teams": [
+    {
+        "name": "TEAM 01",
+        "tag": {
+            "fr": "Premium",
+            "en": "Premium"
+        },
+        "members": [
             {
-                "name": "TEAM 01",
-                "tag": {
-                    "fr": "Classique",
-                    "en": "Classic"
-                },
-                "members": [
-                    {
-                        "img": "Claret.webp",
-                        "color": "#3182eb",
-                        "initial": "C"
-                    },
-                    {
-                        "img": "Norma.webp",
-                        "color": "#f05432",
-                        "initial": "N"
-                    },
-                    {
-                        "img": "Rina.webp",
-                        "color": "#3182eb",
-                        "initial": "R"
-                    }
-                ]
+                "img": "Claret.webp",
+                "color": "#3182eb",
+                "initial": "C"
             },
             {
-                "name": "TEAM 02",
-                "tag": {
-                    "fr": "Double Élec",
-                    "en": "Dual Shock"
-                },
-                "members": [
-                    {
-                        "img": "Claret.webp",
-                        "color": "#3182eb",
-                        "initial": "C"
-                    },
-                    {
-                        "img": "Velina.webp",
-                        "color": "#3bbedb",
-                        "initial": "V"
-                    },
-                    {
-                        "img": "Rina.webp",
-                        "color": "#3182eb",
-                        "initial": "R"
-                    }
-                ]
+                "img": "Norma.webp",
+                "color": "#f05432",
+                "initial": "N"
+            },
+            {
+                "img": "Rina.webp",
+                "color": "#3182eb",
+                "initial": "R"
             }
         ]
+    },
+    {
+        "name": "TEAM 02",
+        "tag": {
+            "fr": "Contrôle & Pack",
+            "en": "Crowd Control"
+        },
+        "members": [
+            {
+                "img": "Claret.webp",
+                "color": "#3182eb",
+                "initial": "C"
+            },
+            {
+                "img": "Roxy.webp",
+                "color": "#2dd4bf",
+                "initial": "R"
+            },
+            {
+                "img": "Rina.webp",
+                "color": "#3182eb",
+                "initial": "R"
+            }
+        ]
+    },
+    {
+        "name": "TEAM 03",
+        "tag": {
+            "fr": "Stun Lourd",
+            "en": "Heavy Daze"
+        },
+        "members": [
+            {
+                "img": "Claret.webp",
+                "color": "#3182eb",
+                "initial": "C"
+            },
+            {
+                "img": "Koleda.webp",
+                "color": "#f05432",
+                "initial": "K"
+            },
+            {
+                "img": "Rina.webp",
+                "color": "#3182eb",
+                "initial": "R"
+            }
+        ]
+    }
+]
     },
     "Ye Shunguang": {
         "color": "#e8a838",
