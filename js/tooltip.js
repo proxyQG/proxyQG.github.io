@@ -203,7 +203,10 @@
         overlayEl.addEventListener('click', hideTooltip); // Ferme si clic dans le noir
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') hideTooltip();
+            if (e.key === 'Escape' && tooltipEl && tooltipEl.classList.contains('visible')) {
+                hideTooltip();
+                e.stopImmediatePropagation();
+            }
         });
 
         // --- GESTION DU SWIPE-TO-CLOSE (MOBILE) ---
