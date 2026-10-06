@@ -10,12 +10,53 @@ function escapeHTML(str) {
         '>': '&gt;',
         "'": '&#39;',
         '"': '&quot;'
-    }[tag]));
+    }[tag] || tag));
 }
 
-// --- BLOCS DE CONSTRUCTION (COMPOSANTS) ---
+// --- SOUS-COMPOSANTS DES ÉQUIPES ---
+
+function buildTeamMember(m, i) {
+    const isFirst = i === 0;
+    const memberColor = m.color || '#52525b';
+    const borderStyle = `border-color: ${memberColor}; box-shadow: ${isFirst ? '0 0 15px ' + memberColor + '40' : 'none'};`;
+
+    if (m.img) {
+        const agentName = m.img.replace('.webp', '').replace('.png', '');
+        const imgSrc = `assets/Agents/${m.img.replace('.png', '.webp')}`;
+        const escapedName = escapeHTML(agentName);
+        const jsSafeName = agentName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+        return `
+        <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.openAgentDetail('${jsSafeName}')" title="Voir le guide de ${escapedName}">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="${borderStyle}">
+                <img src="${imgSrc}" loading="lazy" class="w-full h-full object-cover object-top scale-110">
+            </div>
+        </div>`;
+    }
+
+    return `
+    <div class="flex flex-col items-center gap-3">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="${borderStyle}">
+            <span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>
+        </div>
+    </div>`;
+}
+
+function buildVideoButton(team) {
+    if (!team.videoId) return '';
+    const vidId = escapeHTML(team.videoId);
+    const start = Number(team.startTime) || 0;
+    return `
+    <button onclick="window.openVideoModal('${vidId}', ${start}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
+    </button>`;
+}
+
+// --- BLOCS DE CONSTRUCTION PRINCIPAUX ---
 
 function buildHeader(agentName, data, c, iconName) {
+    const webpIcon = iconName ? iconName.replace('.png', '.webp') : 'physique.webp';
     return `
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
@@ -23,13 +64,25 @@ function buildHeader(agentName, data, c, iconName) {
             <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
         </div>
         <div class="flex flex-wrap items-end gap-2 shrink-0">
-            <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${iconName.replace('.png', '.webp')}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain filter" style="drop-shadow: 0 0 8px ${c};"></div>
+            <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain filter" style="drop-shadow: 0 0 8px ${c};"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>
         </div>
     </div>`;
 }
 
 function buildStats(data, c, txt) {
+    const statsHTML = (data.stats || []).map(stat => {
+        const noteHTML = stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${escapeHTML(tData(stat.note))}</span>` : '';
+        return `
+        <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center">
+            <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">${escapeHTML(tStats(stat.label))}</span>
+            <div class="flex flex-col items-end text-right">
+                <span class="text-white font-black text-xl drop-shadow-md">${escapeHTML(stat.value)}</span>
+                ${noteHTML}
+            </div>
+        </div>`;
+    }).join('');
+
     return `
     <div class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group stagger-anim delay-2">
         <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-3xl transition-all duration-700" style="background-color: ${c}10; group-hover:background-color: ${c}20;"></div>
@@ -37,175 +90,221 @@ function buildStats(data, c, txt) {
             <h3 class="font-display font-black uppercase text-xl sm:text-2xl tracking-wide" style="color: ${c};">${txt.statsLabel}</h3>
         </div>
         <div class="flex flex-col sm:flex-row items-center gap-4 relative z-10">
-            ${data.stats.map(stat => `
-            <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center">
-                <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">${escapeHTML(tStats(stat.label))}</span>
-                <div class="flex flex-col items-end text-right">
-                    <span class="text-white font-black text-xl drop-shadow-md">${escapeHTML(stat.value)}</span>${stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${escapeHTML(tData(stat.note))}</span>` : ''}
-                </div>
-            </div>`).join('')}
+            ${statsHTML}
         </div>
     </div>`;
 }
 
 function buildDiscs(data, c, txt) {
+    const discsHTML = (data.discs || []).map((disc, index) => {
+        const isFirst = index === 0;
+        const tagBg = isFirst ? c : '#27272a';
+        const tagColor = isFirst ? '#000' : '#fff';
+        const tagShadow = isFirst ? `0 0 15px ${c}60` : 'transparent';
+        const noteHTML = disc.note ? `<p class="text-[10px] text-zinc-400 mt-2">${escapeHTML(tData(disc.note))}</p>` : '';
+
+        return `
+        <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
+            <div class="absolute -top-3 -right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
+                <div class="flex -space-x-4">
+                    <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover"></div>
+                    <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover"></div>
+                </div>
+                <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span><span class="font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span></div>
+            </div>
+            ${noteHTML}
+        </div>`;
+    }).join('');
+
     return `
     <div>
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.discSets}</h3>
         <div class="flex flex-col gap-5">
-            ${data.discs.map((disc, index) => `
-            <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
-                <div class="absolute -top-3 -right-3 text-black text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${index === 0 ? c : '#27272a'}; color: ${index === 0 ? '#000' : '#fff'}; box-shadow: 0 0 15px ${index === 0 ? c+'60' : 'transparent'};">${escapeHTML(tData(disc.tag))}</div>
-                <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
-                    <div class="flex -space-x-4">
-                        <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover"></div>
-                        <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover"></div>
-                    </div>
-                    <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span><span class="font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span></div>
-                </div>
-                ${disc.note ? `<p class="text-[10px] text-zinc-400 mt-2">${escapeHTML(tData(disc.note))}</p>` : ''}
-            </div>`).join('')}
+            ${discsHTML}
         </div>
     </div>`;
 }
 
 function buildSkills(data, c, txt) {
+    const skillsList = data.skills || [];
+    const skillsHTML = skillsList.map((skill, index) => {
+        const skillName = (skill.name || '').toUpperCase();
+        const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
+        const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
+        const isFirst = index === 0;
+        const iconSrc = `assets/Skills/${(skill.icon || '').replace('.png', '.webp')}`;
+        const levelText = skill.level ? `(${escapeHTML(skill.level)})` : '';
+        const arrow = (index < skillsList.length - 1)
+            ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
+            : '';
+
+        let iconContainer;
+        if (isFirst) {
+            iconContainer = `
+            <div class="relative">
+                <div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div>
+                <div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
+                    <img src="${iconSrc}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+                </div>
+            </div>`;
+        } else {
+            iconContainer = `
+            <div class="relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
+                <img src="${iconSrc}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+            </div>`;
+        }
+
+        return `
+        <div class="flex flex-col items-center gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80'}">
+            ${iconContainer}
+            <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${levelText}</span>
+        </div>
+        ${arrow}`;
+    }).join('');
+
     return `
     <div class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
-        
         <div class="relative">
             <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-start gap-4 md:gap-5 overflow-x-auto pr-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                ${data.skills.map((skill, index) => {
-                    const skillName = skill.name.toUpperCase();
-                    const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
-                    const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
-
-                    return `
-                    <div class="flex flex-col items-center gap-2 shrink-0 ${index === 0 ? 'group cursor-default' : 'opacity-80'}">
-                        <div class="${index === 0 ? 'relative' : 'relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden'}">
-                            ${index === 0 ? `<div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div><div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">` : ''}
-                            
-                            <img src="assets/Skills/${skill.icon.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
-                            
-                            ${index === 0 ? `</div>` : ''}
-                        </div>
-                        <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${index === 0 ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${skill.level ? `(${escapeHTML(skill.level)})` : ''}</span>
-                    </div>
-                    ${index < data.skills.length - 1 ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>` : ''}
-                    `;
-                }).join('')}
+                ${skillsHTML}
             </div>
-            <!-- Masque de fondu pour indiquer le swipe -->
             <div class="absolute right-[1px] top-[1px] bottom-[1px] w-14 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-2xl"></div>
         </div>
     </div>`;
 }
 
 function buildStatPriority(data, c, txt) {
+    const mainList = data.statPriority?.main || [];
+    const subList = data.statPriority?.sub || [];
+
+    const mainHTML = mainList.map((m, index) => {
+        const slotColor = index === 0 ? c : (index === 1 ? '#ef4444' : '#71717a');
+        const borderColor = index === 0 ? 'border-zinc-600 shadow-lg' : 'border-zinc-800';
+        const labelColor = index === 0 ? 'text-white' : 'text-zinc-300';
+        return `
+        <div class="flex items-center gap-4 bg-[#121212] p-3.5 rounded-xl border ${borderColor}">
+            <span class="font-black text-xl w-6 text-center" style="color: ${slotColor};">${escapeHTML(m.slot)}</span>
+            <span class="font-bold uppercase tracking-wider text-sm flex-1 ${labelColor}">${escapeHTML(tStats(m.label))}</span>
+        </div>`;
+    }).join('');
+
+    const subHTML = subList.map((s, index) => {
+        const color = s.highlight ? c : '#d4d4d8';
+        const separator = (index < subList.length - 1) ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : '';
+        return `
+        <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${color};">${escapeHTML(tStats(s.label))}</span>${separator}`;
+    }).join('');
+
     return `
     <div>
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.statistics}</h3>
         <div class="flex flex-col gap-2.5 mb-5">
-            ${data.statPriority.main.map((m, index) => `
-            <div class="flex items-center gap-4 bg-[#121212] p-3.5 rounded-xl border ${index === 0 ? 'border-zinc-600 shadow-lg' : 'border-zinc-800'}">
-                <span class="font-black text-xl w-6 text-center" style="color: ${index === 0 ? c : (index === 1 ? '#ef4444' : '#71717a')};">${escapeHTML(m.slot)}</span>
-                <span class="font-bold uppercase tracking-wider text-sm flex-1 ${index === 0 ? 'text-white' : 'text-zinc-300'}">${escapeHTML(tStats(m.label))}</span>
-            </div>`).join('')}
+            ${mainHTML}
         </div>
         <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 relative">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
             <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 pr-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                ${data.statPriority.sub.map((s, index) => `
-                <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${s.highlight ? c : '#d4d4d8'};">${escapeHTML(tStats(s.label))}</span>${index < data.statPriority.sub.length - 1 ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : ''}
-                `).join('')}
+                ${subHTML}
             </div>
-            <!-- Masque de fondu pour indiquer le swipe -->
             <div class="absolute right-[1px] bottom-[1px] top-[1px] w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-xl"></div>
         </div>
     </div>`;
 }
 
 function buildEngines(data, c, txt) {
+    const enginesHTML = (data.engines || []).map((eng, index) => {
+        const isFirst = index === 0;
+        const borderColor = isFirst ? `${c}40` : '#27272a';
+        const shadow = isFirst ? `0 0 15px ${c}10` : 'none';
+        const tagBg = isFirst ? `${c}20` : 'transparent';
+        const tagColor = isFirst ? c : '#a1a1aa';
+        const titleColor = isFirst ? '#fff' : '#d4d4d8';
+        const imgSrc = `assets/W-Engine/${(eng.img || '').replace('.png', '.webp')}`;
+
+        return `
+        <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${borderColor}; box-shadow: ${shadow};">
+            <div class="sheen"></div>
+            <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="${imgSrc}" loading="lazy" class="w-full h-full object-cover"></div>
+            <div class="flex flex-col justify-center">
+                <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${tagBg}; color: ${tagColor};">${escapeHTML(tData(eng.tag))}</span>
+                <span class="font-black text-xs uppercase tracking-wide" style="color: ${titleColor};">${escapeHTML(tEngine(eng.name))}</span>
+            </div>
+        </div>`;
+    }).join('');
+
     return `
     <div>
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
         <div class="flex flex-col gap-3">
-            ${data.engines.map((eng, index) => `
-            <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${index === 0 ? c+'40' : '#27272a'}; box-shadow: ${index === 0 ? '0 0 15px '+c+'10' : 'none'};">
-                <div class="sheen"></div>
-                <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="assets/W-Engine/${eng.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover"></div>
-                <div class="flex flex-col justify-center">
-                    <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${index === 0 ? c+'20' : 'transparent'}; color: ${index === 0 ? c : '#a1a1aa'};">${escapeHTML(tData(eng.tag))}</span>
-                    <span class="font-black text-xs uppercase tracking-wide" style="color: ${index === 0 ? '#fff' : '#d4d4d8'};">${escapeHTML(tEngine(eng.name))}</span>
-                </div>
-            </div>`).join('')}
+            ${enginesHTML}
         </div>
     </div>`;
 }
 
 function buildTeams(data, c, txt) {
+    const teamsList = data.teams || [];
+    const teamsHTML = teamsList.map((team, index) => {
+        const isFirst = index === 0;
+        const tagBg = isFirst ? `${c}20` : '#27272a';
+        const tagColor = isFirst ? c : '#a1a1aa';
+        const tagBorder = isFirst ? `${c}40` : '#3f3f46';
+        const num = String(index + 1).padStart(2, '0');
+
+        const membersList = team.members || [];
+        const membersHTML = membersList.map((m, i) => {
+            const memberCard = buildTeamMember(m, i);
+            const separator = (i < membersList.length - 1) ? `<div class="w-6 h-px bg-zinc-700"></div>` : '';
+            return memberCard + separator;
+        }).join('');
+
+        return `
+        <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
+            <div class="absolute right-4 -top-5 text-[85px] font-display font-black text-zinc-800/20 italic tracking-tighter leading-none pointer-events-none select-none transform group-hover:scale-110 transition-all duration-700">${num}</div>
+            
+            <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
+                <div class="flex items-center justify-between">
+                    <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${escapeHTML(tData(team.name))}</span>
+                    <div class="flex items-center gap-2">
+                        ${buildVideoButton(team)}
+                        <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${tagBg}; color: ${tagColor}; border-color: ${tagBorder};">${escapeHTML(tData(team.tag))}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 relative z-10">
+                ${membersHTML}
+            </div>
+        </div>`;
+    }).join('');
+
     return `
     <div class="border-t border-zinc-800/80 pt-10 stagger-anim delay-5">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            ${data.teams.map((team, index) => `
-            <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
-                <div class="absolute right-4 -top-5 text-[85px] font-display font-black text-zinc-800/20 italic tracking-tighter leading-none pointer-events-none select-none transform group-hover:scale-110 transition-all duration-700">0${index+1}</div>
-                
-                <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
-                    <div class="flex items-center justify-between">
-                        <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${escapeHTML(tData(team.name))}</span>
-                        <div class="flex items-center gap-2">
-                            <!-- BOUTON VIDÉO (S'affiche uniquement si videoId existe) -->
-                            ${team.videoId ? `
-                            <button onclick="window.openVideoModal('${escapeHTML(team.videoId)}', ${Number(team.startTime) || 0}, event)" class="flex items-center gap-1.5 bg-[#1a1a1a] hover:bg-[#d7f70c] text-zinc-400 hover:text-black border border-zinc-700 hover:border-[#d7f70c] px-3 py-1 rounded shadow-[0_0_10px_rgba(0,0,0,0.5)] hover:shadow-[0_0_15px_rgba(215,247,12,0.4)] transition-all duration-300 group/btn">
-                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                <span class="text-[9px] font-black uppercase tracking-widest">Voir</span>
-                            </button>
-                            ` : ''}
-                            <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${index===0 ? c+'20' : '#27272a'}; color: ${index===0 ? c : '#a1a1aa'}; border-color: ${index===0 ? c+'40' : '#3f3f46'};">${escapeHTML(tData(team.tag))}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between gap-2 relative z-10">
-                    ${team.members.map((m, i) => {
-                        const agentName = m.img ? m.img.replace('.webp', '').replace('.png', '') : '';
-                        const clickEvent = m.img ? `onclick="window.openAgentDetail('${agentName.replace(/'/g, "\\'")}')"` : '';
-                        const cursorClass = m.img ? 'cursor-pointer hover:scale-110 transition-transform duration-300' : '';
-                        const hoverTitle = m.img ? `title="Voir le guide de ${escapeHTML(agentName)}"` : '';
-
-                        return `
-                        <div class="flex flex-col items-center gap-3 ${cursorClass}" ${clickEvent} ${hoverTitle}>
-                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="border-color: ${m.color || '#52525b'}; box-shadow: ${i===0 ? '0 0 15px '+m.color+'40' : 'none'};">
-                                ${m.img ? `<img src="assets/Agents/${m.img.replace('.png', '.webp')}" loading="lazy" class="w-full h-full object-cover object-top scale-110" onerror="this.src='https://placehold.co/100/181818/${(m.color \vert{}\vert{} '#52525b').replace('#','')}?text=${m.initial || ''}'">` : `<span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>`}
-                            </div>
-                        </div>
-                        ${i < team.members.length - 1 ? `<div class="w-6 h-px bg-zinc-700"></div>` : ''}
-                        `;
-                    }).join('')}
-                </div>
-            </div>`).join('')}
+            ${teamsHTML}
         </div>
     </div>`;
 }
 
 function buildMindscapes(mindscapes, c) {
-    if (!mindscapes) return '';
+    if (!mindscapes || !Array.isArray(mindscapes)) return '';
+    const msHTML = mindscapes.map(ms => `
+    <div class="bg-[#121212] border border-zinc-800 rounded-xl p-5 shadow-lg relative overflow-hidden group transition-colors hover:border-zinc-600">
+        <div class="flex items-center gap-3 mb-3">
+            <span class="bg-[#1a1a1a] font-black text-sm px-2.5 py-1 rounded-lg border shadow-sm" style="color: ${c}; border-color:${c}40; box-shadow: 0 0 10px ${c}20;">${escapeHTML(ms.rank)}</span>
+            <h4 class="text-white font-black uppercase tracking-wide text-sm">${escapeHTML(tData(ms.title))}</h4>
+        </div>
+        <p class="text-zinc-400 text-xs leading-relaxed">${escapeHTML(tData(ms.desc))}</p>
+    </div>
+    `).join('');
+
     return `
     <div class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">Mindscapes</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            ${mindscapes.map(ms => `
-            <div class="bg-[#121212] border border-zinc-800 rounded-xl p-5 shadow-lg relative overflow-hidden group transition-colors hover:border-zinc-600">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="bg-[#1a1a1a] font-black text-sm px-2.5 py-1 rounded-lg border shadow-sm" style="color: ${c}; border-color:${c}40; box-shadow: 0 0 10px ${c}20;">${escapeHTML(ms.rank)}</span>
-                    <h4 class="text-white font-black uppercase tracking-wide text-sm">${escapeHTML(tData(ms.title))}</h4>
-                </div>
-                <p class="text-zinc-400 text-xs leading-relaxed">${escapeHTML(tData(ms.desc))}</p>
-            </div>
-            `).join('')}
+            ${msHTML}
         </div>
     </div>`;
 }
@@ -214,10 +313,9 @@ function buildMindscapes(mindscapes, c) {
 
 export function generateGuideFromData(agentName, data, mindscapesDB) {
     const iconName = data.elementIcon || iconMap[data.element] || 'physique.png';
-    const c = data.color;
+    const c = data.color || '#d7f70c';
     const txt = ui[currentLang] || ui.fr;
     
-    // Récupération des données Mindscapes depuis le fichier séparé
     const mindscapes = mindscapesDB ? mindscapesDB[agentName] : null;
 
     return `
