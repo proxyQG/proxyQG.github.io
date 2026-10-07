@@ -5,9 +5,9 @@
 #disc-tooltip-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 10000;
     opacity: 0;
     pointer-events: none;
@@ -25,12 +25,13 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0.92);
     width: 90%;
-    max-width: 480px;
+    max-width: 460px;
     max-height: 90vh;
-    background: #0d0d0e;
+    background: linear-gradient(180deg, #131316 0%, #0a0a0c 100%);
     border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 2px solid #d7f70c;
     border-radius: 24px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(215, 247, 12, 0.08);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(215, 247, 12, 0.08);
     z-index: 10001;
     opacity: 0;
     pointer-events: none;
@@ -49,15 +50,87 @@
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* --- ANIMATION DU VINYLE 33 TOURS --- */
-.disc-vinyl-container {
+/* --- SCÈNE VINYLE + POCHETTE BARDIC NEEDLE --- */
+.disc-stage {
     position: relative;
-    width: 140px;
-    height: 140px;
-    margin: 0 auto;
-    perspective: 800px;
+    width: 200px;
+    height: 120px;
+    margin: 0 auto 12px auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
+/* Lueur d'ambiance en arrière-plan */
+.disc-stage::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(215, 247, 12, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Pochette cartonnée (Sleeve) */
+.disc-sleeve {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    background: #18181b;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+/* Motif graphique sur la pochette */
+.disc-sleeve::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0, 0, 0, 0.3) 5px, rgba(0, 0, 0, 0.3) 10px);
+    pointer-events: none;
+}
+
+.sleeve-brand {
+    font-family: monospace;
+    font-size: 8px;
+    font-weight: 900;
+    color: #d7f70c;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.sleeve-sub {
+    font-size: 7px;
+    font-weight: 800;
+    color: #71717a;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Calque de translation pour la sortie de la pochette */
+.disc-vinyl-runner {
+    position: absolute;
+    left: 10px;
+    width: 104px;
+    height: 104px;
+    z-index: 1;
+    animation: vinylSlideOut 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Disque vinyle rotatif */
 .disc-vinyl-plate {
     width: 100%;
     height: 100%;
@@ -66,24 +139,19 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-    animation: vinylRotate 18s linear infinite;
-    animation-play-state: running;
+    animation: vinylRotate 16s linear infinite;
 }
 
-.disc-vinyl-container:hover .disc-vinyl-plate {
-    animation-play-state: paused;
-}
-
-/* Sillons concentriques du disque */
+/* Microsillons concentriques */
 .disc-vinyl-plate::before {
     content: "";
     position: absolute;
-    inset: 4px;
+    inset: 3px;
     border-radius: 50%;
     background: repeating-radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.03) 0px,
-        rgba(255, 255, 255, 0.03) 1px,
+        rgba(255, 255, 255, 0.04) 0px,
+        rgba(255, 255, 255, 0.04) 1px,
         transparent 2px,
         transparent 4px
     );
@@ -91,19 +159,19 @@
     z-index: 2;
 }
 
-/* Reflet spéculaire de la lumière sur le vinyle */
+/* Reflet spéculaire de la lumière */
 .disc-vinyl-plate::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 50%;
     background: conic-gradient(
-        from 45deg,
-        rgba(255, 255, 255, 0.12) 0deg,
+        from 30deg,
+        rgba(255, 255, 255, 0.15) 0deg,
         transparent 60deg,
-        rgba(255, 255, 255, 0.12) 180deg,
+        rgba(255, 255, 255, 0.15) 180deg,
         transparent 240deg,
-        rgba(255, 255, 255, 0.12) 360deg
+        rgba(255, 255, 255, 0.15) 360deg
     );
     pointer-events: none;
     z-index: 3;
@@ -119,18 +187,34 @@
     z-index: 1;
 }
 
+@keyframes vinylSlideOut {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(82px); }
+}
+
 @keyframes vinylRotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
 
-/* Cartouches 2P et 4P */
+/* --- BADGE DE LOCALISATION / SOURCE --- */
+.disc-source-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 9999px;
+    margin-top: 4px;
+}
+
+/* --- CARTOUCHES DE BONUS --- */
 .disc-bonus-box {
-    background: #141416;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 20, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 14px;
-    padding: 14px 16px;
-    position: relative;
+    padding: 13px 15px;
     transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -141,11 +225,11 @@
 
 .disc-bonus-badge {
     font-family: monospace;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 900;
-    padding: 2px 8px;
-    border-radius: 6px;
-    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 
@@ -162,7 +246,7 @@
         border-radius: 24px 24px 0 0;
         border: none;
         border-top: 2px solid #d7f70c;
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
     }
 
     #disc-tooltip-modal.visible {
