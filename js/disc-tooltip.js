@@ -4,12 +4,10 @@
     let overlayEl = null;
     let modalEl = null;
 
-    // Détection de la langue active
     function getLang() {
         return localStorage.getItem('zzz_lang') || 'fr';
     }
 
-    // Traduction bilingue
     function t(obj) {
         if (!obj) return '';
         if (typeof obj === 'string') return obj;
@@ -17,15 +15,14 @@
         return obj[lang] || obj['fr'] || obj['en'] || '';
     }
 
-    // Colorisation des mots-clés dans les descriptions (ex: {Stun}, [15 %])
+    // Colorisation ZZZ des termes clés et des valeurs
     function formatText(text) {
         if (!text) return '';
         return text
             .replace(/\{([^}]+)\}/g, '<span style="color: #d7f70c; font-weight: 700;">$1</span>')
-            .replace(/\[([^\]]+)\]/g, '<span style="color: #ffffff; font-weight: 800;">$1</span>');
+            .replace(/\[([^\]]+)\]/g, '<span style="color: #ffffff; font-weight: 800; background: rgba(255,255,255,0.08); padding: 1px 4px; border-radius: 4px;">$1</span>');
     }
 
-    // Création du DOM de la modale
     function createDOM() {
         if (document.getElementById('disc-tooltip-overlay')) return;
 
@@ -38,10 +35,9 @@
         document.body.appendChild(overlayEl);
         document.body.appendChild(modalEl);
 
-        // Fermeture au clic extérieur
         overlayEl.addEventListener('click', hideDiscTooltip);
 
-        // Fermeture par geste de balayage tactile (Swipe-to-close sur mobile)
+        // Swipe-to-close tactile sur mobile
         let touchStartY = 0;
         modalEl.addEventListener('touchstart', (e) => {
             touchStartY = e.touches[0].clientY;
@@ -49,14 +45,12 @@
 
         modalEl.addEventListener('touchmove', (e) => {
             const touchY = e.touches[0].clientY;
-            const diff = touchY - touchStartY;
-            if (diff > 80 && modalEl.scrollTop === 0) {
+            if (touchY - touchStartY > 80 && modalEl.scrollTop === 0) {
                 hideDiscTooltip();
             }
         }, { passive: true });
     }
 
-    // Chargement différé de la base JSON
     async function loadDatabase() {
         if (DISCS_DB) return DISCS_DB;
         try {
@@ -69,7 +63,6 @@
         }
     }
 
-    // Affichage de l'infobulle
     async function showDiscTooltip(discKey) {
         createDOM();
         const db = await loadDatabase();
@@ -81,34 +74,48 @@
         const ranksHTML = (disc.ranks || ['S'])
             .map(r => {
                 const color = r === 'S' ? '#eab308' : (r === 'A' ? '#a855f7' : '#3b82f6');
-                return `<span style="background:${color}20; color:${color}; border:1px solid ${color}40;" class="text-[10px] font-black px-2 py-0.5 rounded">${r}</span>`;
+                return `<span style="background:${color}20; color:${color}; border:1px solid ${color}40;" class="text-[10px] font-black px-2 py-0.5 rounded shadow-sm">${r}</span>`;
             }).join('');
 
         modalEl.innerHTML = `
-            <div class="p-6 relative">
+            <div class="p-5 sm:p-6 relative">
                 <!-- Bouton fermer -->
                 <button type="button" onclick="window.hideDiscTooltip()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
 
-                <!-- Vinyle interactif -->
-                <div class="disc-vinyl-container mb-4">
-                    <div class="disc-vinyl-plate">
-                        <img src="assets/Disque/${disc.img}" alt="${t(disc.name)}" class="disc-vinyl-img">
+                <!-- Scène Vinyle + Pochette Bardic Needle -->
+                <div class="disc-stage">
+                    <div class="disc-sleeve">
+                        <span class="sleeve-brand">BARDIC NEEDLE</span>
+                        <div class="w-5 h-5 rounded-full border border-white/20 self-center opacity-60"></div>
+                        <span class="sleeve-sub">MASTER TAPE</span>
+                    </div>
+                    <div class="disc-vinyl-runner">
+                        <div class="disc-vinyl-plate">
+                            <img src="assets/Disque/${disc.img}" alt="${t(disc.name)}" class="disc-vinyl-img">
+                        </div>
                     </div>
                 </div>
 
-                <!-- Titre & Rangs -->
+                <!-- En-tête : Titre & Badge de farm -->
                 <div class="text-center mb-5">
-                    <div class="flex items-center justify-center gap-1.5 mb-1.5">
+                    <div class="flex items-center justify-center gap-1.5 mb-1">
                         ${ranksHTML}
                     </div>
                     <h3 class="text-white font-display font-black text-xl uppercase tracking-wider drop-shadow-md">
                         ${t(disc.name)}
                     </h3>
-                    <p class="text-zinc-400 text-xs mt-1">
-                        ${t(disc.source)}
-                    </p>
+                    
+                    <!-- Badge de Nettoyage de routine -->
+                    <div class="disc-source-pill">
+                        <svg class="w-3.5 h-3.5 text-[#d7f70c] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="text-[11px] font-semibold text-zinc-300 tracking-wide">
+                            ${t(disc.source)}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Bonus 2-Pièces -->
@@ -148,14 +155,12 @@
         if (modalEl) modalEl.classList.remove('visible');
     }
 
-    // Fermeture avec la touche Échap
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
             hideDiscTooltip();
         }
     });
 
-    // Délégation d'événement globale pour écouter les clics sur les disques
     document.addEventListener('click', (e) => {
         const trigger = e.target.closest('[data-disc]');
         if (trigger) {
