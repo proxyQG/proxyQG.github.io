@@ -19,6 +19,186 @@
       "en": "When the equipper is a {Stun} character and uses an {EX Special Attack} or {Chain Attack}, increases {CRIT DMG} of all squad members by [15%], and when the equipper's CRIT Rate is more than or equal to 50%, further increases {CRIT DMG} by [15%], lasting 15s. Repeated triggers reset the duration. Passive effects of the same name do not stack."
     }
   },
+  "Soul_Rock": {
+    "name": {
+      "fr": "Soul rock",
+      "en": "Soul Rock"
+    },
+    "img": "Soul_Rock.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Tour et canon",
+      "en": "Routine Cleanup: Tower and Cannon"
+    },
+    "twoPiece": {
+      "fr": "Augmente la DÉF de [16 %].",
+      "en": "Increases DEF by [16%]."
+    },
+    "fourPiece": {
+      "fr": "En subissant une attaque ennemie et en perdant des PV, l'équipementier subit [40 %] de DGT en moins pendant 2,5s. Cet effet peut se déclencher une fois toutes les 15s.",
+      "en": "Upon receiving an enemy attack and losing HP, the equipper takes [40%] less DMG for 2.5s. This effect can trigger once every 15s."
+    }
+  },
+  "Swing_Jazz": {
+    "name": {
+      "fr": "Jazz swing",
+      "en": "Swing Jazz"
+    },
+    "img": "Swing_Jazz.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Monstre et phénomène",
+      "en": "Routine Cleanup: Monster and Weirdo"
+    },
+    "twoPiece": {
+      "fr": "Augmente la Réc. d'énergie de [20 %].",
+      "en": "Energy Regen increases by [20%]."
+    },
+    "fourPiece": {
+      "fr": "Lancer un {Enchaînement} ou un {Ultime} augmente les DGT de tous les membres de l'escouade de [15 %] pendant 12s. Les effets passifs du même nom ne se cumulent pas.",
+      "en": "Launching a {Chain Attack} or {Ultimate} increases all squad members' DMG by [15%] for 12s. Passive effects of the same name do not stack."
+    }
+  },
+  "The_Sky_Ablaze": {
+    "name": {
+      "fr": "Ciel embrasé",
+      "en": "The Sky Ablaze"
+    },
+    "img": "The_Sky_Ablaze.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Pilote et mécha rebelle",
+      "en": "Routine Cleanup: Pilot and the Rebel Mech"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT d'Éther} de [10 %].",
+      "en": "Increases {Ether DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsque l'équipementier est un agent d'{attribut Éther}, ses {DGT CRIT} augmentent de [30 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou un {Ultime}, son ATQ augmente de [10 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+      "en": "When the equipper is an {Ether} attribute Agent, their {CRIT DMG} increases by [30%]. When the equipper uses an {EX Special Attack} or {Ultimate}, their ATK increases by [10%] for 30s. Repeated triggers reset the duration."
+    }
+  },
+  "Thorned_Rose": {
+    "name": {
+      "fr": "Rose couverte d'épines",
+      "en": "Thorned Rose"
+    },
+    "img": "Thorned_Rose.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Épine véloce et griffe fendue",
+      "en": "Routine Cleanup: Swiftspine and Splitclaw"
+    },
+    "twoPiece": {
+      "fr": "Augmente la DÉF de [16 %].",
+      "en": "Increases DEF by [16%]."
+    },
+    "fourPiece": {
+      "fr": "Les DGT de l'équipementier augmentent de [15 %]. Lorsque la DÉF initiale de l'équipementier est d'au moins [1 000] / [1 800] points, son {Taux CRIT} augmente respectivement de [8 %] / [16 %].",
+      "en": "The equipper's DMG increases by [15%]. When the equipper's initial DEF is at least [1,000]/[1,800], {CRIT Rate} increases by [8%]/[16%]."
+    }
+  },
+  "Thunder_Metal": {
+    "name": {
+      "fr": "Métal tonitruant",
+      "en": "Thunder Metal"
+    },
+    "img": "Thunder_Metal.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Chasseur et limier",
+      "en": "Routine Cleanup: Hunter and Hound"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT Électriques} de [10 %].",
+      "en": "Increases {Electric DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Tant qu'un ennemi en combat subit l'état {Électrocution}, l'ATQ de l'équipementier augmente de [28 %].",
+      "en": "As long as an enemy in combat is {Shocked}, the equipper's ATK is increased by [28%]."
+    }
+  },
+  "White_Water_Ballad": {
+    "name": {
+      "fr": "Mélopée des eaux blanches",
+      "en": "White Water Ballad"
+    },
+    "img": "White_Water_Ballad.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Tromperies et remparts",
+      "en": "Routine Cleanup: Deceits and Bulwarks"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT Physiques} de [10 %].",
+      "en": "Increases {Physical DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Tant que l'équipementier se trouve dans un {Voile d'éther}, son {Taux CRIT} augmente de [10 %]. Après avoir quitté le Voile d'éther, ce bonus persiste pendant 15s. Si l'équipementier est un personnage d'{Attaque}, activer ou prolonger un Voile d'éther confère [10 %] de Taux CRIT et [10 %] d'ATQ supplémentaires pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+      "en": "When the equipper is within any {Ether Veil}, their {CRIT Rate} increases by [10%]. After leaving Ether Veil, this bonus remains for 15s. If the equipper is an {Attack} character, activating an Ether Veil or extending an Ether Veil grants an additional [10%] CRIT Rate and [10%] ATK for 30s. Repeated triggers reset the duration."
+    }
+  },
+  "Woodpecker_Electro": {
+    "name": {
+      "fr": "Électro pivert",
+      "en": "Woodpecker Electro"
+    },
+    "img": "Woodpecker_Electro.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Tour et canon",
+      "en": "Routine Cleanup: Tower and Cannon"
+    },
+    "twoPiece": {
+      "fr": "Augmente le {Taux CRIT} de [8 %].",
+      "en": "Increases {CRIT Rate} by [8%]."
+    },
+    "fourPiece": {
+      "fr": "Infliger un coup critique à un ennemi avec une {Attaque de base}, un {Contre d'esquive} ou une {Attaque spéciale EX} augmente l'ATQ de l'équipementier de [9 %] pendant 6s. La durée du buff pour chaque type de compétence est calculée séparément.",
+      "en": "Landing a critical hit on an enemy with a {Basic Attack}, {Dodge Counter}, or {EX Special Attack} increases the equipper's ATK by [9%] for 6s. The buff duration for different skills are calculated separately."
+    }
+  },
+  "Wuthering_Salon": {
+    "name": {
+      "fr": "Salon des tourbillons",
+      "en": "Wuthering Salon"
+    },
+    "img": "Wuthering_Salon.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Pilote et mécha rebelle",
+      "en": "Routine Cleanup: Pilot and the Rebel Mech"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT de Vent} de [10 %].",
+      "en": "Increases {Wind DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsque l'équipementier utilise une {Attaque spéciale EX}, son {Adresse d'Anomalie} augmente de [25] pendant 40s (cumulable 2 fois). Les déclenchements répétés réinitialisent la durée. Lorsque l'équipementier déclenche {Balayé par le vent}, ses DGT augmentent de [18 %] pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+      "en": "When the equipper uses an {EX Special Attack}, their {Anomaly Proficiency} increases by [25] for 40s, stacking up to 2 times. Repeated triggers reset the duration. When the equipper triggers {Windswept}, their DMG increases by [18%] for 40s. Repeated triggers reset the duration."
+    }
+  },
+  "Yunkui_Tales": {
+    "name": {
+      "fr": "Contes de Yunkui",
+      "en": "Yunkui Tales"
+    },
+    "img": "Yunkui_Tales.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Mots et armes",
+      "en": "Routine Cleanup: Words and Weapons"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {PV max} de [10 %].",
+      "en": "Increases {Max HP} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lors de l'utilisation d'une {Attaque spéciale EX}, d'un {Enchaînement} ou d'un {Ultime}, le {Taux CRIT} augmente de [4 %] (cumulable 3 fois) pendant 15s. Les déclenchements répétés réinitialisent la durée. À 3 cumuls, les {DGT bruts} augmentent de [10 %].",
+      "en": "When using {EX Special Attack}, {Chain Attack}, or {Ultimate}, {CRIT Rate} increases by [4%], stacking up to 3 times and lasting 15s. Repeated triggers reset the duration. When having 3 stacks of this effect, {Sheer DMG} increases by [10%]."
+    }
+  },
   "Astral_Voice": {
     "name": {
       "fr": "Voix astrale",
