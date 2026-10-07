@@ -6,13 +6,22 @@ let factionsData = [];
 // ==========================================
 // 1. ÉTAT GLOBAL (STATE)
 // ==========================================
+let initialFavorites = [];
+try {
+    const stored = localStorage.getItem('zzz_favorites');
+    initialFavorites = stored ? JSON.parse(stored) : [];
+    if (!Array.isArray(initialFavorites)) initialFavorites = [];
+} catch (e) {
+    initialFavorites = [];
+}
+
 const State = {
     mode: 'elements',
     filters: { element: 'All', role: 'All', version: 'All' },
     search: '',
     faction: null,
     showFavorites: false,
-    favorites: JSON.parse(localStorage.getItem('zzz_favorites')) || [],
+    favorites: initialFavorites,
     filteredAgents: [],
     modalIndex: -1
 };
