@@ -18,5 +18,205 @@
       "fr": "Lorsque l'équipementier est un personnage d'{Étourdissement} et utilise une {Attaque spéciale EX} ou un {Enchaînement}, les {DGT CRIT} de tous les membres de l'escouade augmentent de [15 %]. De plus, lorsque le Taux CRIT de l'équipementier est supérieur ou égal à 50 %, les {DGT CRIT} augmentent encore de [15 %] supplémentaires pendant 15s. Les déclenchements répétés réinitialisent la durée. Les effets passifs du même nom ne se cumulent pas.",
       "en": "When the equipper is a {Stun} character and uses an {EX Special Attack} or {Chain Attack}, increases {CRIT DMG} of all squad members by [15%], and when the equipper's CRIT Rate is more than or equal to 50%, further increases {CRIT DMG} by [15%], lasting 15s. Repeated triggers reset the duration. Passive effects of the same name do not stack."
     }
+  },
+  "Astral_Voice": {
+    "name": {
+      "fr": "Voix astrale",
+      "en": "Astral Voice"
+    },
+    "img": "Astral_Voice.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Duo de monstres",
+      "en": "Routine Cleanup: Monster Duet"
+    },
+    "twoPiece": {
+      "fr": "Augmente l'ATQ de [10 %].",
+      "en": "Increases ATK by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsqu'un membre de l'escouade entre sur le terrain via une {Assistance rapide}, tous les membres de l'escouade gagnent 1 cumul d'{Astral} (3 cumuls max) pendant 15s. Les déclenchements répétés réinitialisent la durée. Chaque cumul d'{Astral} augmente les DGT infligés par le personnage entrant via une {Assistance rapide} de [8 %]. Une seule instance de cet effet peut exister dans la même escouade.",
+      "en": "Whenever any squad member enters the field using a {Quick Assist}, all squad members gain 1 stack of {Astral}, up to a maximum of 3 stacks, and lasting 15s. Repeated triggers reset the duration. Each stack of {Astral} increases the DMG dealt by the character entering the field using a {Quick Assist} by [8%]. Only one instance of this effect can exist in the same squad."
+    }
+  },
+  "Branch_Blade_Song": {
+    "name": {
+      "fr": "Chant des branches et des lames",
+      "en": "Branch & Blade Song"
+    },
+    "img": "Branch_Blade_Song.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Duo de monstres",
+      "en": "Routine Cleanup: Monster Duet"
+    },
+    "twoPiece": {
+      "fr": "Augmente les DGT CRIT de [16 %].",
+      "en": "Increases CRIT DMG by [16%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsque la Maîtrise d'Anomalie est supérieure ou égale à 115 points, les {DGT CRIT} de l'équipementier augmentent de [30 %]. Lorsqu'un membre de l'escouade applique {Gel} ou déclenche l'effet {Fracas} sur un ennemi, le {Taux CRIT} de l'équipementier augmente de [12 %] pendant 15s.",
+      "en": "When Anomaly Mastery exceeds or equals 115 points, the equipper's {CRIT DMG} increases by [30%]. When any squad member applies {Freeze} or triggers the {Shatter} effect on an enemy, the equipper's {CRIT Rate} increases by [12%], lasting 15s."
+    }
+  },
+  "Bunny_in_Wonderland": {
+    "name": {
+      "fr": "Lapin au pays des merveilles",
+      "en": "Bunny in Wonderland"
+    },
+    "img": "Bunny_in_Wonderland.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Char dompteur de dragons",
+      "en": "Routine Cleanup: Dragon Taming Chariot"
+    },
+    "twoPiece": {
+      "fr": "Augmente les PV max de [10 %].",
+      "en": "Increases Max HP by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsque l'équipementier est un personnage de {Défense} : lorsqu'il lance une {Attaque spéciale EX} ou qu'un membre de l'escouade déclenche une {Assistance défensive} ou une {Assistance évasive}, les DGT de toute l'escouade augmentent de [6 %] (cumulable jusqu'à 3 fois) pendant 25s. Les cumuls expirent un par un, et la durée est réinitialisée lors du gain ou de l'expiration d'un cumul. Les effets passifs du même nom ne se cumulent pas.",
+      "en": "When the equipper is a {Defense} character: When the equipper launches an {EX Special Attack} or any squad member triggers a {Defensive Assist} or {Evasive Assist}, all squad members' DMG increases by [6%], stacking up to 3 times, lasting 25s. Stacks decay one at a time, and duration refreshes when gained or decayed. Passive effects of the same name do not stack."
+    }
+  },
+  "Chaos_Jazz": {
+    "name": {
+      "fr": "Chaos Jazz",
+      "en": "Chaos Jazz"
+    },
+    "img": "Chaos_Jazz.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Chasseur et bête",
+      "en": "Routine Cleanup: Hunter and Beast"
+    },
+    "twoPiece": {
+      "fr": "Augmente l'Adresse d'Anomalie de [30].",
+      "en": "Increases Anomaly Proficiency by [30]."
+    },
+    "fourPiece": {
+      "fr": "Les {DGT de Feu} et les {DGT Électriques} augmentent de [15 %]. En dehors du terrain, les DGT des {Attaques spéciales EX} et des {Attaques d'assistance} augmentent de [20 %]. Lors de l'entrée sur le terrain, ce buff persiste pendant 5s (déclenchable une fois toutes les 7,5s).",
+      "en": "{Fire DMG} and {Electric DMG} increases by [15%]. While off-field, {EX Special Attack} and {Assist Attack} DMG increases by [20%]. When switching on-field, this buff continues for 5s, and this continuation effect can trigger once every 7.5s."
+    }
+  },
+  "Chaotic_Metal": {
+    "name": {
+      "fr": "Métal chaotique",
+      "en": "Chaotic Metal"
+    },
+    "img": "Chaotic_Metal.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Monstre et phénomène",
+      "en": "Routine Cleanup: Monster and Weirdo"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT d'Éther} de [10 %].",
+      "en": "Increases {Ether DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Les {DGT CRIT} de l'équipementier augmentent de [20 %]. Lorsqu'un membre de l'escouade déclenche les DGT supplémentaires de {Corruption}, cet effet augmente de [5,5 %] supplémentaires pendant 8s (cumulable jusqu'à 6 fois). Les déclenchements répétés réinitialisent la durée.",
+      "en": "The equipper's {CRIT DMG} increases by [20%]. When any character in the squad triggers {Corruption}'s additional DMG, this effect further increases by [5.5%] for 8s, stacking up to 6 times. Repeated triggers reset the duration."
+    }
+  },
+  "Dawn_Bloom": {
+    "name": {
+      "fr": "Floraison de l'aube",
+      "en": "Dawn's Bloom"
+    },
+    "img": "Dawn_Bloom.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Loi d'airain et hors-la-loi",
+      "en": "Routine Cleanup: Iron Law and Outlaws"
+    },
+    "twoPiece": {
+      "fr": "Augmente les DGT des {Attaques de base} de [15 %].",
+      "en": "Increases {Basic Attack} DMG by [15%]."
+    },
+    "fourPiece": {
+      "fr": "Augmente les DGT des {Attaques de base} de [20 %]. Lorsque équipé par un personnage d'{Attaque}, lancer une {Attaque spéciale EX} ou un {Ultime} augmente encore les DGT des {Attaques de base} de [20 %] supplémentaires pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+      "en": "Increases {Basic Attack} DMG by [20%]. When equipped by an {Attack} character, using an {EX Special Attack} or {Ultimate} will further increase {Basic Attack} DMG by [20%] for 25s. Repeated triggers reset the duration."
+    }
+  },
+  "Fanged_Metal": {
+    "name": {
+      "fr": "Métal crochu",
+      "en": "Fanged Metal"
+    },
+    "img": "Fanged_Metal.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Poing et pistolet",
+      "en": "Routine Cleanup: Fist and Gun"
+    },
+    "twoPiece": {
+      "fr": "Augmente les {DGT Physiques} de [10 %].",
+      "en": "Increases {Physical DMG} by [10%]."
+    },
+    "fourPiece": {
+      "fr": "Lorsqu'un membre de l'escouade inflige {Assaut} à un ennemi, l'équipementier inflige [35 %] de DGT supplémentaires à la cible pendant 12s.",
+      "en": "Whenever a squad member inflicts {Assault} on an enemy, the equipper deals [35%] additional DMG to the target for 12s."
+    }
+  },
+  "Feathered_Fate": {
+    "name": {
+      "fr": "Plumes du destin",
+      "en": "Feathered Fate"
+    },
+    "img": "Feathered_Fate.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Épine véloce et griffe fendue",
+      "en": "Routine Cleanup: Swiftspine and Splitclaw"
+    },
+    "twoPiece": {
+      "fr": "Augmente l'Adresse d'Anomalie de [30].",
+      "en": "Increases Anomaly Proficiency by [30]."
+    },
+    "fourPiece": {
+      "fr": "Lorsque l'équipementier entre en combat ou est déployé comme personnage actif, son Adresse d'Anomalie augmente de [50]. Si l'équipementier est de type {Lumiflux}, les DGT d'Anomalie d'attribut augmentent de [15 %] pendant 15s. Ce buff reste actif lorsque le personnage est hors-terrain.",
+      "en": "When the equipper enters the battlefield or is switched in as the active character, Anomaly Proficiency increases by [50]. If the equipper is a {Lumiflux} character, Attribute Anomaly DMG increases by [15%], lasting 15s. This buff remains active while the equipper is off-field."
+    }
+  },
+  "Freedom_Blues": {
+    "name": {
+      "fr": "Blues de la liberté",
+      "en": "Freedom Blues"
+    },
+    "img": "Freedom_Blues.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Croc acéré et hache émoussée",
+      "en": "Routine Cleanup: Sharp Fang and Blunt Axe"
+    },
+    "twoPiece": {
+      "fr": "Augmente l'Adresse d'Anomalie de [30].",
+      "en": "Increases Anomaly Proficiency by [30]."
+    },
+    "fourPiece": {
+      "fr": "Lorsqu'une {Attaque spéciale EX} touche un ennemi, réduit la RÉS à l'accumulation d'Anomalie de l'attribut de l'équipementier de la cible de [20 %] pendant 8s. Cet effet ne se cumule pas avec d'autres du même attribut.",
+      "en": "When an {EX Special Attack} hits an enemy, reduce the target's Anomaly Buildup RES to the equipper's Attribute by [20%] for 8s. This effect does not stack with others of the same attribute."
+    }
+  },
+  "Hormone_Punk": {
+    "name": {
+      "fr": "Punk hormonal",
+      "en": "Hormone Punk"
+    },
+    "img": "Hormone_Punk.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine : Poing et pistolet",
+      "en": "Routine Cleanup: Fist and Gun"
+    },
+    "twoPiece": {
+      "fr": "Augmente l'ATQ de [10 %].",
+      "en": "Increases ATK by [10%]."
+    },
+    "fourPiece": {
+      "fr": "En entrant en combat ou lors du déploiement, l'ATQ de l'équipementier augmente de [25 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.",
+      "en": "Upon entering combat or switching in, its user's ATK increases by [25%] for 10s. This effect can trigger once every 20s."
+    }
   }
 }
