@@ -84,23 +84,17 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
 
-                <!-- Scène Vinyle + Pochette Bardic Needle -->
-                <div class="disc-stage">
-                    <div class="disc-sleeve">
-                        <span class="sleeve-brand">BARDIC NEEDLE</span>
-                        <div class="w-5 h-5 rounded-full border border-white/20 self-center opacity-60"></div>
-                        <span class="sleeve-sub">MASTER TAPE</span>
-                    </div>
-                    <div class="disc-vinyl-runner">
-                        <div class="disc-vinyl-plate">
-                            <img src="assets/Disque/${disc.img}" alt="${t(disc.name)}" class="disc-vinyl-img">
-                        </div>
+                <!-- Platine Vinyle Centrée -->
+                <div class="disc-turntable">
+                    <div class="disc-platter-ring"></div>
+                    <div class="disc-vinyl-plate">
+                        <img src="assets/Disque/${disc.img}" alt="${t(disc.name)}" class="disc-vinyl-img">
                     </div>
                 </div>
 
                 <!-- En-tête : Titre & Badge de farm -->
                 <div class="text-center mb-5">
-                    <div class="flex items-center justify-center gap-1.5 mb-1">
+                    <div class="flex items-center justify-center gap-1.5 mb-1.5">
                         ${ranksHTML}
                     </div>
                     <h3 class="text-white font-display font-black text-xl uppercase tracking-wider drop-shadow-md">
