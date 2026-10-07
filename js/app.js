@@ -615,15 +615,31 @@ function initKeyboardNavigation() {
 window.addEventListener('popstate', () => {
     const modal = document.getElementById('agentDetailModal');
     const agentParam = new URLSearchParams(window.location.search).get('agent');
+    const tooltip = document.getElementById('proxy-tooltip');
 
+    // 1. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
+    if (tooltip && tooltip.classList.contains('visible')) {
+        if (typeof window.hideTooltip === 'function') {
+            window.hideTooltip(true);
+        }
+        return;
+    }
+
+    // 2. Gestion normale de l'agent
     if (agentParam) {
-        // Si un agent est dans l'URL, on le cherche dans les données pour garantir la bonne casse
+        const currentOpenAgent = (State.modalIndex !== -1 && State.filteredAgents[State.modalIndex]) 
+            ? State.filteredAgents[State.modalIndex].name 
+            : null;
+        // Si l'agent est déjà affiché à l'écran, on évite de recharger pour ne pas perdre la position de défilement
+        if (modal && !modal.classList.contains('hidden') && currentOpenAgent && currentOpenAgent.toLowerCase() === agentParam.toLowerCase()) {
+            return;
+        }
+
         const matchingAgent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
         if (matchingAgent) {
             window.openAgentDetail(matchingAgent.name, false);
         }
     } else if (modal && !modal.classList.contains('hidden')) {
-        // Si l'URL est revenue à l'accueil et que la modale est ouverte, on la ferme
         window.closeModal('agentDetailModal', false);
     }
 });
