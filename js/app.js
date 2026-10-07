@@ -539,7 +539,9 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
     splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
 }
-        if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
+        const modalScroll = document.getElementById('agentModalScroll');
+if (modalScroll) modalScroll.scrollTo(0, 0);
+if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
     }, 50);
 };
 
