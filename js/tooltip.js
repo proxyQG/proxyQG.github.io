@@ -10,6 +10,7 @@
         'Physical': { fr: 'Physique', en: 'Physical' },
         'Fire': { fr: 'Feu', en: 'Fire' },
         'Ice': { fr: 'Glace', en: 'Ice' },
+        'Frost': { fr: 'Givre', en: 'Frost' },
         'Electric': { fr: 'Électrique', en: 'Electric' },
         'Ether': { fr: 'Éther', en: 'Ether' },
         'Wind': { fr: 'Vent', en: 'Wind' },
@@ -20,7 +21,9 @@
         'Stun': { fr: 'Étourdissement', en: 'Stun' },
         'Anomaly': { fr: 'Anomalie', en: 'Anomaly' },
         'Support': { fr: 'Soutien', en: 'Support' },
-        'Defense': { fr: 'Défense', en: 'Defense' }
+        'Defense': { fr: 'Défense', en: 'Defense' },
+        'Armorer': { fr: 'Armurier', en: 'Armorer' },
+        'Rupture': { fr: 'Rupture', en: 'Rupture' }
     };
 
     function ttTranslate(term, lang) {
