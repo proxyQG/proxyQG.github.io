@@ -108,10 +108,19 @@ function buildDiscs(data, c, txt) {
             <div class="absolute -top-3 -right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                 <div class="flex -space-x-4">
-                    <div class="relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg"><img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover"></div>
-                    <div class="relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden"><img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover"></div>
+                    <!-- Disque 4P cliquable -->
+                    <div data-disc="${escapeHTML(disc.set1)}" title="${escapeHTML(tDisc(disc.set1Name))}" class="cursor-pointer hover:scale-110 hover:z-20 transition-transform relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg">
+                        <img src="assets/Disque/${disc.set1}.webp" loading="lazy" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Disque 2P cliquable -->
+                    <div data-disc="${escapeHTML(disc.set2)}" title="${escapeHTML(tDisc(disc.set2Name))}" class="cursor-pointer hover:scale-110 hover:z-20 transition-transform relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 hover:opacity-100 overflow-hidden">
+                        <img src="assets/Disque/${disc.set2}.webp" loading="lazy" class="w-full h-full object-cover">
+                    </div>
                 </div>
-                <div class="flex flex-col"><span class="font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span><span class="font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span></div>
+                <div class="flex flex-col">
+                    <span data-disc="${escapeHTML(disc.set1)}" class="cursor-pointer hover:text-[#d7f70c] transition-colors font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span>
+                    <span data-disc="${escapeHTML(disc.set2)}" class="cursor-pointer hover:text-[#d7f70c] transition-colors font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span>
+                </div>
             </div>
             ${noteHTML}
         </div>`;
