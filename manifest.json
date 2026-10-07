@@ -24,15 +24,15 @@
   ],
   "screenshots": [
     {
-      "src": "assets/screenshot-mobile.png",
+      "src": "assets/screenshot-mobile.webp",
       "sizes": "1080x1920",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow"
     },
     {
-      "src": "assets/screenshot-pc.png",
+      "src": "assets/screenshot-pc.webp",
       "sizes": "1920x1080",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide"
     }
   ]
