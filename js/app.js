@@ -283,7 +283,8 @@ const factionTranslations = {
     "Département de stratégie externe": "External Strategy Department",
     "Département de la patrouille aérienne": "Airspace Patrol Department",
     "Entente de Dayat": "Void Hunters",
-    "Phaéthon": "Phaethon"
+    "Phaéthon": "Phaethon",
+    "Atelier Flint": "Flint Workshop"
 };
 
 function renderFactions() {
