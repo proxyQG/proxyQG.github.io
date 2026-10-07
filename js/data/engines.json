@@ -3489,13 +3489,56 @@
       }
     ]
   },
+  "Catty Luck": {
+    "name": {
+      "fr": "Chance féline",
+      "en": "Catty Luck"
+    },
+    "rank": "A",
+    "specialty": "Armorer",
+    "img": "W-Engine_Catty_Luck.webp",
+    "stats": {
+      "base": "24 - 356",
+      "advancedLabel": {
+        "fr": "DÉF %",
+        "en": "DEF %"
+      },
+      "advanced": "16% - 40%"
+    },
+    "passiveName": {
+      "fr": "Coussinet porte-bonheur",
+      "en": "Lucky Pawpad"
+    },
+    "overclocks": [
+      {
+        "fr": "La DÉF augmente de [8 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, la DÉF augmente de [8 %] supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "DEF increases by [8%]. When using {EX Special Attack}, DEF increases by an additional [8%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La DÉF augmente de [9 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, la DÉF augmente de [9 %] supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "DEF increases by [9%]. When using {EX Special Attack}, DEF increases by an additional [9%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La DÉF augmente de [10 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, la DÉF augmente de [10 %] supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "DEF increases by [10%]. When using {EX Special Attack}, DEF increases by an additional [10%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La DÉF augmente de [11 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, la DÉF augmente de [11 %] supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "DEF increases by [11%]. When using {EX Special Attack}, DEF increases by an additional [11%] for 40s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "La DÉF augmente de [12 %]. Lors de l'utilisation d'une {Attaque spéciale EX}, la DÉF augmente de [12 %] supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "DEF increases by [12%]. When using {EX Special Attack}, DEF increases by an additional [12%] for 40s. Repeated triggers reset the duration."
+      }
+    ]
+  },
   "Crimson Thirst": {
     "name": {
       "fr": "Soif cramoisie",
       "en": "Crimson Thirst"
     },
     "rank": "S",
-    "specialty": "Rupture",
+    "specialty": "Armorer",
     "element": "Electric",
     "img": "W-Engine_Crimson_Thirst.webp",
     "stats": {
@@ -3539,7 +3582,7 @@
       "en": "Bloodmarrow Coffer"
     },
     "rank": "A",
-    "specialty": "Rupture",
+    "specialty": "Armorer",
     "img": "W-Engine_Bloodmarrow_Coffer.webp",
     "stats": {
       "base": "24 - 356",
