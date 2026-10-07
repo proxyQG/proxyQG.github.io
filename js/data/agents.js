@@ -17,7 +17,7 @@ export const iconMap = {
     'Electric': 'electrique.png',
     'Ether': 'Ether.png',
     'Lumiflux': 'Lumiflux.png',
-    'Auric Ink': 'Ether.png'
+    'Auric Ink': 'Auric_Ink.png'
 };
 
 export const filterGroups = {
