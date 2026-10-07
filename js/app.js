@@ -52,13 +52,15 @@ let searchTimeout;
 // 3. INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    // On télécharge les données pile au moment où la page est prête
-    const response = await fetch('./js/data/agents.json');
-    agentsData = await response.json();
-
-    // NOUVEAU : Chargement de tes factions avec anti-cache :
-    const factionsResponse = await fetch('./js/data/factions.json');
-    factionsData = await factionsResponse.json();
+    // Téléchargement simultané des deux fichiers en parallèle
+    const [agentsRes, factionsRes] = await Promise.all([
+        fetch('./js/data/agents.json'),
+        fetch('./js/data/factions.json')
+    ]);
+    [agentsData, factionsData] = await Promise.all([
+        agentsRes.json(),
+        factionsRes.json()
+    ]);
 
     updateStaticUI();
     initTabs();
@@ -71,7 +73,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     initKeyboardNavigation();
     initModals();
     initMobileDrawer();
-    initMobileTooltips();
     
     renderFactions();
     buildInitialGrid(); // NOUVEAU : Génère le HTML une seule fois
@@ -820,54 +821,6 @@ function initMobileDrawer() {
     DOM.mobileFilterBtn.addEventListener('click', () => { window.openModal('mobileFilterModal'); updateAllSliders(State.mode); });
     if (DOM.closeMobileFilterBtn) { DOM.closeMobileFilterBtn.addEventListener('click', () => { window.closeModal('mobileFilterModal'); }); }
 }
-
-
-// ==========================================
-// 12. GESTION MOBILE DES INFOBULLES (TOOLTIPS)
-// ==========================================
-let touchStartY = 0;
-let touchStartX = 0;
-let isScrolling = false;
-
-function initMobileTooltips() {
-    // 1. Détection du début du geste
-    document.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-        touchStartX = e.touches[0].clientX;
-        isScrolling = false;
-    }, { passive: true });
-
-    // 2. Si le doigt bouge de plus de 10px, c'est un scroll (pas un tap)
-    document.addEventListener('touchmove', (e) => {
-        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
-        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
-
-        if (deltaY > 10 || deltaX > 10) {
-            isScrolling = true;
-        }
-    }, { passive: true });
-
-    // 3. Fermer l'infobulle au clic à l'extérieur (sur mobile)
-    document.addEventListener('touchend', (e) => {
-        if (window.innerWidth <= 768 && !isScrolling) {
-            const tooltip = document.getElementById('proxy-tooltip');
-            if (!tooltip) return;
-
-            const isClickInside = tooltip.contains(e.target);
-            // Vérifie si l'élément touché est un déclencheur d'infobulle
-            const isTrigger = e.target.closest('[data-tooltip]') || e.target.closest('.tooltip-trigger');
-
-            if (!isClickInside && !isTrigger && tooltip.classList.contains('visible')) {
-                if (typeof window.hideTooltip === 'function') {
-                    window.hideTooltip();
-                } else {
-                    tooltip.classList.remove('visible');
-                }
-            }
-        }
-    });
-}
-
 
 // ==========================================
 // 13. SYSTÈME D'INSTALLATION PWA PREMIUM (INCLUANT iOS)
