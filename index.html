@@ -41,6 +41,8 @@
     </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <style>
@@ -82,9 +84,9 @@
         }
 
         /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
-        .agent-card-container, #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
-            will-change: transform, opacity;
-        }
+        #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
+    will-change: transform, opacity;
+}
 
         /* --- NOUVEAU : Effet de reflet (Shine) pour le bouton PWA --- */
         @keyframes shine {
