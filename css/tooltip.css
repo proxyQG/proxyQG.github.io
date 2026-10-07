@@ -267,6 +267,11 @@
         transform: translateY(0);
     }
 
+    /* Évite le conflit de défilement interne sur mobile */
+    .tt-body {
+        overflow: visible;
+    }
+
     /* Poignée pour indiquer le Swipe-to-close */
     #proxy-tooltip::before {
         content: "";
