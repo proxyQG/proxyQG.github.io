@@ -533,7 +533,12 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     window.openModal('agentDetailModal');
     
     setTimeout(() => {
-        if (splashImg) { splashImg.style.opacity = '1'; splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? 'translateY(0) scale(1.4)' : 'translateY(0) scale(1)'; }
+        if (splashImg) { 
+    splashImg.style.opacity = '1'; 
+    const isMobile = window.innerWidth < 768;
+    const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
+    splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
+}
         if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
     }, 50);
 };
