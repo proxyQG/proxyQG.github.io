@@ -102,7 +102,7 @@
             .replace(/\{(.*?)\}/g, '<strong>$1</strong>');
     }
 
-    function hideTooltip() {
+    function hideTooltip(fromPopstate = false) {
         if (tooltipEl) {
             tooltipEl.classList.remove('visible');
             tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
@@ -112,6 +112,11 @@
             overlayEl.style.opacity = ''; // Nettoie l'opacité du Swipe
         }
         currentEngineKey = null;
+
+        // Si l'infobulle est fermée via un clic ou swipe, on nettoie l'historique
+        if (!fromPopstate && window.history.state?.tooltipOpen) {
+            window.history.back();
+        }
     }
     window.hideTooltip = hideTooltip;
 
@@ -179,7 +184,8 @@
             if (trigger) {
                 const isValid = populateTooltip(trigger.dataset.engine, 0);
                 if (isValid) {
-                    // Sépare le calcul du DOM de l'animation CSS pour supprimer les saccades
+                    // Enregistre l'infobulle dans l'historique pour gérer le retour mobile
+                    window.history.pushState({ tooltipOpen: true }, '', window.location.href);
                     requestAnimationFrame(() => {
                         requestAnimationFrame(() => {
                             tooltipEl.classList.add('visible');
