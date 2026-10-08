@@ -140,21 +140,29 @@
             </div>
         `;
 
+        // Enregistre l'ouverture du vinyle dans l'historique mobile
+        window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
+
         overlayEl.classList.add('visible');
         modalEl.classList.add('visible');
     }
 
-    function hideDiscTooltip() {
+    function hideDiscTooltip(fromPopstate = false) {
         if (overlayEl) overlayEl.classList.remove('visible');
         if (modalEl) modalEl.classList.remove('visible');
+
+        // Nettoie l'historique uniquement si on a fermé par un clic (croix/overlay), swipe ou Echap
+        if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
+            window.history.back();
+        }
     }
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
             hideDiscTooltip();
+            e.stopImmediatePropagation(); // Évite de fermer la fiche de l'agent en même temps
         }
     });
-
     document.addEventListener('click', (e) => {
         const trigger = e.target.closest('[data-disc]');
         if (trigger) {
