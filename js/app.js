@@ -565,9 +565,19 @@ function updateModalNavigation() {
     prevBtn.classList.toggle('opacity-0', !hasPrev); prevBtn.classList.toggle('pointer-events-none', !hasPrev); prevBtn.classList.toggle('-translate-x-10', !hasPrev);
     nextBtn.classList.toggle('opacity-0', !hasNext); nextBtn.classList.toggle('pointer-events-none', !hasNext); nextBtn.classList.toggle('translate-x-10', !hasNext);
 
-    if (hasPrev) prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(State.filteredAgents[State.modalIndex - 1].name); };
-    if (hasNext) nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name); };
+    // Préchargement immédiat en cache des splashs précédent et suivant
+    if (hasPrev) {
+        const prevAgentName = State.filteredAgents[State.modalIndex - 1].name;
+        window.preloadSplash(prevAgentName);
+        prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(prevAgentName); };
+    }
+    if (hasNext) {
+        const nextAgentName = State.filteredAgents[State.modalIndex + 1].name;
+        window.preloadSplash(nextAgentName);
+        nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(nextAgentName); };
+    }
 }
+
 
 function initModals() {
     const openModalBtn = document.getElementById('openModalBtn');
