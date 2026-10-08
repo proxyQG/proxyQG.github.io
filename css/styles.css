@@ -175,3 +175,20 @@ body {
     display: none !important;
     height: 0 !important;
 }
+
+
+/* --- CADRAGE SPÉCIFIQUE DES SPLASH ARTS PAR AGENT --- */
+#agentSplashImage {
+    transform: translateY(0) scale(1);
+}
+
+/* Cadrage sur mesure pour Remielle (ailes larges) */
+#agentSplashImage[data-agent="remielle"] {
+    transform: translateY(0) scale(1.4);
+}
+
+@media (max-width: 768px) {
+    #agentSplashImage[data-agent="remielle"] {
+        transform: translateY(25px) scale(1.2);
+    }
+}
