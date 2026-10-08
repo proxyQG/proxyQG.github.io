@@ -545,11 +545,9 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     
     setTimeout(() => {
         if (splashImg) { 
-    splashImg.style.opacity = '1'; 
-    const isMobile = window.innerWidth < 768;
-    const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
-    splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
-}
+            splashImg.style.opacity = '1'; 
+            splashImg.setAttribute('data-agent', agentName.toLowerCase());
+        }
                 const modalScroll = document.getElementById('agentModalScroll');
         if (modalScroll) modalScroll.scrollTo(0, 0);
         if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
@@ -664,8 +662,17 @@ window.addEventListener('popstate', () => {
     const modal = document.getElementById('agentDetailModal');
     const agentParam = new URLSearchParams(window.location.search).get('agent');
     const tooltip = document.getElementById('proxy-tooltip');
+    const discModal = document.getElementById('disc-tooltip-modal');
 
-    // 1. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
+    // 1. Si la platine vinyle est visible, le retour mobile ferme UNIQUEMENT le vinyle
+    if (discModal && discModal.classList.contains('visible')) {
+        if (typeof window.hideDiscTooltip === 'function') {
+            window.hideDiscTooltip(true);
+        }
+        return;
+    }
+
+    // 2. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle moteur
     if (tooltip && tooltip.classList.contains('visible')) {
         if (typeof window.hideTooltip === 'function') {
             window.hideTooltip(true);
@@ -673,7 +680,7 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-    // 2. Gestion normale de l'agent
+    // 3. Gestion normale de l'agent
     if (agentParam) {
         const currentOpenAgent = (State.modalIndex !== -1 && State.filteredAgents[State.modalIndex]) 
             ? State.filteredAgents[State.modalIndex].name 
