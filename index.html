@@ -98,8 +98,11 @@
             animation: shine 1.5s infinite;
         }
     </style>
+    <div id="fast-mask" style="display: none; position: fixed; inset: 0; background: #050505; z-index: 999999; transition: opacity 0.4s ease;"></div>
     <script>
-        if (window.location.search.includes('agent=')) document.write('<div id="fast-mask"></div>');
+        if (window.location.search.includes('agent=')) {
+            document.getElementById('fast-mask').style.display = 'block';
+        }
     </script>
 <!-- Nettoyage de l'ancien Service Worker -->
     <script>
