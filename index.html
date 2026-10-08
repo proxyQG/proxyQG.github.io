@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-57NMW247');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="JnAQvmeTYDQ1-Pw6A3p9J5e-nJPWJevkNDQqbLA5EqI" />
+    
+    <!-- SEO & Présentation Google -->
+    <title>ProxyQG - Zenless Zone Zero Guides</title>
+    <meta name="description" content="La base de données ultime pour Zenless Zone Zero (ZZZ). Découvrez les meilleurs builds, équipes, disques et statistiques pour tous les agents.">
+    <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds" />
+    <meta property="og:site_name" content="ProxyQG">
+    <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées." />
+    <link rel="manifest" href="manifest.json">
+    <link href="css/disc-tooltip.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ProxyQG">
+    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
+    <link rel="stylesheet" href="css/tooltip.css">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://proxyqg.github.io/" />
+    <meta property="og:image" content="https://proxyqg.github.io/assets/Icone/logo.webp" /> 
+    <meta name="theme-color" content="#d7f70c">
+    <link rel="icon" type="image/webp" href="assets/Icone/logo.webp" />
+    
+    <script>
+      const originalWarn = console.warn;
+      console.warn = (...args) => {
+        if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+        originalWarn(...args);
+      };
+    </script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        #fast-mask { position: fixed; inset: 0; background: #050505; z-index: 999999; transition: opacity 0.4s ease; }
+        
+        .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
+        .tab-pill { flex: 1; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
+        @media (min-width: 768px) { .tab-pill { font-size: 0.75rem; padding: 0.6rem 1rem; } }
+        .tab-pill:hover { color: #ffffff; }
+        .tab-pill.active { color: #000000; }
+        
+        .tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
+        
+        .filter-btn { background-color: #151515; color: #d4d4d8; border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; }
+        .filter-btn:hover { border-color: rgba(255, 255, 255, 0.25); color: #ffffff; }
+        .filter-btn.active { background-color: #ffffff !important; color: #000000 !important; border-color: #ffffff !important; box-shadow: 0 0 20px rgba(255, 255, 255, 0.45) !important; font-weight: 900 !important; }
+        .filter-btn.active img.role-icon { filter: brightness(0) !important; }
+        @keyframes shimmerLaser { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .laser-beam { animation: shimmerLaser 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .lang-switch-wrap { position: relative; width: 80px; height: 32px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; display: flex; align-items: center; cursor: pointer; backdrop-filter: blur(10px); }
+        .lang-indicator { position: absolute; height: calc(100% - 6px); width: calc(50% - 3px); top: 3px; left: 3px; background: #d7f70c; border-radius: 99px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 10px rgba(215,247,12,0.4); }
+        .lang-switch-wrap[data-active="en"] .lang-indicator { transform: translateX(100%); }
+        .lang-option { flex: 1; text-align: center; font-size: 11px; font-weight: 900; z-index: 10; color: #fff; transition: color 0.3s; }
+        .lang-switch-wrap[data-active="fr"] .lang-option.fr { color: #000; }
+        .lang-switch-wrap[data-active="fr"] .lang-option.en { color: #888; }
+        .lang-switch-wrap[data-active="en"] .lang-option.en { color: #000; }
+        .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #888; }
+
+        .mindscape-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .mindscape-node:hover { transform: scale(1.2); }
+        .mindscape-node.active { transform: scale(1.25); box-shadow: 0 0 15px currentColor; }
+        .mindscape-line { transition: width 0.5s ease-out; }
+
+        /* Animation Ascension */
+        @keyframes rainUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-200%); }
+        }
+
+        /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
+        #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
+    will-change: transform, opacity;
+}
+
+        /* --- NOUVEAU : Effet de reflet (Shine) pour le bouton PWA --- */
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .animate-shine {
+            animation: shine 1.5s infinite;
+        }
+    </style>
+    <script>
+        if (window.location.search.includes('agent=')) document.write('<div id="fast-mask"></div>');
+    </script>
+<!-- Nettoyage de l'ancien Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Ancien Service Worker désinstallé.');
+                }
+            });
+        }
+    </script>
+</head>
+<body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57NMW247"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="toastNotification" class="fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-32 opacity-0 z-[300] transition-all duration-500 pointer-events-none flex items-center gap-4 bg-[#0a0a0a]/95 border border-yellow-400/50 px-8 py-4 rounded-full shadow-[0_15px_50px_-5px_rgba(215,247,12,0.4)]">
+        <div class="relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-yellow-400 rounded-full blur animate-ping opacity-50"></div>
+            <div class="bg-yellow-400 rounded-full p-2 relative z-10"><svg class="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg></div>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-white font-display font-black uppercase tracking-widest text-sm drop-shadow-md" data-i18n="copied">Lien copié</span>
+            <span class="text-zinc-500 text-[10px] font-bold tracking-widest uppercase" data-i18n="readyToShare">Prêt à être partagé</span>
+        </div>
+    </div>
+
+    <header class="bg-black h-16 md:h-20 border-b border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.9)] z-50 shrink-0 relative flex items-center justify-between px-3 md:px-10">
+
+        <!-- Logo (Aligné à gauche sur mobile, Centrage absolu sur PC) -->
+        <a href="index.html" class="flex items-center gap-2 md:gap-4 hover:scale-105 transition-transform duration-500 cursor-pointer md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+            <div class="bg-yellow-400 px-3 md:px-5 py-1 md:py-1.5 skew-x-[-15deg] shadow-[0_0_15px_rgba(232,168,56,0.3)]">
+                <span class="block text-black font-display font-black italic text-xl md:text-3xl skew-x-[15deg]">ZZZ</span>
+            </div>
+            <h1 class="text-white font-display font-black italic text-xl md:text-3xl uppercase chromatic-text drop-shadow-lg">GUIDES</h1>
+        </a>
+
+        <!-- Conteneur Droit (Boutons PWA & Langue) -->
+        <div class="ml-auto flex items-center gap-3 md:gap-4 shrink-0 z-20">
+            <!-- Bouton PWA (Pilule compacte sur mobile, Pilule large sur PC) -->
+            <button id="pwa-install-btn" class="hidden group relative overflow-hidden items-center justify-center gap-1.5 px-3 py-1.5 md:px-4 md:py-1.5 rounded-full font-black uppercase tracking-wide bg-[#1a1a1a] border border-[#e2ff00]/40 text-[#e2ff00] transition-all duration-300 hover:border-[#e2ff00] hover:shadow-[0_0_15px_rgba(226,255,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 z-50">
+                <svg class="w-3.5 h-3.5 md:w-4 md:h-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <!-- Texte affiché uniquement sur PC -->
+                <span data-i18n="installApp" class="relative z-10 hidden sm:block text-xs whitespace-nowrap">INSTALLER L'APP</span>
+                <!-- Texte ultra-court affiché uniquement sur Mobile -->
+                <span class="relative z-10 sm:hidden text-[10px] whitespace-nowrap pt-[1px]">APP</span>
+                
+                <div class="absolute inset-0 w-[50%] bg-gradient-to-r from-transparent via-[#e2ff00]/20 to-transparent -translate-x-full group-hover:animate-shine z-0 hidden md:block"></div>
+            </button>
+
+            <!-- Bouton Langue -->
+            <div id="langSwitcher" class="lang-switch-wrap shrink-0" data-active="fr">
+                <div class="lang-indicator"></div>
+                <div class="lang-option fr">FR</div>
+                <div class="lang-option en">EN</div>
+            </div>
+        </div>
+        
+    </header>
+
+    <div class="flex flex-1 overflow-hidden relative">
+        <!-- Overlay Mobile (Flou retiré pour perf mobile) -->
+        <div id="mobileOverlay" class="fixed inset-0 bg-black/95 z-[150] hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+        <!-- SIDEBAR BUREAU -->
+        <aside class="w-20 md:w-[340px] bg-[#0a0a0a] border-r border-zinc-800 flex flex-col shrink-0 z-40 relative hidden md:flex transition-all duration-300">
+            <div class="p-5 flex flex-col shrink-0 z-10 bg-[#0a0a0a] shadow-2xl relative custom-scrollbar overflow-y-auto max-h-full pb-10">
+                <div class="relative w-full z-50 group mb-6">
+                    <div class="relative flex items-center">
+                        <input type="text" id="searchInput" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Rechercher un agent..." class="w-full bg-[#151515] border-2 border-zinc-800 rounded-xl py-3.5 pl-4 pr-10 text-white text-sm focus:outline-none focus:border-yellow-400 focus:bg-[#1a1a1a] transition-all shadow-inner placeholder-zinc-600">
+                        <button id="clearSearchBtn" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    </div>
+                    <div id="searchDropdown" class="absolute left-0 right-0 top-full mt-2 bg-black/95 border border-zinc-700 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.9)] max-h-72 overflow-y-auto flex flex-col hidden divide-y divide-zinc-800 backdrop-blur-xl transform origin-top transition-all duration-300 z-[150]"></div>
+                </div>
+
+                <div id="mainTabContainer" class="tab-container mb-5" data-active="elements">
+                    <div class="tab-slider"></div>
+                    <button id="tabElements" class="tab-pill active"><span data-i18n="elements">Éléments</span></button>
+                    <button id="tabRoles" class="tab-pill"><span data-i18n="roles">Rôles</span></button>
+                    <button id="tabVersions" class="tab-pill"><span data-i18n="versions">Versions</span></button>
+                </div>
+
+                <div class="mb-4">
+                    <div id="groupElements">
+                        <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="elements">Éléments</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button data-filter="All" class="filter-btn filter-elem-btn active col-span-3 px-3 py-2 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                            <button data-filter="Physical" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
+                            <button data-filter="Fire" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
+                            <button data-filter="Ice" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
+                            <button data-filter="Electric" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Électrique</span></button>
+                            <button data-filter="Ether" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                            <button data-filter="Wind" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
+                            <button data-filter="Lumiflux" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
+                            <button data-filter="Honed Edge" class="filter-btn filter-elem-btn px-1 py-2 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
+                            <button data-filter="Auric Ink" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
+                        </div>
+                    </div>
+
+                    <div id="groupRoles" class="hidden">
+                        <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="roles">Rôles</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button data-role="All" class="filter-btn filter-role-btn active col-span-3 px-3 py-2 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                            <button data-role="Attack" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Attack.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Attack">Attaque</span></button>
+                            <button data-role="Stun" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Stun.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Stun">Stun</span></button>
+                            <button data-role="Anomaly" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Anomaly.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Anomaly">Anomalie</span></button>
+                            <button data-role="Support" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Support.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Support">Soutien</span></button>
+                            <button data-role="Defense" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Defense.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Defense">Défense</span></button>
+                            <button data-role="Armorer" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Armorer.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Armorer">Armurier</span></button>
+                            <button data-role="Rupture" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Rupture.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Rupture">Rupture</span></button>
+                        </div>
+                    </div>
+
+                    <div id="groupVersions" class="hidden">
+                        <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="versions">Versions</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button data-version="All" class="filter-btn filter-version-btn active col-span-2 px-2 py-3 rounded-xl text-sm font-black tracking-widest uppercase" data-i18n="allVersions">Toutes les versions</button>
+                            <button data-version="V1" class="filter-btn filter-version-btn px-2 py-2 rounded-xl text-xs font-bold">V1.0 - V1.7</button>
+                            <button data-version="V2" class="filter-btn filter-version-btn px-2 py-2 rounded-xl text-xs font-bold">V2.0 - V2.8</button>
+                            <button data-version="V3" class="filter-btn filter-version-btn col-span-2 px-2 py-2 rounded-xl text-xs font-bold">V3.0 - V3.X</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-zinc-800 mb-4">
+                    <h3 class="text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="custom">Personnalisé</h3>
+                    <button class="favorite-filter-btn w-full bg-[#151515] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> <span data-i18n="favorites">Mes Favoris</span>
+                        </div>
+                        <div class="fav-count-badge bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-md text-[10px] font-black">0</div>
+                    </button>
+                </div>
+
+                <div class="active-faction-tag hidden items-center justify-between bg-yellow-400/10 border-2 border-yellow-400/50 px-4 py-3 rounded-xl backdrop-blur-md transition-all duration-300 mt-2 mb-4">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
+                        <span class="active-faction-name text-xs font-bold text-white mt-0.5 leading-tight"></span>
+                    </div>
+                    <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-2 transition-all transform hover:scale-110 hover:rotate-90 shadow-lg ml-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                </div>
+            </div>
+
+            <!-- Défilement Factions -->
+            <div class="flex-1 overflow-hidden relative marquee-mask px-5 py-2 z-0 hidden md:block" id="sidebarMarqueeWrapper">
+                <div class="marquee-track-vertical" id="sidebarFactionsList"></div>
+            </div>
+
+            <!-- Bouton Toutes les factions Bureau -->
+            <div class="p-5 bg-[#0a0a0a] shrink-0 md:border-t border-zinc-800 relative z-10 md:shadow-[0_-15px_30px_rgba(0,0,0,0.6)]">
+                <button onclick="window.openModal('factionModal')" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-sm py-4 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(215,247,12,0.5)] hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 group overflow-hidden relative">
+                    <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1s_forwards]"></div>
+                    <svg class="w-5 h-5 transition-transform group-hover:rotate-180 duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    <span data-i18n="allFactions">Toutes les factions</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT (Grille principale) -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-10 relative z-20 scroll-smooth">
+            
+            <!-- Barre de Recherche & Bouton Entonnoir Filtre Mobile -->
+            <div class="md:hidden w-full mb-6 relative z-[100] group flex gap-3">
+                <div class="relative flex-1 flex items-center">
+                    <input type="text" id="searchInputMobile" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Rechercher un agent..." class="w-full bg-[#151515] border-2 border-zinc-800 rounded-xl py-3.5 pl-4 pr-10 text-white text-sm focus:outline-none focus:border-yellow-400 focus:bg-[#1a1a1a] transition-all shadow-inner placeholder-zinc-600">
+                    <button id="clearSearchBtnMobile" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                </div>
+                <button id="mobileFilterBtn" class="bg-[#151515] border-2 border-zinc-800 rounded-xl px-4 flex items-center justify-center text-zinc-400 hover:text-yellow-400 hover:border-yellow-400 transition-colors shadow-inner">
+                    <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                </button>
+                <!-- Flou retiré sur le menu déroulant mobile -->
+                <div id="searchDropdownMobile" class="absolute left-0 right-0 top-full mt-2 bg-black/95 border border-zinc-700 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.9)] max-h-72 overflow-y-auto flex flex-col hidden divide-y divide-zinc-800 transform origin-top transition-all duration-300 z-[150]"></div>
+            </div>
+
+            <!-- Grille des Agents (Initialisée une seule fois par JS) -->
+            <div id="agents-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-5 gap-y-14 sm:gap-8 relative z-10"></div>
+            
+            <!-- MODULE D'ASCENSION (Retour en haut) -->
+            <div id="ascensionModule" class="w-full mt-24 mb-16 flex flex-col items-center hidden opacity-0 transition-opacity duration-1000 z-10 relative perspective-1000">
+                <div class="w-full max-w-4xl overflow-hidden absolute -top-12 h-2 flex justify-center items-start pointer-events-none">
+    <div class="w-[80%] md:w-[60%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c] to-transparent -translate-x-full laser-beam"></div>
+    </div>
+</div>
+                <button onclick="window.scrollToTop()" class="ascension-btn group relative w-[280px] sm:w-[360px] h-20 sm:h-24 bg-[#0a0a0a] rounded-2xl border-2 border-zinc-800 overflow-hidden transition-all duration-500 hover:border-[#d7f70c] hover:shadow-[0_0_40px_rgba(215,247,12,0.3)] hover:-translate-y-2 transform-gpu">
+                    <div class="absolute inset-0 bg-[#d7f70c] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"></div>
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500" style="background-image: radial-gradient(black 1px, transparent 1px); background-size: 15px 15px;"></div>
+                    <div class="relative z-10 w-full h-full flex items-center justify-between px-6 sm:px-8">
+                        <div class="flex flex-col items-start overflow-hidden w-full">
+                            <span class="text-zinc-500 group-hover:text-black/60 text-[8px] sm:text-[10px] font-black uppercase tracking-[0.3em] transition-colors duration-500 flex items-center gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-zinc-600 group-hover:bg-black animate-pulse"></div>
+                                Fin de la zone
+                            </span>
+                            <div class="relative h-6 sm:h-8 overflow-hidden w-full mt-0.5">
+                                <span class="text-white font-display font-black italic text-xl sm:text-3xl tracking-widest uppercase group-hover:-translate-y-full transition-transform duration-500 absolute left-0 top-0 w-full flex items-center">Ascension</span>
+                                <span class="text-black font-display font-black italic text-xl sm:text-3xl tracking-widest uppercase translate-y-full group-hover:translate-y-0 transition-transform duration-500 absolute left-0 top-0 w-full flex items-center">Ascension</span>
+                            </div>
+                        </div>
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl border-2 border-zinc-700 group-hover:border-black bg-[#151515] group-hover:bg-transparent flex items-center justify-center relative overflow-hidden transition-colors duration-500 shadow-inner flex-shrink-0">
+                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-zinc-400 group-hover:text-black transform group-hover:-translate-y-[200%] transition-transform duration-500 ease-in-out absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            <svg class="w-6 h-6 sm:w-7 sm:h-7 text-black transform translate-y-[200%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute w-[2px] h-16 bg-black/10 left-[15%] animate-[rainUp_0.6s_linear_infinite]" style="animation-delay: 0.1s"></div>
+                        <div class="absolute w-[2px] h-24 bg-black/15 left-[45%] animate-[rainUp_0.8s_linear_infinite]" style="animation-delay: 0.3s"></div>
+                        <div class="absolute w-[2px] h-12 bg-black/10 left-[85%] animate-[rainUp_0.5s_linear_infinite]" style="animation-delay: 0.2s"></div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Signal Perdu -->
+            <div id="empty-state" class="hidden absolute inset-0 flex flex-col items-center justify-center text-zinc-600 transition-opacity duration-500">
+                <svg class="w-16 h-16 mb-4 text-zinc-700 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <p class="text-3xl font-display font-black text-zinc-500 uppercase tracking-widest mb-3 drop-shadow-md" data-i18n="noSignal">Signal Perdu</p>
+                <p class="text-base text-zinc-600" data-i18n="emptyStateDesc">Aucun agent ne correspond à ces critères.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALE DES FILTRES MOBILE -->
+    <div id="mobileFilterModal" class="fixed inset-0 z-[180] hidden md:hidden bg-[#050505] overflow-y-auto p-5 transition-opacity duration-300 opacity-0 flex flex-col justify-between">
+        <div>
+            <!-- Header Filtres Mobile -->
+            <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-800">
+                <span class="text-white font-display font-black text-xl uppercase tracking-wider">FILTRES</span>
+                <button id="closeMobileFilterBtn" class="text-zinc-400 hover:text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Onglets Mobile -->
+            <div id="mobileTabContainer" class="tab-container mb-6" data-active="elements">
+                <div class="tab-slider"></div>
+                <button id="tabElementsMobile" class="tab-pill active"><span data-i18n="elements">Éléments</span></button>
+                <button id="tabRolesMobile" class="tab-pill"><span data-i18n="roles">Rôles</span></button>
+                <button id="tabVersionsMobile" class="tab-pill"><span data-i18n="versions">Versions</span></button>
+            </div>
+
+            <!-- Groupes Filtres Mobile -->
+            <div class="mb-6">
+                <div id="groupElementsMobile">
+                    <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="elements">Éléments</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button data-filter="All" class="filter-btn filter-elem-btn active col-span-3 px-3 py-2.5 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                        <button data-filter="Physical" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
+                        <button data-filter="Fire" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
+                        <button data-filter="Ice" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
+                        <button data-filter="Electric" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Élec</span></button>
+                        <button data-filter="Ether" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                        <button data-filter="Wind" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
+                        <button data-filter="Lumiflux" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
+                        <button data-filter="Honed Edge" class="filter-btn filter-elem-btn px-1 py-2.5 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
+                        <button data-filter="Auric Ink" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
+                    </div>
+                </div>
+
+                <div id="groupRolesMobile" class="hidden">
+                    <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="roles">Rôles</h3>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button data-role="All" class="filter-btn filter-role-btn active col-span-3 px-3 py-2.5 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                        <button data-role="Attack" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Attack.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Attack">Attaque</span></button>
+                        <button data-role="Stun" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Stun.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Stun">Stun</span></button>
+                        <button data-role="Anomaly" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Anomaly.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Anomaly">Anomalie</span></button>
+                        <button data-role="Support" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Support.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Support">Soutien</span></button>
+                        <button data-role="Defense" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Defense.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Defense">Défense</span></button>
+                        <button data-role="Armorer" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Armorer.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Armorer">Armurier</span></button>
+                        <button data-role="Rupture" class="filter-btn filter-role-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Rupture.webp" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Rupture">Rupture</span></button>
+                    </div>
+                </div>
+
+                <div id="groupVersionsMobile" class="hidden">
+                    <h3 class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="versions">Versions</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button data-version="All" class="filter-btn filter-version-btn active col-span-2 px-2 py-3 rounded-xl text-sm font-black tracking-widest uppercase" data-i18n="allVersions">Toutes les versions</button>
+                        <button data-version="V1" class="filter-btn filter-version-btn px-2 py-2.5 rounded-xl text-xs font-bold">V1.0 - V1.7</button>
+                        <button data-version="V2" class="filter-btn filter-version-btn px-2 py-2.5 rounded-xl text-xs font-bold">V2.0 - V2.8</button>
+                        <button data-version="V3" class="filter-btn filter-version-btn col-span-2 px-2 py-2.5 rounded-xl text-xs font-bold">V3.0 - V3.X</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Faction Active Mobile (Flou allégé) -->
+            <div class="active-faction-tag hidden items-center justify-between bg-[#151515] border-2 border-yellow-400/50 px-4 py-3 rounded-xl transition-all duration-300 mb-6">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
+                    <span class="active-faction-name text-xs font-bold text-white mt-0.5 leading-tight"></span>
+                </div>
+                <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-2 transition-all ml-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+
+            <!-- Favoris Mobile -->
+            <div class="pt-4 border-t border-zinc-800 mb-6">
+                <h3 class="text-zinc-600 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="custom">Personnalisé</h3>
+                <button class="favorite-filter-btn w-full bg-[#151515] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> <span data-i18n="favorites">Mes Favoris</span>
+                    </div>
+                    <div class="fav-count-badge bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-md text-[10px] font-black">0</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4">
+            <button onclick="window.openModal('factionModal'); window.closeModal('mobileFilterModal');" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-sm py-4 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 flex items-center justify-center gap-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                <span data-i18n="allFactions">Toutes les factions</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Agent Detail Modal (Flou allégé sur mobile pour les FPS) -->
+    <div id="agentDetailModal" class="fixed inset-0 z-[200] hidden bg-[#050505] carbon-bg overflow-hidden opacity-0 transition-opacity duration-300">
+        <div class="crt-overlay"></div>
+        <div class="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-black/90 to-transparent z-[160] flex justify-end items-start p-6 md:p-10 pointer-events-none">
+            <div class="flex flex-col md:flex-row gap-4 pointer-events-auto">
+                <!-- 1. Bouton Fermer (En haut sur mobile avec "order-1", à droite sur PC avec "md:order-2") -->
+                <button onclick="window.closeModal('agentDetailModal')" class="order-1 md:order-2 bg-black/60 hover:bg-yellow-400 text-zinc-300 hover:text-black w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-700 hover:border-transparent flex items-center justify-center transition-all duration-300 md:backdrop-blur-xl shadow-2xl group">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <!-- 2. Bouton Partager (En bas sur mobile avec "order-2", à gauche sur PC avec "md:order-1") -->
+                <button id="shareAgentBtn" onclick="window.shareCurrentAgent()" class="order-2 md:order-1 bg-black/60 hover:bg-[#d7f70c] text-zinc-300 hover:text-black w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-700 hover:border-transparent flex items-center justify-center transition-all duration-500 md:backdrop-blur-xl shadow-2xl group overflow-hidden relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-yellow-400 to-[#f23c8a] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <svg class="w-5 h-5 md:w-6 md:h-6 relative z-10 transform group-hover:scale-110 transition-all duration-300" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                </button>
+            </div>
+        </div>
+        <button id="prevAgentBtn" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[150] bg-black/80 border border-zinc-700 hover:border-yellow-400 hover:bg-yellow-400 text-zinc-400 hover:text-black w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 md:backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_40px_rgba(215,247,12,0.4)] hover:scale-110 opacity-0 pointer-events-none transform -translate-x-10">
+            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"></path></svg>
+        </button>
+        <button id="nextAgentBtn" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[150] bg-black/80 border border-zinc-700 hover:border-yellow-400 hover:bg-yellow-400 text-zinc-400 hover:text-black w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 md:backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_40px_rgba(215,247,12,0.4)] hover:scale-110 opacity-0 pointer-events-none transform translate-x-10">
+            <svg class="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg>
+        </button>
+        <div class="absolute inset-0 flex items-center justify-center z-0 overflow-hidden pointer-events-none opacity-[0.03]">
+            <h1 id="modalGiantNameText" class="text-[18vw] font-display font-black italic text-white whitespace-nowrap leading-none tracking-tighter"></h1>
+        </div>
+        <div id="agentModalScroll" class="relative z-10 w-full h-full flex flex-col md:flex-row overflow-y-auto md:overflow-hidden pointer-events-auto md:pointer-events-none custom-scrollbar">
+            <div class="w-full md:w-[35%] xl:w-[40%] h-[48vh] md:h-full flex-shrink-0 flex items-center md:items-end justify-center relative p-4 md:p-8 pointer-events-none">
+                <img id="agentSplashImage" src="" loading="lazy" class="w-full h-full md:max-h-[95%] object-contain transform translate-y-10 opacity-0 transition-all duration-700 delay-200 ease-out drop-shadow-[10px_10px_20px_rgba(0,0,0,0.8)] pointer-events-auto">
+            </div>
+            <div class="w-full md:w-[65%] xl:w-[60%] h-auto md:h-full relative z-20 pointer-events-auto overflow-visible md:overflow-hidden flex flex-col bg-black/95 md:bg-transparent md:backdrop-blur-md">
+                <div id="agentGuideContainer" class="flex-1 overflow-visible md:overflow-y-auto custom-scrollbar pt-2 md:pt-24 p-5 md:p-10 lg:p-14 transform translate-x-12 opacity-0 transition-all duration-500 delay-300"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Factions Modal -->
+    <div id="factionModal" class="fixed inset-0 z-[210] hidden bg-[#0f0f0f] carbon-bg transition-opacity duration-300 opacity-0">
+        <div class="absolute inset-0 overflow-y-auto overflow-x-hidden p-6 md:p-16 pr-24 z-10 scroll-smooth pb-32">
+            <h2 class="text-4xl md:text-6xl font-display font-black italic text-white uppercase mb-12 border-b-4 border-zinc-800 pb-4 inline-block drop-shadow-2xl">
+                <span data-i18n="allFactions">Toutes les factions</span>
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-6 md:gap-10" id="modalFactionsGrid"></div>
+        </div>
+        <button onclick="window.closeModal('factionModal')" class="fixed right-0 top-1/2 -translate-y-1/2 bg-black border-l-2 border-y-2 border-zinc-700 rounded-l-3xl py-12 px-3 z-20 hover:bg-[#111] transition-all duration-300 group hover:pl-6 shadow-[0_0_50px_rgba(0,0,0,1)] hover:shadow-[0_0_60px_rgba(215,247,12,0.2)]">
+            <div class="flex flex-col items-center gap-5">
+                <svg class="w-8 h-8 text-zinc-500 group-hover:text-yellow-400 transition-colors duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+                <span class="text-[#d7f70c] font-display font-black uppercase text-2xl tracking-widest drop-shadow-lg" style="writing-mode: vertical-rl; text-orientation: mixed;"><span data-i18n="return">Retour</span> <span class="hidden md:block text-xs text-zinc-500 ml-1 group-hover:text-yellow-400/50 mt-2" style="writing-mode: vertical-rl;">(ECHAP)</span></span>
+            </div>
+        </button>
+    </div>
+
+    <!-- Modale Vidéo Holo-Cinématique -->
+    <div id="videoModal" onclick="window.closeVideoModal()" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-md overflow-hidden opacity-0 transition-opacity duration-300 flex items-center justify-center">
+        <!-- Bouton Fermer -->
+        <button onclick="window.closeVideoModal()" class="absolute top-6 right-6 md:top-10 md:right-10 bg-black/60 hover:bg-yellow-400 text-zinc-300 hover:text-black w-12 h-12 rounded-full border border-zinc-700 hover:border-transparent flex items-center justify-center transition-all duration-300 shadow-2xl group z-[310]">
+            <svg class="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+        <!-- Conteneur Vidéo -->
+        <div id="videoModalContent" onclick="event.stopPropagation()" class="w-full max-w-5xl px-4 relative transform scale-95 transition-transform duration-300">
+            <!-- Bordure lumineuse façon New Eridu -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-[#d7f70c] to-[#f05432] rounded-xl blur opacity-25 animate-pulse"></div>
+            
+            <div class="relative bg-[#080808] rounded-xl border border-zinc-800 shadow-[0_0_50px_rgba(0,0,0,1)] overflow-hidden aspect-video flex items-center justify-center">
+                <!-- 1. L'animation Bangboo de chargement (toujours au fond) -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center z-0">
+                    <img src="assets/Icone/loading-bangboo.gif" alt="Loading" class="h-16 md:h-24 object-contain invert opacity-70">
+                </div>
+                
+                <!-- 2. L'iframe YouTube viendra se poser par-dessus (z-10) et cachera le GIF une fois chargée -->
+                <div id="youtubeContainer" class="absolute inset-0 z-10 w-full h-full bg-transparent"></div>
+            </div>
+        </div>
+    </div> <!-- LA FERMETURE MANQUANTE EST ICI ! -->
+
+    <!-- Modale d'aide PWA pour iOS (DÉSORMAIS LIBRE) -->
+    <div id="apple-guide-box" class="fixed inset-0 items-center justify-center backdrop-blur-md" style="display: none; opacity: 0; transition: opacity 0.3s ease; z-index: 999999; background: rgba(5, 5, 5, 0.9);">
+        <div class="bg-[#1a1a1a] text-white p-6 rounded-2xl max-w-sm mx-4 border border-zinc-700 relative shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+            <button id="close-guide-box" class="absolute top-4 right-4 text-zinc-400 hover:text-yellow-400 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-xl font-display font-black uppercase mb-4 tracking-wide text-yellow-400">Installer sur iPhone</h3>
+            <p class="mb-4 text-zinc-400 text-sm">Apple bloque l'installation en un clic. Pour ajouter ProxyQG à votre appareil :</p>
+            
+            <ol class="list-decimal pl-4 text-zinc-300 text-sm space-y-3 font-medium">
+                <li>Appuyez sur l'icône <b>Partager</b> <svg class="inline w-5 h-5 mx-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg> en bas de votre navigateur Safari.</li>
+                <li>Faites défiler et sélectionnez <br><b class="text-white bg-zinc-800 px-2 py-1.5 rounded mt-1.5 inline-block border border-zinc-700 shadow-inner">Sur l'écran d'accueil ➕</b></li>
+            </ol>
+        </div>
+    </div>
+        
+    <script src="js/tooltip.js"></script>
+    <script src="js/disc-tooltip.js"></script>    
+    <script type="module" src="js/app.js" defer></script> 
+</body>
+</html>
