@@ -512,6 +512,9 @@ window.closeModal = function(id, updateUrl = true) {
     const m = document.getElementById(id);
     if (!m) return;
     if (id === 'agentDetailModal') {
+        // Rétablit l'affichage de la grille principale
+        document.documentElement.classList.remove('direct-agent-load');
+        
         const splash = document.getElementById('agentSplashImage'); 
         const guide = document.getElementById('agentGuideContainer');
         if (splash) { splash.style.opacity = '0'; splash.style.transform = 'translateY(20px) scale(0.9)'; }
@@ -714,43 +717,15 @@ window.shareCurrentAgent = function() {
 
 async function checkUrlForAgent() {
     const agentParam = new URLSearchParams(window.location.search).get('agent');
-    const fastMask = document.getElementById('fast-mask');
-
     if (agentParam) {
         const agent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
         if (agent) {
-            const modal = document.getElementById('agentDetailModal');
-
-            // 1. Coupe la transition d'opacité pour que la modale devienne opaque instantanément derrière le masque
-            if (modal) modal.style.transition = 'none';
-
-            // 2. Attend que la fiche et le guide soient 100% chargés et injectés
-            await window.openAgentDetail(agent.name, false);
-
-            // 3. Verrouille la modale à 100% d'opacité immédiate
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('opacity-100');
-                void modal.offsetWidth; // Force le navigateur à appliquer le style
-                modal.style.transition = ''; // Rétablit l'animation pour les ouvertures manuelles futures
-            }
-
-            // 4. Laisse une marge de 80ms pour que les éléments internes se stabilisent
-            setTimeout(() => {
-                if (fastMask) {
-                    fastMask.style.opacity = '0';
-                    setTimeout(() => fastMask.remove(), 400);
-                }
-            }, 80);
+            window.openAgentDetail(agent.name, false);
             return;
         }
     }
-
-    // Si aucun agent n'est demandé ou introuvable, on retire le masque
-    if (fastMask) {
-        fastMask.style.opacity = '0';
-        setTimeout(() => fastMask.remove(), 400);
-    }
+    // Si aucun agent n'est demandé ou s'il est introuvable, on réactive la grille
+    document.documentElement.classList.remove('direct-agent-load');
 }
 
 let currentPlayer = null;
