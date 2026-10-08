@@ -140,13 +140,21 @@
             </div>
         `;
 
+        // Enregistre l'état dans l'historique mobile
+        window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
+
         overlayEl.classList.add('visible');
         modalEl.classList.add('visible');
     }
 
-    function hideDiscTooltip() {
+    function hideDiscTooltip(fromPopstate = false) {
         if (overlayEl) overlayEl.classList.remove('visible');
         if (modalEl) modalEl.classList.remove('visible');
+
+        // Nettoie l'historique si la fermeture provient d'un clic/touche Echap
+        if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
+    window.history.back();
+}
     }
 
     document.addEventListener('keydown', (e) => {
