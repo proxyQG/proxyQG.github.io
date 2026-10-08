@@ -47,7 +47,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <style>
-        #fast-mask { position: fixed; inset: 0; background: #050505; z-index: 999999; transition: opacity 0.4s ease; }
+        main { transition: opacity 0.3s ease; }
+.direct-agent-load main { opacity: 0 !important; pointer-events: none; }
         
         .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
         .tab-pill { flex: 1; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
@@ -99,8 +100,10 @@
         }
     </style>
     <script>
-        if (window.location.search.includes('agent=')) document.write('<div id="fast-mask"></div>');
-    </script>
+    if (window.location.search.includes('agent=')) {
+        document.documentElement.classList.add('direct-agent-load');
+    }
+</script>
 <!-- Nettoyage de l'ancien Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
