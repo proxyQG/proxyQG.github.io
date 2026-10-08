@@ -664,8 +664,17 @@ window.addEventListener('popstate', () => {
     const modal = document.getElementById('agentDetailModal');
     const agentParam = new URLSearchParams(window.location.search).get('agent');
     const tooltip = document.getElementById('proxy-tooltip');
+    const discModal = document.getElementById('disc-tooltip-modal');
 
-    // 1. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
+    // 1. Si la platine vinyle est visible, le retour mobile ferme UNIQUEMENT le vinyle
+    if (discModal && discModal.classList.contains('visible')) {
+        if (typeof window.hideDiscTooltip === 'function') {
+            window.hideDiscTooltip(true);
+        }
+        return;
+    }
+
+    // 2. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
     if (tooltip && tooltip.classList.contains('visible')) {
         if (typeof window.hideTooltip === 'function') {
             window.hideTooltip(true);
@@ -673,7 +682,7 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-    // 2. Gestion normale de l'agent
+    // 3. Gestion normale de l'agent
     if (agentParam) {
         const currentOpenAgent = (State.modalIndex !== -1 && State.filteredAgents[State.modalIndex]) 
             ? State.filteredAgents[State.modalIndex].name 
