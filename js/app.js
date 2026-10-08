@@ -712,13 +712,45 @@ window.shareCurrentAgent = function() {
     });
 };
 
-function checkUrlForAgent() {
-    const agentParam = new URLSearchParams(window.location.search).get('agent'); const fastMask = document.getElementById('fast-mask');
+async function checkUrlForAgent() {
+    const agentParam = new URLSearchParams(window.location.search).get('agent');
+    const fastMask = document.getElementById('fast-mask');
+
     if (agentParam) {
         const agent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
-        if (agent) { window.openAgentDetail(agent.name); setTimeout(() => { if (fastMask) { fastMask.style.opacity = '0'; setTimeout(() => fastMask.remove(), 400); } }, 100); } 
-        else if (fastMask) fastMask.remove();
-    } else if (fastMask) fastMask.remove();
+        if (agent) {
+            const modal = document.getElementById('agentDetailModal');
+
+            // 1. Coupe la transition d'opacité pour que la modale devienne opaque instantanément derrière le masque
+            if (modal) modal.style.transition = 'none';
+
+            // 2. Attend que la fiche et le guide soient 100% chargés et injectés
+            await window.openAgentDetail(agent.name, false);
+
+            // 3. Verrouille la modale à 100% d'opacité immédiate
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('opacity-100');
+                void modal.offsetWidth; // Force le navigateur à appliquer le style
+                modal.style.transition = ''; // Rétablit l'animation pour les ouvertures manuelles futures
+            }
+
+            // 4. Laisse une marge de 80ms pour que les éléments internes se stabilisent
+            setTimeout(() => {
+                if (fastMask) {
+                    fastMask.style.opacity = '0';
+                    setTimeout(() => fastMask.remove(), 400);
+                }
+            }, 80);
+            return;
+        }
+    }
+
+    // Si aucun agent n'est demandé ou introuvable, on retire le masque
+    if (fastMask) {
+        fastMask.style.opacity = '0';
+        setTimeout(() => fastMask.remove(), 400);
+    }
 }
 
 let currentPlayer = null;
