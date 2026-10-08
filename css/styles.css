@@ -147,3 +147,31 @@ body {
     line-height: 1.1; /* Rapproche les lignes pour que ça reste esthétique */
     max-width: 100%;
 }
+
+/* ========================================================
+   CORRECTION OVERFLOW MOBILE & SUPPRESSION BARRE HORIZONTALE
+======================================================== */
+
+/* 1. Bloque tout décalage horizontal sur la modale et son contenu */
+#agentDetailModal,
+#agentModalScroll,
+#agentGuideContainer {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
+/* 2. Règle le cas spécifique des ailes de Remielle */
+#agentSplashContainer,
+.agent-splash-container,
+#agentDetailModal .relative.overflow-hidden {
+    overflow: hidden !important;
+    max-width: 100% !important;
+}
+
+/* 3. Masque définitivement toute barre de défilement horizontale sur mobile */
+#agentDetailModal::-webkit-scrollbar:horizontal,
+#agentModalScroll::-webkit-scrollbar:horizontal,
+#agentGuideContainer::-webkit-scrollbar:horizontal {
+    display: none !important;
+    height: 0 !important;
+}
