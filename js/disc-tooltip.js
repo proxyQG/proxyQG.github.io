@@ -37,18 +37,47 @@
 
         overlayEl.addEventListener('click', hideDiscTooltip);
 
-        // Swipe-to-close tactile sur mobile
-        let touchStartY = 0;
+        // GESTION DU SWIPE-TO-CLOSE TACTILE FLUIDE (MOBILE)
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+
         modalEl.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
+            if (window.innerWidth > 768) return;
+            if (modalEl.scrollTop > 0) return; // On ne swipe que si on est tout en haut
+            
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            modalEl.style.transition = 'none'; // Suit le doigt en temps réel
         }, { passive: true });
 
         modalEl.addEventListener('touchmove', (e) => {
-            const touchY = e.touches[0].clientY;
-            if (touchY - touchStartY > 80 && modalEl.scrollTop === 0) {
-                hideDiscTooltip();
+            if (!isDragging) return;
+            currentY = e.touches[0].clientY - startY;
+
+            // On ne suit que le mouvement vers le bas
+            if (currentY > 0) {
+                e.preventDefault();
+                modalEl.style.transform = `translateY(${currentY}px)`;
+                if (overlayEl) overlayEl.style.opacity = Math.max(0, 1 - (currentY / window.innerHeight));
             }
-        }, { passive: true });
+        }, { passive: false });
+
+        modalEl.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            modalEl.style.transition = ''; // Restaure les animations CSS
+            if (overlayEl) overlayEl.style.opacity = '';
+
+            // Déclenche la fermeture UNIQUEMENT au relâchement et une seule fois
+            if (currentY > 80) {
+                hideDiscTooltip();
+            } else {
+                modalEl.style.transform = ''; // Rebondit à sa place d'origine
+            }
+            currentY = 0;
+        });
     }
 
     async function loadDatabase() {
@@ -147,14 +176,29 @@
         modalEl.classList.add('visible');
     }
 
-    function hideDiscTooltip(fromPopstate = false) {
-        if (overlayEl) overlayEl.classList.remove('visible');
-        if (modalEl) modalEl.classList.remove('visible');
+    let isClosing = false;
 
-        // Nettoie l'historique uniquement si on a fermé par un clic (croix/overlay), swipe ou Echap
+    function hideDiscTooltip(fromPopstate = false) {
+        if (isClosing) return; // Verrouille pour interdire les appels en double
+        isClosing = true;
+
+        if (overlayEl) {
+            overlayEl.classList.remove('visible');
+            overlayEl.style.opacity = '';
+        }
+        if (modalEl) {
+            modalEl.classList.remove('visible');
+            modalEl.style.transform = '';
+        }
+
+        // Nettoie l'historique uniquement si on ferme manuellement (pas via le popstate système)
         if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
             window.history.back();
         }
+
+        setTimeout(() => {
+            isClosing = false;
+        }, 300);
     }
 
     document.addEventListener('keydown', (e) => {
