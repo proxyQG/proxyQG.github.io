@@ -43,6 +43,50 @@
       }
     ]
   },
+  "Nirvana's First Plume": {
+    "name": {
+      "fr": "Première plume du nirvana",
+      "en": "Nirvana's First Plume"
+    },
+    "rank": "S",
+    "specialty": "Anomaly",
+    "element": "Fire",
+    "img": "W-Engine_Nirvanas_First_Plume.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Maîtrise d'Anomalie",
+        "en": "Anomaly Mastery"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Jour d'éclosion",
+      "en": "Hatch Day"
+    },
+    "overclocks": [
+      {
+        "fr": "Augmente l'{Adresse d'Anomalie} de l'équipementier de [90]. Lorsqu'un membre de l'escouade inflige des {DGT d'Anomalie d'attribut} critiques à un ennemi, les {DGT de Feu} de l'équipementier augmentent de [40 %] pendant 20s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [90]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's {Fire DMG} increases by [40%] for 20s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente l'{Adresse d'Anomalie} de l'équipementier de [99]. Lorsqu'un membre de l'escouade inflige des {DGT d'Anomalie d'attribut} critiques à un ennemi, les {DGT de Feu} de l'équipementier augmentent de [44 %] pendant 20s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [99]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's {Fire DMG} increases by [44%] for 20s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente l'{Adresse d'Anomalie} de l'équipementier de [108]. Lorsqu'un membre de l'escouade inflige des {DGT d'Anomalie d'attribut} critiques à un ennemi, les {DGT de Feu} de l'équipementier augmentent de [48 %] pendant 20s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [108]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's {Fire DMG} increases by [48%] for 20s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente l'{Adresse d'Anomalie} de l'équipementier de [117]. Lorsqu'un membre de l'escouade inflige des {DGT d'Anomalie d'attribut} critiques à un ennemi, les {DGT de Feu} de l'équipementier augmentent de [52 %] pendant 20s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [117]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's {Fire DMG} increases by [52%] for 20s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente l'{Adresse d'Anomalie} de l'équipementier de [126]. Lorsqu'un membre de l'escouade inflige des {DGT d'Anomalie d'attribut} critiques à un ennemi, les {DGT de Feu} de l'équipementier augmentent de [56 %] pendant 20s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "Increases the equipper's {Anomaly Proficiency} by [126]. When Attribute Anomaly DMG dealt by any squad member to an enemy CRITs, the equipper's {Fire DMG} increases by [56%] for 20s. Repeated triggers reset the duration."
+      }
+    ]
+  },
   "Lunar - Noviluna": {
     "name": {
       "fr": "Lune Nouvelle",
