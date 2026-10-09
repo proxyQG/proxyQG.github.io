@@ -168,34 +168,39 @@
     }
 
     function bindEvents() {
-        // --- NOUVEAU : Traçage de la souris pour l'effet Spotlight ---
-        document.addEventListener('mousemove', e => {
+        // --- 1. Traçage Spotlight (PC / Souris uniquement, ignoré au doigt tactile) ---
+        let spotlightTicking = false;
+        document.addEventListener('pointermove', e => {
+            if (e.pointerType === 'touch') return; // Zéro calcul pendant le scroll mobile
+
             const card = e.target.closest('[data-engine]'); 
             if (!card) return;
-            const rect = card.getBoundingClientRect();
-            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-        });
-        // --- GESTION DU CLIC ET DE L'OUVERTURE ---
-        document.addEventListener('click', e => {
-            const agentModal = document.getElementById('agentDetailModal');
-            if (!agentModal || agentModal.classList.contains('hidden') || !agentModal.classList.contains('opacity-100')) {
-                return;
-            }
 
+            if (!spotlightTicking) {
+                window.requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                    spotlightTicking = false;
+                });
+                spotlightTicking = true;
+            }
+        }, { passive: true });
+
+        // --- 2. Clic & Tap d'ouverture (Robuste et instantané comme pour les disques) ---
+        document.addEventListener('click', e => {
             const trigger = e.target.closest('[data-engine]');
-            if (trigger) {
-                const isValid = populateTooltip(trigger.dataset.engine, 0);
-                if (isValid) {
-                    // Enregistre l'infobulle dans l'historique pour gérer le retour mobile
-                    window.history.pushState({ tooltipOpen: true }, '', window.location.href);
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            tooltipEl.classList.add('visible');
-                            overlayEl.classList.add('visible');
-                        });
-                    });
-                }
+            if (!trigger) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const engineName = trigger.getAttribute('data-engine') || trigger.dataset.engine;
+            const isValid = populateTooltip(engineName, 0);
+            if (isValid) {
+                window.history.pushState({ tooltipOpen: true }, '', window.location.href);
+                tooltipEl.classList.add('visible');
+                overlayEl.classList.add('visible');
             }
         });
 
