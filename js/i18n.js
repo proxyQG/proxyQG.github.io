@@ -156,6 +156,7 @@ export const enginesDict = {
     "Marcato Desire": "Désir marcato",
     "Metanukimorphosis": "Métanukimorphose",
     "Myriad Eclipse": "Éclipse myriade",
+    "Sin-Ban Cage": "Cage des péchés interdits",
     "Neon Fantasies": "Fantaisies néon",
     "Ode of Resurrected Wings": "Ode aux ailes ressuscitées",
     "Original Transmorpher": "Transmorpheur original",
