@@ -790,17 +790,11 @@ window.openVideoModal = function(videoId, startTime, event) {
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('youtubeContainer');
     const content = document.getElementById('videoModalContent');
-    const externalLinkBtn = document.getElementById('ytExternalLink');
     if (!modal || !container) return;
 
     // Rétablit l'animation Bangboo
     const bgLoader = document.getElementById('bangbooLoader');
     if (bgLoader) bgLoader.style.opacity = '1';
-
-    // Configure le lien direct externe avec le bon timing
-    if (externalLinkBtn) {
-        externalLinkBtn.href = `https://youtu.be/${videoId}?t=${startTime || 0}`;
-    }
 
     container.innerHTML = `
         <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-300 bg-black">
