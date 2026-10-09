@@ -751,6 +751,11 @@ async function checkUrlForAgent() {
 let currentPlayer = null;
 
 function initYTPlayer(videoId, startTime) {
+    const hideBangboo = () => {
+        const bgLoader = document.getElementById('bangbooLoader');
+        if (bgLoader) bgLoader.style.opacity = '0';
+    };
+
     currentPlayer = new YT.Player('yt-player', {
         height: '100%',
         width: '100%',
@@ -759,16 +764,20 @@ function initYTPlayer(videoId, startTime) {
             'autoplay': 1,
             'start': startTime || 0,
             'rel': 0,
-            'modestbranding': 1
+            'modestbranding': 1,
+            'playsinline': 1 // Obligatoire sur iOS pour empêcher Safari de forcer le plein écran natif
         },
         events: {
+            'onReady': function() {
+                // Révèle le lecteur dès qu'il est prêt : la pub et le bouton "Ignorer" deviennent directement accessibles
+                const wrapper = document.getElementById('yt-wrapper');
+                if (wrapper) wrapper.style.opacity = '1';
+                setTimeout(hideBangboo, 600);
+            },
             'onStateChange': function(e) {
+                // Quand la vidéo commence effectivement à jouer (e.data === 1)
                 if (e.data === 1) {
-                    const wrapper = document.getElementById('yt-wrapper');
-                    if (wrapper) {
-                        wrapper.classList.remove('opacity-0');
-                        wrapper.classList.add('opacity-100');
-                    }
+                    hideBangboo();
                 }
             }
         }
@@ -781,10 +790,20 @@ window.openVideoModal = function(videoId, startTime, event) {
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('youtubeContainer');
     const content = document.getElementById('videoModalContent');
+    const externalLinkBtn = document.getElementById('ytExternalLink');
     if (!modal || !container) return;
 
+    // Rétablit l'animation Bangboo
+    const bgLoader = document.getElementById('bangbooLoader');
+    if (bgLoader) bgLoader.style.opacity = '1';
+
+    // Configure le lien direct externe avec le bon timing
+    if (externalLinkBtn) {
+        externalLinkBtn.href = `https://youtu.be/${videoId}?t=${startTime || 0}`;
+    }
+
     container.innerHTML = `
-        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-500 bg-black">
+        <div id="yt-wrapper" class="w-full h-full opacity-0 transition-opacity duration-300 bg-black">
             <div id="yt-player"></div>
         </div>
     `;
@@ -795,11 +814,9 @@ window.openVideoModal = function(videoId, startTime, event) {
     content.classList.remove('scale-95');
     content.classList.add('scale-100');
 
-    // Si l'API est déjà prête, on lance directement le lecteur
     if (typeof YT !== 'undefined' && YT.Player) {
         initYTPlayer(videoId, startTime);
     } else {
-        // Sinon, on attend que le script se charge avant d'initialiser
         window.onYouTubeIframeAPIReady = () => initYTPlayer(videoId, startTime);
 
         if (!document.getElementById('yt-api')) {
@@ -807,8 +824,7 @@ window.openVideoModal = function(videoId, startTime, event) {
             tag.id = 'yt-api';
             tag.src = "https://www.youtube.com/iframe_api";
             tag.onerror = () => {
-                // Secours direct si les serveurs YouTube ou un bloqueur bloquent l'API
-                container.innerHTML = `<iframe class="w-full h-full animate-fade-in-up bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime || 0}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                container.innerHTML = `<iframe class="w-full h-full bg-black" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&start=${startTime || 0}&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
             };
             document.head.appendChild(tag);
         }
