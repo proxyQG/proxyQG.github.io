@@ -175,3 +175,94 @@ body {
     display: none !important;
     height: 0 !important;
 }
+
+
+/* ========================================================
+   BANDEROLE D'ANGLE « NEW » HAUTE PRÉCISION (STYLE ZZZ)
+======================================================== */
+
+.new-ribbon-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 82px;
+    height: 82px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 35;
+}
+
+/* Halo lumineux d'angle dynamique */
+.new-ribbon-glow {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 55px;
+    height: 55px;
+    background: radial-gradient(circle, rgba(215, 247, 12, 0.6) 0%, transparent 75%);
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: ribbonPulse 2.4s ease-in-out infinite alternate;
+}
+
+/* Ruban incliné à 45° traversant l'angle haut-droit */
+.new-ribbon-tag {
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    width: 110px;
+    transform: rotate(45deg);
+    background: linear-gradient(180deg, #f0ff38 0%, #d7f70c 50%, #9cb800 100%);
+    padding: 3px 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 14px rgba(215, 247, 12, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.9);
+    border-bottom: 1.5px solid #000000;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Typographie ZZZ */
+.new-ribbon-text {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 0.24em;
+    color: #050505;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    transform: translateY(0.5px);
+}
+
+/* Balayage laser permanent à travers le ruban */
+.new-ribbon-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.85) 50%,
+        transparent 100%
+    );
+    transform: translateX(-120%) skewX(-25deg);
+    animation: ribbonLaserSweep 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Réaction dynamique au survol de la carte */
+.agent-card-container:hover .new-ribbon-tag {
+    filter: brightness(1.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 25px rgba(215, 247, 12, 0.85);
+}
+
+/* Animations clés */
+@keyframes ribbonLaserSweep {
+    0%, 25% { transform: translateX(-130%) skewX(-25deg); }
+    55%, 100% { transform: translateX(230%) skewX(-25deg); }
+}
+
+@keyframes ribbonPulse {
+    0% { opacity: 0.45; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1.2); filter: blur(10px); }
+}
