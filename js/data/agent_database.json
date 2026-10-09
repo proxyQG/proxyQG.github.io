@@ -13643,7 +13643,7 @@
                 "set1": "Dawn_Bloom",
                 "set2": "Astral_Voice",
                 "set1Name": "4pc Dawn's Bloom",
-                "set2Name": "+ 2pc Astral Voic",
+                "set2Name": "+ 2pc Astral Voice",
                 "note": {
                     "fr": "en attente.",
                     "en": "pending..."
@@ -13659,13 +13659,13 @@
         ],
         "statPriority": {
             "main": [
-                { "slot": "6", "label": { "fr": "ATQ %", "en": "ATK %" } },
-                { "slot": "5", "label": { "fr": "DGT Vent %", "en": "Wind DMG %" } },
-                { "slot": "4", "label": { "fr": "Taux CRIT / DGT CRIT", "en": "CRIT Rate / CRIT DMG" } }
+                { "slot": "6", "label": { "fr": "...", "en": "..." } },
+                { "slot": "5", "label": { "fr": "...", "en": "..." } },
+                { "slot": "4", "label": { "fr": "...", "en": "..." } }
             ],
             "sub": [
-                { "label": { "fr": "Taux CRIT = DGT CRIT", "en": "CRIT Rate = CRIT DMG" }, "highlight": true },
-                { "label": { "fr": "ATQ %", "en": "ATK %" }, "highlight": true }
+                { "label": { "fr": "...", "en": "..." }, "highlight": true },
+                { "label": { "fr": "...", "en": "..." }, "highlight": true }
             ]
         },
         "engines": [
