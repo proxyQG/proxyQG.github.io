@@ -53,8 +53,8 @@
         "en": "Ascension"
       },
       "desc": {
-        "fr": "En entrant sur le champ de bataille, Phoenix gagne 1 cumul d'[Ascension] (déclenchable une fois toutes les 180 s en mode Zone d'investigation)[cite: 62]. Les ennemis affectés par [Calcination] subissent 25 % de DGT CRIT d'Anomalie d'attribut supplémentaires[cite: 62]. Lorsque l'[Attaque enflammée] inflige des DGT, l'efficacité d'obtention de [Flamme de bûcher] augmente de 15 %[cite: 62].",
-        "en": "Upon entering the battlefield, Phoenix gains 1 stack of [Ascension]. In Investigation Zone mode, this effect can trigger once every 180s; Enemies under [Scorch] take an additional 25% Attribute Anomaly CRIT DMG; When [Burning Attack] deals DMG, [Pyre Flame] acquisition efficiency increases by 15%[cite: 62]."
+        "fr": "En entrant sur le champ de bataille, Phoenix gagne 1 cumul d'[Ascension] (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Les ennemis affectés par [Calcination] subissent 25 % de DGT CRIT d'Anomalie d'attribut supplémentaires. Lorsque l'[Attaque enflammée] inflige des DGT, l'efficacité d'obtention de [Flamme de bûcher] augmente de 15 %.",
+        "en": "Upon entering the battlefield, Phoenix gains 1 stack of [Ascension]. In Investigation Zone mode, this effect can trigger once every 180s; Enemies under [Scorch] take an additional 25% Attribute Anomaly CRIT DMG; When [Burning Attack] deals DMG, [Pyre Flame] acquisition efficiency increases by 15%."
       }
     },
     {
@@ -64,8 +64,8 @@
         "en": "Scorch"
       },
       "desc": {
-        "fr": "Lorsque Phoenix inflige [Brûlure] à un ennemi, la durée de cet effet augmente de 2 s[cite: 62]. Les DGT infligés par Phoenix aux ennemis sous l'état [Calcination] augmentent de 25 %[cite: 62].",
-        "en": "When Phoenix inflicts [Burn] on an enemy, that effect's duration is increased by 2s; Phoenix's DMG dealt to enemies in the [Scorch] state is increased by 25%[cite: 62]."
+        "fr": "Lorsque Phoenix inflige [Brûlure] à un ennemi, la durée de cet effet augmente de 2 s. Les DGT infligés par Phoenix aux ennemis sous l'état [Calcination] augmentent de 25 %.",
+        "en": "When Phoenix inflicts [Burn] on an enemy, that effect's duration is increased by 2s; Phoenix's DMG dealt to enemies in the [Scorch] state is increased by 25%."
       }
     },
     {
@@ -75,8 +75,8 @@
         "en": "Fiery Abloom"
       },
       "desc": {
-        "fr": "Lorsque le coup de grâce de l'[Ultime : Myriade de morts, lumière ravivée], de l'[Ultime : Traque de l'âme de braise], de l'[Enchaînement : Contre vents et marées] ou de l'[Attaque de base : Brûlure du péché] touche un ennemi sous Anomalie, déclenche un effet [Éclosion] supplémentaire infligeant un multiplicateur fixe de 600 % des DGT d'Anomalie d'attribut correspondants[cite: 62].",
-        "en": "When the Finishing Move of [Ultimate: Myriad Deaths, Light Rekindled], [Ultimate: Cinderfire Soulchase], [Chain Attack: Against All Odds], or [Basic Attack: Sinburn] hits an enemy afflicted with an Anomaly, trigger one additional [Abloom] effect, dealing a fixed 600% multiplier of the corresponding attribute's Attribute Anomaly DMG[cite: 62]."
+        "fr": "Lorsque le coup de grâce de l'[Ultime : Myriade de morts, lumière ravivée], de l'[Ultime : Traque de l'âme de braise], de l'[Enchaînement : Contre vents et marées] ou de l'[Attaque de base : Brûlure du péché] touche un ennemi sous Anomalie, déclenche un effet [Éclosion] supplémentaire infligeant un multiplicateur fixe de 600 % des DGT d'Anomalie d'attribut correspondants.",
+        "en": "When the Finishing Move of [Ultimate: Myriad Deaths, Light Rekindled], [Ultimate: Cinderfire Soulchase], [Chain Attack: Against All Odds], or [Basic Attack: Sinburn] hits an enemy afflicted with an Anomaly, trigger one additional [Abloom] effect, dealing a fixed 600% multiplier of the corresponding attribute's Attribute Anomaly DMG."
       }
     },
     {
@@ -86,8 +86,8 @@
         "en": "Phoenix Rebirth"
       },
       "desc": {
-        "fr": "Phoenix ignore 15 % de la RÉS à tous les attributs de la cible[cite: 62]. Lorsque Phoenix utilise l'[Attaque spéciale EX : Brasier éblouissant], elle gagne l'effet [Ascension][cite: 62]. L'effet [Éclosion] déclenché par Phoenix ignore 40 % de la DÉF ennemie[cite: 62].",
-        "en": "Phoenix ignores 15% of the target's All-Attribute RES; When Phoenix uses [EX Special Attack: Dazzling Blaze], she gains the [Ascension] effect; The [Abloom] effect triggered by Phoenix ignores 40% of the enemy's DEF[cite: 62]."
+        "fr": "Phoenix ignore 15 % de la RÉS à tous les attributs de la cible. Lorsque Phoenix utilise l'[Attaque spéciale EX : Brasier éblouissant], elle gagne l'effet [Ascension]. L'effet [Éclosion] déclenché par Phoenix ignore 40 % de la DÉF ennemie.",
+        "en": "Phoenix ignores 15% of the target's All-Attribute RES; When Phoenix uses [EX Special Attack: Dazzling Blaze], she gains the [Ascension] effect; The [Abloom] effect triggered by Phoenix ignores 40% of the enemy's DEF."
       }
     }
   ],
@@ -99,8 +99,8 @@
         "en": "Windborne"
       },
       "desc": {
-        "fr": "Le [Souffle du flux] accumulé lorsque Severian lance un [Enchaînement] passe à 50[cite: 63]. Lorsque Severian entre sur le terrain via la [Compétence d'entrée : Heure du grand ménage], celle-ci est remplacée par un [Enchaînement] (son type d'entrée reste inchangé et elle est traitée comme une attaque non lourde ; recharge 60 s max)[cite: 63]. Chaque fois que Severian lance l'[Attaque de base : Chasse de l'ombre du vent d'azur], il gagne 1 cumul de [Porté par le vent][cite: 63]. Lorsque les attaques de Severian touchent une cible, elles ignorent 15 % de sa RÉS Vent[cite: 63].",
-        "en": "The [Flow Breath] accumulated when Severian unleashes [Chain Attack] is increased to 50; When Severian enters the field via [Entry Skill: Clearing Time], the skill is replaced with [Chain Attack]. This skill's entry type remains unchanged, and it is treated as a non-heavy attack. This effect can trigger once every 60s at most; Each time Severian unleashes [Basic Attack: Azure Wind Shadowhunt], he gains 1 stack of [Windborne]; When Severian's attacks hit a target, they ignore 15% of that target's Wind RES[cite: 63]."
+        "fr": "Le [Souffle du flux] accumulé lorsque Severian lance un [Enchaînement] passe à 50. Lorsque Severian entre sur le terrain via la [Compétence d'entrée : Heure du grand ménage], celle-ci est remplacée par un [Enchaînement] (son type d'entrée reste inchangé et elle est traitée comme une attaque non lourde ; recharge 60 s max). Chaque fois que Severian lance l'[Attaque de base : Chasse de l'ombre du vent d'azur], il gagne 1 cumul de [Porté par le vent]. Lorsque les attaques de Severian touchent une cible, elles ignorent 15 % de sa RÉS Vent.",
+        "en": "The [Flow Breath] accumulated when Severian unleashes [Chain Attack] is increased to 50; When Severian enters the field via [Entry Skill: Clearing Time], the skill is replaced with [Chain Attack]. This skill's entry type remains unchanged, and it is treated as a non-heavy attack. This effect can trigger once every 60s at most; Each time Severian unleashes [Basic Attack: Azure Wind Shadowhunt], he gains 1 stack of [Windborne]; When Severian's attacks hit a target, they ignore 15% of that target's Wind RES."
       }
     },
     {
@@ -110,8 +110,8 @@
         "en": "Azure Wind"
       },
       "desc": {
-        "fr": "Lorsque Severian entre sur le champ de bataille, restaure 150 points de [Souffle du flux] (déclenchable une fois toutes les 180 s en mode Zone d'investigation)[cite: 63]. Lorsque Severian déclenche une [Esquive parfaite] ou lance l'[Attaque de base : Chasse de l'ombre du vent d'azur], son Taux de pénétration augmente de 20 % pendant 25 s[cite: 63].",
-        "en": "When Severian enters the battlefield, restore 150 pt(s) of [Flowing Breath]. In Investigation Zone mode, this effect can trigger once every 180s; When Severian triggers [Perfect Dodge] or unleashes [Basic Attack: Azure Wind Shadowhunt], his PEN Ratio increases by 20% for 25s[cite: 63]."
+        "fr": "Lorsque Severian entre sur le champ de bataille, restaure 150 points de [Souffle du flux] (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Lorsque Severian déclenche une [Esquive parfaite] ou lance l'[Attaque de base : Chasse de l'ombre du vent d'azur], son Taux de pénétration augmente de 20 % pendant 25 s.",
+        "en": "When Severian enters the battlefield, restore 150 pt(s) of [Flowing Breath]. In Investigation Zone mode, this effect can trigger once every 180s; When Severian triggers [Perfect Dodge] or unleashes [Basic Attack: Azure Wind Shadowhunt], his PEN Ratio increases by 20% for 25s."
       }
     },
     {
@@ -121,8 +121,8 @@
         "en": "Fierce Whirl"
       },
       "desc": {
-        "fr": "Lorsque Severian entre en combat ou arrive sur le terrain, son ATQ augmente de 10 % pendant 30 s (les déclenchements répétés réinitialisent la durée)[cite: 63]. Lorsque Severian utilise l'[Attaque de base : Tourbillon féroce] ou l'[Attaque de base : Chasse de l'ombre du vent d'azur], son Taux de génération de décibels augmente de 10 % pendant 15 s[cite: 63].",
-        "en": "When Severian enters combat or switches on-field, increase his own ATK by 10% for 30s. Repeated triggers reset the duration. When Severian uses [Basic Attack: Fierce Whirl] or [Basic Attack: Azure Wind Shadowhunt], increase his own Decibel Generation Rate by 10% for 15s[cite: 63]."
+        "fr": "Lorsque Severian entre en combat ou arrive sur le terrain, son ATQ augmente de 10 % pendant 30 s (les déclenchements répétés réinitialisent la durée). Lorsque Severian utilise l'[Attaque de base : Tourbillon féroce] ou l'[Attaque de base : Chasse de l'ombre du vent d'azur], son Taux de génération de décibels augmente de 10 % pendant 15 s.",
+        "en": "When Severian enters combat or switches on-field, increase his own ATK by 10% for 30s. Repeated triggers reset the duration. When Severian uses [Basic Attack: Fierce Whirl] or [Basic Attack: Azure Wind Shadowhunt], increase his own Decibel Generation Rate by 10% for 15s."
       }
     },
     {
@@ -132,8 +132,8 @@
         "en": "Rising Wind"
       },
       "desc": {
-        "fr": "La limite de [Souffle du flux] de Severian passe à 180, et le Souffle du flux restauré en entrant sur le champ de bataille passe à 180 points[cite: 63]. Le coup final de l'[Attaque de base : Chasse de l'ombre du vent d'azur] gagne une augmentation fixe de 350 % à son multiplicateur de DGT supplémentaires[cite: 63]. Lorsque le coup final de l'[Attaque de base : Chasse de l'ombre du vent d'azur] est déclenché, gagne l'effet [Vent ascendant] : accumule 5 points de [Souffle du flux] par seconde pendant 5 s (les déclenchements répétés réinitialisent la durée)[cite: 63].",
-        "en": "Severian's [Flowing Breath] limit is increased to 180, and the Flowing Breath restored when entering the battlefield is increased to 180 points; The final hit of [Basic Attack: Azure Wind Shadowhunt] gains a fixed 350% increase to its additional DMG Multiplier; When the final hit of [Basic Attack: Azure Wind Shadowhunt] is unleashed, gain the [Rising Wind] effect: accumulate 5 [Flowing Breath] per second for 5s. Repeated triggers reset the duration[cite: 63]."
+        "fr": "La limite de [Souffle du flux] de Severian passe à 180, et le Souffle du flux restauré en entrant sur le champ de bataille passe à 180 points. Le coup final de l'[Attaque de base : Chasse de l'ombre du vent d'azur] gagne une augmentation fixe de 350 % à son multiplicateur de DGT supplémentaires. Lorsque le coup final de l'[Attaque de base : Chasse de l'ombre du vent d'azur] est déclenché, gagne l'effet [Vent ascendant] : accumule 5 points de [Souffle du flux] par seconde pendant 5 s (les déclenchements répétés réinitialisent la durée).",
+        "en": "Severian's [Flowing Breath] limit is increased to 180, and the Flowing Breath restored when entering the battlefield is increased to 180 points; The final hit of [Basic Attack: Azure Wind Shadowhunt] gains a fixed 350% increase to its additional DMG Multiplier; When the final hit of [Basic Attack: Azure Wind Shadowhunt] is unleashed, gain the [Rising Wind] effect: accumulate 5 [Flowing Breath] per second for 5s. Repeated triggers reset the duration."
       }
     }
   ],
