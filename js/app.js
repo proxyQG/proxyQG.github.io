@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         agentsRes.json(),
         factionsRes.json()
     ]);
+    agentsData.reverse(); // Place les agents les plus récents (V3) en haut de grille
 
     updateStaticUI();
     initTabs();
@@ -364,13 +365,14 @@ function buildInitialGrid() {
     // NOUVEAU : On prépare tout le code HTML dans cette variable sans toucher au site
     let finalHTML = '';
     
-    agentsData.forEach((agent) => {
+    agentsData.forEach((agent, index) => {
         const v = agent.version || 'Inconnu';
         if (v !== currentV) {
             currentV = v;
             finalHTML += `<div class="version-separator col-span-full relative mt-16 mb-12 flex items-center justify-center group/sep perspective-1000 hidden" data-version="${v}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-[80%] md:w-[60%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c] to-transparent -translate-x-full laser-beam"></div></div></div><div class="relative bg-[#050505] px-8 py-3 border border-zinc-800/80 rounded-full flex items-center gap-4 shadow-[0_0_40px_rgba(0,0,0,0.6)] transform transition-transform duration-700 hover:scale-110 hover:border-[#d7f70c]/50 hover:shadow-[0_0_50px_rgba(215,247,12,0.2)] z-10 cursor-default"><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><span class="font-display font-black italic text-2xl tracking-[0.3em] text-white uppercase drop-shadow-md">Version <span class="text-[#d7f70c]">${v.replace('V', '')}</span></span><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><div class="absolute inset-0 bg-[#d7f70c]/5 blur-xl rounded-full -z-10 group-hover/sep:bg-[#d7f70c]/15 transition-colors duration-500"></div></div></div>`;
         }
-        finalHTML += createCardHTML(agent);
+        // index === 0 donne la banderole uniquement au tout premier agent
+        finalHTML += createCardHTML(agent, index === 0);
     });
     
     // NOUVEAU : On injecte tout le HTML d'un seul coup (fini les saccades !)
@@ -463,16 +465,26 @@ function renderAgents() {
     updateModalNavigation();
 }
 
-function createCardHTML(agent) {
+function createCardHTML(agent, isNew = false) {
     const hexColor = colorMap[agent.element] || '#ffffff'; const cleanHex = hexColor.replace('#', ''); 
     const isFav = State.favorites.includes(agent.name); 
     const heartClass = isFav ? 'text-red-500 fill-red-500' : 'text-zinc-500 fill-none'; 
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
 
+    const newRibbonHTML = isNew ? `
+        <div class="new-ribbon-wrapper">
+            <div class="new-ribbon-glow"></div>
+            <div class="new-ribbon-tag">
+                <span class="new-ribbon-shine"></span>
+                <span class="new-ribbon-text">NEW</span>
+            </div>
+        </div>` : '';
+
     return `
     <div class="agent-card-container hidden flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onmouseenter="window.preloadSplash('${agent.name.replace(/'/g, "\\'")}')" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
+                ${newRibbonHTML}
                 <img src="assets/Agents/${agent.name}.webp" loading="lazy" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 shadow-[inset_0_-35px_50px_rgba(0,0,0,0.95)] pointer-events-none transition-shadow duration-300 group-hover:shadow-[inset_0_-10px_20px_rgba(0,0,0,0.4)]"></div>
                 <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-[#111]/80 backdrop-blur border border-zinc-700 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
