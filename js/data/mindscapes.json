@@ -45,6 +45,50 @@
       }
     }
   ],
+  "Phoenix": [
+    {
+      "rank": "M1",
+      "title": { "fr": "Palier 1", "en": "Tier 1" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M2",
+      "title": { "fr": "Palier 2", "en": "Tier 2" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M4",
+      "title": { "fr": "Palier 4", "en": "Tier 4" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M6",
+      "title": { "fr": "Palier 6", "en": "Tier 6" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    }
+  ],
+  "Severian": [
+    {
+      "rank": "M1",
+      "title": { "fr": "Palier 1", "en": "Tier 1" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M2",
+      "title": { "fr": "Palier 2", "en": "Tier 2" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M4",
+      "title": { "fr": "Palier 4", "en": "Tier 4" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    },
+    {
+      "rank": "M6",
+      "title": { "fr": "Palier 6", "en": "Tier 6" },
+      "desc": { "fr": "Description en cours de décryptage...", "en": "Description being decrypted..." }
+    }
+  ],
   "Yixuan": [
     {
       "rank": "M1",
