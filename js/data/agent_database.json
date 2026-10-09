@@ -13610,7 +13610,17 @@
             {
                 "tag": "Signature (100 %)",
                 "name": "Nirvana's First Plume",
-                "img": "nothing.webp"
+                "img": "W-Engine_Nirvanas_First_Plume.webp"
+            },
+            {
+                "tag": "Alternative S",
+                "name": "Flamemaker Shaker",
+                "img": "W-Engine_Flamemaker_Shaker.webp"
+            },
+            {
+                "tag": "Alternative F2P",
+                "name": "Weeping Gemini",
+                "img": "W-Engine_Weeping_Gemini.webp"
             }
         ],
         "teams": [
