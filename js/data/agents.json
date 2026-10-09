@@ -478,5 +478,21 @@
         "faction": "Atelier Flint",
         "role": "Stun",
         "version": "V3"
+    },
+    {
+        "name": "Phoenix",
+        "element": "Fire",
+        "rank": "S",
+        "faction": "Autorité de conformité Krampus",
+        "role": "Anomaly",
+        "version": "V3"
+    },
+    {
+        "name": "Severian",
+        "element": "Wind",
+        "rank": "S",
+        "faction": "Division de l'Ordre urbain",
+        "role": "Attack",
+        "version": "V3"
     }
 ]
