@@ -167,25 +167,15 @@
         return true; 
     }
 
-    // --- Traçage de la souris pour l'effet Spotlight (DESKTOP UNIQUEMENT) ---
-        let spotlightTicking = false;
+    function bindEvents() {
+        // --- NOUVEAU : Traçage de la souris pour l'effet Spotlight ---
         document.addEventListener('mousemove', e => {
-            // Désactivé formellement sur mobile / tactile pour préserver 60/120 FPS
-            if (window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches) return;
-
             const card = e.target.closest('[data-engine]'); 
             if (!card) return;
-
-            if (!spotlightTicking) {
-                window.requestAnimationFrame(() => {
-                    const rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                    spotlightTicking = false;
-                });
-                spotlightTicking = true;
-            }
-        }, { passive: true });
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
         // --- GESTION DU CLIC ET DE L'OUVERTURE ---
         document.addEventListener('click', e => {
             const agentModal = document.getElementById('agentDetailModal');
