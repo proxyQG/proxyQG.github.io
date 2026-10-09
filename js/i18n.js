@@ -166,6 +166,7 @@ export const enginesDict = {
     "Puzzle Sphere": "Sphère puzzle",
     "Qingming Birdcage": "Cage à oiseaux Qingming",
     "Radiowave Journey": "Voyage hertzien",
+    "Nirvana's First Plume": "Première plume du nirvana",
     "Rainforest Gourmet": "Gourmet de la jungle",
     "Reel Projector": "Projecteur à bobines",
     "Riot Suppressor Mark VI": "Anti-émeute Mark VI",
