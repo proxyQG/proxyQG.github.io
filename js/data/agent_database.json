@@ -13572,8 +13572,8 @@
             "en": "Krampus Compliance Authority"
         },
         "stats": [
-            { "label": "Adresse d'Anomalie", "value": "350 - 420+" },
-            { "label": "Attaque", "value": "2600 - 3000+" }
+            { "label": "Adresse d'Anomalie", "value": "..." },
+            { "label": "Attaque", "value": "..." }
         ],
         "discs": [
             {
@@ -13597,20 +13597,20 @@
         ],
         "statPriority": {
             "main": [
-                { "slot": "6", "label": { "fr": "Maîtrise d'Anomalie", "en": "Anomaly Mastery" } },
-                { "slot": "5", "label": { "fr": "DGT Feu %", "en": "Fire DMG %" } },
-                { "slot": "4", "label": { "fr": "Adresse d'Anomalie", "en": "Anomaly Proficiency" } }
+                { "slot": "6", "label": { "fr": "...", "en": "..." } },
+                { "slot": "5", "label": { "fr": "...", "en": "..." } },
+                { "slot": "4", "label": { "fr": "...", "en": "..." } }
             ],
             "sub": [
-                { "label": { "fr": "Adresse d'Anomalie", "en": "Anomaly Proficiency" }, "highlight": true },
-                { "label": { "fr": "Attaque %", "en": "ATK %" }, "highlight": true }
+                { "label": { "fr": "...", "en": "..." }, "highlight": true },
+                { "label": { "fr": "...", "en": "..." }, "highlight": true }
             ]
         },
         "engines": [
             {
                 "tag": "Signature (100 %)",
-                "name": "Flamemaker Shaker",
-                "img": "W-Engine_Flamemaker_Shaker.webp"
+                "name": "Nirvana's First Plume",
+                "img": "nothing.webp"
             }
         ],
         "teams": [
