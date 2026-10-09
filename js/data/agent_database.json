@@ -13633,20 +13633,20 @@
             "en": "Metropolitan Order Division"
         },
         "stats": [
-            { "label": "Taux Crit", "value": "70 % - 85 %" },
-            { "label": "Dégât Crit", "value": "150 % - 180 %+" },
-            { "label": "Attaque", "value": "2800+" }
+            { "label": "Taux Crit", "value": "..." },
+            { "label": "Dégât Crit", "value": "..." },
+            { "label": "Attaque", "value": "..." }
         ],
         "discs": [
             {
                 "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
-                "set1": "Woodpecker_Electro",
-                "set2": "Puffer_Electro",
-                "set1Name": "4pc Woodpecker Electro",
-                "set2Name": "+ 2pc Puffer Electro",
+                "set1": "Dawn_Bloom",
+                "set2": "Astral_Voice",
+                "set1Name": "4pc Dawn's Bloom",
+                "set2Name": "+ 2pc Astral Voic",
                 "note": {
-                    "fr": "Configuration offensive standard pour attaquant Vent.",
-                    "en": "Standard offensive setup for Wind Attacker."
+                    "fr": "en attente.",
+                    "en": "pending..."
                 }
             }
         ],
