@@ -34,9 +34,7 @@ export const filterGroups = {
 };
 
 export const agentsData = [
-    [
-    { "name": "Anby", "element": "Electric", "rank": "A", "faction": "Lièvres rusés", "role": "Stun", "version": "V1" },
-    { "name": "Anton", "element": "Electric", "rank": "A", "faction": "Usines Belobog", "role": "Attack", "version": "V1" },
+    { "name": "Anby", "element": "Electric", "rank": "A", "faction": "Usines Belobog", "role": "Attack", "version": "V1" },
     { "name": "Ben", "element": "Fire", "rank": "A", "faction": "Usines Belobog", "role": "Defense", "version": "V1" },
     { "name": "Billy", "element": "Physical", "rank": "A", "faction": "Lièvres rusés", "role": "Attack", "version": "V1" },
     { "name": "Corin", "element": "Physical", "rank": "A", "faction": "Société d'entretien Victoria", "role": "Attack", "version": "V1" },
