@@ -13563,6 +13563,130 @@
             }
         ]
     },
+    "Phoenix": {
+        "color": "#f05432",
+        "element": "Fire",
+        "rank": "S",
+        "factionTitle": {
+            "fr": "Autorité de conformité Krampus",
+            "en": "Krampus Compliance Authority"
+        },
+        "stats": [
+            { "label": "Adresse d'Anomalie", "value": "350 - 420+" },
+            { "label": "Attaque", "value": "2600 - 3000+" }
+        ],
+        "discs": [
+            {
+                "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
+                "set1": "Chaos_Jazz",
+                "set2": "Freedom_Blues",
+                "set1Name": "4pc Chaos Jazz",
+                "set2Name": "+ 2pc Freedom Blues",
+                "note": {
+                    "fr": "Configuration par défaut en attente des tests finaux.",
+                    "en": "Default setup pending final testing."
+                }
+            }
+        ],
+        "skills": [
+            { "name": "Ex", "level": "12", "icon": "Ex.webp" },
+            { "name": "Ult", "level": "11", "icon": "Ultime.webp" },
+            { "name": "Basic", "level": "8", "icon": "Attaque_basic.webp" },
+            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
+            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
+        ],
+        "statPriority": {
+            "main": [
+                { "slot": "6", "label": { "fr": "Maîtrise d'Anomalie", "en": "Anomaly Mastery" } },
+                { "slot": "5", "label": { "fr": "DGT Feu %", "en": "Fire DMG %" } },
+                { "slot": "4", "label": { "fr": "Adresse d'Anomalie", "en": "Anomaly Proficiency" } }
+            ],
+            "sub": [
+                { "label": { "fr": "Adresse d'Anomalie", "en": "Anomaly Proficiency" }, "highlight": true },
+                { "label": { "fr": "Attaque %", "en": "ATK %" }, "highlight": true }
+            ]
+        },
+        "engines": [
+            {
+                "tag": "Signature (100 %)",
+                "name": "Flamemaker Shaker",
+                "img": "W-Engine_Flamemaker_Shaker.webp"
+            }
+        ],
+        "teams": [
+            {
+                "name": "TEAM 01",
+                "tag": { "fr": "Synergie Feu 👑", "en": "Fire Synergy 👑" },
+                "members": [
+                    { "img": "Phoenix.webp", "color": "#f05432", "initial": "P" },
+                    { "img": "Burnice.webp", "color": "#f05432", "initial": "B" },
+                    { "img": "Lucy.webp", "color": "#f05432", "initial": "L" }
+                ]
+            }
+        ]
+    },"Severian": {
+        "color": "#3bbedb",
+        "element": "Wind",
+        "rank": "S",
+        "factionTitle": {
+            "fr": "Division de l'Ordre urbain",
+            "en": "Metropolitan Order Division"
+        },
+        "stats": [
+            { "label": "Taux Crit", "value": "70 % - 85 %" },
+            { "label": "Dégât Crit", "value": "150 % - 180 %+" },
+            { "label": "Attaque", "value": "2800+" }
+        ],
+        "discs": [
+            {
+                "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
+                "set1": "Woodpecker_Electro",
+                "set2": "Puffer_Electro",
+                "set1Name": "4pc Woodpecker Electro",
+                "set2Name": "+ 2pc Puffer Electro",
+                "note": {
+                    "fr": "Configuration offensive standard pour attaquant Vent.",
+                    "en": "Standard offensive setup for Wind Attacker."
+                }
+            }
+        ],
+        "skills": [
+            { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
+            { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
+            { "name": "Ex", "level": "11", "icon": "Ex.webp" },
+            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
+            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
+        ],
+        "statPriority": {
+            "main": [
+                { "slot": "6", "label": { "fr": "ATQ %", "en": "ATK %" } },
+                { "slot": "5", "label": { "fr": "DGT Vent %", "en": "Wind DMG %" } },
+                { "slot": "4", "label": { "fr": "Taux CRIT / DGT CRIT", "en": "CRIT Rate / CRIT DMG" } }
+            ],
+            "sub": [
+                { "label": { "fr": "Taux CRIT = DGT CRIT", "en": "CRIT Rate = CRIT DMG" }, "highlight": true },
+                { "label": { "fr": "ATQ %", "en": "ATK %" }, "highlight": true }
+            ]
+        },
+        "engines": [
+            {
+                "tag": "Signature",
+                "name": "The Brimstone",
+                "img": "W-Engine_The_Brimstone.webp"
+            }
+        ],
+        "teams": [
+            {
+                "name": "TEAM 01",
+                "tag": { "fr": "Ordre Urbain 👑", "en": "Public Security 👑" },
+                "members": [
+                    { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
+                    { "img": "Qingyi.webp", "color": "#3182eb", "initial": "Q" },
+                    { "img": "Astra.webp", "color": "#f23c8a", "initial": "A" }
+                ]
+            }
+        ]
+    },
     "Hugo": {
         "color": "#3bbedb",
         "element": "Ice",
