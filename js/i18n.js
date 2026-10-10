@@ -123,7 +123,7 @@ export const discsDict = {
 export const enginesDict = {
     "Street Superstar": "Superstar des rues",
     "The Brimstone": "Le Soufre",
-    "The Restrained": "L'Entravé",
+    "The Restrained": "L'Enchainé",
     "The Simmering Pot": "La Marmite frémissante",
     "The Vault": "Le Coffre-fort",
     "Thoughtbop": "Choc de pensée",
