@@ -13592,7 +13592,7 @@
                 "set1Name": "4pc Freedom Blues",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-                    "fr": "Freedom Blues » augmentera de 20 % l'accumulation d'anomalie de Phoenix, ce qui lui permettra de déclencher davantage d'effets « Brûlure.",
+                    "fr": "Freedom Blues augmentera de 20 % l'accumulation d'anomalie de Phoenix, ce qui lui permettra de déclencher davantage d'effets « Brûlure.",
                     "en": "Freedom Blues will give Phoenix 20% increased Anomaly Build-Up, allowing for more  Burn procs from Phoenix."
                 }
             },
@@ -13606,7 +13606,7 @@
                 "set1Name": "4pc Chaos Jazz",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-                    "fr": "Chaos Jazz » est un bon choix pour les équipes de Phoenix qui ne comptent pas Remielle Dan dans leurs rangs, car celle-ci bénéficiera de son effet « 2 pièces » et du bonus de dégâts de feu « 4 pièces.",
+                    "fr": "Chaos Jazz est un bon choix pour les équipes de Phoenix qui ne comptent pas Remielle Dan dans leurs rangs, car celle-ci bénéficiera de son effet « 2 pièces » et du bonus de dégâts de feu « 4 pièces.",
                     "en": "Chaos Jazz is a good option for Phoenix's teams without  Remielle Dan, because she will benefit from its 2-Piece effect and the 4-Piece  Fire DMG bonus."
                 }
             }
@@ -13620,13 +13620,39 @@
         ],
         "statPriority": {
             "main": [
-                { "slot": "6", "label": { "fr": "...", "en": "..." } },
-                { "slot": "5", "label": { "fr": "...", "en": "..." } },
-                { "slot": "4", "label": { "fr": "...", "en": "..." } }
+                { "slot": "6", "label": { "fr": "Maîtrise d'Anomalie", "en": "Anomaly Mastery" } },
+                { "slot": "5", "label": { "fr": "DGT FEU % > ATQ %", "en": "Fire DMG > ATK %" } },
+                { "slot": "4", "label": { "fr": "Adresse d'Anomalie > ATQ %", "en": "Anomaly Proficiency > ATK %" } }
             ],
             "sub": [
-                { "label": { "fr": "...", "en": "..." }, "highlight": true },
-                { "label": { "fr": "...", "en": "..." }, "highlight": true }
+                {
+                    "label": {
+                        "fr": "Adresse d'Anomalie",
+                        "en": "Anomaly Proficiency"
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "ATQ %",
+                        "en": "ATK %"
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "PÉN",
+                        "en": "PEN"
+                    },
+                    "highlight": false
+                },
+                {
+                    "label": {
+                        "fr": "Flat ATQ",
+                        "en": "Flat ATK"
+                    },
+                    "highlight": false
+                }
             ]
         },
         "engines": [
