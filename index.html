@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-57NMW247');</script>
-    <!-- End Google Tag Manager -->
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="JnAQvmeTYDQ1-Pw6A3p9J5e-nJPWJevkNDQqbLA5EqI" />
+    <!-- 1. Préchargements prioritaires -->
     <link rel="preload" href="./js/data/agents.json" as="fetch" crossorigin>
     <link rel="preload" href="./js/data/factions.json" as="fetch" crossorigin>
-    
-    <!-- SEO & Présentation Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- 2. SEO & Canonique -->
     <title>ProxyQG - Zenless Zone Zero Guides</title>
     <meta name="description" content="La base de données ultime pour Zenless Zone Zero (ZZZ). Découvrez les meilleurs builds, équipes, disques et statistiques pour tous les agents.">
-    <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds" />
+    <link rel="canonical" href="https://proxyqg.github.io/">
+    <meta name="google-site-verification" content="JnAQvmeTYDQ1-Pw6A3p9J5e-nJPWJevkNDQqbLA5EqI" />
+
+    <!-- 3. Réseaux Sociaux & Discord -->
+    <meta property="og:type" content="website">
     <meta property="og:site_name" content="ProxyQG">
-    <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées." />
+    <meta property="og:url" content="https://proxyqg.github.io/">
+    <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds">
+    <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées.">
+    <meta property="og:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="fr_FR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ProxyQG - ZZZ Guides & Builds">
+    <meta name="twitter:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées.">
+    <meta name="twitter:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
+
+    <!-- 4. PWA & Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/Icone/logo.ico">
+    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
     <link rel="manifest" href="manifest.json">
-    <link href="css/disc-tooltip.css" rel="stylesheet">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#d7f70c">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ProxyQG">
-    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
-    <link rel="stylesheet" href="css/tooltip.css">
-    <!-- 1. Favicon de l'onglet (Fichier carré 1:1 : plus aucune déformation) -->
-    <link rel="icon" type="image/x-icon" href="assets/Icone/logo.ico" />
 
-    <!-- 2. Grande Bannière de partage Discord / Réseaux -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://proxyqg.github.io/" />
-    <meta property="og:image" content="https://proxyqg.github.io/assets/Icone/banner.webp" />
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
-    <meta name="theme-color" content="#d7f70c">
-    
-    <script>
-      const originalWarn = console.warn;
-      console.warn = (...args) => {
-        if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
-        originalWarn(...args);
-      };
-    </script>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <!-- 5. Feuilles de style externes -->
     <link href="css/styles.css" rel="stylesheet">
+    <link href="css/tooltip.css" rel="stylesheet">
+    <link href="css/disc-tooltip.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+
+    <!-- 6. Composants d'interface sur-mesure indispensables -->
     <style>
         main { transition: opacity 0.3s ease; }
-.direct-agent-load main { opacity: 0 !important; pointer-events: none; }
+        .direct-agent-load main { opacity: 0 !important; pointer-events: none; }
         
         .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
         .tab-pill { flex: 1; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
@@ -86,41 +88,36 @@
         .mindscape-node.active { transform: scale(1.25); box-shadow: 0 0 15px currentColor; }
         .mindscape-line { transition: width 0.5s ease-out; }
 
-        /* Animation Ascension */
         @keyframes rainUp {
             0% { transform: translateY(100%); }
             100% { transform: translateY(-200%); }
         }
 
-        /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
         #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
-    will-change: transform, opacity;
-}
+            will-change: transform, opacity;
+        }
 
-        /* --- NOUVEAU : Effet de reflet (Shine) pour le bouton PWA --- */
         @keyframes shine {
             0% { transform: translateX(-100%) skewX(-15deg); }
             100% { transform: translateX(200%) skewX(-15deg); }
         }
-        .animate-shine {
-            animation: shine 1.5s infinite;
-        }
+        .animate-shine { animation: shine 1.5s infinite; }
     </style>
+
+    <!-- Filtre anti-warning Tailwind -->
     <script>
-    if (window.location.search.includes('agent=')) {
-        document.documentElement.classList.add('direct-agent-load');
-    }
-</script>
-<!-- Nettoyage de l'ancien Service Worker -->
+      const originalWarn = console.warn;
+      console.warn = (...args) => {
+        if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+        originalWarn(...args);
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                for(let registration of registrations) {
-                    registration.unregister();
-                    console.log('Ancien Service Worker désinstallé.');
-                }
-            });
-        }
+      if (window.location.search.includes('agent=')) {
+          document.documentElement.classList.add('direct-agent-load');
+      }
     </script>
 </head>
 <body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden">
