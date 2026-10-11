@@ -726,7 +726,9 @@ window.addEventListener('popstate', () => {
 
 window.shareCurrentAgent = function() {
     if (State.modalIndex === -1) return;
-    const url = window.location.origin + window.location.pathname + '?agent=' + encodeURIComponent(State.filteredAgents[State.modalIndex].name);
+    const agentName = State.filteredAgents[State.modalIndex].name;
+    // Génère le lien dédié à l'agent avec sa vignette Discord personnalisée
+    const url = `${window.location.origin}/agents/${encodeURIComponent(agentName)}/`;
     navigator.clipboard.writeText(url).then(() => {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;
