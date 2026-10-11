@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-57NMW247');</script>
+    <!-- Google Tag Manager (Exécution sur load pour TBT = 0 ms) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      window.addEventListener('load', function() {
+        var f = document.getElementsByTagName('script')[0],
+            j = document.createElement('script');
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-57NMW247';
+        f.parentNode.insertBefore(j, f);
+      });
+    </script>
 
     <!-- 1. Préchargements prioritaires -->
     <link rel="preload" href="./js/data/agents.json" as="fetch" crossorigin>
     <link rel="preload" href="./js/data/factions.json" as="fetch" crossorigin>
+    <link rel="preload" href="assets/Faction/Li%C3%A8vres%20rus%C3%A9s.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
+    <link rel="preload" href="assets/Agents/Severian.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -517,8 +525,8 @@
         </div>
     </div>
         
-    <script src="js/tooltip.js"></script>
-    <script src="js/disc-tooltip.js"></script>    
-    <script type="module" src="js/app.js" defer></script> 
+    <script src="js/tooltip.js" defer></script>
+    <script src="js/disc-tooltip.js" defer></script>    
+    <script type="module" src="js/app.js" defer></script>
 </body>
 </html>
