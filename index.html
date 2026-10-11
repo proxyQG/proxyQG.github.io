@@ -1,60 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-57NMW247');</script>
+    <!-- End Google Tag Manager -->
 
-    <!-- 1. Préchargements prioritaires (zéro temps mort) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="JnAQvmeTYDQ1-Pw6A3p9J5e-nJPWJevkNDQqbLA5EqI" />
     <link rel="preload" href="./js/data/agents.json" as="fetch" crossorigin>
     <link rel="preload" href="./js/data/factions.json" as="fetch" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- 2. SEO & Canonique -->
+    
+    <!-- SEO & Présentation Google -->
     <title>ProxyQG - Zenless Zone Zero Guides</title>
     <meta name="description" content="La base de données ultime pour Zenless Zone Zero (ZZZ). Découvrez les meilleurs builds, équipes, disques et statistiques pour tous les agents.">
-    <link rel="canonical" href="https://proxyqg.github.io/">
-    <meta name="google-site-verification" content="JnAQvmeTYDQ1-Pw6A3p9J5e-nJPWJevkNDQqbLA5EqI" />
-
-    <!-- 3. Métadonnées Réseaux Sociaux & Discord (Open Graph & Twitter Cards) -->
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds" />
     <meta property="og:site_name" content="ProxyQG">
-    <meta property="og:url" content="https://proxyqg.github.io/">
-    <meta property="og:title" content="ProxyQG - ZZZ Guides & Builds">
-    <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées.">
-    <meta property="og:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="fr_FR">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ProxyQG - ZZZ Guides & Builds">
-    <meta name="twitter:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées.">
-    <meta name="twitter:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
-
-    <!-- 4. Favicon & Configuration PWA -->
-    <link rel="icon" type="image/x-icon" href="assets/Icone/logo.ico">
-    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
+    <meta property="og:description" content="Optimisez vos agents sur Zenless Zone Zero. Retrouvez tous les guides, synergies et statistiques détaillées." />
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#d7f70c">
+    <link href="css/disc-tooltip.css" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ProxyQG">
+    <link rel="apple-touch-icon" href="assets/Icone/logo-192.png">
+    <link rel="stylesheet" href="css/tooltip.css">
+    <!-- 1. Favicon de l'onglet (Fichier carré 1:1 : plus aucune déformation) -->
+    <link rel="icon" type="image/x-icon" href="assets/Icone/logo.ico" />
 
-    <!-- 5. Styles CSS ordonnés (Le style structurel en premier) -->
-    <link href="css/styles.css" rel="stylesheet">
-    <link href="css/tooltip.css" rel="stylesheet">
-    <link href="css/disc-tooltip.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
-
-    <!-- Filtre anti-warning Tailwind -->
+    <!-- 2. Grande Bannière de partage Discord / Réseaux -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://proxyqg.github.io/" />
+    <meta property="og:image" content="https://proxyqg.github.io/assets/Icone/banner.webp" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://proxyqg.github.io/assets/Icone/banner.webp">
+    <meta name="theme-color" content="#d7f70c">
+    
     <script>
       const originalWarn = console.warn;
       console.warn = (...args) => {
@@ -62,13 +47,80 @@
         originalWarn(...args);
       };
     </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <style>
+        main { transition: opacity 0.3s ease; }
+.direct-agent-load main { opacity: 0 !important; pointer-events: none; }
+        
+        .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
+        .tab-pill { flex: 1; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
+        @media (min-width: 768px) { .tab-pill { font-size: 0.75rem; padding: 0.6rem 1rem; } }
+        .tab-pill:hover { color: #ffffff; }
+        .tab-pill.active { color: #000000; }
+        
+        .tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
+        
+        .filter-btn { background-color: #151515; color: #d4d4d8; border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; }
+        .filter-btn:hover { border-color: rgba(255, 255, 255, 0.25); color: #ffffff; }
+        .filter-btn.active { background-color: #ffffff !important; color: #000000 !important; border-color: #ffffff !important; box-shadow: 0 0 20px rgba(255, 255, 255, 0.45) !important; font-weight: 900 !important; }
+        .filter-btn.active img.role-icon { filter: brightness(0) !important; }
+        @keyframes shimmerLaser { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .laser-beam { animation: shimmerLaser 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .lang-switch-wrap { position: relative; width: 80px; height: 32px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; display: flex; align-items: center; cursor: pointer; backdrop-filter: blur(10px); }
+        .lang-indicator { position: absolute; height: calc(100% - 6px); width: calc(50% - 3px); top: 3px; left: 3px; background: #d7f70c; border-radius: 99px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 10px rgba(215,247,12,0.4); }
+        .lang-switch-wrap[data-active="en"] .lang-indicator { transform: translateX(100%); }
+        .lang-option { flex: 1; text-align: center; font-size: 11px; font-weight: 900; z-index: 10; color: #fff; transition: color 0.3s; }
+        .lang-switch-wrap[data-active="fr"] .lang-option.fr { color: #000; }
+        .lang-switch-wrap[data-active="fr"] .lang-option.en { color: #888; }
+        .lang-switch-wrap[data-active="en"] .lang-option.en { color: #000; }
+        .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #888; }
 
-    <!-- Script anti-saccade sur ouverture directe d'un agent -->
+        .mindscape-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .mindscape-node:hover { transform: scale(1.2); }
+        .mindscape-node.active { transform: scale(1.25); box-shadow: 0 0 15px currentColor; }
+        .mindscape-line { transition: width 0.5s ease-out; }
+
+        /* Animation Ascension */
+        @keyframes rainUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-200%); }
+        }
+
+        /* OPTIMISATION MATÉRIELLE (GPU ACCELERATION) */
+        #agentDetailModal, #factionModal, .dropdown-item-anim, #ascensionModule {
+    will-change: transform, opacity;
+}
+
+        /* --- NOUVEAU : Effet de reflet (Shine) pour le bouton PWA --- */
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .animate-shine {
+            animation: shine 1.5s infinite;
+        }
+    </style>
     <script>
-      if (window.location.search.includes('agent=')) {
-          document.documentElement.classList.add('direct-agent-load');
-      }
+    if (window.location.search.includes('agent=')) {
+        document.documentElement.classList.add('direct-agent-load');
+    }
+</script>
+<!-- Nettoyage de l'ancien Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('Ancien Service Worker désinstallé.');
+                }
+            });
+        }
     </script>
 </head>
 <body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden">
