@@ -266,3 +266,30 @@ body {
     0% { opacity: 0.45; transform: scale(0.9); }
     100% { opacity: 1; transform: scale(1.2); filter: blur(10px); }
 }
+
+/* ========================================================
+   OPTIMISATION SCROLL GUIDE MOBILE (ZÉRO SACCADE)
+======================================================== */
+@media (max-width: 768px) {
+    /* 1. Coupe la fusion CRT qui sature le GPU pendant le défilement */
+    .crt-overlay {
+        display: none !important;
+    }
+
+    /* 2. Supprime le calcul de flou alpha lourd sur le splash art lors de la remontée */
+    #agentSplashImage {
+        filter: none !important;
+    }
+
+    /* 3. Force le conteneur de défilement sur sa propre couche GPU dédiée */
+    #agentModalScroll {
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
+        will-change: scroll-position;
+    }
+
+    /* 4. Allège les halos de fond pour éviter l'écroulement du fill-rate */
+    .blur-3xl {
+        filter: blur(20px) !important;
+    }
+}
