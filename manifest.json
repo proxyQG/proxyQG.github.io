@@ -19,19 +19,19 @@
       "src": "assets/Icone/logo-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ],
   "screenshots": [
     {
       "src": "assets/screenshot-mobile.webp",
-      "sizes": "1080x1920",
+      "sizes": "458x1145",
       "type": "image/webp",
       "form_factor": "narrow"
     },
     {
       "src": "assets/screenshot-pc.webp",
-      "sizes": "1920x1080",
+      "sizes": "2559x1250",
       "type": "image/webp",
       "form_factor": "wide"
     }
