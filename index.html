@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Tag Manager (Chargement à l'interaction / zér0 impact TBT) -->
+    <!-- Google Tag Manager (Strictement à l'interaction utilisateur) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
@@ -22,7 +22,6 @@
       ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(e) {
         window.addEventListener(e, initGTM, { once: true, passive: true });
       });
-      setTimeout(initGTM, 3500);
     </script>
 
     <!-- 1. Préchargements prioritaires -->
@@ -66,9 +65,9 @@
 
     <!-- 5. Feuilles de style externes -->
     <link href="css/styles.css" rel="stylesheet">
-    <link href="css/tooltip.css" rel="stylesheet">
-    <link href="css/disc-tooltip.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
     <!-- 6. Composants d'interface sur-mesure indispensables -->
     <style>
