@@ -67,7 +67,7 @@
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
 
     <!-- 6. Composants d'interface sur-mesure indispensables -->
     <style>
@@ -154,8 +154,8 @@
 
     <header class="bg-black h-16 md:h-20 border-b border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.9)] z-50 shrink-0 relative flex items-center justify-between px-3 md:px-10">
 
-        <!-- Logo (Aligné à gauche sur mobile, Centrage absolu sur PC) -->
-        <a href="index.html" class="flex items-center gap-2 md:gap-4 hover:scale-105 transition-transform duration-500 cursor-pointer md:absolute md:left-1/2 md:-translate-x-1/2 z-10">
+        <!-- Logo (Aligné à gauche sur mobile/tablette/F12, centré uniquement à partir de 1024px) -->
+        <a href="index.html" class="flex items-center gap-2 md:gap-4 hover:scale-105 transition-transform duration-500 cursor-pointer lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10">
             <div class="bg-yellow-400 px-3 md:px-5 py-1 md:py-1.5 skew-x-[-15deg] shadow-[0_0_15px_rgba(232,168,56,0.3)]">
                 <span class="block text-black font-display font-black italic text-xl md:text-3xl skew-x-[15deg]">ZZZ</span>
             </div>
