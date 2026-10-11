@@ -4727,12 +4727,12 @@
         "skills": [
             {
                 "name": "Ex",
-                "level": "",
+                "level": "11",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Basic",
-                "level": "",
+                "level": "11",
                 "icon": "Attaque_basic.webp"
             },
             {
