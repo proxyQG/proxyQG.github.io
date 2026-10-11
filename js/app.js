@@ -1,5 +1,4 @@
 import { colorMap, iconMap, filterGroups } from './data/agents.js';
-import { getGuideHTML } from './guides/index.js'; 
 import { updateStaticUI, setLanguage, currentLang, tTerm } from './i18n.js';
 let agentsData = [];
 let factionsData = [];
@@ -289,7 +288,7 @@ const factionTranslations = {
 
 let modalFactionsRendered = false;
 
-function generateFactionCardHTML(faction, isSidebar) {
+function generateFactionCardHTML(faction, isSidebar, index = 0) {
     const imgPath = `assets/Faction/${faction}.webp`; 
     const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
     
@@ -306,11 +305,13 @@ function generateFactionCardHTML(faction, isSidebar) {
     }
 
     if (isSidebar) {
+        const loadingAttr = (index === 0) ? 'loading="eager" fetchpriority="high"' : 'loading="lazy" decoding="async"';
+
         return `
         <div class="mb-5 px-1 transform-gpu hidden md:block">
             <div class="faction-box rounded-[1.5rem] p-4 flex flex-col items-center gap-4 cursor-pointer w-full group bg-gradient-to-br from-[#121212] to-[#050505] border-2 border-zinc-800 hover:border-yellow-400/50 transition-colors transform-gpu" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}')">
                 <div class="w-40 h-40 md:w-44 md:h-44 bg-black rounded-[1.2rem] overflow-hidden flex items-center justify-center p-2 shadow-inner group-hover:bg-[#0a0a0a] transition-colors relative transform-gpu">
-                    <img src="${imgPath}" loading="lazy" decoding="async" alt="${faction}" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10 transform-gpu" style="backface-visibility: hidden;" onerror="this.onerror=null; this.src='${fallbackImg}'">
+                    <img src="${imgPath}" ${loadingAttr} alt="${faction}" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10 transform-gpu" style="backface-visibility: hidden;" onerror="this.onerror=null; this.src='${fallbackImg}'">
                 </div>
                 <div class="bg-black/95 px-3 py-2.5 rounded-xl text-xs font-black text-center w-full border border-zinc-700/80 text-zinc-400 group-hover:text-white group-hover:border-yellow-400/80 transition-colors shadow-lg uppercase leading-tight transform-gpu flex-1 flex flex-col justify-center">
                     ${displayName}${subName ? `<span class="block text-[8px] text-zinc-500 mt-0.5 tracking-wider">${subName}</span>` : ''}
@@ -327,6 +328,19 @@ function generateFactionCardHTML(faction, isSidebar) {
                 ${displayName}${subName ? `<span class="block text-[7.5px] sm:text-[10px] text-zinc-500 mt-1 leading-tight">${subName}</span>` : ''}
             </div>
         </div>`;
+    }
+}
+
+function renderFactions() {
+    if (window.innerWidth >= 768) {
+        const sidebarList = document.getElementById('sidebarFactionsList');
+        if (sidebarList && factionsData.length > 0) {
+            const sidebarHTML = factionsData.map((f, idx) => generateFactionCardHTML(f, true, idx)).join('');
+            sidebarList.innerHTML = sidebarHTML + sidebarHTML;
+        }
+    }
+    if (modalFactionsRendered) {
+        window.renderModalFactions(true);
     }
 }
 
@@ -595,7 +609,10 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
         splashImg.src = `assets/splash/${agentName}.webp`; 
     }
     if (giantName) giantName.textContent = agentName;
-    if (guideContainer) { guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName)); }
+    if (guideContainer) {
+    const { getGuideHTML } = await import('./guides/index.js');
+    guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
+}
 
     window.openModal('agentDetailModal');
     
@@ -903,7 +920,10 @@ function initLanguageSwitcher() {
             // -------------------------------------------
 
             renderAgents(); scrollToTop();
-            if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); }
+            if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { 
+    const { getGuideHTML } = await import('./guides/index.js');
+    document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); 
+}
         });
     }
 }
