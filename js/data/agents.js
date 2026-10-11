@@ -1,8 +1,9 @@
 export const colorMap = {
     'Physical': '#e8a838', 'Honed Edge': '#e8a838',
     'Fire': '#f05432', 
-    'Ice': '#3bbedb', 'Frost': '#3bbedb',
-    'Wind': '#3bbedb',
+    'Ice': '#00d5be', 
+    'Frost': '#6d67f8',
+    'Wind': '#4da2f8',
     'Electric': '#3182eb', 
     'Ether': '#f23c8a', 'Lumiflux': '#fba2d0', 'Auric Ink': '#5d57a6'
 };
