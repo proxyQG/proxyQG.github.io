@@ -794,8 +794,12 @@ window.openVideoModal = function(videoId, startTime, event) {
     const content = document.getElementById('videoModalContent');
     if (!modal || !container) return;
 
-    // Rétablit l'animation Bangboo
+    // Rétablit l'animation Bangboo et charge le GIF à la demande
     const bgLoader = document.getElementById('bangbooLoader');
+    const bgImg = document.getElementById('bangbooImg');
+    if (bgImg && !bgImg.getAttribute('src')) {
+        bgImg.src = 'assets/Icone/loading-bangboo.gif';
+    }
     if (bgLoader) bgLoader.style.opacity = '1';
 
     container.innerHTML = `
