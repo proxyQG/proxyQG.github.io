@@ -75,8 +75,8 @@
         .direct-agent-load main { opacity: 0 !important; pointer-events: none; }
         
         .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
-        .tab-pill { flex: 1; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
-        @media (min-width: 768px) { .tab-pill { font-size: 0.75rem; padding: 0.6rem 1rem; } }
+        .tab-pill { flex: 1; min-width: 0; white-space: nowrap; position: relative; z-index: 10; padding: 0.6rem 0.5rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.05em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
+        @media (min-width: 768px) { .tab-pill { font-size: 0.7rem; padding: 0.55rem 0.5rem; } }
         .tab-pill:hover { color: #ffffff; }
         .tab-pill.active { color: #000000; }
         
