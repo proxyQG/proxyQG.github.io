@@ -24,13 +24,14 @@
       });
     </script>
 
-    <!-- 1. Préchargements prioritaires -->
+    <!-- 1. Préchargements prioritaires & Connexions CDN -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://cdn.tailwindcss.com/3.4.17" as="script">
     <link rel="preload" href="./js/data/agents.json" as="fetch" crossorigin>
     <link rel="preload" href="./js/data/factions.json" as="fetch" crossorigin>
     <link rel="preload" href="assets/Faction/Li%C3%A8vres%20rus%C3%A9s.webp" as="image" media="(min-width: 768px)" fetchpriority="high">
-    <link rel="preload" href="assets/Agents/Severian.webp" as="image" media="(max-width: 767px)" fetchpriority="high">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- 2. SEO & Canonique -->
     <title>ProxyQG - Zenless Zone Zero Guides</title>
@@ -63,13 +64,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ProxyQG">
 
-    <!-- 5. Feuilles de style externes & Préconnexion Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <!-- 5. Feuilles de style externes -->
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
 
     <!-- 6. Composants d'interface sur-mesure indispensables -->
     <style>
@@ -129,7 +128,7 @@
         originalWarn(...args);
       };
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
     <script>
       if (window.location.search.includes('agent=')) {
