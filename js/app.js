@@ -66,11 +66,12 @@ const dataPromise = Promise.all([
 ]);
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // Applique immédiatement la traduction statique sans attendre le réseau
+    updateStaticUI();
+
     // Les données sont déjà prêtes ou déjà en cours de réception
     [agentsData, factionsData] = await dataPromise;
     agentsData.reverse(); // Place les agents les plus récents (V3) en haut de grille
-
-    updateStaticUI();
     initTabs();
     initFilters('.filter-elem-btn', 'element');
     initFilters('.filter-role-btn', 'role');
