@@ -4,17 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Tag Manager (Exécution sur load pour TBT = 0 ms) -->
+    <!-- Google Tag Manager (Chargement à l'interaction / zér0 impact TBT) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-      window.addEventListener('load', function() {
+
+      function initGTM() {
+        if (window._gtmLoaded) return;
+        window._gtmLoaded = true;
         var f = document.getElementsByTagName('script')[0],
             j = document.createElement('script');
         j.async = true;
         j.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-57NMW247';
         f.parentNode.insertBefore(j, f);
+      }
+
+      ['scroll', 'mousemove', 'touchstart', 'click'].forEach(function(e) {
+        window.addEventListener(e, initGTM, { once: true, passive: true });
       });
+      setTimeout(initGTM, 3500);
     </script>
 
     <!-- 1. Préchargements prioritaires -->
