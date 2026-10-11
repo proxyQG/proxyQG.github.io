@@ -354,20 +354,6 @@ window.renderModalFactions = function(force = false) {
     }
 };
 
-// Ne peuple la barre latérale QUE si l'écran est un PC (>= 768px)
-function renderFactions() {
-    if (window.innerWidth >= 768) {
-        const sidebarList = document.getElementById('sidebarFactionsList');
-        if (sidebarList && factionsData.length > 0) {
-            const sidebarHTML = factionsData.map(f => generateFactionCardHTML(f, true)).join('');
-            sidebarList.innerHTML = sidebarHTML + sidebarHTML;
-        }
-    }
-    if (modalFactionsRendered) {
-        window.renderModalFactions(true);
-    }
-}
-
 window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = false) {
     if (!isLangSwitch) State.faction = faction; 
     const tags = document.querySelectorAll('.active-faction-tag');
