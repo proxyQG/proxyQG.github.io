@@ -13580,28 +13580,43 @@
             "en": "Krampus Compliance Authority"
         },
         "stats": [
-            { "label": "Adresse d'Anomalie", "value": "..." },
-            { "label": "Attaque", "value": "..." }
+            { "label": "Maîtrise d'Anomalie", "value": "210-220+" },
+            { "label": "Adresse d'Anomalie", "value": "400-420+" },
+            { "label": "Attaque", "value": "2800-3000+" }
         ],
         "discs": [
             {
                 "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
-                "set1": "Chaos_Jazz",
-                "set2": "Freedom_Blues",
-                "set1Name": "4pc Chaos Jazz",
-                "set2Name": "+ 2pc Freedom Blues",
+                "set1": "Freedom_Blues",
+                "set2": "Phaethon_Melody",
+                "set1Name": "4pc Freedom Blues",
+                "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-                    "fr": "Configuration par défaut en attente des tests finaux.",
-                    "en": "Default setup pending final testing."
+                    "fr": "Freedom Blues » augmentera de 20 % l'accumulation d'anomalie de Phoenix, ce qui lui permettra de déclencher davantage d'effets « Brûlure.",
+                    "en": "Freedom Blues will give Phoenix 20% increased Anomaly Build-Up, allowing for more  Burn procs from Phoenix."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "Alternative Anomalie",
+                    "en": "Anomaly Alternative"
+                },
+                "set1": "Chaos_Jazz",
+                "set2": "Phaethon_Melody",
+                "set1Name": "4pc Chaos Jazz",
+                "set2Name": "+ 2pc Phaethon's Melody",
+                "note": {
+                    "fr": "Chaos Jazz » est un bon choix pour les équipes de Phoenix qui ne comptent pas Remielle Dan dans leurs rangs, car celle-ci bénéficiera de son effet « 2 pièces » et du bonus de dégâts de feu « 4 pièces.",
+                    "en": "Chaos Jazz is a good option for Phoenix's teams without  Remielle Dan, because she will benefit from its 2-Piece effect and the 4-Piece  Fire DMG bonus."
                 }
             }
         ],
         "skills": [
-            { "name": "Ex", "level": "12", "icon": "Ex.webp" },
-            { "name": "Ult", "level": "11", "icon": "Ultime.webp" },
-            { "name": "Basic", "level": "8", "icon": "Attaque_basic.webp" },
-            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
-            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
+            { "name": "Basic", "level": "", "icon": "Attaque_basic.webp" },
+            { "name": "Ult", "level": "", "icon": "Ultime.webp" },
+            { "name": "Assist", "level": "", "icon": "Assist.webp" },
+            { "name": "Ex", "level": "", "icon": "Ex.webp" },
+            { "name": "Dodge", "level": "", "icon": "Esquive.webp" }
         ],
         "statPriority": {
             "main": [
