@@ -63,11 +63,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ProxyQG">
 
-    <!-- 5. Feuilles de style externes -->
+    <!-- 5. Feuilles de style externes & Préconnexion Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Montserrat:ital,wght@0,700;0,900;1,900&display=swap" rel="stylesheet">
 
     <!-- 6. Composants d'interface sur-mesure indispensables -->
     <style>
@@ -75,10 +77,10 @@
         .direct-agent-load main { opacity: 0 !important; pointer-events: none; }
         
         .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
-        .tab-pill { flex: 1; min-width: 0; white-space: nowrap; position: relative; z-index: 10; padding: 0.6rem 0.25rem; font-weight: 900; text-transform: uppercase; font-size: 0.62rem; letter-spacing: 0.01em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
-        @media (min-width: 768px) { .tab-pill { font-size: 0.65rem; padding: 0.55rem 0.25rem; letter-spacing: 0.01em; } }
-        .tab-pill:hover { color: #ffffff; }
-        .tab-pill.active { color: #000000; }
+                .tab-pill { flex: 1; min-width: 0; white-space: nowrap; position: relative; z-index: 10; padding: 0.6rem 0.25rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.01em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
+                @media (min-width: 768px) { .tab-pill { font-size: 0.71rem; padding: 0.62rem 0.25rem; letter-spacing: 0.01em; } }
+                .tab-pill:hover { color: #ffffff; }
+                .tab-pill.active { color: #000000; }
         
         .tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
         
