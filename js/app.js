@@ -87,8 +87,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderAgents(true); // 'true' = chargement initial (évite les 55 reflows forcés)
     
     setTimeout(() => { updateAllSliders('elements'); }, 100);
+    if (document.fonts) {
+        document.fonts.ready.then(() => {
+            updateAllSliders(State.mode);
+        });
+    }
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
+
+    // Précharge les guides discrètement quand le processeur est libre (0 impact au chargement initial)
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => { import('./guides/index.js'); });
+    } else {
+        setTimeout(() => { import('./guides/index.js'); }, 1200);
+    }
 });
 
 // ==========================================
@@ -541,10 +553,10 @@ function createCardHTML(agent, isNew = false, index = 0) {
 const preloadedSplashes = new Set();
 
 window.preloadSplash = function(agentName) {
-    // Si l'image a déjà été préchargée, on s'arrête
+    // Déclenche l'import du guide dès que la souris s'approche d'une carte
+    import('./guides/index.js');
+
     if (preloadedSplashes.has(agentName)) return;
-    
-    // Sinon, on la note comme chargée et on lance le téléchargement en arrière-plan
     preloadedSplashes.add(agentName);
     const img = new Image();
     img.src = `assets/splash/${agentName}.webp`;
@@ -595,12 +607,14 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
         splashImg.src = `assets/splash/${agentName}.webp`; 
     }
     if (giantName) giantName.textContent = agentName;
-    if (guideContainer) {
-    const { getGuideHTML } = await import('./guides/index.js');
-    guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
-}
 
+    // Ouvre la modale immédiatement pour donner un retour visuel instantané au clic
     window.openModal('agentDetailModal');
+
+    if (guideContainer) {
+        const { getGuideHTML } = await import('./guides/index.js');
+        guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
+    }
     
     setTimeout(() => {
         if (splashImg) { 
