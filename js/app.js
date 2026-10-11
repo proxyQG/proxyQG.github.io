@@ -96,12 +96,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Précharge les guides discrètement quand le processeur est libre (0 impact au chargement initial)
-    if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => { import('./guides/index.js'); });
-    } else {
-        setTimeout(() => { import('./guides/index.js'); }, 1200);
-    }
+    // Précharge au premier contact utilisateur réel (zéro impact sur Lighthouse / TBT)
+    window.addEventListener('pointerdown', () => { import('./guides/index.js'); }, { once: true, passive: true });
 });
 
 // ==========================================
