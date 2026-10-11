@@ -272,7 +272,18 @@
 
             <!-- Défilement Factions -->
             <div class="flex-1 overflow-hidden relative marquee-mask px-5 py-2 z-0 hidden md:block" id="sidebarMarqueeWrapper">
-                <div class="marquee-track-vertical" id="sidebarFactionsList"></div>
+                <div class="marquee-track-vertical" id="sidebarFactionsList">
+                    <div class="mb-5 px-1 transform-gpu hidden md:block">
+                        <div class="faction-box rounded-[1.5rem] p-4 flex flex-col items-center gap-4 cursor-pointer w-full group bg-gradient-to-br from-[#121212] to-[#050505] border-2 border-zinc-800 hover:border-yellow-400/50 transition-colors transform-gpu" onclick="window.setFactionFilter('Lièvres rusés')">
+                            <div class="w-40 h-40 md:w-44 md:h-44 bg-black rounded-[1.2rem] overflow-hidden flex items-center justify-center p-2 shadow-inner group-hover:bg-[#0a0a0a] transition-colors relative transform-gpu">
+                                <img src="assets/Faction/Li%C3%A8vres%20rus%C3%A9s.webp" loading="eager" fetchpriority="high" alt="Lièvres rusés" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10 transform-gpu" style="backface-visibility: hidden;">
+                            </div>
+                            <div class="bg-black/95 px-3 py-2.5 rounded-xl text-xs font-black text-center w-full border border-zinc-700/80 text-zinc-400 group-hover:text-white group-hover:border-yellow-400/80 transition-colors shadow-lg uppercase leading-tight transform-gpu flex-1 flex flex-col justify-center">
+                                Lièvres rusés
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Bouton Toutes les factions Bureau -->
