@@ -344,8 +344,19 @@ function renderFactions() {
     if (window.innerWidth >= 768) {
         const sidebarList = document.getElementById('sidebarFactionsList');
         if (sidebarList && factionsData.length > 0) {
+            // 1. Coupe temporairement l'animation pour désengager le GPU
+            sidebarList.style.animation = 'none';
+
+            // 2. Injecte la liste dupliquée
             const sidebarHTML = factionsData.map((f, idx) => generateFactionCardHTML(f, true, idx)).join('');
             sidebarList.innerHTML = sidebarHTML + sidebarHTML;
+
+            // 3. Force le navigateur à mesurer la vraie hauteur totale des cartes
+            void sidebarList.offsetHeight;
+
+            // 4. Réactive l'animation et s'assure qu'elle tourne
+            sidebarList.style.animation = '';
+            sidebarList.style.animationPlayState = 'running';
         }
     }
     if (modalFactionsRendered) {
