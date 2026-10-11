@@ -287,42 +287,71 @@ const factionTranslations = {
     "Atelier Flint": "Flint Workshop"
 };
 
-function renderFactions() {
-    const generateFactionHTML = (faction, isSidebar) => {
-        const imgPath = `assets/Faction/${faction}.webp`; 
-        const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
-        
-        // Traduction dynamique
-        const isEn = currentLang === 'en';
-        let displayName = faction;
-        if (isEn && factionTranslations[faction]) {
-            displayName = factionTranslations[faction];
-        }
-        
-        let subName = '';
-        if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
-            displayName = "N.E.P.S.";
-            subName = isEn ? "Special Response Team" : "Équipe d'intervention spéciale";
-        }
-        if (isSidebar) {
-            return `
-            <div class="mb-5 px-1 transform-gpu hidden md:block">
-                <div class="faction-box rounded-[1.5rem] p-4 flex flex-col items-center gap-4 cursor-pointer w-full group bg-gradient-to-br from-[#121212] to-[#050505] border-2 border-zinc-800 hover:border-yellow-400/50 transition-colors transform-gpu" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}')">
-                    <div class="w-40 h-40 md:w-44 md:h-44 bg-black rounded-[1.2rem] overflow-hidden flex items-center justify-center p-2 shadow-inner group-hover:bg-[#0a0a0a] transition-colors relative transform-gpu"><img src="${imgPath}" loading="eager" decoding="sync" alt="${faction}" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10 transform-gpu" style="backface-visibility: hidden;" onerror="this.onerror=null; this.src='${fallbackImg}'"></div>
-                    <div class="bg-black/95 px-3 py-2.5 rounded-xl text-xs font-black text-center w-full border border-zinc-700/80 text-zinc-400 group-hover:text-white group-hover:border-yellow-400/80 transition-colors shadow-lg uppercase leading-tight transform-gpu flex-1 flex flex-col justify-center">${displayName}${subName ? `<span class="block text-[8px] text-zinc-500 mt-0.5 tracking-wider">${subName}</span>` : ''}</div>
-                </div>
-            </div>`;
-        } else {
-            return `
-            <div class="bg-[#121212] border-2 border-zinc-800 rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 flex flex-col items-center justify-start gap-3 sm:gap-6 cursor-pointer hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300 group shadow-lg sm:shadow-2xl relative overflow-hidden h-full" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}', true)">
-                <div class="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 transition-all duration-500 group-hover:scale-110 relative z-10 flex-shrink-0 flex items-center justify-center mt-1 sm:mt-0"><img src="${imgPath}" loading="lazy" alt="${faction}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='${fallbackImg}'"></div>
-                <div class="mt-auto bg-black/80 px-2 py-2.5 sm:px-5 sm:py-3 rounded-xl text-[9px] sm:text-xs md:text-sm font-black w-full text-center border border-zinc-800 group-hover:border-yellow-400 text-zinc-300 shadow-inner group-hover:text-yellow-400 transition-colors duration-300 uppercase tracking-wider relative z-10 flex flex-col justify-center items-center">${displayName}${subName ? `<span class="block text-[7.5px] sm:text-[10px] text-zinc-500 mt-1 leading-tight">${subName}</span>` : ''}</div>
-            </div>`;
-        }
-    };
+let modalFactionsRendered = false;
+
+function generateFactionCardHTML(faction, isSidebar) {
+    const imgPath = `assets/Faction/${faction}.webp`; 
+    const fallbackImg = `https://placehold.co/300x300/181818/d7f70c?text=${faction.substring(0,3).toUpperCase()}&font=montserrat`;
     
-    const modalGrid = document.getElementById('modalFactionsGrid'); if (modalGrid) modalGrid.innerHTML = factionsData.map(f => generateFactionHTML(f, false)).join('');
-    const sidebarList = document.getElementById('sidebarFactionsList'); if (sidebarList) { const sidebarHTML = factionsData.map(f => generateFactionHTML(f, true)).join(''); sidebarList.innerHTML = sidebarHTML + sidebarHTML; }
+    const isEn = currentLang === 'en';
+    let displayName = faction;
+    if (isEn && factionTranslations[faction]) {
+        displayName = factionTranslations[faction];
+    }
+    
+    let subName = '';
+    if (faction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+        displayName = "N.E.P.S.";
+        subName = isEn ? "Special Response Team" : "Équipe d'intervention spéciale";
+    }
+
+    if (isSidebar) {
+        return `
+        <div class="mb-5 px-1 transform-gpu hidden md:block">
+            <div class="faction-box rounded-[1.5rem] p-4 flex flex-col items-center gap-4 cursor-pointer w-full group bg-gradient-to-br from-[#121212] to-[#050505] border-2 border-zinc-800 hover:border-yellow-400/50 transition-colors transform-gpu" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}')">
+                <div class="w-40 h-40 md:w-44 md:h-44 bg-black rounded-[1.2rem] overflow-hidden flex items-center justify-center p-2 shadow-inner group-hover:bg-[#0a0a0a] transition-colors relative transform-gpu">
+                    <img src="${imgPath}" loading="lazy" decoding="async" alt="${faction}" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10 transform-gpu" style="backface-visibility: hidden;" onerror="this.onerror=null; this.src='${fallbackImg}'">
+                </div>
+                <div class="bg-black/95 px-3 py-2.5 rounded-xl text-xs font-black text-center w-full border border-zinc-700/80 text-zinc-400 group-hover:text-white group-hover:border-yellow-400/80 transition-colors shadow-lg uppercase leading-tight transform-gpu flex-1 flex flex-col justify-center">
+                    ${displayName}${subName ? `<span class="block text-[8px] text-zinc-500 mt-0.5 tracking-wider">${subName}</span>` : ''}
+                </div>
+            </div>
+        </div>`;
+    } else {
+        return `
+        <div class="bg-[#121212] border-2 border-zinc-800 rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 flex flex-col items-center justify-start gap-3 sm:gap-6 cursor-pointer hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300 group shadow-lg sm:shadow-2xl relative overflow-hidden h-full" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}', true)">
+            <div class="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 transition-all duration-500 group-hover:scale-110 relative z-10 flex-shrink-0 flex items-center justify-center mt-1 sm:mt-0">
+                <img src="${imgPath}" loading="lazy" decoding="async" alt="${faction}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='${fallbackImg}'">
+            </div>
+            <div class="mt-auto bg-black/80 px-2 py-2.5 sm:px-5 sm:py-3 rounded-xl text-[9px] sm:text-xs md:text-sm font-black w-full text-center border border-zinc-800 group-hover:border-yellow-400 text-zinc-300 shadow-inner group-hover:text-yellow-400 transition-colors duration-300 uppercase tracking-wider relative z-10 flex flex-col justify-center items-center">
+                ${displayName}${subName ? `<span class="block text-[7.5px] sm:text-[10px] text-zinc-500 mt-1 leading-tight">${subName}</span>` : ''}
+            </div>
+        </div>`;
+    }
+}
+
+// Génère la grille de la modale uniquement au clic
+window.renderModalFactions = function(force = false) {
+    if (modalFactionsRendered && !force) return;
+    const modalGrid = document.getElementById('modalFactionsGrid');
+    if (modalGrid && factionsData.length > 0) {
+        modalGrid.innerHTML = factionsData.map(f => generateFactionCardHTML(f, false)).join('');
+        modalFactionsRendered = true;
+    }
+};
+
+// Ne peuple la barre latérale QUE si l'écran est un PC (>= 768px)
+function renderFactions() {
+    if (window.innerWidth >= 768) {
+        const sidebarList = document.getElementById('sidebarFactionsList');
+        if (sidebarList && factionsData.length > 0) {
+            const sidebarHTML = factionsData.map(f => generateFactionCardHTML(f, true)).join('');
+            sidebarList.innerHTML = sidebarHTML + sidebarHTML;
+        }
+    }
+    if (modalFactionsRendered) {
+        window.renderModalFactions(true);
+    }
 }
 
 window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = false) {
@@ -525,6 +554,10 @@ window.preloadSplash = function(agentName) {
 window.openModal = function(id) {
     const m = document.getElementById(id);
     if (!m) return;
+    // Si l'utilisateur ouvre la modale des factions, on peuple les cartes à la volée
+    if (id === 'factionModal' && typeof window.renderModalFactions === 'function') {
+        window.renderModalFactions();
+    }
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
