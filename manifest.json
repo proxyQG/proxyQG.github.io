@@ -1,19 +1,19 @@
 {
-  "id": "/",
-  "name": "ProxyQG - Zenless Zone Zero Guides",
+  "id": "/proxyqg",
+  "name": "ProxyQG - Zenless Zone Zero",
   "short_name": "ProxyQG",
-  "description": "La base de données et guides de builds pour Zenless Zone Zero.",
-  "start_url": "/?source=pwa",
-  "scope": "/",
+  "description": "La base de données ultime pour Zenless Zone Zero.",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#d7f70c",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "assets/Icone/logo-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "assets/Icone/logo-512.png",
