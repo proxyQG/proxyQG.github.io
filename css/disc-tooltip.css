@@ -93,6 +93,7 @@
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), inset 0 0 0 1.5px rgba(255, 255, 255, 0.15);
     animation: vinylRotate 18s linear infinite;
+    will-change: transform;
     z-index: 2;
 }
 
@@ -200,6 +201,7 @@
         border: none;
         border-top: 2px solid #d7f70c;
         box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
+       will-change: transform, opacity;
     }
 
     #disc-tooltip-modal.visible {
