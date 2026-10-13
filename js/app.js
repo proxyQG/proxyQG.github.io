@@ -96,29 +96,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Préchargement furtif au premier geste humain (Zéro impact PageSpeed / Instantané au 1er clic)
+    // Préchargement furtif au premier contact (Zéro impact PageSpeed / Instantané au 1er clic)
     let guidesPreloaded = false;
-    const preloadGuides = () => {
+    const preloadEvents = ['mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'];
+
+    const preloadGuides = (e) => {
         if (guidesPreloaded) return;
         guidesPreloaded = true;
 
-        // Nettoyage immédiat de tous les écouteurs
-        ['mousemove', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
-            window.removeEventListener(evt, preloadGuides);
-        });
+        preloadEvents.forEach(evt => window.removeEventListener(evt, preloadGuides));
 
         const executeImport = () => {
             import('./guides/index.js').catch(() => {});
         };
 
-        if ('requestIdleCallback' in window) {
+        // Sur appui tactile ou clic immédiat, exécution directe à la milliseconde 0
+        if (e && (e.type === 'touchstart' || e.type === 'pointerdown')) {
+            executeImport();
+        } else if ('requestIdleCallback' in window) {
             requestIdleCallback(executeImport);
         } else {
-            setTimeout(executeImport, 150);
+            setTimeout(executeImport, 100);
         }
     };
 
-    ['mousemove', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+    preloadEvents.forEach(evt => {
         window.addEventListener(evt, preloadGuides, { passive: true });
     });
 });
@@ -640,25 +642,32 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     // Ouvre la modale immédiatement pour donner un retour visuel instantané au clic
     window.openModal('agentDetailModal');
 
-    if (guideContainer) {
-        const { getGuideHTML } = await import('./guides/index.js');
-        guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
-    }
-    
+    // 1. Anime immédiatement le héros et la modale (0 ms de temps mort)
     setTimeout(() => {
         if (splashImg) { 
-    splashImg.style.opacity = '1'; 
-    const isMobile = window.innerWidth < 768;
-    const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
-    splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
-}
-                const modalScroll = document.getElementById('agentModalScroll');
+            splashImg.style.opacity = '1'; 
+            const isMobile = window.innerWidth < 768;
+            const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
+            splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
+        }
+        const modalScroll = document.getElementById('agentModalScroll');
         if (modalScroll) modalScroll.scrollTo(0, 0);
-        if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
-        
-        // Précharge les coéquipiers une fois l'affichage stabilisé
-        setTimeout(preloadTeammatesFromDOM, 350);
     }, 50);
+
+    // 2. Charge et injecte le guide en parallèle
+    if (guideContainer) {
+        try {
+            const { getGuideHTML } = await import('./guides/index.js');
+            guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
+            guideContainer.scrollTo(0, 0);
+            guideContainer.style.opacity = '1';
+            guideContainer.style.transform = 'translateX(0)';
+            
+            setTimeout(preloadTeammatesFromDOM, 350);
+        } catch (err) {
+            console.error("Erreur de chargement du guide :", err);
+        }
+    }
 };
 
 // Préchargement discret des coéquipiers du guide en arrière-plan
