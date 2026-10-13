@@ -633,22 +633,26 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     if (updateUrl) window.history.pushState({}, '', '?' + new URLSearchParams({ agent: agentName }).toString());
     
     if (splashImg) {
+        // Désactive toute transition pour caler immédiatement la bonne taille sans animation de rétrécissement
+        splashImg.style.transition = 'none';
         splashImg.style.opacity = '0';
         splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
         splashImg.src = `assets/splash/${agentName}.webp`; 
+
+        const isMobile = window.innerWidth < 768;
+        const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
+        splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)';
     }
     if (giantName) giantName.textContent = agentName;
 
     // Ouvre la modale immédiatement pour donner un retour visuel instantané au clic
     window.openModal('agentDetailModal');
 
-    // 1. Anime immédiatement le héros et la modale (0 ms de temps mort)
+    // 1. Anime uniquement l'apparition en fondu (la taille est déjà parfaitement calée)
     setTimeout(() => {
         if (splashImg) { 
+            splashImg.style.transition = 'opacity 0.3s ease';
             splashImg.style.opacity = '1'; 
-            const isMobile = window.innerWidth < 768;
-            const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
-            splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
         }
         const modalScroll = document.getElementById('agentModalScroll');
         if (modalScroll) modalScroll.scrollTo(0, 0);
