@@ -3568,7 +3568,7 @@
         "en": "Increases {Anomaly Proficiency} by [115.5]. When the equipper triggers a {Refringe} reaction, they gain [26%] increased {Anomaly DMG}, and all squad members gain [39%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
       },
       {
-        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [125,25]. Lorsque l'{Adresse d'Anomalie} de l'équipementier augmente de [125,25]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [29 %] et les DGT infligés par tous les membres de l'escouade augmentent de [43,5 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
+        "fr": "L'{Adresse d'Anomalie} de l'équipementier augmente de [125,25]. Lorsque l'équipementier déclenche une réaction de {Réfringence}, ses {DGT d'Anomalie} augmentent de [29 %] et les DGT infligés par tous les membres de l'escouade augmentent de [43,5 %] pendant 30s. Les déclenchements répétés réinitialisent la durée.",
         "en": "Increases {Anomaly Proficiency} by [125.25]. When the equipper triggers a {Refringe} reaction, they gain [29%] increased {Anomaly DMG}, and all squad members gain [43.5%] increased DMG dealt. Both effects last 30s. Repeated triggers reset the duration."
       },
       {
