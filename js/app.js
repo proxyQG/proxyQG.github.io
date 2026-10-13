@@ -96,8 +96,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Précharge au premier contact utilisateur réel (zéro impact sur Lighthouse / TBT)
-    window.addEventListener('pointerdown', () => { import('./guides/index.js'); }, { once: true, passive: true });
+    // Préchargement furtif au premier contact humain (Score PageSpeed intact à 99)
+    let guidesPreloaded = false;
+    const preloadGuides = (e) => {
+        if (guidesPreloaded) return;
+        guidesPreloaded = true;
+
+        ['mousemove', 'touchstart', 'pointerdown', 'scroll'].forEach(evt => {
+            window.removeEventListener(evt, preloadGuides);
+        });
+
+        const load = () => import('./guides/index.js').catch(() => {});
+
+        if (e && (e.type === 'touchstart' || e.type === 'pointerdown')) {
+            load();
+        } else if ('requestIdleCallback' in window) {
+            requestIdleCallback(load);
+        } else {
+            setTimeout(load, 100);
+        }
+    };
+
+    ['mousemove', 'touchstart', 'pointerdown', 'scroll'].forEach(evt => {
+        window.addEventListener(evt, preloadGuides, { passive: true });
+    });
 });
 
 // ==========================================
@@ -588,8 +610,8 @@ window.closeModal = function(id, updateUrl = true) {
         
         const splash = document.getElementById('agentSplashImage'); 
         const guide = document.getElementById('agentGuideContainer');
-        if (splash) { splash.style.opacity = '0'; splash.style.transform = 'translateY(20px) scale(0.9)'; }
-        if (guide) { guide.style.opacity = '0'; guide.style.transform = 'translateX(20px)'; }
+        if (splash) { splash.style.opacity = '0'; }
+        if (guide) { guide.style.opacity = '0'; }
         if (updateUrl) window.history.pushState({}, '', window.location.pathname); 
         State.modalIndex = -1;
     }
@@ -601,7 +623,9 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     if (!modal) return;
     if (modal.parentElement !== document.body) { document.body.appendChild(modal); }
 
-    const splashImg = document.getElementById('agentSplashImage'); const giantName = document.getElementById('modalGiantNameText'); const guideContainer = document.getElementById('agentGuideContainer');
+    const splashImg = document.getElementById('agentSplashImage'); 
+    const giantName = document.getElementById('modalGiantNameText'); 
+    const guideContainer = document.getElementById('agentGuideContainer');
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
@@ -614,28 +638,29 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     }
     if (giantName) giantName.textContent = agentName;
 
-    // Ouvre la modale immédiatement pour donner un retour visuel instantané au clic
+    // 1. Ouvre la modale immédiatement (0 ms de temps mort)
     window.openModal('agentDetailModal');
 
-    if (guideContainer) {
-        const { getGuideHTML } = await import('./guides/index.js');
-        guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
-    }
-    
+    // 2. Révèle l'image du héros sans attendre la compilation du guide
     setTimeout(() => {
-        if (splashImg) { 
-    splashImg.style.opacity = '1'; 
-    const isMobile = window.innerWidth < 768;
-    const remielleTransform = isMobile ? 'translateY(25px) scale(1.2)' : 'translateY(0) scale(1.4)';
-    splashImg.style.transform = agentName.toLowerCase() === 'remielle' ? remielleTransform : 'translateY(0) scale(1)'; 
-}
-                const modalScroll = document.getElementById('agentModalScroll');
+        if (splashImg) splashImg.style.opacity = '1';
+        const modalScroll = document.getElementById('agentModalScroll');
         if (modalScroll) modalScroll.scrollTo(0, 0);
-        if (guideContainer) { guideContainer.scrollTo(0, 0); guideContainer.style.opacity = '1'; guideContainer.style.transform = 'translateX(0)'; }
-        
-        // Précharge les coéquipiers une fois l'affichage stabilisé
-        setTimeout(preloadTeammatesFromDOM, 350);
     }, 50);
+
+    // 3. Charge et injecte le contenu du guide en parallèle
+    if (guideContainer) {
+        try {
+            const { getGuideHTML } = await import('./guides/index.js');
+            guideContainer.innerHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
+            guideContainer.scrollTo(0, 0);
+            guideContainer.style.opacity = '1';
+            
+            setTimeout(preloadTeammatesFromDOM, 350);
+        } catch (err) {
+            console.error("Erreur lors du chargement du guide :", err);
+        }
+    }
 };
 
 // Préchargement discret des coéquipiers du guide en arrière-plan
