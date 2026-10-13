@@ -96,8 +96,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Précharge au premier contact utilisateur réel (zéro impact sur Lighthouse / TBT)
-    window.addEventListener('pointerdown', () => { import('./guides/index.js'); }, { once: true, passive: true });
+    // Préchargement furtif au premier geste humain (Zéro impact PageSpeed / Instantané au 1er clic)
+    let guidesPreloaded = false;
+    const preloadGuides = () => {
+        if (guidesPreloaded) return;
+        guidesPreloaded = true;
+
+        // Nettoyage immédiat de tous les écouteurs
+        ['mousemove', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            window.removeEventListener(evt, preloadGuides);
+        });
+
+        const executeImport = () => {
+            import('./guides/index.js').catch(() => {});
+        };
+
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(executeImport);
+        } else {
+            setTimeout(executeImport, 150);
+        }
+    };
+
+    ['mousemove', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, preloadGuides, { passive: true });
+    });
 });
 
 // ==========================================
