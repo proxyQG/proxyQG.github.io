@@ -269,29 +269,6 @@
                 ]
             }
         ],
-        "mindscapes": [
-            {
-                "rank": "M1",
-                "desc": {
-                    "fr": "Le nombre de cumuls de Puissance requis passe à 20 max et la vitesse de rotation de l'EX Spécial augmente nettement.",
-                    "en": "Reduces max Power stacks needed to 20 and noticeably speeds up EX Special spin accumulation."
-                }
-            },
-            {
-                "rank": "M2",
-                "desc": {
-                    "fr": "Accélère la vitesse de démarrage du tourbillon et augmente l'Impact des coups continus.",
-                    "en": "Accelerates tire spin startup speed and increases Daze inflicted during continuous hits."
-                }
-            },
-            {
-                "rank": "M6",
-                "desc": {
-                    "fr": "Prolonge la durée maximale de l'EX Spécial et augmente ses dégâts d'Assaut finaux.",
-                    "en": "Extends max EX Special spin duration and significantly increases terminal Assault strike DMG."
-                }
-            }
-        ],
         "notes": [
             {
                 "fr": "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Désordres. L'énorme quantité d'Anomalies de Piper la rend compétitive.",
@@ -6932,29 +6909,6 @@
                 ]
             }
         ],
-        "mindscapes": [
-            {
-                "rank": "M1",
-                "desc": {
-                    "fr": "+25 % ATK en combat, progression accélérée des niveaux d'EBA et coup bonus de 100 % de DGT.",
-                    "en": "+25% in-combat ATK, faster EBA stage progression, and a bonus strike dealing 100% DMG."
-                }
-            },
-            {
-                "rank": "M2",
-                "desc": {
-                    "fr": "+10 % de décibels et gain de dégâts massif ; permet de caler un ultime additionnel par combat.",
-                    "en": "+10% Decibels and massive damage amplification; enables an extra Ultimate per combat."
-                }
-            },
-            {
-                "rank": "M4",
-                "desc": {
-                    "fr": "Bonus permanent de +80 % de dégâts.",
-                    "en": "Permanent +80% damage bonus."
-                }
-            }
-        ],
         "notes": [
             {
                 "fr": "Plafond CRIT : Ne pas dépasser 34 % sur la fiche de stats hors combat (85,4 % innés sous forme renforcée).",
@@ -7713,29 +7667,6 @@
                         "initial": "N"
                     }
                 ]
-            }
-        ],
-        "mindscapes": [
-            {
-                "rank": "M1",
-                "desc": {
-                    "fr": "La réduction de résistance physique ennemie est active en permanence grâce à la conversion totale en attaques arrière.",
-                    "en": "Enemy Physical RES shred is permanently active thanks to 100% back-attack conversion."
-                }
-            },
-            {
-                "rank": "M4",
-                "desc": {
-                    "fr": "Confère jusqu'à +14 % Taux CRIT, permettant d'équiper un Disque 4 en DGT CRIT.",
-                    "en": "Grants up to +14% CRIT Rate, allowing slot 4 disc to run CRIT DMG."
-                }
-            },
-            {
-                "rank": "M6",
-                "desc": {
-                    "fr": "Ajoute +54 % DGT CRIT supplémentaires, saturant le multiplicateur et justifiant le passage du Disque 4 en ATK %.",
-                    "en": "Adds +54% CRIT DMG, saturating the stat and favoring ATK% on slot 4."
-                }
             }
         ],
         "notes": [
