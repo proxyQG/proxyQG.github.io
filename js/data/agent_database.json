@@ -6450,8 +6450,8 @@
         "label": "Taux Crit",
         "value": "60 - 100%",
         "note": {
-          "fr": "76 % requis pour max son Taux CRIT avec son moteur signature",
-          "en": "76% is needed to max her CRIT RATE with Signature W-Engine"
+          "fr": "76 % max avec son moteur signature",
+          "en": "76% max with her Signature W-Engine"
         }
       },
             {
