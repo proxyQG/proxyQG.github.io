@@ -1,8 +1,20 @@
 import { currentLang, ui } from '../i18n.js';
 
+function escapeHTML(str) {
+    if (typeof str !== 'string') return str ?? '';
+    return str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[tag] || tag));
+}
+
 export function generateGenericGuide(agentName) {
     const txt = ui[currentLang] || ui.fr;
-    const desc = txt.encryptedArchive.replace('{name}', agentName);
+    const safeName = escapeHTML(agentName);
+    const desc = txt.encryptedArchive.replace('{name}', safeName);
 
     return `
     <div class="flex flex-col items-center justify-center h-full opacity-80 stagger-anim w-full">
