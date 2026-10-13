@@ -496,15 +496,6 @@ function renderAgents(isInitial = false) {
             }
             
             card.el.classList.remove('hidden');
-
-            // Lors du premier chargement, on évite le reflow forcé qui gèle le thread principal
-            if (!isInitial) {
-                card.el.classList.remove('animate-fade-in-up');
-                void card.el.offsetWidth; // Utilisé UNIQUEMENT lors des clics sur les filtres pour relancer l'animation
-                card.el.classList.add('animate-fade-in-up');
-            }
-            card.el.style.animationDelay = `${Math.min(visibleIndex * 20, 300)}ms`;
-            
             visibleIndex++;
         } else {
             card.el.classList.add('hidden');
@@ -769,8 +760,27 @@ window.addEventListener('popstate', () => {
     const agentParam = new URLSearchParams(window.location.search).get('agent');
     const tooltip = document.getElementById('proxy-tooltip');
     const discModal = document.getElementById('disc-tooltip-modal');
+    const videoModal = document.getElementById('videoModal');
+    const factionModal = document.getElementById('factionModal');
+    const mobileFilterModal = document.getElementById('mobileFilterModal');
 
-    // 1. Si la platine vinyle est visible, le retour mobile ferme UNIQUEMENT le vinyle
+    // 1. Si la vidéo est ouverte, le retour mobile ferme uniquement la vidéo
+    if (videoModal && !videoModal.classList.contains('hidden')) {
+        window.closeVideoModal();
+        return;
+    }
+
+    // 2. Si les factions ou le filtre mobile sont ouverts, on les ferme en priorité
+    if (factionModal && !factionModal.classList.contains('hidden')) {
+        window.closeModal('factionModal', false);
+        return;
+    }
+    if (mobileFilterModal && !mobileFilterModal.classList.contains('hidden')) {
+        window.closeModal('mobileFilterModal', false);
+        return;
+    }
+
+    // 3. Si la platine vinyle est visible, le retour mobile ferme UNIQUEMENT le vinyle
     if (discModal && discModal.classList.contains('visible')) {
         if (typeof window.hideDiscTooltip === 'function') {
             window.hideDiscTooltip(true);
@@ -778,7 +788,7 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-    // 2. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
+    // 4. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
     if (tooltip && tooltip.classList.contains('visible')) {
         if (typeof window.hideTooltip === 'function') {
             window.hideTooltip(true);
@@ -786,7 +796,7 @@ window.addEventListener('popstate', () => {
         return;
     }
 
-    // 3. Gestion normale de l'agent
+    // 5. Gestion normale de l'agent
     if (agentParam) {
         const currentOpenAgent = (State.modalIndex !== -1 && State.filteredAgents[State.modalIndex]) 
             ? State.filteredAgents[State.modalIndex].name 
@@ -919,6 +929,11 @@ window.closeVideoModal = function() {
     const content = document.getElementById('videoModalContent');
     if (!modal) return;
 
+    // Coupe le son immédiatement dès l'appui sur fermer (sans attendre les 300ms)
+    if (currentPlayer && typeof currentPlayer.stopVideo === 'function') {
+        currentPlayer.stopVideo();
+    }
+
     modal.classList.remove('opacity-100');
     content.classList.remove('scale-100');
     content.classList.add('scale-95');
@@ -1005,10 +1020,10 @@ let deferredPrompt;
 const installBtn = document.getElementById('pwa-install-btn');
 
 if (installBtn) {
-    // 1. Détection iOS
+    // 1. Détection iOS (incluant les iPads récents sous iPadOS)
     const isIos = () => {
         const userAgent = window.navigator.userAgent.toLowerCase();
-        return /iphone|ipad|ipod/.test(userAgent);
+        return /iphone|ipad|ipod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     };
     const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 
