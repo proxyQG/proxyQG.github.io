@@ -732,7 +732,7 @@
         "element": "Honed Edge",
         "elementIcon": "Honed_Edge.webp",
         "rank": "S",
-        "factionTitle": "Void Hunter",
+        "factionTitle": { "fr": "Chasseur du néant", "en": "Void Hunter" },
         "stats": [
             {
                 "label": "Attaque",
