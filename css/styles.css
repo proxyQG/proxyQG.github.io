@@ -135,13 +135,19 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(215,247,12,0.5); }
 
-/* --- NOUVEAU : SCROLLBAR MOBILE PLUS LARGE --- */
+/* --- MASQUAGE TOTAL DE LA SCROLLBAR SUR MOBILE (STYLE APP NATIVE) --- */
 @media (max-width: 768px) {
-    ::-webkit-scrollbar { width: 14px; }
-    ::-webkit-scrollbar-thumb { border-radius: 7px; border: 3px solid transparent; background-clip: padding-box; }
+    * {
+        scrollbar-width: none !important; /* Firefox Mobile */
+        -ms-overflow-style: none !important; /* IE / Edge */
+    }
     
-    .custom-scrollbar::-webkit-scrollbar { width: 12px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.4); border-radius: 6px; }
+    ::-webkit-scrollbar,
+    .custom-scrollbar::-webkit-scrollbar {
+        display: none !important; /* Chrome Mobile, Safari iOS, Samsung Internet */
+        width: 0 !important;
+        height: 0 !important;
+    }
 }
 
 /* Correction pour les noms d'agents très longs sur mobile */
