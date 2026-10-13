@@ -604,21 +604,33 @@ window.openModal = function(id) {
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
-window.closeModal = function(id, updateUrl = true) {
-    const m = document.getElementById(id);
+window.closeAgentDetail = function(updateUrl = true) {
+    const m = document.getElementById('agentDetailModal');
     if (!m) return;
-    if (id === 'agentDetailModal') {
-        // Rétablit l'affichage de la grille principale
-        document.documentElement.classList.remove('direct-agent-load');
-        
-        const splash = document.getElementById('agentSplashImage'); 
-        const guide = document.getElementById('agentGuideContainer');
-        if (splash) { splash.style.opacity = '0'; splash.style.transform = 'translateY(20px) scale(0.9)'; }
-        if (guide) { guide.style.opacity = '0'; guide.style.transform = 'translateX(20px)'; }
-        if (updateUrl) window.history.pushState({}, '', window.location.pathname); 
-        State.modalIndex = -1;
+    const splashImg = document.getElementById('agentSplashImage');
+    const guide = document.getElementById('agentGuideContainer');
+
+    if (splashImg) {
+        // Bloque toute déformation : seul le fondu est animé en sortie (0 rétrécissement)
+        splashImg.style.transition = 'opacity 0.2s ease-out';
+        splashImg.style.opacity = '0';
     }
-    m.classList.remove('opacity-100'); setTimeout(() => m.classList.add('hidden'), 300);
+    if (guide) { 
+        guide.style.opacity = '0'; 
+        guide.style.transform = 'translateX(20px)'; 
+    }
+    if (updateUrl) window.history.pushState({}, '', window.location.pathname);
+    State.modalIndex = -1;
+
+    m.classList.remove('opacity-100');
+    setTimeout(() => {
+        m.classList.add('hidden');
+        // Réinitialisation silencieuse une fois la modale invisible à l'écran
+        if (splashImg) {
+            splashImg.style.transition = 'none';
+            splashImg.style.transform = 'translateY(0) scale(1)';
+        }
+    }, 300);
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true) {
