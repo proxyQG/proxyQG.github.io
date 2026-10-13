@@ -6446,17 +6446,21 @@
             "en": "Flint Workshop"
         },
         "stats": [
-            {
-                "label": "Taux Crit",
-                "value": "60 - 90%"
-            },
+           {
+        "label": "Taux Crit",
+        "value": "60 - 100%",
+        "note": {
+          "fr": "76 % requis pour max son Taux CRIT avec son moteur signature",
+          "en": "76% is needed to max her CRIT RATE with Signature W-Engine"
+        }
+      },
             {
                 "label": "Récup. d'énergie",
-                "value": "3.12"
+                "value": "2.88 - 3.12"
             },
             {
                 "label": "Attaque",
-                "value": "1800"
+                "value": "1800 - 2500+"
             }
         ],
         "discs": [
