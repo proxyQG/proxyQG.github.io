@@ -391,12 +391,6 @@ function buildMindscapes(mindscapes, c) {
     }).join('');
 
     return `
-    <style>
-        @keyframes msSlideFade {
-            0% { opacity: 0; transform: translateY(6px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-    </style>
     <div class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes</h3>
