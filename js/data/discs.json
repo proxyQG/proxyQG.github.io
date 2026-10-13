@@ -1,7 +1,7 @@
 {
   "King_of_the_Summit": {
     "name": {
-      "fr": "Roi du sommet",
+      "fr": "Reine des cimes",
       "en": "King of the Summit"
     },
     "img": "King_of_the_Summit.webp",
@@ -61,7 +61,7 @@
   },
   "The_Sky_Ablaze": {
     "name": {
-      "fr": "Ciel embrasé",
+      "fr": "Le ciel ardent",
       "en": "The Sky Ablaze"
     },
     "img": "The_Sky_Ablaze.webp",
@@ -161,7 +161,7 @@
   },
   "Wuthering_Salon": {
     "name": {
-      "fr": "Salon des tourbillons",
+      "fr": "Salon de tourmente",
       "en": "Wuthering Salon"
     },
     "img": "Wuthering_Salon.webp",
@@ -221,7 +221,7 @@
   },
   "Branch_Blade_Song": {
     "name": {
-      "fr": "Chant des branches et des lames",
+      "fr": "Balade de l'épée de bois",
       "en": "Branch & Blade Song"
     },
     "img": "Branch_Blade_Song.webp",
@@ -261,7 +261,7 @@
   },
   "Chaos_Jazz": {
     "name": {
-      "fr": "Chaos Jazz",
+      "fr": "Jazz chaotique",
       "en": "Chaos Jazz"
     },
     "img": "Chaos_Jazz.webp",
@@ -321,7 +321,7 @@
   },
   "Fanged_Metal": {
     "name": {
-      "fr": "Métal crochu",
+      "fr": "Métal mordant",
       "en": "Fanged Metal"
     },
     "img": "Fanged_Metal.webp",
@@ -361,7 +361,7 @@
   },
   "Freedom_Blues": {
     "name": {
-      "fr": "Blues de la liberté",
+      "fr": "Blues libre",
       "en": "Freedom Blues"
     },
     "img": "Freedom_Blues.webp",
@@ -421,7 +421,7 @@
   },
   "Notes_From_the_Chained": {
     "name": {
-      "fr": "Notes de l'enchaîné",
+      "fr": "Notes d'une prisonnière",
       "en": "Notes From the Chained"
     },
     "img": "Notes_From_the_Chained.webp",
@@ -441,7 +441,7 @@
   },
   "Phaethon_Melody": {
     "name": {
-      "fr": "Mélodie de Phaéthon",
+      "fr": "La mélodie de Phaéthon",
       "en": "Phaethon's Melody"
     },
     "img": "Phaethon_Melody.webp",
@@ -481,7 +481,7 @@
   },
   "Proto_Punk": {
     "name": {
-      "fr": "Proto-punk",
+      "fr": "Protopunk",
       "en": "Proto Punk"
     },
     "img": "Proto_Punk.webp",
@@ -501,7 +501,7 @@
   },
   "Puffer_Electro": {
     "name": {
-      "fr": "Électro-fugu",
+      "fr": "Électro fugu",
       "en": "Puffer Electro"
     },
     "img": "Puffer_Electro.webp",
@@ -521,7 +521,7 @@
   },
   "Shadow_Harmony": {
     "name": {
-      "fr": "Harmonie de l'ombre",
+      "fr": "Harmonie dans l'ombre",
       "en": "Shadow Harmony"
     },
     "img": "Shadow_Harmony.webp",
@@ -541,7 +541,7 @@
   },
   "Shining_Aria": {
     "name": {
-      "fr": "Aria étincelante",
+      "fr": "Aria rayonnante",
       "en": "Shining Aria"
     },
     "img": "Shining_Aria.webp",
