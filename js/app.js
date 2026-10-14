@@ -22,7 +22,9 @@ const State = {
     showFavorites: false,
     favorites: initialFavorites,
     filteredAgents: [],
-    modalIndex: -1
+    modalIndex: -1,
+    currentAgent: null,
+    agentHistory: []
 };
 
 // ==========================================
@@ -592,6 +594,31 @@ window.openModal = function(id) {
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
+function updateBackToAgentButton() {
+    const btn = document.getElementById('backToAgentBtn');
+    const img = document.getElementById('backToAgentImg');
+    const nameEl = document.getElementById('backToAgentName');
+    if (!btn || !img || !nameEl) return;
+
+    if (State.agentHistory.length > 0) {
+        const prevAgent = State.agentHistory[State.agentHistory.length - 1];
+        img.src = `assets/Agents/${prevAgent}.webp`;
+        img.alt = prevAgent;
+        nameEl.textContent = prevAgent === 'Jane' ? 'Jane Doe' : prevAgent;
+        btn.classList.remove('hidden');
+        btn.classList.add('flex');
+    } else {
+        btn.classList.add('hidden');
+        btn.classList.remove('flex');
+    }
+}
+
+window.goBackToPreviousAgent = function() {
+    if (State.agentHistory.length === 0) return;
+    const prevAgent = State.agentHistory.pop();
+    window.openAgentDetail(prevAgent, true, false, true);
+};
+
 window.closeModal = function(id, updateUrl = true) {
     const m = document.getElementById(id);
     if (!m) return;
@@ -605,14 +632,29 @@ window.closeModal = function(id, updateUrl = true) {
         if (guide) { guide.style.opacity = '0'; }
         if (updateUrl) window.history.pushState({}, '', window.location.pathname); 
         State.modalIndex = -1;
+        State.currentAgent = null;
+        State.agentHistory = [];
+        updateBackToAgentButton();
+        document.title = 'ProxyQG - Zenless Zone Zero Guides';
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.setAttribute('href', 'https://proxyqg.github.io/');
     }
     m.classList.remove('opacity-100'); setTimeout(() => m.classList.add('hidden'), 300);
 };
 
-window.openAgentDetail = async function(agentName, updateUrl = true) {
+window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
     const modal = document.getElementById('agentDetailModal');
     if (!modal) return;
     if (modal.parentElement !== document.body) { document.body.appendChild(modal); }
+
+    if (fromTeammate && State.currentAgent) {
+        if (State.currentAgent === agentName) return;
+        State.agentHistory.push(State.currentAgent);
+    } else if (!isBackNav) {
+        State.agentHistory = [];
+    }
+    State.currentAgent = agentName;
+    updateBackToAgentButton();
 
     const splashImg = document.getElementById('agentSplashImage'); 
     const giantName = document.getElementById('modalGiantNameText'); 
@@ -621,6 +663,10 @@ window.openAgentDetail = async function(agentName, updateUrl = true) {
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
     if (updateUrl) window.history.pushState({}, '', '?' + new URLSearchParams({ agent: agentName }).toString());
+
+    document.title = `${agentName} - Guide & Build | ProxyQG`;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/?agent=${encodeURIComponent(agentName)}`);
     
     if (splashImg) {
         splashImg.style.opacity = '0';
@@ -816,8 +862,8 @@ window.addEventListener('popstate', () => {
 });
 
 window.shareCurrentAgent = function() {
-    if (State.modalIndex === -1) return;
-    const agentName = State.filteredAgents[State.modalIndex].name;
+    const agentName = State.currentAgent || (State.modalIndex !== -1 ? State.filteredAgents[State.modalIndex]?.name : null);
+    if (!agentName) return;
     // Génère le lien dédié à l'agent avec sa vignette Discord personnalisée
     const url = `${window.location.origin}/agents/${encodeURIComponent(agentName)}/`;
     navigator.clipboard.writeText(url).then(() => {
@@ -966,10 +1012,10 @@ function initLanguageSwitcher() {
             // -------------------------------------------
 
             renderAgents(); scrollToTop();
-            if (State.modalIndex !== -1 && !document.getElementById('agentDetailModal').classList.contains('hidden')) { 
-    const { getGuideHTML } = await import('./guides/index.js');
-    document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.filteredAgents[State.modalIndex].name, State.filteredAgents[State.modalIndex]); 
-}
+            if (State.currentAgent && !document.getElementById('agentDetailModal').classList.contains('hidden')) { 
+             const { getGuideHTML } = await import('./guides/index.js');
+             document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent)); 
+         }
         });
     }
 }
