@@ -368,17 +368,18 @@ function renderFactions() {
     if (window.innerWidth >= 768) {
         const sidebarList = document.getElementById('sidebarFactionsList');
         if (sidebarList && factionsData.length > 0) {
-            // 1. Retire temporairement l'animation pour éviter le calcul sur 1 seule carte
+            // 1. Retire la classe d'animation
             sidebarList.classList.remove('marquee-track-vertical');
 
-            // 2. Injecte l'ensemble des 40 cartes
+            // 2. Injecte le HTML
             const sidebarHTML = factionsData.map((f, idx) => generateFactionCardHTML(f, true, idx)).join('');
             sidebarList.innerHTML = sidebarHTML + sidebarHTML;
 
-            // 3. Déclenche l'animation à la frame suivante sur la hauteur réelle complète
-            requestAnimationFrame(() => {
-                sidebarList.classList.add('marquee-track-vertical');
-            });
+            // 3. Force un reflow immédiat pour garantir le reset de l'animation CSS
+            void sidebarList.offsetWidth;
+
+            // 4. Réapplique la classe d'animation
+            sidebarList.classList.add('marquee-track-vertical');
         }
     }
     if (modalFactionsRendered) {
