@@ -1,4 +1,4 @@
-name: Auto-Generate Agent Redirects
+name: Auto-Generate Agent Redirects & Sitemap
 
 on:
   workflow_dispatch:
@@ -17,12 +17,13 @@ jobs:
       - name: Récupération du dépôt
         uses: actions/checkout@v4
 
-      - name: Génération et nettoyage des pages agents
+      - name: Génération des pages agents et du Sitemap
         run: |
           python3 - << 'EOF'
           import json
           import html
           import shutil
+          from datetime import date
           from pathlib import Path
           from urllib.parse import quote
 
@@ -46,6 +47,7 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>__SAFE_NAME__ - Guide & Build | ProxyQG</title>
               <meta name="description" content="Découvrez le meilleur build, disques, moteurs et synergies pour __SAFE_NAME__ sur Zenless Zone Zero.">
+              <link rel="canonical" href="https://proxyqg.github.io/?agent=__ENCODED__">
 
               <!-- Open Graph (Discord, Facebook) -->
               <meta property="og:type" content="website">
@@ -85,12 +87,20 @@ jobs:
 
           valid_names = {agent["name"] for agent in agents if "name" in agent}
 
-          # Supprime les anciens dossiers si un agent a été renommé ou retiré
           for existing_dir in output_base.iterdir():
               if existing_dir.is_dir() and existing_dir.name not in valid_names:
                   shutil.rmtree(existing_dir)
 
-          # Crée ou met à jour chaque dossier d'agent
+          today = date.today().isoformat()
+          sitemap_urls = [
+              "  <url>\n"
+              "    <loc>https://proxyqg.github.io/</loc>\n"
+              f"    <lastmod>{today}</lastmod>\n"
+              "    <changefreq>weekly</changefreq>\n"
+              "    <priority>1.0</priority>\n"
+              "  </url>"
+          ]
+
           for agent in agents:
               name = agent["name"]
               safe_name = html.escape(name)
@@ -110,17 +120,36 @@ jobs:
 
               with open(agent_dir / "index.html", "w", encoding="utf-8") as out:
                   out.write(final_html)
+
+              sitemap_urls.append(
+                  "  <url>\n"
+                  f"    <loc>https://proxyqg.github.io/?agent={encoded}</loc>\n"
+                  f"    <lastmod>{today}</lastmod>\n"
+                  "    <changefreq>weekly</changefreq>\n"
+                  "    <priority>0.8</priority>\n"
+                  "  </url>"
+              )
+
+          sitemap_xml = (
+              '<?xml version="1.0" encoding="UTF-8"?>\n'
+              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+              + "\n".join(sitemap_urls) +
+              "\n</urlset>\n"
+          )
+
+          with open("sitemap.xml", "w", encoding="utf-8") as sm_out:
+              sm_out.write(sitemap_xml)
           EOF
 
-      - name: Enregistrement des dossiers générés
+      - name: Enregistrement des fichiers générés
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A agents/
+          git add -A agents/ sitemap.xml
           if git diff --staged --quiet; then
             echo "Aucune mise à jour nécessaire."
           else
-            git commit -m "Auto-update: Fiches de redirection Discord des agents"
+            git commit -m "Auto-update: Redirections agents et Sitemap SEO"
             git pull --rebase origin main
             git push origin main
           fi
