@@ -1,0 +1,126 @@
+name: Auto-Generate Agent Redirects
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'js/data/agents.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build-redirects:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Génération et nettoyage des pages agents
+        run: |
+          python3 - << 'EOF'
+          import json
+          import html
+          import shutil
+          from pathlib import Path
+          from urllib.parse import quote
+
+          COLOR_MAP = {
+              "Physical": "#e8a838",
+              "Fire": "#f05432",
+              "Ice": "#3bbedb",
+              "Electric": "#3182eb",
+              "Ether": "#f23c8a",
+              "Wind": "#2dd4bf",
+              "Lumiflux": "#fba2d0",
+              "Auric Ink": "#5d57a6",
+              "Honed Edge": "#e8a838",
+              "Frost": "#3bbedb",
+          }
+
+          TEMPLATE = """<!DOCTYPE html>
+          <html lang="fr">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>__SAFE_NAME__ - Guide & Build | ProxyQG</title>
+              <meta name="description" content="Découvrez le meilleur build, disques, moteurs et synergies pour __SAFE_NAME__ sur Zenless Zone Zero.">
+
+              <!-- Open Graph (Discord, Facebook) -->
+              <meta property="og:type" content="website">
+              <meta property="og:site_name" content="ProxyQG">
+              <meta property="og:title" content="__SAFE_NAME__ - Guide & Build">
+              <meta property="og:description" content="Build complet, disques recommandés, moteurs et compositions pour __SAFE_NAME__.">
+              <meta property="og:image" content="https://proxyqg.github.io/assets/Agents/__ENCODED__.webp">
+              <meta property="og:image:width" content="400">
+              <meta property="og:image:height" content="400">
+              <meta property="og:url" content="https://proxyqg.github.io/agents/__ENCODED__/">
+
+              <!-- Twitter / Discord format vignette carrée à droite -->
+              <meta name="twitter:card" content="summary">
+              <meta name="twitter:title" content="__SAFE_NAME__ - Guide & Build">
+              <meta name="twitter:description" content="Build complet, disques recommandés, moteurs et compositions pour __SAFE_NAME__.">
+              <meta name="twitter:image" content="https://proxyqg.github.io/assets/Agents/__ENCODED__.webp">
+
+              <!-- Couleur Discord (bordure de l'élément) -->
+              <meta name="theme-color" content="__COLOR__">
+
+              <!-- Redirection instantanée vers le site pour l'utilisateur -->
+              <script>
+                  window.location.replace("../../?agent=__ENCODED__");
+              </script>
+              <meta http-equiv="refresh" content="0; url=../../?agent=__ENCODED__">
+          </head>
+          <body style="background:#050505; color:#ffffff; font-family:sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;">
+              <p style="font-weight:bold; letter-spacing:0.1em; text-transform:uppercase;">CHARGEMENT DU GUIDE : __SAFE_NAME__...</p>
+          </body>
+          </html>"""
+
+          with open("js/data/agents.json", "r", encoding="utf-8") as f:
+              agents = json.load(f)
+
+          output_base = Path("agents")
+          output_base.mkdir(exist_ok=True)
+
+          valid_names = {agent["name"] for agent in agents if "name" in agent}
+
+          # Supprime les anciens dossiers si un agent a été renommé ou retiré
+          for existing_dir in output_base.iterdir():
+              if existing_dir.is_dir() and existing_dir.name not in valid_names:
+                  shutil.rmtree(existing_dir)
+
+          # Crée ou met à jour chaque dossier d'agent
+          for agent in agents:
+              name = agent["name"]
+              safe_name = html.escape(name)
+              encoded = quote(name, safe="")
+              color = COLOR_MAP.get(agent.get("element", ""), "#eab308")
+
+              agent_dir = output_base / name
+              agent_dir.mkdir(parents=True, exist_ok=True)
+
+              final_html = (
+                  TEMPLATE
+                  .replace("__SAFE_NAME__", safe_name)
+                  .replace("__ENCODED__", encoded)
+                  .replace("__COLOR__", color)
+                  .strip() + "\n"
+              )
+
+              with open(agent_dir / "index.html", "w", encoding="utf-8") as out:
+                  out.write(final_html)
+          EOF
+
+      - name: Enregistrement des dossiers générés
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A agents/
+          if git diff --staged --quiet; then
+            echo "Aucune mise à jour nécessaire."
+          else
+            git commit -m "Auto-update: Fiches de redirection Discord des agents"
+            git pull --rebase origin main
+            git push origin main
+          fi
