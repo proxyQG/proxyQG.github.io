@@ -844,17 +844,17 @@ window.addEventListener('popstate', () => {
 
     // 5. Gestion normale de l'agent
     if (agentParam) {
-        const currentOpenAgent = (State.modalIndex !== -1 && State.filteredAgents[State.modalIndex]) 
-            ? State.filteredAgents[State.modalIndex].name 
-            : null;
         // Si l'agent est déjà affiché à l'écran, on évite de recharger pour ne pas perdre la position de défilement
-        if (modal && !modal.classList.contains('hidden') && currentOpenAgent && currentOpenAgent.toLowerCase() === agentParam.toLowerCase()) {
+        if (modal && !modal.classList.contains('hidden') && State.currentAgent && State.currentAgent.toLowerCase() === agentParam.toLowerCase()) {
             return;
         }
 
         const matchingAgent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
         if (matchingAgent) {
-            window.openAgentDetail(matchingAgent.name, false);
+            const lastInHistory = State.agentHistory[State.agentHistory.length - 1];
+            const isReturningToPrev = lastInHistory && lastInHistory.toLowerCase() === matchingAgent.name.toLowerCase();
+            if (isReturningToPrev) State.agentHistory.pop();
+            window.openAgentDetail(matchingAgent.name, false, false, isReturningToPrev);
         }
     } else if (modal && !modal.classList.contains('hidden')) {
         window.closeModal('agentDetailModal', false);
