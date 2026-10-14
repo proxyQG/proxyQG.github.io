@@ -15,7 +15,7 @@ function escapeHTML(str) {
 
 // --- SOUS-COMPOSANTS DES ÉQUIPES ---
 
-function buildTeamMember(m, i) {
+function buildTeamMember(m, i, currentAgentName) {
     const isFirst = i === 0;
     const memberColor = m.color || '#52525b';
     const borderStyle = `border-color: ${memberColor}; box-shadow: ${isFirst ? '0 0 15px ' + memberColor + '40' : 'none'};`;
@@ -25,9 +25,19 @@ function buildTeamMember(m, i) {
         const imgSrc = `assets/Agents/${m.img.replace('.png', '.webp')}`;
         const escapedName = escapeHTML(agentName);
         const jsSafeName = agentName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const isCurrentAgent = agentName === currentAgentName;
+
+        if (isCurrentAgent) {
+            return `
+            <div class="flex flex-col items-center gap-3 cursor-default">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="${borderStyle}">
+                    <img src="${imgSrc}" loading="lazy" class="w-full h-full object-cover object-top scale-110">
+                </div>
+            </div>`;
+        }
 
         return `
-        <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.openAgentDetail('${jsSafeName}')" title="Voir le guide de ${escapedName}">
+        <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="Voir le guide de ${escapedName}">
             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="${borderStyle}">
                 <img src="${imgSrc}" loading="lazy" class="w-full h-full object-cover object-top scale-110">
             </div>
