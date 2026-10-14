@@ -262,7 +262,7 @@ function buildEngines(data, c, txt) {
     </div>`;
 }
 
-function buildTeams(data, c, txt) {
+function buildTeams(agentName, data, c, txt) {
     const teamsList = data.teams || [];
     const teamsHTML = teamsList.map((team, index) => {
         const isFirst = index === 0;
@@ -273,7 +273,7 @@ function buildTeams(data, c, txt) {
 
         const membersList = team.members || [];
         const membersHTML = membersList.map((m, i) => {
-            const memberCard = buildTeamMember(m, i);
+            const memberCard = buildTeamMember(m, i, agentName);
             const separator = (i < membersList.length - 1) ? `<div class="w-6 h-px bg-zinc-700"></div>` : '';
             return memberCard + separator;
         }).join('');
@@ -454,7 +454,7 @@ export function generateGuideFromData(agentName, data, mindscapesDB) {
             </div>
         </div>
 
-        ${buildTeams(data, c, txt)}
+        ${buildTeams(agentName, data, c, txt)}
         ${buildMindscapes(mindscapes, c)}
     </div>
     `;
