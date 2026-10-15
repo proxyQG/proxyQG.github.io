@@ -27,9 +27,7 @@ export const ui = {
         teams: "Synergies & Équipes",
         installApp: "INSTALLER L'APP",
         agentsFound: "Agents",
-        resetFilters: "Réinitialiser",
-        hddSystem: "SYSTÈME H.D.D.",
-        latestPatch: "PATCH 3.X"
+        resetFilters: "Réinitialiser"
     },
     en: {
         searchPlaceholder: "Search an agent...",
@@ -58,9 +56,7 @@ export const ui = {
         teams: "Synergies & Teams",
         installApp: "INSTALL APP",
         agentsFound: "Agents",
-        resetFilters: "Reset",
-        hddSystem: "H.D.D. SYSTEM",
-        latestPatch: "PATCH 3.X"
+        resetFilters: "Reset"
     }
 };
 
