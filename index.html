@@ -82,10 +82,12 @@
         
         .tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
         
-        .filter-btn { background-color: #151515; color: #d4d4d8; border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; }
-        .filter-btn:hover { border-color: rgba(255, 255, 255, 0.25); color: #ffffff; }
-        .filter-btn.active { background-color: #ffffff !important; color: #000000 !important; border-color: #ffffff !important; box-shadow: 0 0 20px rgba(255, 255, 255, 0.45) !important; font-weight: 900 !important; }
-        .filter-btn.active img.role-icon { filter: brightness(0) !important; }
+        .filter-btn { position: relative; background-color: #121214; color: #a1a1aa; border: 1px solid rgba(255, 255, 255, 0.07); transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; overflow: hidden; }
+        .filter-btn:hover:not(.active) { background-color: #1c1c1f; border-color: var(--btn-color, rgba(255, 255, 255, 0.28)); color: #ffffff; transform: translateY(-1px); }
+        .filter-btn.active { background: linear-gradient(135deg, color-mix(in srgb, var(--btn-color, #d7f70c) 24%, #161618), #0d0d0f) !important; color: #ffffff !important; border-color: var(--btn-color, #d7f70c) !important; box-shadow: 0 4px 18px -2px color-mix(in srgb, var(--btn-color, #d7f70c) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important; font-weight: 900 !important; }
+        .filter-btn[data-filter="All"].active, .filter-btn[data-role="All"].active, .filter-btn[data-version="All"].active { background: #d7f70c !important; color: #000000 !important; border-color: #d7f70c !important; box-shadow: 0 0 20px rgba(215, 247, 12, 0.4) !important; }
+        .tab-dot { position: absolute; top: 5px; right: 7px; width: 5px; height: 5px; border-radius: 9999px; background-color: #d7f70c; box-shadow: 0 0 6px #d7f70c; pointer-events: none; }
+        .tab-pill.active .tab-dot { background-color: #000000; box-shadow: none; }
         @keyframes shimmerLaser { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         .laser-beam { animation: shimmerLaser 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
         
@@ -203,94 +205,111 @@
         <div id="mobileOverlay" class="fixed inset-0 bg-black/95 z-[150] hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
 
         <!-- SIDEBAR BUREAU -->
-        <aside class="w-20 md:w-[340px] bg-[#0a0a0a] border-r border-zinc-800 flex flex-col shrink-0 z-40 relative hidden md:flex transition-all duration-300">
-            <div class="p-5 flex flex-col shrink-0 z-10 bg-[#0a0a0a] shadow-2xl relative custom-scrollbar overflow-y-auto max-h-full pb-10">
-                <div class="relative w-full z-50 group mb-6">
+        <aside class="md:w-[340px] bg-[#09090b] border-r border-zinc-800/90 flex flex-col shrink-0 z-40 relative hidden md:flex">
+            <div class="p-4 pb-3 flex flex-col shrink-0 z-10 bg-[#09090b] border-b border-zinc-800/80 shadow-[0_10px_25px_rgba(0,0,0,0.6)] relative">
+                <!-- Barre de recherche Cyber-Tactique -->
+                <div class="relative w-full z-50 group mb-3.5">
                     <div class="relative flex items-center">
-                        <input type="text" id="searchInput" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Rechercher un agent..." class="w-full bg-[#151515] border-2 border-zinc-800 rounded-xl py-3.5 pl-4 pr-10 text-white text-sm focus:outline-none focus:border-yellow-400 focus:bg-[#1a1a1a] transition-all shadow-inner placeholder-zinc-600">
-                        <button id="clearSearchBtn" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                        <svg class="w-4 h-4 text-zinc-500 group-focus-within:text-[#d7f70c] transition-colors absolute left-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="searchInput" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Rechercher un agent..." class="w-full bg-[#121214] border border-zinc-800 rounded-xl py-2.5 pl-10 pr-10 text-white text-xs font-semibold focus:outline-none focus:border-[#d7f70c] focus:bg-[#161619] focus:shadow-[0_0_15px_rgba(215,247,12,0.12)] transition-all placeholder-zinc-500">
+                        <div class="hidden md:flex items-center absolute right-3 pointer-events-none">
+                            <kbd id="searchShortcutHint" class="px-1.5 py-0.5 text-[10px] font-mono font-bold text-zinc-500 bg-zinc-900 border border-zinc-800 rounded">/</kbd>
+                        </div>
+                        <button id="clearSearchBtn" class="absolute right-2.5 text-zinc-500 hover:text-[#d7f70c] transition-colors hidden p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
-                    <div id="searchDropdown" class="absolute left-0 right-0 top-full mt-2 bg-black/95 border border-zinc-700 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.9)] max-h-72 overflow-y-auto flex flex-col hidden divide-y divide-zinc-800 backdrop-blur-xl transform origin-top transition-all duration-300 z-[150]"></div>
+                    <div id="searchDropdown" class="absolute left-0 right-0 top-full mt-2 bg-[#0c0c0e]/95 border border-zinc-700 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.95)] max-h-72 overflow-y-auto flex flex-col hidden divide-y divide-zinc-800/80 backdrop-blur-xl transform origin-top transition-all duration-300 z-[150]"></div>
                 </div>
 
-                <div id="mainTabContainer" class="tab-container mb-5" data-active="elements">
+                <!-- Sélecteur d'onglets -->
+                <div id="mainTabContainer" class="tab-container mb-3" data-active="elements">
                     <div class="tab-slider"></div>
-                    <button id="tabElements" class="tab-pill active"><span data-i18n="elements">Éléments</span></button>
-                    <button id="tabRoles" class="tab-pill"><span data-i18n="roles">Rôles</span></button>
-                    <button id="tabVersions" class="tab-pill"><span data-i18n="versions">Mises à jour</span></button>
+                    <button id="tabElements" class="tab-pill active"><span data-i18n="elements">Éléments</span><span class="tab-dot hidden" data-dot="element"></span></button>
+                    <button id="tabRoles" class="tab-pill"><span data-i18n="roles">Rôles</span><span class="tab-dot hidden" data-dot="role"></span></button>
+                    <button id="tabVersions" class="tab-pill"><span data-i18n="versions">Mises à jour</span><span class="tab-dot hidden" data-dot="version"></span></button>
                 </div>
 
-                <div class="mb-4">
+                <!-- Barre de statut en direct (Compteur + Reset) -->
+                <div class="flex items-center justify-between px-1 mb-2.5 h-5">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#d7f70c] shadow-[0_0_8px_#d7f70c]"></span>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400"><span class="active-agent-count text-white">62</span> <span data-i18n="agentsFound">Agents</span></span>
+                    </div>
+                    <button onclick="window.resetAllFilters()" class="reset-filters-btn hidden items-center gap-1 text-[10px] font-black uppercase tracking-wider text-[#d7f70c] hover:text-white bg-[#d7f70c]/10 hover:bg-[#d7f70c]/20 border border-[#d7f70c]/30 px-2 py-0.5 rounded-md transition-all cursor-pointer">
+                        <span data-i18n="resetFilters">Réinitialiser</span>
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Grilles de filtres -->
+                <div class="mb-3">
                     <div id="groupElements">
-                        <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="elements">Éléments</h2>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button data-filter="All" class="filter-btn filter-elem-btn active col-span-3 px-3 py-2 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
-                            <button data-filter="Physical" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
-                            <button data-filter="Fire" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
-                            <button data-filter="Ice" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
-                            <button data-filter="Electric" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Électrique</span></button>
-                            <button data-filter="Ether" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
-                            <button data-filter="Wind" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
-                            <button data-filter="Lumiflux" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
-                            <button data-filter="Honed Edge" class="filter-btn filter-elem-btn px-1 py-2 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
-                            <button data-filter="Auric Ink" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button data-filter="All" class="filter-btn filter-elem-btn active col-span-3 px-3 py-1.5 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                            <button data-filter="Physical" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
+                            <button data-filter="Fire" style="--btn-color: #f05432;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
+                            <button data-filter="Ice" style="--btn-color: #00d5be;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
+                            <button data-filter="Electric" style="--btn-color: #3182eb;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Électrique</span></button>
+                            <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                            <button data-filter="Wind" style="--btn-color: #4da2f8;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
+                            <button data-filter="Lumiflux" style="--btn-color: #fba2d0;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
+                            <button data-filter="Honed Edge" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-1 py-2 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
+                            <button data-filter="Auric Ink" style="--btn-color: #8b83f7;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
                         </div>
                     </div>
 
                     <div id="groupRoles" class="hidden">
-                        <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="roles">Rôles</h2>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button data-role="All" class="filter-btn filter-role-btn active col-span-3 px-3 py-2 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button data-role="All" class="filter-btn filter-role-btn active col-span-3 px-3 py-1.5 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
                             <button data-role="Attack" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Attack.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Attack">Attaque</span></button>
                             <button data-role="Stun" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Stun.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Stun">Stun</span></button>
                             <button data-role="Anomaly" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Anomaly.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Anomaly">Anomalie</span></button>
                             <button data-role="Support" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Support.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Support">Soutien</span></button>
                             <button data-role="Defense" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Defense.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Defense">Défense</span></button>
                             <button data-role="Armorer" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Armorer.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Armorer">Armurier</span></button>
-                            <button data-role="Rupture" class="filter-btn filter-role-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Rupture.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Rupture">Rupture</span></button>
+                            <button data-role="Rupture" class="filter-btn filter-role-btn col-span-3 px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Rôles/Rupture.webp" alt="" loading="lazy" class="w-4 h-4 object-contain role-icon shrink-0"><span class="dyn-term" data-term="Rupture">Rupture</span></button>
                         </div>
                     </div>
 
                     <div id="groupVersions" class="hidden">
-                        <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="versions">Versions</h2>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button data-version="All" class="filter-btn filter-version-btn active col-span-2 px-2 py-3 rounded-xl text-sm font-black tracking-widest uppercase" data-i18n="allVersions">Toutes les versions</button>
-                            <button data-version="V1" class="filter-btn filter-version-btn px-2 py-2 rounded-xl text-xs font-bold">V1.0 - V1.7</button>
-                            <button data-version="V2" class="filter-btn filter-version-btn px-2 py-2 rounded-xl text-xs font-bold">V2.0 - V2.8</button>
-                            <button data-version="V3" class="filter-btn filter-version-btn col-span-2 px-2 py-2 rounded-xl text-xs font-bold">V3.0 - V3.X</button>
+                        <div class="grid grid-cols-3 gap-1.5">
+                            <button data-version="All" class="filter-btn filter-version-btn active col-span-3 px-2 py-2 rounded-xl text-xs font-black tracking-widest uppercase" data-i18n="allVersions">Toutes les versions</button>
+                            <button data-version="V1" class="filter-btn filter-version-btn px-2 py-2.5 rounded-xl text-xs font-bold">V1.0 - V1.7</button>
+                            <button data-version="V2" class="filter-btn filter-version-btn px-2 py-2.5 rounded-xl text-xs font-bold">V2.0 - V2.8</button>
+                            <button data-version="V3" class="filter-btn filter-version-btn px-2 py-2.5 rounded-xl text-xs font-bold">V3.0 - V3.X</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-4 pt-4 border-t border-zinc-800 mb-4">
-                    <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="custom">Personnalisé</h2>
-                    <button class="favorite-filter-btn w-full bg-[#151515] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group">
+                <!-- Bouton Favoris & Faction Active -->
+                <div class="flex flex-col gap-2">
+                    <button class="favorite-filter-btn w-full bg-[#121214] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group cursor-pointer">
                         <div class="flex items-center gap-2">
-                            <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> <span data-i18n="favorites">Mes Favoris</span>
+                            <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            <span data-i18n="favorites">Mes Favoris</span>
                         </div>
                         <div class="fav-count-badge bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded-md text-[10px] font-black">0</div>
                     </button>
-                </div>
 
-                <div class="active-faction-tag hidden items-center justify-between bg-yellow-400/10 border-2 border-yellow-400/50 px-4 py-3 rounded-xl backdrop-blur-md transition-all duration-300 mt-2 mb-4">
-                    <div class="flex flex-col">
-                        <span class="text-[10px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
-                        <span class="active-faction-name text-xs font-bold text-white mt-0.5 leading-tight"></span>
+                    <div class="active-faction-tag hidden items-center justify-between bg-yellow-400/10 border-2 border-yellow-400/50 px-3.5 py-2 rounded-xl backdrop-blur-md transition-all duration-300">
+                        <div class="flex flex-col min-w-0 pr-2">
+                            <span class="text-[9px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
+                            <span class="active-faction-name text-xs font-bold text-white truncate"></span>
+                        </div>
+                        <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-1.5 transition-all transform hover:scale-110 hover:rotate-90 shadow-lg ml-2 shrink-0"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
-                    <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-2 transition-all transform hover:scale-110 hover:rotate-90 shadow-lg ml-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
             </div>
 
             <!-- Défilement Factions -->
-<div class="flex-1 overflow-hidden relative marquee-mask px-5 py-2 z-0 hidden md:block" id="sidebarMarqueeWrapper">
-    <div class="marquee-track-vertical" id="sidebarFactionsList"></div>
-</div>
+            <div class="flex-1 overflow-hidden relative marquee-mask px-4 py-2 z-0 hidden md:block" id="sidebarMarqueeWrapper">
+                <div class="marquee-track-vertical" id="sidebarFactionsList"></div>
+            </div>
 
             <!-- Bouton Toutes les factions Bureau -->
-            <div class="p-5 bg-[#0a0a0a] shrink-0 md:border-t border-zinc-800 relative z-10 md:shadow-[0_-15px_30px_rgba(0,0,0,0.6)]">
-                <button onclick="window.openModal('factionModal')" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-sm py-4 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(215,247,12,0.5)] hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 group overflow-hidden relative">
+            <div class="p-4 bg-[#09090b] shrink-0 md:border-t border-zinc-800/80 relative z-10 md:shadow-[0_-15px_30px_rgba(0,0,0,0.8)]">
+                <button onclick="window.openModal('factionModal')" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-xs tracking-wider py-3.5 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(215,247,12,0.5)] hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2.5 group overflow-hidden relative cursor-pointer">
                     <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:animate-[shimmer_1s_forwards]"></div>
-                    <svg class="w-5 h-5 transition-transform group-hover:rotate-180 duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    <svg class="w-4 h-4 transition-transform group-hover:rotate-90 duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                     <span data-i18n="allFactions">Toutes les factions</span>
                 </button>
             </div>
@@ -370,28 +389,39 @@
             </div>
 
             <!-- Onglets Mobile -->
-            <div id="mobileTabContainer" class="tab-container mb-6" data-active="elements">
+            <div id="mobileTabContainer" class="tab-container mb-4" data-active="elements">
                 <div class="tab-slider"></div>
-                <button id="tabElementsMobile" class="tab-pill active"><span data-i18n="elements">Éléments</span></button>
-                <button id="tabRolesMobile" class="tab-pill"><span data-i18n="roles">Rôles</span></button>
-                <button id="tabVersionsMobile" class="tab-pill"><span data-i18n="versions">Mises à jour</span></button>
+                <button id="tabElementsMobile" class="tab-pill active"><span data-i18n="elements">Éléments</span><span class="tab-dot hidden" data-dot="element"></span></button>
+                <button id="tabRolesMobile" class="tab-pill"><span data-i18n="roles">Rôles</span><span class="tab-dot hidden" data-dot="role"></span></button>
+                <button id="tabVersionsMobile" class="tab-pill"><span data-i18n="versions">Mises à jour</span><span class="tab-dot hidden" data-dot="version"></span></button>
+            </div>
+
+            <!-- Barre de statut Mobile (Compteur + Reset) -->
+            <div class="flex items-center justify-between px-1 mb-4 h-6">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#d7f70c] shadow-[0_0_8px_#d7f70c]"></span>
+                    <span class="text-[11px] font-black uppercase tracking-widest text-zinc-400"><span class="active-agent-count text-white">62</span> <span data-i18n="agentsFound">Agents</span></span>
+                </div>
+                <button onclick="window.resetAllFilters()" class="reset-filters-btn hidden items-center gap-1 text-[11px] font-black uppercase tracking-wider text-[#d7f70c] bg-[#d7f70c]/10 border border-[#d7f70c]/30 px-2.5 py-1 rounded-md transition-all">
+                    <span data-i18n="resetFilters">Réinitialiser</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
             </div>
 
             <!-- Groupes Filtres Mobile -->
             <div class="mb-6">
                 <div id="groupElementsMobile">
-                    <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="elements">Éléments</h2>
                     <div class="grid grid-cols-3 gap-2">
                         <button data-filter="All" class="filter-btn filter-elem-btn active col-span-3 px-3 py-2.5 rounded-xl text-xs font-bold" data-i18n="all">Tous</button>
-                        <button data-filter="Physical" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
-                        <button data-filter="Fire" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
-                        <button data-filter="Ice" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
-                        <button data-filter="Electric" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Élec</span></button>
-                        <button data-filter="Ether" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
-                        <button data-filter="Wind" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
-                        <button data-filter="Lumiflux" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
-                        <button data-filter="Honed Edge" class="filter-btn filter-elem-btn px-1 py-2.5 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
-                        <button data-filter="Auric Ink" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
+                        <button data-filter="Physical" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
+                        <button data-filter="Fire" style="--btn-color: #f05432;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
+                        <button data-filter="Ice" style="--btn-color: #00d5be;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
+                        <button data-filter="Electric" style="--btn-color: #3182eb;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Élec</span></button>
+                        <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                        <button data-filter="Wind" style="--btn-color: #4da2f8;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
+                        <button data-filter="Lumiflux" style="--btn-color: #fba2d0;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumiflux</span></button>
+                        <button data-filter="Honed Edge" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-1 py-2.5 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
+                        <button data-filter="Auric Ink" style="--btn-color: #8b83f7;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Auric_Ink.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Auric Ink">Sépia</span></button>
                     </div>
                 </div>
 
