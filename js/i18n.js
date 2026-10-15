@@ -25,7 +25,9 @@ export const ui = {
         substatsPrio: "Priorité Sub-stats",
         engines: "Moteurs",
         teams: "Synergies & Équipes",
-        installApp: "INSTALLER L'APP"
+        installApp: "INSTALLER L'APP",
+        agentsFound: "Agents",
+        resetFilters: "Réinitialiser"
     },
     en: {
         searchPlaceholder: "Search an agent...",
@@ -52,7 +54,9 @@ export const ui = {
         substatsPrio: "Sub-stats Priority",
         engines: "W-Engines",
         teams: "Synergies & Teams",
-        installApp: "INSTALL APP"
+        installApp: "INSTALL APP",
+        agentsFound: "Agents",
+        resetFilters: "Reset"
     }
 };
 
