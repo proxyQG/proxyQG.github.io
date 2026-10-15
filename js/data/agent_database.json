@@ -1933,9 +1933,9 @@
                         "initial": "E"
                     },
                     {
-                        "img": "Lighter.webp",
-                        "color": "#f05432",
-                        "initial": "L"
+                        "img": "Dialyn.webp",
+                        "color": "#e8a838",
+                        "initial": "D"
                     },
                     {
                         "img": "Astra.webp",
@@ -1978,14 +1978,14 @@
                         "initial": "E"
                     },
                     {
-                        "img": "Koleda.webp",
-                        "color": "#f05432",
-                        "initial": "K"
+                        "img": "Dialyn.webp",
+                        "color": "#e8a838",
+                        "initial": "D"
                     },
                     {
-                        "img": "Rina.webp",
-                        "color": "#3182eb",
-                        "initial": "R"
+                        "img": "Sunna.webp",
+                        "color": "#e8a838",
+                        "initial": "S"
                     }
                 ]
             }
