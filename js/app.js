@@ -218,6 +218,26 @@ window.resetAllFilters = function() {
     scrollToTop();
 };
 
+window.quickFilterVersion = function(version) {
+    const newVal = State.filters.version === version ? 'All' : version;
+    State.filters.version = newVal;
+    document.querySelectorAll('.filter-version-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-version') === newVal);
+    });
+    renderAgents();
+    scrollToTop();
+};
+
+window.handleLogoClick = function(e) {
+    if (e && (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1)) return;
+    if (e) e.preventDefault();
+
+    if (typeof window.hideTooltip === 'function') window.hideTooltip(true);
+    if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip(true);
+
+    window.resetAllFilters();
+};
+
 // ==========================================
 // 5. RECHERCHE OPTIMISÉE (Debounce 150ms)
 // ==========================================
@@ -578,6 +598,11 @@ function renderAgents(isInitial = false) {
     document.querySelectorAll('[data-dot="element"]').forEach(d => d.classList.toggle('hidden', State.filters.element === 'All'));
     document.querySelectorAll('[data-dot="role"]').forEach(d => d.classList.toggle('hidden', State.filters.role === 'All'));
     document.querySelectorAll('[data-dot="version"]').forEach(d => d.classList.toggle('hidden', State.filters.version === 'All'));
+
+    const headerVersionPill = document.getElementById('headerVersionPill');
+    if (headerVersionPill) {
+        headerVersionPill.classList.toggle('active', State.filters.version === 'V3');
+    }
 
     const hasAnyActiveFilter = State.filters.element !== 'All' || State.filters.role !== 'All' || State.filters.version !== 'All' || State.search.length > 0 || State.faction !== null || State.showFavorites;
     document.querySelectorAll('.reset-filters-btn').forEach(btn => {
