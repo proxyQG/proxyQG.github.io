@@ -91,14 +91,20 @@
         @keyframes shimmerLaser { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
         .laser-beam { animation: shimmerLaser 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
         
-        .lang-switch-wrap { position: relative; width: 80px; height: 32px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; display: flex; align-items: center; cursor: pointer; backdrop-filter: blur(10px); }
-        .lang-indicator { position: absolute; height: calc(100% - 6px); width: calc(50% - 3px); top: 3px; left: 3px; background: #d7f70c; border-radius: 99px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 10px rgba(215,247,12,0.4); }
+        .lang-switch-wrap { position: relative; width: 84px; height: 34px; background: #121214; border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; display: flex; align-items: center; cursor: pointer; transition: border-color 0.25s ease, box-shadow 0.25s ease; box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); }
+        .lang-switch-wrap:hover { border-color: rgba(215,247,12,0.45); box-shadow: 0 0 15px rgba(215,247,12,0.12), inset 0 2px 6px rgba(0,0,0,0.6); }
+        .lang-indicator { position: absolute; height: calc(100% - 6px); width: calc(50% - 3px); top: 3px; left: 3px; background: #d7f70c; border-radius: 99px; transition: transform 0.38s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 12px rgba(215,247,12,0.45); }
         .lang-switch-wrap[data-active="en"] .lang-indicator { transform: translateX(100%); }
-        .lang-option { flex: 1; text-align: center; font-size: 11px; font-weight: 900; z-index: 10; color: #fff; transition: color 0.3s; }
+        .lang-option { flex: 1; text-align: center; font-size: 11px; font-weight: 900; letter-spacing: 0.05em; z-index: 10; color: #fff; transition: color 0.25s ease; }
         .lang-switch-wrap[data-active="fr"] .lang-option.fr { color: #000; }
-        .lang-switch-wrap[data-active="fr"] .lang-option.en { color: #888; }
+        .lang-switch-wrap[data-active="fr"] .lang-option.en { color: #71717a; }
         .lang-switch-wrap[data-active="en"] .lang-option.en { color: #000; }
-        .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #888; }
+        .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #71717a; }
+        .lang-switch-wrap:hover .lang-option { color: #e4e4e7; }
+        .lang-switch-wrap[data-active="fr"]:hover .lang-option.fr, .lang-switch-wrap[data-active="en"]:hover .lang-option.en { color: #000; }
+        .hdd-patch-btn { background-color: #121214; color: #d4d4d8; border: 1px solid rgba(255,255,255,0.08); transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hdd-patch-btn:hover:not(.active) { background-color: #1a1a1e; border-color: rgba(215,247,12,0.5); color: #ffffff; }
+        .hdd-patch-btn.active { background-color: rgba(215,247,12,0.14); color: #ffffff; border-color: #d7f70c; box-shadow: 0 0 16px rgba(215,247,12,0.25); }
 
         .mindscape-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .mindscape-node:hover { transform: scale(1.2); }
@@ -166,28 +172,42 @@
         </div>
     </div>
 
-    <header class="bg-black h-16 md:h-20 border-b border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.9)] z-50 shrink-0 relative flex items-center justify-between px-3 md:px-10">
+    <header class="bg-gradient-to-b from-[#0d0d10] to-[#070709] h-16 md:h-20 border-b border-zinc-800/90 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 shrink-0 relative flex items-center justify-between px-3.5 md:px-8">
+        <!-- Filet lumineux H.D.D. inférieur -->
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d7f70c]/35 to-transparent pointer-events-none"></div>
 
-        <a href="./" class="flex items-center gap-2 md:gap-4 hover:scale-105 transition-transform duration-500 cursor-pointer lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10">
-    <div class="bg-yellow-400 px-2.5 sm:px-3 md:px-5 py-1 md:py-1.5 skew-x-[-15deg] shadow-[0_0_15px_rgba(232,168,56,0.3)]">
-        <span class="block text-black font-display font-black italic text-lg sm:text-xl md:text-3xl skew-x-[15deg]">ZZZ</span>
-    </div>
-    <h1 class="text-white font-display font-black italic text-lg sm:text-xl md:text-3xl uppercase chromatic-text drop-shadow-lg tracking-wider">PROXYQG</h1>
-</a>
+        <!-- Module Gauche : Console Tactique H.D.D. (Visible sur PC lg+) -->
+        <div class="hidden lg:flex items-center gap-2.5 z-20 shrink-0">
+            <div class="flex items-center gap-2 bg-[#121214] border border-zinc-800/90 px-3 py-1.5 rounded-full shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-[#d7f70c] shadow-[0_0_8px_#d7f70c]"></span>
+                <span class="text-[10px] font-mono font-black uppercase tracking-[0.18em] text-zinc-400" data-i18n="hddSystem">SYSTÈME H.D.D.</span>
+            </div>
+
+            <button type="button" id="headerVersionPill" onclick="window.quickFilterVersion('V3')" class="hdd-patch-btn group flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest cursor-pointer shadow-inner active:scale-95">
+                <svg class="w-3 h-3 text-[#d7f70c] shrink-0 transition-transform duration-200 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h7v8l10-12h-7V2z"/></svg>
+                <span data-i18n="latestPatch">PATCH 3.X</span>
+            </button>
+        </div>
+
+        <!-- Module Central : Logo ZZZ PROXYQG (Action instantanée 0ms) -->
+        <a href="./" onclick="window.handleLogoClick(event)" class="group flex items-center gap-2.5 md:gap-4 hover:scale-[1.03] active:scale-95 transition-transform duration-300 cursor-pointer lg:absolute lg:left-1/2 lg:-translate-x-1/2 z-10">
+            <div class="relative overflow-hidden bg-[#d7f70c] px-2.5 sm:px-3.5 md:px-5 py-1 md:py-1.5 skew-x-[-15deg] shadow-[0_0_20px_rgba(215,247,12,0.3)] group-hover:shadow-[0_0_28px_rgba(215,247,12,0.6)] transition-shadow duration-300">
+                <div class="absolute inset-0 w-[60%] bg-gradient-to-r from-transparent via-white/70 to-transparent -translate-x-[150%] group-hover:translate-x-[250%] transition-transform duration-700 ease-in-out"></div>
+                <span class="relative z-10 block text-black font-display font-black italic text-lg sm:text-xl md:text-3xl skew-x-[15deg] tracking-tight">ZZZ</span>
+            </div>
+            <h1 class="text-white font-display font-black italic text-lg sm:text-xl md:text-3xl uppercase chromatic-text drop-shadow-lg tracking-wider group-hover:text-zinc-100 transition-colors">PROXYQG</h1>
+        </a>
 
         <!-- Conteneur Droit (Boutons PWA & Langue) -->
-        <div class="ml-auto flex items-center gap-3 md:gap-4 shrink-0 z-20">
-            <!-- Bouton PWA (Pilule compacte sur mobile, Pilule large sur PC) -->
-            <button id="pwa-install-btn" class="hidden group relative overflow-hidden items-center justify-center gap-1.5 px-3 py-1.5 md:px-4 md:py-1.5 rounded-full font-black uppercase tracking-wide bg-[#1a1a1a] border border-[#e2ff00]/40 text-[#e2ff00] transition-all duration-300 hover:border-[#e2ff00] hover:shadow-[0_0_15px_rgba(226,255,0,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 z-50">
+        <div class="ml-auto flex items-center gap-2.5 md:gap-3.5 shrink-0 z-20">
+            <!-- Bouton PWA harmonisé en #d7f70c -->
+            <button id="pwa-install-btn" class="hidden group relative overflow-hidden items-center justify-center gap-1.5 px-3 py-1.5 md:px-4 md:py-1.5 rounded-full font-black uppercase tracking-wider bg-[#121214] border border-[#d7f70c]/45 text-[#d7f70c] transition-all duration-300 hover:border-[#d7f70c] hover:bg-[#d7f70c]/10 hover:shadow-[0_0_18px_rgba(215,247,12,0.3)] hover:scale-105 active:scale-95 cursor-pointer shrink-0 z-50">
                 <svg class="w-3.5 h-3.5 md:w-4 md:h-4 md:transition-transform md:duration-300 md:group-hover:-translate-y-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <!-- Texte affiché uniquement sur PC -->
-                <span data-i18n="installApp" class="relative z-10 hidden sm:block text-xs whitespace-nowrap">INSTALLER L'APP</span>
-                <!-- Texte ultra-court affiché uniquement sur Mobile -->
+                <span data-i18n="installApp" class="relative z-10 hidden sm:block text-[11px] whitespace-nowrap">INSTALLER L'APP</span>
                 <span class="relative z-10 sm:hidden text-[10px] whitespace-nowrap pt-[1px]">APP</span>
-                
-                <div class="absolute inset-0 w-[50%] bg-gradient-to-r from-transparent via-[#e2ff00]/20 to-transparent -translate-x-full group-hover:animate-shine z-0 hidden md:block"></div>
+                <div class="absolute inset-0 w-[50%] bg-gradient-to-r from-transparent via-[#d7f70c]/25 to-transparent -translate-x-full group-hover:animate-shine z-0 hidden md:block"></div>
             </button>
 
             <!-- Bouton Langue -->
@@ -197,7 +217,6 @@
                 <div class="lang-option en">EN</div>
             </div>
         </div>
-        
     </header>
 
     <div class="flex flex-1 overflow-hidden relative">
