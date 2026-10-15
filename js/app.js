@@ -172,14 +172,16 @@ function initTabs() {
 }
 
 function initFilters(selector, filterType) {
+    const attrName = filterType === 'element' ? 'data-filter' : `data-${filterType}`;
     const btns = document.querySelectorAll(selector);
     btns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const val = btn.getAttribute(`data-${filterType === 'element' ? 'filter' : filterType}`);
-            State.filters[filterType] = val;
+            const clickedVal = btn.getAttribute(attrName);
+            // Recliquer sur un filtre actif le désactive et repasse sur 'All'
+            const newVal = (State.filters[filterType] === clickedVal && clickedVal !== 'All') ? 'All' : clickedVal;
+            State.filters[filterType] = newVal;
             btns.forEach(b => {
-                const bVal = b.getAttribute(`data-${filterType === 'element' ? 'filter' : filterType}`);
-                b.classList.toggle('active', bVal === val);
+                b.classList.toggle('active', b.getAttribute(attrName) === newVal);
             });
             renderAgents();
             scrollToTop();
@@ -187,10 +189,40 @@ function initFilters(selector, filterType) {
     });
 }
 
+window.resetAllFilters = function() {
+    State.filters = { element: 'All', role: 'All', version: 'All' };
+    State.search = '';
+    State.faction = null;
+    State.showFavorites = false;
+
+    document.querySelectorAll('.filter-elem-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'All'));
+    document.querySelectorAll('.filter-role-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-role') === 'All'));
+    document.querySelectorAll('.filter-version-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-version') === 'All'));
+
+    const shortcutHint = document.getElementById('searchShortcutHint');
+    if (shortcutHint) shortcutHint.classList.remove('hidden');
+    DOM.searchInputs.forEach(input => { if (input) input.value = ''; });
+    DOM.clearBtns.forEach(btn => { if (btn) btn.classList.add('hidden'); });
+    DOM.dropdowns.forEach(drop => { if (drop) drop.classList.add('hidden'); });
+
+    document.querySelectorAll('.active-faction-tag').forEach(t => { t.classList.add('hidden'); t.classList.remove('flex'); });
+    document.querySelectorAll('.favorite-filter-btn').forEach(b => {
+        const svg = b.querySelector('svg');
+        b.classList.replace('border-red-500', 'border-zinc-800');
+        b.classList.replace('text-white', 'text-zinc-400');
+        b.classList.remove('bg-red-500/10');
+        if (svg) svg.classList.remove('text-red-500');
+    });
+
+    renderAgents();
+    scrollToTop();
+};
+
 // ==========================================
 // 5. RECHERCHE OPTIMISÉE (Debounce 150ms)
 // ==========================================
 function initSearch() {
+    const shortcutHint = document.getElementById('searchShortcutHint');
     DOM.searchInputs.forEach(input => {
         if (!input) return;
         input.addEventListener('input', (e) => {
@@ -198,16 +230,33 @@ function initSearch() {
             searchTimeout = setTimeout(() => handleSearch(e.target.value), 150);
         });
         input.addEventListener('focus', (e) => {
+            if (shortcutHint && input.id === 'searchInput') shortcutHint.classList.add('hidden');
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => handleSearch(e.target.value), 150);
         });
-        input.addEventListener('blur', () => setTimeout(() => DOM.dropdowns.forEach(d => d && d.classList.add('hidden')), 300));
+        input.addEventListener('blur', () => {
+            if (shortcutHint && input.id === 'searchInput' && !input.value) shortcutHint.classList.remove('hidden');
+            setTimeout(() => DOM.dropdowns.forEach(d => d && d.classList.add('hidden')), 250);
+        });
     });
     DOM.clearBtns.forEach(btn => { if (btn) btn.addEventListener('click', clearSearch); });
+
+    // Raccourci clavier "/" pour cibler la barre de recherche
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+            const modalOpen = !document.getElementById('agentDetailModal')?.classList.contains('hidden');
+            if (!modalOpen && DOM.searchInputs[0]) {
+                e.preventDefault();
+                DOM.searchInputs[0].focus();
+            }
+        }
+    });
 }
 
 function handleSearch(query) {
     State.search = query;
+    const shortcutHint = document.getElementById('searchShortcutHint');
+    if (shortcutHint) shortcutHint.classList.toggle('hidden', query.length > 0 || document.activeElement === DOM.searchInputs[0]);
     DOM.searchInputs.forEach(input => { if (input) input.value = query; });
     const isHidden = query.length === 0;
     DOM.clearBtns.forEach(btn => { if (btn) btn.classList.toggle('hidden', isHidden); });
@@ -218,6 +267,8 @@ function handleSearch(query) {
 
 function clearSearch() {
     State.search = '';
+    const shortcutHint = document.getElementById('searchShortcutHint');
+    if (shortcutHint && document.activeElement !== DOM.searchInputs[0]) shortcutHint.classList.remove('hidden');
     DOM.searchInputs.forEach(input => { if (input) input.value = ''; });
     DOM.clearBtns.forEach(btn => { if (btn) btn.classList.add('hidden'); });
     DOM.dropdowns.forEach(drop => { if (drop) drop.classList.add('hidden'); });
@@ -229,13 +280,16 @@ function updateDropdownUI(query) {
     filtered.sort((a, b) => a.name.localeCompare(b.name));
 
     const html = filtered.length === 0 
-        ? `<div class="p-5 text-zinc-500 text-sm text-center italic font-bold">Aucun signal trouvé</div>`
+        ? `<div class="p-5 text-zinc-500 text-xs text-center italic font-bold">Aucun signal trouvé</div>`
         : filtered.map((agent, delay) => {
             const iconFile = iconMap[agent.element] || 'physique.png';
             return `
-            <div class="dropdown-item-anim flex items-center gap-4 p-4 hover:bg-[#1a1a1a] cursor-pointer transition-colors group" style="animation-delay: ${delay * 15}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
-                <div class="w-12 h-12 rounded-xl bg-[#121212] border border-zinc-700 overflow-hidden flex-shrink-0 relative shadow-inner"><img src="assets/Agents/${agent.name}.webp" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
-                <div class="flex flex-col"><span class="text-white text-sm font-black tracking-widest group-hover:text-yellow-400 transition-colors uppercase">${agent.name}</span><div class="flex items-center gap-1.5 mt-1"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[10px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${Math.min(delay * 12, 180)}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-lg bg-[#121212] border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Agents/${agent.name}.webp" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
+                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${agent.name}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
             </div>`;
         }).join('');
 
@@ -243,8 +297,9 @@ function updateDropdownUI(query) {
 }
 
 window.triggerSearchSelect = function(agentName) {
-    handleSearch(agentName);
     DOM.dropdowns.forEach(drop => { if (drop) drop.classList.add('hidden'); });
+    DOM.searchInputs.forEach(input => { if (input) input.blur(); });
+    window.openAgentDetail(agentName);
 };
 
 // ==========================================
@@ -342,14 +397,16 @@ function generateFactionCardHTML(faction, isSidebar, index = 0) {
         const loadingAttr = (index === 0) ? 'loading="eager" fetchpriority="high"' : 'loading="eager"';
 
         return `
-        <div class="mb-5 px-1 hidden md:block">
-            <div class="faction-box rounded-[1.5rem] p-4 flex flex-col items-center gap-4 cursor-pointer w-full group bg-gradient-to-br from-[#121212] to-[#050505] border-2 border-zinc-800 hover:border-yellow-400/50 transition-colors" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}')">
-                <div class="w-40 h-40 md:w-44 md:h-44 bg-black rounded-[1.2rem] overflow-hidden flex items-center justify-center p-2 shadow-inner group-hover:bg-[#0a0a0a] transition-colors relative">
-                    <img src="${imgPath}" ${loadingAttr} alt="${faction}" class="w-full h-full object-contain scale-110 drop-shadow-xl relative z-10" onerror="this.onerror=null; this.src='${fallbackImg}'">
+        <div class="mb-2.5 px-0.5 hidden md:block">
+            <div class="faction-box rounded-2xl p-2.5 flex items-center gap-3.5 cursor-pointer w-full group bg-gradient-to-r from-[#131316] to-[#0c0c0e] border border-zinc-800/90 hover:border-[#d7f70c]/70 hover:bg-[#18181c] transition-all duration-200 shadow-md" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}')">
+                <div class="w-12 h-12 bg-black rounded-xl overflow-hidden flex items-center justify-center p-1.5 border border-zinc-800 group-hover:border-[#d7f70c]/40 transition-colors shrink-0 relative">
+                    <img src="${imgPath}" ${loadingAttr} alt="${faction}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300" onerror="this.onerror=null; this.src='${fallbackImg}'">
                 </div>
-                <div class="bg-black/95 px-3 py-2.5 rounded-xl text-xs font-black text-center w-full border border-zinc-700/80 text-zinc-400 group-hover:text-white group-hover:border-yellow-400/80 transition-colors shadow-lg uppercase leading-tight flex-1 flex flex-col justify-center">
-                    ${displayName}${subName ? `<span class="block text-[8px] text-zinc-500 mt-0.5 tracking-wider">${subName}</span>` : ''}
+                <div class="flex flex-col justify-center min-w-0 flex-1">
+                    <span class="text-[11px] font-black text-zinc-300 group-hover:text-white transition-colors uppercase leading-snug line-clamp-2">${displayName}</span>
+                    ${subName ? `<span class="block text-[8px] text-zinc-500 mt-0.5 tracking-wider uppercase truncate">${subName}</span>` : ''}
                 </div>
+                <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
             </div>
         </div>`;
     } else {
@@ -481,20 +538,17 @@ function renderAgents(isInitial = false) {
     const visibleVersions = new Set();
     const isVersionModeAll = State.mode === 'versions' && State.filters.version === 'All';
 
-    // 1. Filtrer en temps réel avec des classes (Zéro Reflow)
+    // 1. Filtrer en temps réel en combinant Élément + Rôle + Version (Zéro Reflow)
     DOM.agentCards.forEach((card) => {
         const agent = card.agent;
         const matchSearch = agent.name.toLowerCase().includes(State.search.toLowerCase());
-        
-        let matchFilter = true;
-        if (State.mode === 'elements') matchFilter = State.filters.element === 'All' || filterGroups[State.filters.element]?.includes(agent.element);
-        else if (State.mode === 'roles') matchFilter = State.filters.role === 'All' || agent.role === State.filters.role;
-        else if (State.mode === 'versions') matchFilter = State.filters.version === 'All' || agent.version === State.filters.version;
-        
+        const matchElem = State.filters.element === 'All' || filterGroups[State.filters.element]?.includes(agent.element);
+        const matchRole = State.filters.role === 'All' || agent.role === State.filters.role;
+        const matchVersion = State.filters.version === 'All' || agent.version === State.filters.version;
         const matchFaction = !State.faction || agent.faction === State.faction; 
         const matchFav = !State.showFavorites || State.favorites.includes(agent.name);
         
-        if (matchSearch && matchFilter && matchFaction && matchFav) {
+        if (matchSearch && matchElem && matchRole && matchVersion && matchFaction && matchFav) {
             State.filteredAgents.push(agent);
             visibleVersions.add(card.version);
             
@@ -513,6 +567,22 @@ function renderAgents(isInitial = false) {
         } else {
             card.el.classList.add('hidden');
         }
+    });
+
+    // 1bis. Met à jour le compteur d'agents, les pastilles d'onglets et le bouton Réinitialiser
+    document.querySelectorAll('.active-agent-count').forEach(el => {
+        el.textContent = State.filteredAgents.length === agentsData.length 
+            ? `${agentsData.length}` 
+            : `${State.filteredAgents.length} / ${agentsData.length}`;
+    });
+    document.querySelectorAll('[data-dot="element"]').forEach(d => d.classList.toggle('hidden', State.filters.element === 'All'));
+    document.querySelectorAll('[data-dot="role"]').forEach(d => d.classList.toggle('hidden', State.filters.role === 'All'));
+    document.querySelectorAll('[data-dot="version"]').forEach(d => d.classList.toggle('hidden', State.filters.version === 'All'));
+
+    const hasAnyActiveFilter = State.filters.element !== 'All' || State.filters.role !== 'All' || State.filters.version !== 'All' || State.search.length > 0 || State.faction !== null || State.showFavorites;
+    document.querySelectorAll('.reset-filters-btn').forEach(btn => {
+        btn.classList.toggle('hidden', !hasAnyActiveFilter);
+        btn.classList.toggle('inline-flex', hasAnyActiveFilter);
     });
 
     // 2. Gérer les séparateurs de versions
