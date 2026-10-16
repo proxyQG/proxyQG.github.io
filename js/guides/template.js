@@ -155,7 +155,7 @@ function buildSkills(data, c, txt) {
         const iconSrc = `assets/Skills/${(skill.icon || '').replace('.png', '.webp')}`;
         const levelText = skill.level ? `(${escapeHTML(skill.level)})` : '';
         const arrow = (index < skillsList.length - 1)
-            ? `<svg class="w-5 h-5 text-zinc-800 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
+            ? `<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 text-zinc-700 shrink-0 -mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
             : '';
 
         let iconContainer;
@@ -163,21 +163,21 @@ function buildSkills(data, c, txt) {
             iconContainer = `
             <div class="relative">
                 <div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div>
-                <div class="w-12 h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
-                    <img src="${iconSrc}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
+                    <img src="${iconSrc}" loading="lazy" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
                 </div>
             </div>`;
         } else {
             iconContainer = `
-            <div class="relative w-12 h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
-                <img src="${iconSrc}" loading="lazy" class="w-full h-full object-cover object-center ${scaleClass}">
+            <div class="relative w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
+                <img src="${iconSrc}" loading="lazy" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
             </div>`;
         }
 
         return `
-        <div class="flex flex-col items-center gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80'}">
+        <div class="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80'}">
             ${iconContainer}
-            <span class="text-[10px] font-black uppercase tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${levelText}</span>
+            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${levelText}</span>
         </div>
         ${arrow}`;
     }).join('');
@@ -186,10 +186,9 @@ function buildSkills(data, c, txt) {
     <div class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
         <div class="relative">
-            <div class="bg-[#0f0f0f] p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-start gap-4 md:gap-5 overflow-x-auto pr-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div class="bg-[#0f0f0f] px-3 py-4 sm:px-4 sm:py-5 2xl:p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-between gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 ${skillsHTML}
             </div>
-            <div class="absolute right-[1px] top-[1px] bottom-[1px] w-14 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-2xl"></div>
         </div>
     </div>`;
 }
