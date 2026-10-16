@@ -308,3 +308,100 @@ body {
     0% { opacity: 0; transform: translateY(6px); }
     100% { opacity: 1; transform: translateY(0); }
 }
+
+/* ========================================================
+   BOUTON FAVORI MODALE (HOLO-PULSE & PARTICULES)
+======================================================== */
+.fav-modal-btn .fav-heart-icon {
+    fill: transparent;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), fill 0.25s ease, color 0.25s ease, filter 0.25s ease;
+}
+
+.fav-modal-btn:hover:not(.is-fav) {
+    border-color: rgba(239, 68, 68, 0.75);
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);
+}
+
+.fav-modal-btn.is-fav {
+    background: radial-gradient(circle at center, rgba(239, 68, 68, 0.28) 0%, rgba(20, 5, 8, 0.85) 100%);
+    border-color: #ef4444;
+    color: #ef4444;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.45), inset 0 0 12px rgba(239, 68, 68, 0.25);
+}
+
+.fav-modal-btn.is-fav:hover {
+    border-color: #f87171;
+    box-shadow: 0 0 32px rgba(239, 68, 68, 0.65), inset 0 0 15px rgba(239, 68, 68, 0.35);
+}
+
+.fav-modal-btn.is-fav .fav-heart-icon {
+    fill: #ef4444;
+    color: #ef4444;
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.75));
+}
+
+.fav-shockwave-ring {
+    position: absolute;
+    inset: -2px;
+    border-radius: 9999px;
+    border: 2px solid #ef4444;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.fav-sparks {
+    position: absolute;
+    inset: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    stroke: #d7f70c;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.fav-modal-btn.anim-pop .fav-heart-icon,
+.grid-fav-pop {
+    animation: favHeartElastic 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.fav-modal-btn.anim-pop .fav-shockwave-ring {
+    animation: favShockwave 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fav-modal-btn.anim-pop .fav-sparks {
+    animation: favSparksBurst 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fav-modal-btn.anim-unpop .fav-heart-icon {
+    animation: favHeartUnpop 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes favHeartElastic {
+    0% { transform: scale(1); }
+    25% { transform: scale(0.55) rotate(-8deg); }
+    60% { transform: scale(1.38) rotate(4deg); }
+    80% { transform: scale(0.92) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes favShockwave {
+    0% { transform: scale(0.85); opacity: 0.95; }
+    100% { transform: scale(1.75); opacity: 0; }
+}
+
+@keyframes favSparksBurst {
+    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; stroke: #d7f70c; }
+    35% { opacity: 1; stroke: #d7f70c; }
+    100% { transform: scale(1.35) rotate(0deg); opacity: 0; stroke: #ef4444; }
+}
+
+@keyframes favHeartUnpop {
+    0% { transform: scale(1); }
+    35% { transform: scale(0.72) rotate(-10deg); }
+    70% { transform: scale(1.05) rotate(4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
