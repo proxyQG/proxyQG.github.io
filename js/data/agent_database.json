@@ -2291,7 +2291,7 @@
                 },
                 {
                     "slot": "4",
-                    "label": "Adresse d'Anomalie"
+                    "label": "Attaque %"
                 }
             ],
             "sub": [
