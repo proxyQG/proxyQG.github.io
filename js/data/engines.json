@@ -136,7 +136,7 @@
       "en": "Zanshin Herb Case"
     },
     "rank": "S",
-    "specialty": "Anomaly",
+    "specialty": "Attaque",
     "element": "Electric",
     "img": "W-Engine_Zanshin_Herb_Case.webp",
     "stats": {
@@ -3452,7 +3452,7 @@
       "en": "Sol Exuvia"
     },
     "rank": "S",
-    "specialty": "Anomaly",
+    "specialty": "Attaque",
     "element": "Ether",
     "img": "W-Engine_Sol_Exuvia.webp",
     "stats": {
@@ -3496,7 +3496,7 @@
       "en": "Knight's Extolment"
     },
     "rank": "S",
-    "specialty": "Anomaly",
+    "specialty": "Attaque",
     "element": "Ice",
     "img": "W-Engine_Knights_Extolments.webp",
     "stats": {
