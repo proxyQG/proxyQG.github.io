@@ -4002,7 +4002,7 @@
                 "set1Name": "4pc Astral Voice",
                 "set2Name": "+ 2pc Moonlight Lullaby",
                 "note": {
-                    "fr": "Option soutien d'équipe, recommandée pour les teams Armurier / Anomalie / Rupture.",
+                    "fr": "Option soutien d'équipe, recommandée pour les teams Forge / Anomalie / Rupture.",
                     "en": "Team Support option, recommended for Armorer / Anomaly / Rupture teams."
                 }
             },
@@ -4162,7 +4162,7 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Armurier Élec",
+                    "fr": "Forge Élec",
                     "en": "Electro Armorer"
                 },
                 "videoId": "2FMcm68qpWk",
@@ -6592,7 +6592,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Team Armurier",
+                    "fr": "Team Forge",
                     "en": "Armorer Team"
                 },
                 "members": [
