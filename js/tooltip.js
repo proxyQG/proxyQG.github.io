@@ -22,7 +22,7 @@
         'Anomaly': { fr: 'Anomalie', en: 'Anomaly' },
         'Support': { fr: 'Soutien', en: 'Support' },
         'Defense': { fr: 'Défense', en: 'Defense' },
-        'Armorer': { fr: 'Armurier', en: 'Armorer' },
+        'Armorer': { fr: 'Forge', en: 'Armorer' },
         'Rupture': { fr: 'Rupture', en: 'Rupture' }
     };
 
