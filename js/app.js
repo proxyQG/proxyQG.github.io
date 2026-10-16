@@ -898,7 +898,7 @@ function preloadTeammatesFromDOM() {
         const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
         if (match && match[2]) {
             window.preloadSplash(match[2].replace(/\\(.)/g, '$1'));
-        });
+        } // <-- C'est cette accolade qu'il manquait avant de fermer la boucle forEach !
     });
 }
 
