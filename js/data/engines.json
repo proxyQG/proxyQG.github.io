@@ -2572,7 +2572,7 @@
       "en": "Cauldron of Clarity"
     },
     "rank": "A",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "img": "W-Engine_Cauldron_of_Clarity.webp",
     "stats": {
       "base": "40 - 594",
@@ -2615,7 +2615,7 @@
       "en": "Radiowave Journey"
     },
     "rank": "A",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "img": "W-Engine_Radiowave_Journey.webp",
     "stats": {
       "base": "40 - 594",
@@ -2658,7 +2658,7 @@
       "en": "Puzzle Sphere"
     },
     "rank": "A",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "img": "W-Engine_Puzzle_Sphere.webp",
     "stats": {
       "base": "40 - 594",
@@ -2919,7 +2919,7 @@
       "en": "Kraken's Cradle"
     },
     "rank": "S",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "element": "Ice",
     "img": "W-Engine_Krakens_Cradle.webp",
     "stats": {
@@ -2963,7 +2963,7 @@
       "en": "Grill O'Wisp"
     },
     "rank": "A",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "element": "Fire",
     "img": "W-Engine_Grill_O_Wisp.webp",
     "stats": {
@@ -3145,7 +3145,7 @@
       "en": "Angel in the Shell"
     },
     "rank": "S",
-    "specialty": "Support",
+    "specialty": "Anomalie",
     "element": "Ether",
     "img": "W-Engine_Angel_in_the_Shell.webp",
     "stats": {
@@ -3189,7 +3189,7 @@
       "en": "Serpentine Seeker"
     },
     "rank": "S",
-    "specialty": "Anomaly",
+    "specialty": "Attaque",
     "element": "Electric",
     "img": "W-Engine_Serpentine_Seeker.webp",
     "stats": {
@@ -3320,7 +3320,7 @@
       "en": "Starlight Rider Faceplate"
     },
     "rank": "S",
-    "specialty": "Defense",
+    "specialty": "Rupture",
     "element": "Physical",
     "img": "W-Engine_Starlight_Rider_Faceplate.webp",
     "stats": {
@@ -3364,7 +3364,7 @@
       "en": "Joyau Dore"
     },
     "rank": "S",
-    "specialty": "Support",
+    "specialty": "Anomalie",
     "element": "Wind",
     "img": "W-Engine_Joyau_Dore.webp",
     "stats": {
@@ -3540,7 +3540,7 @@
       "en": "Ode of Resurrected Wings"
     },
     "rank": "S",
-    "specialty": "Support",
+    "specialty": "Annomalie",
     "img": "W-Engine_Ode_of_Resurrected_Wings.webp",
     "stats": {
       "base": "50 - 743",
