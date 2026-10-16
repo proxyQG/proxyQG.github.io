@@ -878,6 +878,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
             guideContainer.style.opacity = '1';
             
             setTimeout(preloadTeammatesFromDOM, 350);
+            setTimeout(initGuideDragScroll, 350);
         } catch (err) {
             console.error("Erreur lors du chargement du guide :", err);
         }
@@ -897,10 +898,34 @@ function preloadTeammatesFromDOM() {
         const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
         if (match && match[2]) {
             window.preloadSplash(match[2].replace(/\\(.)/g, '$1'));
-        }
+        });
     });
 }
 
+// Active le glisser-déposer à la souris sur les conteneurs horizontaux du guide
+function initGuideDragScroll() {
+    const guideContainer = document.getElementById('agentGuideContainer');
+    if (!guideContainer) return;
+
+    guideContainer.querySelectorAll('.overflow-x-auto').forEach(slider => {
+        let isDown = false, startX = 0, scrollLeft = 0;
+        slider.addEventListener('mousedown', (e) => {
+            if (slider.scrollWidth <= slider.clientWidth) return;
+            isDown = true;
+            slider.classList.add('cursor-grabbing');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('cursor-grabbing'); });
+        slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('cursor-grabbing'); });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            slider.scrollLeft = scrollLeft - (x - startX) * 1.5;
+        });
+    });
+}
 
 function updateModalNavigation() {
     const prevBtn = document.getElementById('prevAgentBtn'); const nextBtn = document.getElementById('nextAgentBtn');
