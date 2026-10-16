@@ -9424,9 +9424,9 @@
                     "fr": "DPS Build 👑",
                     "en": "DPS Build 👑"
                 },
-                "set1": "Woodpecker_Electro",
+                "set1": "Astral_Voice",
                 "set2": "Puffer_Electro",
-                "set1Name": "4pc Woodpecker Electro",
+                "set1Name": "4pc Astral Voice",
                 "set2Name": "+ 2pc Puffer Electro",
                 "note": {
                     "fr": "Le meilleur choix absolu pour maintenir un buff constant et optimiser les dégâts de son Ultime.",
@@ -9435,16 +9435,16 @@
             },
             {
                 "tag": {
-                    "fr": "Alternative Feu",
-                    "en": "Fire Alternative"
+                    "fr": "Alternative",
+                    "en": "Alternative"
                 },
-                "set1": "Inferno_Metal",
-                "set2": "Puffer_Electro",
-                "set1Name": "4pc Inferno Metal",
-                "set2Name": "+ 2pc Puffer Electro",
+                "set1": "Hormone_Punk",
+                "set2": "Branch_Blade_Song",
+                "set1Name": "4pc Hormone Punk",
+                "set2Name": "+ 2pc Branch and Blade Song",
                 "note": {
-                    "fr": "Une excellente option à 95% d'efficacité si vous pouvez maintenir les ennemis brûlés.",
-                    "en": "Excellent 95% efficiency option if you can keep enemies burning."
+                    "fr": "Une excellente option prisée par les experts d'Evelyn.",
+                    "en": "An excellent choice, highly recommended by the experts at Evelyn."
                 }
             }
         ],
@@ -9494,8 +9494,8 @@
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "ATQ % > DGT CRIT %",
-                        "en": "ATK % > CRIT DMG %"
+                        "fr": "DGT CRIT %",
+                        "en": "CRIT DMG %"
                     }
                 }
             ],
