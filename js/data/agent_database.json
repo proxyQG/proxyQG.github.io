@@ -195,7 +195,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Désordre Ultime 👑",
+                    "fr": "dysfonction Ultime 👑",
                     "en": "Ultimate Disorder 👑"
                 },
                 "videoId": "IzMquorLuQU",
@@ -245,7 +245,7 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Désordre Mixte",
+                    "fr": "dysfonction Mixte",
                     "en": "Mixed Disorder"
                 },
                 "videoId": "IqG8ufUTih0",
@@ -271,7 +271,7 @@
         ],
         "notes": [
             {
-                "fr": "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Désordres. L'énorme quantité d'Anomalies de Piper la rend compétitive.",
+                "fr": "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Dysfonctionnements. L'énorme quantité d'Anomalies de Piper la rend compétitive.",
                 "en": "Velina Synergy: Velina is a perfect match for Piper, who struggled with Disorder management. Piper's fast Anomaly build-up makes her competitive with Velina."
             },
             {
@@ -466,7 +466,7 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Désordre Brûlure",
+                    "fr": "dysfonction Brûlure",
                     "en": "Burn Disorder"
                 },
                 "members": [
@@ -1062,7 +1062,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Désordre",
+                    "fr": "Dysfonctionnement",
                     "en": "Disorder"
                 },
                 "members": [
@@ -1156,7 +1156,7 @@
                 "set1Name": "4pc Freedom Blues",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-                    "fr": "Si vous avez du mal à maintenir les Désordres ou si l'équipe nécessite un cyclage d'Anomalie très rapide (Miyabi, Alice), ce set est une excellente option de confort.",
+                    "fr": "Si vous avez du mal à maintenir les Dysfonctionnements ou si l'équipe nécessite un cyclage d'Anomalie très rapide (Miyabi, Alice), ce set est une excellente option de confort.",
                     "en": "If you are struggling to consistently juggle Disorders or the team has strict fast Anomaly cycling requirements (Miyabi, Alice), this set functions as a decent universal option."
                 }
             }
@@ -1269,7 +1269,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Désordre Méta 👑",
+                    "fr": "Dysfonction Méta 👑",
                     "en": "Disorder Meta 👑"
                 },
                 "members": [
@@ -4605,7 +4605,7 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Désordre Éther",
+                    "fr": "Dysfonction Éther",
                     "en": "Ether Disorder"
                 },
                 "members": [
@@ -5694,7 +5694,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Équipe Désordre",
+                    "fr": "Équipe Dysfonction",
                     "en": "Disorder Team"
                 },
                 "videoId": "umoH0a2p9W4",
@@ -6125,7 +6125,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Équipe Désordre",
+                    "fr": "Équipe Dysfonction",
                     "en": "Disorder Team"
                 },
                 "videoId": "6v-yHGnX09U",
@@ -8393,7 +8393,7 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Désordre Burnice",
+                    "fr": "Dysfonction Burnice",
                     "en": "Burnice Disorder"
                 },
                 "members": [
@@ -10940,7 +10940,7 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Désordre Mixte",
+                    "fr": "Dysfonction Mixte",
                     "en": "Mixed Disorder"
                 },
                 "members": [
@@ -12765,7 +12765,7 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Désordre Vivian",
+                    "fr": "Dysfonction Vivian",
                     "en": "Vivian Disorder"
                 },
                 "videoId": "",
@@ -13619,7 +13619,7 @@
             },
             {
                 "name": "TEAM 02",
-                "tag": { "fr": "Désordre Vent-Feu 🌪️", "en": "Wind-Fire Disorder 🌪️" },
+                "tag": { "fr": "Dysfonction Vent-Feu 🌪️", "en": "Wind-Fire Disorder 🌪️" },
                 "members": [
                     { "img": "Phoenix.webp", "color": "#f05432", "initial": "P" },
                     { "img": "Velina.webp", "color": "#22d3ee", "initial": "V" },
