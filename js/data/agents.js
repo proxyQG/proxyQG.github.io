@@ -5,7 +5,7 @@ export const colorMap = {
     'Frost': '#6d67f8',
     'Wind': '#4da2f8',
     'Electric': '#3182eb', 
-    'Ether': '#f23c8a', 'Lumiflux': '#fba2d0', 'Auric Ink': '#5d57a6'
+    'Ether': '#f23c8a', 'Lumiflux': '#fba2d0', 'Auric Ink': '#c88e34'
 };
 
 export const iconMap = {
