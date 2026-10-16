@@ -336,26 +336,72 @@ function initFavorites() {
     });
 }
 
+function updateModalFavoriteButton(agentName, animate = false) {
+    const btn = document.getElementById('favAgentModalBtn');
+    if (!btn || !agentName) return;
+
+    const isFav = State.favorites.includes(agentName);
+    const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
+    const isEn = currentLang === 'en';
+    const label = isFav
+        ? (isEn ? `Remove ${displayName} from favorites (F)` : `Retirer ${displayName} des favoris (F)`)
+        : (isEn ? `Add ${displayName} to favorites (F)` : `Ajouter ${displayName} aux favoris (F)`);
+
+    btn.classList.toggle('is-fav', isFav);
+    btn.setAttribute('aria-pressed', isFav ? 'true' : 'false');
+    btn.setAttribute('aria-label', label);
+    btn.setAttribute('title', label);
+
+    btn.classList.remove('anim-pop', 'anim-unpop');
+    if (animate) {
+        void btn.offsetWidth; // Force le recalcul pour rejouer l'animation immédiatement
+        btn.classList.add(isFav ? 'anim-pop' : 'anim-unpop');
+    }
+}
+
 window.toggleFavorite = function(btn, agentName, event) {
-    event.stopPropagation(); 
-    if (State.favorites.includes(agentName)) {
+    if (event) event.stopPropagation();
+    if (!agentName) return;
+
+    const wasFav = State.favorites.includes(agentName);
+    if (wasFav) {
         State.favorites = State.favorites.filter(f => f !== agentName);
     } else {
         State.favorites.push(agentName);
     }
-    localStorage.setItem('zzz_favorites', JSON.stringify(State.favorites)); 
+    const isNowFav = !wasFav;
+
+    localStorage.setItem('zzz_favorites', JSON.stringify(State.favorites));
     updateFavBadges();
-    
+
     if (State.showFavorites) {
         renderAgents();
     } else {
-        const svg = btn.querySelector('svg');
-        if (State.favorites.includes(agentName)) {
-            svg.classList.add('text-red-500', 'fill-red-500'); svg.classList.remove('text-zinc-500', 'fill-none');
-        } else {
-            svg.classList.remove('text-red-500', 'fill-red-500'); svg.classList.add('text-zinc-500', 'fill-none');
+        const cardObj = DOM.agentCards.find(c => c.agent.name === agentName);
+        const svg = (btn && btn.querySelector('svg')) || (cardObj && cardObj.el.querySelector('button.group\\/fav svg'));
+        if (svg) {
+            svg.classList.toggle('text-red-500', isNowFav);
+            svg.classList.toggle('fill-red-500', isNowFav);
+            svg.classList.toggle('text-zinc-500', !isNowFav);
+            svg.classList.toggle('fill-none', !isNowFav);
+            if (isNowFav && btn) {
+                svg.classList.remove('grid-fav-pop');
+                void svg.offsetWidth;
+                svg.classList.add('grid-fav-pop');
+            }
         }
     }
+
+    if (State.currentAgent === agentName) {
+        updateModalFavoriteButton(agentName, !btn);
+    }
+};
+
+window.toggleCurrentAgentFavorite = function(event) {
+    if (event) event.stopPropagation();
+    const agentName = State.currentAgent || (State.modalIndex !== -1 ? State.filteredAgents[State.modalIndex]?.name : null);
+    if (!agentName) return;
+    window.toggleFavorite(null, agentName, event);
 };
 
 // ==========================================
@@ -620,6 +666,9 @@ function renderAgents(isInitial = false) {
         }
     }
     
+    if (State.currentAgent) {
+        State.modalIndex = State.filteredAgents.findIndex(a => a.name === State.currentAgent);
+    }
     updateModalNavigation();
 }
 
@@ -762,6 +811,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     State.currentAgent = agentName;
     const token = ++openAgentToken;
     updateBackToAgentButton();
+    updateModalFavoriteButton(agentName, false);
 
     const splashImg = document.getElementById('agentSplashImage'); 
     const giantName = document.getElementById('modalGiantNameText'); 
@@ -932,6 +982,10 @@ function initKeyboardNavigation() {
             }
             if (e.key === 'ArrowRight' && State.modalIndex < State.filteredAgents.length - 1 && State.modalIndex !== -1) {
                 window.openAgentDetail(State.filteredAgents[State.modalIndex + 1].name);
+            }
+            if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                e.preventDefault();
+                window.toggleCurrentAgentFavorite();
             }
         }
     });
