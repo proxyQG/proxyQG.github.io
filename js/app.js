@@ -378,11 +378,20 @@ window.toggleFavorite = function(btn, agentName, event) {
         renderAgents();
     } else {
         const cardObj = DOM.agentCards.find(c => c.agent.name === agentName);
-        const svg = (btn && btn.querySelector('svg')) || (cardObj && cardObj.el.querySelector('button.group\\/fav svg'));
+        const targetBtn = btn || (cardObj && cardObj.el.querySelector('button.group\\/fav'));
+        const svg = targetBtn && targetBtn.querySelector('svg');
+        if (targetBtn) {
+            targetBtn.classList.toggle('border-red-500/60', isNowFav);
+            targetBtn.classList.toggle('bg-[#1a080a]/95', isNowFav);
+            targetBtn.classList.toggle('opacity-100', isNowFav);
+            targetBtn.classList.toggle('border-zinc-700/80', !isNowFav);
+            targetBtn.classList.toggle('bg-[#111]/90', !isNowFav);
+            targetBtn.classList.toggle('opacity-80', !isNowFav);
+        }
         if (svg) {
             svg.classList.toggle('text-red-500', isNowFav);
             svg.classList.toggle('fill-red-500', isNowFav);
-            svg.classList.toggle('text-zinc-500', !isNowFav);
+            svg.classList.toggle('text-zinc-400', !isNowFav);
             svg.classList.toggle('fill-none', !isNowFav);
             if (isNowFav && btn) {
                 svg.classList.remove('grid-fav-pop');
@@ -553,26 +562,121 @@ document.querySelectorAll('.clear-faction-btn').forEach(btn => {
 // 8. GRILLE DES AGENTS (ZÉRO REFLOW)
 // ==========================================
 function buildInitialGrid() {
+    const versionLabels = {
+    'V3': '3.0 — 3.X',
+    'V2': '2.0 — 2.8',
+    'V1': '1.0 — 1.7'
+};
+
+window.removeSingleFilter = function(type) {
+    if (type === 'element') {
+        State.filters.element = 'All';
+        document.querySelectorAll('.filter-elem-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'All'));
+    } else if (type === 'role') {
+        State.filters.role = 'All';
+        document.querySelectorAll('.filter-role-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-role') === 'All'));
+    } else if (type === 'version') {
+        State.filters.version = 'All';
+        document.querySelectorAll('.filter-version-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-version') === 'All'));
+    } else if (type === 'faction') {
+        State.faction = null;
+        document.querySelectorAll('.active-faction-tag').forEach(t => { t.classList.add('hidden'); t.classList.remove('flex'); });
+    } else if (type === 'favorites') {
+        State.showFavorites = false;
+        document.querySelectorAll('.favorite-filter-btn').forEach(b => {
+            const svg = b.querySelector('svg');
+            b.classList.replace('border-red-500', 'border-zinc-800');
+            b.classList.replace('text-white', 'text-zinc-400');
+            b.classList.remove('bg-red-500/10');
+            if (svg) svg.classList.remove('text-red-500');
+        });
+    } else if (type === 'search') {
+        clearSearch();
+        return;
+    }
+    renderAgents();
+    scrollToTop();
+};
+
+function updateActiveFiltersBar(hasAnyActiveFilter) {
+    const bar = document.getElementById('activeFiltersBar');
+    const chipsContainer = document.getElementById('activeFiltersChips');
+    if (!bar || !chipsContainer) return;
+
+    if (!hasAnyActiveFilter) {
+        bar.classList.add('hidden');
+        bar.classList.remove('flex');
+        chipsContainer.innerHTML = '';
+        return;
+    }
+
+    const chips = [];
+    const makeChip = (label, type, color = '#d7f70c', iconHtml = '') => `
+        <button onclick="window.removeSingleFilter('${type}')" class="inline-flex items-center gap-1.5 bg-[#121215] hover:bg-[#1c1c21] text-white border px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors cursor-pointer group" style="border-color: color-mix(in srgb, ${color} 45%, #27272a);">
+            ${iconHtml}
+            <span>${label}</span>
+            <svg class="w-3 h-3 text-zinc-500 group-hover:text-white transition-colors ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>`;
+
+    if (State.filters.element !== 'All') {
+        const c = colorMap[State.filters.element] || '#d7f70c';
+        const icon = (iconMap[State.filters.element] || 'physique.png').replace('.png', '.webp');
+        chips.push(makeChip(tTerm(State.filters.element), 'element', c, `<img src="assets/Icone/${icon}" class="w-3.5 h-3.5 object-contain">`));
+    }
+    if (State.filters.role !== 'All') {
+        chips.push(makeChip(tTerm(State.filters.role), 'role', '#d7f70c', `<img src="assets/Rôles/${State.filters.role}.webp" class="w-3.5 h-3.5 object-contain">`));
+    }
+    if (State.filters.version !== 'All') {
+        chips.push(makeChip(versionLabels[State.filters.version] || State.filters.version, 'version', '#d7f70c'));
+    }
+    if (State.faction) {
+        let fName = (currentLang === 'en' && factionTranslations[State.faction]) ? factionTranslations[State.faction] : State.faction;
+        if (State.faction === "Équipe d'intervention spéciale des Enquêtes criminelles") fName = "N.E.P.S.";
+        chips.push(makeChip(fName, 'faction', '#eab308'));
+    }
+    if (State.showFavorites) {
+        const favLbl = currentLang === 'en' ? 'Favorites' : 'Favoris';
+        chips.push(makeChip(favLbl, 'favorites', '#ef4444', `<svg class="w-3 h-3 text-red-500 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`));
+    }
+    if (State.search.length > 0) {
+        const safeSearch = State.search.replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+        chips.push(makeChip(`"${safeSearch}"`, 'search', '#d7f70c'));
+    }
+
+    chipsContainer.innerHTML = chips.join('');
+    bar.classList.remove('hidden');
+    bar.classList.add('flex');
+}
+
+function buildInitialGrid() {
     DOM.grid.innerHTML = ''; 
     let currentV = '';
-    
-    // NOUVEAU : On prépare tout le code HTML dans cette variable sans toucher au site
     let finalHTML = '';
     
     agentsData.forEach((agent, index) => {
         const v = agent.version || 'Inconnu';
         if (v !== currentV) {
             currentV = v;
-            finalHTML += `<div class="version-separator col-span-full relative mt-16 mb-12 flex items-center justify-center group/sep perspective-1000 hidden" data-version="${v}"><div class="absolute inset-0 flex items-center justify-center pointer-events-none"><div class="w-[80%] md:w-[60%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden"><div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c] to-transparent -translate-x-full laser-beam"></div></div></div><div class="relative bg-[#050505] px-8 py-3 border border-zinc-800/80 rounded-full flex items-center gap-4 shadow-[0_0_40px_rgba(0,0,0,0.6)] transform transition-transform duration-700 hover:scale-110 hover:border-[#d7f70c]/50 hover:shadow-[0_0_50px_rgba(215,247,12,0.2)] z-10 cursor-default"><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><span class="font-display font-black italic text-2xl tracking-[0.3em] text-white uppercase drop-shadow-md">Version <span class="text-[#d7f70c]">${v.replace('V', '')}</span></span><div class="w-2.5 h-2.5 bg-[#d7f70c] rounded-full animate-pulse shadow-[0_0_10px_#d7f70c]"></div><div class="absolute inset-0 bg-[#d7f70c]/5 blur-xl rounded-full -z-10 group-hover/sep:bg-[#d7f70c]/15 transition-colors duration-500"></div></div></div>`;
+            const vLabel = versionLabels[v] || v.replace('V', '');
+            finalHTML += `
+            <div class="version-separator col-span-full relative mt-10 first:mt-2 mb-6 flex items-center justify-center hidden" data-version="${v}">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="w-[90%] md:w-[70%] h-px bg-gradient-to-r from-transparent via-zinc-800 to-transparent relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-[#d7f70c]/70 to-transparent -translate-x-full laser-beam"></div>
+                    </div>
+                </div>
+                <div class="relative bg-[#0b0b0e] px-6 py-2.5 border border-zinc-800 rounded-full flex items-center gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-10 cursor-default">
+                    <span class="w-2 h-2 bg-[#d7f70c] rounded-full shadow-[0_0_8px_#d7f70c]"></span>
+                    <span class="font-display font-black italic text-base sm:text-xl tracking-[0.22em] text-white uppercase">Version <span class="text-[#d7f70c]">${vLabel}</span></span>
+                    <span class="version-count-badge bg-[#16161a] border border-zinc-700/80 text-zinc-300 text-[10px] font-black px-2 py-0.5 rounded-md">0</span>
+                </div>
+            </div>`;
         }
-        // index === 0 donne la banderole, index sert à charger les 10 premières images immédiatement
         finalHTML += createCardHTML(agent, index === 0, index);
     });
     
-    // NOUVEAU : On injecte tout le HTML d'un seul coup (fini les saccades !)
     DOM.grid.innerHTML = finalHTML;
     
-    // Mise en cache des noeuds générés
     DOM.agentCards = Array.from(DOM.grid.querySelectorAll('.agent-card-container')).map((el, i) => ({
         el: el,
         agent: agentsData[i],
@@ -580,9 +684,8 @@ function buildInitialGrid() {
     }));
     DOM.separators = Array.from(DOM.grid.querySelectorAll('.version-separator'));
     
-    init3DParallax(); // Initialise l'animation 3D
+    init3DParallax();
     
-    // NOUVEAU : On déclenche l'apparition en fondu une fois la grille construite
     requestAnimationFrame(() => {
         DOM.grid.classList.add('loaded');
     });
@@ -591,7 +694,7 @@ function buildInitialGrid() {
 function renderAgents(isInitial = false) {
     State.filteredAgents = []; 
     let visibleIndex = 0;
-    const visibleVersions = new Set();
+    const versionCounts = {};
     const isVersionModeAll = State.mode === 'versions' && State.filters.version === 'All';
 
     // 1. Filtrer en temps réel en combinant Élément + Rôle + Version (Zéro Reflow)
@@ -606,16 +709,24 @@ function renderAgents(isInitial = false) {
         
         if (matchSearch && matchElem && matchRole && matchVersion && matchFaction && matchFav) {
             State.filteredAgents.push(agent);
-            visibleVersions.add(card.version);
+            versionCounts[card.version] = (versionCounts[card.version] || 0) + 1;
             
-            // Met à jour l'icône de favori si l'état a changé sans recréer la carte
-            const svg = card.el.querySelector('button.group\\/fav svg');
+            const favBtn = card.el.querySelector('button.group\\/fav');
+            const svg = favBtn && favBtn.querySelector('svg');
+            const isFav = State.favorites.includes(agent.name);
+            if (favBtn) {
+                favBtn.classList.toggle('border-red-500/60', isFav);
+                favBtn.classList.toggle('bg-[#1a080a]/95', isFav);
+                favBtn.classList.toggle('opacity-100', isFav);
+                favBtn.classList.toggle('border-zinc-700/80', !isFav);
+                favBtn.classList.toggle('bg-[#111]/90', !isFav);
+                favBtn.classList.toggle('opacity-80', !isFav);
+            }
             if (svg) {
-                if (State.favorites.includes(agent.name)) {
-                    svg.classList.add('text-red-500', 'fill-red-500'); svg.classList.remove('text-zinc-500', 'fill-none');
-                } else {
-                    svg.classList.remove('text-red-500', 'fill-red-500'); svg.classList.add('text-zinc-500', 'fill-none');
-                }
+                svg.classList.toggle('text-red-500', isFav);
+                svg.classList.toggle('fill-red-500', isFav);
+                svg.classList.toggle('text-zinc-400', !isFav);
+                svg.classList.toggle('fill-none', !isFav);
             }
             
             card.el.classList.remove('hidden');
@@ -625,7 +736,7 @@ function renderAgents(isInitial = false) {
         }
     });
 
-    // 1bis. Met à jour le compteur d'agents, les pastilles d'onglets et le bouton Réinitialiser
+    // 1bis. Met à jour le compteur d'agents, les pastilles d'onglets et la barre de filtres actifs
     document.querySelectorAll('.active-agent-count').forEach(el => {
         el.textContent = State.filteredAgents.length === agentsData.length 
             ? `${agentsData.length}` 
@@ -640,11 +751,15 @@ function renderAgents(isInitial = false) {
         btn.classList.toggle('hidden', !hasAnyActiveFilter);
         btn.classList.toggle('inline-flex', hasAnyActiveFilter);
     });
+    updateActiveFiltersBar(hasAnyActiveFilter);
 
-    // 2. Gérer les séparateurs de versions
+    // 2. Gérer les séparateurs de versions et leurs compteurs
     DOM.separators.forEach(sep => {
         const v = sep.getAttribute('data-version');
-        if (isVersionModeAll && visibleVersions.has(v)) {
+        const count = versionCounts[v] || 0;
+        if (isVersionModeAll && count > 0) {
+            const badge = sep.querySelector('.version-count-badge');
+            if (badge) badge.textContent = count;
             sep.classList.remove('hidden');
         } else {
             sep.classList.add('hidden');
@@ -675,8 +790,10 @@ function renderAgents(isInitial = false) {
 function createCardHTML(agent, isNew = false, index = 0) {
     const hexColor = colorMap[agent.element] || '#ffffff'; const cleanHex = hexColor.replace('#', ''); 
     const isFav = State.favorites.includes(agent.name); 
-    const heartClass = isFav ? 'text-red-500 fill-red-500' : 'text-zinc-500 fill-none'; 
+    const heartClass = isFav ? 'text-red-500 fill-red-500' : 'text-zinc-400 fill-none'; 
+    const favBtnStateClass = isFav ? 'border-red-500/60 bg-[#1a080a]/95 opacity-100' : 'border-zinc-700/80 bg-[#111]/90 opacity-80';
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
+    const roleLabel = tTerm(agent.role);
 
     // Les 10 premières cartes (visibles immédiatement à l'écran) sont chargées en priorité maximale
     const loadingAttr = index < 10 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
@@ -695,13 +812,16 @@ function createCardHTML(agent, isNew = false, index = 0) {
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
+                <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
+                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="lazy" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
+                </div>
                 <img src="assets/Agents/${agent.name}.webp" ${loadingAttr} decoding="async" alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
-                <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-[#111]/95 border border-zinc-700 flex items-center justify-center z-30 transition-transform hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+                <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full border ${favBtnStateClass} group-hover:opacity-100 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
             </div>
         </div>
-        <div class="mt-3 mx-1 bg-[#151515] p-2 skew-x-[-15deg] border-b-[4px] shadow-lg transition-colors duration-300 group-hover:bg-[#1a1a1a]" style="border-bottom-color: ${hexColor};">
-            <div class="skew-x-[15deg] text-center w-full px-1 overflow-hidden flex items-center justify-center gap-2"><span class="text-white font-display font-black uppercase text-xs sm:text-[15px] tracking-[0.2em] truncate block drop-shadow-md transition-colors pointer-events-none">${displayName}</span></div>
+        <div class="agent-nameplate mt-2.5 mx-1 bg-[#141417] py-2 px-2 skew-x-[-15deg] border border-zinc-800/90 border-b-[4px] shadow-lg transition-colors duration-200 relative overflow-hidden" style="border-bottom-color: ${hexColor};">
+            <div class="skew-x-[15deg] text-center w-full px-1 overflow-hidden flex items-center justify-center"><span class="text-zinc-100 group-hover:text-white font-display font-black uppercase text-xs sm:text-[14px] tracking-[0.18em] truncate block drop-shadow-md transition-colors pointer-events-none">${displayName}</span></div>
         </div>
     </div>`;
 }
