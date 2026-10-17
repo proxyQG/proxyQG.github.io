@@ -13515,26 +13515,26 @@
             "en": "Krampus Compliance Authority"
         },
         "stats": [
-            { "label": "Maîtrise d'Anomalie", "value": "210-220+" },
+            { "label": "Maîtrise d'Anomalie", "value": "255" },
             { "label": "Adresse d'Anomalie", "value": "400-420+" },
             { "label": "Attaque", "value": "2800-3000+" }
         ],
         "discs": [
             {
-                "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
+                "tag": { "fr": "Build Optimal 👑", "en": "Best-in-Slot 👑" },
                 "set1": "Freedom_Blues",
                 "set2": "Phaethon_Melody",
                 "set1Name": "4pc Freedom Blues",
                 "set2Name": "+ 2pc Phaethon's Melody",
                 "note": {
-                    "fr": "Freedom Blues augmentera de 20 % l'accumulation d'anomalie de Phoenix, ce qui lui permettra de déclencher davantage d'effets « Brûlure.",
-                    "en": "Freedom Blues will give Phoenix 20% increased Anomaly Build-Up, allowing for more  Burn procs from Phoenix."
+                    "fr": "Grâce à sa capacité passive, qui inflige des dégâts EX spéciaux passifs toutes les 8 secondes, Phoenix maintient l'effet négatif de réduction de l'accumulation d'anomalies sans interruption.",
+                    "en": "Thanks to its passive ability, which deals special EX damage every 8 seconds, Phoenix maintains the debuff that reduces anomaly accumulation without interruption."
                 }
             },
             {
                 "tag": {
                     "fr": "Alternative",
-                    "en": "Anomaly"
+                    "en": "Alternative"
                 },
                 "set1": "Chaos_Jazz",
                 "set2": "Phaethon_Melody",
@@ -13547,16 +13547,16 @@
             }
         ],
         "skills": [
-            { "name": "Basic", "level": "", "icon": "Attaque_basic.webp" },
-            { "name": "Ult", "level": "", "icon": "Ultime.webp" },
-            { "name": "Assist", "level": "", "icon": "Assist.webp" },
-            { "name": "Ex", "level": "", "icon": "Ex.webp" },
-            { "name": "Dodge", "level": "", "icon": "Esquive.webp" }
+            { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
+            { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
+            { "name": "Assist", "level": "11", "icon": "Assist.webp" },
+            { "name": "Ex", "level": "10", "icon": "Ex.webp" },
+            { "name": "Dodge", "level": "1", "icon": "Esquive.webp" }
         ],
         "statPriority": {
             "main": [
                 { "slot": "6", "label": { "fr": "Maîtrise d'Anomalie", "en": "Anomaly Mastery" } },
-                { "slot": "5", "label": { "fr": "DGT FEU % > ATQ %", "en": "Fire DMG > ATK %" } },
+                { "slot": "5", "label": { "fr": "DGT FEU % M0 > Taux de PEN M2 ", "en": "Fire DMG M0 > PEN Ratio M2" } },
                 { "slot": "4", "label": { "fr": "Adresse d'Anomalie > ATQ %", "en": "Anomaly Proficiency > ATK %" } }
             ],
             "sub": [
@@ -13598,12 +13598,12 @@
             },
             {
                 "tag": "Alternative S",
-                "name": "Flamemaker Shaker",
-                "img": "W-Engine_Flamemaker_Shaker.webp"
+                "name": "Angel in the Shell",
+                "img": "W-Engine_Angel_in_the_Shell.webp"
             },
             {
                 "tag": "Alternative F2P",
-                "name": "Weeping Gemini",
+                "name": "Weeping Gemini R5",
                 "img": "W-Engine_Weeping_Gemini.webp"
             }
         ],
