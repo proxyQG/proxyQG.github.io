@@ -1,0 +1,57 @@
+name: Build Tailwind CSS
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'css/styles.css'
+      - 'js/**'
+      - '.github/workflows/build_tailwind.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-css:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Compile Tailwind CSS (Static & Minified)
+        run: |
+          cat << 'EOF' > tailwind.config.js
+          module.exports = {
+            content: [
+              "./index.html",
+              "./js/**/*.js"
+            ],
+            theme: {
+              extend: {
+                fontFamily: {
+                  display: ['Montserrat', 'sans-serif'],
+                  sans: ['Inter', 'sans-serif']
+                }
+              }
+            }
+          }
+          EOF
+          npx tailwindcss@3.4.17 -o ./css/tailwind.css --minify
+          rm tailwind.config.js
+
+      - name: Commit & Push generated CSS
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add css/tailwind.css
+          if ! git diff --cached --quiet; then
+            git commit -m "perf: auto-compile Tailwind CSS [skip ci]"
+            git push
+          fi
