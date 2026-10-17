@@ -2847,11 +2847,11 @@
         "stats": [
             {
                 "label": "Adresse d'Anomalie",
-                "value": "356"
+                "value": "330-420+"
             },
             {
                 "label": "Attaque",
-                "value": "2500"
+                "value": "2400-2600+"
             },
             {
                 "label": "Energie Regen",
