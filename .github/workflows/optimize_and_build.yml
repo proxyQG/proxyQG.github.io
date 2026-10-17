@@ -1,0 +1,79 @@
+name: Build Tailwind CSS & Optimize Grid Images
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'index.html'
+      - 'css/styles.css'
+      - 'js/**'
+      - 'assets/Agents/**'
+      - '.github/workflows/optimize_and_build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Compile Tailwind CSS (Static & Minified)
+        run: |
+          cat << 'EOF' > tailwind.config.js
+          module.exports = {
+            content: [
+              "./index.html",
+              "./js/**/*.js"
+            ],
+            theme: {
+              extend: {
+                fontFamily: {
+                  display: ['Montserrat', 'sans-serif'],
+                  sans: ['Inter', 'sans-serif']
+                }
+              }
+            }
+          }
+          EOF
+          npx tailwindcss@3.4.17 -o ./css/tailwind.css --minify
+          rm tailwind.config.js
+
+      - name: Optimize Agent Grid Thumbnails (320x320 WebP)
+        run: |
+          pip install Pillow
+          python3 - << 'EOF'
+          import os
+          from PIL import Image
+
+          folder = "assets/Agents"
+          if os.path.isdir(folder):
+              for fname in os.listdir(folder):
+                  if fname.lower().endswith(".webp"):
+                      fpath = os.path.join(folder, fname)
+                      # Si l'image pèse plus de 28 Ko ou dépasse 320px, on l'optimise pour la grille
+                      if os.path.getsize(fpath) > 28 * 1024:
+                          with Image.open(fpath) as img:
+                              if img.width > 320 or img.height > 320:
+                                  img = img.resize((320, 320), Image.Resampling.LANCZOS)
+                              img.save(fpath, "WEBP", quality=82, method=6)
+                              print(f"Optimisé : {fname} -> {os.path.getsize(fpath)//1024} Ko")
+          EOF
+
+      - name: Commit & Push generated files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add css/tailwind.css assets/Agents/*.webp
+          if ! git diff --cached --quiet; then
+            git commit -m "perf: auto-compile Tailwind CSS & optimize agent thumbnails [skip ci]"
+            git push
+          fi
