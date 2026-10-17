@@ -123,16 +123,9 @@ main {
     border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: var(--surface); height: 100%; width: 100%; position: relative;
 }
 
-/* --- OPTIMISATION ANTI-SACCADE (CLS & FOUC) --- */
+/* --- AFFICHAGE INSTANTANÉ DE LA GRILLE (LCP OPTIMISÉ) --- */
 #agents-grid {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-
-#agents-grid.loaded {
     opacity: 1;
-    transform: translateY(0);
 }
 
 .agent-image { 
