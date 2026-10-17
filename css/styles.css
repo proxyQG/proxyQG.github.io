@@ -94,16 +94,27 @@ main {
 .agent-card-container { 
     contain: layout style;
 }
+.agent-card-container:active .agent-shape-wrapper {
+    transform: scale(0.97);
+}
 @media (hover: hover) {
     .agent-card-container:hover .agent-shape-wrapper { 
-        transform: scale(1.05); 
+        transform: scale(1.04);
+        background-color: var(--elem-color, #d7f70c);
+    }
+    .agent-card-container:hover .agent-nameplate {
+        border-color: color-mix(in srgb, var(--elem-color, #ffffff) 55%, #27272a);
+        background-color: #1b1b1f;
+    }
+    .agent-card-container:hover .agent-role-badge {
+        border-color: var(--elem-color, #d7f70c);
     }
 }
 
 .agent-shape-wrapper {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
-    border-top-left-radius: 12px; border-top-right-radius: 12px; padding: 3px; position: relative; overflow: hidden; 
-    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+    border-top-left-radius: 12px; border-top-right-radius: 12px; padding: 2.5px; position: relative; overflow: hidden; 
+    transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), background-color 0.25s ease;
     transform-origin: center bottom;
     contain: layout paint;
 }
