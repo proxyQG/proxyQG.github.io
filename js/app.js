@@ -561,8 +561,7 @@ document.querySelectorAll('.clear-faction-btn').forEach(btn => {
 // ==========================================
 // 8. GRILLE DES AGENTS (ZÉRO REFLOW)
 // ==========================================
-function buildInitialGrid() {
-    const versionLabels = {
+const versionLabels = {
     'V3': '3.0 — 3.X',
     'V2': '2.0 — 2.8',
     'V1': '1.0 — 1.7'
