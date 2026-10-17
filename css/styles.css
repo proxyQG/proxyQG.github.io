@@ -57,9 +57,28 @@ body {
 }
 .pulse-active-tag { animation: pulse-glow 3s infinite ease-in-out; }
 
-.marquee-mask {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+main {
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+}
+
+.marquee-mask::before,
+.marquee-mask::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10%;
+    z-index: 10;
+    pointer-events: none;
+}
+.marquee-mask::before {
+    top: 0;
+    background: linear-gradient(to bottom, #09090b 0%, transparent 100%);
+}
+.marquee-mask::after {
+    bottom: 0;
+    background: linear-gradient(to top, #09090b 0%, transparent 100%);
 }
 .marquee-track-vertical { 
     display: flex; 
@@ -73,24 +92,32 @@ body {
 @keyframes scroll-vertical { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
 .agent-card-container { 
-    perspective: 1200px; transform-style: preserve-3d; transition: transform 0.1s ease-out; 
+    contain: layout style;
 }
-.agent-card-container.reset-transition { transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1); }
+@media (hover: hover) {
+    .agent-card-container {
+        perspective: 1200px;
+        transform-style: preserve-3d;
+        transition: transform 0.1s ease-out;
+    }
+    .agent-card-container.reset-transition {
+        transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+    }
+    .agent-card-container:hover .agent-shape-wrapper { 
+        transform: scale(1.04); 
+    }
+}
 
 .agent-shape-wrapper {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
     border-top-left-radius: 12px; border-top-right-radius: 12px; padding: 3px; position: relative; overflow: hidden; 
-    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1);
     transform-origin: center bottom;
+    contain: layout paint;
 }
 .agent-shape-inner {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
     border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: var(--surface); height: 100%; width: 100%; position: relative;
-}
-
-.agent-card-container:hover .agent-shape-wrapper { 
-    transform: scale(1.05); 
-    box-shadow: 0 30px 50px -10px var(--elem-color, rgba(255,255,255,0.3)); 
 }
 
 /* --- OPTIMISATION ANTI-SACCADE (CLS & FOUC) --- */
