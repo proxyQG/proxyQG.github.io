@@ -691,16 +691,16 @@ function createCardHTML(agent, isNew = false, index = 0) {
         </div>` : '';
 
     return `
-    <div class="agent-card-container flex flex-col cursor-pointer w-full group animate-fade-in-up" style="--elem-color: ${hexColor};" onmouseenter="window.preloadSplash('${agent.name.replace(/'/g, "\\'")}')" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
+    <div data-agent="${agent.name}" class="agent-card-container flex flex-col cursor-pointer w-full group" style="--elem-color: ${hexColor};" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
                 <img src="assets/Agents/${agent.name}.webp" ${loadingAttr} decoding="async" alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
-                <div class="absolute inset-0 shadow-[inset_0_-35px_50px_rgba(0,0,0,0.95)] pointer-events-none transition-shadow duration-300 group-hover:shadow-[inset_0_-10px_20px_rgba(0,0,0,0.4)]"></div>
-                <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-[#111]/80 backdrop-blur border border-zinc-700 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
+                <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-[#111]/95 border border-zinc-700 flex items-center justify-center z-30 transition-transform hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
             </div>
         </div>
-        <div class="mt-3 mx-1 bg-[#151515] p-2 skew-x-[-15deg] border-b-[4px] shadow-lg transition-all duration-300 group-hover:bg-[#1a1a1a]" style="border-bottom-color: ${hexColor};">
+        <div class="mt-3 mx-1 bg-[#151515] p-2 skew-x-[-15deg] border-b-[4px] shadow-lg transition-colors duration-300 group-hover:bg-[#1a1a1a]" style="border-bottom-color: ${hexColor};">
             <div class="skew-x-[15deg] text-center w-full px-1 overflow-hidden flex items-center justify-center gap-2"><span class="text-white font-display font-black uppercase text-xs sm:text-[15px] tracking-[0.2em] truncate block drop-shadow-md transition-colors pointer-events-none">${displayName}</span></div>
         </div>
     </div>`;
@@ -1235,32 +1235,60 @@ function initLanguageSwitcher() {
 }
 
 function init3DParallax() {
-    if (window.matchMedia("(hover: none)").matches) return; 
-    
+    if (window.matchMedia("(hover: none)").matches) return;
+
+    let isScrolling = false;
+    let scrollTimer = null;
+    if (DOM.scrollArea) {
+        DOM.scrollArea.addEventListener('scroll', () => {
+            isScrolling = true;
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => { isScrolling = false; }, 120);
+        }, { passive: true });
+    }
+
     document.querySelectorAll('.agent-card-container, .ascension-btn').forEach(card => {
         let ticking = false;
         let mouseX = 0, mouseY = 0;
-        
+        let cachedRect = null;
+        let preloadTimer = null;
+        const agentName = card.getAttribute('data-agent');
+
+        card.addEventListener('mouseenter', () => {
+            if (isScrolling) return;
+            cachedRect = card.getBoundingClientRect();
+            if (agentName) {
+                preloadTimer = setTimeout(() => {
+                    if (!isScrolling) window.preloadSplash(agentName);
+                }, 120);
+            }
+        }, { passive: true });
+
         card.addEventListener('mousemove', (e) => {
+            if (isScrolling) return;
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
+
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    const rect = card.getBoundingClientRect(); 
-                    const x = mouseX - rect.left; 
-                    const y = mouseY - rect.top;
-                    card.classList.remove('reset-transition'); 
-                    card.style.transform = `rotateX(${(((y - (rect.height / 2)) / (rect.height / 2)) * -12)}deg) rotateY(${(((x - (rect.width / 2)) / (rect.width / 2)) * 12)}deg) scale3d(1.05, 1.05, 1.05)`;
+                    if (isScrolling) { ticking = false; return; }
+                    if (!cachedRect) cachedRect = card.getBoundingClientRect();
+                    const x = mouseX - cachedRect.left;
+                    const y = mouseY - cachedRect.top;
+                    card.classList.remove('reset-transition');
+                    card.style.transform = `rotateX(${(((y - (cachedRect.height / 2)) / (cachedRect.height / 2)) * -12)}deg) rotateY(${(((x - (cachedRect.width / 2)) / (cachedRect.width / 2)) * 12)}deg) scale3d(1.05, 1.05, 1.05)`;
                     ticking = false;
                 });
                 ticking = true;
             }
-        });
-        card.addEventListener('mouseleave', () => { 
-            card.classList.add('reset-transition'); 
-            card.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; 
-        });
+        }, { passive: true });
+
+        card.addEventListener('mouseleave', () => {
+            clearTimeout(preloadTimer);
+            cachedRect = null;
+            card.classList.add('reset-transition');
+            card.style.transform = '';
+        }, { passive: true });
     });
 }
 
