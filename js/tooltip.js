@@ -86,13 +86,20 @@
     }
 
     if (!W_ENGINES_DB) {
-        fetch('js/data/engines.json')
-            .then(response => response.json())
-            .then(data => {
-                W_ENGINES_DB = data;
-                sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
-            })
-            .catch(error => console.error("Erreur chargement des moteurs :", error));
+        const loadEngines = () => {
+            fetch('js/data/engines.json')
+                .then(response => response.json())
+                .then(data => {
+                    W_ENGINES_DB = data;
+                    sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
+                })
+                .catch(error => console.error("Erreur chargement des moteurs :", error));
+        };
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadEngines, { timeout: 2000 });
+        } else {
+            setTimeout(loadEngines, 1200);
+        }
     }
 
     bindEvents();
