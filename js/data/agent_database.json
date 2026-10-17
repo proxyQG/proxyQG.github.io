@@ -2879,9 +2879,9 @@
                     "en": "Set 2 (97.4%)"
                 },
                 "set1": "Wuthering_Salon",
-                "set2": "Phaethon_Melody",
-                "set1Name": "4pc Turmoil's Salon",
-                "set2Name": "+ 2pc Phaethon's Melody",
+                "set2": "Swing_Jazz",
+                "set1Name": "4pc Wuthering Salon",
+                "set2Name": "+ 2pc Swing Jazz",
                 "note": ""
             },
             {
@@ -2899,27 +2899,27 @@
         "skills": [
             {
                 "name": "Ex",
-                "level": "",
+                "level": "12",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Assist",
-                "level": "",
+                "level": "12",
                 "icon": "Assist.webp"
             },
             {
                 "name": "Ult",
-                "level": "",
+                "level": "11",
                 "icon": "Ultime.webp"
             },
             {
                 "name": "Basic",
-                "level": "",
+                "level": "1",
                 "icon": "Attaque_basic.webp"
             },
             {
                 "name": "Dodge",
-                "level": "",
+                "level": "1",
                 "icon": "Esquive.webp"
             }
         ],
@@ -2935,8 +2935,8 @@
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "DGT Vent %",
-                        "en": "Wind DMG %"
+                        "fr": "Taux de PEN > DGT Vent %",
+                        "en": "PEN Ratio > Wind DMG %"
                     }
                 },
                 {
@@ -2978,13 +2978,13 @@
                 "img": "W-Engine_Joyau_Dore.webp"
             },
             {
-                "tag": "Alt 5★ (90.88%)",
-                "name": "Serpentine Seeker",
-                "img": "W-Engine_Serpentine_Seeker.webp"
+                "tag": "Alt 5★",
+                "name": "Flamemaker Shaker",
+                "img": "W-Engine_Flamemaker_Shaker.webp"
             },
             {
-                "tag": "Alt 4★ (87.16%)",
-                "name": "Kaboom the Cannon",
+                "tag": "Alt F2P",
+                "name": "Kaboom the Cannon R5",
                 "img": "W-Engine_Kaboom_the_Cannon.webp"
             }
         ],
@@ -3020,14 +3020,14 @@
                         "initial": "V"
                     },
                     {
-                        "img": "Yuzuha.webp",
-                        "color": "#e8a838",
-                        "initial": "Y"
+                        "img": "Phoenix.webp",
+                        "color": "#f05432",
+                        "initial": "P"
                     },
                     {
-                        "img": "Aria.webp",
-                        "color": "#f23c8a",
-                        "initial": "A"
+                        "img": "Remielle.webp",
+                        "color": "#f43f5e",
+                        "initial": "R"
                     }
                 ]
             },
