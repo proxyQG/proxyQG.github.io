@@ -53,8 +53,8 @@
         "en": "Ascension"
       },
       "desc": {
-        "fr": "En entrant sur le champ de bataille, Phoenix gagne 1 cumul d'[Ascension] (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Les ennemis affectés par [Calcination] subissent 25 % de DGT CRIT d'Anomalie d'attribut supplémentaires. Lorsque l'[Attaque enflammée] inflige des DGT, l'efficacité d'obtention de [Flamme de bûcher] augmente de 15 %.",
-        "en": "Upon entering the battlefield, Phoenix gains 1 stack of [Ascension]. In Investigation Zone mode, this effect can trigger once every 180s; Enemies under [Scorch] take an additional 25% Attribute Anomaly CRIT DMG; When [Burning Attack] deals DMG, [Pyre Flame] acquisition efficiency increases by 15%."
+        "fr": "Permet d'ouvrir le combat directement avec l'EX3 gratuit, augmente le DGT CRIT d'anomalie de l'équipe et accélère les rotations. (Perd de la valeur si tu n'as pas les 255 AM requis pour garantir les critiques).",
+        "en": "Allows you to start the battle directly with the free EX3, increases the team’s anomaly CRIT DGT and speeds up rotations. (Loses some of its value if you don’t have the 255 AM required to guarantee critical hits)."
       }
     },
     {
@@ -64,8 +64,8 @@
         "en": "Scorch"
       },
       "desc": {
-        "fr": "Lorsque Phoenix inflige [Brûlure] à un ennemi, la durée de cet effet augmente de 2 s. Les DGT infligés par Phoenix aux ennemis sous l'état [Calcination] augmentent de 25 %.",
-        "en": "When Phoenix inflicts [Burn] on an enemy, that effect's duration is increased by 2s; Phoenix's DMG dealt to enemies in the [Scorch] state is increased by 25%."
+        "fr": "Prolonge la durée de Brûlure (augmentant directement les dégâts du Burn Vortex), confère +30% de DGT bruts et fait passer le Slot 5 en PEN Ratio devant le DGT Feu %",
+        "en": "Extends the duration of Burn (directly increasing the damage dealt by Burn Vortex), grants +30% raw damage and prioritises Slot 5’s PEN Ratio over Fire Damage %"
       }
     },
     {
@@ -86,8 +86,8 @@
         "en": "Phoenix Rebirth"
       },
       "desc": {
-        "fr": "Phoenix ignore 15 % de la RÉS à tous les attributs de la cible. Lorsque Phoenix utilise l'[Attaque spéciale EX : Brasier éblouissant], elle gagne l'effet [Ascension]. L'effet [Éclosion] déclenché par Phoenix ignore 40 % de la DÉF ennemie.",
-        "en": "Phoenix ignores 15% of the target's All-Attribute RES; When Phoenix uses [EX Special Attack: Dazzling Blaze], she gains the [Ascension] effect; The [Abloom] effect triggered by Phoenix ignores 40% of the enemy's DEF."
+        "fr": "L'ignorance de 15% de résistance élémentaire ne s'applique qu'aux dégâts personnels de Phoenix et ne buffe ni les vortex de Velina ni le luminize de Ramielle",
+        "en": "The 15% reduction in elementary resistance applies only to Phoenix’s self-inflicted damage and does not buff Velina’s vortexes or Ramielle’s Luminize"
       }
     }
   ],
