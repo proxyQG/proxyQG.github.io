@@ -1247,47 +1247,20 @@ function init3DParallax() {
         }, { passive: true });
     }
 
-    document.querySelectorAll('.agent-card-container, .ascension-btn').forEach(card => {
-        let ticking = false;
-        let mouseX = 0, mouseY = 0;
-        let cachedRect = null;
+    document.querySelectorAll('.agent-card-container').forEach(card => {
         let preloadTimer = null;
         const agentName = card.getAttribute('data-agent');
+        if (!agentName) return;
 
         card.addEventListener('mouseenter', () => {
             if (isScrolling) return;
-            cachedRect = card.getBoundingClientRect();
-            if (agentName) {
-                preloadTimer = setTimeout(() => {
-                    if (!isScrolling) window.preloadSplash(agentName);
-                }, 120);
-            }
-        }, { passive: true });
-
-        card.addEventListener('mousemove', (e) => {
-            if (isScrolling) return;
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    if (isScrolling) { ticking = false; return; }
-                    if (!cachedRect) cachedRect = card.getBoundingClientRect();
-                    const x = mouseX - cachedRect.left;
-                    const y = mouseY - cachedRect.top;
-                    card.classList.remove('reset-transition');
-                    card.style.transform = `rotateX(${(((y - (cachedRect.height / 2)) / (cachedRect.height / 2)) * -12)}deg) rotateY(${(((x - (cachedRect.width / 2)) / (cachedRect.width / 2)) * 12)}deg) scale3d(1.05, 1.05, 1.05)`;
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            preloadTimer = setTimeout(() => {
+                if (!isScrolling) window.preloadSplash(agentName);
+            }, 120);
         }, { passive: true });
 
         card.addEventListener('mouseleave', () => {
             clearTimeout(preloadTimer);
-            cachedRect = null;
-            card.classList.add('reset-transition');
-            card.style.transform = '';
         }, { passive: true });
     });
 }
