@@ -475,12 +475,20 @@ function generateFactionCardHTML(faction, isSidebar, index = 0) {
             </div>
         </div>`;
     } else {
+        const agentCount = agentsData.filter(a => a.faction === faction).length;
+        const isActive = State.faction === faction;
+        const cardBorder = isActive ? 'border-[#d7f70c] shadow-[0_0_25px_rgba(215,247,12,0.18)]' : 'border-zinc-800';
+        const badgeStyle = isActive ? 'border-[#d7f70c] text-[#d7f70c] bg-[#d7f70c]/10' : 'border-zinc-700/80 text-zinc-400 bg-black/80 group-hover:border-yellow-400/60 group-hover:text-white';
+
         return `
-        <div class="bg-[#121212] border-2 border-zinc-800 rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 flex flex-col items-center justify-start gap-3 sm:gap-6 cursor-pointer hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300 group shadow-lg sm:shadow-2xl relative overflow-hidden h-full" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}', true)">
+        <div class="bg-[#121212] border-2 ${cardBorder} rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 flex flex-col items-center justify-start gap-3 sm:gap-6 cursor-pointer hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300 group shadow-lg sm:shadow-2xl relative overflow-hidden h-full" onclick="window.setFactionFilter('${faction.replace(/'/g, "\\'")}', true)">
+            <div class="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 border ${badgeStyle} px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black tracking-wider uppercase z-20 transition-colors">
+                ${agentCount}
+            </div>
             <div class="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 transition-all duration-500 group-hover:scale-110 relative z-10 flex-shrink-0 flex items-center justify-center mt-1 sm:mt-0">
                 <img src="${imgPath}" loading="lazy" decoding="async" alt="${faction}" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='${fallbackImg}'">
             </div>
-            <div class="mt-auto bg-black/80 px-2 py-2.5 sm:px-5 sm:py-3 rounded-xl text-[9px] sm:text-xs md:text-sm font-black w-full text-center border border-zinc-800 group-hover:border-yellow-400 text-zinc-300 shadow-inner group-hover:text-yellow-400 transition-colors duration-300 uppercase tracking-wider relative z-10 flex flex-col justify-center items-center">
+            <div class="mt-auto bg-black/80 px-2 py-2.5 sm:px-5 sm:py-3 rounded-xl text-[9px] sm:text-xs md:text-sm font-black w-full text-center border ${isActive ? 'border-[#d7f70c] text-[#d7f70c]' : 'border-zinc-800 text-zinc-300'} group-hover:border-yellow-400 shadow-inner group-hover:text-yellow-400 transition-colors duration-300 uppercase tracking-wider relative z-10 flex flex-col justify-center items-center">
                 ${displayName}${subName ? `<span class="block text-[7.5px] sm:text-[10px] text-zinc-500 mt-1 leading-tight">${subName}</span>` : ''}
             </div>
         </div>`;
@@ -796,15 +804,19 @@ function renderAgents(isInitial = false) {
     // 3. Afficher ou cacher les modules externes
     if (State.filteredAgents.length > 0) {
         DOM.empty.classList.add('hidden'); DOM.empty.classList.remove('opacity-100'); 
-        if (DOM.ascensionModule) {
-            DOM.ascensionModule.classList.remove('hidden');
-            setTimeout(() => DOM.ascensionModule.classList.add('opacity-100'), 300);
-        }
     } else { 
         DOM.empty.classList.remove('hidden'); setTimeout(() => DOM.empty.classList.add('opacity-100'), 10); 
-        if (DOM.ascensionModule) {
+    }
+
+    if (DOM.ascensionModule) {
+        if (State.filteredAgents.length >= 12) {
+            DOM.ascensionModule.classList.remove('hidden');
+            setTimeout(() => {
+                if (State.filteredAgents.length >= 12) DOM.ascensionModule.classList.add('opacity-100');
+            }, 50);
+        } else {
             DOM.ascensionModule.classList.remove('opacity-100');
-            setTimeout(() => DOM.ascensionModule.classList.add('hidden'), 300);
+            DOM.ascensionModule.classList.add('hidden');
         }
     }
     
@@ -897,7 +909,7 @@ window.openModal = function(id) {
     if (!m) return;
     // Si l'utilisateur ouvre la modale des factions, on peuple les cartes à la volée
     if (id === 'factionModal' && typeof window.renderModalFactions === 'function') {
-        window.renderModalFactions();
+        window.renderModalFactions(true);
     }
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
@@ -1116,9 +1128,14 @@ function initKeyboardNavigation() {
         const modalMobileFilter = document.getElementById('mobileFilterModal');
         const modalVideo = document.getElementById('videoModal');
         const tooltip = document.getElementById('proxy-tooltip');
+        const discModal = document.getElementById('disc-tooltip-modal');
 
         if (e.key === 'Escape') { 
-            // 1. Ferme l'infobulle W-Engine en priorité si elle est visible
+            // 1. Ferme l'infobulle Disque ou W-Engine en priorité si elle est visible
+            if (discModal && discModal.classList.contains('visible')) {
+                if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip();
+                return;
+            }
             if (tooltip && tooltip.classList.contains('visible')) {
                 if (typeof window.hideTooltip === 'function') window.hideTooltip();
                 return;
@@ -1151,9 +1168,8 @@ function initKeyboardNavigation() {
             if (modalVideo && !modalVideo.classList.contains('hidden')) return;
 
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-                if (typeof window.hideTooltip === 'function') {
-                    window.hideTooltip();
-                }
+                if (typeof window.hideTooltip === 'function') window.hideTooltip();
+                if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip();
             }
 
             if (e.key === 'ArrowLeft' && State.modalIndex > 0) {
@@ -1371,6 +1387,18 @@ function initLanguageSwitcher() {
             langSwitcher.setAttribute('data-active', newLang); 
             setLanguage(newLang);
             document.querySelectorAll('.dyn-term').forEach(el => { const term = el.getAttribute('data-term'); if (term) el.textContent = tTerm(term); });
+            DOM.agentCards.forEach(c => {
+                const badge = c.el.querySelector('.agent-role-badge');
+                if (badge) {
+                    const lbl = tTerm(c.agent.role);
+                    badge.setAttribute('title', lbl);
+                    const img = badge.querySelector('img');
+                    if (img) img.setAttribute('alt', lbl);
+                }
+            });
+            if (State.currentAgent) {
+                updateModalFavoriteButton(State.currentAgent, false);
+            }
             
             // --- NOUVEAU : Rechargement des factions ---
             renderFactions();
