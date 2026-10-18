@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     buildInitialGrid(); // 1. Génère la grille principale en priorité absolue pour le LCP
     renderAgents(true);
-    renderFactions();   // 2. Génère la sidebar ensuite pour ne pas voler la bande passante
+    setTimeout(renderFactions, 250);   // 2. Génère la sidebar ensuite pour ne pas voler la bande passante
     
     setTimeout(() => { updateAllSliders('elements'); }, 100);
     if (document.fonts) {
@@ -684,9 +684,36 @@ function buildInitialGrid() {
     DOM.separators = Array.from(DOM.grid.querySelectorAll('.version-separator'));
     
     init3DParallax();
+    initLazyCardsObserver();
     
     requestAnimationFrame(() => {
         DOM.grid.classList.add('loaded');
+    });
+}
+
+let lazyCardObserver = null;
+function hydrateCardImage(cardEl) {
+    const img = cardEl.querySelector('.agent-image[data-src]');
+    if (img) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        if (lazyCardObserver) lazyCardObserver.unobserve(cardEl);
+    }
+}
+
+function initLazyCardsObserver() {
+    if (!('IntersectionObserver' in window)) {
+        DOM.agentCards.forEach(c => hydrateCardImage(c.el));
+        return;
+    }
+    lazyCardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) hydrateCardImage(entry.target);
+        });
+    }, { root: DOM.scrollArea, rootMargin: '120px 0px' });
+
+    DOM.agentCards.forEach((c, i) => {
+        if (i >= 20) lazyCardObserver.observe(c.el);
     });
 }
 
@@ -728,6 +755,7 @@ function renderAgents(isInitial = false) {
                 svg.classList.toggle('fill-none', !isFav);
             }
             
+            if (!isInitial || visibleIndex < 20) hydrateCardImage(card.el);
             card.el.classList.remove('hidden');
             visibleIndex++;
         } else {
@@ -794,10 +822,15 @@ function createCardHTML(agent, isNew = false, index = 0) {
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
     const roleLabel = tTerm(agent.role);
 
-    // Les 6 premières cartes ont la priorité haute, les 18 premières (1er écran PC) sont en eager sans délai de décodage
-    const loadingAttr = index < 6
-        ? 'loading="eager" fetchpriority="high" decoding="sync"'
-        : (index < 18 ? 'loading="eager" decoding="sync"' : 'loading="lazy" decoding="async"');
+    // Seule la 1re carte (préchargée dans index.html) reçoit fetchpriority="high" et +2px pour garantir le LCP
+    const isLcpHero = index === 0;
+    const heroWrapperStyle = isLcpHero ? 'style="width: calc(100% + 2px); margin-left: -1px; margin-top: -2px;"' : '';
+    const imgPath = `assets/Agents/${agent.name}.webp`;
+    const imgAttributes = isLcpHero
+        ? `src="${imgPath}" loading="eager" fetchpriority="high" decoding="sync"`
+        : (index < 20
+            ? `src="${imgPath}" loading="eager" decoding="async"`
+            : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="async"`);
 
     const newRibbonHTML = isNew ? `
         <div class="new-ribbon-wrapper">
@@ -810,13 +843,13 @@ function createCardHTML(agent, isNew = false, index = 0) {
 
     return `
     <div data-agent="${agent.name}" class="agent-card-container flex flex-col cursor-pointer w-full group" style="--elem-color: ${hexColor};" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
-        <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative">
+        <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative" ${heroWrapperStyle}>
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
                 <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
-                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="lazy" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
+                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="lazy" decoding="async" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
                 </div>
-                <img src="assets/Agents/${agent.name}.webp" ${loadingAttr} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
+                <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
                 <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full border ${favBtnStateClass} group-hover:opacity-100 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
             </div>
