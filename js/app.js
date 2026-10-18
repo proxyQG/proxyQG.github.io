@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     buildInitialGrid(); // 1. Génère la grille principale en priorité absolue pour le LCP
     renderAgents(true);
-    setTimeout(renderFactions, 250);   // 2. Génère la sidebar ensuite pour ne pas voler la bande passante
+    renderFactions();   // 2. Génère la sidebar immédiatement (sans pop visuel)
     
     setTimeout(() => { updateAllSliders('elements'); }, 100);
     if (document.fonts) {
@@ -459,7 +459,7 @@ function generateFactionCardHTML(faction, isSidebar, index = 0) {
 
     if (isSidebar) {
         // Carrousel animé en continu : pas de lazy-loading ni de décodage async (les images n'apparaissent sinon qu'au prochain mouvement de souris)
-        const loadingAttr = 'loading="eager" decoding="async"';
+        const loadingAttr = 'loading="eager" fetchpriority="low" decoding="async"';
 
         return `
         <div class="mb-2.5 px-0.5 hidden md:block">
