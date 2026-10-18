@@ -4,6 +4,16 @@
     let overlayEl = null;
     let modalEl = null;
 
+    // Lecture depuis le cache local de session pour une ouverture en 0 ms
+    const storedDiscs = sessionStorage.getItem('zzz_discs_db');
+    if (storedDiscs) {
+        try {
+            DISCS_DB = JSON.parse(storedDiscs);
+        } catch (e) {
+            sessionStorage.removeItem('zzz_discs_db');
+        }
+    }
+
     function getLang() {
         return localStorage.getItem('zzz_lang') || 'fr';
     }
@@ -85,10 +95,20 @@
         try {
             const res = await fetch('js/data/discs.json');
             DISCS_DB = await res.json();
+            sessionStorage.setItem('zzz_discs_db', JSON.stringify(DISCS_DB));
             return DISCS_DB;
         } catch (e) {
             console.error('Erreur chargement discs.json:', e);
             return null;
+        }
+    }
+
+    // Préchargement silencieux quand le navigateur est au repos
+    if (!DISCS_DB) {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => loadDatabase(), { timeout: 3000 });
+        } else {
+            setTimeout(loadDatabase, 1800);
         }
     }
 
@@ -117,7 +137,7 @@
                 <div class="disc-turntable">
                     <div class="disc-platter-ring"></div>
                     <div class="disc-vinyl-plate">
-                        <img src="assets/Disque/${disc.img}" alt="${t(disc.name)}" class="disc-vinyl-img">
+                        <img src="assets/Disque/${disc.img}" decoding="async" alt="${t(disc.name)}" class="disc-vinyl-img">
                     </div>
                 </div>
 
@@ -179,7 +199,7 @@
     let isClosing = false;
 
     function hideDiscTooltip(fromPopstate = false) {
-        if (isClosing) return; // Verrouille pour interdire les appels en double
+        if (isClosing || !modalEl || !modalEl.classList.contains('visible')) return;
         isClosing = true;
 
         if (overlayEl) {
