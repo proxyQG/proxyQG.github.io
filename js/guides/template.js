@@ -65,16 +65,37 @@ function buildVideoButton(team) {
 
 // --- BLOCS DE CONSTRUCTION PRINCIPAUX ---
 
-function buildHeader(agentName, data, c, iconName) {
+function buildHeader(agentName, data, c, iconName, agentMeta = null) {
     const webpIcon = iconName ? iconName.replace('.png', '.webp') : 'physique.webp';
+    const role = agentMeta?.role || data.role || '';
+    const elemKey = agentMeta?.element || data.element || '';
+    const roleLabel = role ? tTerm(role) : '';
+    const elemLabel = elemKey ? tTerm(elemKey) : '';
+
+    const rawFaction = agentMeta?.faction || '';
+    const jsSafeFaction = rawFaction.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const factionFilterHint = currentLang === 'en' ? 'Filter by this faction' : 'Filtrer par cette faction';
+
+    const factionHTML = rawFaction
+        ? `<button type="button" onclick="window.closeModal('agentDetailModal'); window.setFactionFilter('${jsSafeFaction}');" title="${factionFilterHint}" class="text-zinc-400 hover:text-[#d7f70c] font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2 inline-flex items-center gap-1.5 w-fit transition-colors cursor-pointer group/fac text-left">
+               <span>${escapeHTML(tData(data.factionTitle))}</span>
+               <svg class="w-3 h-3 text-zinc-600 group-hover/fac:text-[#d7f70c] group-hover/fac:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+           </button>`
+        : `<span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${escapeHTML(tData(data.factionTitle))}</span>`;
+
+    const roleBadgeHTML = role
+        ? `<div title="${escapeHTML(roleLabel)}" class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Rôles/${escapeHTML(role)}.webp" alt="${escapeHTML(roleLabel)}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain opacity-90" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));"></div>`
+        : '';
+
     return `
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
-            <span class="text-zinc-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-2">${escapeHTML(tData(data.factionTitle))}</span>
+            ${factionHTML}
             <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
         </div>
         <div class="flex flex-wrap items-end gap-2 shrink-0">
-            <div class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>
+            ${roleBadgeHTML}
+            <div title="${escapeHTML(elemLabel)}" class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" alt="${escapeHTML(elemLabel)}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>
         </div>
     </div>`;
@@ -430,7 +451,7 @@ function buildMindscapes(mindscapes, c) {
 
 // --- FONCTION PRINCIPALE (ASSEMBLAGE) ---
 
-export function generateGuideFromData(agentName, data, mindscapesDB) {
+export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta = null) {
     const iconName = data.elementIcon || iconMap[data.element] || 'physique.png';
     const c = data.color || '#d7f70c';
     const txt = ui[currentLang] || ui.fr;
@@ -439,7 +460,7 @@ export function generateGuideFromData(agentName, data, mindscapesDB) {
 
     return `
     <div class="max-w-[1400px] w-full mx-auto pb-20 pt-4 text-zinc-100">
-        ${buildHeader(agentName, data, c, iconName)}
+        ${buildHeader(agentName, data, c, iconName, agentMeta)}
         ${buildStats(data, c, txt)}
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
