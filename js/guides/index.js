@@ -4,7 +4,7 @@ import { generateGuideFromData } from './template.js';
 let cachedDatabase = null;
 let cachedMindscapes = null;
 
-export async function getGuideHTML(agentName) {
+export async function getGuideHTML(agentName, agentMeta = null) {
     // 1. Lecture synchrone depuis le sessionStorage si les données ne sont pas encore en mémoire RAM
     if (!cachedDatabase) {
         const storedDB = sessionStorage.getItem('zzz_agent_db');
@@ -50,7 +50,7 @@ export async function getGuideHTML(agentName) {
 
     // 3. Affichage du guide
     if (cachedDatabase && cachedDatabase[agentName]) {
-        return generateGuideFromData(agentName, cachedDatabase[agentName], cachedMindscapes || {});
+        return generateGuideFromData(agentName, cachedDatabase[agentName], cachedMindscapes || {}, agentMeta);
     } else {
         return generateGenericGuide(agentName);
     }
