@@ -25,6 +25,32 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Auto-detect LCP Hero Agent for preloading
+        run: |
+          python3 - << 'EOF'
+          import json, re
+
+          with open("js/data/agents.json", "r", encoding="utf-8") as f:
+              agents = json.load(f)
+          
+          hero_agent = agents[-1]["name"] if agents else "Severian"
+          print(f"Agent LCP détecté : {hero_agent}")
+
+          with open("index.html", "r", encoding="utf-8") as f:
+              html = f.read()
+
+          new_preload = f'<link rel="preload" href="assets/Agents/{hero_agent}.webp" as="image" fetchpriority="high">'
+          
+          html_updated = re.sub(
+              r'<link rel="preload" href="assets/Agents/[^"]+\.webp" as="image"[^>]*>',
+              new_preload,
+              html
+          )
+
+          with open("index.html", "w", encoding="utf-8") as f:
+              f.write(html_updated)
+          EOF
+
       - name: Compile Tailwind CSS (Static & Minified)
         run: |
           cat << 'EOF' > tailwind.config.js
@@ -46,12 +72,12 @@ jobs:
           npx tailwindcss@3.4.17 -o ./css/tailwind.css --minify
           rm tailwind.config.js
 
-      - name: Commit & Push generated CSS
+      - name: Commit & Push generated files
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add css/tailwind.css
+          git add index.html css/tailwind.css
           if ! git diff --cached --quiet; then
-            git commit -m "perf: auto-compile Tailwind CSS [skip ci]"
+            git commit -m "perf: auto-detect LCP hero & compile Tailwind CSS [skip ci]"
             git push
           fi
