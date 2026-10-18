@@ -1,0 +1,220 @@
+/* ========================================================
+   DISC VINYL TOOLTIP - PLATINE HAUTE PRÉCISION ZZZ
+======================================================== */
+
+#disc-tooltip-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+#disc-tooltip-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#disc-tooltip-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.94);
+    width: 90%;
+    max-width: 450px;
+    max-height: 90vh;
+    background: linear-gradient(180deg, #121215 0%, #09090b 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 2px solid #d7f70c;
+    border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(215, 247, 12, 0.08);
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#disc-tooltip-modal::-webkit-scrollbar {
+    display: none;
+}
+
+#disc-tooltip-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- PLATINE VINYLE CENTRÉE --- */
+.disc-turntable {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 4px auto 14px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Halo lumineux d'ambiance */
+.disc-turntable::before {
+    content: "";
+    position: absolute;
+    inset: -15px;
+    background: radial-gradient(circle, rgba(215, 247, 12, 0.18) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Bague métallique crantée de la platine */
+.disc-platter-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a1a1f 60%, #0d0d0f 100%);
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 12px rgba(0, 0, 0, 0.8);
+    z-index: 1;
+}
+
+/* Le disque vinyle en rotation */
+.disc-vinyl-plate {
+    position: relative;
+    width: 144px;
+    height: 144px;
+    border-radius: 50%;
+    background: #050505;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), inset 0 0 0 1.5px rgba(255, 255, 255, 0.15);
+    animation: vinylRotate 18s linear infinite;
+    will-change: transform;
+    z-index: 2;
+}
+
+/* Pause au survol pour admirer l'illustration */
+.disc-turntable:hover .disc-vinyl-plate {
+    animation-play-state: paused;
+}
+
+/* Sillons concentriques ultra-fins */
+.disc-vinyl-plate::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.04) 0px,
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Reflet spéculaire dynamique */
+.disc-vinyl-plate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 30deg,
+        rgba(255, 255, 255, 0.16) 0deg,
+        transparent 55deg,
+        rgba(255, 255, 255, 0.16) 180deg,
+        transparent 235deg,
+        rgba(255, 255, 255, 0.16) 360deg
+    );
+    pointer-events: none;
+    z-index: 4;
+    mix-blend-mode: screen;
+}
+
+.disc-vinyl-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes vinylRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- BADGE DE LOCALISATION / SOURCE --- */
+.disc-source-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 12px;
+    border-radius: 9999px;
+    margin-top: 4px;
+}
+
+/* --- CARTOUCHES DE BONUS --- */
+.disc-bonus-box {
+    background: rgba(20, 20, 24, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 13px 15px;
+    transition: border-color 0.2s ease;
+}
+
+.disc-bonus-box:hover {
+    border-color: rgba(215, 247, 12, 0.3);
+}
+
+.disc-bonus-badge {
+    font-family: monospace;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 2px 7px;
+    border-radius: 5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Mode Mobile : Tiroir coulissant (Bottom Sheet) */
+@media (max-width: 768px) {
+    #disc-tooltip-modal {
+        top: auto;
+        left: 0;
+        bottom: 0;
+        transform: translateY(100%);
+        width: 100%;
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 24px 24px 0 0;
+        border: none;
+        border-top: 2px solid #d7f70c;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
+       will-change: transform, opacity;
+    }
+
+    #disc-tooltip-modal.visible {
+        transform: translateY(0);
+    }
+
+    #disc-tooltip-modal::before {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        margin: 8px auto 14px auto;
+    }
+}
