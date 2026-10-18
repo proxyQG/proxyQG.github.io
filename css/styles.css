@@ -117,10 +117,16 @@ main {
     transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), background-color 0.25s ease;
     transform-origin: center bottom;
     contain: layout paint;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 .agent-shape-inner {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
     border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: var(--surface); height: 100%; width: 100%; position: relative;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 /* --- AFFICHAGE INSTANTANÉ DE LA GRILLE (LCP OPTIMISÉ) --- */
@@ -129,22 +135,32 @@ main {
 }
 
 .agent-image { 
-    transition: transform 0.4s cubic-bezier(0.2, 1, 0.3, 1); 
+    transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1); 
     transform-origin: bottom center; 
     aspect-ratio: 1 / 1; 
     object-fit: cover;
     background-color: transparent;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
-.agent-card-container:hover .agent-image { 
-    transform: scale(1.08); 
+@media (hover: hover) {
+    .agent-card-container:hover .agent-image { 
+        transform: translateZ(0) scale(1.08); 
+    }
 }
 
 .agent-shape-wrapper::after {
-    content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+    content: ''; position: absolute; top: 0; left: 0; width: 50%; height: 100%;
     background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-    transform: skewX(-25deg); transition: none; z-index: 10; pointer-events: none;
+    transform: translate3d(-300%, 0, 0) skewX(-25deg); transition: none; z-index: 10; pointer-events: none;
 }
-.agent-card-container:hover .agent-shape-wrapper::after { left: 200%; transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+@media (hover: hover) {
+    .agent-card-container:hover .agent-shape-wrapper::after { 
+        transform: translate3d(400%, 0, 0) skewX(-25deg); 
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+}
 
 /* --- SCROLLBAR PC --- */
 ::-webkit-scrollbar { width: 8px; }
