@@ -1,293 +1,242 @@
-// js/tooltip.js
-(function() {
-    let tooltipEl = null;
-    let overlayEl = null; // L'overlay sombre
-    let currentEngineKey = null;
-    let W_ENGINES_DB = null;
-    
-    // Dictionnaire local pour traduire Rôle et Attribut sans faire planter le script
-    const ttDict = {
-        'Physical': { fr: 'Physique', en: 'Physical' },
-        'Fire': { fr: 'Feu', en: 'Fire' },
-        'Ice': { fr: 'Glace', en: 'Ice' },
-        'Frost': { fr: 'Givre', en: 'Frost' },
-        'Electric': { fr: 'Électrique', en: 'Electric' },
-        'Ether': { fr: 'Éther', en: 'Ether' },
-        'Wind': { fr: 'Vent', en: 'Wind' },
-        'Lumiflux': { fr: 'Lumiflux', en: 'Lumiflux' },
-        'Honed Edge': { fr: 'Lame affûtée', en: 'Honed Edge' },
-        'Auric Ink': { fr: 'Sépia', en: 'Auric Ink' },
-        'Attack': { fr: 'Attaque', en: 'Attack' },
-        'Stun': { fr: 'Étourdissement', en: 'Stun' },
-        'Anomaly': { fr: 'Anomalie', en: 'Anomaly' },
-        'Support': { fr: 'Soutien', en: 'Support' },
-        'Defense': { fr: 'Défense', en: 'Defense' },
-        'Armorer': { fr: 'Forge', en: 'Armorer' },
-        'Rupture': { fr: 'Rupture', en: 'Rupture' }
-    };
+// js/disc-tooltip.js
+(function () {
+    let DISCS_DB = null;
+    let overlayEl = null;
+    let modalEl = null;
 
-    function ttTranslate(term, lang) {
-        if (!term) return '';
-        if (ttDict[term]) return ttDict[term][lang] || term;
-        return term;
-    }
-    
-    function init() {
-        if (document.getElementById('proxy-tooltip')) return;
-        
-        // 1. Création de l'Overlay
-        overlayEl = document.createElement('div');
-        overlayEl.id = 'proxy-tooltip-overlay';
-        overlayEl.style.willChange = 'opacity';
-        document.body.appendChild(overlayEl);
-
-        // 2. Création de l'Infobulle
-        tooltipEl = document.createElement('div');
-        tooltipEl.id = 'proxy-tooltip';
-        tooltipEl.style.willChange = 'transform, opacity';
-        // SUPPRESSION DE tooltipEl.style.transform = 'translateZ(0)' qui écrasait le centrage CSS
-        tooltipEl.innerHTML = `
-            <div class="tt-header">
-                <span id="tt-name"></span>
-                <button class="tt-close-btn" aria-label="Fermer l'infobulle">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
-            <div class="tt-body">
-                <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
-                <div class="tt-tags" id="tt-tags"></div>
-                <div class="tt-stats-grid">
-                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
-                    <div class="tt-stat-card"><div class="lbl" id="tt-stat-adv-lbl"></div><div class="val" id="tt-stat-adv"></div></div>
-                </div>
-                <div class="tt-oc-container">
-                    <div class="tt-oc-tabs" id="tt-oc-tabs">
-                        ${[1,2,3,4,5].map(i => `<button class="tt-oc-btn" data-tier="${i-1}">${i}</button>`).join('')}
-                    </div>
-                    <div class="tt-desc-box">
-                        <div class="tt-desc-title" id="tt-passive-title"></div>
-                        <div class="tt-desc-text" id="tt-passive-text"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(tooltipEl);
-
-    // Chargement avec mise en cache locale (sessionStorage)
-    const storedEngines = sessionStorage.getItem('zzz_engines_db');
-    if (storedEngines) {
+    // Lecture depuis le cache local de session pour une ouverture en 0 ms
+    const storedDiscs = sessionStorage.getItem('zzz_discs_db');
+    if (storedDiscs) {
         try {
-            W_ENGINES_DB = JSON.parse(storedEngines);
+            DISCS_DB = JSON.parse(storedDiscs);
         } catch (e) {
-            sessionStorage.removeItem('zzz_engines_db');
+            sessionStorage.removeItem('zzz_discs_db');
         }
     }
 
-    if (!W_ENGINES_DB) {
-        const loadEngines = () => {
-            fetch('js/data/engines.json')
-                .then(response => response.json())
-                .then(data => {
-                    W_ENGINES_DB = data;
-                    sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
-                })
-                .catch(error => console.error("Erreur chargement des moteurs :", error));
-        };
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadEngines, { timeout: 2000 });
-        } else {
-            setTimeout(loadEngines, 1200);
-        }
+    function getLang() {
+        return localStorage.getItem('zzz_lang') || 'fr';
     }
 
-    bindEvents();
-}
+    function t(obj) {
+        if (!obj) return '';
+        if (typeof obj === 'string') return obj;
+        const lang = getLang();
+        return obj[lang] || obj['fr'] || obj['en'] || '';
+    }
 
-    function parseText(text) {
-        if (!text) return "";
+    // Colorisation ZZZ des termes clés et des valeurs
+    function formatText(text) {
+        if (!text) return '';
         return text
-            .replace(/\[(.*?)\]/g, '<span class="tt-hl">$1</span>')
-            .replace(/\{(.*?)\}/g, '<strong>$1</strong>');
+            .replace(/\{([^}]+)\}/g, '<span style="color: #d7f70c; font-weight: 700;">$1</span>')
+            .replace(/\[([^\]]+)\]/g, '<span style="color: #ffffff; font-weight: 800; background: rgba(255,255,255,0.08); padding: 1px 4px; border-radius: 4px;">$1</span>');
     }
 
-    function hideTooltip(fromPopstate = false) {
-        if (tooltipEl) {
-            tooltipEl.classList.remove('visible');
-            tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
-        }
-        if (overlayEl) {
-            overlayEl.classList.remove('visible');
-            overlayEl.style.opacity = ''; // Nettoie l'opacité du Swipe
-        }
-        currentEngineKey = null;
+    function createDOM() {
+        if (document.getElementById('disc-tooltip-overlay')) return;
 
-        // Si l'infobulle est fermée via un clic ou swipe, on nettoie l'historique
-        if (!fromPopstate && window.history.state?.tooltipOpen) {
-            window.history.back();
-        }
-    }
-    window.hideTooltip = hideTooltip;
+        overlayEl = document.createElement('div');
+        overlayEl.id = 'disc-tooltip-overlay';
 
-    function populateTooltip(engineKey, tier = 0) {
-        if (!W_ENGINES_DB) return false;
-        const data = W_ENGINES_DB[engineKey];
-        if (!data) return false; 
+        modalEl = document.createElement('div');
+        modalEl.id = 'disc-tooltip-modal';
 
-        const langSwitcher = document.getElementById('langSwitcher');
-        const lang = langSwitcher ? langSwitcher.getAttribute('data-active') : 'fr';
-        const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
-        const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
-        
-        if (currentEngineKey !== engineKey) {
-            document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
-            document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
-            
-            // ICI : On utilise notre dictionnaire local ttTranslate()
-            const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
-                              <span class="tt-tag dyn-term" data-term="${data.specialty}">${ttTranslate(data.specialty, lang)}</span>
-                              ${data.element ? `<span class="tt-tag dyn-term" data-term="${data.element}">${ttTranslate(data.element, lang)}</span>` : ''}`;
-            document.getElementById('tt-tags').innerHTML = tagsHtml;
-            
-            document.getElementById('tt-stat-base-lbl').textContent = baseAtkLabel;
-            document.getElementById('tt-stat-base').textContent = data.stats.base;
-            
-            const advLbl = data.stats.advancedLabel[lang] || data.stats.advancedLabel.en || data.stats.advancedLabel;
-            document.getElementById('tt-stat-adv-lbl').textContent = advLbl;
-            document.getElementById('tt-stat-adv').textContent = data.stats.advanced;
-            document.getElementById('tt-passive-title').textContent = data.passiveName[lang] || data.passiveName.en;
-            
-            currentEngineKey = engineKey;
-        }
+        document.body.appendChild(overlayEl);
+        document.body.appendChild(modalEl);
 
-        let passiveRaw = "";
-        if (data.overclocks && data.overclocks[tier]) {
-            passiveRaw = data.overclocks[tier][lang] || data.overclocks[tier].en || "";
-        }
-        document.getElementById('tt-passive-text').innerHTML = parseText(passiveRaw);
+        overlayEl.addEventListener('click', hideDiscTooltip);
 
-        document.querySelectorAll('.tt-oc-btn').forEach(btn => {
-            btn.classList.toggle('active', parseInt(btn.dataset.tier) === tier);
-        });
-        
-        return true; 
-    }
-
-    function bindEvents() {
-        // --- 1. Traçage Spotlight (PC / Souris uniquement, ignoré au doigt tactile) ---
-        let spotlightTicking = false;
-        document.addEventListener('pointermove', e => {
-            if (e.pointerType === 'touch') return; // Zéro calcul pendant le scroll mobile
-
-            const card = e.target.closest('[data-engine]'); 
-            if (!card) return;
-
-            if (!spotlightTicking) {
-                window.requestAnimationFrame(() => {
-                    const rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                    spotlightTicking = false;
-                });
-                spotlightTicking = true;
-            }
-        }, { passive: true });
-
-        // --- 2. Clic & Tap d'ouverture (Robuste et instantané comme pour les disques) ---
-        document.addEventListener('click', e => {
-            const trigger = e.target.closest('[data-engine]');
-            if (!trigger) return;
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            const engineName = trigger.getAttribute('data-engine') || trigger.dataset.engine;
-            const isValid = populateTooltip(engineName, 0);
-            if (isValid) {
-                window.history.pushState({ tooltipOpen: true }, '', window.location.href);
-                tooltipEl.classList.add('visible');
-                overlayEl.classList.add('visible');
-            }
-        });
-
-        // --- GESTION DES CLICS INTERNES (Boutons, Croix, Overlay) ---
-        tooltipEl.addEventListener('click', e => {
-            if (e.target.classList.contains('tt-oc-btn')) {
-                populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
-            }
-            if (e.target.closest('.tt-close-btn')) {
-                hideTooltip();
-            }
-        });
-
-        overlayEl.addEventListener('click', hideTooltip); // Ferme si clic dans le noir
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && tooltipEl && tooltipEl.classList.contains('visible')) {
-                hideTooltip();
-                e.stopImmediatePropagation();
-            }
-        });
-
-        // --- GESTION DU SWIPE-TO-CLOSE (MOBILE) ---
+        // GESTION DU SWIPE-TO-CLOSE TACTILE FLUIDE (MOBILE)
         let startY = 0;
         let currentY = 0;
         let isDragging = false;
 
-        tooltipEl.addEventListener('touchstart', e => {
-            if (window.innerWidth > 768) return; // Uniquement sur mobile
-            if (tooltipEl.scrollTop > 0) return; // On ne swipe que si on est tout en haut du tiroir
+        modalEl.addEventListener('touchstart', (e) => {
+            if (window.innerWidth > 768) return;
+            if (modalEl.scrollTop > 0) return; // On ne swipe que si on est tout en haut
             
             startY = e.touches[0].clientY;
             isDragging = true;
-            tooltipEl.style.transition = 'none'; // Désactive la transition CSS pour suivre le doigt
+            modalEl.style.transition = 'none'; // Suit le doigt en temps réel
         }, { passive: true });
 
-        tooltipEl.addEventListener('touchmove', e => {
+        modalEl.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             currentY = e.touches[0].clientY - startY;
-            
-            // On ne peut tirer que vers le bas (currentY > 0)
+
+            // On ne suit que le mouvement vers le bas
             if (currentY > 0) {
-                e.preventDefault(); // Bloque le défilement de la page arrière
-                tooltipEl.style.transform = `translateY(${currentY}px)`;
-                // L'overlay s'éclaircit progressivement en glissant
-                overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
+                e.preventDefault();
+                modalEl.style.transform = `translateY(${currentY}px)`;
+                if (overlayEl) overlayEl.style.opacity = Math.max(0, 1 - (currentY / window.innerHeight));
             }
         }, { passive: false });
 
-        tooltipEl.addEventListener('touchend', e => {
+        modalEl.addEventListener('touchend', () => {
             if (!isDragging) return;
             isDragging = false;
-            
-            tooltipEl.style.transition = ''; // Restaure les animations CSS
-            overlayEl.style.opacity = '';
-            
-            // Si on a glissé de plus de 100px vers le bas, on ferme
-            if (currentY > 100) {
-                hideTooltip();
+
+            modalEl.style.transition = ''; // Restaure les animations CSS
+            if (overlayEl) overlayEl.style.opacity = '';
+
+            // Déclenche la fermeture UNIQUEMENT au relâchement et une seule fois
+            if (currentY > 80) {
+                hideDiscTooltip();
             } else {
-                // Sinon, le tiroir rebondit à sa place d'origine
-                tooltipEl.style.transform = ''; 
+                modalEl.style.transform = ''; // Rebondit à sa place d'origine
             }
             currentY = 0;
         });
-
-        // --- SÉCURITÉ ANTI-FANTÔME ---
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.target.id === 'agentDetailModal' && !mutation.target.classList.contains('opacity-100')) {
-                    hideTooltip();
-                }
-            });
-        });
-        
-        setTimeout(() => {
-            const modal = document.getElementById('agentDetailModal');
-            if (modal) observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
-        }, 1000);
     }
 
-    window.addEventListener('DOMContentLoaded', init);
+    async function loadDatabase() {
+        if (DISCS_DB) return DISCS_DB;
+        try {
+            const res = await fetch('js/data/discs.json');
+            DISCS_DB = await res.json();
+            sessionStorage.setItem('zzz_discs_db', JSON.stringify(DISCS_DB));
+            return DISCS_DB;
+        } catch (e) {
+            console.error('Erreur chargement discs.json:', e);
+            return null;
+        }
+    }
+
+    // Préchargement silencieux quand le navigateur est au repos
+    if (!DISCS_DB) {
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => loadDatabase(), { timeout: 3000 });
+        } else {
+            setTimeout(loadDatabase, 1800);
+        }
+    }
+
+    async function showDiscTooltip(discKey) {
+        createDOM();
+        const db = await loadDatabase();
+        if (!db || !db[discKey]) return;
+
+        const disc = db[discKey];
+        const lang = getLang();
+
+        const ranksHTML = (disc.ranks || ['S'])
+            .map(r => {
+                const color = r === 'S' ? '#eab308' : (r === 'A' ? '#a855f7' : '#3b82f6');
+                return `<span style="background:${color}20; color:${color}; border:1px solid ${color}40;" class="text-[10px] font-black px-2 py-0.5 rounded shadow-sm">${r}</span>`;
+            }).join('');
+
+        modalEl.innerHTML = `
+            <div class="p-5 sm:p-6 relative">
+                <!-- Bouton fermer -->
+                <button type="button" onclick="window.hideDiscTooltip()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+
+                <!-- Platine Vinyle Centrée -->
+                <div class="disc-turntable">
+                    <div class="disc-platter-ring"></div>
+                    <div class="disc-vinyl-plate">
+                        <img src="assets/Disque/${disc.img}" decoding="async" alt="${t(disc.name)}" class="disc-vinyl-img">
+                    </div>
+                </div>
+
+                <!-- En-tête : Titre & Badge de farm -->
+                <div class="text-center mb-5">
+                    <div class="flex items-center justify-center gap-1.5 mb-1.5">
+                        ${ranksHTML}
+                    </div>
+                    <h3 class="text-white font-display font-black text-xl uppercase tracking-wider drop-shadow-md">
+                        ${t(disc.name)}
+                    </h3>
+                    
+                    <!-- Badge de Nettoyage de routine -->
+                    <div class="disc-source-pill">
+                        <svg class="w-3.5 h-3.5 text-[#d7f70c] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span class="text-[11px] font-semibold text-zinc-300 tracking-wide">
+                            ${t(disc.source)}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Bonus 2-Pièces -->
+                <div class="disc-bonus-box mb-3">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="disc-bonus-badge bg-zinc-800 text-zinc-300 border border-zinc-700">2-SET</span>
+                        <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wide">
+                            ${lang === 'en' ? '2-Piece Bonus' : 'Bonus 2 pièces'}
+                        </span>
+                    </div>
+                    <p class="text-xs text-zinc-200 leading-relaxed font-normal">
+                        ${formatText(t(disc.twoPiece))}
+                    </p>
+                </div>
+
+                <!-- Bonus 4-Pièces -->
+                <div class="disc-bonus-box">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <span class="disc-bonus-badge bg-[#d7f70c] text-black">4-SET</span>
+                        <span class="text-[11px] font-bold text-[#d7f70c] uppercase tracking-wide">
+                            ${lang === 'en' ? '4-Piece Bonus' : 'Bonus 4 pièces'}
+                        </span>
+                    </div>
+                    <p class="text-xs text-zinc-200 leading-relaxed font-normal">
+                        ${formatText(t(disc.fourPiece))}
+                    </p>
+                </div>
+            </div>
+        `;
+
+        // Enregistre l'ouverture du vinyle dans l'historique mobile
+        window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
+
+        overlayEl.classList.add('visible');
+        modalEl.classList.add('visible');
+    }
+
+    let isClosing = false;
+
+    function hideDiscTooltip(fromPopstate = false) {
+        if (isClosing || !modalEl || !modalEl.classList.contains('visible')) return;
+        isClosing = true;
+
+        if (overlayEl) {
+            overlayEl.classList.remove('visible');
+            overlayEl.style.opacity = '';
+        }
+        if (modalEl) {
+            modalEl.classList.remove('visible');
+            modalEl.style.transform = '';
+        }
+
+        // Nettoie l'historique uniquement si on ferme manuellement (pas via le popstate système)
+        if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
+            window.history.back();
+        }
+
+        setTimeout(() => {
+            isClosing = false;
+        }, 300);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
+            hideDiscTooltip();
+            e.stopImmediatePropagation(); // Évite de fermer la fiche de l'agent en même temps
+        }
+    });
+    document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-disc]');
+        if (trigger) {
+            e.preventDefault();
+            e.stopPropagation();
+            const discKey = trigger.getAttribute('data-disc');
+            showDiscTooltip(discKey);
+        }
+    });
+
+    window.showDiscTooltip = showDiscTooltip;
+    window.hideDiscTooltip = hideDiscTooltip;
 })();
