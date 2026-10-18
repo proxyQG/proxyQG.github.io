@@ -994,6 +994,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     // Fondu de sortie de l'ancien splash (plus court si un splash est déjà affiché)
     const splashWasVisible = !!splashImg && splashImg.style.opacity === '1';
     if (splashImg) {
+        splashImg.alt = agentName === 'Jane' ? 'Jane Doe' : agentName;
         splashImg.loading = 'eager'; // le splash est dans une modale : pas de chargement différé
         splashImg.style.transitionDuration = splashWasVisible ? `${SPLASH_FADE_OUT_MS}ms` : '';
         splashImg.style.opacity = '0';
