@@ -10,14 +10,12 @@
     -webkit-backdrop-filter: blur(10px);
     z-index: 10000;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
+    transition: opacity 0.25s ease;
 }
 
 #disc-tooltip-overlay.visible {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
 }
 
@@ -36,9 +34,8 @@
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 40px rgba(215, 247, 12, 0.08);
     z-index: 10001;
     opacity: 0;
-    visibility: hidden;
     pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -49,7 +46,6 @@
 
 #disc-tooltip-modal.visible {
     opacity: 1;
-    visibility: visible;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
@@ -87,7 +83,7 @@
     z-index: 1;
 }
 
-/* Le disque vinyle (ne tourne que lorsque la modale est visible) */
+/* Le disque vinyle en rotation */
 .disc-vinyl-plate {
     position: relative;
     width: 144px;
@@ -96,12 +92,9 @@
     background: #050505;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.85), inset 0 0 0 1.5px rgba(255, 255, 255, 0.15);
-    z-index: 2;
-}
-
-#disc-tooltip-modal.visible .disc-vinyl-plate {
     animation: vinylRotate 18s linear infinite;
     will-change: transform;
+    z-index: 2;
 }
 
 /* Pause au survol pour admirer l'illustration */
@@ -208,7 +201,7 @@
         border: none;
         border-top: 2px solid #d7f70c;
         box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.95);
-        will-change: transform, opacity;
+       will-change: transform, opacity;
     }
 
     #disc-tooltip-modal.visible {
