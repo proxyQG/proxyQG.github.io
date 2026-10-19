@@ -2,6 +2,7 @@
 (function() {
     let tooltipEl = null;
     let overlayEl = null; // L'overlay sombre
+    let agentModalEl = null;
     let currentEngineKey = null;
     let W_ENGINES_DB = null;
     
@@ -34,18 +35,16 @@
     
     function init() {
         if (document.getElementById('proxy-tooltip')) return;
+        agentModalEl = document.getElementById('agentDetailModal');
         
         // 1. Création de l'Overlay
         overlayEl = document.createElement('div');
         overlayEl.id = 'proxy-tooltip-overlay';
-        overlayEl.style.willChange = 'opacity';
         document.body.appendChild(overlayEl);
 
         // 2. Création de l'Infobulle
         tooltipEl = document.createElement('div');
         tooltipEl.id = 'proxy-tooltip';
-        tooltipEl.style.willChange = 'transform, opacity';
-        // SUPPRESSION DE tooltipEl.style.transform = 'translateZ(0)' qui écrasait le centrage CSS
         tooltipEl.innerHTML = `
             <div class="tt-header">
                 <span id="tt-name"></span>
@@ -56,7 +55,7 @@
                 </button>
             </div>
             <div class="tt-body">
-                <div class="tt-img-wrap"><img id="tt-img" src="" alt=""></div>
+                <div class="tt-img-wrap"><img id="tt-img" src="" decoding="async" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
                 <div class="tt-stats-grid">
                     <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
@@ -75,35 +74,35 @@
         `;
         document.body.appendChild(tooltipEl);
 
-    // Chargement avec mise en cache locale (sessionStorage)
-    const storedEngines = sessionStorage.getItem('zzz_engines_db');
-    if (storedEngines) {
-        try {
-            W_ENGINES_DB = JSON.parse(storedEngines);
-        } catch (e) {
-            sessionStorage.removeItem('zzz_engines_db');
+        // Chargement avec mise en cache locale (sessionStorage)
+        const storedEngines = sessionStorage.getItem('zzz_engines_db');
+        if (storedEngines) {
+            try {
+                W_ENGINES_DB = JSON.parse(storedEngines);
+            } catch (e) {
+                sessionStorage.removeItem('zzz_engines_db');
+            }
         }
-    }
 
-    if (!W_ENGINES_DB) {
-        const loadEngines = () => {
-            fetch('js/data/engines.json')
-                .then(response => response.json())
-                .then(data => {
-                    W_ENGINES_DB = data;
-                    sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
-                })
-                .catch(error => console.error("Erreur chargement des moteurs :", error));
-        };
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadEngines, { timeout: 2000 });
-        } else {
-            setTimeout(loadEngines, 1200);
+        if (!W_ENGINES_DB) {
+            const loadEngines = () => {
+                fetch('js/data/engines.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        W_ENGINES_DB = data;
+                        sessionStorage.setItem('zzz_engines_db', JSON.stringify(data));
+                    })
+                    .catch(error => console.error("Erreur chargement des moteurs :", error));
+            };
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadEngines, { timeout: 2000 });
+            } else {
+                setTimeout(loadEngines, 1200);
+            }
         }
-    }
 
-    bindEvents();
-}
+        bindEvents();
+    }
 
     function parseText(text) {
         if (!text) return "";
@@ -113,10 +112,10 @@
     }
 
     function hideTooltip(fromPopstate = false) {
-        if (tooltipEl) {
-            tooltipEl.classList.remove('visible');
-            tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
-        }
+        if (!tooltipEl || !tooltipEl.classList.contains('visible')) return;
+
+        tooltipEl.classList.remove('visible');
+        tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
         if (overlayEl) {
             overlayEl.classList.remove('visible');
             overlayEl.style.opacity = ''; // Nettoie l'opacité du Swipe
@@ -144,7 +143,6 @@
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
             document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
             
-            // ICI : On utilise notre dictionnaire local ttTranslate()
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
                               <span class="tt-tag dyn-term" data-term="${data.specialty}">${ttTranslate(data.specialty, lang)}</span>
                               ${data.element ? `<span class="tt-tag dyn-term" data-term="${data.element}">${ttTranslate(data.element, lang)}</span>` : ''}`;
@@ -175,26 +173,26 @@
     }
 
     function bindEvents() {
-        // --- 1. Traçage Spotlight (PC / Souris uniquement, ignoré au doigt tactile) ---
+        // --- 1. Traçage Spotlight (Actif uniquement sur PC et quand un guide agent est ouvert) ---
         let spotlightTicking = false;
         document.addEventListener('pointermove', e => {
-            if (e.pointerType === 'touch') return; // Zéro calcul pendant le scroll mobile
+            if (e.pointerType === 'touch' || spotlightTicking) return;
+            if (!agentModalEl) agentModalEl = document.getElementById('agentDetailModal');
+            if (!agentModalEl || agentModalEl.classList.contains('hidden')) return;
 
             const card = e.target.closest('[data-engine]'); 
             if (!card) return;
 
-            if (!spotlightTicking) {
-                window.requestAnimationFrame(() => {
-                    const rect = card.getBoundingClientRect();
-                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
-                    spotlightTicking = false;
-                });
-                spotlightTicking = true;
-            }
+            spotlightTicking = true;
+            window.requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                spotlightTicking = false;
+            });
         }, { passive: true });
 
-        // --- 2. Clic & Tap d'ouverture (Robuste et instantané comme pour les disques) ---
+        // --- 2. Clic & Tap d'ouverture ---
         document.addEventListener('click', e => {
             const trigger = e.target.closest('[data-engine]');
             if (!trigger) return;
@@ -221,7 +219,7 @@
             }
         });
 
-        overlayEl.addEventListener('click', hideTooltip); // Ferme si clic dans le noir
+        overlayEl.addEventListener('click', hideTooltip);
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape' && tooltipEl && tooltipEl.classList.contains('visible')) {
@@ -236,39 +234,35 @@
         let isDragging = false;
 
         tooltipEl.addEventListener('touchstart', e => {
-            if (window.innerWidth > 768) return; // Uniquement sur mobile
-            if (tooltipEl.scrollTop > 0) return; // On ne swipe que si on est tout en haut du tiroir
+            if (window.innerWidth > 768) return;
+            if (tooltipEl.scrollTop > 0) return;
             
             startY = e.touches[0].clientY;
             isDragging = true;
-            tooltipEl.style.transition = 'none'; // Désactive la transition CSS pour suivre le doigt
+            tooltipEl.style.transition = 'none';
         }, { passive: true });
 
         tooltipEl.addEventListener('touchmove', e => {
             if (!isDragging) return;
             currentY = e.touches[0].clientY - startY;
             
-            // On ne peut tirer que vers le bas (currentY > 0)
             if (currentY > 0) {
-                e.preventDefault(); // Bloque le défilement de la page arrière
+                e.preventDefault();
                 tooltipEl.style.transform = `translateY(${currentY}px)`;
-                // L'overlay s'éclaircit progressivement en glissant
                 overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
             }
         }, { passive: false });
 
-        tooltipEl.addEventListener('touchend', e => {
+        tooltipEl.addEventListener('touchend', () => {
             if (!isDragging) return;
             isDragging = false;
             
-            tooltipEl.style.transition = ''; // Restaure les animations CSS
+            tooltipEl.style.transition = '';
             overlayEl.style.opacity = '';
             
-            // Si on a glissé de plus de 100px vers le bas, on ferme
             if (currentY > 100) {
                 hideTooltip();
             } else {
-                // Sinon, le tiroir rebondit à sa place d'origine
                 tooltipEl.style.transform = ''; 
             }
             currentY = 0;
