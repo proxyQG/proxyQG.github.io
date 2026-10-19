@@ -86,6 +86,11 @@ jobs:
           git add index.html css/tailwind.css
           if ! git diff --cached --quiet; then
             git commit -m "perf: auto-update LCP preload & Tailwind CSS"
-            git pull --rebase -X theirs origin main
-            git push origin main
+            for i in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main && git push origin main && exit 0
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 3))
+            done
+            echo "Échec du push après 5 tentatives" >&2
+            exit 1
           fi
