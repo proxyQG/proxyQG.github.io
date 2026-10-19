@@ -97,18 +97,12 @@ main {
 .agent-card-container:active .agent-shape-wrapper {
     transform: scale(0.97);
 }
-@media (hover: hover) {
-    .agent-card-container:hover .agent-shape-wrapper { 
-        transform: scale(1.04);
-        background-color: var(--elem-color, #d7f70c);
-    }
-    .agent-card-container:hover .agent-nameplate {
-        border-color: color-mix(in srgb, var(--elem-color, #ffffff) 55%, #27272a);
-        background-color: #1b1b1f;
-    }
-    .agent-card-container:hover .agent-role-badge {
-        border-color: var(--elem-color, #d7f70c);
-    }
+/* Pause automatique des animations d'arrière-plan quand une modale plein écran est ouverte */
+body.modal-open .marquee-track-vertical,
+body.modal-open .laser-beam,
+body.modal-open .new-ribbon-glow,
+body.modal-open .new-ribbon-shine {
+    animation-play-state: paused !important;
 }
 
 .agent-shape-wrapper {
@@ -117,16 +111,10 @@ main {
     transition: transform 0.35s cubic-bezier(0.2, 1, 0.3, 1), background-color 0.25s ease;
     transform-origin: center bottom;
     contain: layout paint;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
 }
 .agent-shape-inner {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
     border-top-left-radius: 10px; border-top-right-radius: 10px; background-color: var(--surface); height: 100%; width: 100%; position: relative;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
 }
 
 /* --- AFFICHAGE INSTANTANÉ DE LA GRILLE (LCP OPTIMISÉ) --- */
@@ -140,11 +128,26 @@ main {
     aspect-ratio: 1 / 1; 
     object-fit: cover;
     background-color: transparent;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
 }
+
 @media (hover: hover) {
+    .agent-shape-wrapper,
+    .agent-image {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+    .agent-card-container:hover .agent-shape-wrapper { 
+        transform: translateZ(0) scale(1.04);
+        background-color: var(--elem-color, #d7f70c);
+    }
+    .agent-card-container:hover .agent-nameplate {
+        border-color: color-mix(in srgb, var(--elem-color, #ffffff) 55%, #27272a);
+        background-color: #1b1b1f;
+    }
+    .agent-card-container:hover .agent-role-badge {
+        border-color: var(--elem-color, #d7f70c);
+    }
     .agent-card-container:hover .agent-image { 
         transform: translateZ(0) scale(1.08); 
     }
