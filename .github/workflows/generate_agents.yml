@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build-redirects:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Récupération du dépôt
         uses: actions/checkout@v5
