@@ -5310,13 +5310,27 @@
                     "fr": "Set 1 👑",
                     "en": "Set 1 👑"
                 },
+                "set1": "The_Sky_Ablaze",
+                "set2": "Branch_Blade_Song",
+                "set1Name": "4pc The Sky Ablaze",
+                "set2Name": "+ 2pc Branch Blade Song",
+                "note": {
+                    "fr": "C'est le choix le plus régulier et polyvalent pour Zhu Yuan, car il offre un bonus permanent de 30 % de DGT CRIT ainsi que 10 % d'ATQ en combat pendant 30s dès l'utilisation d'une attaque spéciale EX ou d'un Ultime, sans aucune contrainte d'équipe.",
+                    "en": "This is the most reliable and versatile choice for Zhu Yuan, as it provides a permanent 30% bonus to CRIT DGT as well as 10% ATQ in combat for 30s whenever an EX special attack or Ultimate is used, with no team restrictions."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "Vielle école",
+                    "en": "Old school"
+                },
                 "set1": "Chaotic_Metal",
                 "set2": "Woodpecker_Electro",
                 "set1Name": "4pc Chaotic Metal",
                 "set2Name": "+ 2pc Woodpecker Electro",
                 "note": {
-                    "fr": "Le meilleur choix pour un DPS Éther. Confère jusqu'à 53% de DGT CRIT. Nécessite Nicole pour appliquer la Corruption facilement.",
-                    "en": "Competitive option for Ether DPS, granting up to 53% CRIT DMG. Requires another source of Ether application such as Nicole."
+                    "fr": "Ancien meilleur choix pour un DPS Éther. Confère jusqu'à 53% de DGT CRIT. Nécessite Nicole pour appliquer la Corruption facilement.",
+                    "en": "previous top pick for Ether DPS, granting up to 53% CRIT DMG. Requires another source of Ether application such as Nicole."
                 }
             },
             {
@@ -5331,20 +5345,6 @@
                 "note": {
                     "fr": "Le set le plus puissant si vous jouez avec Dialyn. La rotation 'Double Ultime' permet à Puffer Electro de surpasser Chaotic Metal.",
                     "en": "Strongest set reliant on Dialyn. Allowing for double Ultimate rotations leads it to outperform Chaotic Metal."
-                }
-            },
-            {
-                "tag": {
-                    "fr": "Alternatif",
-                    "en": "Alternative"
-                },
-                "set1": "Woodpecker_Electro",
-                "set2": "Branch_Blade_Song",
-                "set1Name": "4pc Woodpecker Electro",
-                "set2Name": "+ 2pc Branch and Blade Song",
-                "note": {
-                    "fr": "Option polyvalente offrant beaucoup de Taux CRIT et d'ATK% avec des conditions très générales.",
-                    "en": "Versatile option providing extra CRIT Rate and ATK% triggered using very general conditions."
                 }
             }
         ],
