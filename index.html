@@ -25,10 +25,18 @@
       });
     </script>
 
-    <!-- 1. Préchargements prioritaires (Zéro cascade réseau) -->
+    <!-- 1. Préchargements prioritaires (Zéro cascade réseau & Préchargement immédiat du 1er écran) -->
     <script>
       window.__initialData = Promise.all([
-        fetch('./js/data/agents.json').then(function(r) { return r.json(); }),
+        fetch('./js/data/agents.json').then(function(r) { return r.json(); }).then(function(agents) {
+          var limit = Math.min(agents.length, 24);
+          for (var i = 2; i <= limit; i++) {
+            var img = new Image();
+            img.fetchPriority = 'low';
+            img.src = 'assets/Agents/' + agents[agents.length - i].name + '.webp';
+          }
+          return agents;
+        }),
         fetch('./js/data/factions.json').then(function(r) { return r.json(); })
       ]);
     </script>
