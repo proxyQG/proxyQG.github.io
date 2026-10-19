@@ -296,14 +296,15 @@ function updateDropdownUI(query) {
             return `
             <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${Math.min(delay * 12, 180)}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
                 <div class="flex items-center gap-3 min-w-0">
-                    <div class="w-10 h-10 rounded-lg bg-[#121212] border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Agents/${agent.name}.webp" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
-                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${agent.name}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
+                    <div class="w-10 h-10 rounded-lg bg-[#121212] border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Agents/${agent.name}.webp" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
+                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${agent.name}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" loading="lazy" decoding="async" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
                 </div>
                 <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
             </div>`;
         }).join('');
 
-    DOM.dropdowns.forEach(drop => { if (drop) drop.innerHTML = html; });
+    const activeDrop = window.innerWidth >= 768 ? DOM.dropdowns[0] : DOM.dropdowns[1];
+    if (activeDrop) activeDrop.innerHTML = html;
 }
 
 window.triggerSearchSelect = function(agentName) {
@@ -374,31 +375,31 @@ window.toggleFavorite = function(btn, agentName, event) {
     localStorage.setItem('zzz_favorites', JSON.stringify(State.favorites));
     updateFavBadges();
 
+    const cardObj = DOM.agentCards.find(c => c.agent.name === agentName);
+    const targetBtn = btn || (cardObj && cardObj.el.querySelector('button.group\\/fav'));
+    const svg = targetBtn && targetBtn.querySelector('svg');
+    if (targetBtn) {
+        targetBtn.classList.toggle('border-red-500/60', isNowFav);
+        targetBtn.classList.toggle('bg-[#1a080a]/95', isNowFav);
+        targetBtn.classList.toggle('opacity-100', isNowFav);
+        targetBtn.classList.toggle('border-zinc-700/80', !isNowFav);
+        targetBtn.classList.toggle('bg-[#111]/90', !isNowFav);
+        targetBtn.classList.toggle('opacity-80', !isNowFav);
+    }
+    if (svg) {
+        svg.classList.toggle('text-red-500', isNowFav);
+        svg.classList.toggle('fill-red-500', isNowFav);
+        svg.classList.toggle('text-zinc-400', !isNowFav);
+        svg.classList.toggle('fill-none', !isNowFav);
+        if (isNowFav && btn) {
+            svg.classList.remove('grid-fav-pop');
+            void svg.offsetWidth;
+            svg.classList.add('grid-fav-pop');
+        }
+    }
+
     if (State.showFavorites) {
         renderAgents();
-    } else {
-        const cardObj = DOM.agentCards.find(c => c.agent.name === agentName);
-        const targetBtn = btn || (cardObj && cardObj.el.querySelector('button.group\\/fav'));
-        const svg = targetBtn && targetBtn.querySelector('svg');
-        if (targetBtn) {
-            targetBtn.classList.toggle('border-red-500/60', isNowFav);
-            targetBtn.classList.toggle('bg-[#1a080a]/95', isNowFav);
-            targetBtn.classList.toggle('opacity-100', isNowFav);
-            targetBtn.classList.toggle('border-zinc-700/80', !isNowFav);
-            targetBtn.classList.toggle('bg-[#111]/90', !isNowFav);
-            targetBtn.classList.toggle('opacity-80', !isNowFav);
-        }
-        if (svg) {
-            svg.classList.toggle('text-red-500', isNowFav);
-            svg.classList.toggle('fill-red-500', isNowFav);
-            svg.classList.toggle('text-zinc-400', !isNowFav);
-            svg.classList.toggle('fill-none', !isNowFav);
-            if (isNowFav && btn) {
-                svg.classList.remove('grid-fav-pop');
-                void svg.offsetWidth;
-                svg.classList.add('grid-fav-pop');
-            }
-        }
     }
 
     if (State.currentAgent === agentName) {
@@ -506,10 +507,7 @@ function renderFactions() {
             const sidebarHTML = factionsData.map((f, idx) => generateFactionCardHTML(f, true, idx)).join('');
             sidebarList.innerHTML = sidebarHTML + sidebarHTML;
 
-            // 3. Force un reflow immédiat pour garantir le reset de l'animation CSS
-            void sidebarList.offsetWidth;
-
-            // 4. Réapplique la classe d'animation une fois toutes les images décodées
+            // 3. Réapplique la classe d'animation une fois toutes les images décodées
             // - jeton : ignore une ancienne promesse si renderFactions() a été rappelée entre-temps (changement de langue)
             // - timeout : le carrousel démarre quoi qu'il arrive après 3 s, même si une image traîne
             const renderId = (renderFactions._id = (renderFactions._id || 0) + 1);
@@ -745,24 +743,6 @@ function renderAgents(isInitial = false) {
             State.filteredAgents.push(agent);
             versionCounts[card.version] = (versionCounts[card.version] || 0) + 1;
             
-            const favBtn = card.el.querySelector('button.group\\/fav');
-            const svg = favBtn && favBtn.querySelector('svg');
-            const isFav = State.favorites.includes(agent.name);
-            if (favBtn) {
-                favBtn.classList.toggle('border-red-500/60', isFav);
-                favBtn.classList.toggle('bg-[#1a080a]/95', isFav);
-                favBtn.classList.toggle('opacity-100', isFav);
-                favBtn.classList.toggle('border-zinc-700/80', !isFav);
-                favBtn.classList.toggle('bg-[#111]/90', !isFav);
-                favBtn.classList.toggle('opacity-80', !isFav);
-            }
-            if (svg) {
-                svg.classList.toggle('text-red-500', isFav);
-                svg.classList.toggle('fill-red-500', isFav);
-                svg.classList.toggle('text-zinc-400', !isFav);
-                svg.classList.toggle('fill-none', !isFav);
-            }
-            
             if (!isInitial || visibleIndex < 20) hydrateCardImage(card.el);
             card.el.classList.remove('hidden');
             visibleIndex++;
@@ -911,6 +891,9 @@ window.openModal = function(id) {
     if (id === 'factionModal' && typeof window.renderModalFactions === 'function') {
         window.renderModalFactions(true);
     }
+    if (id === 'agentDetailModal' || id === 'factionModal') {
+        document.body.classList.add('modal-open');
+    }
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
@@ -960,7 +943,15 @@ window.closeModal = function(id, updateUrl = true) {
         const canonical = document.querySelector('link[rel="canonical"]');
         if (canonical) canonical.setAttribute('href', 'https://proxyqg.github.io/');
     }
-    m.classList.remove('opacity-100'); setTimeout(() => m.classList.add('hidden'), 300);
+    m.classList.remove('opacity-100');
+    setTimeout(() => {
+        m.classList.add('hidden');
+        const aModal = document.getElementById('agentDetailModal');
+        const fModal = document.getElementById('factionModal');
+        if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
+            document.body.classList.remove('modal-open');
+        }
+    }, 300);
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
@@ -1387,7 +1378,6 @@ function initLanguageSwitcher() {
             const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
             langSwitcher.setAttribute('data-active', newLang); 
             setLanguage(newLang);
-            document.querySelectorAll('.dyn-term').forEach(el => { const term = el.getAttribute('data-term'); if (term) el.textContent = tTerm(term); });
             DOM.agentCards.forEach(c => {
                 const badge = c.el.querySelector('.agent-role-badge');
                 if (badge) {
