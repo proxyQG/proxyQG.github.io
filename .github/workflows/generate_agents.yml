@@ -10,12 +10,16 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: generate-agents
+  cancel-in-progress: true
+
 jobs:
   build-redirects:
     runs-on: ubuntu-latest
     steps:
       - name: Récupération du dépôt
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Génération des pages agents et du Sitemap
         run: |
@@ -150,6 +154,11 @@ jobs:
             echo "Aucune mise à jour nécessaire."
           else
             git commit -m "Auto-update: Redirections agents et Sitemap SEO"
-            git pull --rebase origin main
-            git push origin main
+            for i in 1 2 3 4 5; do
+              git pull --rebase origin main && git push origin main && exit 0
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 3))
+            done
+            echo "Échec du push après 5 tentatives" >&2
+            exit 1
           fi
