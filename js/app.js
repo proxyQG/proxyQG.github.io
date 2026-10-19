@@ -934,7 +934,7 @@ window.closeModal = function(id, updateUrl = true) {
         const guide = document.getElementById('agentGuideContainer');
         if (splash) { splash.style.opacity = '0'; }
         if (guide) { guide.style.opacity = '0'; }
-        if (updateUrl) window.history.pushState({}, '', window.location.pathname); 
+        if (updateUrl) window.history.pushState({}, '', '/'); 
         State.modalIndex = -1;
         State.currentAgent = null;
         State.agentHistory = [];
@@ -978,11 +978,11 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
-    if (updateUrl) window.history.pushState({}, '', '?' + new URLSearchParams({ agent: agentName }).toString());
+    if (updateUrl) window.history.pushState({}, '', `/agents/${encodeURIComponent(agentName)}/`);
 
-    document.title = `${agentName} - Guide & Build | ProxyQG`;
-    const canonical = document.querySelector('link[rel="canonical"]');
-    if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/?agent=${encodeURIComponent(agentName)}`);
+document.title = `${agentName} - Guide & Build | ProxyQG`;
+const canonical = document.querySelector('link[rel="canonical"]');
+if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
     
     // Fondu de sortie de l'ancien splash (plus court si un splash est déjà affiché)
     const splashWasVisible = !!splashImg && splashImg.style.opacity === '1';
@@ -1179,9 +1179,19 @@ function initKeyboardNavigation() {
         }
     });
 }
+function getAgentFromUrl() {
+    const fromQuery = new URLSearchParams(window.location.search).get('agent');
+    if (fromQuery) return fromQuery;
+    const match = window.location.pathname.match(/^\/agents\/([^/]+)/i);
+    if (match && match[1]) {
+        try { return decodeURIComponent(match[1]); } catch (e) { return match[1]; }
+    }
+    return null;
+}
+
 window.addEventListener('popstate', () => {
     const modal = document.getElementById('agentDetailModal');
-    const agentParam = new URLSearchParams(window.location.search).get('agent');
+    const agentParam = getAgentFromUrl();
     const tooltip = document.getElementById('proxy-tooltip');
     const discModal = document.getElementById('disc-tooltip-modal');
     const videoModal = document.getElementById('videoModal');
@@ -1253,10 +1263,11 @@ window.shareCurrentAgent = function() {
 };
 
 async function checkUrlForAgent() {
-    const agentParam = new URLSearchParams(window.location.search).get('agent');
+    const agentParam = getAgentFromUrl();
     if (agentParam) {
         const agent = agentsData.find(a => a.name.toLowerCase() === agentParam.toLowerCase());
         if (agent) {
+            window.history.replaceState({}, '', `/agents/${encodeURIComponent(agent.name)}/`);
             window.openAgentDetail(agent.name, false);
             return;
         }
