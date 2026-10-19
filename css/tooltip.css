@@ -9,7 +9,7 @@
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 999998; /* Juste sous l'infobulle */
+    z-index: 999998;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -29,9 +29,9 @@
     left: 50%;
     z-index: 999999;
     width: 340px;
-    max-height: 90vh; /* <-- NOUVEAU : Limite la hauteur à 90% de l'écran */
-    display: flex; /* <-- NOUVEAU : Permet de gérer le défilement interne */
-    flex-direction: column; /* <-- NOUVEAU */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
     background: rgba(15, 17, 21, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -49,13 +49,13 @@
     transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0.25s;
-    will-change: transform, opacity;
 }
 
 #proxy-tooltip.visible {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
+    will-change: transform, opacity;
 }
 
 /* =========================================
@@ -123,10 +123,9 @@
 
 .tt-body { 
     padding: 16px; 
-    overflow-y: auto; /* <-- NOUVEAU : Active la barre de défilement si le texte dépasse */
+    overflow-y: auto;
 }
 
-/* NOUVEAU : Personnalisation discrète de la barre de scroll */
 .tt-body::-webkit-scrollbar { width: 4px; }
 .tt-body::-webkit-scrollbar-track { background: transparent; }
 .tt-body::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
@@ -137,10 +136,9 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 16px;
-    position: relative; /* <-- NOUVEAU : Indispensable pour centrer le halo */
+    position: relative;
 }
 
-/* NOUVEAU : Création du halo lumineux (le ::before passe derrière l'image) */
 .tt-img-wrap::before {
     content: "";
     position: absolute;
@@ -154,6 +152,10 @@
 .tt-img-wrap img {
     max-height: 100%;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
+}
+
+/* L'animation ne tourne que lorsque l'infobulle est visible */
+#proxy-tooltip.visible .tt-img-wrap img {
     animation: floatItem 4s ease-in-out infinite;
 }
 
@@ -258,21 +260,17 @@
         -webkit-backdrop-filter: blur(15px);
         box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.9);
         
-        /* On remplace le centrage par une translation vers le bas */
         transform: translateY(100%);
     }
 
     #proxy-tooltip.visible {
-        /* On l'affiche en le remontant à 0 */
         transform: translateY(0);
     }
 
-    /* Évite le conflit de défilement interne sur mobile */
     .tt-body {
         overflow: visible;
     }
 
-    /* Poignée pour indiquer le Swipe-to-close */
     #proxy-tooltip::before {
         content: "";
         display: block;
@@ -339,16 +337,16 @@
     z-index: 1;
 }
 
-/* Le Flash Oblique (Sheen) */
+/* Le Flash Oblique 100% GPU (Sheen) */
 [data-engine] .sheen {
     content: "";
     position: absolute;
     top: 0;
-    left: -150%; 
+    left: 0; 
     width: 50%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(215, 247, 12, 0.15), transparent);
-    transform: skewX(-25deg);
+    transform: translate3d(-300%, 0, 0) skewX(-25deg);
     pointer-events: none;
     z-index: 2;
     transition: none;
@@ -374,7 +372,7 @@
     }
 
     [data-engine]:hover .sheen {
-        left: 200%;
-        transition: left 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        transform: translate3d(400%, 0, 0) skewX(-25deg);
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 }
