@@ -944,14 +944,16 @@ window.closeModal = function(id, updateUrl = true) {
         if (canonical) canonical.setAttribute('href', 'https://proxyqg.github.io/');
     }
     m.classList.remove('opacity-100');
-    setTimeout(() => {
-        m.classList.add('hidden');
-        const aModal = document.getElementById('agentDetailModal');
-        const fModal = document.getElementById('factionModal');
-        if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
-            document.body.classList.remove('modal-open');
-        }
-    }, 300);
+  setTimeout(() => {
+      if (!m.classList.contains('opacity-100')) {
+          m.classList.add('hidden');
+      }
+      const aModal = document.getElementById('agentDetailModal');
+      const fModal = document.getElementById('factionModal');
+      if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
+          document.body.classList.remove('modal-open');
+      }
+  }, 300);
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
