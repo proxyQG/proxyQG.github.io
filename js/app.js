@@ -690,9 +690,36 @@ function buildInitialGrid() {
     DOM.separators = Array.from(DOM.grid.querySelectorAll('.version-separator'));
     
     init3DParallax();
+    initLazyCardsObserver();
     
     requestAnimationFrame(() => {
         DOM.grid.classList.add('loaded');
+    });
+}
+
+let lazyCardObserver = null;
+function hydrateCardImage(cardEl) {
+    const img = cardEl.querySelector('.agent-image[data-src]');
+    if (img) {
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+        if (lazyCardObserver) lazyCardObserver.unobserve(cardEl);
+    }
+}
+
+function initLazyCardsObserver() {
+    if (!('IntersectionObserver' in window)) {
+        DOM.agentCards.forEach(c => hydrateCardImage(c.el));
+        return;
+    }
+    lazyCardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) hydrateCardImage(entry.target);
+        });
+    }, { root: DOM.scrollArea, rootMargin: '120px 0px' });
+
+    DOM.agentCards.forEach((c, i) => {
+        if (i >= 20) lazyCardObserver.observe(c.el);
     });
 }
 
@@ -716,6 +743,7 @@ function renderAgents(isInitial = false) {
             State.filteredAgents.push(agent);
             versionCounts[card.version] = (versionCounts[card.version] || 0) + 1;
             
+            if (!isInitial || visibleIndex < 20) hydrateCardImage(card.el);
             card.el.classList.remove('hidden');
             visibleIndex++;
         } else {
@@ -786,13 +814,15 @@ function createCardHTML(agent, isNew = false, index = 0) {
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
     const roleLabel = tTerm(agent.role);
 
-    // 1re carte en priorité haute (+2px pour le LCP), toutes les autres chargées immédiatement en decoding="sync" (zéro carré noir)
+    // Seule la 1re carte (préchargée dans index.html) reçoit fetchpriority="high" et +2px pour garantir le LCP
     const isLcpHero = index === 0;
     const heroWrapperStyle = isLcpHero ? 'style="width: calc(100% + 2px); margin-left: -1px; margin-top: -2px;"' : '';
     const imgPath = `assets/Agents/${agent.name}.webp`;
     const imgAttributes = isLcpHero
         ? `src="${imgPath}" loading="eager" fetchpriority="high" decoding="sync"`
-        : `src="${imgPath}" loading="eager" fetchpriority="low" decoding="sync"`;
+        : (index < 20
+            ? `src="${imgPath}" loading="eager" decoding="async"`
+            : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="async"`);
 
     const newRibbonHTML = isNew ? `
         <div class="new-ribbon-wrapper">
@@ -809,7 +839,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
                 <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
-                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
+                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="lazy" decoding="async" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
                 </div>
                 <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
