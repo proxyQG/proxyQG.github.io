@@ -33,9 +33,9 @@
         return term;
     }
     
-    function init() {
+    // Création à la demande (ZÉRO injection au chargement = ZÉRO fantôme)
+    function createDOM() {
         if (document.getElementById('proxy-tooltip')) return;
-        agentModalEl = document.getElementById('agentDetailModal');
         
         // 1. Création de l'Overlay
         overlayEl = document.createElement('div');
@@ -73,6 +73,62 @@
             </div>
         `;
         document.body.appendChild(tooltipEl);
+
+        // Gestion des clics internes
+        tooltipEl.addEventListener('click', e => {
+            if (e.target.classList.contains('tt-oc-btn')) {
+                populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
+            }
+            if (e.target.closest('.tt-close-btn')) {
+                hideTooltip();
+            }
+        });
+
+        overlayEl.addEventListener('click', hideTooltip);
+
+        // Swipe-to-close tactile sur mobile
+        let startY = 0;
+        let currentY = 0;
+        let isDragging = false;
+
+        tooltipEl.addEventListener('touchstart', e => {
+            if (window.innerWidth > 768) return;
+            if (tooltipEl.scrollTop > 0) return;
+            
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            tooltipEl.style.transition = 'none';
+        }, { passive: true });
+
+        tooltipEl.addEventListener('touchmove', e => {
+            if (!isDragging) return;
+            currentY = e.touches[0].clientY - startY;
+            
+            if (currentY > 0) {
+                e.preventDefault();
+                tooltipEl.style.transform = `translateY(${currentY}px)`;
+                overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
+            }
+        }, { passive: false });
+
+        tooltipEl.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            tooltipEl.style.transition = '';
+            overlayEl.style.opacity = '';
+            
+            if (currentY > 100) {
+                hideTooltip();
+            } else {
+                tooltipEl.style.transform = ''; 
+            }
+            currentY = 0;
+        });
+    }
+
+    function init() {
+        agentModalEl = document.getElementById('agentDetailModal');
 
         // Chargement avec mise en cache locale (sessionStorage)
         const storedEngines = sessionStorage.getItem('zzz_engines_db');
@@ -115,14 +171,13 @@
         if (!tooltipEl || !tooltipEl.classList.contains('visible')) return;
 
         tooltipEl.classList.remove('visible');
-        tooltipEl.style.transform = ''; // Nettoie le transform du Swipe
+        tooltipEl.style.transform = '';
         if (overlayEl) {
             overlayEl.classList.remove('visible');
-            overlayEl.style.opacity = ''; // Nettoie l'opacité du Swipe
+            overlayEl.style.opacity = '';
         }
         currentEngineKey = null;
 
-        // Si l'infobulle est fermée via un clic ou swipe, on nettoie l'historique
         if (!fromPopstate && window.history.state?.tooltipOpen) {
             window.history.back();
         }
@@ -173,7 +228,7 @@
     }
 
     function bindEvents() {
-        // --- 1. Traçage Spotlight (Actif uniquement sur PC et quand un guide agent est ouvert) ---
+        // Spotlight souris actif uniquement sur PC quand un guide est ouvert
         let spotlightTicking = false;
         document.addEventListener('pointermove', e => {
             if (e.pointerType === 'touch' || spotlightTicking) return;
@@ -192,13 +247,15 @@
             });
         }, { passive: true });
 
-        // --- 2. Clic & Tap d'ouverture ---
+        // Clic d'ouverture : création à la volée du DOM
         document.addEventListener('click', e => {
             const trigger = e.target.closest('[data-engine]');
             if (!trigger) return;
 
             e.preventDefault();
             e.stopPropagation();
+
+            createDOM();
 
             const engineName = trigger.getAttribute('data-engine') || trigger.dataset.engine;
             const isValid = populateTooltip(engineName, 0);
@@ -209,18 +266,6 @@
             }
         });
 
-        // --- GESTION DES CLICS INTERNES (Boutons, Croix, Overlay) ---
-        tooltipEl.addEventListener('click', e => {
-            if (e.target.classList.contains('tt-oc-btn')) {
-                populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
-            }
-            if (e.target.closest('.tt-close-btn')) {
-                hideTooltip();
-            }
-        });
-
-        overlayEl.addEventListener('click', hideTooltip);
-
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape' && tooltipEl && tooltipEl.classList.contains('visible')) {
                 hideTooltip();
@@ -228,47 +273,7 @@
             }
         });
 
-        // --- GESTION DU SWIPE-TO-CLOSE (MOBILE) ---
-        let startY = 0;
-        let currentY = 0;
-        let isDragging = false;
-
-        tooltipEl.addEventListener('touchstart', e => {
-            if (window.innerWidth > 768) return;
-            if (tooltipEl.scrollTop > 0) return;
-            
-            startY = e.touches[0].clientY;
-            isDragging = true;
-            tooltipEl.style.transition = 'none';
-        }, { passive: true });
-
-        tooltipEl.addEventListener('touchmove', e => {
-            if (!isDragging) return;
-            currentY = e.touches[0].clientY - startY;
-            
-            if (currentY > 0) {
-                e.preventDefault();
-                tooltipEl.style.transform = `translateY(${currentY}px)`;
-                overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
-            }
-        }, { passive: false });
-
-        tooltipEl.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            
-            tooltipEl.style.transition = '';
-            overlayEl.style.opacity = '';
-            
-            if (currentY > 100) {
-                hideTooltip();
-            } else {
-                tooltipEl.style.transform = ''; 
-            }
-            currentY = 0;
-        });
-
-        // --- SÉCURITÉ ANTI-FANTÔME ---
+        // Sécurité fermeture automatique si la modale se ferme
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.target.id === 'agentDetailModal' && !mutation.target.classList.contains('opacity-100')) {
