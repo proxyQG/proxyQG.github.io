@@ -22,12 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
+
+      - name: Sync latest main before build
+        run: git pull --rebase origin main
 
       - name: Auto-detect LCP Hero Agent for preloading
         run: |
@@ -36,7 +39,7 @@ jobs:
 
           with open("js/data/agents.json", "r", encoding="utf-8") as f:
               agents = json.load(f)
-          
+
           hero_agent = agents[-1]["name"] if agents else "Severian"
           print(f"Agent LCP détecté : {hero_agent}")
 
@@ -44,7 +47,7 @@ jobs:
               html = f.read()
 
           new_preload = f'<link rel="preload" href="assets/Agents/{hero_agent}.webp" as="image" fetchpriority="high">'
-          
+
           html_updated = re.sub(
               r'<link rel="preload" href="assets/Agents/[^"]+\.webp" as="image"[^>]*>',
               new_preload,
@@ -83,6 +86,6 @@ jobs:
           git add index.html css/tailwind.css
           if ! git diff --cached --quiet; then
             git commit -m "perf: auto-update LCP preload & Tailwind CSS"
-            git pull --rebase origin main
-            git push
+            git pull --rebase -X theirs origin main
+            git push origin main
           fi
