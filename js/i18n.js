@@ -351,17 +351,27 @@ export function tStats(statStr) {
     return translated;
 }
 
-// Rafraîchissement des balises fixes dans le DOM
+// Rafraîchissement des balises fixes dans le DOM (Zéro mutation inutile si déjà identique)
 export function updateStaticUI() {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (ui[currentLang] && ui[currentLang][key]) {
-            if (el.tagName === 'INPUT') el.placeholder = ui[currentLang][key];
-            else el.innerHTML = ui[currentLang][key];
-        }
-    });
+    const dict = ui[currentLang];
+    if (dict) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const val = dict[el.getAttribute('data-i18n')];
+            if (!val) return;
+            if (el.tagName === 'INPUT') {
+                if (el.placeholder !== val) el.placeholder = val;
+            } else if (val.includes('<')) {
+                el.innerHTML = val;
+            } else if (el.textContent !== val) {
+                el.textContent = val;
+            }
+        });
+    }
     document.querySelectorAll('.dyn-term').forEach(el => {
         const term = el.getAttribute('data-term');
-        if (term) el.textContent = tTerm(term);
+        if (term) {
+            const translated = tTerm(term);
+            if (el.textContent !== translated) el.textContent = translated;
+        }
     });
 }
