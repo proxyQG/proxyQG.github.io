@@ -85,6 +85,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     initModals();
     initMobileDrawer();
     
+    // Attend jusqu'à 60ms max le décodage RAM des portraits du 1er écran pour éviter tout carré noir initial
+    if (window.__preloadedImgs && window.__preloadedImgs.length > 0) {
+        const decodes = window.__preloadedImgs.slice(0, 18).map(img => img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+        await Promise.race([Promise.all(decodes), new Promise(r => setTimeout(r, 60))]);
+    }
+
     buildInitialGrid(); // 1. Génère la grille principale en priorité absolue pour le LCP
     renderAgents(true);
     renderFactions();   // 2. Génère la sidebar immédiatement (sans pop visuel)
@@ -98,15 +104,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Préchargement furtif au premier contact humain (Score PageSpeed intact à 99)
+    // Préchargement furtif au premier contact humain (Guides + Reste des portraits de la grille)
     let guidesPreloaded = false;
     const preloadGuides = (e) => {
         if (guidesPreloaded) return;
         guidesPreloaded = true;
 
-        ['mousemove', 'touchstart', 'pointerdown', 'scroll'].forEach(evt => {
+        ['mousemove', 'touchstart', 'pointerdown', 'wheel', 'scroll'].forEach(evt => {
             window.removeEventListener(evt, preloadGuides);
         });
+
+        // Charge immédiatement toutes les images restantes de la grille avant même le début du scroll
+        DOM.agentCards.forEach(c => hydrateCardImage(c.el));
 
         const load = () => import('./guides/index.js').catch(() => {});
 
@@ -119,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    ['mousemove', 'touchstart', 'pointerdown', 'scroll'].forEach(evt => {
+    ['mousemove', 'touchstart', 'pointerdown', 'wheel', 'scroll'].forEach(evt => {
         window.addEventListener(evt, preloadGuides, { passive: true });
     });
 });
@@ -716,10 +725,10 @@ function initLazyCardsObserver() {
         entries.forEach(entry => {
             if (entry.isIntersecting) hydrateCardImage(entry.target);
         });
-    }, { root: DOM.scrollArea, rootMargin: '120px 0px' });
+    }, { root: DOM.scrollArea, rootMargin: '800px 0px' });
 
     DOM.agentCards.forEach((c, i) => {
-        if (i >= 20) lazyCardObserver.observe(c.el);
+        if (i >= 24) lazyCardObserver.observe(c.el);
     });
 }
 
@@ -743,7 +752,7 @@ function renderAgents(isInitial = false) {
             State.filteredAgents.push(agent);
             versionCounts[card.version] = (versionCounts[card.version] || 0) + 1;
             
-            if (!isInitial || visibleIndex < 20) hydrateCardImage(card.el);
+            if (!isInitial || visibleIndex < 24) hydrateCardImage(card.el);
             card.el.classList.remove('hidden');
             visibleIndex++;
         } else {
@@ -814,15 +823,15 @@ function createCardHTML(agent, isNew = false, index = 0) {
     const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
     const roleLabel = tTerm(agent.role);
 
-    // Seule la 1re carte (préchargée dans index.html) reçoit fetchpriority="high" et +2px pour garantir le LCP
+    // 1re carte en priorité haute (+2px pour le LCP), les 24 premières en priorité normale et decoding="sync" (zéro carré noir)
     const isLcpHero = index === 0;
     const heroWrapperStyle = isLcpHero ? 'style="width: calc(100% + 2px); margin-left: -1px; margin-top: -2px;"' : '';
     const imgPath = `assets/Agents/${agent.name}.webp`;
     const imgAttributes = isLcpHero
         ? `src="${imgPath}" loading="eager" fetchpriority="high" decoding="sync"`
-        : (index < 20
-            ? `src="${imgPath}" loading="eager" decoding="async"`
-            : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="async"`);
+        : (index < 24
+            ? `src="${imgPath}" loading="eager" decoding="sync"`
+            : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="sync"`);
 
     const newRibbonHTML = isNew ? `
         <div class="new-ribbon-wrapper">
@@ -839,7 +848,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
                 <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
-                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="lazy" decoding="async" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
+                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
                 </div>
                 <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
