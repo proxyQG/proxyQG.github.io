@@ -49,13 +49,38 @@
         overlayEl.addEventListener('click', () => hideDiscTooltip());
 
         modalEl.addEventListener('click', (e) => {
+            // 1. Ouverture / Fermeture du menu déroulant trapézoïdal "Recommandé sur"
+            const recTrigger = e.target.closest('[data-rec-toggle]');
+            if (recTrigger) {
+                const accordion = modalEl.querySelector('.rec-accordion');
+                if (accordion) {
+                    const isOpen = accordion.classList.toggle('open');
+                    recTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    if (isOpen) {
+                        setTimeout(() => {
+                            accordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 180);
+                    }
+                }
+                return;
+            }
+
+            // 2. Clic sur un portrait d'agent dans la grille
             const agentBtn = e.target.closest('[data-disc-agent]');
             if (agentBtn) {
                 const targetAgent = agentBtn.getAttribute('data-disc-agent');
                 if (targetAgent && typeof window.openAgentDetail === 'function') {
-                    hideDiscTooltip(true);
                     const modal = document.getElementById('agentDetailModal');
                     const isGuideOpen = modal && !modal.classList.contains('hidden');
+                    const currentParam = new URLSearchParams(window.location.search).get('agent');
+
+                    // Si on clique sur l'agent dont le guide est déjà ouvert en arrière-plan, on ferme simplement la popup
+                    if (isGuideOpen && currentParam && currentParam.toLowerCase() === targetAgent.toLowerCase()) {
+                        hideDiscTooltip();
+                        return;
+                    }
+
+                    hideDiscTooltip(true);
                     window.history.replaceState({}, '', '?' + new URLSearchParams({ agent: targetAgent }).toString());
                     window.openAgentDetail(targetAgent, false, isGuideOpen);
                 }
@@ -144,6 +169,77 @@
         }
     }
 
+    function buildRecommendedAccordion(agentsDB, discKey, lang) {
+        if (!agentsDB) return '';
+
+        const list4P = [];
+        const list2P = [];
+
+        Object.keys(agentsDB).forEach(agentName => {
+            const discs = agentsDB[agentName]?.discs;
+            if (!Array.isArray(discs)) return;
+            const is4P = discs.some(d => d.set1 === discKey);
+            const is2P = discs.some(d => d.set2 === discKey);
+            if (is4P) list4P.push({ name: agentName, badge: '4P', isPrimary: true });
+            else if (is2P) list2P.push({ name: agentName, badge: '2P', isPrimary: false });
+        });
+
+        const matchingAgents = [...list4P, ...list2P];
+        if (matchingAgents.length === 0) return '';
+
+        const recTitle = lang === 'en' ? 'Recommended on' : 'Recommandé sur';
+        const previewAgents = matchingAgents.slice(0, 4);
+        const extraCount = matchingAgents.length - previewAgents.length;
+
+        const previewHTML = previewAgents.map(item => `
+            <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${item.name}" class="rec-preview-avatar">
+        `).join('') + (extraCount > 0 ? `<span class="rec-preview-more">+${extraCount}</span>` : '');
+
+        const cardsHTML = matchingAgents.map(item => {
+            const displayName = item.name === 'Jane' ? 'Jane Doe' : item.name;
+            const safeAttr = item.name.replace(/"/g, '&quot;');
+            const badgeClass = item.isPrimary ? 'rec-badge-primary' : 'rec-badge-secondary';
+            return `
+            <button type="button" data-disc-agent="${safeAttr}" title="${displayName} (${item.badge})" class="rec-agent-card ${item.isPrimary ? 'is-primary' : ''}">
+                <div class="rec-agent-img-wrap">
+                    <span class="rec-agent-badge ${badgeClass}">${item.badge}</span>
+                    <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${displayName}" class="rec-agent-img">
+                </div>
+                <span class="rec-agent-name">${displayName}</span>
+            </button>`;
+        }).join('');
+
+        return `
+        <div class="rec-accordion mt-4">
+            <button type="button" data-rec-toggle="true" aria-expanded="false" class="rec-trigger">
+                <div class="rec-trigger-inner">
+                    <div class="rec-trigger-top">
+                        <div class="rec-trigger-left">
+                            <span class="rec-trigger-dot"></span>
+                            <span class="rec-trigger-title">${recTitle}</span>
+                            <span class="rec-trigger-count">${matchingAgents.length}</span>
+                        </div>
+                        <div class="rec-preview-stack">
+                            ${previewHTML}
+                        </div>
+                    </div>
+                    <div class="rec-trigger-tab">
+                        <svg class="rec-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </button>
+            <div class="rec-panel">
+                <div class="rec-panel-inner">
+                    <div class="rec-grid">
+                        ${cardsHTML}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }
+
     async function showDiscTooltip(discKey) {
         createDOM();
         const [db, agentsDB] = await Promise.all([loadDatabase(), getAgentsDB()]);
@@ -158,30 +254,7 @@
                 return `<span style="background:${color}20; color:${color}; border:1px solid ${color}40;" class="text-[10px] font-black px-2 py-0.5 rounded shadow-sm">${r}</span>`;
             }).join('');
 
-        let recommendedHTML = '';
-        if (agentsDB) {
-            const matchingAgents = Object.keys(agentsDB).filter(agentName => {
-                const discs = agentsDB[agentName]?.discs;
-                return Array.isArray(discs) && discs.some(d => d.set1 === discKey || d.set2 === discKey);
-            });
-            if (matchingAgents.length > 0) {
-                const recTitle = lang === 'en' ? 'Recommended on' : 'Recommandé sur';
-                const pills = matchingAgents.map(agentName => {
-                    const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
-                    const safeAttr = agentName.replace(/"/g, '&quot;');
-                    return `
-                    <button type="button" data-disc-agent="${safeAttr}" title="${displayName}" class="group flex items-center gap-1.5 bg-black/60 hover:bg-[#1a1a1f] border border-white/10 hover:border-[#d7f70c] rounded-full pr-2.5 pl-1 py-1 transition-all cursor-pointer">
-                        <img src="assets/Agents/${agentName}.webp" loading="lazy" decoding="async" alt="${displayName}" class="w-6 h-6 rounded-full object-cover object-top bg-zinc-900">
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-300 group-hover:text-[#d7f70c] transition-colors">${displayName}</span>
-                    </button>`;
-                }).join('');
-                recommendedHTML = `
-                <div class="mt-4 pt-3.5 border-t border-white/10">
-                    <div class="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-2.5">${recTitle}</div>
-                    <div class="flex flex-wrap gap-2">${pills}</div>
-                </div>`;
-            }
-        }
+        const recommendedHTML = buildRecommendedAccordion(agentsDB, discKey, lang);
 
         modalEl.innerHTML = `
             <div class="p-5 sm:p-6 relative">
@@ -248,6 +321,7 @@
             </div>
         `;
 
+        modalEl.scrollTop = 0;
         window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
 
         overlayEl.classList.add('visible');
