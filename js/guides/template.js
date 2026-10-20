@@ -88,7 +88,7 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
         : '';
 
     return `
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-5 xl:mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
             ${factionHTML}
             <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
@@ -97,54 +97,6 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
             ${roleBadgeHTML}
             <div title="${escapeHTML(elemLabel)}" class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" alt="${escapeHTML(elemLabel)}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>
-        </div>
-    </div>`;
-}
-
-// --- BARRE DE RACCOURCIS RAPIDES (MOBILE / TABLETTE < XL) ---
-function buildQuickNav(data, mindscapes, c) {
-    const isEn = currentLang === 'en';
-    const sections = [];
-
-    if (data.stats?.length) {
-        sections.push({ id: 'guide-sec-stats', label: 'Stats' });
-    }
-    if (data.discs?.length) {
-        sections.push({ id: 'guide-sec-discs', label: isEn ? 'Discs' : 'Disques' });
-    }
-    if (data.skills?.length) {
-        sections.push({ id: 'guide-sec-skills', label: 'Skills' });
-    }
-    if (data.engines?.length) {
-        sections.push({ id: 'guide-sec-engines', label: isEn ? 'W-Engines' : 'Moteurs' });
-    }
-    if (data.teams?.length) {
-        sections.push({ id: 'guide-sec-teams', label: isEn ? 'Teams' : 'Équipes' });
-    }
-    if (Array.isArray(mindscapes) && mindscapes.length > 0) {
-        sections.push({ id: 'guide-sec-mindscapes', label: 'Mindscapes' });
-    }
-
-    if (sections.length <= 1) return '';
-
-    const pillsHTML = sections.map((sec, idx) => {
-        const isFirst = idx === 0;
-        const activeStyle = isFirst
-            ? `border-color: ${c}; color: #fff; background-color: ${c}18;`
-            : `border-color: #27272a; color: #a1a1aa; background-color: #121215;`;
-        return `
-        <button type="button"
-            onclick="window.scrollToGuideSection('${sec.id}', this, '${c}')"
-            class="guide-qnav-pill shrink-0 px-3.5 py-1.5 rounded-full border text-[10px] sm:text-[11px] font-black uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer select-none"
-            style="${activeStyle}">
-            ${escapeHTML(sec.label)}
-        </button>`;
-    }).join('');
-
-    return `
-    <div class="xl:hidden mb-7 stagger-anim delay-1">
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            ${pillsHTML}
         </div>
     </div>`;
 }
@@ -375,26 +327,8 @@ function buildTeams(agentName, data, c, txt) {
     </div>`;
 }
 
-// --- GESTIONNAIRES D'INTERACTION (MINDSCAPES & NAVIGATION RAPIDE) ---
+// --- GESTIONNAIRE D'INTERACTION DES MINDSCAPES ---
 if (typeof window !== 'undefined') {
-    window.scrollToGuideSection = function(secId, btnEl, color) {
-        const target = document.getElementById(secId);
-        if (!target) return;
-
-        // Met à jour l'état actif des pilules
-        const container = btnEl?.parentElement;
-        if (container) {
-            container.querySelectorAll('.guide-qnav-pill').forEach(pill => {
-                const isCurrent = pill === btnEl;
-                pill.style.borderColor = isCurrent ? color : '#27272a';
-                pill.style.color = isCurrent ? '#ffffff' : '#a1a1aa';
-                pill.style.backgroundColor = isCurrent ? `${color}18` : '#121215';
-            });
-        }
-
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
     window.setMindscape = function(idx, color) {
         const modal = document.getElementById('agentDetailModal');
         if (!modal) return;
@@ -527,7 +461,6 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
     return `
     <div class="max-w-[1400px] w-full mx-auto pb-20 pt-4 text-zinc-100">
         ${buildHeader(agentName, data, c, iconName, agentMeta)}
-        ${buildQuickNav(data, mindscapes, c)}
         ${buildStats(data, c, txt)}
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
