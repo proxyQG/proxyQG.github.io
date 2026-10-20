@@ -1180,36 +1180,41 @@ document.title = `${agentName} - Guide & Build | ProxyQG`;
 const canonical = document.querySelector('link[rel="canonical"]');
 if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
     
-    // Fondu de sortie de l'ancien splash (plus court si un splash est déjà affiché)
-    const splashWasVisible = !!splashImg && splashImg.style.opacity === '1';
+    const modalScroll = document.getElementById('agentModalScroll');
+    const modalWasHidden = modal.classList.contains('hidden');
+    const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
+
+    // Si on a défilé vers le bas sur mobile, on coupe l'ancien splash en 0ms avant de remonter
+    const shouldAnimateFadeOut = !!splashImg && splashImg.style.opacity === '1' && !isScrolledDown;
     if (splashImg) {
         splashImg.alt = agentName === 'Jane' ? 'Jane Doe' : agentName;
-        splashImg.loading = 'eager'; // le splash est dans une modale : pas de chargement différé
-        splashImg.style.transitionDuration = splashWasVisible ? `${SPLASH_FADE_OUT_MS}ms` : '';
+        splashImg.loading = 'eager';
+        splashImg.style.transitionDuration = shouldAnimateFadeOut ? `${SPLASH_FADE_OUT_MS}ms` : '0ms';
         splashImg.style.opacity = '0';
+        if (!shouldAnimateFadeOut) void splashImg.offsetWidth; // Applique l'opacité 0 avant la remontée du scroll
     }
-    // Masque l'ancien guide pendant le changement (il est remplacé plus bas)
+    // Masque l'ancien guide pendant le changement
     if (guideContainer) guideContainer.style.opacity = '0';
     if (giantName) giantName.textContent = agentName;
 
-    // 1. Ouvre la modale immédiatement (0 ms de temps mort)
-    window.openModal('agentDetailModal');
+    // 1. Ouvre la modale uniquement si elle était fermée
+    if (modalWasHidden) {
+        window.openModal('agentDetailModal');
+    }
 
-    // 2. Remonte la modale en haut tout de suite
-    setTimeout(() => {
-        const modalScroll = document.getElementById('agentModalScroll');
-        if (modalScroll && token === openAgentToken) modalScroll.scrollTo(0, 0);
-    }, 50);
+    // 2. Remonte la modale en haut immédiatement (0 ms de décalage)
+    if (modalScroll) {
+        modalScroll.scrollTop = 0;
+    }
 
-    // 2bis. Change puis révèle le splash seulement quand la nouvelle image est téléchargée ET décodée
-    //       (sinon le navigateur réaffiche l'ancienne image avant de basculer sur la nouvelle)
+    // 2bis. Change puis révèle le splash dès que la nouvelle image est prête
     if (splashImg) {
         (async () => {
             await Promise.all([
                 Promise.race([window.preloadSplash(agentName), wait(SPLASH_LOAD_TIMEOUT_MS)]),
-                wait(splashWasVisible ? SPLASH_FADE_OUT_MS + 10 : 50) // laisse finir le fondu de sortie
+                wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
             ]);
-            if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
+            if (token !== openAgentToken) return;
 
             splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
             splashImg.src = `assets/splash/${agentName}.webp`;
