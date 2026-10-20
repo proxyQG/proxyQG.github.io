@@ -88,7 +88,7 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
         : '';
 
     return `
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-5 xl:mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
             ${factionHTML}
             <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
@@ -97,6 +97,54 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
             ${roleBadgeHTML}
             <div title="${escapeHTML(elemLabel)}" class="bg-[#1a1a1a] rounded-xl w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" alt="${escapeHTML(elemLabel)}" loading="lazy" class="w-7 h-7 sm:w-9 sm:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>
             <div class="rounded-xl text-black w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center font-black text-2xl sm:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>
+        </div>
+    </div>`;
+}
+
+// --- BARRE DE RACCOURCIS RAPIDES (MOBILE / TABLETTE < XL) ---
+function buildQuickNav(data, mindscapes, c) {
+    const isEn = currentLang === 'en';
+    const sections = [];
+
+    if (data.stats?.length) {
+        sections.push({ id: 'guide-sec-stats', label: 'Stats' });
+    }
+    if (data.discs?.length) {
+        sections.push({ id: 'guide-sec-discs', label: isEn ? 'Discs' : 'Disques' });
+    }
+    if (data.skills?.length) {
+        sections.push({ id: 'guide-sec-skills', label: 'Skills' });
+    }
+    if (data.engines?.length) {
+        sections.push({ id: 'guide-sec-engines', label: isEn ? 'W-Engines' : 'Moteurs' });
+    }
+    if (data.teams?.length) {
+        sections.push({ id: 'guide-sec-teams', label: isEn ? 'Teams' : 'Équipes' });
+    }
+    if (Array.isArray(mindscapes) && mindscapes.length > 0) {
+        sections.push({ id: 'guide-sec-mindscapes', label: 'Mindscapes' });
+    }
+
+    if (sections.length <= 1) return '';
+
+    const pillsHTML = sections.map((sec, idx) => {
+        const isFirst = idx === 0;
+        const activeStyle = isFirst
+            ? `border-color: ${c}; color: #fff; background-color: ${c}18;`
+            : `border-color: #27272a; color: #a1a1aa; background-color: #121215;`;
+        return `
+        <button type="button"
+            onclick="window.scrollToGuideSection('${sec.id}', this, '${c}')"
+            class="guide-qnav-pill shrink-0 px-3.5 py-1.5 rounded-full border text-[10px] sm:text-[11px] font-black uppercase tracking-wider transition-all duration-200 active:scale-95 cursor-pointer select-none"
+            style="${activeStyle}">
+            ${escapeHTML(sec.label)}
+        </button>`;
+    }).join('');
+
+    return `
+    <div class="xl:hidden mb-7 stagger-anim delay-1">
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            ${pillsHTML}
         </div>
     </div>`;
 }
@@ -115,7 +163,7 @@ function buildStats(data, c, txt) {
     }).join('');
 
     return `
-    <div class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group stagger-anim delay-2">
+    <div id="guide-sec-stats" style="scroll-margin-top: 96px;" class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group stagger-anim delay-2">
         <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-3xl transition-all duration-700" style="background-color: ${c}10; group-hover:background-color: ${c}20;"></div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-5 relative z-10 gap-2 border-b border-zinc-800/50 pb-4">
             <h3 class="font-display font-black uppercase text-xl sm:text-2xl tracking-wide" style="color: ${c};">${txt.statsLabel}</h3>
@@ -158,7 +206,7 @@ function buildDiscs(data, c, txt) {
     }).join('');
 
     return `
-    <div>
+    <div id="guide-sec-discs" style="scroll-margin-top: 96px;">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.discSets}</h3>
         <div class="flex flex-col gap-5">
             ${discsHTML}
@@ -204,7 +252,7 @@ function buildSkills(data, c, txt) {
     }).join('');
 
     return `
-    <div class="h-fit overflow-hidden w-full">
+    <div id="guide-sec-skills" style="scroll-margin-top: 96px;" class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
         <div class="relative">
             <div class="bg-[#0f0f0f] px-3 py-4 sm:px-4 sm:py-5 2xl:p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-between gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
@@ -274,7 +322,7 @@ function buildEngines(data, c, txt) {
     }).join('');
 
     return `
-    <div>
+    <div id="guide-sec-engines" style="scroll-margin-top: 96px;">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
         <div class="flex flex-col gap-3">
             ${enginesHTML}
@@ -319,7 +367,7 @@ function buildTeams(agentName, data, c, txt) {
     }).join('');
 
     return `
-    <div class="border-t border-zinc-800/80 pt-10 stagger-anim delay-5">
+    <div id="guide-sec-teams" style="scroll-margin-top: 96px;" class="border-t border-zinc-800/80 pt-10 stagger-anim delay-5">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             ${teamsHTML}
@@ -327,8 +375,26 @@ function buildTeams(agentName, data, c, txt) {
     </div>`;
 }
 
-// --- GESTIONNAIRE D'INTERACTION CINEMA MATRIX ---
+// --- GESTIONNAIRES D'INTERACTION (MINDSCAPES & NAVIGATION RAPIDE) ---
 if (typeof window !== 'undefined') {
+    window.scrollToGuideSection = function(secId, btnEl, color) {
+        const target = document.getElementById(secId);
+        if (!target) return;
+
+        // Met à jour l'état actif des pilules
+        const container = btnEl?.parentElement;
+        if (container) {
+            container.querySelectorAll('.guide-qnav-pill').forEach(pill => {
+                const isCurrent = pill === btnEl;
+                pill.style.borderColor = isCurrent ? color : '#27272a';
+                pill.style.color = isCurrent ? '#ffffff' : '#a1a1aa';
+                pill.style.backgroundColor = isCurrent ? `${color}18` : '#121215';
+            });
+        }
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
     window.setMindscape = function(idx, color) {
         const modal = document.getElementById('agentDetailModal');
         if (!modal) return;
@@ -421,7 +487,7 @@ function buildMindscapes(mindscapes, c) {
     }).join('');
 
     return `
-    <div class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
+    <div id="guide-sec-mindscapes" style="scroll-margin-top: 96px;" class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes</h3>
             <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hidden sm:inline-block">${subHeader}</span>
@@ -461,6 +527,7 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
     return `
     <div class="max-w-[1400px] w-full mx-auto pb-20 pt-4 text-zinc-100">
         ${buildHeader(agentName, data, c, iconName, agentMeta)}
+        ${buildQuickNav(data, mindscapes, c)}
         ${buildStats(data, c, txt)}
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
