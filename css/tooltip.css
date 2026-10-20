@@ -28,7 +28,7 @@
     top: 50%;
     left: 50%;
     z-index: 999999;
-    width: 340px;
+    width: 360px;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -154,7 +154,6 @@
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
 }
 
-/* L'animation ne tourne que lorsque l'infobulle est visible */
 #proxy-tooltip.visible .tt-img-wrap img {
     animation: floatItem 4s ease-in-out infinite;
 }
@@ -240,6 +239,10 @@
 .tt-desc-box strong { color: #fff; font-weight: 700; }
 .tt-hl { color: #d7f70c; font-weight: 900; }
 
+#tt-recommended-mount .rec-accordion {
+    margin-top: 14px;
+}
+
 /* =========================================
    MODE MOBILE : Tiroir coulissant (Bottom Sheet)
    ========================================= */
@@ -299,7 +302,6 @@
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
 }
 
-/* L'Indicateur de clic (Chevron Stylisé ZZZ) */
 [data-engine]::after {
     content: "";
     position: absolute;
@@ -321,7 +323,6 @@
     50% { opacity: 1; transform: translateY(-50%) translateX(3px); }
 }
 
-/* Le Spotlight Magnétique (lié à la souris) */
 [data-engine]::before {
     content: "";
     position: absolute;
@@ -337,7 +338,6 @@
     z-index: 1;
 }
 
-/* Le Flash Oblique 100% GPU (Sheen) */
 [data-engine] .sheen {
     content: "";
     position: absolute;
@@ -352,9 +352,6 @@
     transition: none;
 }
 
-/* =========================================
-   ÉTAT AU SURVOL (HOVER PC)
-   ========================================= */
 @media (hover: hover) {
     [data-engine]:hover {
         transform: translateY(-2px) scale(1.01);
