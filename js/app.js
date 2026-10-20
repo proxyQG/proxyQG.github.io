@@ -1125,9 +1125,7 @@ window.closeModal = function(id, updateUrl = true) {
         document.documentElement.classList.remove('direct-agent-load');
         
         const splash = document.getElementById('agentSplashImage'); 
-        const guide = document.getElementById('agentGuideContainer');
-        if (splash) { splash.style.opacity = '0'; }
-        if (guide) { guide.style.opacity = '0'; }
+if (splash) { splash.style.opacity = '0'; }
         if (updateUrl) window.history.pushState({}, '', '/'); 
         State.modalIndex = -1;
         State.currentAgent = null;
@@ -1194,7 +1192,6 @@ if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/
         if (!shouldAnimateFadeOut) void splashImg.offsetWidth; // Applique l'opacité 0 avant la remontée du scroll
     }
     // Masque l'ancien guide pendant le changement
-    if (guideContainer) guideContainer.style.opacity = '0';
     if (giantName) giantName.textContent = agentName;
 
     // 1. Ouvre la modale uniquement si elle était fermée
@@ -1236,7 +1233,6 @@ if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
             guideContainer.innerHTML = guideHTML;
             guideContainer.scrollTo(0, 0);
-            guideContainer.style.opacity = '1';
             
             setTimeout(preloadTeammatesFromDOM, 350);
             setTimeout(initGuideDragScroll, 350);
