@@ -267,7 +267,7 @@
                 <div class="disc-turntable">
                     <div class="disc-platter-ring"></div>
                     <div class="disc-vinyl-plate">
-                        <img src="assets/Disque/${disc.img}" decoding="async" alt="${t(disc.name)}" class="disc-vinyl-img">
+                        <img src="assets/Disque/${disc.img}" decoding="sync" alt="${t(disc.name)}" class="disc-vinyl-img">
                     </div>
                 </div>
 
