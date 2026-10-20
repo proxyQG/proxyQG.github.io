@@ -2857,6 +2857,30 @@
                         "initial": "V"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Remielle.webp",
+                        "color": "#fba2d0",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "Piper.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+                    }
+                ]
             }
         ]
     },
@@ -6952,6 +6976,30 @@
                     {
                         "img": "Sunna.webp",
                         "color": "#e8a838",
+                        "initial": "S"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Sigrid.webp",
+                        "color": "#3bbedb",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "Lycaon.webp",
+                        "color": "#3bbedb",
+                        "initial": "L"
+                    },
+                    {
+                        "img": "Soukaku.webp",
+                        "color": "#3bbedb",
                         "initial": "S"
                     }
                 ]
