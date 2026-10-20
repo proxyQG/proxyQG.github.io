@@ -701,6 +701,30 @@
                 "initial": "R"
             }
         ]
+    },        
+    {
+        "name": "TEAM 04",
+        "tag": {
+            "fr": "Stun Lourd",
+            "en": "Heavy Daze"
+        },
+        "members": [
+            {
+                "img": "Claret.webp",
+                "color": "#3182eb",
+                "initial": "C"
+            },
+            {
+                "img": "Pulchra.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+            },
+            {
+                "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+            }
+        ]
     }
 ]
     },
@@ -6657,6 +6681,30 @@
                     {
                         "img": "Norma.webp",
                         "color": "#f05432",
+                        "initial": "N"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Roxy.webp",
+                        "color": "#3bbedb",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "Pyrois.webp",
+                        "color": "#5d57a6",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
                         "initial": "N"
                     }
                 ]
