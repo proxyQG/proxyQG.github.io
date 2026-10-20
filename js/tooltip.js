@@ -95,7 +95,7 @@
                 </button>
             </div>
             <div class="tt-body" id="tt-body-scroll">
-                <div class="tt-img-wrap"><img id="tt-img" decoding="async" alt=""></div>
+                <div class="tt-img-wrap"><img id="tt-img" decoding="sync" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
                 <div class="tt-stats-grid">
                     <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
