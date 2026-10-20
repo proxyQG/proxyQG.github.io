@@ -215,11 +215,12 @@
             }
         }
 
-        if (!W_ENGINES_DB) {
+        if (!W_ENGINES_DB || !AGENTS_DB) {
+            const preloadAll = () => { loadEnginesDB(); getAgentsDB(); };
             if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => loadEnginesDB(), { timeout: 2000 });
+                requestIdleCallback(preloadAll, { timeout: 2000 });
             } else {
-                setTimeout(loadEnginesDB, 1200);
+                setTimeout(preloadAll, 1200);
             }
         }
 
@@ -250,12 +251,12 @@
     }
     window.hideTooltip = hideTooltip;
 
-    async function renderRecommendedAgents(engineKey, lang) {
+    function renderRecommendedAgents(engineKey, lang) {
         const mount = document.getElementById('tt-recommended-mount');
         if (!mount) return;
         mount.innerHTML = '';
 
-        const db = await getAgentsDB();
+        const db = AGENTS_DB;
         if (!db || currentEngineKey !== engineKey) return;
 
         const bisList = [];
@@ -375,12 +376,16 @@
     }
 
     async function showEngineTooltip(engineKey) {
-        if (!W_ENGINES_DB) await loadEnginesDB();
+        if (!W_ENGINES_DB || !AGENTS_DB) {
+            await Promise.all([loadEnginesDB(), getAgentsDB()]);
+        }
         const isValid = populateTooltip(engineKey, 0);
         if (isValid) {
             window.history.pushState({ tooltipOpen: true }, '', window.location.href);
-            tooltipEl.classList.add('visible');
-            overlayEl.classList.add('visible');
+            requestAnimationFrame(() => {
+                tooltipEl.classList.add('visible');
+                overlayEl.classList.add('visible');
+            });
         }
     }
     window.showEngineTooltip = showEngineTooltip;
