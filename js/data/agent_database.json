@@ -13619,7 +13619,7 @@
             },
             {
                 "name": "TEAM 02",
-                "tag": { "fr": "Dysfonction Vent-Feu 🌪️", "en": "Wind-Fire Disorder 🌪️" },
+                "tag": { "fr": "Tornade de feu 🌪️", "en": "Fire Tornado 🌪️" },
                 "members": [
                     { "img": "Phoenix.webp", "color": "#f05432", "initial": "P" },
                     { "img": "Velina.webp", "color": "#22d3ee", "initial": "V" },
