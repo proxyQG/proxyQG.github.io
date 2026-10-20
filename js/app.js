@@ -1052,12 +1052,34 @@ const SPLASH_FADE_OUT_MS = 120;       // fondu de sortie de l'ancien splash
 const SPLASH_LOAD_TIMEOUT_MS = 600;   // attente max du téléchargement avant de changer l'image
 const SPLASH_DECODE_TIMEOUT_MS = 2500; // attente max du décodage avant de révéler quand même
 const splashCache = new Map();
+const guideAssetCache = new Map();
 let openAgentToken = 0; // identifie la dernière ouverture de guide : ignore les réponses tardives
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+function preloadGuideAssetsFromHTML(guideHTML) {
+    const urls = [...guideHTML.matchAll(/src="([^"]+\.webp)"/g)].map(m => m[1]);
+    return Promise.all(urls.map(url => {
+        if (guideAssetCache.has(url)) return guideAssetCache.get(url).decoded;
+        const img = new Image();
+        img.decoding = 'sync';
+        img.src = url;
+        const decoded = img.decode
+            ? img.decode().catch(() => {})
+            : new Promise(r => { img.onload = img.onerror = r; });
+        guideAssetCache.set(url, { img, decoded });
+        if (guideAssetCache.size > 120) guideAssetCache.delete(guideAssetCache.keys().next().value);
+        return decoded;
+    }));
+}
+
 window.preloadSplash = function(agentName) {
-    // Déclenche l'import du guide dès que la souris s'approche d'une carte
-    import('./guides/index.js');
+    // Précharge le module de guide ET toutes ses icônes (disques, moteurs, skills) en RAM
+    import('./guides/index.js').then(({ getGuideHTML }) => {
+        const meta = agentsData.find(a => a.name === agentName);
+        if (meta) return getGuideHTML(agentName, meta);
+    }).then(html => {
+        if (html) preloadGuideAssetsFromHTML(html);
+    }).catch(() => {});
 
     const cached = splashCache.get(agentName);
     if (cached) return cached.loaded;
@@ -1225,12 +1247,14 @@ if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/
         })();
     }
 
-    // 3. Charge et injecte le contenu du guide en parallèle
+    // 3. Charge, pré-décode les icônes (disques/moteurs) en RAM, puis injecte le guide
     if (guideContainer) {
         try {
             const { getGuideHTML } = await import('./guides/index.js');
             const guideHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
+            await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(65)]);
+            if (token !== openAgentToken) return;
             guideContainer.innerHTML = guideHTML;
             guideContainer.scrollTo(0, 0);
             
