@@ -94,7 +94,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="tt-body">
+            <div class="tt-body" id="tt-body-scroll">
                 <div class="tt-img-wrap"><img id="tt-img" decoding="async" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
                 <div class="tt-stats-grid">
@@ -110,10 +110,7 @@
                         <div class="tt-desc-text" id="tt-passive-text"></div>
                     </div>
                 </div>
-                <div id="tt-recommended-wrap" class="mt-3.5 pt-3 border-t border-white/10 hidden">
-                    <div id="tt-recommended-lbl" class="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-2"></div>
-                    <div id="tt-recommended-list" class="flex flex-wrap gap-2"></div>
-                </div>
+                <div id="tt-recommended-mount"></div>
             </div>
         `;
         document.body.appendChild(tooltipEl);
@@ -127,13 +124,34 @@
                 hideTooltip();
                 return;
             }
+            const recTrigger = e.target.closest('[data-rec-toggle]');
+            if (recTrigger) {
+                const accordion = tooltipEl.querySelector('.rec-accordion');
+                if (accordion) {
+                    const isOpen = accordion.classList.toggle('open');
+                    recTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    if (isOpen) {
+                        setTimeout(() => {
+                            accordion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 180);
+                    }
+                }
+                return;
+            }
             const agentBtn = e.target.closest('[data-tt-agent]');
             if (agentBtn) {
                 const targetAgent = agentBtn.getAttribute('data-tt-agent');
                 if (targetAgent && typeof window.openAgentDetail === 'function') {
-                    hideTooltip(true);
                     const modal = document.getElementById('agentDetailModal');
                     const isGuideOpen = modal && !modal.classList.contains('hidden');
+                    const currentParam = new URLSearchParams(window.location.search).get('agent');
+
+                    if (isGuideOpen && currentParam && currentParam.toLowerCase() === targetAgent.toLowerCase()) {
+                        hideTooltip();
+                        return;
+                    }
+
+                    hideTooltip(true);
                     window.history.replaceState({}, '', '?' + new URLSearchParams({ agent: targetAgent }).toString());
                     window.openAgentDetail(targetAgent, false, isGuideOpen);
                 }
@@ -233,35 +251,78 @@
     window.hideTooltip = hideTooltip;
 
     async function renderRecommendedAgents(engineKey, lang) {
-        const wrap = document.getElementById('tt-recommended-wrap');
-        const lbl = document.getElementById('tt-recommended-lbl');
-        const list = document.getElementById('tt-recommended-list');
-        if (!wrap || !lbl || !list) return;
+        const mount = document.getElementById('tt-recommended-mount');
+        if (!mount) return;
+        mount.innerHTML = '';
 
         const db = await getAgentsDB();
         if (!db || currentEngineKey !== engineKey) return;
 
-        const matchingAgents = Object.keys(db).filter(agentName => {
+        const bisList = [];
+        const altList = [];
+
+        Object.keys(db).forEach(agentName => {
             const engines = db[agentName]?.engines;
-            return Array.isArray(engines) && engines.some(e => e.name === engineKey);
+            if (!Array.isArray(engines)) return;
+            const idx = engines.findIndex(e => e.name === engineKey);
+            if (idx === 0) bisList.push({ name: agentName, badge: '#1', isPrimary: true });
+            else if (idx > 0) altList.push({ name: agentName, badge: 'ALT', isPrimary: false });
         });
 
-        if (matchingAgents.length === 0) {
-            wrap.classList.add('hidden');
-            return;
-        }
+        const matchingAgents = [...bisList, ...altList];
+        if (matchingAgents.length === 0) return;
 
-        lbl.textContent = lang === 'en' ? 'Recommended on' : 'Recommandé sur';
-        list.innerHTML = matchingAgents.map(agentName => {
-            const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
-            const safeAttr = agentName.replace(/"/g, '&quot;');
+        const recTitle = lang === 'en' ? 'Recommended on' : 'Recommandé sur';
+        const previewAgents = matchingAgents.slice(0, 4);
+        const extraCount = matchingAgents.length - previewAgents.length;
+
+        const previewHTML = previewAgents.map(item => `
+            <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${item.name}" class="rec-preview-avatar">
+        `).join('') + (extraCount > 0 ? `<span class="rec-preview-more">+${extraCount}</span>` : '');
+
+        const cardsHTML = matchingAgents.map(item => {
+            const displayName = item.name === 'Jane' ? 'Jane Doe' : item.name;
+            const safeAttr = item.name.replace(/"/g, '&quot;');
+            const badgeClass = item.isPrimary ? 'rec-badge-primary' : 'rec-badge-secondary';
             return `
-            <button type="button" data-tt-agent="${safeAttr}" title="${displayName}" class="group flex items-center gap-1.5 bg-black/60 hover:bg-[#1a1a1f] border border-white/10 hover:border-[#d7f70c] rounded-full pr-2.5 pl-1 py-1 transition-all cursor-pointer">
-                <img src="assets/Agents/${agentName}.webp" loading="lazy" decoding="async" alt="${displayName}" class="w-6 h-6 rounded-full object-cover object-top bg-zinc-900">
-                <span class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-300 group-hover:text-[#d7f70c] transition-colors">${displayName}</span>
+            <button type="button" data-tt-agent="${safeAttr}" title="${displayName} (${item.badge})" class="rec-agent-card ${item.isPrimary ? 'is-primary' : ''}">
+                <div class="rec-agent-img-wrap">
+                    <span class="rec-agent-badge ${badgeClass}">${item.badge}</span>
+                    <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${displayName}" class="rec-agent-img">
+                </div>
+                <span class="rec-agent-name">${displayName}</span>
             </button>`;
         }).join('');
-        wrap.classList.remove('hidden');
+
+        mount.innerHTML = `
+        <div class="rec-accordion">
+            <button type="button" data-rec-toggle="true" aria-expanded="false" class="rec-trigger">
+                <div class="rec-trigger-inner">
+                    <div class="rec-trigger-top">
+                        <div class="rec-trigger-left">
+                            <span class="rec-trigger-dot"></span>
+                            <span class="rec-trigger-title">${recTitle}</span>
+                            <span class="rec-trigger-count">${matchingAgents.length}</span>
+                        </div>
+                        <div class="rec-preview-stack">
+                            ${previewHTML}
+                        </div>
+                    </div>
+                    <div class="rec-trigger-tab">
+                        <svg class="rec-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </div>
+            </button>
+            <div class="rec-panel">
+                <div class="rec-panel-inner">
+                    <div class="rec-grid">
+                        ${cardsHTML}
+                    </div>
+                </div>
+            </div>
+        </div>`;
     }
 
     function populateTooltip(engineKey, tier = 0) {
@@ -294,6 +355,9 @@
             document.getElementById('tt-passive-title').textContent = data.passiveName[lang] || data.passiveName.en;
             
             currentEngineKey = engineKey;
+            const bodyScroll = document.getElementById('tt-body-scroll');
+            if (bodyScroll) bodyScroll.scrollTop = 0;
+            tooltipEl.scrollTop = 0;
             renderRecommendedAgents(engineKey, lang);
         }
 
