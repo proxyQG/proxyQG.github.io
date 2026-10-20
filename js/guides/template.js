@@ -88,7 +88,7 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
         : '';
 
     return `
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 stagger-anim delay-1 gap-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800 pb-6 gap-4">
         <div class="flex flex-col flex-1 min-w-0">
             ${factionHTML}
             <h2 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
@@ -115,7 +115,7 @@ function buildStats(data, c, txt) {
     }).join('');
 
     return `
-    <div id="guide-sec-stats" style="scroll-margin-top: 96px;" class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group stagger-anim delay-2">
+    <div id="guide-sec-stats" style="scroll-margin-top: 96px;" class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group">
         <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-3xl transition-all duration-700" style="background-color: ${c}10; group-hover:background-color: ${c}20;"></div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-5 relative z-10 gap-2 border-b border-zinc-800/50 pb-4">
             <h3 class="font-display font-black uppercase text-xl sm:text-2xl tracking-wide" style="color: ${c};">${txt.statsLabel}</h3>
@@ -319,7 +319,7 @@ function buildTeams(agentName, data, c, txt) {
     }).join('');
 
     return `
-    <div id="guide-sec-teams" style="scroll-margin-top: 96px;" class="border-t border-zinc-800/80 pt-10 stagger-anim delay-5">
+    <div id="guide-sec-teams" style="scroll-margin-top: 96px;" class="border-t border-zinc-800/80 pt-10">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             ${teamsHTML}
@@ -421,7 +421,7 @@ function buildMindscapes(mindscapes, c) {
     }).join('');
 
     return `
-    <div id="guide-sec-mindscapes" style="scroll-margin-top: 96px;" class="mt-14 border-t border-zinc-800/80 pt-10 stagger-anim delay-6">
+    <div id="guide-sec-mindscapes" style="scroll-margin-top: 96px;" class="mt-14 border-t border-zinc-800/80 pt-10">
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide" style="border-color: ${c};">Mindscapes</h3>
             <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 hidden sm:inline-block">${subHeader}</span>
@@ -463,16 +463,16 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
         ${buildHeader(agentName, data, c, iconName, agentMeta)}
         ${buildStats(data, c, txt)}
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
-            <div class="flex flex-col gap-10 stagger-anim delay-3">
-                ${buildDiscs(data, c, txt)}
-                ${buildSkills(data, c, txt)}
-            </div>
-            <div class="flex flex-col gap-10 stagger-anim delay-4">
-                ${buildStatPriority(data, c, txt)}
-                ${buildEngines(data, c, txt)}
-            </div>
-        </div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
+    <div class="flex flex-col gap-10">
+        ${buildDiscs(data, c, txt)}
+        ${buildSkills(data, c, txt)}
+    </div>
+    <div class="flex flex-col gap-10">
+        ${buildStatPriority(data, c, txt)}
+        ${buildEngines(data, c, txt)}
+    </div>
+</div>
 
         ${buildTeams(agentName, data, c, txt)}
         ${buildMindscapes(mindscapes, c)}
