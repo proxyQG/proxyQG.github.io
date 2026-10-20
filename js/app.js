@@ -57,6 +57,9 @@ const DOM = {
 };
 
 let searchTimeout;
+let searchDiscsCache = null;
+let searchEnginesCache = null;
+let firstSearchMatch = null;
 
 // ==========================================
 // 3. INITIALISATION
@@ -238,24 +241,81 @@ window.handleLogoClick = function(e) {
 };
 
 // ==========================================
-// 5. RECHERCHE OPTIMISÉE (Debounce 150ms)
 // ==========================================
+// 5. RECHERCHE UNIVERSELLE (AGENTS + DISQUES + MOTEURS)
+// ==========================================
+function normalizeSearchStr(str) {
+    if (!str) return '';
+    return String(str).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+function ensureSearchDatabases() {
+    if (!searchDiscsCache) {
+        const storedD = sessionStorage.getItem('zzz_discs_db');
+        if (storedD) {
+            try { searchDiscsCache = JSON.parse(storedD); } catch (e) {}
+        }
+        if (!searchDiscsCache) {
+            fetch('./js/data/discs.json').then(r => r.json()).then(d => {
+                searchDiscsCache = d;
+                sessionStorage.setItem('zzz_discs_db', JSON.stringify(d));
+            }).catch(() => {});
+        }
+    }
+    if (!searchEnginesCache) {
+        const storedE = sessionStorage.getItem('zzz_engines_db');
+        if (storedE) {
+            try { searchEnginesCache = JSON.parse(storedE); } catch (e) {}
+        }
+        if (!searchEnginesCache) {
+            fetch('./js/data/engines.json').then(r => r.json()).then(e => {
+                searchEnginesCache = e;
+                sessionStorage.setItem('zzz_engines_db', JSON.stringify(e));
+            }).catch(() => {});
+        }
+    }
+}
+
 function initSearch() {
     const shortcutHint = document.getElementById('searchShortcutHint');
     DOM.searchInputs.forEach(input => {
         if (!input) return;
         input.addEventListener('input', (e) => {
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => handleSearch(e.target.value), 150);
+            searchTimeout = setTimeout(() => handleSearch(e.target.value), 120);
         });
         input.addEventListener('focus', (e) => {
+            ensureSearchDatabases();
             if (shortcutHint && input.id === 'searchInput') shortcutHint.classList.add('hidden');
             clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => handleSearch(e.target.value), 150);
+            searchTimeout = setTimeout(() => handleSearch(e.target.value), 120);
         });
         input.addEventListener('blur', () => {
             if (shortcutHint && input.id === 'searchInput' && !input.value) shortcutHint.classList.remove('hidden');
             setTimeout(() => DOM.dropdowns.forEach(d => d && d.classList.add('hidden')), 250);
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                clearTimeout(searchTimeout);
+                handleSearch(input.value);
+                if (firstSearchMatch) {
+                    if (firstSearchMatch.type === 'agent') {
+                        window.triggerSearchSelect(firstSearchMatch.key);
+                    } else {
+                        window.triggerSearchItemSelect(firstSearchMatch.type, firstSearchMatch.key);
+                    }
+                }
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (input.value) {
+                    clearSearch();
+                } else {
+                    DOM.dropdowns.forEach(d => d && d.classList.add('hidden'));
+                }
+                input.blur();
+            }
         });
     });
     DOM.clearBtns.forEach(btn => { if (btn) btn.addEventListener('click', clearSearch); });
@@ -286,6 +346,7 @@ function handleSearch(query) {
 
 function clearSearch() {
     State.search = '';
+    firstSearchMatch = null;
     const shortcutHint = document.getElementById('searchShortcutHint');
     if (shortcutHint && document.activeElement !== DOM.searchInputs[0]) shortcutHint.classList.remove('hidden');
     DOM.searchInputs.forEach(input => { if (input) input.value = ''; });
@@ -295,22 +356,127 @@ function clearSearch() {
 }
 
 function updateDropdownUI(query) {
-    let filtered = query ? agentsData.filter(a => a.name.toLowerCase().includes(query.toLowerCase())) : [...agentsData];
-    filtered.sort((a, b) => a.name.localeCompare(b.name));
+    const normQuery = normalizeSearchStr(query.trim());
+    const isEn = currentLang === 'en';
+    firstSearchMatch = null;
 
-    const html = filtered.length === 0 
-        ? `<div class="p-5 text-zinc-500 text-xs text-center italic font-bold">Aucun signal trouvé</div>`
-        : filtered.map((agent, delay) => {
+    let filteredAgents = normQuery
+        ? agentsData.filter(a => normalizeSearchStr(a.name).includes(normQuery) || (a.name === 'Jane' && 'jane doe'.includes(normQuery)))
+        : [...agentsData];
+    filteredAgents.sort((a, b) => a.name.localeCompare(b.name));
+
+    let matchedDiscs = [];
+    let matchedEngines = [];
+
+    if (normQuery.length >= 2) {
+        if (searchDiscsCache) {
+            Object.entries(searchDiscsCache).forEach(([key, disc]) => {
+                const nameFr = disc.name?.fr || '';
+                const nameEn = disc.name?.en || key;
+                if (normalizeSearchStr(nameFr).includes(normQuery) || normalizeSearchStr(nameEn).includes(normQuery) || normalizeSearchStr(key).includes(normQuery)) {
+                    matchedDiscs.push({
+                        key,
+                        displayName: (isEn ? nameEn : nameFr) || nameEn,
+                        img: disc.img
+                    });
+                }
+            });
+            matchedDiscs = matchedDiscs.slice(0, 5);
+        }
+        if (searchEnginesCache) {
+            Object.entries(searchEnginesCache).forEach(([key, eng]) => {
+                const nameFr = eng.name?.fr || '';
+                const nameEn = eng.name?.en || key;
+                if (normalizeSearchStr(nameFr).includes(normQuery) || normalizeSearchStr(nameEn).includes(normQuery) || normalizeSearchStr(key).includes(normQuery)) {
+                    matchedEngines.push({
+                        key,
+                        displayName: (isEn ? nameEn : nameFr) || nameEn,
+                        img: (eng.img || '').replace('.png', '.webp'),
+                        rank: eng.rank || 'S',
+                        specialty: eng.specialty || ''
+                    });
+                }
+            });
+            matchedEngines = matchedEngines.slice(0, 5);
+        }
+    }
+
+    if (filteredAgents.length > 0) {
+        firstSearchMatch = { type: 'agent', key: filteredAgents[0].name };
+    } else if (matchedDiscs.length > 0) {
+        firstSearchMatch = { type: 'disc', key: matchedDiscs[0].key };
+    } else if (matchedEngines.length > 0) {
+        firstSearchMatch = { type: 'engine', key: matchedEngines[0].key };
+    }
+
+    let sectionsHTML = '';
+    let animIndex = 0;
+
+    if (filteredAgents.length > 0) {
+        if (normQuery.length >= 2 && (matchedDiscs.length > 0 || matchedEngines.length > 0)) {
+            sectionsHTML += `<div class="px-3 py-1.5 bg-[#09090b] text-[9px] font-black uppercase tracking-widest text-zinc-500">Agents (${filteredAgents.length})</div>`;
+        }
+        sectionsHTML += filteredAgents.map((agent) => {
             const iconFile = iconMap[agent.element] || 'physique.png';
+            const delay = Math.min((animIndex++) * 12, 180);
+            const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
             return `
-            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${Math.min(delay * 12, 180)}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-10 h-10 rounded-lg bg-[#121212] border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Agents/${agent.name}.webp" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
-                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${agent.name}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" loading="lazy" decoding="async" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
+                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${displayName}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" loading="lazy" decoding="async" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
                 </div>
                 <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
             </div>`;
         }).join('');
+    }
+
+    if (matchedDiscs.length > 0) {
+        const discHeader = isEn ? 'Drive Discs' : 'Disques de poussée';
+        sectionsHTML += `<div class="px-3 py-1.5 bg-[#09090b] text-[9px] font-black uppercase tracking-widest text-[#d7f70c]">${discHeader} (${matchedDiscs.length})</div>`;
+        sectionsHTML += matchedDiscs.map(disc => {
+            const delay = Math.min((animIndex++) * 12, 180);
+            const jsSafeKey = disc.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            return `
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchItemSelect('disc', '${jsSafeKey}')">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-full bg-black border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Disque/${disc.img}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${disc.displayName}</span>
+                        <span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest mt-0.5">${isEn ? 'Drive Disc Set' : 'Set de disques'}</span>
+                    </div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+            </div>`;
+        }).join('');
+    }
+
+    if (matchedEngines.length > 0) {
+        const engHeader = isEn ? 'W-Engines' : 'Moteurs-Ampli';
+        sectionsHTML += `<div class="px-3 py-1.5 bg-[#09090b] text-[9px] font-black uppercase tracking-widest text-[#d7f70c]">${engHeader} (${matchedEngines.length})</div>`;
+        sectionsHTML += matchedEngines.map(eng => {
+            const delay = Math.min((animIndex++) * 12, 180);
+            const jsSafeKey = eng.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+            const rankColor = eng.rank === 'S' ? '#eab308' : (eng.rank === 'A' ? '#a855f7' : '#3b82f6');
+            return `
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchItemSelect('engine', '${jsSafeKey}')">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-lg bg-black border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors p-0.5"><img src="assets/W-Engine/${eng.img}" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${eng.displayName}</span>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span class="text-[9px] font-black uppercase" style="color: ${rankColor};">${isEn ? 'Rank' : 'Rang'} ${eng.rank}</span>
+                            ${eng.specialty ? `<span class="text-zinc-600 text-[9px]">•</span><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(eng.specialty)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+                <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+            </div>`;
+        }).join('');
+    }
+
+    const noResultText = isEn ? 'No signal found' : 'Aucun signal trouvé';
+    const html = sectionsHTML || `<div class="p-5 text-zinc-500 text-xs text-center italic font-bold">${noResultText}</div>`;
 
     const activeDrop = window.innerWidth >= 768 ? DOM.dropdowns[0] : DOM.dropdowns[1];
     if (activeDrop) activeDrop.innerHTML = html;
@@ -320,6 +486,17 @@ window.triggerSearchSelect = function(agentName) {
     DOM.dropdowns.forEach(drop => { if (drop) drop.classList.add('hidden'); });
     DOM.searchInputs.forEach(input => { if (input) input.blur(); });
     window.openAgentDetail(agentName);
+};
+
+window.triggerSearchItemSelect = function(type, key) {
+    DOM.dropdowns.forEach(drop => { if (drop) drop.classList.add('hidden'); });
+    DOM.searchInputs.forEach(input => { if (input) input.blur(); });
+    clearSearch();
+    if (type === 'disc' && typeof window.showDiscTooltip === 'function') {
+        window.showDiscTooltip(key);
+    } else if (type === 'engine' && typeof window.showEngineTooltip === 'function') {
+        window.showEngineTooltip(key);
+    }
 };
 
 // ==========================================
@@ -737,11 +914,12 @@ function renderAgents(isInitial = false) {
     let visibleIndex = 0;
     const versionCounts = {};
     const isVersionModeAll = State.mode === 'versions' && State.filters.version === 'All';
+    const normSearch = normalizeSearchStr(State.search);
 
     // 1. Filtrer en temps réel en combinant Élément + Rôle + Version (Zéro Reflow)
     DOM.agentCards.forEach((card) => {
         const agent = card.agent;
-        const matchSearch = agent.name.toLowerCase().includes(State.search.toLowerCase());
+        const matchSearch = !normSearch || normalizeSearchStr(agent.name).includes(normSearch) || (agent.name === 'Jane' && 'jane doe'.includes(normSearch));
         const matchElem = State.filters.element === 'All' || filterGroups[State.filters.element]?.includes(agent.element);
         const matchRole = State.filters.role === 'All' || agent.role === State.filters.role;
         const matchVersion = State.filters.version === 'All' || agent.version === State.filters.version;
@@ -903,6 +1081,13 @@ window.openModal = function(id) {
     if (id === 'agentDetailModal' || id === 'factionModal') {
         document.body.classList.add('modal-open');
     }
+    if ((id === 'factionModal' || id === 'mobileFilterModal') && m.classList.contains('hidden')) {
+        if (window.history.state?.modalId) {
+            window.history.replaceState({ modalId: id }, '', window.location.href);
+        } else {
+            window.history.pushState({ modalId: id }, '', window.location.href);
+        }
+    }
     m.classList.remove('hidden'); void m.offsetWidth; m.classList.add('opacity-100');
 };
 
@@ -951,6 +1136,8 @@ window.closeModal = function(id, updateUrl = true) {
         document.title = 'ProxyQG - Zenless Zone Zero Guides';
         const canonical = document.querySelector('link[rel="canonical"]');
         if (canonical) canonical.setAttribute('href', 'https://proxyqg.github.io/');
+    } else if (updateUrl && window.history.state?.modalId === id) {
+        window.history.back();
     }
     m.classList.remove('opacity-100');
   setTimeout(() => {
@@ -1209,9 +1396,9 @@ window.addEventListener('popstate', () => {
 
     // 1. Si la vidéo est ouverte, le retour mobile ferme uniquement la vidéo
     if (videoModal && !videoModal.classList.contains('hidden')) {
-        window.closeVideoModal();
-        return;
-    }
+    window.closeVideoModal(true);
+    return;
+}
 
     // 2. Si les factions ou le filtre mobile sont ouverts, on les ferme en priorité
     if (factionModal && !factionModal.classList.contains('hidden')) {
@@ -1343,7 +1530,10 @@ window.openVideoModal = function(videoId, startTime, event) {
         </div>
     `;
 
-    modal.classList.remove('hidden');
+    if (modal.classList.contains('hidden')) {
+    window.history.pushState({ videoModalOpen: true }, '', window.location.href);
+}
+modal.classList.remove('hidden');
     void modal.offsetWidth; 
     modal.classList.add('opacity-100');
     content.classList.remove('scale-95');
@@ -1367,15 +1557,19 @@ window.openVideoModal = function(videoId, startTime, event) {
 };
 
 // Fonction pour fermer la vidéo
-window.closeVideoModal = function() {
+window.closeVideoModal = function(fromPopstate = false) {
     const modal = document.getElementById('videoModal');
     const container = document.getElementById('youtubeContainer');
     const content = document.getElementById('videoModalContent');
-    if (!modal) return;
+    if (!modal || modal.classList.contains('hidden')) return;
 
     // Coupe le son immédiatement dès l'appui sur fermer (sans attendre les 300ms)
     if (currentPlayer && typeof currentPlayer.stopVideo === 'function') {
         currentPlayer.stopVideo();
+    }
+
+    if (fromPopstate !== true && window.history.state?.videoModalOpen) {
+        window.history.back();
     }
 
     modal.classList.remove('opacity-100');
