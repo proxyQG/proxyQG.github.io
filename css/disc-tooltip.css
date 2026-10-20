@@ -65,7 +65,6 @@
     justify-content: center;
 }
 
-/* Halo lumineux d'ambiance */
 .disc-turntable::before {
     content: "";
     position: absolute;
@@ -76,7 +75,6 @@
     z-index: 0;
 }
 
-/* Bague métallique crantée de la platine */
 .disc-platter-ring {
     position: absolute;
     inset: 0;
@@ -87,7 +85,6 @@
     z-index: 1;
 }
 
-/* Le disque vinyle (ne tourne que lorsque la modale est visible) */
 .disc-vinyl-plate {
     position: relative;
     width: 144px;
@@ -104,12 +101,10 @@
     will-change: transform;
 }
 
-/* Pause au survol pour admirer l'illustration */
 .disc-turntable:hover .disc-vinyl-plate {
     animation-play-state: paused;
 }
 
-/* Sillons concentriques ultra-fins */
 .disc-vinyl-plate::before {
     content: "";
     position: absolute;
@@ -126,7 +121,6 @@
     z-index: 3;
 }
 
-/* Reflet spéculaire dynamique */
 .disc-vinyl-plate::after {
     content: "";
     position: absolute;
@@ -192,6 +186,286 @@
     border-radius: 5px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+}
+
+/* ========================================================
+   MENU DÉROULANT TRAPÉZOÏDAL "RECOMMANDÉ SUR" & GRILLE 4 COL.
+======================================================== */
+.rec-accordion {
+    width: 100%;
+}
+
+.rec-trigger {
+    width: 100%;
+    padding: 1px;
+    border: none;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    display: block;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        calc(100% - 4px) calc(100% - 14px),
+        calc(50% + 28px) calc(100% - 14px),
+        calc(50% + 18px) 100%,
+        calc(50% - 18px) 100%,
+        calc(50% - 28px) calc(100% - 14px),
+        4px calc(100% - 14px),
+        0 8px
+    );
+    transition: background-color 0.25s ease, filter 0.25s ease;
+}
+
+.rec-trigger:hover,
+.rec-accordion.open .rec-trigger {
+    background: rgba(215, 247, 12, 0.65);
+    filter: drop-shadow(0 4px 14px rgba(215, 247, 12, 0.18));
+}
+
+.rec-trigger-inner {
+    width: 100%;
+    background: linear-gradient(180deg, #19191f 0%, #0d0d11 100%);
+    clip-path: polygon(
+        8px 0,
+        calc(100% - 8px) 0,
+        100% 8px,
+        calc(100% - 4px) calc(100% - 14px),
+        calc(50% + 27px) calc(100% - 14px),
+        calc(50% + 17px) 100%,
+        calc(50% - 17px) 100%,
+        calc(50% - 27px) calc(100% - 14px),
+        4px calc(100% - 14px),
+        0 8px
+    );
+    display: flex;
+    flex-direction: column;
+}
+
+.rec-trigger-top {
+    height: 38px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.rec-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.rec-trigger-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d7f70c;
+    box-shadow: 0 0 8px #d7f70c;
+    flex-shrink: 0;
+}
+
+.rec-trigger-title {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #e4e4e7;
+    white-space: nowrap;
+}
+
+.rec-trigger-count {
+    background: rgba(215, 247, 12, 0.14);
+    border: 1px solid rgba(215, 247, 12, 0.4);
+    color: #d7f70c;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 6px;
+    line-height: 1.3;
+}
+
+.rec-preview-stack {
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+}
+
+.rec-accordion.open .rec-preview-stack {
+    opacity: 0.35;
+}
+
+.rec-preview-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    background: #18181b;
+    border: 1.5px solid #09090b;
+    margin-left: -6px;
+}
+
+.rec-preview-avatar:first-child {
+    margin-left: 0;
+}
+
+.rec-preview-more {
+    margin-left: 4px;
+    font-size: 9px;
+    font-weight: 900;
+    color: #a1a1aa;
+    background: #1f1f25;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1px 5px;
+    border-radius: 999px;
+}
+
+.rec-trigger-tab {
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rec-chevron {
+    width: 12px;
+    height: 12px;
+    color: #a1a1aa;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.rec-trigger:hover .rec-chevron,
+.rec-accordion.open .rec-chevron {
+    color: #d7f70c;
+}
+
+.rec-accordion.open .rec-chevron {
+    transform: rotate(180deg);
+}
+
+/* Panneau accordéon fluide (0fr -> 1fr) */
+.rec-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease, margin-top 0.25s ease;
+    margin-top: 0;
+}
+
+.rec-accordion.open .rec-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.rec-panel-inner {
+    overflow: hidden;
+}
+
+/* Grille homogène de 4 colonnes */
+.rec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 2px;
+}
+
+.rec-agent-card {
+    background: #121216;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 0;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.rec-agent-card.is-primary {
+    border-color: rgba(215, 247, 12, 0.28);
+}
+
+.rec-agent-card:hover {
+    transform: translateY(-2px);
+    border-color: #d7f70c;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), 0 0 12px rgba(215, 247, 12, 0.22);
+}
+
+.rec-agent-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(circle at 50% 35%, #23232b 0%, #09090c 100%);
+    overflow: hidden;
+}
+
+.rec-agent-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.25s ease;
+}
+
+.rec-agent-card:hover .rec-agent-img {
+    transform: scale(1.08);
+}
+
+.rec-agent-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 2;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    padding: 1px 4px;
+    border-radius: 4px;
+    line-height: 1.2;
+}
+
+.rec-badge-primary {
+    background: #d7f70c;
+    color: #000000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.rec-badge-secondary {
+    background: rgba(24, 24, 27, 0.9);
+    color: #d4d4d8;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.rec-agent-name {
+    display: block;
+    width: 100%;
+    padding: 5px 4px;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #e4e4e7;
+    background: #0b0b0e;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.rec-agent-card:hover .rec-agent-name {
+    color: #000000;
+    background: #d7f70c;
 }
 
 /* Mode Mobile : Tiroir coulissant (Bottom Sheet) */
