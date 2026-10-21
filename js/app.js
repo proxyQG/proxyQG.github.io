@@ -1790,6 +1790,14 @@ async function initPatchCountdown() {
     const labels = document.querySelectorAll('.patch-timer-label');
     const subs = document.querySelectorAll('.patch-timer-sub');
     const clocks = document.querySelectorAll('.patch-timer-clock');
+    const badges = document.querySelectorAll('.patch-timer-badge');
+const avatarsBox = document.getElementById('patchTimerAvatars');
+if (avatarsBox && Array.isArray(timerData.featured) && timerData.featured.length > 0) {
+    avatarsBox.innerHTML = timerData.featured.map(name => {
+        const safe = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `<button type="button" onclick="window.openAgentDetail('${safe}')" title="Bannière : ${name}" class="w-7 h-7 rounded-full border border-zinc-700 hover:border-[#d7f70c] bg-zinc-900 overflow-hidden transition-transform hover:scale-110 hover:z-10 cursor-pointer relative shadow-md"><img src="assets/Agents/${name}.webp" decoding="sync" alt="${name}" class="w-full h-full object-cover object-top scale-110"></button>`;
+    }).join('');
+}
     const desktopBox = document.getElementById('patchTimerDesktop');
     const mobileBox = document.getElementById('patchTimerMobile');
 
@@ -1832,6 +1840,7 @@ async function initPatchCountdown() {
         const clockTxt = `${days}${dUnit} ${String(hours).padStart(2, '0')}H ${String(mins).padStart(2, '0')}M ${String(secs).padStart(2, '0')}S`;
 
         if (forceText || phaseTxt !== lastLabelTxt) {
+            badges.forEach(el => { el.textContent = `${patch} • P${phase}`; });
             labels.forEach(el => { el.textContent = phaseTxt; });
             lastLabelTxt = phaseTxt;
         }
