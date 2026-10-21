@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initKeyboardNavigation();
     initModals();
     initMobileDrawer();
+    initPatchCountdown();
     
     // Attend jusqu'à 60ms max le décodage RAM des portraits du 1er écran pour éviter tout carré noir initial
     if (window.__preloadedImgs && window.__preloadedImgs.length > 0) {
@@ -1619,6 +1620,7 @@ function initLanguageSwitcher() {
             const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
             langSwitcher.setAttribute('data-active', newLang); 
             setLanguage(newLang);
+            if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
             DOM.agentCards.forEach(c => {
                 const badge = c.el.querySelector('.agent-role-badge');
                 if (badge) {
@@ -1771,4 +1773,85 @@ if (installBtn) {
         installBtn.classList.add('hidden');
         installBtn.classList.remove('flex');
     });
+}
+
+// ==========================================
+// 14. COMPTE À REBOURS DYNAMIQUE PATCH / BANNIÈRE
+// ==========================================
+async function initPatchCountdown() {
+    let timerData = null;
+    try {
+        const res = await fetch('./js/data/patch_timer.json');
+        if (res.ok) timerData = await res.json();
+    } catch (e) {}
+
+    if (!timerData || !timerData.endDate) return;
+
+    const labels = document.querySelectorAll('.patch-timer-label');
+    const subs = document.querySelectorAll('.patch-timer-sub');
+    const clocks = document.querySelectorAll('.patch-timer-clock');
+    const desktopBox = document.getElementById('patchTimerDesktop');
+    const mobileBox = document.getElementById('patchTimerMobile');
+
+    let lastLabelTxt = '';
+    let lastSubTxt = '';
+
+    const updateTimer = (forceText = false) => {
+        if (!forceText && (document.hidden || document.body.classList.contains('modal-open'))) return;
+
+        const isEn = currentLang === 'en';
+        let endMs = Date.parse(timerData.endDate);
+        if (Number.isNaN(endMs)) return;
+
+        const now = Date.now();
+        let patch = timerData.patch || '3.3';
+        let phase = parseInt(timerData.phase || '1', 10);
+
+        while (now >= endMs) {
+            endMs += 21 * 24 * 60 * 60 * 1000;
+            if (phase === 1) {
+                phase = 2;
+            } else {
+                phase = 1;
+                const parts = String(patch).split('.');
+                patch = `${parts[0]}.${parseInt(parts[1] || '0', 10) + 1}`;
+            }
+        }
+
+        const diffSec = Math.max(0, Math.floor((endMs - now) / 1000));
+        const days = Math.floor(diffSec / 86400);
+        const hours = Math.floor((diffSec % 86400) / 3600);
+        const mins = Math.floor((diffSec % 3600) / 60);
+        const secs = diffSec % 60;
+
+        const dUnit = isEn ? 'D' : 'J';
+        const phaseTxt = `PATCH ${patch} • P${phase}`;
+        const subTxt = phase === 1
+            ? (isEn ? 'P2 IN:' : 'P2 DANS :')
+            : (isEn ? 'NEXT PATCH:' : 'PATCH SUIV. :');
+        const clockTxt = `${days}${dUnit} ${String(hours).padStart(2, '0')}H ${String(mins).padStart(2, '0')}M ${String(secs).padStart(2, '0')}S`;
+
+        if (forceText || phaseTxt !== lastLabelTxt) {
+            labels.forEach(el => { el.textContent = phaseTxt; });
+            lastLabelTxt = phaseTxt;
+        }
+        if (forceText || subTxt !== lastSubTxt) {
+            subs.forEach(el => { el.textContent = subTxt; });
+            lastSubTxt = subTxt;
+        }
+        clocks.forEach(el => { el.textContent = clockTxt; });
+
+        if (forceText && timerData.rawRange) {
+            const feat = Array.isArray(timerData.featured) && timerData.featured.length
+                ? ` (${timerData.featured.join(' / ')})`
+                : '';
+            const tooltipTitle = `Patch ${patch} Phase ${phase}${feat} : ${timerData.rawRange}`;
+            if (desktopBox) desktopBox.title = tooltipTitle;
+            if (mobileBox) mobileBox.title = tooltipTitle;
+        }
+    };
+
+    window.refreshPatchTimerLang = () => updateTimer(true);
+    updateTimer(true);
+    setInterval(() => updateTimer(false), 1000);
 }
