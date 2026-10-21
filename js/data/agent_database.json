@@ -13990,8 +13990,8 @@
                 "tag": { "fr": "Ordre Urbain 👑", "en": "Public Security 👑" },
                 "members": [
                     { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
-                    { "img": "nothing.webp", "color": "#3182eb", "initial": "Q" },
-                    { "img": "nothing.webp", "color": "#f23c8a", "initial": "A" }
+                    { "img": "Roxy.webp", "color": "#2dd4bf", "initial": "R" },
+                    { "img": "Sunna.webp", "color": "#e8a838", "initial": "S" }
                 ]
             }
         ]
