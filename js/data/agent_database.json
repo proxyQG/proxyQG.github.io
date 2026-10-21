@@ -3082,8 +3082,8 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Débutant",
-                    "en": "Starter"
+                    "fr": "Basique",
+                    "en": "Basic"
                 },
                 "members": [
                     {
@@ -3100,6 +3100,30 @@
                         "img": "",
                         "color": "#52525b",
                         "role": "Agents<br>Anomalies"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Velina.webp",
+                        "color": "#3bbedb",
+                        "initial": "V"
+                    },
+                    {
+                        "img": "Piper.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Lucy.webp",
+                        "color": "#f05432",
+                        "initial": "L"
                     }
                 ]
             }
@@ -12889,7 +12913,6 @@
                     "fr": "Synergie Stun-Abloom",
                     "en": "Stun-Abloom Synergy"
                 },
-                "videoId": "",
                 "members": [
                     {
                         "img": "Promeia.webp",
@@ -12905,6 +12928,30 @@
                         "img": "Yuzuha.webp",
                         "color": "#e8a838",
                         "initial": "Y"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Promeia.webp",
+                        "color": "#3bbedb",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+                    },
+                    {
+                        "img": "Soukaku.webp",
+                        "color": "#3bbedb",
+                        "initial": "S"
                     }
                 ]
             }
@@ -13133,6 +13180,30 @@
                         "img": "Lucia.webp",
                         "color": "#f23c8a",
                         "initial": "L"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Starlight Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "SB"
+                    },
+                    {
+                        "img": "Pulchra.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
                     }
                 ]
             }
