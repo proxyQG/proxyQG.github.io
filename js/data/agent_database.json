@@ -1361,6 +1361,30 @@
                         "initial": "Y"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Piper.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Nangong Yu.webp",
+                        "color": "#f23c8a",
+                        "initial": "NY"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+                    }
+                ]
             }
         ]
     },
@@ -3339,6 +3363,30 @@
                         "img": "",
                         "color": "#52525b",
                         "role": "Agent<br>Stun"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Cissia.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
+                    },
+                    {
+                        "img": "Anby.webp",
+                        "color": "#3182eb",
+                        "initial": "A"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
                     }
                 ]
             }
@@ -12471,6 +12519,30 @@
                         "img": "Sunna.webp",
                         "color": "#e8a838",
                         "initial": "S"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Aria.webp",
+                        "color": "#f23c8a",
+                        "initial": "A"
+                    },
+                    {
+                        "img": "Anby.webp",
+                        "color": "#3182eb",
+                        "initial": "A"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
                     }
                 ]
             }
