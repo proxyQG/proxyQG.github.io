@@ -98,6 +98,22 @@ jobs:
 
           out_path = Path("js/data/patch_timer.json")
           out_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          index_path = Path("index.html")
+          if index_path.exists():
+              idx_html = index_path.read_text(encoding="utf-8")
+              idx_html = re.sub(
+                  r'(<span class="patch-timer-badge[^>]*>)[^<]+(</span>)',
+                  rf'\g<1>{patch_num} • P{phase_num}\2',
+                  idx_html
+              )
+              idx_html = re.sub(
+                  r'(<span class="patch-timer-label[^>]*>)[^<]+(</span>)',
+                  rf'\g<1>PATCH {patch_num} • P{phase_num}\2',
+                  idx_html
+              )
+              index_path.write_text(idx_html, encoding="utf-8")
+
           print(f"Timer synchronisé : Patch {patch_num} Phase {phase_num} -> fin le {end_iso}")
           EOF
 
@@ -105,7 +121,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add js/data/patch_timer.json
+          git add js/data/patch_timer.json index.html
           if git diff --staged --quiet; then
             echo "Aucun changement de bannière."
           else
