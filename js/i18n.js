@@ -2,6 +2,8 @@
 export const ui = {
     fr: {
         searchPlaceholder: "Agent, disque, moteur...",
+        endOfZone: "Fin de la zone",
+        filtersTitle: "FILTRES",
         noSignal: "Aucun signal trouvé",
         signalAnalyzing: "En cours d'analyse",
         encryptedArchive: "Les archives de New Eridu pour <span class=\"text-zinc-400 font-bold\">{name}</span> sont actuellement cryptées.",
@@ -31,6 +33,8 @@ export const ui = {
     },
     en: {
         searchPlaceholder: "Agent, disc, W-Engine...",
+        endOfZone: "End of zone",
+        filtersTitle: "FILTERS",
         noSignal: "No signal found",
         signalAnalyzing: "Analyzing",
         encryptedArchive: "New Eridu archives for <span class=\"text-zinc-400 font-bold\">{name}</span> are currently encrypted.",
