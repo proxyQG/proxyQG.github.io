@@ -80,9 +80,18 @@
                         return;
                     }
 
+                    const hadHistory = !!window.history.state?.discTooltipOpen;
                     hideDiscTooltip(true);
-                    window.history.replaceState({}, '', '?' + new URLSearchParams({ agent: targetAgent }).toString());
                     window.openAgentDetail(targetAgent, false, isGuideOpen);
+                    if (isGuideOpen && hadHistory) {
+                        window.__ignoreNextPopstate = true;
+                        window.addEventListener('popstate', () => {
+                            window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(targetAgent)}/`);
+                        }, { once: true });
+                        window.history.back();
+                    } else {
+                        window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(targetAgent)}/`);
+                    }
                 }
             }
         });
@@ -344,6 +353,7 @@
         }
 
         if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
+            window.__ignoreNextPopstate = true;
             window.history.back();
         }
 
