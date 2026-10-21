@@ -179,21 +179,31 @@
         </div>
     </div>
 
-    <header class="bg-gradient-to-b from-[#0d0d10] to-[#070709] h-16 md:h-20 border-b border-zinc-800/90 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 shrink-0 relative flex items-center justify-between px-3.5 md:px-8">
+    <header class="bg-gradient-to-b from-[#0d0d10] to-[#070709] h-16 md:h-20 border-b border-zinc-800/90 shadow-[0_10px_30px_rgba(0,0,0,0.85)] z-50 shrink-0 relative flex items-center justify-between px-3.5 md:pl-4 md:pr-8">
         <!-- Filet lumineux H.D.D. inférieur -->
         <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#d7f70c]/35 to-transparent pointer-events-none"></div>
 
-        <!-- Module Gauche PC : Compte à rebours Patch / Bannière en direct -->
-        <div id="patchTimerDesktop" class="hidden xl:flex items-center gap-2.5 bg-[#121214] border border-zinc-800/90 hover:border-[#d7f70c]/50 px-3.5 py-1.5 rounded-full shadow-inner transition-colors z-20 cursor-default shrink-0" title="">
-            <div class="flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-[#d7f70c] shadow-[0_0_8px_#d7f70c] animate-pulse shrink-0"></span>
-                <span class="patch-timer-label text-[10px] font-display font-black uppercase tracking-wider text-zinc-200 whitespace-nowrap">PATCH 3.3 • P1</span>
+        <!-- Module Gauche PC : Cartouche H.D.D. alignée sur la Sidebar (308px) -->
+        <div id="patchTimerDesktop" class="hidden xl:flex items-center justify-between w-[308px] h-[44px] bg-[#121214]/95 border border-zinc-800/90 hover:border-[#d7f70c]/40 rounded-xl pl-2.5 pr-2.5 shadow-[inset_0_2px_8px_rgba(0,0,0,0.7)] transition-colors z-20 shrink-0 relative overflow-hidden">
+            <!-- Lueur latérale gauche -->
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#d7f70c] shadow-[0_0_10px_#d7f70c]"></div>
+
+            <!-- Badge Patch Biseauté façon Logo ZZZ -->
+            <div class="flex items-center gap-2.5 pl-1.5">
+                <div class="bg-[#d7f70c] px-2 py-0.5 skew-x-[-12deg] shadow-[0_0_12px_rgba(215,247,12,0.25)]">
+                    <span class="patch-timer-badge block text-black font-display font-black italic text-[10px] skew-x-[12deg] tracking-wider uppercase leading-tight whitespace-nowrap">3.3 • P1</span>
+                </div>
+                <div class="flex flex-col justify-center leading-none">
+                    <div class="flex items-center gap-1 mb-0.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#d7f70c] animate-pulse"></span>
+                        <span class="patch-timer-sub text-[8px] font-black uppercase tracking-[0.16em] text-zinc-500">P2 DANS :</span>
+                    </div>
+                    <span class="patch-timer-clock text-[12px] font-mono font-black text-white tracking-wider whitespace-nowrap" style="font-variant-numeric: tabular-nums;">--J --H --M --S</span>
+                </div>
             </div>
-            <div class="w-px h-3.5 bg-zinc-800 shrink-0"></div>
-            <div class="flex items-center gap-1.5">
-                <span class="patch-timer-sub text-[9px] font-bold uppercase tracking-widest text-zinc-500 whitespace-nowrap">P2 DANS :</span>
-                <span class="patch-timer-clock text-[11px] font-mono font-black text-[#d7f70c] tracking-wider whitespace-nowrap" style="font-variant-numeric: tabular-nums;">--J --H --M --S</span>
-            </div>
+
+            <!-- Mini-avatars cliquables des agents en bannière -->
+            <div id="patchTimerAvatars" class="flex items-center -space-x-1.5 pl-2 border-l border-zinc-800/80"></div>
         </div>
 
         <!-- Module Central : Logo ZZZ PROXYQG (Action instantanée 0ms) -->
