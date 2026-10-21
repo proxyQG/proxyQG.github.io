@@ -198,6 +198,9 @@ function initFilters(selector, filterType) {
             });
             renderAgents();
             scrollToTop();
+            if (btn.closest('#mobileFilterModal')) {
+                window.closeModal('mobileFilterModal');
+            }
         });
     });
 }
@@ -520,6 +523,9 @@ function initFavorites() {
                 }
             });
             renderAgents(); scrollToTop();
+            if (btn.closest('#mobileFilterModal')) {
+                window.closeModal('mobileFilterModal');
+            }
         });
     });
 }
@@ -1149,7 +1155,13 @@ window.closeModal = function(id, updateUrl = true) {
         
         const splash = document.getElementById('agentSplashImage'); 
 if (splash) { splash.style.opacity = '0'; }
-        if (updateUrl) window.history.pushState({}, '', '/'); 
+        if (updateUrl) {
+            if (window.history.state?.agentModal) {
+                window.history.back();
+            } else {
+                window.history.replaceState({}, '', '/');
+            }
+        }
         State.modalIndex = -1;
         State.currentAgent = null;
         State.agentHistory = [];
@@ -1195,7 +1207,13 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
-    if (updateUrl) window.history.pushState({}, '', `/agents/${encodeURIComponent(agentName)}/`);
+    if (updateUrl) {
+        if (modal.classList.contains('hidden')) {
+            window.history.pushState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
+        } else {
+            window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
+        }
+    }
 
 document.title = `${agentName} - Guide & Build | ProxyQG`;
 const canonical = document.querySelector('link[rel="canonical"]');
@@ -1466,7 +1484,7 @@ window.addEventListener('popstate', () => {
             if (isReturningToPrev) State.agentHistory.pop();
             window.openAgentDetail(matchingAgent.name, false, false, isReturningToPrev);
         }
-    } else if (modal && !modal.classList.contains('hidden')) {
+    } else if (modal && modal.classList.contains('opacity-100')) {
         window.closeModal('agentDetailModal', false);
     }
 });
@@ -1791,13 +1809,6 @@ async function initPatchCountdown() {
     const subs = document.querySelectorAll('.patch-timer-sub');
     const clocks = document.querySelectorAll('.patch-timer-clock');
     const badges = document.querySelectorAll('.patch-timer-badge');
-const avatarsBox = document.getElementById('patchTimerAvatars');
-if (avatarsBox && Array.isArray(timerData.featured) && timerData.featured.length > 0) {
-    avatarsBox.innerHTML = timerData.featured.map(name => {
-        const safe = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-        return `<button type="button" onclick="window.openAgentDetail('${safe}')" title="Bannière : ${name}" class="w-7 h-7 rounded-full border border-zinc-700 hover:border-[#d7f70c] bg-zinc-900 overflow-hidden transition-transform hover:scale-110 hover:z-10 cursor-pointer relative shadow-md"><img src="assets/Agents/${name}.webp" decoding="sync" alt="${name}" class="w-full h-full object-cover object-top scale-110"></button>`;
-    }).join('');
-}
     const desktopBox = document.getElementById('patchTimerDesktop');
     const mobileBox = document.getElementById('patchTimerMobile');
 
