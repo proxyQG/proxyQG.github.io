@@ -151,9 +151,18 @@
                         return;
                     }
 
+                    const hadHistory = !!window.history.state?.tooltipOpen;
                     hideTooltip(true);
-                    window.history.replaceState({}, '', '?' + new URLSearchParams({ agent: targetAgent }).toString());
                     window.openAgentDetail(targetAgent, false, isGuideOpen);
+                    if (isGuideOpen && hadHistory) {
+                        window.__ignoreNextPopstate = true;
+                        window.addEventListener('popstate', () => {
+                            window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(targetAgent)}/`);
+                        }, { once: true });
+                        window.history.back();
+                    } else {
+                        window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(targetAgent)}/`);
+                    }
                 }
             }
         });
@@ -246,6 +255,7 @@
         currentEngineKey = null;
 
         if (fromPopstate !== true && window.history.state?.tooltipOpen) {
+            window.__ignoreNextPopstate = true;
             window.history.back();
         }
     }
