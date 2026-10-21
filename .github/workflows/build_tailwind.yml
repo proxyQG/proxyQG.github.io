@@ -7,6 +7,7 @@ on:
       - 'index.html'
       - 'css/styles.css'
       - 'js/**'
+      - '!js/data/patch_timer.json'
       - '.github/workflows/build_tailwind.yml'
   workflow_dispatch:
 
@@ -52,6 +53,12 @@ jobs:
               r'<link rel="preload" href="assets/Agents/[^"]+\.webp" as="image"[^>]*>',
               new_preload,
               html
+          )
+
+          html_updated = re.sub(
+              r'(<span class="active-agent-count text-white">)\d+(</span>)',
+              rf'\g<1>{len(agents)}\2',
+              html_updated
           )
 
           with open("index.html", "w", encoding="utf-8") as f:
