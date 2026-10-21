@@ -51,7 +51,7 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
               <title>__SAFE_NAME__ - Guide & Build | ProxyQG</title>
               <meta name="description" content="Découvrez le meilleur build, disques, moteurs et synergies pour __SAFE_NAME__ sur Zenless Zone Zero.">
-              <link rel="canonical" href="https://proxyqg.github.io/?agent=__ENCODED__">
+              <link rel="canonical" href="https://proxyqg.github.io/agents/__ENCODED__/">
 
               <!-- Open Graph (Discord, Facebook) -->
               <meta property="og:type" content="website">
@@ -127,7 +127,7 @@ jobs:
 
               sitemap_urls.append(
                   "  <url>\n"
-                  f"    <loc>https://proxyqg.github.io/?agent={encoded}</loc>\n"
+                  f"    <loc>https://proxyqg.github.io/agents/{encoded}/</loc>\n"
                   f"    <lastmod>{today}</lastmod>\n"
                   "    <changefreq>weekly</changefreq>\n"
                   "    <priority>0.8</priority>\n"
