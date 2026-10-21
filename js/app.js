@@ -962,6 +962,16 @@ function renderAgents(isInitial = false) {
     });
     updateActiveFiltersBar(hasAnyActiveFilter);
 
+    const hasDrawerFilter = State.filters.element !== 'All' || State.filters.role !== 'All' || State.filters.version !== 'All' || State.faction !== null || State.showFavorites;
+    if (DOM.mobileFilterBtn) {
+        DOM.mobileFilterBtn.classList.toggle('border-[#d7f70c]', hasDrawerFilter);
+        DOM.mobileFilterBtn.classList.toggle('bg-[#d7f70c]/10', hasDrawerFilter);
+        DOM.mobileFilterBtn.classList.toggle('border-zinc-800', !hasDrawerFilter);
+        DOM.mobileFilterBtn.classList.toggle('bg-[#151515]', !hasDrawerFilter);
+        const activeDot = document.getElementById('mobileFilterActiveDot');
+        if (activeDot) activeDot.classList.toggle('hidden', !hasDrawerFilter);
+    }
+
     // 2. Gérer les séparateurs de versions et leurs compteurs
     DOM.separators.forEach(sep => {
         const v = sep.getAttribute('data-version');
@@ -1157,6 +1167,7 @@ window.closeModal = function(id, updateUrl = true) {
 if (splash) { splash.style.opacity = '0'; }
         if (updateUrl) {
             if (window.history.state?.agentModal) {
+                window.__ignoreNextPopstate = true;
                 window.history.back();
             } else {
                 window.history.replaceState({}, '', '/');
@@ -1170,6 +1181,7 @@ if (splash) { splash.style.opacity = '0'; }
         const canonical = document.querySelector('link[rel="canonical"]');
         if (canonical) canonical.setAttribute('href', 'https://proxyqg.github.io/');
     } else if (updateUrl && window.history.state?.modalId === id) {
+        window.__ignoreNextPopstate = true;
         window.history.back();
     }
     m.classList.remove('opacity-100');
@@ -1430,6 +1442,10 @@ function getAgentFromUrl() {
 }
 
 window.addEventListener('popstate', () => {
+    if (window.__ignoreNextPopstate) {
+        window.__ignoreNextPopstate = false;
+        return;
+    }
     const modal = document.getElementById('agentDetailModal');
     const agentParam = getAgentFromUrl();
     const tooltip = document.getElementById('proxy-tooltip');
@@ -1613,6 +1629,7 @@ window.closeVideoModal = function(fromPopstate = false) {
     }
 
     if (fromPopstate !== true && window.history.state?.videoModalOpen) {
+        window.__ignoreNextPopstate = true;
         window.history.back();
     }
 
@@ -1659,8 +1676,9 @@ function initLanguageSwitcher() {
             }
             // -------------------------------------------
 
+            updateDropdownUI(State.search);
             renderAgents(); scrollToTop();
-            if (State.currentAgent && !document.getElementById('agentDetailModal').classList.contains('hidden')) { 
+            if (State.currentAgent && !document.getElementById('agentDetailModal').classList.contains('hidden')) {
              const { getGuideHTML } = await import('./guides/index.js');
              document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent)); 
          }
