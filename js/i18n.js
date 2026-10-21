@@ -1,7 +1,7 @@
 // Dictionnaire global de l'interface
 export const ui = {
     fr: {
-        searchPlaceholder: "Rechercher un agent...",
+        searchPlaceholder: "Agent, disque, moteur...",
         noSignal: "Aucun signal trouvé",
         signalAnalyzing: "En cours d'analyse",
         encryptedArchive: "Les archives de New Eridu pour <span class=\"text-zinc-400 font-bold\">{name}</span> sont actuellement cryptées.",
@@ -30,7 +30,7 @@ export const ui = {
         resetFilters: "Réinitialiser"
     },
     en: {
-        searchPlaceholder: "Search an agent...",
+        searchPlaceholder: "Agent, disc, W-Engine...",
         noSignal: "No signal found",
         signalAnalyzing: "Analyzing",
         encryptedArchive: "New Eridu archives for <span class=\"text-zinc-400 font-bold\">{name}</span> are currently encrypted.",
