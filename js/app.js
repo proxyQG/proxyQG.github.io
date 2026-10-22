@@ -1244,7 +1244,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
         if (modal.classList.contains('hidden')) {
             window.history.pushState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
         } else {
-            window.history.replaceState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
+            window.history.replaceState({ agentModal: window.history.state?.agentModal === true }, '', `/agents/${encodeURIComponent(agentName)}/`);
         }
     }
 
