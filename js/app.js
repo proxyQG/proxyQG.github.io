@@ -238,8 +238,8 @@ window.handleLogoClick = function(e) {
     if (e && (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1)) return;
     if (e) e.preventDefault();
 
-    if (typeof window.hideTooltip === 'function') window.hideTooltip(true);
-    if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip(true);
+    if (typeof window.hideTooltip === 'function') window.hideTooltip();
+    if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip();
 
     window.resetAllFilters();
 };
@@ -1108,6 +1108,9 @@ function preloadGuideAssetsFromHTML(guideHTML) {
 }
 
 window.preloadSplash = function(agentName) {
+    const cached = splashCache.get(agentName);
+    if (cached) return cached.loaded;
+
     // Précharge le module de guide ET toutes ses icônes (disques, moteurs, skills) en RAM
     import('./guides/index.js').then(({ getGuideHTML }) => {
         const meta = agentsData.find(a => a.name === agentName);
@@ -1116,11 +1119,15 @@ window.preloadSplash = function(agentName) {
         if (html) preloadGuideAssetsFromHTML(html);
     }).catch(() => {});
 
-    const cached = splashCache.get(agentName);
-    if (cached) return cached.loaded;
-
     const img = new Image();
-    const loaded = new Promise(resolve => { img.onload = img.onerror = () => resolve(); });
+    img.decoding = 'async';
+    const loaded = new Promise(resolve => {
+        img.onload = () => {
+            if (img.decode) img.decode().catch(() => {}).finally(resolve);
+            else resolve();
+        };
+        img.onerror = () => resolve();
+    });
     img.src = `assets/splash/${agentName}.webp`;
     splashCache.set(agentName, { img, loaded });
     if (splashCache.size > SPLASH_CACHE_MAX) splashCache.delete(splashCache.keys().next().value);
@@ -1243,21 +1250,21 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
     updateModalNavigation();
+    const modalScroll = document.getElementById('agentModalScroll');
+    const modalWasHidden = modal.classList.contains('hidden') || !modal.classList.contains('opacity-100');
+    const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
+
     if (updateUrl) {
-        if (modal.classList.contains('hidden')) {
+        if (modalWasHidden) {
             window.history.pushState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
         } else {
             window.history.replaceState({ agentModal: window.history.state?.agentModal === true }, '', `/agents/${encodeURIComponent(agentName)}/`);
         }
     }
 
-document.title = `${agentName} - Guide & Build | ProxyQG`;
-const canonical = document.querySelector('link[rel="canonical"]');
-if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
-    
-    const modalScroll = document.getElementById('agentModalScroll');
-    const modalWasHidden = modal.classList.contains('hidden') || !modal.classList.contains('opacity-100');
-    const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
+    document.title = `${agentName} - Guide & Build | ProxyQG`;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
 
     // Si on a défilé vers le bas sur mobile, on coupe l'ancien splash en 0ms avant de remonter
     const shouldAnimateFadeOut = !!splashImg && splashImg.style.opacity === '1' && !isScrolledDown;
@@ -1266,14 +1273,15 @@ if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/
         splashImg.loading = 'eager';
         splashImg.style.transitionDuration = shouldAnimateFadeOut ? `${SPLASH_FADE_OUT_MS}ms` : '0ms';
         splashImg.style.opacity = '0';
-        if (!shouldAnimateFadeOut) void splashImg.offsetWidth; // Applique l'opacité 0 avant la remontée du scroll
     }
-    // Masque l'ancien guide pendant le changement
     if (giantName) giantName.textContent = agentName;
 
     // 1. Ouvre la modale uniquement si elle était fermée
     if (modalWasHidden) {
         window.openModal('agentDetailModal');
+    }
+    if (splashImg && !shouldAnimateFadeOut) {
+        void splashImg.offsetWidth; // Valide l'opacité 0 une fois la modale visible
     }
 
     // 2. Remonte la modale en haut immédiatement (0 ms de décalage)
@@ -1297,7 +1305,8 @@ if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/
             await Promise.race([decoded, wait(SPLASH_DECODE_TIMEOUT_MS)]);
             if (token !== openAgentToken) return;
 
-            splashImg.style.transitionDuration = ''; // fondu d'entrée à la vitesse normale (CSS)
+            void splashImg.offsetWidth; // Garantit le déclenchement du fondu de 200ms même en cache RAM
+            splashImg.style.transitionDuration = '';
             splashImg.style.opacity = '1';
         })();
     }
