@@ -1813,7 +1813,30 @@
             },
             {
                 "name": "TEAM 03",
-                "tag": "Free To Play",
+                "tag": {
+                    "fr": "Tentacules grillées",
+                    "en": "Grilled Tentacles"
+                "members": [
+                    {
+                        "img": "Yidhari.webp",
+                        "color": "#3bbedb",
+                        "initial": "Y"
+                    },
+                    {
+                        "img": "Norma.webp",
+                        "color": "#f05432",
+                        "initial": "N"
+                    },
+                    {
+                        "img": "Lucia.webp",
+                        "color": "#f23c8a",
+                        "initial": "L"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": "F2P",
                 "members": [
                     {
                         "img": "Yidhari.webp",
@@ -12113,6 +12136,30 @@
                         "img": "Rina.webp",
                         "color": "#3182eb",
                         "initial": "R"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "B"
+                    },
+                    {
+                        "img": "Dialyn.webp",
+                        "color": "#e8a838",
+                        "initial": "D"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
                     }
                 ]
             }
