@@ -296,7 +296,6 @@ function initSearch() {
         });
         input.addEventListener('blur', () => {
             if (shortcutHint && input.id === 'searchInput' && !input.value) shortcutHint.classList.remove('hidden');
-            setTimeout(() => DOM.dropdowns.forEach(d => d && d.classList.add('hidden')), 250);
         });
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
@@ -324,11 +323,22 @@ function initSearch() {
     });
     DOM.clearBtns.forEach(btn => { if (btn) btn.addEventListener('click', clearSearch); });
 
-    // Raccourci clavier "/" pour cibler la barre de recherche
+    // Ferme le menu déroulant uniquement si l'utilisateur clique en dehors de la zone de recherche
+    document.addEventListener('pointerdown', (e) => {
+        const insideSearch = DOM.searchInputs.some(inp => inp && inp.parentElement?.parentElement?.contains(e.target));
+        if (!insideSearch) {
+            DOM.dropdowns.forEach(d => d && d.classList.add('hidden'));
+        }
+    });
+
+    // Raccourci clavier "/" pour cibler la barre de recherche (bloqué si une modale ou infobulle est active)
     document.addEventListener('keydown', (e) => {
         if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
-            const modalOpen = !document.getElementById('agentDetailModal')?.classList.contains('hidden');
-            if (!modalOpen && DOM.searchInputs[0]) {
+            const anyOverlayOpen = document.body.classList.contains('modal-open')
+                || !document.getElementById('videoModal')?.classList.contains('hidden')
+                || document.getElementById('proxy-tooltip')?.classList.contains('visible')
+                || document.getElementById('disc-tooltip-modal')?.classList.contains('visible');
+            if (!anyOverlayOpen && DOM.searchInputs[0]) {
                 e.preventDefault();
                 DOM.searchInputs[0].focus();
             }
@@ -729,6 +739,14 @@ window.renderModalFactions = function(force = false) {
 };
 
 window.setFactionFilter = function(faction, fromModal = false, isLangSwitch = false) {
+    if (!isLangSwitch && State.faction === faction) {
+        State.faction = null;
+        document.querySelectorAll('.active-faction-tag').forEach(t => { t.classList.add('hidden'); t.classList.remove('flex'); });
+        if (fromModal) window.closeModal('factionModal');
+        renderAgents();
+        scrollToTop();
+        return;
+    }
     if (!isLangSwitch) State.faction = faction; 
     const tags = document.querySelectorAll('.active-faction-tag');
     const nameLabels = document.querySelectorAll('.active-faction-name');
@@ -1193,6 +1211,7 @@ if (splash) { splash.style.opacity = '0'; }
       const fModal = document.getElementById('factionModal');
       if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
           document.body.classList.remove('modal-open');
+          if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
       }
   }, 300);
 };
@@ -1510,12 +1529,32 @@ window.shareCurrentAgent = function() {
     if (!agentName) return;
     // Génère le lien dédié à l'agent avec sa vignette Discord personnalisée
     const url = `${window.location.origin}/agents/${encodeURIComponent(agentName)}/`;
-    navigator.clipboard.writeText(url).then(() => {
+    const showToast = () => {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;
-        toast.classList.remove('-translate-y-32', 'opacity-0'); toast.classList.add('translate-y-0', 'opacity-100');
-        setTimeout(() => { toast.classList.remove('translate-y-0', 'opacity-100'); toast.classList.add('-translate-y-32', 'opacity-0'); }, 3000);
-    });
+        toast.classList.remove('-translate-y-32', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+            toast.classList.remove('translate-y-0', 'opacity-100');
+            toast.classList.add('-translate-y-32', 'opacity-0');
+        }, 3000);
+    };
+    const fallbackCopy = () => {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showToast(); } catch (e) {}
+        document.body.removeChild(ta);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showToast).catch(fallbackCopy);
+    } else {
+        fallbackCopy();
+    }
 };
 
 async function checkUrlForAgent() {
@@ -1890,6 +1929,9 @@ async function initPatchCountdown() {
     };
 
     window.refreshPatchTimerLang = () => updateTimer(true);
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) updateTimer(false);
+    });
     updateTimer(true);
     setInterval(() => updateTimer(false), 1000);
 }
