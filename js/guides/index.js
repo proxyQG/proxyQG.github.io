@@ -3,9 +3,13 @@ import { generateGuideFromData } from './template.js';
 
 let cachedDatabase = null;
 let cachedMindscapes = null;
+let dbLoadPromise = null;
 
-export async function getGuideHTML(agentName, agentMeta = null) {
-    // 1. Lecture synchrone depuis le sessionStorage si les données ne sont pas encore en mémoire RAM
+export function preloadGuideDatabases() {
+    if (cachedDatabase && cachedMindscapes) return Promise.resolve();
+    if (dbLoadPromise) return dbLoadPromise;
+
+    // 1. Lecture synchrone depuis le sessionStorage si disponible
     if (!cachedDatabase) {
         const storedDB = sessionStorage.getItem('zzz_agent_db');
         if (storedDB) {
@@ -22,33 +26,42 @@ export async function getGuideHTML(agentName, agentMeta = null) {
         }
     }
 
-    // 2. Téléchargement en parallèle (HTTP/2) de ce qui manque
-    const fetchPromises = [];
     const needDB = !cachedDatabase;
     const needMS = !cachedMindscapes;
+    if (!needDB && !needMS) return Promise.resolve();
 
+    // 2. Téléchargement en parallèle (HTTP/2) unique et partagé
+    const fetchPromises = [];
     if (needDB) fetchPromises.push(fetch('./js/data/agent_database.json').then(r => r.json()));
     if (needMS) fetchPromises.push(fetch('./js/data/mindscapes.json').then(r => r.json()));
 
-    if (fetchPromises.length > 0) {
+    dbLoadPromise = Promise.all(fetchPromises).then(results => {
+        let idx = 0;
+        if (needDB) {
+            cachedDatabase = results[idx++];
+            sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase));
+        }
+        if (needMS) {
+            cachedMindscapes = results[idx++];
+            sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes));
+        }
+    }).finally(() => {
+        dbLoadPromise = null;
+    });
+
+    return dbLoadPromise;
+}
+
+export async function getGuideHTML(agentName, agentMeta = null) {
+    if (!cachedDatabase || !cachedMindscapes) {
         try {
-            const results = await Promise.all(fetchPromises);
-            let idx = 0;
-            if (needDB) {
-                cachedDatabase = results[idx++];
-                sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase));
-            }
-            if (needMS) {
-                cachedMindscapes = results[idx++];
-                sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes));
-            }
+            await preloadGuideDatabases();
         } catch (error) {
             console.error("Erreur lors du chargement des guides :", error);
             if (!cachedDatabase) return generateGenericGuide(agentName);
         }
     }
 
-    // 3. Affichage du guide
     if (cachedDatabase && cachedDatabase[agentName]) {
         return generateGuideFromData(agentName, cachedDatabase[agentName], cachedMindscapes || {}, agentMeta);
     } else {
