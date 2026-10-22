@@ -54,41 +54,22 @@
 
     <style>
         @font-face {
-            font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap;
+            font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: block;
             src: url('/assets/fonts/inter-latin-wght-normal.woff2') format('woff2');
         }
         @font-face {
-            font-family: 'Inter'; font-style: italic; font-weight: 100 900; font-display: swap;
+            font-family: 'Inter'; font-style: italic; font-weight: 100 900; font-display: block;
             src: url('/assets/fonts/inter-latin-wght-italic.woff2') format('woff2');
         }
         @font-face {
-            font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; font-display: swap;
+            font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; font-display: block;
             src: url('/assets/fonts/montserrat-latin-wght-normal.woff2') format('woff2');
         }
         @font-face {
-            font-family: 'Montserrat'; font-style: italic; font-weight: 100 900; font-display: swap;
+            font-family: 'Montserrat'; font-style: italic; font-weight: 100 900; font-display: block;
             src: url('/assets/fonts/montserrat-latin-wght-italic.woff2') format('woff2');
         }
-
-        /* Filet de sécurité : page masquée tant que les polices critiques ne sont pas prêtes */
-        html.fonts-pending body { opacity: 0; }
-        body { transition: opacity .15s ease; }
     </style>
-    <script>
-        (function () {
-            var root = document.documentElement;
-            if (!document.fonts || !document.fonts.load) return;
-            root.classList.add('fonts-pending');
-            var release = function () { root.classList.remove('fonts-pending'); };
-            setTimeout(release, 1200); // garde-fou : jamais plus de 1,2 s de page masquée
-            Promise.all([
-                document.fonts.load('400 1em Inter'),
-                document.fonts.load('900 1em Inter'),
-                document.fonts.load('900 1em Montserrat'),
-                document.fonts.load('italic 900 1em Montserrat')
-            ]).then(release, release);
-        })();
-    </script>
 
     <!-- 2. SEO & Canonique -->
     <title>ProxyQG - Zenless Zone Zero Guides</title>
