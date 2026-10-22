@@ -13899,8 +13899,8 @@
         },
         "stats": [
             { "label": "Maîtrise d'Anomalie", "value": "255" },
-            { "label": "Adresse d'Anomalie", "value": "400-420+" },
-            { "label": "Attaque", "value": "2800-3000+" }
+            { "label": "Adresse d'Anomalie", "value": "330-420+" },
+            { "label": "Attaque", "value": "2400-2600+" }
         ],
         "discs": [
             {
