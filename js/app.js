@@ -1083,7 +1083,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
 // On garde l'objet Image pour que le navigateur conserve le fichier en mémoire ;
 // la taille est limitée aux derniers splashs demandés.
 const SPLASH_CACHE_MAX = 16;
-const SPLASH_FADE_OUT_MS = 120;       // fondu de sortie de l'ancien splash
+const SPLASH_FADE_OUT_MS = 70;        // fondu de sortie rapide de l'ancien splash
 const SPLASH_LOAD_TIMEOUT_MS = 600;   // attente max du téléchargement avant de changer l'image
 const SPLASH_DECODE_TIMEOUT_MS = 2500; // attente max du décodage avant de révéler quand même
 const splashCache = new Map();
@@ -1180,7 +1180,7 @@ window.closeModal = function(id, updateUrl = true) {
         openAgentToken++; // annule les ouvertures encore en attente (splash / guide)
         // Rétablit l'affichage de la grille principale
         document.documentElement.classList.remove('direct-agent-load');
-        
+
         if (updateUrl) {
             if (window.history.state?.agentModal) {
                 window.__ignoreNextPopstate = true;
@@ -1201,21 +1201,24 @@ window.closeModal = function(id, updateUrl = true) {
         window.history.back();
     }
     m.classList.remove('opacity-100');
-  setTimeout(() => {
-      if (!m.classList.contains('opacity-100')) {
-                    m.classList.add('hidden');
-          if (id === 'agentDetailModal') {
-              const splash = document.getElementById('agentSplashImage');
-              if (splash) splash.style.opacity = '0';
-          }
-      }
-      const aModal = document.getElementById('agentDetailModal');
-      const fModal = document.getElementById('factionModal');
-      if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
-          document.body.classList.remove('modal-open');
-          if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
-      }
-  }, 300);
+    setTimeout(() => {
+        if (!m.classList.contains('opacity-100')) {
+            m.classList.add('hidden');
+            if (id === 'agentDetailModal') {
+                const splash = document.getElementById('agentSplashImage');
+                if (splash) {
+                    splash.style.transitionDuration = '0ms';
+                    splash.style.opacity = '0';
+                }
+            }
+        }
+        const aModal = document.getElementById('agentDetailModal');
+        const fModal = document.getElementById('factionModal');
+        if ((!aModal || aModal.classList.contains('hidden')) && (!fModal || fModal.classList.contains('hidden'))) {
+            document.body.classList.remove('modal-open');
+            if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
+        }
+    }, 300);
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
@@ -1253,7 +1256,7 @@ const canonical = document.querySelector('link[rel="canonical"]');
 if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
     
     const modalScroll = document.getElementById('agentModalScroll');
-    const modalWasHidden = modal.classList.contains('hidden');
+    const modalWasHidden = modal.classList.contains('hidden') || !modal.classList.contains('opacity-100');
     const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
 
     // Si on a défilé vers le bas sur mobile, on coupe l'ancien splash en 0ms avant de remonter
