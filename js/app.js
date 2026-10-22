@@ -108,7 +108,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // Préchargement furtif au premier contact humain (Guides + Reste des portraits de la grille)
+    // 1. Hydratation du reste de la grille uniquement au scroll ou souris (zéro congestion sur le 1er clic mobile)
+    let gridFullyHydrated = false;
+    const hydrateAllRemainingCards = () => {
+        if (gridFullyHydrated) return;
+        gridFullyHydrated = true;
+        ['mousemove', 'wheel', 'scroll'].forEach(evt => {
+            window.removeEventListener(evt, hydrateAllRemainingCards);
+        });
+        if (DOM.scrollArea) DOM.scrollArea.removeEventListener('scroll', hydrateAllRemainingCards);
+        DOM.agentCards.forEach(c => hydrateCardImage(c.el));
+    };
+    ['mousemove', 'wheel', 'scroll'].forEach(evt => {
+        window.addEventListener(evt, hydrateAllRemainingCards, { passive: true });
+    });
+    if (DOM.scrollArea) DOM.scrollArea.addEventListener('scroll', hydrateAllRemainingCards, { passive: true });
+
+    // 2. Préchargement furtif du moteur de guides et des JSON dès le 1er contact
     let guidesPreloaded = false;
     const preloadGuides = (e) => {
         if (guidesPreloaded) return;
@@ -118,10 +134,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.removeEventListener(evt, preloadGuides);
         });
 
-        // Charge immédiatement toutes les images restantes de la grille avant même le début du scroll
-        DOM.agentCards.forEach(c => hydrateCardImage(c.el));
-
-        const load = () => import('./guides/index.js').catch(() => {});
+        const load = () => import('./guides/index.js')
+            .then(m => m.preloadGuideDatabases && m.preloadGuideDatabases())
+            .catch(() => {});
 
         if (e && (e.type === 'touchstart' || e.type === 'pointerdown')) {
             load();
@@ -1107,20 +1122,17 @@ function preloadGuideAssetsFromHTML(guideHTML) {
     }));
 }
 
-window.preloadSplash = function(agentName) {
+window.preloadSplash = function(agentName, isPriority = false, includeGuideAssets = true) {
     const cached = splashCache.get(agentName);
-    if (cached) return cached.loaded;
-
-    // Précharge le module de guide ET toutes ses icônes (disques, moteurs, skills) en RAM
-    import('./guides/index.js').then(({ getGuideHTML }) => {
-        const meta = agentsData.find(a => a.name === agentName);
-        if (meta) return getGuideHTML(agentName, meta);
-    }).then(html => {
-        if (html) preloadGuideAssetsFromHTML(html);
-    }).catch(() => {});
+    if (cached) {
+        if (isPriority && cached.img) cached.img.fetchPriority = 'high';
+        return cached.loaded;
+    }
 
     const img = new Image();
     img.decoding = 'async';
+    img.fetchPriority = isPriority ? 'high' : 'low';
+
     const loaded = new Promise(resolve => {
         img.onload = () => {
             if (img.decode) img.decode().catch(() => {}).finally(resolve);
@@ -1131,6 +1143,19 @@ window.preloadSplash = function(agentName) {
     img.src = `assets/splash/${agentName}.webp`;
     splashCache.set(agentName, { img, loaded });
     if (splashCache.size > SPLASH_CACHE_MAX) splashCache.delete(splashCache.keys().next().value);
+
+    // En préchargement d'arrière-plan (survol PC ou voisins), attend la fin du splash avant de précharger les icônes du guide
+    if (!isPriority && includeGuideAssets) {
+        loaded.then(() => {
+            return import('./guides/index.js').then(({ getGuideHTML }) => {
+                const meta = agentsData.find(a => a.name === agentName);
+                if (meta) return getGuideHTML(agentName, meta);
+            });
+        }).then(html => {
+            if (html) preloadGuideAssetsFromHTML(html);
+        }).catch(() => {});
+    }
+
     return loaded;
 };
 // -------------------------------------------------------------------------
@@ -1249,7 +1274,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     const guideContainer = document.getElementById('agentGuideContainer');
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
-    updateModalNavigation();
+    updateModalNavigation(false);
     const modalScroll = document.getElementById('agentModalScroll');
     const modalWasHidden = modal.classList.contains('hidden') || !modal.classList.contains('opacity-100');
     const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
@@ -1271,6 +1296,7 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     if (splashImg) {
         splashImg.alt = agentName === 'Jane' ? 'Jane Doe' : agentName;
         splashImg.loading = 'eager';
+        splashImg.fetchPriority = 'high';
         splashImg.style.transitionDuration = shouldAnimateFadeOut ? `${SPLASH_FADE_OUT_MS}ms` : '0ms';
         splashImg.style.opacity = '0';
     }
@@ -1289,27 +1315,25 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
         modalScroll.scrollTop = 0;
     }
 
-    // 2bis. Change puis révèle le splash dès que la nouvelle image est prête
-    if (splashImg) {
-        (async () => {
-            await Promise.all([
-                Promise.race([window.preloadSplash(agentName), wait(SPLASH_LOAD_TIMEOUT_MS)]),
-                wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
-            ]);
-            if (token !== openAgentToken) return;
+    // 2bis. Charge le splash actif en priorité haute, puis révèle l'image une fois 100% décodée
+    const splashReadyPromise = splashImg ? (async () => {
+        await Promise.all([
+            Promise.race([window.preloadSplash(agentName, true, false), wait(SPLASH_DECODE_TIMEOUT_MS)]),
+            wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
+        ]);
+        if (token !== openAgentToken) return;
 
-            splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
-            splashImg.src = `assets/splash/${agentName}.webp`;
+        splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
+        splashImg.src = `assets/splash/${agentName}.webp`;
 
-            const decoded = splashImg.decode ? splashImg.decode().catch(() => {}) : Promise.resolve();
-            await Promise.race([decoded, wait(SPLASH_DECODE_TIMEOUT_MS)]);
-            if (token !== openAgentToken) return;
+        const decoded = splashImg.decode ? splashImg.decode().catch(() => {}) : Promise.resolve();
+        await Promise.race([decoded, wait(SPLASH_DECODE_TIMEOUT_MS)]);
+        if (token !== openAgentToken) return;
 
-            void splashImg.offsetWidth; // Garantit le déclenchement du fondu de 200ms même en cache RAM
-            splashImg.style.transitionDuration = '';
-            splashImg.style.opacity = '1';
-        })();
-    }
+        void splashImg.offsetWidth; // Garantit le déclenchement du fondu de 200ms même en cache RAM
+        splashImg.style.transitionDuration = '';
+        splashImg.style.opacity = '1';
+    })() : Promise.resolve();
 
     // 3. Charge, pré-décode les icônes (disques/moteurs) en RAM, puis injecte le guide
     if (guideContainer) {
@@ -1321,29 +1345,34 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
             if (token !== openAgentToken) return;
             guideContainer.innerHTML = guideHTML;
             guideContainer.scrollTo(0, 0);
-            
-            setTimeout(preloadTeammatesFromDOM, 350);
-            setTimeout(initGuideDragScroll, 350);
+            initGuideDragScroll();
+
+            // 4. Attend que le splash de l'agent actuel soit affiché avant de précharger les voisins et coéquipiers
+            splashReadyPromise.then(() => {
+                if (token !== openAgentToken) return;
+                updateModalNavigation(true);
+                setTimeout(() => {
+                    if (token === openAgentToken) preloadTeammatesFromDOM();
+                }, 150);
+            });
         } catch (err) {
             console.error("Erreur lors du chargement du guide :", err);
         }
     }
 };
 
-// Préchargement discret des coéquipiers du guide en arrière-plan
+// Préchargement discret des splashs des coéquipiers du guide en arrière-plan (sans leurs icônes)
 function preloadTeammatesFromDOM() {
     const guideContainer = document.getElementById('agentGuideContainer');
     if (!guideContainer) return;
 
-    // Détecte tous les liens vers d'autres agents dans les équipes
     const triggers = guideContainer.querySelectorAll('[onclick*="openAgentDetail"]');
     triggers.forEach(el => {
         const attr = el.getAttribute('onclick') || '';
-        // Accepte aussi les appels avec arguments supplémentaires : openAgentDetail('Nom', true, true)
         const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
         if (match && match[2]) {
-            window.preloadSplash(match[2].replace(/\\(.)/g, '$1'));
-        } // <-- C'est cette accolade qu'il manquait avant de fermer la boucle forEach !
+            window.preloadSplash(match[2].replace(/\\(.)/g, '$1'), false, false);
+        }
     });
 }
 
@@ -1372,7 +1401,7 @@ function initGuideDragScroll() {
     });
 }
 
-function updateModalNavigation() {
+function updateModalNavigation(preloadNeighbors = false) {
     const prevBtn = document.getElementById('prevAgentBtn'); const nextBtn = document.getElementById('nextAgentBtn');
     if (!prevBtn || !nextBtn) return;
     
@@ -1381,16 +1410,15 @@ function updateModalNavigation() {
     prevBtn.classList.toggle('opacity-0', !hasPrev); prevBtn.classList.toggle('pointer-events-none', !hasPrev); prevBtn.classList.toggle('-translate-x-10', !hasPrev);
     nextBtn.classList.toggle('opacity-0', !hasNext); nextBtn.classList.toggle('pointer-events-none', !hasNext); nextBtn.classList.toggle('translate-x-10', !hasNext);
 
-    // Préchargement immédiat en cache des splashs précédent et suivant
     if (hasPrev) {
         const prevAgentName = State.filteredAgents[State.modalIndex - 1].name;
-        window.preloadSplash(prevAgentName);
         prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(prevAgentName); };
+        if (preloadNeighbors) window.preloadSplash(prevAgentName, false, true);
     }
     if (hasNext) {
         const nextAgentName = State.filteredAgents[State.modalIndex + 1].name;
-        window.preloadSplash(nextAgentName);
         nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(nextAgentName); };
+        if (preloadNeighbors) window.preloadSplash(nextAgentName, false, true);
     }
 }
 
