@@ -1181,8 +1181,6 @@ window.closeModal = function(id, updateUrl = true) {
         // Rétablit l'affichage de la grille principale
         document.documentElement.classList.remove('direct-agent-load');
         
-        const splash = document.getElementById('agentSplashImage'); 
-if (splash) { splash.style.opacity = '0'; }
         if (updateUrl) {
             if (window.history.state?.agentModal) {
                 window.__ignoreNextPopstate = true;
@@ -1205,7 +1203,11 @@ if (splash) { splash.style.opacity = '0'; }
     m.classList.remove('opacity-100');
   setTimeout(() => {
       if (!m.classList.contains('opacity-100')) {
-          m.classList.add('hidden');
+                    m.classList.add('hidden');
+          if (id === 'agentDetailModal') {
+              const splash = document.getElementById('agentSplashImage');
+              if (splash) splash.style.opacity = '0';
+          }
       }
       const aModal = document.getElementById('agentDetailModal');
       const fModal = document.getElementById('factionModal');
