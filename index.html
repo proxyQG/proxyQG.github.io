@@ -146,7 +146,13 @@
 
     <script>
       (function() {
-          const agentParam = new URLSearchParams(window.location.search).get('agent');
+          let agentParam = new URLSearchParams(window.location.search).get('agent');
+          if (!agentParam) {
+              const m = window.location.pathname.match(/^\/agents\/([^/]+)/i);
+              if (m && m[1]) {
+                  try { agentParam = decodeURIComponent(m[1]); } catch (e) { agentParam = m[1]; }
+              }
+          }
           if (agentParam) {
               document.documentElement.classList.add('direct-agent-load');
               document.title = `${agentParam} - Guide & Build | ProxyQG`;
@@ -566,7 +572,7 @@
                 <!-- Avatar Agent Précédent -->
                 <div class="relative w-8 h-8 rounded-full overflow-hidden border border-zinc-700 
                             group-hover:border-[#d7f70c] bg-zinc-900 shrink-0 transition-colors duration-300">
-                    <img id="backToAgentImg" src="" alt="Retour" class="w-full h-full object-cover object-top scale-110">
+                    <img id="backToAgentImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Retour" class="w-full h-full object-cover object-top scale-110">
                 </div>
 
                 <!-- Nom de l'agent -->
@@ -612,7 +618,7 @@
         </div>
         <div id="agentModalScroll" class="relative z-10 w-full h-full flex flex-col md:flex-row overflow-y-auto md:overflow-hidden pointer-events-auto md:pointer-events-none custom-scrollbar">
             <div class="w-full md:w-[35%] xl:w-[40%] h-[48vh] md:h-full flex-shrink-0 flex items-center md:items-end justify-center relative p-4 md:p-8 pointer-events-none">
-                <img id="agentSplashImage" src="" alt="" loading="lazy" class="w-full h-full md:max-h-[95%] object-contain opacity-0 transition-opacity duration-300 ease-out drop-shadow-[10px_10px_20px_rgba(0,0,0,0.8)] pointer-events-auto">
+                <img id="agentSplashImage" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" decoding="async" class="w-full h-full md:max-h-[95%] object-contain opacity-0 transition-opacity duration-300 ease-out drop-shadow-[10px_10px_20px_rgba(0,0,0,0.8)] pointer-events-auto">
             </div>
             <div class="w-full md:w-[65%] xl:w-[60%] h-auto md:h-full relative z-20 pointer-events-auto overflow-visible md:overflow-hidden flex flex-col bg-black/95 md:bg-transparent md:backdrop-blur-md">
                 <div id="agentGuideContainer" class="flex-1 overflow-visible md:overflow-y-auto custom-scrollbar pt-2 md:pt-24 p-5 md:p-10 lg:p-14"></div>
