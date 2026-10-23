@@ -75,6 +75,8 @@
         }
     }
 
+    let pendingCardsHTML = '';
+
     // Création à la demande uniquement au 1er clic sur un moteur (Zéro FOUC au démarrage)
     function createDOM() {
         if (tooltipEl) return;
@@ -95,7 +97,7 @@
                 </button>
             </div>
             <div class="tt-body" id="tt-body-scroll">
-                <div class="tt-img-wrap"><img id="tt-img" decoding="sync" alt=""></div>
+                <div class="tt-img-wrap"><img id="tt-img" decoding="async" alt=""></div>
                 <div class="tt-tags" id="tt-tags"></div>
                 <div class="tt-stats-grid">
                     <div class="tt-stat-card"><div class="lbl" id="tt-stat-base-lbl">ATQ de base</div><div class="val" id="tt-stat-base"></div></div>
@@ -115,6 +117,8 @@
         `;
         document.body.appendChild(tooltipEl);
 
+        const bodyScrollEl = document.getElementById('tt-body-scroll');
+
         tooltipEl.addEventListener('click', e => {
             if (e.target.classList.contains('tt-oc-btn')) {
                 populateTooltip(currentEngineKey, parseInt(e.target.dataset.tier));
@@ -128,6 +132,10 @@
             if (recTrigger) {
                 const accordion = tooltipEl.querySelector('.rec-accordion');
                 if (accordion) {
+                    const gridEl = accordion.querySelector('.rec-grid');
+                    if (gridEl && !gridEl.hasChildNodes() && pendingCardsHTML) {
+                        gridEl.innerHTML = pendingCardsHTML;
+                    }
                     const isOpen = accordion.classList.toggle('open');
                     recTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                     if (isOpen) {
@@ -169,45 +177,66 @@
 
         overlayEl.addEventListener('click', () => hideTooltip());
 
-        // --- GESTION DU SWIPE-TO-CLOSE (MOBILE) ---
+        // --- GESTION DU SWIPE-TO-CLOSE SANS CONFLIT DE SCROLL (MOBILE) ---
         let startY = 0;
         let currentY = 0;
-        let isDragging = false;
+        let gestureState = 'idle'; // 'idle' | 'pending' | 'dragging' | 'scrolling'
 
         tooltipEl.addEventListener('touchstart', e => {
             if (window.innerWidth > 768) return;
-            if (tooltipEl.scrollTop > 0) return;
-            
+            if (bodyScrollEl && bodyScrollEl.scrollTop > 0) {
+                gestureState = 'scrolling';
+                return;
+            }
             startY = e.touches[0].clientY;
-            isDragging = true;
-            tooltipEl.style.transition = 'none';
+            currentY = 0;
+            gestureState = 'pending';
         }, { passive: true });
 
         tooltipEl.addEventListener('touchmove', e => {
-            if (!isDragging) return;
-            currentY = e.touches[0].clientY - startY;
-            
-            if (currentY > 0) {
-                e.preventDefault();
-                tooltipEl.style.transform = `translateY(${currentY}px)`;
-                overlayEl.style.opacity = 1 - (currentY / window.innerHeight);
+            if (gestureState === 'idle' || gestureState === 'scrolling') return;
+
+            const deltaY = e.touches[0].clientY - startY;
+
+            if (gestureState === 'pending') {
+                if (deltaY < -5) {
+                    // L'utilisateur fait défiler le contenu vers le bas : laisse le scroll natif 120Hz agir
+                    gestureState = 'scrolling';
+                    return;
+                }
+                if (deltaY > 5) {
+                    // L'utilisateur tire le tiroir vers le bas depuis le sommet : active le drag
+                    gestureState = 'dragging';
+                    tooltipEl.style.transition = 'none';
+                } else {
+                    return;
+                }
+            }
+
+            if (gestureState === 'dragging') {
+                currentY = Math.max(0, deltaY);
+                if (e.cancelable) e.preventDefault();
+                tooltipEl.style.transform = `translate3d(0, ${currentY}px, 0)`;
             }
         }, { passive: false });
 
         tooltipEl.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            isDragging = false;
-            
+            if (gestureState !== 'dragging') {
+                gestureState = 'idle';
+                return;
+            }
+            gestureState = 'idle';
+
             tooltipEl.style.transition = '';
-            overlayEl.style.opacity = '';
-            
-            if (currentY > 100) {
+            void tooltipEl.offsetWidth; // Force la prise en compte de la transition CSS avant le mouvement final
+
+            if (currentY > 90) {
                 hideTooltip();
             } else {
-                tooltipEl.style.transform = ''; 
+                tooltipEl.style.transform = '';
             }
             currentY = 0;
-        });
+        }, { passive: true });
 
         void tooltipEl.offsetWidth;
     }
@@ -246,6 +275,7 @@
     function hideTooltip(fromPopstate = false) {
         if (!tooltipEl || !tooltipEl.classList.contains('visible')) return;
 
+        tooltipEl.style.transition = '';
         tooltipEl.classList.remove('visible');
         tooltipEl.style.transform = '';
         if (overlayEl) {
@@ -256,7 +286,7 @@
 
         if (fromPopstate !== true && window.history.state?.tooltipOpen) {
             window.__ignoreNextPopstate = true;
-            window.history.back();
+            setTimeout(() => { window.history.back(); }, 60);
         }
     }
     window.hideTooltip = hideTooltip;
@@ -265,6 +295,7 @@
         const mount = document.getElementById('tt-recommended-mount');
         if (!mount) return;
         mount.innerHTML = '';
+        pendingCardsHTML = '';
 
         const db = AGENTS_DB;
         if (!db || currentEngineKey !== engineKey) return;
@@ -291,7 +322,8 @@
             <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${item.name}" class="rec-preview-avatar">
         `).join('') + (extraCount > 0 ? `<span class="rec-preview-more">+${extraCount}</span>` : '');
 
-        const cardsHTML = matchingAgents.map(item => {
+        // Stocke le HTML des cartes en mémoire pour ne l'injecter que si l'utilisateur ouvre l'accordéon
+        pendingCardsHTML = matchingAgents.map(item => {
             const displayName = item.name === 'Jane' ? 'Jane Doe' : item.name;
             const safeAttr = item.name.replace(/"/g, '&quot;');
             const badgeClass = item.isPrimary ? 'rec-badge-primary' : 'rec-badge-secondary';
@@ -328,9 +360,7 @@
             </button>
             <div class="rec-panel">
                 <div class="rec-panel-inner">
-                    <div class="rec-grid">
-                        ${cardsHTML}
-                    </div>
+                    <div class="rec-grid"></div>
                 </div>
             </div>
         </div>`;
