@@ -181,10 +181,12 @@
         let startY = 0;
         let currentY = 0;
         let gestureState = 'idle'; // 'idle' | 'pending' | 'dragging' | 'scrolling'
+        let startedInBody = false;
 
         tooltipEl.addEventListener('touchstart', e => {
             if (window.innerWidth > 768) return;
-            if (bodyScrollEl && bodyScrollEl.scrollTop > 0) {
+            startedInBody = !!(bodyScrollEl && bodyScrollEl.contains(e.target));
+            if (startedInBody && bodyScrollEl.scrollTop > 0) {
                 gestureState = 'scrolling';
                 return;
             }
@@ -205,7 +207,7 @@
                     return;
                 }
                 if (deltaY > 5) {
-                    // L'utilisateur tire le tiroir vers le bas depuis le sommet : active le drag
+                    // L'utilisateur tire le tiroir vers le bas : active le drag
                     gestureState = 'dragging';
                     tooltipEl.style.transition = 'none';
                 } else {
@@ -220,7 +222,7 @@
             }
         }, { passive: false });
 
-        tooltipEl.addEventListener('touchend', () => {
+        const endTouchDrag = () => {
             if (gestureState !== 'dragging') {
                 gestureState = 'idle';
                 return;
@@ -228,7 +230,7 @@
             gestureState = 'idle';
 
             tooltipEl.style.transition = '';
-            void tooltipEl.offsetWidth; // Force la prise en compte de la transition CSS avant le mouvement final
+            void tooltipEl.offsetWidth;
 
             if (currentY > 90) {
                 hideTooltip();
@@ -236,7 +238,10 @@
                 tooltipEl.style.transform = '';
             }
             currentY = 0;
-        }, { passive: true });
+        };
+
+        tooltipEl.addEventListener('touchend', endTouchDrag, { passive: true });
+        tooltipEl.addEventListener('touchcancel', endTouchDrag, { passive: true });
 
         void tooltipEl.offsetWidth;
     }
