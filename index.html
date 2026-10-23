@@ -28,15 +28,24 @@
     <!-- 1. Préchargements prioritaires (Zéro cascade réseau & Décodage anticipé du 1er écran) -->
     <script>
       window.__preloadedImgs = [];
+      window.__isDirectAgent = /^\/agents\/[^/]+/i.test(window.location.pathname) || new URLSearchParams(window.location.search).has('agent');
+      if (window.__isDirectAgent) {
+        window.__initialGuideData = Promise.all([
+          fetch('./js/data/agent_database.json').then(function(r) { return r.json(); }),
+          fetch('./js/data/mindscapes.json').then(function(r) { return r.json(); })
+        ]);
+      }
       window.__initialData = Promise.all([
         fetch('./js/data/agents.json').then(function(r) { return r.json(); }).then(function(agents) {
-          var limit = Math.min(agents.length, 24);
-          for (var i = 1; i <= limit; i++) {
-            var img = new Image();
-            img.decoding = 'sync';
-            if (i === 1) img.fetchPriority = 'high';
-            img.src = 'assets/Agents/' + agents[agents.length - i].name + '.webp';
-            window.__preloadedImgs.push(img);
+          if (!window.__isDirectAgent) {
+            var limit = Math.min(agents.length, 24);
+            for (var i = 1; i <= limit; i++) {
+              var img = new Image();
+              img.decoding = 'sync';
+              if (i === 1) img.fetchPriority = 'high';
+              img.src = 'assets/Agents/' + agents[agents.length - i].name + '.webp';
+              window.__preloadedImgs.push(img);
+            }
           }
           return agents;
         }),
