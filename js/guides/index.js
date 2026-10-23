@@ -30,20 +30,23 @@ export function preloadGuideDatabases() {
     const needMS = !cachedMindscapes;
     if (!needDB && !needMS) return Promise.resolve();
 
-    // 2. Téléchargement en parallèle (HTTP/2) unique et partagé
-    const fetchPromises = [];
-    if (needDB) fetchPromises.push(fetch('./js/data/agent_database.json').then(r => r.json()));
-    if (needMS) fetchPromises.push(fetch('./js/data/mindscapes.json').then(r => r.json()));
+    // 2. Utilise le préchargement du <head> sur lien direct ou télécharge en parallèle (HTTP/2)
+    const initialPromise = window.__initialGuideData;
+    window.__initialGuideData = null;
 
-    dbLoadPromise = Promise.all(fetchPromises).then(results => {
-        let idx = 0;
-        if (needDB) {
-            cachedDatabase = results[idx++];
-            sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase));
+    const rawPromise = initialPromise || Promise.all([
+        needDB ? fetch('./js/data/agent_database.json').then(r => r.json()) : Promise.resolve(cachedDatabase),
+        needMS ? fetch('./js/data/mindscapes.json').then(r => r.json()) : Promise.resolve(cachedMindscapes)
+    ]);
+
+    dbLoadPromise = rawPromise.then(([dbData, msData]) => {
+        if (needDB && dbData) {
+            cachedDatabase = dbData;
+            try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase)); } catch (e) {}
         }
-        if (needMS) {
-            cachedMindscapes = results[idx++];
-            sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes));
+        if (needMS && msData) {
+            cachedMindscapes = msData;
+            try { sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes)); } catch (e) {}
         }
     }).finally(() => {
         dbLoadPromise = null;
