@@ -1123,6 +1123,8 @@ function preloadGuideAssetsFromHTML(guideHTML) {
 }
 
 window.preloadSplash = function(agentName, isPriority = false, includeGuideAssets = true) {
+    // Si écran mobile (< 768px), stoppe immédiatement sans rien télécharger
+    if (window.innerWidth < 768) return Promise.resolve();
     const cached = splashCache.get(agentName);
     if (cached) {
         if (isPriority && cached.img) cached.img.fetchPriority = 'high';
@@ -1315,8 +1317,9 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
         modalScroll.scrollTop = 0;
     }
 
-    // 2bis. Charge le splash actif en priorité haute, puis révèle l'image une fois 100% décodée
-    const splashReadyPromise = splashImg ? (async () => {
+   // 2bis. Charge le splash UNIQUEMENT sur PC (>= 768px), zéro téléchargement sur mobile
+const isDesktop = window.innerWidth >= 768;
+const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
         await Promise.all([
             Promise.race([window.preloadSplash(agentName, true, false), wait(SPLASH_DECODE_TIMEOUT_MS)]),
             wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
