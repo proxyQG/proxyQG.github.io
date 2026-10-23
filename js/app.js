@@ -108,23 +108,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('resize', () => { updateAllSliders(State.mode); });
     checkUrlForAgent();
 
-    // 1. Hydratation du reste de la grille uniquement au scroll ou souris (zéro congestion sur le 1er clic mobile)
+    // 1. Hydratation du reste de la grille UNIQUEMENT au défilement réel de la grille (jamais au mousemove ou clic)
     let gridFullyHydrated = false;
     const hydrateAllRemainingCards = () => {
-        if (gridFullyHydrated) return;
+        if (gridFullyHydrated || document.body.classList.contains('modal-open')) return;
         gridFullyHydrated = true;
-        ['mousemove', 'wheel', 'scroll'].forEach(evt => {
-            window.removeEventListener(evt, hydrateAllRemainingCards);
-        });
         if (DOM.scrollArea) DOM.scrollArea.removeEventListener('scroll', hydrateAllRemainingCards);
         DOM.agentCards.forEach(c => hydrateCardImage(c.el));
     };
-    ['mousemove', 'wheel', 'scroll'].forEach(evt => {
-        window.addEventListener(evt, hydrateAllRemainingCards, { passive: true });
-    });
     if (DOM.scrollArea) DOM.scrollArea.addEventListener('scroll', hydrateAllRemainingCards, { passive: true });
 
-    // 2. Préchargement furtif du moteur de guides et des JSON dès le 1er contact
+    // 2. Préchargement furtif du moteur de guides, des JSON et des 5 icônes de skills universelles dès le 1er contact
     let guidesPreloaded = false;
     const preloadGuides = (e) => {
         if (guidesPreloaded) return;
@@ -134,9 +128,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             window.removeEventListener(evt, preloadGuides);
         });
 
-        const load = () => import('./guides/index.js')
-            .then(m => m.preloadGuideDatabases && m.preloadGuideDatabases())
-            .catch(() => {});
+        const load = () => {
+            import('./guides/index.js')
+                .then(m => m.preloadGuideDatabases && m.preloadGuideDatabases())
+                .catch(() => {});
+            ['Attaque_basic', 'Ex', 'Ultime', 'Assist', 'Esquive'].forEach(s => {
+                const url = `assets/Skills/${s}.webp`;
+                if (!guideAssetCache.has(url)) {
+                    const img = new Image();
+                    img.decoding = 'async';
+                    img.src = url;
+                    const decoded = img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+                    guideAssetCache.set(url, { img, decoded });
+                }
+            });
+        };
 
         if (e && (e.type === 'touchstart' || e.type === 'pointerdown')) {
             load();
@@ -927,6 +933,7 @@ let lazyCardObserver = null;
 function hydrateCardImage(cardEl) {
     const img = cardEl.querySelector('.agent-image[data-src]');
     if (img) {
+        img.fetchPriority = 'low';
         img.src = img.dataset.src;
         img.removeAttribute('data-src');
         if (lazyCardObserver) lazyCardObserver.unobserve(cardEl);
@@ -1338,16 +1345,21 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
         splashImg.style.opacity = '1';
     })() : Promise.resolve();
 
-    // 3. Charge, pré-décode les icônes (disques/moteurs) en RAM, puis injecte le guide
+    // 3. Charge, pré-décode les icônes (disques/moteurs) en RAM, puis injecte le guide en fondu groupé
     if (guideContainer) {
+        guideContainer.style.transition = 'none';
+        guideContainer.style.opacity = '0';
         try {
             const { getGuideHTML } = await import('./guides/index.js');
             const guideHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
-            await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(65)]);
+            await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(180)]);
             if (token !== openAgentToken) return;
             guideContainer.innerHTML = guideHTML;
             guideContainer.scrollTo(0, 0);
+            void guideContainer.offsetWidth;
+            guideContainer.style.transition = 'opacity 150ms ease-out';
+            guideContainer.style.opacity = '1';
             initGuideDragScroll();
 
             // 4. Attend que le splash de l'agent actuel soit affiché avant de précharger les voisins et coéquipiers
@@ -1359,6 +1371,7 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
                 }, 150);
             });
         } catch (err) {
+            guideContainer.style.opacity = '1';
             console.error("Erreur lors du chargement du guide :", err);
         }
     }
