@@ -39,7 +39,7 @@ function buildTeamMember(m, i, currentAgentName) {
         return `
         <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="Voir le guide de ${escapedName}">
             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="${borderStyle}">
-                <img src="${imgSrc}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
+                <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
             </div>
         </div>`;
     }
@@ -162,7 +162,7 @@ function buildDiscs(data, c, txt) {
                     </div>
                     <!-- Disque 2P cliquable -->
                     <div data-disc="${escapeHTML(disc.set2)}" title="${escapeHTML(tDisc(disc.set2Name))}" class="cursor-pointer hover:scale-110 hover:z-20 transition-transform relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 hover:opacity-100 overflow-hidden">
-                        <img src="assets/Disque/${disc.set2}.webp" loading="eager" decoding="sync" class="w-full h-full object-cover">
+                        <img src="assets/Disque/${disc.set2}.webp" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover">
                     </div>
                 </div>
                 <div class="flex flex-col">
@@ -202,13 +202,13 @@ function buildSkills(data, c, txt) {
             <div class="relative">
                 <div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div>
                 <div class="w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
-                    <img src="${iconSrc}"alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+                    <img src="${iconSrc}" alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
                 </div>
             </div>`;
         } else {
             iconContainer = `
             <div class="relative w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
-                <img src="${iconSrc}"alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+                <img src="${iconSrc}" alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
             </div>`;
         }
 
@@ -282,7 +282,7 @@ function buildEngines(data, c, txt) {
         return `
         <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${borderColor}; box-shadow: ${shadow};">
             <div class="sheen"></div>
-            <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="${imgSrc}"alt="" loading="eager" decoding="sync" class="w-full h-full object-cover"></div>
+            <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="${imgSrc}" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover"></div>
             <div class="flex flex-col justify-center">
                 <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${tagBg}; color: ${tagColor};">${escapeHTML(tData(eng.tag))}</span>
                 <span class="font-black text-xs uppercase tracking-wide" style="color: ${titleColor};">${escapeHTML(tEngine(eng.name))}</span>
