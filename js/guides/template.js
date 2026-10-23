@@ -77,36 +77,40 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
     const factionFilterHint = currentLang === 'en' ? 'Filter by this faction' : 'Filtrer par cette faction';
 
     const factionHTML = rawFaction
-        ? `<button type="button" onclick="window.closeModal('agentDetailModal'); window.setFactionFilter('${jsSafeFaction}');" title="${factionFilterHint}" class="text-zinc-400 hover:text-[#d7f70c] font-bold tracking-[0.25em] text-[10px] sm:text-xs uppercase mb-1.5 inline-flex items-center gap-1.5 w-fit transition-colors cursor-pointer group/fac text-left">
-               <span>${escapeHTML(tData(data.factionTitle))}</span>
-               <svg class="w-3 h-3 text-zinc-600 group-hover/fac:text-[#d7f70c] group-hover/fac:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        ? `<button type="button" onclick="window.closeModal('agentDetailModal'); window.setFactionFilter('${jsSafeFaction}');" title="${factionFilterHint}" class="text-zinc-400 hover:text-[#d7f70c] font-bold tracking-[0.2em] text-[10px] sm:text-xs uppercase mb-1 inline-flex items-center gap-1 w-fit transition-colors cursor-pointer group/fac text-left leading-snug">
+               <span>${escapeHTML(tData(data.factionTitle))} <svg class="w-3 h-3 inline-block -mt-0.5 text-zinc-500 group-hover/fac:text-[#d7f70c] group-hover/fac:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></span>
            </button>`
-        : `<span class="text-zinc-400 font-bold tracking-[0.25em] text-[10px] sm:text-xs uppercase mb-1.5">${escapeHTML(tData(data.factionTitle))}</span>`;
+        : `<span class="text-zinc-400 font-bold tracking-[0.2em] text-[10px] sm:text-xs uppercase mb-1 leading-snug">${escapeHTML(tData(data.factionTitle))}</span>`;
 
     const roleBadgeHTML = role
-        ? `<div title="${escapeHTML(roleLabel)}" class="bg-[#141417] rounded-xl w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Rôles/${escapeHTML(role)}.webp" alt="${escapeHTML(roleLabel)}" loading="eager" decoding="sync" class="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 object-contain opacity-90" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));"></div>`
+        ? `<div title="${escapeHTML(roleLabel)}" class="bg-[#141417] rounded-lg md:rounded-xl w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center shadow-lg border border-white/10"><img src="assets/Rôles/${escapeHTML(role)}.webp" alt="${escapeHTML(roleLabel)}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-7 sm:h-7 md:w-9 md:h-9 object-contain opacity-90" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));"></div>`
         : '';
 
-    const elemBadgeHTML = `<div title="${escapeHTML(elemLabel)}" class="bg-[#141417] rounded-xl w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center shadow-lg border border-white/5"><img src="assets/Icone/${webpIcon}" alt="${escapeHTML(elemLabel)}" loading="eager" decoding="sync" class="w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>`;
+    const elemBadgeHTML = `<div title="${escapeHTML(elemLabel)}" class="bg-[#141417] rounded-lg md:rounded-xl w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center shadow-lg border border-white/10"><img src="assets/Icone/${webpIcon}" alt="${escapeHTML(elemLabel)}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-7 sm:h-7 md:w-9 md:h-9 object-contain" style="filter: drop-shadow(0 0 8px ${c});"></div>`;
 
-    const rankBadgeHTML = `<div class="rounded-xl text-black w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center font-black text-xl sm:text-2xl md:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>`;
+    const rankBadgeHTML = `<div class="rounded-lg md:rounded-xl text-black w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center font-black text-base sm:text-2xl md:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>`;
 
-    // Avatar tactique exclusif au mobile (remplace le splash de 48vh à 0 octet supplémentaire)
+    // Avatar mobile 84x84 sans zoom excessif, aligné avec Faction + Nom + Badges
     const mobileAvatarHTML = `
-    <div class="md:hidden relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-black border-2 overflow-hidden shrink-0 shadow-[0_8px_20px_rgba(0,0,0,0.8)]" style="border-color: ${c}; box-shadow: 0 0 18px ${c}35;">
-        <img src="assets/Agents/${agentName}.webp" alt="${escapeHTML(agentName)}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
+    <div class="md:hidden relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#121214] border-2 overflow-hidden shrink-0 shadow-[0_8px_20px_rgba(0,0,0,0.85)]" style="border-color: ${c}; box-shadow: 0 0 18px ${c}30;">
+        <img src="assets/Agents/${agentName}.webp" alt="${escapeHTML(agentName)}" loading="eager" decoding="sync" class="w-full h-full object-cover object-bottom">
     </div>`;
 
     return `
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 border-b-2 border-zinc-800/80 pb-6 gap-4">
-        <div class="flex items-center gap-3.5 sm:gap-5 flex-1 min-w-0">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8 border-b-2 border-zinc-800/80 pb-5 md:pb-6 gap-4">
+        <div class="flex items-center gap-4 sm:gap-5 flex-1 min-w-0">
             ${mobileAvatarHTML}
             <div class="flex flex-col min-w-0 flex-1">
                 ${factionHTML}
-                <h2 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-tight uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
+                <h2 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
+                <div class="flex md:hidden items-center gap-2 mt-2.5">
+                    ${roleBadgeHTML}
+                    ${elemBadgeHTML}
+                    ${rankBadgeHTML}
+                </div>
             </div>
         </div>
-        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0 self-start md:self-end">
+        <div class="hidden md:flex items-center gap-2.5 shrink-0 self-end">
             ${roleBadgeHTML}
             ${elemBadgeHTML}
             ${rankBadgeHTML}
