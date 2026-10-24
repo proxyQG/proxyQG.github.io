@@ -4,6 +4,7 @@
     let AGENTS_DB = null;
     let overlayEl = null;
     let modalEl = null;
+    let pendingDiscCardsHTML = '';
 
     // Lecture depuis le cache local de session pour une ouverture en 0 ms
     const storedDiscs = sessionStorage.getItem('zzz_discs_db');
@@ -54,6 +55,10 @@
             if (recTrigger) {
                 const accordion = modalEl.querySelector('.rec-accordion');
                 if (accordion) {
+                    const gridEl = accordion.querySelector('.rec-grid');
+                    if (gridEl && !gridEl.hasChildNodes() && pendingDiscCardsHTML) {
+                        gridEl.innerHTML = pendingDiscCardsHTML;
+                    }
                     const isOpen = accordion.classList.toggle('open');
                     recTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                     if (isOpen) {
@@ -72,7 +77,9 @@
                 if (targetAgent && typeof window.openAgentDetail === 'function') {
                     const modal = document.getElementById('agentDetailModal');
                     const isGuideOpen = modal && !modal.classList.contains('hidden');
-                    const currentParam = new URLSearchParams(window.location.search).get('agent');
+                    const pathMatch = window.location.pathname.match(/^\/agents\/([^/]+)/i);
+                    const currentParam = new URLSearchParams(window.location.search).get('agent')
+                        || (pathMatch ? decodeURIComponent(pathMatch[1]) : null);
 
                     // Si on clique sur l'agent dont le guide est déjà ouvert en arrière-plan, on ferme simplement la popup
                     if (isGuideOpen && currentParam && currentParam.toLowerCase() === targetAgent.toLowerCase()) {
@@ -96,45 +103,67 @@
             }
         });
 
-        // GESTION DU SWIPE-TO-CLOSE TACTILE FLUIDE (MOBILE)
+        // --- GESTION DU SWIPE-TO-CLOSE SANS CONFLIT DE SCROLL (MOBILE) ---
         let startY = 0;
         let currentY = 0;
-        let isDragging = false;
+        let gestureState = 'idle'; // 'idle' | 'pending' | 'dragging' | 'scrolling'
 
         modalEl.addEventListener('touchstart', (e) => {
             if (window.innerWidth > 768) return;
-            if (modalEl.scrollTop > 0) return;
-            
+            if (modalEl.scrollTop > 0) {
+                gestureState = 'scrolling';
+                return;
+            }
             startY = e.touches[0].clientY;
-            isDragging = true;
-            modalEl.style.transition = 'none';
+            currentY = 0;
+            gestureState = 'pending';
         }, { passive: true });
 
         modalEl.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            currentY = e.touches[0].clientY - startY;
+            if (gestureState === 'idle' || gestureState === 'scrolling') return;
 
-            if (currentY > 0) {
-                e.preventDefault();
-                modalEl.style.transform = `translateY(${currentY}px)`;
-                if (overlayEl) overlayEl.style.opacity = Math.max(0, 1 - (currentY / window.innerHeight));
+            const deltaY = e.touches[0].clientY - startY;
+
+            if (gestureState === 'pending') {
+                if (deltaY < -5) {
+                    gestureState = 'scrolling';
+                    return;
+                }
+                if (deltaY > 5) {
+                    gestureState = 'dragging';
+                    modalEl.style.transition = 'none';
+                } else {
+                    return;
+                }
+            }
+
+            if (gestureState === 'dragging') {
+                currentY = Math.max(0, deltaY);
+                if (e.cancelable) e.preventDefault();
+                modalEl.style.transform = `translate3d(0, ${currentY}px, 0)`;
             }
         }, { passive: false });
 
-        modalEl.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            isDragging = false;
+        const endTouchDrag = () => {
+            if (gestureState !== 'dragging') {
+                gestureState = 'idle';
+                return;
+            }
+            gestureState = 'idle';
 
             modalEl.style.transition = '';
-            if (overlayEl) overlayEl.style.opacity = '';
+            void modalEl.offsetWidth;
 
-            if (currentY > 80) {
+            if (currentY > 85) {
                 hideDiscTooltip();
             } else {
                 modalEl.style.transform = '';
             }
             currentY = 0;
-        });
+        };
+
+        modalEl.addEventListener('touchend', endTouchDrag, { passive: true });
+        modalEl.addEventListener('touchcancel', endTouchDrag, { passive: true });
     }
 
     async function loadDatabase() {
@@ -179,6 +208,7 @@
     }
 
     function buildRecommendedAccordion(agentsDB, discKey, lang) {
+        pendingDiscCardsHTML = '';
         if (!agentsDB) return '';
 
         const list4P = [];
@@ -204,7 +234,7 @@
             <img src="assets/Agents/${item.name}.webp" loading="lazy" decoding="async" alt="${item.name}" class="rec-preview-avatar">
         `).join('') + (extraCount > 0 ? `<span class="rec-preview-more">+${extraCount}</span>` : '');
 
-        const cardsHTML = matchingAgents.map(item => {
+        pendingDiscCardsHTML = matchingAgents.map(item => {
             const displayName = item.name === 'Jane' ? 'Jane Doe' : item.name;
             const safeAttr = item.name.replace(/"/g, '&quot;');
             const badgeClass = item.isPrimary ? 'rec-badge-primary' : 'rec-badge-secondary';
@@ -241,9 +271,7 @@
             </button>
             <div class="rec-panel">
                 <div class="rec-panel-inner">
-                    <div class="rec-grid">
-                        ${cardsHTML}
-                    </div>
+                    <div class="rec-grid"></div>
                 </div>
             </div>
         </div>`;
@@ -276,7 +304,7 @@
                 <div class="disc-turntable">
                     <div class="disc-platter-ring"></div>
                     <div class="disc-vinyl-plate">
-                        <img src="assets/Disque/${disc.img}" decoding="sync" alt="${t(disc.name)}" class="disc-vinyl-img">
+                        <img src="assets/Disque/${disc.img}" decoding="async" alt="${t(disc.name)}" class="disc-vinyl-img">
                     </div>
                 </div>
 
@@ -333,8 +361,10 @@
         modalEl.scrollTop = 0;
         window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
 
-        overlayEl.classList.add('visible');
-        modalEl.classList.add('visible');
+        requestAnimationFrame(() => {
+            overlayEl.classList.add('visible');
+            modalEl.classList.add('visible');
+        });
     }
 
     let isClosing = false;
@@ -343,6 +373,7 @@
         if (isClosing || !modalEl || !modalEl.classList.contains('visible')) return;
         isClosing = true;
 
+        modalEl.style.transition = '';
         if (overlayEl) {
             overlayEl.classList.remove('visible');
             overlayEl.style.opacity = '';
@@ -353,13 +384,17 @@
         }
 
         if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
-            window.__ignoreNextPopstate = true;
-            window.history.back();
+            setTimeout(() => {
+                if (modalEl && !modalEl.classList.contains('visible') && window.history.state?.discTooltipOpen) {
+                    window.__ignoreNextPopstate = true;
+                    window.history.back();
+                }
+            }, 260);
         }
 
         setTimeout(() => {
             isClosing = false;
-        }, 300);
+        }, 280);
     }
 
     document.addEventListener('keydown', (e) => {
