@@ -72,7 +72,7 @@ export const terms = {
     'Electric': { fr: 'Électrique', en: 'Electric' },
     'Ether': { fr: 'Éther', en: 'Ether' },
     'Wind': { fr: 'Vent', en: 'Wind' },
-    'Lumiflux': { fr: 'Lumiflux', en: 'Lumiflux' },
+    'Lumiflux': { fr: 'Lumen', en: 'Lumiflux' },
     "Auric Ink": { fr: "Sépia", en: "Auric Ink" },
     'Honed Edge': { fr: 'Lame affûtée', en: 'Honed Edge' },
     'Frost': { fr: 'Givre', en: 'Frost' },
