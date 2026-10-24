@@ -355,8 +355,8 @@
       "en": "Increases Anomaly Proficiency by [30]."
     },
     "fourPiece": {
-      "fr": "Lorsque l'équipementier entre en combat ou est déployé comme personnage actif, son Adresse d'Anomalie augmente de [50]. Si l'équipementier est de type {Lumiflux}, les DGT d'Anomalie d'attribut augmentent de [15 %] pendant 15s. Ce buff reste actif lorsque le personnage est hors-terrain.",
-      "en": "When the equipper enters the battlefield or is switched in as the active character, Anomaly Proficiency increases by [50]. If the equipper is a {Lumiflux} character, Attribute Anomaly DMG increases by [15%], lasting 15s. This buff remains active while the equipper is off-field."
+      "fr": "Lorsque l'équipementier entre en combat ou est déployé comme personnage actif, son Adresse d'Anomalie augmente de [50]. Si l'équipementier est de type Lumen, les DGT d'Anomalie d'attribut augmentent de [15 %] pendant 15s. Ce buff reste actif lorsque le personnage est hors-terrain.",
+      "en": "When the equipper enters the battlefield or is switched in as the active character, Anomaly Proficiency increases by [50]. If the equipper is a Lumiflux character, Attribute Anomaly DMG increases by [15%], lasting 15s. This buff remains active while the equipper is off-field."
     }
   },
   "Freedom_Blues": {
