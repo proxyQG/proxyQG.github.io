@@ -136,7 +136,7 @@
       "en": "Zanshin Herb Case"
     },
     "rank": "S",
-    "specialty": "Attaque",
+    "specialty": "Attack",
     "element": "Electric",
     "img": "W-Engine_Zanshin_Herb_Case.webp",
     "stats": {
@@ -2430,7 +2430,7 @@
       },
       {
         "fr": "Lorsqu'une {Attaque spéciale EX} ou un {Enchaînement} touche un ennemi, l'ATQ de l'équipementier augmente de [9,6 %] pendant 8s. Tant que la cible subit une Anomalie d'attribut, cet effet augmente de [9,6 %] supplémentaires.",
-        "en": "When an {EX Special Attack} ou un {Enchaînement} hits an enemy, the equipper's ATK increases by [9.6%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [9.6%]."
+        "en": "When an {EX Special Attack} or {Chain Attack} hits an enemy, the equipper's ATK increases by [9.6%] for 8s. While the target is under an Attribute Anomaly, this effect is increased by an additional [9.6%]."
       }
     ]
   },
@@ -3145,7 +3145,7 @@
       "en": "Angel in the Shell"
     },
     "rank": "S",
-    "specialty": "Anomalie",
+    "specialty": "Anomaly",
     "element": "Ether",
     "img": "W-Engine_Angel_in_the_Shell.webp",
     "stats": {
@@ -3189,7 +3189,7 @@
       "en": "Serpentine Seeker"
     },
     "rank": "S",
-    "specialty": "Attaque",
+    "specialty": "Attack",
     "element": "Electric",
     "img": "W-Engine_Serpentine_Seeker.webp",
     "stats": {
@@ -3364,7 +3364,7 @@
       "en": "Joyau Dore"
     },
     "rank": "S",
-    "specialty": "Anomalie",
+    "specialty": "Anomaly",
     "element": "Wind",
     "img": "W-Engine_Joyau_Dore.webp",
     "stats": {
@@ -3452,7 +3452,7 @@
       "en": "Sol Exuvia"
     },
     "rank": "S",
-    "specialty": "Attaque",
+    "specialty": "Attack",
     "element": "Ether",
     "img": "W-Engine_Sol_Exuvia.webp",
     "stats": {
@@ -3496,7 +3496,7 @@
       "en": "Knight's Extolment"
     },
     "rank": "S",
-    "specialty": "Attaque",
+    "specialty": "Attack",
     "element": "Ice",
     "img": "W-Engine_Knights_Extolments.webp",
     "stats": {
@@ -3540,7 +3540,7 @@
       "en": "Ode of Resurrected Wings"
     },
     "rank": "S",
-    "specialty": "Annomalie",
+    "specialty": "Anomaly",
     "img": "W-Engine_Ode_of_Resurrected_Wings.webp",
     "stats": {
       "base": "50 - 743",
