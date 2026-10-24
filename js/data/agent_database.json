@@ -1831,6 +1831,30 @@
                         "initial": "P"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Yidhari.webp",
+                        "color": "#3bbedb",
+                        "initial": "Y"
+                    },
+                    {
+                        "img": "Pan Yinhu.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Pulchra.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    }
+                ]
             }
         ]
     },
@@ -2677,6 +2701,30 @@
                         "img": "",
                         "color": "#52525b",
                         "role": "Agents<br>Support"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Seed.webp",
+                        "color": "#3182eb",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "B"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
                     }
                 ]
             }
@@ -11435,6 +11483,30 @@
                         "initial": "L"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Orphie and Magus.webp",
+                        "color": "#f05432",
+                        "initial": "O"
+                    },
+                    {
+                        "img": "Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "B"
+                    },
+                    {
+                        "img": "Nicole.webp",
+                        "color": "#f23c8a",
+                        "initial": "N"
+                    }
+                ]
             }
         ]
     },
@@ -11670,6 +11742,30 @@
                         "initial": "A"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Manato.webp",
+                        "color": "#f05432",
+                        "initial": "M"
+                    },
+                    {
+                        "img": "Pan Yinhu.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Pulchra.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    }
+                ]
             }
         ]
     },
@@ -11872,6 +11968,30 @@
                         "img": "Yidhari.webp",
                         "color": "#3bbedb",
                         "initial": "Y"
+                    },
+                    {
+                        "img": "Pan Yinhu.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    },
+                    {
+                        "img": "Lucia.webp",
+                        "color": "#f23c8a",
+                        "initial": "L"
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Manato.webp",
+                        "color": "#f05432",
+                        "initial": "M"
                     },
                     {
                         "img": "Pan Yinhu.webp",
