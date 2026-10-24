@@ -83,7 +83,15 @@ export const terms = {
     'Support': { fr: 'Soutien', en: 'Support' },
     'Defense': { fr: 'Défense', en: 'Defense' },
     'Armorer': { fr: 'Forge', en: 'Armorer' },
-    'Rupture': { fr: 'Rupture', en: 'Rupture' }
+    'Rupture': { fr: 'Rupture', en: 'Rupture' },
+
+    'DPS': { fr: 'DPS', en: 'DPS' },
+    'Agent<br>Stun': { fr: 'Agent<br>Stun', en: 'Stun<br>Agent' },
+    'Agent<br>Support': { fr: 'Agent<br>Soutien', en: 'Support<br>Agent' },
+    'Agents<br>Support': { fr: 'Agents<br>Soutien', en: 'Support<br>Agents' },
+    'Agents<br>Anomalie': { fr: 'Agents<br>Anomalie', en: 'Anomaly<br>Agents' },
+    'Agents<br>Anomalies': { fr: 'Agents<br>Anomalie', en: 'Anomaly<br>Agents' },
+    'Agents<br>Attaques': { fr: 'Agents<br>Attaque', en: 'Attack<br>Agents' }
 };
 
 // Dictionnaire officiel des Disques (EN strict -> FR)
@@ -289,6 +297,8 @@ const exactStatsEn = {
 // Règles précompilées pour les phrases complexes de stats (ex: combinaisons avec / ou multi-lignes)
 const STAT_RULES = [
     [/\bjusqu'à\b/gi, "Until"],
+    [/Force\s*transperçante/gi, "Sheer Force"],
+    [/\b[Ée]nergie\b/gi, "Energy"],
     [/\bou\b/gi, "or"],
     [/(?:ATQ|Attaque)\s*%/gi, "ATK%"],
     [/(?:DEF|Défense)\s*%/gi, "DEF%"],
@@ -355,7 +365,19 @@ export function tTerm(termStr) {
 export function tStats(statStr) {
     if (!statStr) return '';
     if (typeof statStr === 'object') return tData(statStr);
-    if (currentLang === 'fr') return statStr;
+    if (currentLang === 'fr') {
+    const exactFr = {
+        'HP': 'PV',
+        'HP %': 'PV %',
+        'ATK %': 'ATQ %',
+        'Defense': 'Défense',
+        'Energie Regen': 'Réc. d\'énergie',
+        'Pen Ratio': 'Taux de PÉN',
+        'PEN Ratio': 'Taux de PÉN',
+        'Sheer Force': 'Force Transperçante'
+    };
+    return exactFr[statStr] || statStr;
+}
 
     // Raccourci direct instantané si le mot correspond exactement
     if (exactStatsEn[statStr]) return exactStatsEn[statStr];
