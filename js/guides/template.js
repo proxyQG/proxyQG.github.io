@@ -153,7 +153,7 @@ function buildDiscs(data, c, txt) {
 
         return `
         <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
-            <div class="absolute -top-3 -right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
+            <div class="absolute -top-3 right-3 sm:-right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                 <div class="flex -space-x-4">
                     <!-- Disque 4P cliquable -->
