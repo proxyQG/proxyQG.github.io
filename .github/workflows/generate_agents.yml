@@ -8,6 +8,12 @@ on:
       - 'js/data/agents.json'
       - 'index.html'
       - '.github/workflows/generate_agents.yml'
+  workflow_run:
+    workflows:
+      - "Build Tailwind CSS"
+      - "Auto-Sync ZZZ Banner Timer (Prydwen)"
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -40,14 +46,14 @@ jobs:
           COLOR_MAP = {
               "Physical": "#e8a838",
               "Fire": "#f05432",
-              "Ice": "#3bbedb",
+              "Ice": "#00d5be",
               "Electric": "#3182eb",
               "Ether": "#f23c8a",
-              "Wind": "#2dd4bf",
+              "Wind": "#4da2f8",
               "Lumiflux": "#fba2d0",
               "Auric Ink": "#c88e34",
               "Honed Edge": "#e8a838",
-              "Frost": "#3bbedb",
+              "Frost": "#00d5be",
           }
 
           with open("js/data/agents.json", "r", encoding="utf-8") as f:
