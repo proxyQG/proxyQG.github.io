@@ -12115,6 +12115,30 @@
                         "initial": "R"
                     }
                 ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "F2P",
+                    "en": "F2P"
+                },
+                "members": [
+                    {
+                        "img": "Manato.webp",
+                        "color": "#f05432",
+                        "initial": "M"
+                    },
+                    {
+                        "img": "Dialyn.webp",
+                        "color": "#e8a838",
+                        "initial": "D"
+                    },
+                    {
+                        "img": "Pan Yinhu.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
+                    }
+                ]
             }
         ]
     },
