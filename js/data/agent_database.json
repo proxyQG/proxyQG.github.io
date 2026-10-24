@@ -1145,7 +1145,7 @@
                     },
                     {
                         "img": "Trigger.webp",
-                        "color": "#e8a838",
+                        "color": "#3182eb",
                         "initial": "T"
                     },
                     {
@@ -2260,12 +2260,12 @@
                     },
                     {
                         "img": "Miyabi.webp",
-                        "color": "#5b90f4",
+                        "color": "#6d67f8",
                         "initial": "M"
                     },
                     {
                         "img": "Astra.webp",
-                        "color": "#5b90f4",
+                        "color": "#f23c8a",
                         "initial": "A"
                     }
                 ]
@@ -3858,7 +3858,7 @@
                     },
                     {
                         "img": "Claret.webp",
-                        "color": "#e8a838",
+                        "color": "#3182eb",
                         "initial": "C"
                     }
                 ]
@@ -3882,7 +3882,7 @@
                     },
                     {
                         "img": "Claret.webp",
-                        "color": "#e8a838",
+                        "color": "#3182eb",
                         "initial": "C"
                     }
                 ]
@@ -4317,7 +4317,7 @@
                     },
                     {
                         "img": "Yixuan.webp",
-                        "color": "#e8a838",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10236,7 +10236,7 @@
                     },
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     }
                 ]
@@ -10457,7 +10457,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10672,7 +10672,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10696,7 +10696,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10720,7 +10720,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10907,7 +10907,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10931,7 +10931,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -10955,7 +10955,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -11822,7 +11822,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
@@ -12077,7 +12077,7 @@
                 "members": [
                     {
                         "img": "Yixuan.webp",
-                        "color": "#5d57a6",
+                        "color": "#c88e34",
                         "initial": "Y"
                     },
                     {
