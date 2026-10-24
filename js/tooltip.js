@@ -16,7 +16,7 @@
         'Electric': { fr: 'Électrique', en: 'Electric' },
         'Ether': { fr: 'Éther', en: 'Ether' },
         'Wind': { fr: 'Vent', en: 'Wind' },
-        'Lumiflux': { fr: 'Lumiflux', en: 'Lumiflux' },
+        'Lumiflux': { fr: 'Lumen', en: 'Lumiflux' },
         'Honed Edge': { fr: 'Lame affûtée', en: 'Honed Edge' },
         'Auric Ink': { fr: 'Sépia', en: 'Auric Ink' },
         'Attack': { fr: 'Attaque', en: 'Attack' },
