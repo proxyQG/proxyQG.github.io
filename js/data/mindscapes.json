@@ -54,7 +54,7 @@
       },
       "desc": {
         "fr": "Permet d'ouvrir le combat directement avec l'EX3 gratuit, augmente le DGT CRIT d'anomalie de l'équipe et accélère les rotations. (Perd de la valeur si tu n'as pas les 255 AM requis pour garantir les critiques).",
-        "en": "Allows you to start the battle directly with the free EX3, increases the team’s anomaly CRIT DGT and speeds up rotations. (Loses some of its value if you don’t have the 255 AM required to guarantee critical hits)."
+        "en": "Allows you to start the battle directly with the free EX3, increases the team’s anomaly CRIT DMG and speeds up rotations. (Loses some of its value if you don’t have the 255 AM required to guarantee critical hits)."
       }
     },
     {
@@ -86,8 +86,8 @@
         "en": "Phoenix Rebirth"
       },
       "desc": {
-        "fr": "L'ignorance de 15% de résistance élémentaire ne s'applique qu'aux dégâts personnels de Phoenix et ne buffe ni les vortex de Velina ni le luminize de Ramielle",
-        "en": "The 15% reduction in elementary resistance applies only to Phoenix’s self-inflicted damage and does not buff Velina’s vortexes or Ramielle’s Luminize"
+        "fr": "L'ignorance de 15% de résistance élémentaire ne s'applique qu'aux dégâts personnels de Phoenix et ne buffe ni les vortex de Velina ni le luminize de Remielle",
+        "en": "The 15% reduction in elementary resistance applies only to Phoenix’s self-inflicted damage and does not buff Velina’s vortexes or Remielle’s Luminize"
       }
     }
   ],
