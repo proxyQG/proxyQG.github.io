@@ -152,7 +152,9 @@
                 if (targetAgent && typeof window.openAgentDetail === 'function') {
                     const modal = document.getElementById('agentDetailModal');
                     const isGuideOpen = modal && !modal.classList.contains('hidden');
-                    const currentParam = new URLSearchParams(window.location.search).get('agent');
+                    const pathMatch = window.location.pathname.match(/^\/agents\/([^/]+)/i);
+                    const currentParam = new URLSearchParams(window.location.search).get('agent')
+                        || (pathMatch ? decodeURIComponent(pathMatch[1]) : null);
 
                     if (isGuideOpen && currentParam && currentParam.toLowerCase() === targetAgent.toLowerCase()) {
                         hideTooltip();
@@ -290,9 +292,13 @@
         currentEngineKey = null;
 
         if (fromPopstate !== true && window.history.state?.tooltipOpen) {
+    setTimeout(() => {
+        if (!tooltipEl.classList.contains('visible') && window.history.state?.tooltipOpen) {
             window.__ignoreNextPopstate = true;
-            setTimeout(() => { window.history.back(); }, 60);
+            window.history.back();
         }
+    }, 260);
+}
     }
     window.hideTooltip = hideTooltip;
 
@@ -385,7 +391,12 @@
         
         if (currentEngineKey !== engineKey) {
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
-            document.getElementById('tt-img').src = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
+            const ttImg = document.getElementById('tt-img');
+const nextSrc = `assets/W-Engine/${data.img.replace('.png', '.webp')}`;
+ttImg.style.opacity = '0';
+ttImg.onload = () => { ttImg.style.opacity = '1'; };
+ttImg.src = nextSrc;
+if (ttImg.complete) ttImg.style.opacity = '1';
             
             const tagsHtml = `<span class="tt-tag rank-${data.rank}">${rankLabel} ${data.rank}</span>
                               <span class="tt-tag dyn-term" data-term="${data.specialty}">${ttTranslate(data.specialty, lang)}</span>
