@@ -1796,9 +1796,10 @@ function initLanguageSwitcher() {
             updateDropdownUI(State.search);
             renderAgents(); scrollToTop();
             if (State.currentAgent && !document.getElementById('agentDetailModal').classList.contains('hidden')) {
-             const { getGuideHTML } = await import('./guides/index.js');
-             document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent)); 
-         }
+                const { getGuideHTML } = await import('./guides/index.js');
+                document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent));
+                initGuideDragScroll();
+            }
         });
     }
 }
