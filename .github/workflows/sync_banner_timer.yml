@@ -127,7 +127,7 @@ jobs:
           else
             git commit -m "chore: auto-sync ZZZ banner countdown from Prydwen"
             for i in 1 2 3 4 5; do
-              git pull --rebase origin main && git push origin main && exit 0
+              git pull --rebase -X theirs origin main && git push origin main && exit 0
               git rebase --abort 2>/dev/null || true
               sleep $((i * 3))
             done
