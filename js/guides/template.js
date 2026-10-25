@@ -64,6 +64,26 @@ function buildTeamMember(m, i, currentAgentName) {
         </div>`;
     }
 
+    const rawRole = (m.role || '').toLowerCase();
+    let targetRole = '';
+    if (rawRole.includes('stun')) targetRole = 'Stun';
+    else if (rawRole.includes('support') || rawRole.includes('soutien')) targetRole = 'Support';
+    else if (rawRole.includes('anomal')) targetRole = 'Anomaly';
+    else if (rawRole.includes('atta') || rawRole.includes('dps')) targetRole = 'Attack';
+    else if (rawRole.includes('def')) targetRole = 'Defense';
+    else if (rawRole.includes('rupture')) targetRole = 'Rupture';
+    else if (rawRole.includes('armor') || rawRole.includes('forge')) targetRole = 'Armorer';
+
+    if (targetRole) {
+        const hint = currentLang === 'en' ? `Filter by ${tTerm(targetRole)}` : `Filtrer par ${tTerm(targetRole)}`;
+        return `
+        <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.filterByRoleFromGuide('${targetRole}')" title="${escapeHTML(hint)}">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-zinc-700 hover:border-[#d7f70c] bg-black overflow-hidden relative transition-colors duration-300 text-zinc-400 hover:text-[#d7f70c]">
+                <span class="text-xs font-bold text-center px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>
+            </div>
+        </div>`;
+    }
+
     return `
     <div class="flex flex-col items-center gap-3">
         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="${borderStyle}">
