@@ -255,6 +255,26 @@ window.resetAllFilters = function() {
     scrollToTop();
 };
 
+window.filterByRoleFromGuide = function(roleKey) {
+    window.closeModal('agentDetailModal');
+    State.mode = 'roles';
+    State.filters.role = roleKey;
+
+    document.querySelectorAll('.tab-pill').forEach(p => {
+        p.classList.toggle('active', p.id.toLowerCase().includes('roles'));
+    });
+    Object.keys(DOM.groups).forEach(gKey => {
+        DOM.groups[gKey].forEach(el => { if (el) el.classList.toggle('hidden', gKey !== 'roles'); });
+    });
+    document.querySelectorAll('.filter-role-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-role') === roleKey);
+    });
+
+    updateAllSliders('roles');
+    renderAgents();
+    scrollToTop();
+};
+
 window.handleLogoClick = function(e) {
     if (e && (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1)) return;
     if (e) e.preventDefault();
