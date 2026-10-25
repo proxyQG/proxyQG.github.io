@@ -326,6 +326,7 @@ export let currentLang = localStorage.getItem('zzz_lang') || 'fr';
 export function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('zzz_lang', lang);
+    document.documentElement.lang = lang;
     updateStaticUI();
 }
 
@@ -392,6 +393,7 @@ export function tStats(statStr) {
 
 // Rafraîchissement des balises fixes dans le DOM (Zéro mutation inutile si déjà identique)
 export function updateStaticUI() {
+    document.documentElement.lang = currentLang;
     const dict = ui[currentLang];
     if (dict) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
