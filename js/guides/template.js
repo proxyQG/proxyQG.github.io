@@ -227,31 +227,42 @@ function buildSkills(data, c, txt) {
         const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
         const isFirst = index === 0;
         const iconSrc = `assets/Skills/${(skill.icon || '').replace('.png', '.webp')}`;
-        const levelText = skill.level ? ` (${escapeHTML(skill.level)})` : '';
+        const rawLevel = skill.level ? escapeHTML(skill.level) : '';
+        const titleLevel = rawLevel ? ` (Niv. ${rawLevel})` : '';
+
+        // Badge de niveau intégré au pied de l'icône (style natif ZZZ : 0 px de largeur ajoutée au texte)
+        const levelBadgeHTML = rawLevel
+            ? `<span class="absolute left-1/2 -translate-x-1/2 z-20 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[9px] font-mono font-black leading-none border" style="bottom: -5px; background-color: ${isFirst ? c : '#18181b'}; color: ${isFirst ? '#000' : '#e4e4e7'}; border-color: ${isFirst ? '#000' : '#3f3f46'};">${rawLevel}</span>`
+            : '';
+
         const arrow = (index < skillsList.length - 1)
-            ? `<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 text-zinc-700 shrink-0 -mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
+            ? `<svg class="w-3 h-3 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 text-zinc-700 shrink-0 -mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
             : '';
 
         let iconContainer;
         if (isFirst) {
             iconContainer = `
-            <div class="relative">
+            <div class="relative mb-1">
                 <div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div>
                 <div class="w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
                     <img src="${iconSrc}" alt="${escapeHTML(fullTitle)}" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
                 </div>
+                ${levelBadgeHTML}
             </div>`;
         } else {
             iconContainer = `
-            <div class="relative w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
-                <img src="${iconSrc}" alt="${escapeHTML(fullTitle)}" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+            <div class="relative mb-1">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 border-zinc-700 bg-black relative z-10 overflow-hidden">
+                    <img src="${iconSrc}" alt="${escapeHTML(fullTitle)}" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+                </div>
+                ${levelBadgeHTML}
             </div>`;
         }
 
         return `
-        <div title="${escapeHTML(fullTitle)}${levelText}" class="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80 cursor-default'}">
+        <div title="${escapeHTML(fullTitle)}${titleLevel}" class="flex flex-col items-center gap-1 flex-1 min-w-0 ${isFirst ? 'group cursor-default' : 'opacity-80 cursor-default'}">
             ${iconContainer}
-            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(shortLabel)}${levelText}</span>
+            <span class="text-[8.5px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-wider text-center truncate w-full" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(shortLabel)}</span>
         </div>
         ${arrow}`;
     }).join('');
@@ -259,11 +270,8 @@ function buildSkills(data, c, txt) {
     return `
     <div id="guide-sec-skills" style="scroll-margin-top: 96px;" class="h-fit overflow-hidden w-full">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.skillPrio}</h3>
-        <div class="relative">
-            <div class="bg-[#0f0f0f] px-3 py-4 sm:px-4 sm:py-5 2xl:p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-between gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                ${skillsHTML}
-            </div>
-            <div class="absolute right-[1px] bottom-[1px] top-[1px] w-8 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-xl"></div>
+        <div class="bg-[#0f0f0f] px-2.5 py-4 sm:px-4 sm:py-5 2xl:p-5 rounded-2xl border border-zinc-800 shadow-inner flex items-center justify-between gap-0.5 sm:gap-2 w-full">
+            ${skillsHTML}
         </div>
     </div>`;
 }
@@ -285,9 +293,19 @@ function buildStatPriority(data, c, txt) {
 
     const subHTML = subList.map((s, index) => {
         const color = s.highlight ? c : '#d4d4d8';
-        const separator = (index < subList.length - 1) ? `<span class="text-zinc-700 shrink-0 select-none">&gt;&gt;</span>` : '';
+        const borderStyle = s.highlight ? `border-color: ${c}55;` : '';
+        const rawText = escapeHTML(tStats(s.label));
+        // Met en forme les notes entre parenthèses (ex: "(6 rolls max)") pour garder des pilules compactes
+        const formattedText = rawText.replace(/\(([^)]+)\)/g, '<span class="text-[9.5px] text-zinc-400 font-semibold normal-case">($1)</span>');
+        const separator = (index < subList.length - 1)
+            ? `<span class="text-zinc-600 text-[10px] font-black select-none">&gt;&gt;</span>`
+            : '';
+
         return `
-        <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-md border border-zinc-700 shrink-0 whitespace-nowrap shadow-inner" style="color: ${color};">${escapeHTML(tStats(s.label))}</span>${separator}`;
+        <div class="inline-flex items-center gap-1.5 max-w-full">
+            <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-lg border border-zinc-700/90 text-[11px] sm:text-xs font-bold uppercase leading-snug break-words shadow-inner" style="color: ${color}; ${borderStyle}">${formattedText}</span>
+            ${separator}
+        </div>`;
     }).join('');
 
     return `
@@ -296,12 +314,11 @@ function buildStatPriority(data, c, txt) {
         <div class="flex flex-col gap-2.5 mb-5">
             ${mainHTML}
         </div>
-        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 relative">
+        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
-            <div class="flex items-center gap-2 text-xs font-bold uppercase overflow-x-auto flex-nowrap md:flex-wrap pb-1 pr-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2">
                 ${subHTML}
             </div>
-            <div class="absolute right-[1px] bottom-[1px] top-[1px] w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-xl"></div>
         </div>
     </div>`;
 }
