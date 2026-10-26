@@ -95,12 +95,15 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
     const rawFaction = agentMeta?.faction || '';
     const jsSafeFaction = rawFaction.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     const factionFilterHint = currentLang === 'en' ? 'Filter by this faction' : 'Filtrer par cette faction';
+    const factionDisplay = (rawFaction && typeof window.translateFactionName === 'function')
+        ? window.translateFactionName(rawFaction)
+        : tData(data.factionTitle);
 
     const factionHTML = rawFaction
         ? `<button type="button" onclick="window.closeModal('agentDetailModal'); window.setFactionFilter('${jsSafeFaction}');" title="${factionFilterHint}" class="text-zinc-400 hover:text-[#d7f70c] font-bold tracking-[0.2em] text-[10px] sm:text-xs uppercase mb-1 inline-flex items-center gap-1 w-fit transition-colors cursor-pointer group/fac text-left leading-snug">
-               <span>${escapeHTML(tData(data.factionTitle))} <svg class="w-3 h-3 inline-block -mt-0.5 text-zinc-500 group-hover/fac:text-[#d7f70c] group-hover/fac:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></span>
+               <span>${escapeHTML(factionDisplay)} <svg class="w-3 h-3 inline-block -mt-0.5 text-zinc-500 group-hover/fac:text-[#d7f70c] group-hover/fac:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></span>
            </button>`
-        : `<span class="text-zinc-400 font-bold tracking-[0.2em] text-[10px] sm:text-xs uppercase mb-1 leading-snug">${escapeHTML(tData(data.factionTitle))}</span>`;
+        : `<span class="text-zinc-400 font-bold tracking-[0.2em] text-[10px] sm:text-xs uppercase mb-1 leading-snug">${escapeHTML(factionDisplay)}</span>`;
 
     const roleBadgeHTML = role
         ? `<div title="${escapeHTML(roleLabel)}" class="bg-[#141417] rounded-lg md:rounded-xl w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center shadow-lg border border-white/10"><img src="assets/Rôles/${escapeHTML(role)}.webp" alt="${escapeHTML(roleLabel)}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-7 sm:h-7 md:w-9 md:h-9 object-contain opacity-90" style="filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));"></div>`
@@ -203,15 +206,28 @@ function buildDiscs(data, c, txt) {
     </div>`;
 }
 
+const SKILL_LABELS = {
+    BASIC:  { shortFr: 'Normale', shortEn: 'Basic',   fullFr: 'Attaque normale',        fullEn: 'Basic Attack' },
+    DODGE:  { shortFr: 'Esquive', shortEn: 'Dodge',   fullFr: 'Esquive',                fullEn: 'Dodge' },
+    ASSIST: { shortFr: 'Soutien', shortEn: 'Assist',  fullFr: 'Soutien',                fullEn: 'Assist' },
+    EX:     { shortFr: 'Spécial', shortEn: 'Special', fullFr: 'Attaque spéciale EX',    fullEn: 'EX Special Attack' },
+    ULT:    { shortFr: 'Ultime',  shortEn: 'Ult',     fullFr: 'Enchaînement & Ultime',  fullEn: 'Chain Attack & Ultimate' },
+    CHAIN:  { shortFr: 'Ultime',  shortEn: 'Ult',     fullFr: 'Enchaînement & Ultime',  fullEn: 'Chain Attack & Ultimate' }
+};
+
 function buildSkills(data, c, txt) {
     const skillsList = data.skills || [];
+    const isEn = currentLang === 'en';
     const skillsHTML = skillsList.map((skill, index) => {
-        const skillName = (skill.name || '').toUpperCase();
-        const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillName);
+        const skillKey = (skill.name || '').toUpperCase().trim();
+        const meta = SKILL_LABELS[skillKey];
+        const shortLabel = meta ? (isEn ? meta.shortEn : meta.shortFr) : (skill.name || '');
+        const fullTitle = meta ? (isEn ? meta.fullEn : meta.fullFr) : (skill.name || '');
+        const needsMoreZoom = ['ASSIST', 'BASIC', 'DODGE'].includes(skillKey);
         const scaleClass = needsMoreZoom ? 'scale-[1.35]' : 'scale-[1.15]';
         const isFirst = index === 0;
         const iconSrc = `assets/Skills/${(skill.icon || '').replace('.png', '.webp')}`;
-        const levelText = skill.level ? `(${escapeHTML(skill.level)})` : '';
+        const levelText = skill.level ? ` (${escapeHTML(skill.level)})` : '';
         const arrow = (index < skillsList.length - 1)
             ? `<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 2xl:w-5 2xl:h-5 text-zinc-700 shrink-0 -mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>`
             : '';
@@ -222,20 +238,20 @@ function buildSkills(data, c, txt) {
             <div class="relative">
                 <div class="absolute inset-0 rounded-full blur-md opacity-40" style="background-color: ${c};"></div>
                 <div class="w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 bg-black relative z-10 overflow-hidden" style="border-color: ${c};">
-                    <img src="${iconSrc}" alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+                    <img src="${iconSrc}" alt="${escapeHTML(fullTitle)}" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
                 </div>
             </div>`;
         } else {
             iconContainer = `
             <div class="relative w-10 h-10 sm:w-11 sm:h-11 2xl:w-12 2xl:h-12 rounded-full border-2 border-zinc-700 bg-black overflow-hidden">
-                <img src="${iconSrc}" alt="" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
+                <img src="${iconSrc}" alt="${escapeHTML(fullTitle)}" loading="eager" decoding="sync" draggable="false" class="w-full h-full object-cover object-center ${scaleClass} pointer-events-none">
             </div>`;
         }
 
         return `
-        <div class="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80'}">
+        <div title="${escapeHTML(fullTitle)}${levelText}" class="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0 ${isFirst ? 'group cursor-default' : 'opacity-80 cursor-default'}">
             ${iconContainer}
-            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(skill.name)}${levelText}</span>
+            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-tight sm:tracking-wider whitespace-nowrap" style="color: ${isFirst ? c : '#a1a1aa'};">${escapeHTML(shortLabel)}${levelText}</span>
         </div>
         ${arrow}`;
     }).join('');
@@ -247,6 +263,7 @@ function buildSkills(data, c, txt) {
             <div class="bg-[#0f0f0f] px-3 py-4 sm:px-4 sm:py-5 2xl:p-5 rounded-2xl border border-zinc-800 shadow-inner flex flex-nowrap items-center justify-between gap-1 sm:gap-2 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 ${skillsHTML}
             </div>
+            <div class="absolute right-[1px] bottom-[1px] top-[1px] w-8 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden rounded-r-xl"></div>
         </div>
     </div>`;
 }
