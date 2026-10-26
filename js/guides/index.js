@@ -5,6 +5,13 @@ let cachedDatabase = null;
 let cachedMindscapes = null;
 let dbLoadPromise = null;
 
+try {
+    const navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (navEntry && navEntry.type === 'reload') {
+        ['zzz_agent_db', 'zzz_mindscapes_db', 'zzz_engines_db', 'zzz_discs_db'].forEach(k => sessionStorage.removeItem(k));
+    }
+} catch (e) {}
+
 export function preloadGuideDatabases() {
     if (cachedDatabase && cachedMindscapes) return Promise.resolve();
     if (dbLoadPromise) return dbLoadPromise;
