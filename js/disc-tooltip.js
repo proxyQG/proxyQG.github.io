@@ -278,7 +278,9 @@
     }
 
     async function showDiscTooltip(discKey) {
+        if (typeof window.hideTooltip === 'function') window.hideTooltip(true);
         createDOM();
+        const wasVisible = !!(modalEl && modalEl.classList.contains('visible'));
         const [db, agentsDB] = await Promise.all([loadDatabase(), getAgentsDB()]);
         if (!db || !db[discKey]) return;
 
@@ -359,7 +361,9 @@
         `;
 
         modalEl.scrollTop = 0;
-        window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
+        if (!wasVisible && !window.history.state?.discTooltipOpen) {
+            window.history.pushState({ discTooltipOpen: true }, '', window.location.href);
+        }
 
         requestAnimationFrame(() => {
             overlayEl.classList.add('visible');
