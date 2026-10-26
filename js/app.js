@@ -1107,10 +1107,21 @@ function createCardHTML(agent, isNew = false, index = 0) {
 
     const newRibbonHTML = isNew ? `
         <div class="zzz-new-badge" aria-label="Nouveau">
-            <span class="zzz-new-char" style="--char-i: 0; --char-color: #ff9e5e;">N</span>
-            <span class="zzz-new-char" style="--char-i: 1; --char-color: #ffbe42;">E</span>
-            <span class="zzz-new-char" style="--char-i: 2; --char-color: #e8f70c;">W</span>
-            <span class="zzz-new-char" style="--char-i: 3; --char-color: #d7f70c;">!</span>
+            <svg viewBox="0 0 86 36" class="zzz-new-svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="zzz-new-grad" x1="6" y1="28" x2="76" y2="6" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#ff9358"/>
+                        <stop offset="48%" stop-color="#ffdd35"/>
+                        <stop offset="100%" stop-color="#f2ff00"/>
+                    </linearGradient>
+                </defs>
+                <g transform="skewX(-8)">
+                    <path class="zzz-new-glyph" style="--i:0" d="M7 28V7h5.8l4.8 11.2V7h5.6v21h-5.6L12.6 16.8V28Z"/>
+                    <path class="zzz-new-glyph" style="--i:1" d="M27.2 28V7h13.6v4.8h-7.8v3.2h6.6v4.6h-6.6v3.6h8.1V28Z"/>
+                    <path class="zzz-new-glyph" style="--i:2" d="M44.5 7h5.6l1.9 11.8L54.3 7h4.6l2.3 11.8L63.1 7h5.5L64.4 28h-5.4l-2.4-11.2L54.2 28h-5.4Z"/>
+                    <path class="zzz-new-glyph" style="--i:3" d="M72.2 7h6.4l-1 13.8h-4.4ZM72.6 22.8h5.4V28h-5.4Z"/>
+                </g>
+            </svg>
         </div>` : '';
 
     return `
