@@ -364,6 +364,15 @@ function initSearch() {
     });
     DOM.clearBtns.forEach(btn => { if (btn) btn.addEventListener('click', clearSearch); });
 
+    // Range le clavier virtuel mobile dès que l'utilisateur fait défiler les résultats
+    if (DOM.dropdowns[1] && DOM.searchInputs[1]) {
+        DOM.dropdowns[1].addEventListener('touchmove', () => {
+            if (document.activeElement === DOM.searchInputs[1]) {
+                DOM.searchInputs[1].blur();
+            }
+        }, { passive: true });
+    }
+
     // Ferme le menu déroulant uniquement si l'utilisateur clique en dehors de la zone de recherche
     document.addEventListener('pointerdown', (e) => {
         const insideSearch = DOM.searchInputs.some(inp => inp && inp.parentElement?.parentElement?.contains(e.target));
@@ -682,6 +691,14 @@ const factionTranslations = {
     "Entente de Dayat": "Void Hunters",
     "Phaéthon": "Phaethon",
     "Atelier Flint": "Flint Workshop"
+};
+
+window.translateFactionName = function(rawFaction) {
+    if (!rawFaction) return '';
+    if (rawFaction === "Équipe d'intervention spéciale des Enquêtes criminelles") {
+        return currentLang === 'en' ? "C.I.S.R.T. (N.E.P.S.)" : "Section spéciale N.E.P.S.";
+    }
+    return (currentLang === 'en' && factionTranslations[rawFaction]) ? factionTranslations[rawFaction] : rawFaction;
 };
 
 let modalFactionsRendered = false;
@@ -1239,6 +1256,8 @@ window.closeModal = function(id, updateUrl = true) {
     if (!m) return;
     if (id === 'agentDetailModal') {
         openAgentToken++; // annule les ouvertures encore en attente (splash / guide)
+        if (typeof window.hideTooltip === 'function') window.hideTooltip(true);
+        if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip(true);
         // Rétablit l'affichage de la grille principale
         document.documentElement.classList.remove('direct-agent-load');
 
@@ -1412,8 +1431,9 @@ function preloadTeammatesFromDOM() {
     });
 }
 
-// Active le glisser-déposer à la souris sur les conteneurs horizontaux du guide
+// Active le glisser-déposer à la souris sur les conteneurs horizontaux du guide (PC uniquement)
 function initGuideDragScroll() {
+    if (window.matchMedia('(hover: none)').matches) return;
     const guideContainer = document.getElementById('agentGuideContainer');
     if (!guideContainer) return;
 
@@ -1448,11 +1468,17 @@ function updateModalNavigation(preloadNeighbors = false) {
 
     if (hasPrev) {
         const prevAgentName = State.filteredAgents[State.modalIndex - 1].name;
+        const prevDisplay = prevAgentName === 'Jane' ? 'Jane Doe' : prevAgentName;
+        prevBtn.title = `← ${prevDisplay}`;
+        prevBtn.setAttribute('aria-label', prevDisplay);
         prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(prevAgentName); };
         if (preloadNeighbors) window.preloadSplash(prevAgentName, false, true);
     }
     if (hasNext) {
         const nextAgentName = State.filteredAgents[State.modalIndex + 1].name;
+        const nextDisplay = nextAgentName === 'Jane' ? 'Jane Doe' : nextAgentName;
+        nextBtn.title = `${nextDisplay} →`;
+        nextBtn.setAttribute('aria-label', nextDisplay);
         nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(nextAgentName); };
         if (preloadNeighbors) window.preloadSplash(nextAgentName, false, true);
     }
@@ -1473,7 +1499,14 @@ function initKeyboardNavigation() {
         const tooltip = document.getElementById('proxy-tooltip');
         const discModal = document.getElementById('disc-tooltip-modal');
 
-        if (e.key === 'Escape') { 
+        if (e.key === 'Escape') {
+            // 0. Ferme la boîte d'aide iOS si elle est ouverte
+            const iosModal = document.getElementById('apple-guide-box');
+            if (iosModal && iosModal.style.display !== 'none') {
+                iosModal.style.setProperty('opacity', '0', 'important');
+                setTimeout(() => { iosModal.style.setProperty('display', 'none', 'important'); }, 300);
+                return;
+            }
             // 1. Ferme l'infobulle Disque ou W-Engine en priorité si elle est visible
             if (discModal && discModal.classList.contains('visible')) {
                 if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip();
