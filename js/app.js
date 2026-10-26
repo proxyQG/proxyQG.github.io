@@ -1106,12 +1106,11 @@ function createCardHTML(agent, isNew = false, index = 0) {
             : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="sync"`);
 
     const newRibbonHTML = isNew ? `
-        <div class="new-ribbon-wrapper">
-            <div class="new-ribbon-glow"></div>
-            <div class="new-ribbon-tag">
-                <span class="new-ribbon-shine"></span>
-                <span class="new-ribbon-text">NEW</span>
-            </div>
+        <div class="zzz-new-badge" aria-label="Nouveau">
+            <span class="zzz-new-char" style="--char-i: 0; --char-color: #ff9e5e;">N</span>
+            <span class="zzz-new-char" style="--char-i: 1; --char-color: #ffbe42;">E</span>
+            <span class="zzz-new-char" style="--char-i: 2; --char-color: #e8f70c;">W</span>
+            <span class="zzz-new-char" style="--char-i: 3; --char-color: #d7f70c;">!</span>
         </div>` : '';
 
     return `
