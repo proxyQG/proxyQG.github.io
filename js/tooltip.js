@@ -432,12 +432,16 @@ if (ttImg.complete) ttImg.style.opacity = '1';
     }
 
     async function showEngineTooltip(engineKey) {
+        if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip(true);
         if (!W_ENGINES_DB || !AGENTS_DB) {
             await Promise.all([loadEnginesDB(), getAgentsDB()]);
         }
+        const wasVisible = !!(tooltipEl && tooltipEl.classList.contains('visible'));
         const isValid = populateTooltip(engineKey, 0);
         if (isValid) {
-            window.history.pushState({ tooltipOpen: true }, '', window.location.href);
+            if (!wasVisible && !window.history.state?.tooltipOpen) {
+                window.history.pushState({ tooltipOpen: true }, '', window.location.href);
+            }
             requestAnimationFrame(() => {
                 tooltipEl.classList.add('visible');
                 overlayEl.classList.add('visible');
