@@ -291,20 +291,60 @@ function buildStatPriority(data, c, txt) {
         </div>`;
     }).join('');
 
-    const subHTML = subList.map((s, index) => {
-        const color = s.highlight ? c : '#d4d4d8';
-        const borderStyle = s.highlight ? `border-color: ${c}55;` : '';
-        const rawText = escapeHTML(tStats(s.label));
-        // Met en forme les notes entre parenthèses (ex: "(6 rolls max)") pour garder des pilules compactes
-        const formattedText = rawText.replace(/\(([^)]+)\)/g, '<span class="text-[9.5px] text-zinc-400 font-semibold normal-case">($1)</span>');
-        const separator = (index < subList.length - 1)
-            ? `<span class="text-zinc-600 text-[10px] font-black select-none">&gt;&gt;</span>`
+    // Pré-analyse la largeur de chaque sous-stat pour construire un Bento rectangulaire sans trou
+    const parsedSubs = subList.map((s, index) => {
+        const raw = String(tStats(s.label) || '').trim();
+        const noteMatch = raw.match(/\(([^)]+)\)/);
+        const note = noteMatch ? noteMatch[1].trim() : '';
+        const cleanLabel = raw.replace(/\s*\([^)]+\)/g, '').trim();
+        const needsFullRow = !!note || cleanLabel.length > 16;
+        return {
+            rank: index + 1,
+            highlight: !!s.highlight,
+            label: cleanLabel,
+            note,
+            fullRow: needsFullRow
+        };
+    });
+
+    // Si une petite stat (col-span-1) se retrouve toute seule sur une rangée, elle passe en pleine largeur (col-span-2)
+    let pendingHalf = -1;
+    parsedSubs.forEach((item, idx) => {
+        if (item.fullRow) {
+            if (pendingHalf !== -1) {
+                parsedSubs[pendingHalf].fullRow = true;
+                pendingHalf = -1;
+            }
+        } else {
+            if (pendingHalf === -1) {
+                pendingHalf = idx;
+            } else {
+                pendingHalf = -1;
+            }
+        }
+    });
+    if (pendingHalf !== -1) {
+        parsedSubs[pendingHalf].fullRow = true;
+    }
+
+    const subHTML = parsedSubs.map(item => {
+        const spanClass = item.fullRow ? 'col-span-2' : '';
+        const cardBorder = item.highlight ? `border-color: ${c}55; background-color: #141417;` : 'border-color: #27272a; background-color: #121214;';
+        const badgeStyle = item.highlight
+            ? `background-color: ${c}; color: #000000;`
+            : 'background-color: #27272a; color: #a1a1aa;';
+        const textStyle = item.highlight ? `color: ${c};` : 'color: #e4e4e7;';
+        const noteHTML = item.note
+            ? `<span class="text-[9.5px] font-semibold text-zinc-300 bg-black/60 border border-zinc-700/80 px-2 py-0.5 rounded-md shrink-0">${escapeHTML(item.note)}</span>`
             : '';
 
         return `
-        <div class="inline-flex items-center gap-1.5 max-w-full">
-            <span class="bg-[#1a1a1a] px-2.5 py-1.5 rounded-lg border border-zinc-700/90 text-[11px] sm:text-xs font-bold uppercase leading-snug break-words shadow-inner" style="color: ${color}; ${borderStyle}">${formattedText}</span>
-            ${separator}
+        <div class="${spanClass} flex items-center justify-between gap-2 px-2.5 py-2 rounded-xl border shadow-inner" style="${cardBorder}">
+            <div class="flex items-center gap-2 min-w-0">
+                <span class="w-5 h-5 rounded-md text-[10px] font-mono font-black flex items-center justify-center shrink-0" style="${badgeStyle}">${item.rank}</span>
+                <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wide leading-tight break-words" style="${textStyle}">${escapeHTML(item.label)}</span>
+            </div>
+            ${noteHTML}
         </div>`;
     }).join('');
 
@@ -316,7 +356,7 @@ function buildStatPriority(data, c, txt) {
         </div>
         <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
-            <div class="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+            <div class="grid grid-cols-2 gap-2">
                 ${subHTML}
             </div>
         </div>
