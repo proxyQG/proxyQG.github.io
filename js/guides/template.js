@@ -385,12 +385,12 @@ function buildEngines(data, c, txt) {
     }).join('');
 
     return `
-    <div id="guide-sec-engines" style="scroll-margin-top: 96px;">
-        <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
-        <div class="flex flex-col gap-3">
-            ${enginesHTML}
-        </div>
-    </div>`;
+<div id="guide-sec-engines" style="scroll-margin-top: 96px;" class="mb-14">
+    <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        ${enginesHTML}
+    </div>
+</div>`;
 }
 
 function buildTeams(agentName, data, c, txt) {
@@ -574,16 +574,17 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
         ${buildHeader(agentName, data, c, iconName, agentMeta)}
         ${buildStats(data, c, txt)}
 
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-12 items-start">
     <div class="flex flex-col gap-10">
         ${buildDiscs(data, c, txt)}
-        ${buildSkills(data, c, txt)}
     </div>
     <div class="flex flex-col gap-10">
         ${buildStatPriority(data, c, txt)}
-        ${buildEngines(data, c, txt)}
+        ${buildSkills(data, c, txt)}
     </div>
 </div>
+
+${buildEngines(data, c, txt)}
 
         ${buildTeams(agentName, data, c, txt)}
         ${buildMindscapes(mindscapes, c)}
