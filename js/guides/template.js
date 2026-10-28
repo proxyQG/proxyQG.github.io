@@ -180,7 +180,7 @@ function buildDiscs(data, c, txt) {
         const noteHTML = disc.note ? `<p class="text-[11px] text-zinc-400 mt-2 leading-relaxed">${escapeHTML(tDisc(tData(disc.note)))}</p>` : '';
 
         return `
-        <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
+        <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group flex-1 flex flex-col justify-center">
             <div class="absolute -top-3 right-3 sm:-right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                 <div class="flex -space-x-4">
@@ -203,9 +203,9 @@ function buildDiscs(data, c, txt) {
     }).join('');
 
     return `
-    <div id="guide-sec-discs" style="scroll-margin-top: 96px;">
+    <div id="guide-sec-discs" style="scroll-margin-top: 96px;" class="flex-1 flex flex-col">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.discSets}</h3>
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col gap-5 flex-1">
             ${discsHTML}
         </div>
     </div>`;
@@ -354,12 +354,12 @@ function buildStatPriority(data, c, txt) {
     }).join('');
 
     return `
-    <div>
+    <div class="flex-1 flex flex-col">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.statistics}</h3>
         <div class="flex flex-col gap-2.5 mb-5">
             ${mainHTML}
         </div>
-        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80">
+        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 flex-1 flex flex-col justify-center">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
             <div class="grid grid-cols-2 gap-2">
                 ${subHTML}
@@ -585,19 +585,21 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
     const txt = ui[currentLang] || ui.fr;
     
     const mindscapes = mindscapesDB ? mindscapesDB[agentName] : null;
+    const placeSkillsLeft = (data.discs || []).length <= 2;
 
     return `
     <div class="max-w-[1400px] w-full mx-auto pb-20 pt-4 text-zinc-100">
         ${buildHeader(agentName, data, c, iconName, agentMeta)}
         ${buildStats(data, c, txt)}
 
-<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-12 items-start">
-    <div class="flex flex-col gap-10">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-10 mb-14">
+    <div class="flex flex-col gap-8">
         ${buildDiscs(data, c, txt)}
+        ${placeSkillsLeft ? buildSkills(data, c, txt) : ''}
     </div>
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-8">
         ${buildStatPriority(data, c, txt)}
-        ${buildSkills(data, c, txt)}
+        ${!placeSkillsLeft ? buildSkills(data, c, txt) : ''}
     </div>
 </div>
 
