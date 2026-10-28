@@ -281,7 +281,7 @@ function buildSkills(data, c, txt) {
     </div>`;
 }
 
-function buildStatPriority(data, c, txt) {
+function buildStatPriority(data, c, txt, stackSubstats = false) {
     const mainList = data.statPriority?.main || [];
     const subList = data.statPriority?.sub || [];
 
@@ -290,19 +290,21 @@ function buildStatPriority(data, c, txt) {
         const borderColor = index === 0 ? 'border-zinc-600 shadow-lg' : 'border-zinc-800';
         const labelColor = index === 0 ? 'text-white' : 'text-zinc-300';
         return `
-        <div class="flex items-center gap-4 bg-[#121212] p-3.5 rounded-xl border ${borderColor}">
+        <div class="flex-1 flex items-center gap-4 bg-[#121212] p-3.5 rounded-xl border ${borderColor}">
             <span class="font-black text-xl w-6 text-center" style="color: ${slotColor};">${escapeHTML(m.slot)}</span>
             <span class="font-bold uppercase tracking-wider text-sm flex-1 ${labelColor}">${escapeHTML(tStats(m.label))}</span>
         </div>`;
     }).join('');
 
-    // Pré-analyse la largeur de chaque sous-stat pour construire un Bento rectangulaire sans trou
+    // Si Statistiques est seul à droite (stackSubstats) et a <= 4 sous-stats, chacune prend une ligne complète
+    const forceFullRows = stackSubstats && subList.length <= 4;
+
     const parsedSubs = subList.map((s, index) => {
         const raw = String(tStats(s.label) || '').trim();
         const noteMatch = raw.match(/\(([^)]+)\)/);
         const note = noteMatch ? noteMatch[1].trim() : '';
         const cleanLabel = raw.replace(/\s*\([^)]+\)/g, '').trim();
-        const needsFullRow = !!note || cleanLabel.length > 16;
+        const needsFullRow = forceFullRows || !!note || cleanLabel.length > 16;
         return {
             rank: index + 1,
             highlight: !!s.highlight,
@@ -312,7 +314,6 @@ function buildStatPriority(data, c, txt) {
         };
     });
 
-    // Si une petite stat (col-span-1) se retrouve toute seule sur une rangée, elle passe en pleine largeur (col-span-2)
     let pendingHalf = -1;
     parsedSubs.forEach((item, idx) => {
         if (item.fullRow) {
@@ -344,8 +345,8 @@ function buildStatPriority(data, c, txt) {
             : '';
 
         return `
-        <div class="${spanClass} flex items-center justify-between gap-2 px-2.5 py-2 rounded-xl border shadow-inner" style="${cardBorder}">
-            <div class="flex items-center gap-2 min-w-0">
+        <div class="${spanClass} flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl border shadow-inner" style="${cardBorder}">
+            <div class="flex items-center gap-2.5 min-w-0">
                 <span class="w-5 h-5 rounded-md text-[10px] font-mono font-black flex items-center justify-center shrink-0" style="${badgeStyle}">${item.rank}</span>
                 <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wide leading-tight break-words" style="${textStyle}">${escapeHTML(item.label)}</span>
             </div>
@@ -356,12 +357,12 @@ function buildStatPriority(data, c, txt) {
     return `
     <div class="flex-1 flex flex-col">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.statistics}</h3>
-        <div class="flex flex-col gap-2.5 mb-5">
+        <div class="flex-1 flex flex-col gap-3 mb-5">
             ${mainHTML}
         </div>
-        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 flex-1 flex flex-col justify-center">
+        <div class="bg-[#0f0f0f] p-4 rounded-xl border border-zinc-800/80 flex flex-col">
             <span class="text-[10px] font-black text-zinc-500 uppercase tracking-widest block mb-3">${txt.substatsPrio}</span>
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-2 gap-2.5">
                 ${subHTML}
             </div>
         </div>
@@ -598,7 +599,7 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
         ${placeSkillsLeft ? buildSkills(data, c, txt) : ''}
     </div>
     <div class="flex flex-col gap-8">
-        ${buildStatPriority(data, c, txt)}
+        ${buildStatPriority(data, c, txt, placeSkillsLeft)}
         ${!placeSkillsLeft ? buildSkills(data, c, txt) : ''}
     </div>
 </div>
