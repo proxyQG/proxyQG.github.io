@@ -22,27 +22,60 @@ function buildTeamMember(m, i, currentAgentName) {
 
     if (m.img) {
         const agentName = m.img.replace('.webp', '').replace('.png', '');
+        const displayName = agentName === 'Jane' ? 'Jane Doe' : (agentName === 'Orphie and Magus' ? 'Orphie' : agentName);
         const imgSrc = `assets/Agents/${m.img.replace('.png', '.webp')}`;
-        const escapedName = escapeHTML(agentName);
+        const escapedName = escapeHTML(displayName);
         const jsSafeName = agentName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         const isCurrentAgent = agentName === currentAgentName;
 
         if (isCurrentAgent) {
             return `
-            <div class="flex flex-col items-center gap-3 cursor-default">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative" style="${borderStyle}">
-                    <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
+            <div class="flex flex-col items-center gap-2 cursor-default min-w-0">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative shrink-0" style="${borderStyle}">
+                    <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top">
                 </div>
+                <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-white truncate max-w-[76px] sm:max-w-[92px] text-center">${escapedName}</span>
             </div>`;
         }
 
         return `
-        <div class="flex flex-col items-center gap-3 cursor-pointer hover:scale-110 transition-transform duration-300" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="Voir le guide de ${escapedName}">
-            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300" style="${borderStyle}">
-                <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
+        <div class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/tm min-w-0" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="Voir le guide de ${escapedName}">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300 shrink-0" style="${borderStyle}">
+                <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top">
             </div>
+            <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-400 group-hover/tm:text-[#d7f70c] transition-colors truncate max-w-[76px] sm:max-w-[92px] text-center">${escapedName}</span>
         </div>`;
     }
+
+    const rawRole = (m.role || '').toLowerCase();
+    let targetRole = '';
+    if (rawRole.includes('stun')) targetRole = 'Stun';
+    else if (rawRole.includes('support') || rawRole.includes('soutien')) targetRole = 'Support';
+    else if (rawRole.includes('anomal')) targetRole = 'Anomaly';
+    else if (rawRole.includes('atta') || rawRole.includes('dps')) targetRole = 'Attack';
+    else if (rawRole.includes('def')) targetRole = 'Defense';
+    else if (rawRole.includes('rupture')) targetRole = 'Rupture';
+    else if (rawRole.includes('armor') || rawRole.includes('forge')) targetRole = 'Armorer';
+
+    if (targetRole) {
+        const hint = currentLang === 'en' ? `Filter by ${tTerm(targetRole)}` : `Filtrer par ${tTerm(targetRole)}`;
+        return `
+        <div class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/tm min-w-0" onclick="window.filterByRoleFromGuide('${targetRole}')" title="${escapeHTML(hint)}">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-zinc-700 hover:border-[#d7f70c] bg-black overflow-hidden relative transition-colors duration-300 text-zinc-400 hover:text-[#d7f70c] shrink-0">
+                <span class="text-xs font-bold text-center px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>
+            </div>
+            <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-500 group-hover/tm:text-[#d7f70c] transition-colors text-center">FLEX</span>
+        </div>`;
+    }
+
+    return `
+    <div class="flex flex-col items-center gap-2 min-w-0">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative shrink-0" style="${borderStyle}">
+            <span class="text-xs font-bold text-center text-zinc-400 px-2 flex h-full items-center justify-center leading-tight">${tTerm(m.role)}</span>
+        </div>
+        <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-500 text-center">FLEX</span>
+    </div>`;
+}
 
     const rawRole = (m.role || '').toLowerCase();
     let targetRole = '';
@@ -145,10 +178,10 @@ function buildStats(data, c, txt) {
     const statsHTML = (data.stats || []).map(stat => {
         const noteHTML = stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${escapeHTML(tData(stat.note))}</span>` : '';
         return `
-        <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center">
-            <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">${escapeHTML(tStats(stat.label))}</span>
-            <div class="flex flex-col items-end text-right">
-                <span class="text-white font-black text-xl drop-shadow-md">${escapeHTML(stat.value)}</span>
+        <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center gap-3">
+            <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug">${escapeHTML(tStats(stat.label))}</span>
+            <div class="flex flex-col items-end justify-center text-right shrink-0">
+                <span class="text-white font-black text-xl drop-shadow-md leading-tight">${escapeHTML(stat.value)}</span>
                 ${noteHTML}
             </div>
         </div>`;
@@ -156,11 +189,11 @@ function buildStats(data, c, txt) {
 
     return `
     <div id="guide-sec-stats" style="scroll-margin-top: 96px;" class="bg-[#111] text-white rounded-2xl p-5 sm:p-6 mb-10 shadow-2xl border border-zinc-800 relative overflow-hidden group">
-        <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-3xl transition-all duration-700" style="background-color: ${c}10; group-hover:background-color: ${c}20;"></div>
+        <div class="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-3xl transition-all duration-700" style="background-color: ${c}15;"></div>
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-5 relative z-10 gap-2 border-b border-zinc-800/50 pb-4">
             <h3 class="font-display font-black uppercase text-xl sm:text-2xl tracking-wide" style="color: ${c};">${txt.statsLabel}</h3>
         </div>
-        <div class="flex flex-col sm:flex-row items-center gap-4 relative z-10">
+        <div class="flex flex-col sm:flex-row gap-4 relative z-10">
             ${statsHTML}
         </div>
     </div>`;
@@ -172,7 +205,7 @@ function buildDiscs(data, c, txt) {
         const tagBg = isFirst ? c : '#27272a';
         const tagColor = isFirst ? '#000' : '#fff';
         const tagShadow = isFirst ? `0 0 15px ${c}60` : 'transparent';
-        const noteHTML = disc.note ? `<p class="text-[10px] text-zinc-400 mt-2">${escapeHTML(tData(disc.note))}</p>` : '';
+        const noteHTML = disc.note ? `<p class="text-[11px] text-zinc-400 mt-2 leading-relaxed">${escapeHTML(tDisc(tData(disc.note)))}</p>` : '';
 
         return `
         <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group">
@@ -368,18 +401,19 @@ function buildEngines(data, c, txt) {
         const isFirst = index === 0;
         const borderColor = isFirst ? `${c}40` : '#27272a';
         const shadow = isFirst ? `0 0 15px ${c}10` : 'none';
-        const tagBg = isFirst ? `${c}20` : 'transparent';
+        const tagBg = isFirst ? `${c}20` : '#1f1f23';
+        const tagBorder = isFirst ? `${c}40` : '#2e2e34';
         const tagColor = isFirst ? c : '#a1a1aa';
         const titleColor = isFirst ? '#fff' : '#d4d4d8';
         const imgSrc = `assets/W-Engine/${(eng.img || '').replace('.png', '.webp')}`;
 
         return `
-        <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${borderColor}; box-shadow: ${shadow};">
+        <div data-engine="${escapeHTML(eng.name)}" class="cursor-pointer flex items-center gap-4 p-3.5 rounded-xl border bg-[#121212]" style="border-color: ${borderColor}; box-shadow: ${shadow};">
             <div class="sheen"></div>
-            <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden"><img src="${imgSrc}" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover"></div>
-            <div class="flex flex-col justify-center">
-                <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded w-fit" style="background-color: ${tagBg}; color: ${tagColor};">${escapeHTML(tData(eng.tag))}</span>
-                <span class="font-black text-xs uppercase tracking-wide" style="color: ${titleColor};">${escapeHTML(tEngine(eng.name))}</span>
+            <div class="w-14 h-14 bg-black rounded-lg border border-zinc-800 overflow-hidden shrink-0 p-1"><img src="${imgSrc}" alt="" loading="eager" decoding="sync" class="w-full h-full object-contain"></div>
+            <div class="flex flex-col justify-center min-w-0 pr-6">
+                <span class="text-[10px] uppercase font-bold mb-1 px-2 py-0.5 rounded border w-fit leading-tight" style="background-color: ${tagBg}; color: ${tagColor}; border-color: ${tagBorder};">${escapeHTML(tData(eng.tag))}</span>
+                <span class="font-black text-xs uppercase tracking-wide truncate" style="color: ${titleColor};">${escapeHTML(tEngine(eng.name))}</span>
             </div>
         </div>`;
     }).join('');
