@@ -3135,7 +3135,9 @@
         "teams": [
             {
                 "name": "TEAM 01",
-                "tag": "Best",
+                "tag": {
+                    "fr": "N°1",
+                    "en": "Best"
                 "members": [
                     {
                         "img": "Velina.webp",
@@ -13172,8 +13174,8 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Méta BiS (Velina / Remielle) 👑",
-                    "en": "BiS Meta (Velina / Remielle) 👑"
+                    "fr": "Méta 👑",
+                    "en": "Meta👑"
                 },
                 "videoId": "",
                 "members": [
@@ -13707,8 +13709,8 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Attaque Feu",
-                    "en": "Fire Attack"
+                    "fr": "DPS Feu",
+                    "en": "Fire DPS"
                 },
                 "videoId": "0vkdCbq8kzg",
                 "members": [
@@ -13732,8 +13734,8 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Hypercarry Élec",
-                    "en": "Electric Hypercarry"
+                    "fr": "Elec DPS",
+                    "en": "Electric DPS "
                 },
                 "videoId": "BhUj5qvH6ao",
                 "startTime": 12,
@@ -13935,8 +13937,8 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Meta Éther 👑",
-                    "en": "Ether Meta 👑"
+                    "fr": "Meta Éther",
+                    "en": "Ether Meta"
                 },
                 "videoId": "qilWiRInobw",
                 "members": [
@@ -13960,8 +13962,8 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Synergie Nicole",
-                    "en": "Nicole Synergy"
+                    "fr": "Méta ALT",
+                    "en": "Alt meta"
                 },
                 "videoId": "M1RbNSkg9i0",
                 "members": [
@@ -13985,8 +13987,8 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Confort Stun",
-                    "en": "Stun Comfort"
+                    "fr": "Confort",
+                    "en": "Comfort"
                 },
                 "videoId": "QoPJmM5JAA4",
                 "members": [
