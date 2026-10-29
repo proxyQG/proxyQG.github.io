@@ -42,6 +42,7 @@ export const GACHA_I18N = {
             statTotalS: "Signaux Rang S obtenus",
             statTotalA: "Signaux Rang A obtenus",
             statLuckS: "Taux S du compte",
+            rankWord: "RANG",
             recentDropsEmpty: "Effectuez une Recherche de Signal pour afficher votre historique de drops S & A."
         },
         ratesModal: {
@@ -59,6 +60,7 @@ export const GACHA_I18N = {
             subtitle1: "Sélectionnez l'Agent de Rang S prioritaire sur le grand écran (garanti à 100 % après un 50/50 perdu) :",
             title2: "Choisir votre Vedette Secondaire (#2)",
             subtitle2: "Sélectionnez un 2e Agent de Rang S ou un Moteur Signature S à placer sur le second téléviseur :",
+            searchPlaceholder1: "Rechercher un Agent de Rang S...",
             searchPlaceholder: "Rechercher un Agent ou Moteur S...",
             filterAll: "Tous",
             filterAgents: "Agents S",
@@ -66,7 +68,17 @@ export const GACHA_I18N = {
             ownedTag: "Possédé : {val}",
             unownedTag: "Non obtenu",
             selectedTag: "ACTIF",
-            close: "Fermer"
+            close: "Fermer",
+            roles: {
+                Attack: "Attaque",
+                Stun: "Confusion",
+                Anomaly: "Anomalie",
+                Support: "Soutien",
+                Defense: "Défense",
+                Rupture: "Rupture",
+                Armorer: "Forge"
+            }
+        },
         },
         quests: {
             dailyHeader: "Commissions Quotidiennes",
@@ -233,6 +245,7 @@ export const GACHA_I18N = {
             statTotalS: "S-Rank Signals Pulled",
             statTotalA: "A-Rank Signals Pulled",
             statLuckS: "Account S-Rank Rate",
+            rankWord: "RANK",
             recentDropsEmpty: "Perform a Signal Search to display your recent S & A pull history."
         },
         ratesModal: {
@@ -250,6 +263,7 @@ export const GACHA_I18N = {
             subtitle1: "Choose the priority S-Rank Agent on the main screen (100% guaranteed after losing a 50/50):",
             title2: "Select Your Secondary Featured (#2)",
             subtitle2: "Choose a 2nd S-Rank Agent or Signature S-Rank W-Engine for the secondary TV screen:",
+            searchPlaceholder1: "Search S-Rank Agent...",
             searchPlaceholder: "Search S-Rank Agent or W-Engine...",
             filterAll: "All",
             filterAgents: "S-Agents",
@@ -257,7 +271,9 @@ export const GACHA_I18N = {
             ownedTag: "Owned: {val}",
             unownedTag: "Unowned",
             selectedTag: "ACTIVE",
-            close: "Close"
+            close: "Close",
+            roles: {}
+        },
         },
         quests: {
             dailyHeader: "Daily Commissions",
