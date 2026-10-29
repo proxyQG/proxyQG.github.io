@@ -1,0 +1,559 @@
+/* gacha/gacha.css - Simulateur Recherche de Signal ZZZ */
+
+#zzz-gacha-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 250;
+    background: radial-gradient(circle at 50% 20%, #1a1b23 0%, #09090c 70%, #050507 100%);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+    overflow: hidden;
+    user-select: none;
+}
+
+#zzz-gacha-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Fond trame ZZZ + Haut-parleurs stylisés */
+.gacha-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 2px, transparent 2px, transparent 8px);
+    background-size: 24px 24px, 16px 16px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Barre supérieure : Retour, Onglets & Monnaies */
+.gacha-topbar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 20px;
+    background: rgba(10, 10, 14, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gacha-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #141418;
+    border: 2px solid #f05432;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.gacha-back-btn:hover {
+    background: #f05432;
+    color: #000;
+    transform: scale(1.04);
+}
+
+.gacha-nav-pills {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #0d0d11;
+    padding: 4px;
+    border-radius: 999px;
+    border: 1px solid #27272a;
+}
+
+.gacha-nav-btn {
+    position: relative;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    background: transparent;
+}
+
+.gacha-nav-btn.active {
+    background: #d7f70c;
+    color: #000;
+    box-shadow: 0 0 14px rgba(215, 247, 12, 0.35);
+}
+
+.gacha-quest-dot {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #ef4444;
+    box-shadow: 0 0 6px #ef4444;
+}
+
+.gacha-currencies {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gacha-curr-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0c0c0f;
+    border: 1.5px solid #2e2e36;
+    border-radius: 999px;
+    padding: 4px 12px 4px 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.gacha-curr-pill img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* Conteneur principal des vues */
+.gacha-main-area {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================================
+   VUE 1 : CANAL DE RECHERCHE (PILE DE TÉLÉVISEURS ZZZ)
+======================================================== */
+.gacha-stage-grid {
+    max-width: 1200px;
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+}
+
+@media (min-width: 960px) {
+    .gacha-stage-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+    }
+}
+
+/* Pile de TV cathodiques */
+.gacha-tv-showcase {
+    position: relative;
+    background: radial-gradient(circle at 50% 50%, rgba(215, 247, 12, 0.08) 0%, transparent 70%);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.gacha-tv-stack {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+.gacha-crt-box {
+    position: relative;
+    background: #1c1c21;
+    border: 4px solid #32323a;
+    border-bottom-width: 10px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.85), inset 0 0 20px rgba(0, 0, 0, 0.9);
+    aspect-ratio: 16 / 11;
+}
+
+.gacha-crt-box.tv-main {
+    grid-column: span 4;
+    border-color: #d7f70c;
+}
+
+.gacha-crt-box.tv-side {
+    grid-column: span 2;
+}
+
+.gacha-crt-box.tv-bottom {
+    grid-column: span 2;
+}
+
+/* Effet scanline cathodique sur les écrans */
+.gacha-crt-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gacha-crt-led {
+    position: absolute;
+    bottom: -7px;
+    right: 12px;
+    width: 6px;
+    height: 4px;
+    border-radius: 2px;
+    background: #22c55e;
+    box-shadow: 0 0 6px #22c55e;
+}
+
+/* Panneau d'infos & Pity à droite */
+.gacha-info-panel {
+    background: linear-gradient(145deg, #141418 0%, #0c0c0f 100%);
+    border: 1px solid #27272a;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.gacha-pity-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #09090b;
+    border: 1px solid #27272a;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.gacha-pull-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.gacha-pull-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 2px solid #3f3f46;
+    background: #18181c;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gacha-pull-btn:hover {
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+.gacha-pull-btn.multi {
+    background: linear-gradient(135deg, #d7f70c 0%, #eab308 100%);
+    border-color: #d7f70c;
+    color: #000;
+    box-shadow: 0 8px 25px rgba(215, 247, 12, 0.3);
+}
+
+.gacha-pull-btn.multi:hover {
+    box-shadow: 0 10px 30px rgba(215, 247, 12, 0.55);
+}
+
+/* ========================================================
+   PHASE D'ANIMATION : MUR DE TÉLÉVISEURS (COMME IMAGE 1)
+======================================================== */
+#gacha-anim-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: radial-gradient(circle at 50% 60%, #1c1f2e 0%, #050508 75%);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#gacha-anim-overlay.active {
+    display: flex;
+}
+
+.gacha-skip-btn {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    z-index: 30;
+    background: rgba(15, 15, 20, 0.85);
+    border: 2px solid #52525b;
+    color: #fff;
+    padding: 8px 22px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.gacha-skip-btn:hover {
+    border-color: #d7f70c;
+    color: #d7f70c;
+}
+
+/* Pyramide de téléviseurs façon ZZZ (image_ac7641.png) */
+.gacha-tv-pyramid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 780px;
+    width: 100%;
+    perspective: 900px;
+}
+
+.gacha-tv-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.gacha-anim-tv {
+    width: 82px;
+    height: 64px;
+    background: #141418;
+    border: 4px solid #2c2c34;
+    border-bottom-width: 8px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.9);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (min-width: 640px) {
+    .gacha-anim-tv {
+        width: 128px;
+        height: 96px;
+        border-radius: 16px;
+    }
+}
+
+.gacha-anim-tv.lit-B {
+    background: radial-gradient(circle, #1e3a8a 0%, #091536 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 0 22px rgba(59, 130, 246, 0.55);
+    transform: scale(1.04);
+}
+
+.gacha-anim-tv.lit-A {
+    background: radial-gradient(circle, #6b21a8 0%, #2b0948 100%);
+    border-color: #c084fc;
+    box-shadow: 0 0 28px rgba(192, 132, 252, 0.75);
+    transform: scale(1.08);
+}
+
+.gacha-anim-tv.lit-S {
+    background: radial-gradient(circle, #f59e0b 0%, #7c2d12 100%);
+    border-color: #fde047;
+    box-shadow: 0 0 45px rgba(250, 204, 21, 0.95);
+    transform: scale(1.14);
+    z-index: 10;
+}
+
+.gacha-tv-letter {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (min-width: 640px) {
+    .gacha-tv-letter {
+        font-size: 52px;
+    }
+}
+
+.gacha-anim-tv.lit-B .gacha-tv-letter {
+    opacity: 1;
+    transform: scale(1);
+    color: #93c5fd;
+    text-shadow: 0 0 12px #3b82f6, 3px 3px 0 #1e3a8a;
+}
+
+.gacha-anim-tv.lit-A .gacha-tv-letter {
+    opacity: 1;
+    transform: scale(1);
+    color: #f3e8ff;
+    text-shadow: 0 0 15px #c084fc, 3px 3px 0 #581c87;
+}
+
+.gacha-anim-tv.lit-S .gacha-tv-letter {
+    opacity: 1;
+    transform: scale(1.08);
+    color: #fef08a;
+    text-shadow: 0 0 22px #facc15, 4px 4px 0 #9a3412;
+}
+
+/* ========================================================
+   ÉCRAN FINAL « SEARCH RESULTS » 2×5 (COMME IMAGE 2)
+======================================================== */
+.gacha-results-wrap {
+    max-width: 1020px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+.gacha-results-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #d4d4d8;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
+    position: relative;
+}
+
+.gacha-results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+@media (min-width: 720px) {
+    .gacha-results-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+    }
+}
+
+/* Carte individuelle Search Results (fidèle à image_ac7622.png) */
+.gacha-result-card {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #18181f;
+    border: 2.5px solid #3b82f6;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(14px) scale(0.95);
+    animation: gachaCardPop 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transition: transform 0.2s ease;
+}
+
+.gacha-result-card:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+.gacha-result-card.rank-S {
+    background: linear-gradient(135deg, #451a03 0%, #78350f 50%, #f59e0b 100%);
+    border-color: #fde047;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.6), inset 0 0 15px rgba(254, 240, 138, 0.35);
+}
+
+.gacha-result-card.rank-A {
+    background: linear-gradient(135deg, #2e1065 0%, #581c87 60%, #9333ea 100%);
+    border-color: #c084fc;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.45);
+}
+
+.gacha-result-card.rank-B {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 65%, #1d4ed8 100%);
+    border-color: #38bdf8;
+}
+
+.gacha-card-letter-badge {
+    position: absolute;
+    bottom: 6px;
+    left: 8px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.85;
+}
+
+.gacha-card-letter-badge .big-r {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 28px;
+    -webkit-text-stroke: 3px #000;
+    paint-order: stroke fill;
+}
+
+.gacha-card-letter-badge .sub-r {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 7px;
+    letter-spacing: 0.08em;
+    background: #000;
+    color: #fff;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-top: -2px;
+}
+
+.rank-S .big-r { color: #facc15; }
+.rank-A .big-r { color: #e879f9; }
+.rank-B .big-r { color: #38bdf8; }
+
+@keyframes gachaCardPop {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
