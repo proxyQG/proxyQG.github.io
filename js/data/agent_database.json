@@ -785,23 +785,23 @@
                 "icon": "Attaque_basic.webp"
             },
             {
-                "name": "Ex",
-                "level": "11",
-                "icon": "Ex.webp"
-            },
-            {
                 "name": "Ult",
-                "level": "11",
+                "level": "12",
                 "icon": "Ultime.webp"
             },
             {
+                "name": "Ex",
+                "level": "12",
+                "icon": "Ex.webp"
+            },
+            {
                 "name": "Assist",
-                "level": "8",
+                "level": "11",
                 "icon": "Assist.webp"
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "1",
                 "icon": "Esquive.webp"
             }
         ],
