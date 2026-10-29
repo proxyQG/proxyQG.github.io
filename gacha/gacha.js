@@ -271,12 +271,53 @@
     let GState = loadState();
 
     // ==========================================
-    // 2. OUVERTURE / FERMETURE & HISTORIQUE MOBILE
+    // 2. OUVERTURE / FERMETURE, SUSPENSION GUIDE & HISTORIQUE
     // ==========================================
+    let pausedForAgentGuide = false;
+    let pausedWithAnimOverlay = false;
+
+    // Surveille la fermeture du guide d'agent (#agentDetailModal) pour restaurer automatiquement le Gacha
+    const agentModalObserver = new MutationObserver(() => {
+        if (!pausedForAgentGuide) return;
+        const agentModal = document.getElementById('agentDetailModal');
+        if (agentModal && agentModal.classList.contains('hidden')) {
+            pausedForAgentGuide = false;
+            if (modalEl) {
+                modalEl.style.visibility = '';
+                modalEl.classList.add('visible');
+            }
+            if (pausedWithAnimOverlay && animOverlayEl) {
+                animOverlayEl.style.visibility = '';
+                animOverlayEl.classList.add('active');
+            }
+            pausedWithAnimOverlay = false;
+            document.body.classList.add('modal-open');
+            GState = loadState();
+            updateTopCurrencies();
+            if (!animOverlayEl || !animOverlayEl.classList.contains('active')) {
+                renderCurrentTab();
+            }
+        }
+    });
+
+    function observeAgentModalOnce() {
+        const agentModal = document.getElementById('agentDetailModal');
+        if (agentModal && !agentModal.__gachaObserved) {
+            agentModal.__gachaObserved = true;
+            agentModalObserver.observe(agentModal, { attributes: true, attributeFilter: ['class'] });
+        }
+    }
+
     function closeGachaModal(fromPopState = false) {
+        pausedForAgentGuide = false;
+        pausedWithAnimOverlay = false;
         if (!modalEl || !modalEl.classList.contains('visible')) return;
+        modalEl.style.visibility = '';
         modalEl.classList.remove('visible');
-        if (animOverlayEl) animOverlayEl.classList.remove('active');
+        if (animOverlayEl) {
+            animOverlayEl.style.visibility = '';
+            animOverlayEl.classList.remove('active');
+        }
         document.body.classList.remove('modal-open');
         if (!fromPopState && window.history.state?.gachaOpen) {
             window.history.back();
@@ -287,18 +328,27 @@
     window.openGachaModal = async function () {
         await ensureDictLoaded();
         createModalDOM();
+        observeAgentModalOnce();
         await ensurePoolLoaded();
         GState = loadState();
         refreshModalStaticLabels();
         renderCurrentTab();
         document.body.classList.add('modal-open');
+        modalEl.style.visibility = '';
         if (!modalEl.classList.contains('visible') && !window.history.state?.gachaOpen) {
             window.history.pushState({ gachaOpen: true }, '', window.location.href);
         }
         modalEl.classList.add('visible');
     };
 
-    window.addEventListener('popstate', () => {
+    window.addEventListener('popstate', (e) => {
+        // Si on revient d'une infobulle Moteur/Disque ou d'un Guide d'Agent vers l'état { gachaOpen: true }, on garde le Gacha ouvert !
+        if (e.state && e.state.gachaOpen) {
+            return;
+        }
+        if (pausedForAgentGuide) {
+            return;
+        }
         if (animOverlayEl && animOverlayEl.classList.contains('active')) {
             animOverlayEl.classList.remove('active');
             return;
@@ -683,6 +733,15 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
+                const engTip = document.getElementById('w-engine-tooltip');
+                const discTip = document.getElementById('disc-tooltip-modal');
+                const agModal = document.getElementById('agentDetailModal');
+                if ((engTip && engTip.classList.contains('visible')) ||
+                    (discTip && discTip.classList.contains('visible')) ||
+                    (agModal && !agModal.classList.contains('hidden')) ||
+                    pausedForAgentGuide) {
+                    return;
+                }
                 if (animOverlayEl && animOverlayEl.classList.contains('active')) {
                     animOverlayEl.classList.remove('active');
                 } else {
@@ -749,6 +808,7 @@
             ? `${((GState.totalSPulls || 0) / GState.totalPulls * 100).toFixed(2)}%`
             : '0.00%';
 
+        const rWord = t.rankWord || 'RANG';
         const recentHTML = (GState.recentDrops || []).length === 0
             ? `<div style="font-size:11.5px;color:#71717a;font-weight:600;padding:6px 2px;">${t.recentDropsEmpty}</div>`
             : GState.recentDrops.map(d => `
@@ -756,7 +816,7 @@
                     <img src="${d.img}" alt="${itemName(d)}">
                     <div style="display:flex;flex-direction:column;gap:1px;">
                         <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10.5px;color:#fff;text-transform:uppercase;">${itemName(d)}</span>
-                        <span style="font-family:monospace;font-size:9.5px;font-weight:800;color:${d.rank === 'S' ? '#facc15' : '#c084fc'};">RANK ${d.rank}</span>
+                        <span style="font-family:monospace;font-size:9.5px;font-weight:800;color:${d.rank === 'S' ? '#facc15' : '#c084fc'};">${rWord} ${d.rank}</span>
                     </div>
                 </div>
             `).join('');
@@ -791,7 +851,7 @@
                                     <span class="gacha-crt-up-pill">CIBLE #1 ✎</span>
                                 </div>
                             </div>
-                            <div class="gacha-crt-screen" id="tv-screen-slot2" title="${t.chooseTarget2}">
+                            <div class="gacha-crt-screen ${feat2.type === 'engine' ? 'equip-tv-bg' : ''}" id="tv-screen-slot2" title="${t.chooseTarget2}">
                                 <img src="${feat2.img}" alt="${itemName(feat2)}" class="${feat2.type === 'engine' ? 'is-equip-tv' : ''}">
                                 <div class="gacha-crt-caption">
                                     <span class="gacha-crt-name">${itemName(feat2)}</span>
@@ -925,6 +985,16 @@
         document.getElementById('tv-screen-slot1').addEventListener('click', () => showTargetSelectorModal(1));
         document.getElementById('tv-screen-slot2').addEventListener('click', () => showTargetSelectorModal(2));
 
+        const histStrip = mount.querySelector('.gacha-history-strip');
+        if (histStrip) {
+            histStrip.addEventListener('wheel', (e) => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    e.preventDefault();
+                    histStrip.scrollLeft += e.deltaY;
+                }
+            }, { passive: false });
+        }
+
         mount.querySelectorAll('[data-h-key]').forEach(el => {
             el.addEventListener('click', () => {
                 openItemFromGacha(el.getAttribute('data-h-type'), el.getAttribute('data-h-key'));
@@ -956,7 +1026,13 @@
                 candidates = candidates.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
             }
 
-            const ordered = [...candidates].reverse();
+            const ordered = [...candidates].reverse().sort((a, b) => {
+                const aSel = (slotNum === 1 ? a.rawKey === activeKey : (a.id === activeKey || a.rawKey === activeKey)) ? 1 : 0;
+                const bSel = (slotNum === 1 ? b.rawKey === activeKey : (b.id === activeKey || b.rawKey === activeKey)) ? 1 : 0;
+                return bSel - aSel;
+            });
+
+            const phText = slotNum === 1 ? (tm.searchPlaceholder1 || tm.searchPlaceholder) : tm.searchPlaceholder;
 
             animOverlayEl.innerHTML = `
                 <div class="gacha-dialog-box">
@@ -976,7 +1052,7 @@
                             <button type="button" class="gacha-col-filter-btn ${filterCat === 'agent' ? 'active' : ''}" data-tcat="agent">${tm.filterAgents}</button>
                             <button type="button" class="gacha-col-filter-btn ${filterCat === 'engine' ? 'active' : ''}" data-tcat="engine">${tm.filterEngines}</button>
                         </div>` : ''}
-                        <input type="text" class="gacha-col-search" id="target-search-inp" placeholder="${tm.searchPlaceholder}" value="${query.replace(/"/g, '&quot;')}" style="flex:1;">
+                        <input type="text" class="gacha-col-search" id="target-search-inp" placeholder="${phText}" value="${query.replace(/"/g, '&quot;')}" style="flex:1;">
                     </div>
 
                     <div class="gacha-selector-scroll custom-scrollbar">
@@ -987,6 +1063,7 @@
                                 const ownedBadge = ownedCount > 0
                                     ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `★${Math.min(5, ownedCount)}`)
                                     : tm.unownedTag;
+                                const roleTranslated = (tm.roles && tm.roles[it.role]) || it.role || 'S-Rank';
 
                                 return `
                                 <div class="gacha-col-card rank-S" data-pick-id="${it.id}" data-pick-key="${it.rawKey}"
@@ -998,7 +1075,7 @@
                                     </div>
                                     <div class="gacha-col-info">
                                         <span class="gacha-col-name">${itemName(it)}</span>
-                                        <span class="gacha-col-sub">${it.role || 'S-Rank'}</span>
+                                        <span class="gacha-col-sub">${roleTranslated}</span>
                                     </div>
                                 </div>`;
                             }).join('')}
@@ -1321,8 +1398,8 @@
                         <span class="gacha-shop-cost-lbl">${t.card1Cost}</span>
                         <div class="gacha-shop-btn-row">
                             <button type="button" id="buy-tape-1" class="gacha-shop-btn primary-yellow" ${GState.polychromes < 160 ? 'disabled' : ''}>${t.buy1}</button>
-                            <button type="button" id="buy-tape-multi" class="gacha-shop-btn secondary-yellow" ${maxPolyTapes < 1 ? 'disabled' : ''}>
-                                ${maxPolyTapes >= 10 ? t.buy10 : t.buyMaxPoly.replace('{n}', Math.max(1, maxPolyTapes)).replace('{cost}', Math.max(1, maxPolyTapes) * 160)}
+                            <button type="button" id="buy-tape-multi" class="gacha-shop-btn secondary-yellow" ${maxPolyTapes < 2 ? 'disabled' : ''}>
+                                ${maxPolyTapes >= 10 || maxPolyTapes < 2 ? t.buy10 : t.buyMaxPoly.replace('{n}', maxPolyTapes).replace('{cost}', maxPolyTapes * 160)}
                             </button>
                         </div>
                     </div>
@@ -1851,12 +1928,36 @@
     function openItemFromGacha(type, key) {
         if (!key) return;
         if (type === 'agent' && typeof window.openAgentDetail === 'function') {
-            closeGachaModal(false);
+            observeAgentModalOnce();
+            pausedForAgentGuide = true;
+            pausedWithAnimOverlay = !!(animOverlayEl && animOverlayEl.classList.contains('active'));
+            if (animOverlayEl) animOverlayEl.style.visibility = 'hidden';
+            if (modalEl) modalEl.style.visibility = 'hidden';
             window.openAgentDetail(key);
-        } else if (type === 'engine' && typeof window.showEngineTooltip === 'function') {
-            window.showEngineTooltip(key);
-        } else if (type === 'disc' && typeof window.showDiscTooltip === 'function') {
-            window.showDiscTooltip(key);
+        } else if (type === 'engine') {
+            trackEquipmentInspect(key);
+            if (typeof window.showEngineTooltip === 'function') {
+                window.showEngineTooltip(key);
+            } else {
+                const ghost = document.createElement('div');
+                ghost.setAttribute('data-engine', key);
+                ghost.style.display = 'none';
+                document.body.appendChild(ghost);
+                ghost.click();
+                ghost.remove();
+            }
+        } else if (type === 'disc') {
+            trackEquipmentInspect(key);
+            if (typeof window.showDiscTooltip === 'function') {
+                window.showDiscTooltip(key);
+            } else {
+                const ghost = document.createElement('div');
+                ghost.setAttribute('data-disc', key);
+                ghost.style.display = 'none';
+                document.body.appendChild(ghost);
+                ghost.click();
+                ghost.remove();
+            }
         }
     }
 
@@ -2012,7 +2113,6 @@
             card.addEventListener('click', () => {
                 const type = card.getAttribute('data-res-type');
                 const key = card.getAttribute('data-res-key');
-                animOverlayEl.classList.remove('active');
                 openItemFromGacha(type, key);
             });
         });
