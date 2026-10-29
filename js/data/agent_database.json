@@ -1216,23 +1216,23 @@
                 "icon": "Ex.webp"
             },
             {
-                "name": "Chain",
-                "level": "11",
-                "icon": "Ultime.webp"
-            },
-            {
                 "name": "Basic",
-                "level": "8",
+                "level": "12",
                 "icon": "Attaque_basic.webp"
             },
             {
+                "name": "Ult",
+                "level": "12",
+                "icon": "Ultime.webp"
+            },
+            {
                 "name": "Assist",
-                "level": "8",
+                "level": "12",
                 "icon": "Assist.webp"
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "5",
                 "icon": "Esquive.webp"
             }
         ],
