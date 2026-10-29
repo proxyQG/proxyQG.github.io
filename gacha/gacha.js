@@ -10,12 +10,37 @@
     const IDB_NAME = 'ProxyQG_Gacha_DB';
     const IDB_STORE = 'save_store';
 
+    // Configuration des 6 Succès à paliers évolutifs (déclarée en tête de fichier)
+    const ACH_TIERS = {
+        a1: { targets: [10, 30, 60, 100, 200, 500],      rewards: [320, 480, 640, 800, 1600, 3200], val: (st) => st.totalPulls || 0 },
+        a2: { targets: [1, 3, 6, 12, 25, 50],            rewards: [400, 600, 800, 1200, 1600, 2400], val: (st) => st.totalSPulls || 0 },
+        a3: { targets: [3, 10, 20, 35, 50, 62],          rewards: [300, 500, 800, 1200, 1600, 3200], val: (st) => Object.values(st.inventory || {}).filter(i => i.type === 'agent').length },
+        a4: { targets: [5, 15, 30, 50, 75, 100],         rewards: [300, 500, 800, 1000, 1600, 2400], val: (st) => Object.values(st.inventory || {}).filter(i => i.type !== 'agent').length },
+        a5: { targets: [5, 15, 30, 60, 100, 200],        rewards: [200, 400, 600, 800, 1200, 1600],  val: (st) => st.totalGuidesRead || 0 },
+        a6: { targets: [40, 150, 400, 800, 1500, 3000],  rewards: [200, 400, 600, 1000, 1600, 2400], val: (st) => st.totalDupesRes || 0 }
+    };
+
     let DICT = null;
-    try {
-        const mod = await import('./gacha-i18n.js');
-        DICT = mod.GACHA_I18N;
-    } catch (e) {
-        console.error('Erreur chargement gacha-i18n.js :', e);
+    let modalEl = null;
+    let animOverlayEl = null;
+    let poolReady = false;
+    let POOL = { S_featured: [], S_all: [], A_all: [], B_all: [], allCatalog: [] };
+    let bannerInfo = { patch: '3.3', phase: '1', featuredNames: ['Phoenix', 'Velina'] };
+    let activeTab = 'search';
+    let colFilterType = 'all';
+    let colFilterRank = 'all';
+    let colSearchQuery = '';
+    let colShowLocked = false;
+    let skipRequested = false;
+
+    async function ensureDictLoaded() {
+        if (DICT) return;
+        try {
+            const mod = await import('./gacha-i18n.js');
+            DICT = mod.GACHA_I18N;
+        } catch (e) {
+            console.error('Erreur chargement gacha-i18n.js :', e);
+        }
     }
 
     function getLang() {
@@ -29,7 +54,6 @@
         return (DICT && DICT[lang]) || (DICT && DICT.fr) || {};
     }
 
-    // Demande au navigateur de ne jamais purger le stockage local du site
     try {
         if (navigator.storage && navigator.storage.persist) {
             navigator.storage.persist().catch(() => {});
@@ -152,6 +176,41 @@
         return (st.totalPulls || 0) * 100 + invCount * 10 + (st.polychromes || 0) * 0.001;
     }
 
+    function hasUnclaimedQuests(st) {
+        if (!st || !st.daily) return false;
+        const d = st.daily;
+        const dailyReady = (d.visitDone && !d.claimed.q1)
+            || (d.guidesOpened.length >= 3 && !d.claimed.q2)
+            || (d.itemsInspected.length >= 2 && !d.claimed.q3)
+            || (d.pullsToday >= 1 && !d.claimed.q4)
+            || (d.guidesOpened.length >= 5 && !d.claimed.q5);
+
+        const achReady = Object.entries(ACH_TIERS).some(([key, cfg]) => {
+            const tierIdx = st.achievements?.[key] || 0;
+            if (tierIdx >= cfg.targets.length) return false;
+            return cfg.val(st) >= cfg.targets[tierIdx];
+        });
+
+        return dailyReady || achReady || !d.freePackClaimed;
+    }
+
+    function updateQuestNotificationDot(st) {
+        const hasNotif = hasUnclaimedQuests(st);
+        document.querySelectorAll('.gacha-quest-dot-global').forEach(el => {
+            el.style.display = hasNotif ? 'block' : 'none';
+        });
+    }
+
+    function saveState(state) {
+        try {
+            const raw = JSON.stringify(state);
+            localStorage.setItem(STORAGE_KEY, raw);
+            localStorage.setItem(STORAGE_BACKUP_KEY, raw);
+        } catch (e) {}
+        saveToIDB(state);
+        updateQuestNotificationDot(state);
+    }
+
     function loadState() {
         let s1 = null, s2 = null;
         try {
@@ -169,19 +228,31 @@
         return normalized;
     }
 
-    function saveState(state) {
-        try {
-            const raw = JSON.stringify(state);
-            localStorage.setItem(STORAGE_KEY, raw);
-            localStorage.setItem(STORAGE_BACKUP_KEY, raw);
-        } catch (e) {}
-        saveToIDB(state);
-        updateQuestNotificationDot(state);
-    }
-
     let GState = loadState();
 
-    // Restauration automatique depuis IndexedDB si une sauvegarde plus riche y est présente
+    // ==========================================
+    // 2. OUVERTURE / FERMETURE PUBLIQUE (DÉCLARÉE IMMÉDIATEMENT)
+    // ==========================================
+    function closeGachaModal() {
+        if (!modalEl) return;
+        modalEl.classList.remove('visible');
+        if (animOverlayEl) animOverlayEl.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    }
+    window.closeGachaModal = closeGachaModal;
+
+    window.openGachaModal = async function () {
+        await ensureDictLoaded();
+        createModalDOM();
+        await ensurePoolLoaded();
+        GState = loadState();
+        refreshModalStaticLabels();
+        renderCurrentTab();
+        document.body.classList.add('modal-open');
+        modalEl.classList.add('visible');
+    };
+
+    // Restauration asynchrone depuis IndexedDB si nécessaire
     readFromIDB().then(idbState => {
         if (idbState && scoreState(idbState) > scoreState(GState)) {
             GState = normalizeState(idbState);
@@ -190,8 +261,10 @@
         }
     });
 
+    await ensureDictLoaded();
+
     // ==========================================
-    // 2. ÉCOUTEURS DE QUÊTES & SYNCHRO LANGUE
+    // 3. ÉCOUTEURS DE QUÊTES & SYNCHRO LANGUE
     // ==========================================
     function trackGuideOpen(agentName) {
         if (!agentName) return;
@@ -249,55 +322,9 @@
         });
     }
 
-    // Configuration des 6 Succès à paliers évolutifs
-    const ACH_TIERS = {
-        a1: { targets: [10, 30, 60, 100, 200, 500], rewards: [320, 480, 640, 800, 1600, 3200], val: (st) => st.totalPulls || 0 },
-        a2: { targets: [1, 3, 6, 12, 25, 50],       rewards: [400, 600, 800, 1200, 1600, 2400], val: (st) => st.totalSPulls || 0 },
-        a3: { targets: [3, 10, 20, 35, 50, 62],     rewards: [300, 500, 800, 1200, 1600, 3200], val: (st) => Object.values(st.inventory || {}).filter(i => i.type === 'agent').length },
-        a4: { targets: [5, 15, 30, 50, 75, 100],    rewards: [300, 500, 800, 1000, 1600, 2400], val: (st) => Object.values(st.inventory || {}).filter(i => i.type !== 'agent').length },
-        a5: { targets: [5, 15, 30, 60, 100, 200],   rewards: [200, 400, 600, 800, 1200, 1600],  val: (st) => st.totalGuidesRead || 0 },
-        a6: { targets: [40, 150, 400, 800, 1500, 3000], rewards: [200, 400, 600, 1000, 1600, 2400], val: (st) => st.totalDupesRes || 0 }
-    };
-
-    function hasUnclaimedQuests(st = GState) {
-        const d = st.daily;
-        const dailyReady = (d.visitDone && !d.claimed.q1)
-            || (d.guidesOpened.length >= 3 && !d.claimed.q2)
-            || (d.itemsInspected.length >= 2 && !d.claimed.q3)
-            || (d.pullsToday >= 1 && !d.claimed.q4)
-            || (d.guidesOpened.length >= 5 && !d.claimed.q5);
-
-        const achReady = Object.entries(ACH_TIERS).some(([key, cfg]) => {
-            const tierIdx = st.achievements?.[key] || 0;
-            if (tierIdx >= cfg.targets.length) return false;
-            return cfg.val(st) >= cfg.targets[tierIdx];
-        });
-
-        return dailyReady || achReady || !d.freePackClaimed;
-    }
-
-    function updateQuestNotificationDot(st = GState) {
-        const hasNotif = hasUnclaimedQuests(st);
-        document.querySelectorAll('.gacha-quest-dot-global').forEach(el => {
-            el.style.display = hasNotif ? 'block' : 'none';
-        });
-    }
-
     // ==========================================
-    // 3. CHARGEMENT DU CATALOGUE COMPLET
+    // 4. CHARGEMENT DU CATALOGUE COMPLET
     // ==========================================
-    let modalEl = null;
-    let animOverlayEl = null;
-    let poolReady = false;
-    let POOL = { S_featured: [], S_all: [], A_all: [], B_all: [], allCatalog: [] };
-    let bannerInfo = { patch: '3.3', phase: '1', featuredNames: ['Phoenix', 'Velina'] };
-    let activeTab = 'search';
-    let colFilterType = 'all';
-    let colFilterRank = 'all';
-    let colSearchQuery = '';
-    let colShowLocked = false;
-    let skipRequested = false;
-
     async function ensurePoolLoaded() {
         if (poolReady) return;
         try {
@@ -411,7 +438,7 @@
     }
 
     // ==========================================
-    // 4. ALGORITHME DE TIRAGE & ENREGISTREMENT
+    // 5. ALGORITHME DE TIRAGE & ENREGISTREMENT
     // ==========================================
     function pickRandom(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -494,7 +521,7 @@
     }
 
     // ==========================================
-    // 5. DOM PRINCIPAL & TOPBAR 3 ZONES
+    // 6. DOM PRINCIPAL & TOPBAR 3 ZONES
     // ==========================================
     function iconFallback(type) {
         if (type === 'poly') {
@@ -517,27 +544,24 @@
         modalEl.innerHTML = `
             <div class="gacha-bg-pattern"></div>
             <div class="gacha-topbar">
-                <!-- GAUCHE : Retour QG + Niveau Inter-Nœud -->
                 <div class="gacha-top-left">
                     <button type="button" class="gacha-back-btn" id="gacha-close-btn">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 18l-6-6 6-6"/></svg>
-                        <span id="gacha-lbl-back">${t.backBtn}</span>
+                        <span id="gacha-lbl-back">${t.backBtn || 'Retour QG'}</span>
                     </button>
                     <div class="gacha-ik-badge" id="gacha-ui-iklvl">IK Lv. 1</div>
                 </div>
 
-                <!-- CENTRE : Onglets de Navigation -->
                 <div class="gacha-nav-pills">
-                    <button type="button" class="gacha-nav-btn active" data-gtab="search" id="gtab-lbl-search">${t.tabs.search}</button>
+                    <button type="button" class="gacha-nav-btn active" data-gtab="search" id="gtab-lbl-search">${t.tabs?.search || 'Canal Unifié'}</button>
                     <button type="button" class="gacha-nav-btn" data-gtab="quests">
-                        <span id="gtab-lbl-quests">${t.tabs.quests}</span>
+                        <span id="gtab-lbl-quests">${t.tabs?.quests || 'Quêtes'}</span>
                         <span class="gacha-quest-dot gacha-quest-dot-global" style="display:none;"></span>
                     </button>
-                    <button type="button" class="gacha-nav-btn" data-gtab="shop" id="gtab-lbl-shop">${t.tabs.shop}</button>
-                    <button type="button" class="gacha-nav-btn" data-gtab="collection" id="gtab-lbl-collection">${t.tabs.collection}</button>
+                    <button type="button" class="gacha-nav-btn" data-gtab="shop" id="gtab-lbl-shop">${t.tabs?.shop || 'Magasin'}</button>
+                    <button type="button" class="gacha-nav-btn" data-gtab="collection" id="gtab-lbl-collection">${t.tabs?.collection || 'Collection'}</button>
                 </div>
 
-                <!-- DROITE : Ressources + Sauvegarde -->
                 <div class="gacha-currencies">
                     <div class="gacha-curr-pill" title="Residual Signals (✦)">
                         <span style="color:#f43f5e;font-size:13px;">✦</span>
@@ -553,7 +577,7 @@
                     </div>
                     <button type="button" class="gacha-save-trigger" id="gacha-open-backup" title="Backup / Transfer">
                         <span>💾</span>
-                        <span class="lbl" id="gacha-lbl-save">${t.saveBtn}</span>
+                        <span class="lbl" id="gacha-lbl-save">${t.saveBtn || 'Sauvegarde'}</span>
                     </button>
                 </div>
             </div>
@@ -591,6 +615,7 @@
     function refreshModalStaticLabels() {
         if (!modalEl) return;
         const t = L();
+        if (!t.tabs) return;
         document.getElementById('gacha-lbl-back').textContent = t.backBtn;
         document.getElementById('gacha-lbl-save').textContent = t.saveBtn;
         document.getElementById('gtab-lbl-search').textContent = t.tabs.search;
@@ -623,7 +648,7 @@
     }
 
     // ==========================================
-    // 6. ONGLET 1 : CANAL UNIFIÉ + CIBLAGE S + HISTORIQUE
+    // 7. ONGLET 1 : CANAL UNIFIÉ + CIBLAGE S + HISTORIQUE
     // ==========================================
     function renderSearchStage(mount) {
         const t = L().banner;
@@ -655,7 +680,6 @@
         mount.innerHTML = `
             <div class="gacha-page-wrap">
                 <div class="gacha-stage-grid">
-                    <!-- Vitrine TV ZZZ -->
                     <div class="gacha-tv-showcase">
                         <div class="gacha-showcase-header">
                             <span class="gacha-rateup-tag">★ ${t.rateUpLabel}</span>
@@ -704,7 +728,6 @@
                         </div>
                     </div>
 
-                    <!-- Panneau de Contrôle, Probabilités & Pity -->
                     <div class="gacha-info-panel">
                         <div>
                             <span class="gacha-patch-tag">${t.badge.replace('{patch}', bannerInfo.patch)}</span>
@@ -767,7 +790,6 @@
                     </div>
                 </div>
 
-                <!-- Panneau de Télémétrie & Historique des Derniers Drops S / A -->
                 <div class="gacha-telemetry-panel">
                     <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#a1a1aa;">
                         📊 ${t.statsBarTitle}
@@ -881,7 +903,7 @@
     }
 
     // ==========================================
-    // 7. ONGLET 2 : 5 QUÊTES QUOTIDIENNES + 6 SUCCÈS PERMANENTS
+    // 8. ONGLET 2 : 5 QUÊTES QUOTIDIENNES + 6 SUCCÈS PERMANENTS
     // ==========================================
     function renderQuestsTab(mount) {
         const t = L().quests;
@@ -917,7 +939,6 @@
         mount.innerHTML = `
             <div class="gacha-page-wrap">
                 <div class="gacha-quests-split">
-                    <!-- Colonne Gauche : 5 Quêtes Quotidiennes -->
                     <div class="gacha-quest-column">
                         <div class="gacha-sec-header">
                             <div>
@@ -954,7 +975,6 @@
                         </div>
                     </div>
 
-                    <!-- Colonne Droite : 6 Succès Permanents à Paliers -->
                     <div class="gacha-quest-column">
                         <div class="gacha-sec-header">
                             <div>
@@ -1025,7 +1045,7 @@
     }
 
     // ==========================================
-    // 8. ONGLET 3 : MAGASIN DE SIGNAUX (6 OFFRES EN GRILLE)
+    // 9. ONGLET 3 : MAGASIN DE SIGNAUX (6 OFFRES EN GRILLE)
     // ==========================================
     function renderShopTab(mount) {
         const t = L().shop;
@@ -1042,7 +1062,6 @@
                 </div>
 
                 <div class="gacha-shop-grid">
-                    <!-- 1. Pack Ravitaillement Quotidien Gratuit -->
                     <div class="gacha-shop-card theme-cyan">
                         <span class="gacha-shop-badge">${t.freeBadge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1058,7 +1077,6 @@
                         </div>
                     </div>
 
-                    <!-- 2. Échange Polychromes -> Bandes -->
                     <div class="gacha-shop-card theme-yellow">
                         <span class="gacha-shop-badge">${t.card1Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1073,7 +1091,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. Échange Signaux Résiduels -> Bandes -->
                     <div class="gacha-shop-card theme-purple">
                         <span class="gacha-shop-badge">${t.card2Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1088,7 +1105,6 @@
                         </div>
                     </div>
 
-                    <!-- 4. Boîte Mystère Rang A Garanti (80 ✦) -->
                     <div class="gacha-shop-card theme-purple">
                         <span class="gacha-shop-badge">${t.card3Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1102,7 +1118,6 @@
                         </div>
                     </div>
 
-                    <!-- 5. Sélecteur de Moteur S au choix (300 ✦) -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card4Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1116,7 +1131,6 @@
                         </div>
                     </div>
 
-                    <!-- 6. Contrat Sélecteur d'Agent S au choix (500 ✦) -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card5Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1266,7 +1280,7 @@
     }
 
     // ==========================================
-    // 9. ONGLET 4 : COLLECTION AVEC FILTRES & RECHERCHE
+    // 10. ONGLET 4 : COLLECTION AVEC FILTRES & RECHERCHE
     // ==========================================
     function renderCollectionTab(mount) {
         const t = L().collection;
@@ -1440,7 +1454,7 @@
     }
 
     // ==========================================
-    // 10. MODALE DE SAUVEGARDE / TRANSFERT (EXPORT & IMPORT)
+    // 11. MODALE DE SAUVEGARDE / TRANSFERT (EXPORT & IMPORT)
     // ==========================================
     function encodeBackupCode(stateObj) {
         try {
@@ -1542,7 +1556,7 @@
     }
 
     // ==========================================
-    // 11. ANIMATION TV ZZZ & SEARCH RESULTS
+    // 12. ANIMATION TV ZZZ & SEARCH RESULTS
     // ==========================================
     async function triggerPull(count) {
         await ensurePoolLoaded();
@@ -1691,34 +1705,6 @@
         });
     }
 
-    // ==========================================
-    // 12. OUVERTURE / FERMETURE PUBLIQUE
-    // ==========================================
-    window.openGachaModal = async function () {
-        createModalDOM();
-        await ensurePoolLoaded();
-        GState = loadState();
-        refreshModalStaticLabels();
-        renderCurrentTab();
-        document.body.classList.add('modal-open');
-        modalEl.classList.add('visible');
-    };
-
-    function closeGachaModal() {
-        if (!modalEl) return;
-        modalEl.classList.remove('visible');
-        if (animOverlayEl) animOverlayEl.classList.remove('active');
-        document.body.classList.remove('modal-open');
-    }
-    window.closeGachaModal = closeGachaModal;
-
-    if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', () => {
-            updateQuestNotificationDot(GState);
-            syncSidebarButtonText();
-        });
-    } else {
-        updateQuestNotificationDot(GState);
-        syncSidebarButtonText();
-    }
+    updateQuestNotificationDot(GState);
+    syncSidebarButtonText();
 })();
