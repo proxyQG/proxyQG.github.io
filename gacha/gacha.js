@@ -35,7 +35,7 @@
     async function ensureDictLoaded() {
         if (DICT) return;
         try {
-            const mod = await import('./gacha-i18n.js');
+            const mod = await import('./gacha-i18n.js?v=3');
             DICT = mod.GACHA_I18N;
         } catch (e) {
             console.error('Erreur chargement gacha-i18n.js :', e);
@@ -275,12 +275,14 @@
     // ==========================================
     let pausedForAgentGuide = false;
     let pausedWithAnimOverlay = false;
+    let ignorePopstateUntil = 0;
 
     // Surveille la fermeture du guide d'agent (#agentDetailModal) pour restaurer automatiquement le Gacha
     const agentModalObserver = new MutationObserver(() => {
         if (!pausedForAgentGuide) return;
         const agentModal = document.getElementById('agentDetailModal');
         if (agentModal && agentModal.classList.contains('hidden')) {
+            ignorePopstateUntil = Date.now() + 450;
             pausedForAgentGuide = false;
             if (modalEl) {
                 modalEl.style.visibility = '';
@@ -292,6 +294,9 @@
             }
             pausedWithAnimOverlay = false;
             document.body.classList.add('modal-open');
+            if (!window.history.state?.gachaOpen) {
+                window.history.pushState({ gachaOpen: true }, '', window.location.href);
+            }
             GState = loadState();
             updateTopCurrencies();
             if (!animOverlayEl || !animOverlayEl.classList.contains('active')) {
@@ -342,11 +347,10 @@
     };
 
     window.addEventListener('popstate', (e) => {
-        // Si on revient d'une infobulle Moteur/Disque ou d'un Guide d'Agent vers l'état { gachaOpen: true }, on garde le Gacha ouvert !
-        if (e.state && e.state.gachaOpen) {
+        if (Date.now() < ignorePopstateUntil || pausedForAgentGuide) {
             return;
         }
-        if (pausedForAgentGuide) {
+        if (e.state && e.state.gachaOpen) {
             return;
         }
         if (animOverlayEl && animOverlayEl.classList.contains('active')) {
