@@ -1,4 +1,4 @@
-/* gacha/gacha.css - Interface ZZZ Pleine Largeur, Topbar 3 zones, Sélecteur Non-Écrasé & Magasin Visuel */
+/* gacha/gacha.css - Interface ZZZ Pleine Largeur, Jauges de Quêtes/Pity & Animations S-Rank */
 
 #zzz-gacha-modal,
 #zzz-gacha-modal *,
@@ -181,12 +181,13 @@
 .gacha-quest-dot {
     position: absolute;
     top: 3px;
-    right: 4px;
+    right: 5px;
     width: 7px;
     height: 7px;
     border-radius: 999px;
     background: #ef4444;
     box-shadow: 0 0 8px #ef4444;
+    pointer-events: none;
 }
 
 .gacha-currencies {
@@ -288,7 +289,7 @@
 }
 
 /* ========================================================
-   3. ONGLET 1 : CANAL UNIFIÉ + TÉLÉMÉTRIE & HISTORIQUE
+   3. ONGLET 1 : CANAL UNIFIÉ + JAUGES DE PITY
 ======================================================== */
 .gacha-stage-grid {
     display: grid;
@@ -619,9 +620,8 @@
 
 .gacha-pity-pill {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+    flex-direction: column;
+    gap: 6px;
     background: #0a0a0d;
     border: 1px solid #25252d;
     padding: 9px 12px;
@@ -629,6 +629,13 @@
     font-size: 11.5px;
     font-weight: 700;
     color: #d4d4d8;
+}
+
+.gacha-pity-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }
 
 .gacha-pity-pill .hl-a { color: #c084fc; }
@@ -655,6 +662,20 @@
     background: rgba(250, 204, 21, 0.15);
     border: 1px solid rgba(250, 204, 21, 0.45);
     color: #fef08a;
+}
+
+.gacha-pity-bar-track {
+    width: 100%;
+    height: 4px;
+    background: #16161d;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.gacha-pity-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
 }
 
 .gacha-meta-row {
@@ -813,7 +834,7 @@
 }
 
 /* ========================================================
-   4. ONGLET 2 : QUÊTES QUOTIDIENNES + SUCCÈS
+   4. ONGLET 2 : QUÊTES QUOTIDIENNES + SUCCÈS (AVEC JAUGES)
 ======================================================== */
 .gacha-quests-split {
     display: grid;
@@ -903,12 +924,18 @@
     box-shadow: 0 0 18px rgba(215, 247, 12, 0.12);
 }
 
+.gacha-quest-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
 @media (min-width: 560px) {
-    .gacha-quest-card {
+    .gacha-quest-body {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        padding: 14px 16px;
     }
 }
 
@@ -1002,8 +1029,22 @@
     box-shadow: 0 0 14px rgba(215, 247, 12, 0.35);
 }
 
+.gacha-quest-bar-track {
+    width: 100%;
+    height: 4px;
+    background: #181820;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.gacha-quest-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
 /* ========================================================
-   5. ONGLET 3 : MAGASIN DE SIGNAUX (VITRINES VISUELLES & PROGRESSION)
+   5. ONGLET 3 : MAGASIN DE SIGNAUX
 ======================================================== */
 .gacha-shop-grid {
     display: grid;
@@ -1082,14 +1123,6 @@
     object-fit: contain;
 }
 
-.gacha-shop-icon-wrap img.cover-portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-}
-
-/* Trio d'aperçu visuel pour Boîte A, Sélecteur Moteur S et Sélecteur Agent S */
 .gacha-shop-Showcase-trio {
     display: flex;
     align-items: center;
@@ -1130,7 +1163,7 @@
     object-position: top center;
 }
 
-.gacha-shop-trio-item img.contain- mode {
+.gacha-shop-trio-item img.contain-mode {
     object-fit: contain;
     padding: 6px;
 }
@@ -1397,7 +1430,6 @@
     box-shadow: none;
 }
 
-/* Hauteur carrée blindée (padding-top 100%) qui ne s'écrase JAMAIS dans une grille scrollable */
 .gacha-col-visual {
     position: relative;
     width: 100%;
@@ -1512,6 +1544,15 @@
 
 #gacha-anim-overlay.active {
     display: flex;
+}
+
+#gacha-anim-overlay.s-rank-flash {
+    animation: gachaSFlash 0.55s ease-out;
+}
+
+@keyframes gachaSFlash {
+    0% { background-color: rgba(250, 204, 21, 0.45); transform: scale(1.01); }
+    100% { background-color: transparent; transform: scale(1); }
 }
 
 .gacha-skip-btn {
@@ -1705,7 +1746,6 @@
     color: #000;
 }
 
-/* Boîte de dialogue modale (Sélecteur Cible S / Contrat Magasin / Sauvegarde) */
 .gacha-dialog-box {
     background: linear-gradient(145deg, #15161e 0%, #0b0b0f 100%);
     border: 1.5px solid #343442;
@@ -1721,7 +1761,6 @@
     overflow: hidden;
 }
 
-/* Grille scrollable sans AUCUN écrasement vertical des cartes */
 .gacha-selector-scroll {
     flex: 1;
     min-height: 0;
