@@ -117,6 +117,7 @@
    <!-- 5. Feuilles de style externes -->
     <link href="css/tailwind.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="gacha/gacha.css">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
 
@@ -355,7 +356,15 @@
 
                 <!-- Bouton Favoris & Faction Active -->
                 <div class="flex flex-col gap-2">
-                    <button class="favorite-filter-btn w-full bg-[#121214] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group cursor-pointer">
+                    <button type="button" onclick="window.openGachaModal()" class="relative w-full mb-2.5 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#18181c] to-[#121215] border border-[#d7f70c]/50 hover:border-[#d7f70c] text-white font-display font-black uppercase text-xs tracking-wider flex items-center justify-between shadow-lg transition-all cursor-pointer group">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-[#d7f70c] text-sm">📺</span>
+                        <span class="group-hover:text-[#d7f70c] transition-colors">Recherche Signal</span>
+                    </div>
+                    <span class="gacha-quest-dot-global w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]" style="display:none;"></span>
+                </button>
+
+                <button class="favorite-filter-btn w-full py-2.5 px-4 rounded-xl bg-[#111] border border-zinc-800 text-zinc-400 hover:border-zinc-600 hover:text-white font-display font-black uppercase text-xs tracking-wider flex items-center justify-between transition-all cursor-pointer group">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                             <span data-i18n="favorites">Mes Favoris</span>
@@ -564,7 +573,15 @@
             <!-- Favoris Mobile -->
             <div class="pt-4 border-t border-zinc-800 mb-6">
                 <h2 class="text-zinc-400 text-[10px] font-black uppercase tracking-widest mb-3" data-i18n="custom">Personnalisé</h2>
-                <button class="favorite-filter-btn w-full bg-[#151515] border-2 border-zinc-800 hover:border-red-500 hover:bg-red-500/10 text-zinc-400 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-300 shadow-inner group">
+                <button type="button" onclick="window.closeModal('mobileFilterModal'); window.openGachaModal();" class="relative w-full mb-3 py-3 px-4 rounded-xl bg-gradient-to-r from-[#18181c] to-[#121215] border border-[#d7f70c]/50 text-white font-display font-black uppercase text-xs tracking-wider flex items-center justify-between shadow-lg transition-all">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-[#d7f70c] text-sm">📺</span>
+                    <span>Recherche de Signal</span>
+                </div>
+                <span class="gacha-quest-dot-global w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]" style="display:none;"></span>
+            </button>
+
+            <button class="favorite-filter-btn w-full py-3 px-4 rounded-xl bg-[#151515] border border-zinc-800 text-zinc-400 font-display font-black uppercase text-xs tracking-wider flex items-center justify-between transition-all">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-zinc-500 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> <span data-i18n="favorites">Mes Favoris</span>
                     </div>
@@ -714,7 +731,8 @@
     </div>
         
     <script src="js/tooltip.js" defer></script>
-    <script src="js/disc-tooltip.js" defer></script>    
+    <script src="js/disc-tooltip.js" defer></script> 
+    <script src="gacha/gacha.js" defer></script>
     <script type="module" src="js/app.js" defer></script>
 </body>
 </html>
