@@ -1,4 +1,4 @@
-// gacha/gacha.js - Simulateur Recherche de Signal ZZZ (Triple Persistance, Cible S, Quêtes + Succès, Magasin 6 Offres)
+// gacha/gacha.js - Simulateur Recherche de Signal ZZZ (Vitrines Magasin, Double Cible S, Recyclage Surplus & Synchro Rétroactive)
 (async function () {
     const ASSETS = {
         polychrome: 'assets/Gacha/polychrome.webp',
@@ -10,7 +10,6 @@
     const IDB_NAME = 'ProxyQG_Gacha_DB';
     const IDB_STORE = 'save_store';
 
-    // Configuration des 6 Succès à paliers évolutifs (déclarée en tête de fichier)
     const ACH_TIERS = {
         a1: { targets: [10, 30, 60, 100, 200, 500],      rewards: [320, 480, 640, 800, 1600, 3200], val: (st) => st.totalPulls || 0 },
         a2: { targets: [1, 3, 6, 12, 25, 50],            rewards: [400, 600, 800, 1200, 1600, 2400], val: (st) => st.totalSPulls || 0 },
@@ -61,7 +60,7 @@
     } catch (e) {}
 
     // ==========================================
-    // 1. TRIPLE PERSISTANCE (LOCALSTORAGE + MIROIR + INDEXEDDB)
+    // 1. TRIPLE PERSISTANCE & RECALCUL RÉTROACTIF DES STATS S / A
     // ==========================================
     function openIDB() {
         return new Promise((resolve) => {
@@ -122,6 +121,7 @@
                 pityA: 0,
                 guaranteedFeatured: false,
                 selectedRateUp: '',
+                selectedRateUp2: '',
                 totalPulls: 0,
                 totalSPulls: 0,
                 totalAPulls: 0,
@@ -142,13 +142,32 @@
             };
         }
 
-        if (typeof state.totalSPulls !== 'number') state.totalSPulls = 0;
-        if (typeof state.totalAPulls !== 'number') state.totalAPulls = 0;
-        if (typeof state.totalDupesRes !== 'number') state.totalDupesRes = state.residual || 0;
-        if (typeof state.totalGuidesRead !== 'number') state.totalGuidesRead = 0;
+        if (!state.inventory) state.inventory = {};
         if (!Array.isArray(state.recentDrops)) state.recentDrops = [];
         if (!state.achievements) state.achievements = { a1: 0, a2: 0, a3: 0, a4: 0, a5: 0, a6: 0 };
-        if (!state.inventory) state.inventory = {};
+
+        // Synchronisation rétroactive des compteurs S et A à partir de l'inventaire réel du joueur
+        let invSCount = 0;
+        let invACount = 0;
+        const fallbackRecent = [];
+        Object.entries(state.inventory).forEach(([id, it]) => {
+            const c = it.count || 0;
+            if (it.rank === 'S') {
+                invSCount += c;
+                fallbackRecent.unshift({ id, type: it.type, rank: 'S', rawKey: it.rawKey, nameFr: it.nameFr || it.name, nameEn: it.nameEn || it.name, img: it.img });
+            } else if (it.rank === 'A') {
+                invACount += c;
+                fallbackRecent.push({ id, type: it.type, rank: 'A', rawKey: it.rawKey, nameFr: it.nameFr || it.name, nameEn: it.nameEn || it.name, img: it.img });
+            }
+        });
+
+        state.totalSPulls = Math.max(state.totalSPulls || 0, invSCount);
+        state.totalAPulls = Math.max(state.totalAPulls || 0, invACount);
+        state.totalDupesRes = Math.max(state.totalDupesRes || 0, state.residual || 0);
+        if (typeof state.totalGuidesRead !== 'number') state.totalGuidesRead = 0;
+        if (state.recentDrops.length === 0 && fallbackRecent.length > 0) {
+            state.recentDrops = fallbackRecent.slice(0, 14);
+        }
 
         if (!state.daily || state.daily.date !== today) {
             state.daily = {
@@ -231,7 +250,7 @@
     let GState = loadState();
 
     // ==========================================
-    // 2. OUVERTURE / FERMETURE PUBLIQUE (DÉCLARÉE IMMÉDIATEMENT)
+    // 2. OUVERTURE / FERMETURE PUBLIQUE
     // ==========================================
     function closeGachaModal() {
         if (!modalEl) return;
@@ -252,7 +271,6 @@
         modalEl.classList.add('visible');
     };
 
-    // Restauration asynchrone depuis IndexedDB si nécessaire
     readFromIDB().then(idbState => {
         if (idbState && scoreState(idbState) > scoreState(GState)) {
             GState = normalizeState(idbState);
@@ -427,10 +445,14 @@
             const custom = sAgents.find(a => a.rawKey === GState.selectedRateUp);
             if (custom) return custom;
         }
-        return POOL.S_featured[0] || sAgents[0] || { nameFr: 'Velina', rawKey: 'Velina', type: 'agent', img: 'assets/Agents/Velina.webp' };
+        return POOL.S_featured[0] || sAgents[0] || { id: 'agent_Velina', nameFr: 'Velina', rawKey: 'Velina', type: 'agent', rank: 'S', img: 'assets/Agents/Velina.webp' };
     }
 
     function getSecondaryFeatured(primary) {
+        if (GState.selectedRateUp2) {
+            const custom2 = POOL.S_all.find(i => i.id === GState.selectedRateUp2 || i.rawKey === GState.selectedRateUp2);
+            if (custom2 && custom2.id !== primary.id) return custom2;
+        }
         const sAgents = POOL.S_all.filter(i => i.type === 'agent');
         const second = POOL.S_featured.find(a => a.rawKey !== primary.rawKey)
             || sAgents.find(a => a.rawKey !== primary.rawKey);
@@ -438,7 +460,7 @@
     }
 
     // ==========================================
-    // 5. ALGORITHME DE TIRAGE & ENREGISTREMENT
+    // 5. ALGORITHME DE TIRAGE & RECYCLAGE SURPLUS
     // ==========================================
     function pickRandom(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
@@ -496,7 +518,10 @@
             const feat1 = getPrimaryFeatured();
             const feat2 = getSecondaryFeatured(feat1);
 
-            if (GState.guaranteedFeatured || Math.random() < 0.5) {
+            if (GState.guaranteedFeatured) {
+                chosen = feat1;
+                GState.guaranteedFeatured = false;
+            } else if (Math.random() < 0.5) {
                 chosen = Math.random() < 0.7 ? feat1 : feat2;
                 GState.guaranteedFeatured = false;
             } else {
@@ -518,6 +543,22 @@
         }
 
         return registerItemToInventory(chosen);
+    }
+
+    // Calcule les exemplaires en surnombre au-delà de M6 (7 copies) ou ★5 (5 copies)
+    function computeOvercapSurplus() {
+        let totalExcess = 0;
+        let totalGain = 0;
+        Object.values(GState.inventory || {}).forEach(it => {
+            const maxCap = it.type === 'agent' ? 7 : 5;
+            if ((it.count || 0) > maxCap) {
+                const diff = it.count - maxCap;
+                totalExcess += diff;
+                const valPerUnit = it.rank === 'S' ? 40 : (it.rank === 'A' ? 10 : 3);
+                totalGain += diff * valPerUnit;
+            }
+        });
+        return { totalExcess, totalGain };
     }
 
     // ==========================================
@@ -648,7 +689,7 @@
     }
 
     // ==========================================
-    // 7. ONGLET 1 : CANAL UNIFIÉ + CIBLAGE S + HISTORIQUE
+    // 7. ONGLET 1 : CANAL UNIFIÉ + DOUBLE SÉLECTEUR DE CIBLE S
     // ==========================================
     function renderSearchStage(mount) {
         const t = L().banner;
@@ -684,9 +725,13 @@
                         <div class="gacha-showcase-header">
                             <span class="gacha-rateup-tag">★ ${t.rateUpLabel}</span>
                             <div class="gacha-header-btns">
-                                <button type="button" class="gacha-details-btn accent" id="btn-choose-target">
+                                <button type="button" class="gacha-details-btn accent" id="btn-choose-target1">
                                     <span>🎯</span>
-                                    <span>${t.chooseTarget}</span>
+                                    <span>${t.chooseTarget1}</span>
+                                </button>
+                                <button type="button" class="gacha-details-btn accent" id="btn-choose-target2">
+                                    <span>📺</span>
+                                    <span>${t.chooseTarget2}</span>
                                 </button>
                                 <button type="button" class="gacha-details-btn" id="btn-open-rates">
                                     <span>ⓘ</span>
@@ -696,18 +741,18 @@
                         </div>
 
                         <div class="gacha-featured-tvs">
-                            <div class="gacha-crt-screen primary" data-feat-type="${feat1.type}" data-feat-key="${feat1.rawKey}">
+                            <div class="gacha-crt-screen primary" id="tv-screen-slot1" title="${t.chooseTarget1}">
                                 <img src="${feat1.img}" alt="${itemName(feat1)}">
                                 <div class="gacha-crt-caption">
                                     <span class="gacha-crt-name">${itemName(feat1)}</span>
-                                    <span class="gacha-crt-up-pill">CIBLE UP!</span>
+                                    <span class="gacha-crt-up-pill">CIBLE #1 ✎</span>
                                 </div>
                             </div>
-                            <div class="gacha-crt-screen" data-feat-type="${feat2.type}" data-feat-key="${feat2.rawKey}">
-                                <img src="${feat2.img}" alt="${itemName(feat2)}">
+                            <div class="gacha-crt-screen" id="tv-screen-slot2" title="${t.chooseTarget2}">
+                                <img src="${feat2.img}" alt="${itemName(feat2)}" class="${feat2.type === 'engine' ? 'is-equip-tv' : ''}">
                                 <div class="gacha-crt-caption">
                                     <span class="gacha-crt-name">${itemName(feat2)}</span>
-                                    <span class="gacha-crt-up-pill">UP!</span>
+                                    <span class="gacha-crt-up-pill">CIBLE #2 ✎</span>
                                 </div>
                             </div>
                         </div>
@@ -822,59 +867,134 @@
         document.getElementById('btn-pull-1').addEventListener('click', () => triggerPull(1));
         document.getElementById('btn-pull-10').addEventListener('click', () => triggerPull(10));
         document.getElementById('btn-open-rates').addEventListener('click', showRatesDetailsModal);
-        document.getElementById('btn-choose-target').addEventListener('click', showTargetSelectorModal);
+        document.getElementById('btn-choose-target1').addEventListener('click', () => showTargetSelectorModal(1));
+        document.getElementById('btn-choose-target2').addEventListener('click', () => showTargetSelectorModal(2));
+        document.getElementById('tv-screen-slot1').addEventListener('click', () => showTargetSelectorModal(1));
+        document.getElementById('tv-screen-slot2').addEventListener('click', () => showTargetSelectorModal(2));
 
-        mount.querySelectorAll('[data-feat-key], [data-h-key]').forEach(el => {
+        mount.querySelectorAll('[data-h-key]').forEach(el => {
             el.addEventListener('click', () => {
-                const tp = el.getAttribute('data-feat-type') || el.getAttribute('data-h-type');
-                const ky = el.getAttribute('data-feat-key') || el.getAttribute('data-h-key');
-                openItemFromGacha(tp, ky);
+                openItemFromGacha(el.getAttribute('data-h-type'), el.getAttribute('data-h-key'));
             });
         });
     }
 
-    function showTargetSelectorModal() {
+    // Sélecteur de Cible S (Slot 1 ou Slot 2) avec portraits 1:1 non-écrasés, recherche et filtres
+    function showTargetSelectorModal(slotNum = 1) {
         const tm = L().targetModal;
-        const sAgents = POOL.S_all.filter(i => i.type === 'agent');
-        const currentPrimary = getPrimaryFeatured().rawKey;
+        let filterCat = slotNum === 1 ? 'agent' : 'all';
+        let query = '';
+
+        const primaryObj = getPrimaryFeatured();
+        const secondaryObj = getSecondaryFeatured(primaryObj);
+        const activeKey = slotNum === 1 ? primaryObj.rawKey : (secondaryObj.id || secondaryObj.rawKey);
 
         animOverlayEl.classList.add('active');
-        animOverlayEl.innerHTML = `
-            <div class="gacha-dialog-box">
-                <div>
-                    <span class="gacha-patch-tag">RATE-UP 50/50</span>
-                    <h2 class="gacha-panel-title">${tm.title}</h2>
-                    <p class="gacha-panel-desc">${tm.subtitle}</p>
-                </div>
-                <div class="gacha-selector-grid custom-scrollbar">
-                    ${sAgents.map(a => `
-                        <div class="gacha-col-card rank-S" data-pick-target="${a.rawKey}" style="${a.rawKey === currentPrimary ? 'border-color:#d7f70c;box-shadow:0 0 18px rgba(215,247,12,0.45);' : ''}">
-                            <div class="gacha-col-visual">
-                                <span class="gacha-col-rank-tag">S</span>
-                                <img src="${a.img}" loading="lazy" class="is-agent">
-                            </div>
-                            <div class="gacha-col-info">
-                                <span class="gacha-col-name">${itemName(a)}</span>
-                            </div>
+
+        function renderSelectorContent() {
+            let candidates = slotNum === 1
+                ? POOL.S_all.filter(i => i.type === 'agent')
+                : POOL.S_all.filter(i => i.id !== primaryObj.id);
+
+            if (slotNum === 2 && filterCat !== 'all') {
+                candidates = candidates.filter(i => i.type === filterCat);
+            }
+            if (query.trim()) {
+                const q = query.trim().toLowerCase();
+                candidates = candidates.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+            }
+
+            // Place les plus récents en haut (comme sur la grille principale du site)
+            const ordered = [...candidates].reverse();
+
+            animOverlayEl.innerHTML = `
+                <div class="gacha-dialog-box">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                        <div>
+                            <span class="gacha-patch-tag">RATE-UP 50/50 • SLOT #${slotNum}</span>
+                            <h2 class="gacha-panel-title">${slotNum === 1 ? tm.title1 : tm.title2}</h2>
+                            <p class="gacha-panel-desc">${slotNum === 1 ? tm.subtitle1 : tm.subtitle2}</p>
                         </div>
-                    `).join('')}
+                        <button type="button" class="gacha-res-btn" id="close-target-modal">${tm.close}</button>
+                    </div>
+
+                    <div class="gacha-col-controls" style="flex-shrink:0;">
+                        ${slotNum === 2 ? `
+                        <div class="gacha-col-filter-group">
+                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'all' ? 'active' : ''}" data-tcat="all">${tm.filterAll}</button>
+                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'agent' ? 'active' : ''}" data-tcat="agent">${tm.filterAgents}</button>
+                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'engine' ? 'active' : ''}" data-tcat="engine">${tm.filterEngines}</button>
+                        </div>` : ''}
+                        <input type="text" class="gacha-col-search" id="target-search-inp" placeholder="${tm.searchPlaceholder}" value="${query.replace(/"/g, '&quot;')}" style="flex:1;">
+                    </div>
+
+                    <div class="gacha-selector-scroll custom-scrollbar">
+                        <div class="gacha-selector-grid">
+                            ${ordered.map(it => {
+                                const isSelected = (slotNum === 1 ? it.rawKey === activeKey : (it.id === activeKey || it.rawKey === activeKey));
+                                const ownedCount = GState.inventory[it.id]?.count || 0;
+                                const ownedBadge = ownedCount > 0
+                                    ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `★${Math.min(5, ownedCount)}`)
+                                    : tm.unownedTag;
+
+                                return `
+                                <div class="gacha-col-card rank-S" data-pick-id="${it.id}" data-pick-key="${it.rawKey}"
+                                     style="${isSelected ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
+                                    <div class="gacha-col-visual">
+                                        ${isSelected ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">★ ${tm.selectedTag}</span>` : (it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : '')}
+                                        <span class="gacha-col-dupe-tag ${ownedCount > 0 ? 'maxed' : ''}">${ownedBadge}</span>
+                                        <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
+                                    </div>
+                                    <div class="gacha-col-info">
+                                        <span class="gacha-col-name">${itemName(it)}</span>
+                                        <span class="gacha-col-sub">${it.role || 'S-Rank'}</span>
+                                    </div>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
                 </div>
-                <button type="button" class="gacha-res-btn" id="close-target-modal" style="align-self:flex-end;">${tm.close}</button>
-            </div>
-        `;
+            `;
 
-        document.getElementById('close-target-modal').addEventListener('click', () => {
-            animOverlayEl.classList.remove('active');
-        });
-
-        animOverlayEl.querySelectorAll('[data-pick-target]').forEach(card => {
-            card.addEventListener('click', () => {
-                GState.selectedRateUp = card.getAttribute('data-pick-target');
-                saveState(GState);
+            document.getElementById('close-target-modal').addEventListener('click', () => {
                 animOverlayEl.classList.remove('active');
-                renderCurrentTab();
             });
-        });
+
+            animOverlayEl.querySelectorAll('[data-tcat]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterCat = btn.getAttribute('data-tcat');
+                    renderSelectorContent();
+                });
+            });
+
+            const sInp = document.getElementById('target-search-inp');
+            if (sInp) {
+                sInp.addEventListener('input', (e) => {
+                    query = e.target.value;
+                    renderSelectorContent();
+                    const nextInp = document.getElementById('target-search-inp');
+                    if (nextInp) {
+                        nextInp.focus();
+                        nextInp.setSelectionRange(nextInp.value.length, nextInp.value.length);
+                    }
+                });
+            }
+
+            animOverlayEl.querySelectorAll('[data-pick-key]').forEach(card => {
+                card.addEventListener('click', () => {
+                    if (slotNum === 1) {
+                        GState.selectedRateUp = card.getAttribute('data-pick-key');
+                    } else {
+                        GState.selectedRateUp2 = card.getAttribute('data-pick-id');
+                    }
+                    saveState(GState);
+                    animOverlayEl.classList.remove('active');
+                    renderCurrentTab();
+                });
+            });
+        }
+
+        renderSelectorContent();
     }
 
     function showRatesDetailsModal() {
@@ -1045,12 +1165,33 @@
     }
 
     // ==========================================
-    // 9. ONGLET 3 : MAGASIN DE SIGNAUX (6 OFFRES EN GRILLE)
+    // 9. ONGLET 3 : MAGASIN DE SIGNAUX (AVEC VRAIS VISUELS & RECYCLAGE SURPLUS)
     // ==========================================
     function renderShopTab(mount) {
         const t = L().shop;
         const maxResTapes = Math.floor(GState.residual / 20);
+        const maxPolyTapes = Math.min(10, Math.floor(GState.polychromes / 160));
         const freeClaimed = !!GState.daily.freePackClaimed;
+        const { totalExcess, totalGain } = computeOvercapSurplus();
+
+        const feat1 = getPrimaryFeatured();
+        const sAgents = POOL.S_all.filter(i => i.type === 'agent');
+        const sEngines = POOL.S_all.filter(i => i.type === 'engine');
+        const aAgents = POOL.A_all.filter(i => i.type === 'agent');
+
+        const agLeft = sAgents[sAgents.length - 3] || feat1;
+        const agCenter = feat1;
+        const agRight = sAgents[sAgents.length - 2] || feat1;
+
+        const engLeft = sEngines[0] || { img: ASSETS.tape };
+        const engCenter = sEngines[Math.floor(sEngines.length / 2)] || engLeft;
+        const engRight = sEngines[sEngines.length - 1] || engLeft;
+
+        const aLeftImg = aAgents[0]?.img || 'assets/Agents/Nicole.webp';
+        const aCenterImg = aAgents[1]?.img || 'assets/Agents/Anby.webp';
+        const aRightImg = aAgents[2]?.img || 'assets/Agents/Billy.webp';
+
+        const curRes = GState.residual || 0;
 
         mount.innerHTML = `
             <div class="gacha-page-wrap">
@@ -1062,6 +1203,7 @@
                 </div>
 
                 <div class="gacha-shop-grid">
+                    <!-- 1. Pack Ravitaillement Quotidien Gratuit -->
                     <div class="gacha-shop-card theme-cyan">
                         <span class="gacha-shop-badge">${t.freeBadge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1077,6 +1219,7 @@
                         </div>
                     </div>
 
+                    <!-- 2. Échange Polychromes -> Bandes -->
                     <div class="gacha-shop-card theme-yellow">
                         <span class="gacha-shop-badge">${t.card1Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1086,61 +1229,92 @@
                         <p class="gacha-shop-item-desc">${t.card1Desc}</p>
                         <span class="gacha-shop-cost-lbl">${t.card1Cost}</span>
                         <div class="gacha-shop-btn-row">
-                            <button type="button" id="buy-tape-1" class="gacha-shop-btn primary-yellow">${t.buy1}</button>
-                            <button type="button" id="buy-tape-10" class="gacha-shop-btn secondary-yellow">${t.buy10}</button>
+                            <button type="button" id="buy-tape-1" class="gacha-shop-btn primary-yellow" ${GState.polychromes < 160 ? 'disabled' : ''}>${t.buy1}</button>
+                            <button type="button" id="buy-tape-multi" class="gacha-shop-btn secondary-yellow" ${maxPolyTapes < 1 ? 'disabled' : ''}>
+                                ${maxPolyTapes >= 10 ? t.buy10 : t.buyMaxPoly.replace('{n}', Math.max(1, maxPolyTapes)).replace('{cost}', Math.max(1, maxPolyTapes) * 160)}
+                            </button>
                         </div>
                     </div>
 
-                    <div class="gacha-shop-card theme-purple">
-                        <span class="gacha-shop-badge">${t.card2Badge}</span>
+                    <!-- 3. Échange Signaux Résiduels (✦) -> Bandes + Recyclage Surplus -->
+                    <div class="gacha-shop-card ${totalGain > 0 ? 'theme-emerald' : 'theme-purple'}">
+                        <span class="gacha-shop-badge">${totalGain > 0 ? t.cardRecycleBadge : t.card2Badge}</span>
                         <div class="gacha-shop-icon-wrap">
                             <img src="${ASSETS.tape}" ${iconFallback('tape')}>
                         </div>
                         <h3 class="gacha-shop-item-title">${t.card2Title}</h3>
-                        <p class="gacha-shop-item-desc">${t.card2Desc}</p>
-                        <span class="gacha-shop-cost-lbl">${t.card2Cost}</span>
+                        <p class="gacha-shop-item-desc">${totalGain > 0 ? t.cardRecycleDesc : t.card2Desc}</p>
+                        <span class="gacha-shop-cost-lbl">
+                            ${totalGain > 0 ? t.cardRecycleReady.replace('{count}', totalExcess).replace('{gain}', totalGain) : t.card2Cost}
+                        </span>
                         <div class="gacha-shop-btn-row">
-                            <button type="button" id="buy-res-1" class="gacha-shop-btn primary-purple" ${GState.residual < 20 ? 'disabled' : ''}>${t.buyResidual1}</button>
-                            <button type="button" id="buy-res-max" class="gacha-shop-btn secondary-purple" ${maxResTapes < 1 ? 'disabled' : ''}>${t.buyResidualMax.replace('{n}', maxResTapes)}</button>
+                            <button type="button" id="buy-res-1" class="gacha-shop-btn primary-purple" ${curRes < 20 ? 'disabled' : ''}>
+                                ${maxResTapes > 1 ? t.buyResidualMax.replace('{n}', maxResTapes) : t.buyResidual1}
+                            </button>
+                            <button type="button" id="btn-recycle-surplus" class="gacha-shop-btn primary-emerald" ${totalGain < 1 ? 'disabled' : ''}>
+                                ${totalGain > 0 ? t.btnRecycle.replace('{gain}', totalGain) : t.btnRecycleEmpty}
+                            </button>
                         </div>
                     </div>
 
+                    <!-- 4. Boîte Mystère Rang A Garanti (80 ✦) avec Trio d'Agents A -->
                     <div class="gacha-shop-card theme-purple">
                         <span class="gacha-shop-badge">${t.card3Badge}</span>
-                        <div class="gacha-shop-icon-wrap">
-                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-style:italic;font-size:38px;color:#c084fc;">A★</span>
+                        <div class="gacha-shop-Showcase-trio">
+                            <div class="gacha-shop-trio-item"><img src="${aLeftImg}" alt="A"></div>
+                            <div class="gacha-shop-trio-item center"><img src="${aCenterImg}" alt="A"></div>
+                            <div class="gacha-shop-trio-item"><img src="${aRightImg}" alt="A"></div>
                         </div>
                         <h3 class="gacha-shop-item-title">${t.card3Title}</h3>
                         <p class="gacha-shop-item-desc">${t.card3Desc}</p>
-                        <span class="gacha-shop-cost-lbl">${t.card3Cost}</span>
+                        <div class="gacha-shop-cost-wrap">
+                            <span class="gacha-shop-cost-lbl">${t.card3Cost.replace('{cur}', curRes)}</span>
+                            <div class="gacha-shop-prog-bar"><div class="gacha-shop-prog-fill" style="width:${Math.min(100, Math.round(curRes / 80 * 100))}%"></div></div>
+                        </div>
                         <div class="gacha-shop-btn-single">
-                            <button type="button" id="buy-box-a" class="gacha-shop-btn primary-purple" ${GState.residual < 80 ? 'disabled' : ''}>${t.buyBoxA}</button>
+                            <button type="button" id="buy-box-a" class="gacha-shop-btn primary-purple" ${curRes < 80 ? 'disabled' : ''}>${t.buyBoxA}</button>
                         </div>
                     </div>
 
+                    <!-- 5. Sélecteur de Moteur S au choix (300 ✦) avec Trio de Moteurs S -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card4Badge}</span>
-                        <div class="gacha-shop-icon-wrap">
-                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-style:italic;font-size:34px;color:#facc15;">W-S</span>
+                        <div class="gacha-shop-Showcase-trio">
+                            <div class="gacha-shop-trio-item"><img src="${engLeft.img}" class="contain-mode" alt="W-S"></div>
+                            <div class="gacha-shop-trio-item center"><img src="${engCenter.img}" class="contain-mode" alt="W-S"></div>
+                            <div class="gacha-shop-trio-item"><img src="${engRight.img}" class="contain-mode" alt="W-S"></div>
                         </div>
                         <h3 class="gacha-shop-item-title">${t.card4Title}</h3>
                         <p class="gacha-shop-item-desc">${t.card4Desc}</p>
-                        <span class="gacha-shop-cost-lbl">${t.card4Cost}</span>
+                        <div class="gacha-shop-cost-wrap">
+                            <span class="gacha-shop-cost-lbl">${t.card4Cost.replace('{cur}', curRes)}</span>
+                            <div class="gacha-shop-prog-bar"><div class="gacha-shop-prog-fill" style="width:${Math.min(100, Math.round(curRes / 300 * 100))}%"></div></div>
+                        </div>
                         <div class="gacha-shop-btn-single">
-                            <button type="button" id="buy-select-engine" class="gacha-shop-btn primary-gold" ${GState.residual < 300 ? 'disabled' : ''}>${t.buySelectEngine}</button>
+                            <button type="button" id="buy-select-engine" class="gacha-shop-btn ${curRes >= 300 ? 'primary-gold' : 'secondary-gold'}">
+                                ${curRes >= 300 ? t.buySelectEngine : t.previewEngine.replace('{cur}', curRes)}
+                            </button>
                         </div>
                     </div>
 
+                    <!-- 6. Contrat Sélecteur d'Agent S au choix (500 ✦) avec Trio d'Agents S -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card5Badge}</span>
-                        <div class="gacha-shop-icon-wrap">
-                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-style:italic;font-size:38px;color:#facc15;">S★</span>
+                        <div class="gacha-shop-Showcase-trio">
+                            <div class="gacha-shop-trio-item"><img src="${agLeft.img}" alt="S"></div>
+                            <div class="gacha-shop-trio-item center"><img src="${agCenter.img}" alt="S"></div>
+                            <div class="gacha-shop-trio-item"><img src="${agRight.img}" alt="S"></div>
                         </div>
                         <h3 class="gacha-shop-item-title">${t.card5Title}</h3>
                         <p class="gacha-shop-item-desc">${t.card5Desc}</p>
-                        <span class="gacha-shop-cost-lbl">${t.card5Cost}</span>
+                        <div class="gacha-shop-cost-wrap">
+                            <span class="gacha-shop-cost-lbl">${t.card5Cost.replace('{cur}', curRes)}</span>
+                            <div class="gacha-shop-prog-bar"><div class="gacha-shop-prog-fill" style="width:${Math.min(100, Math.round(curRes / 500 * 100))}%"></div></div>
+                        </div>
                         <div class="gacha-shop-btn-single">
-                            <button type="button" id="buy-select-agent" class="gacha-shop-btn primary-gold" ${GState.residual < 500 ? 'disabled' : ''}>${t.buySelectAgent}</button>
+                            <button type="button" id="buy-select-agent" class="gacha-shop-btn ${curRes >= 500 ? 'primary-gold' : 'secondary-gold'}">
+                                ${curRes >= 500 ? t.buySelectAgent : t.previewAgent.replace('{cur}', curRes)}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1151,8 +1325,8 @@
             if (!GState.daily.freePackClaimed) {
                 GState.daily.freePackClaimed = true;
                 GState.polychromes += 160;
-                GState.residual += 10;
-                GState.totalDupesRes = (GState.totalDupesRes || 0) + 10;
+                GState.residual += 15;
+                GState.totalDupesRes = (GState.totalDupesRes || 0) + 15;
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
@@ -1164,42 +1338,42 @@
                 GState.polychromes -= 160;
                 GState.tapes += 1;
                 saveState(GState);
+                renderShopTab(mount);
                 updateTopCurrencies();
-            } else {
-                activeTab = 'quests';
-                modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b.getAttribute('data-gtab') === 'quests'));
-                renderCurrentTab();
             }
         });
 
-        document.getElementById('buy-tape-10').addEventListener('click', () => {
-            if (GState.polychromes >= 1600) {
-                GState.polychromes -= 1600;
-                GState.tapes += 10;
-                saveState(GState);
-                updateTopCurrencies();
-            } else {
-                activeTab = 'quests';
-                modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b.getAttribute('data-gtab') === 'quests'));
-                renderCurrentTab();
-            }
-        });
-
-        document.getElementById('buy-res-1').addEventListener('click', () => {
-            if (GState.residual >= 20) {
-                GState.residual -= 20;
-                GState.tapes += 1;
+        document.getElementById('buy-tape-multi').addEventListener('click', () => {
+            const count = Math.min(10, Math.floor(GState.polychromes / 160));
+            if (count >= 1) {
+                GState.polychromes -= count * 160;
+                GState.tapes += count;
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
             }
         });
 
-        document.getElementById('buy-res-max').addEventListener('click', () => {
-            const count = Math.floor(GState.residual / 20);
-            if (count > 0) {
+        document.getElementById('buy-res-1').addEventListener('click', () => {
+            const count = Math.max(1, Math.floor(GState.residual / 20));
+            if (GState.residual >= 20) {
                 GState.residual -= count * 20;
                 GState.tapes += count;
+                saveState(GState);
+                renderShopTab(mount);
+                updateTopCurrencies();
+            }
+        });
+
+        document.getElementById('btn-recycle-surplus').addEventListener('click', () => {
+            const { totalGain } = computeOvercapSurplus();
+            if (totalGain > 0) {
+                Object.values(GState.inventory || {}).forEach(it => {
+                    const maxCap = it.type === 'agent' ? 7 : 5;
+                    if ((it.count || 0) > maxCap) it.count = maxCap;
+                });
+                GState.residual += totalGain;
+                GState.totalDupesRes = (GState.totalDupesRes || 0) + totalGain;
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
@@ -1218,69 +1392,109 @@
         });
 
         document.getElementById('buy-select-engine').addEventListener('click', () => {
-            if (GState.residual >= 300) {
-                openShopSelectorModal('engine', 300, t.selectorEngineTitle);
-            }
+            openShopSelectorModal('engine', 300, t.selectorEngineTitle);
         });
 
         document.getElementById('buy-select-agent').addEventListener('click', () => {
-            if (GState.residual >= 500) {
-                openShopSelectorModal('agent', 500, t.selectorAgentTitle);
-            }
+            openShopSelectorModal('agent', 500, t.selectorAgentTitle);
         });
     }
 
     function openShopSelectorModal(targetType, cost, titleText) {
-        const items = POOL.S_all.filter(i => i.type === targetType);
+        const t = L().shop;
+        const tm = L().targetModal;
+        const canAfford = (GState.residual || 0) >= cost;
+        const missing = Math.max(0, cost - (GState.residual || 0));
+        let query = '';
+
         animOverlayEl.classList.add('active');
-        animOverlayEl.innerHTML = `
-            <div class="gacha-dialog-box">
-                <div>
-                    <span class="gacha-patch-tag">SIGNAL SHOP • ${cost} ✦</span>
-                    <h2 class="gacha-panel-title">${titleText}</h2>
-                </div>
-                <div class="gacha-selector-grid custom-scrollbar">
-                    ${items.map(it => {
-                        const owned = GState.inventory[it.id]?.count || 0;
-                        const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `★${Math.min(5, owned)}`) : 'NEW';
-                        return `
-                        <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
-                            <div class="gacha-col-visual">
-                                <span class="gacha-col-rank-tag">S</span>
-                                <span class="gacha-col-dupe-tag">${badge}</span>
-                                <img src="${it.img}" loading="lazy" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
-                            </div>
-                            <div class="gacha-col-info">
-                                <span class="gacha-col-name">${itemName(it)}</span>
-                            </div>
-                        </div>`;
-                    }).join('')}
-                </div>
-                <button type="button" class="gacha-res-btn" id="close-shop-selector" style="align-self:flex-end;">Cancel</button>
-            </div>
-        `;
 
-        document.getElementById('close-shop-selector').addEventListener('click', () => {
-            animOverlayEl.classList.remove('active');
-        });
+        function renderCatalog() {
+            let items = [...POOL.S_all.filter(i => i.type === targetType)].reverse();
+            if (query.trim()) {
+                const q = query.trim().toLowerCase();
+                items = items.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+            }
 
-        animOverlayEl.querySelectorAll('[data-shop-pick]').forEach(card => {
-            card.addEventListener('click', () => {
-                const pickedId = card.getAttribute('data-shop-pick');
-                const chosen = items.find(i => i.id === pickedId);
-                if (chosen && GState.residual >= cost) {
-                    GState.residual -= cost;
-                    const won = registerItemToInventory(chosen);
-                    saveState(GState);
-                    updateTopCurrencies();
-                    renderSearchResultsScreen([won]);
-                }
+            animOverlayEl.innerHTML = `
+                <div class="gacha-dialog-box">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                        <div>
+                            <span class="gacha-patch-tag">SIGNAL SHOP • ${GState.residual} / ${cost} ✦</span>
+                            <h2 class="gacha-panel-title">${titleText}</h2>
+                            ${!canAfford ? `<p class="gacha-panel-desc" style="color:#facc15;font-weight:700;">⚠️ ${t.selectorInsufficient.replace('{missing}', missing)}</p>` : ''}
+                        </div>
+                        <button type="button" class="gacha-res-btn" id="close-shop-selector">${tm.close}</button>
+                    </div>
+
+                    <div class="gacha-col-controls" style="flex-shrink:0;">
+                        <input type="text" class="gacha-col-search" id="shop-cat-search" placeholder="${tm.searchPlaceholder}" value="${query.replace(/"/g, '&quot;')}" style="width:100%;">
+                    </div>
+
+                    <div class="gacha-selector-scroll custom-scrollbar">
+                        <div class="gacha-selector-grid">
+                            ${items.map(it => {
+                                const owned = GState.inventory[it.id]?.count || 0;
+                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `★${Math.min(5, owned)}`) : tm.unownedTag;
+                                return `
+                                <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
+                                    <div class="gacha-col-visual">
+                                        ${it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : ''}
+                                        <span class="gacha-col-dupe-tag ${owned > 0 ? 'maxed' : ''}">${badge}</span>
+                                        <img src="${it.img}" loading="lazy" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
+                                    </div>
+                                    <div class="gacha-col-info">
+                                        <span class="gacha-col-name">${itemName(it)}</span>
+                                        <span class="gacha-col-sub">${canAfford ? `${cost} ✦` : it.role || 'S-Rank'}</span>
+                                    </div>
+                                </div>`;
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('close-shop-selector').addEventListener('click', () => {
+                animOverlayEl.classList.remove('active');
             });
-        });
+
+            const sInp = document.getElementById('shop-cat-search');
+            if (sInp) {
+                sInp.addEventListener('input', (e) => {
+                    query = e.target.value;
+                    renderCatalog();
+                    const nextInp = document.getElementById('shop-cat-search');
+                    if (nextInp) {
+                        nextInp.focus();
+                        nextInp.setSelectionRange(nextInp.value.length, nextInp.value.length);
+                    }
+                });
+            }
+
+            animOverlayEl.querySelectorAll('[data-shop-pick]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const pickedId = card.getAttribute('data-shop-pick');
+                    const chosen = POOL.S_all.find(i => i.id === pickedId);
+                    if (!chosen) return;
+                    if (GState.residual >= cost) {
+                        GState.residual -= cost;
+                        const won = registerItemToInventory(chosen);
+                        saveState(GState);
+                        updateTopCurrencies();
+                        renderSearchResultsScreen([won]);
+                    } else {
+                        animOverlayEl.classList.remove('active');
+                        openItemFromGacha(chosen.type, chosen.rawKey);
+                    }
+                });
+            });
+        }
+
+        renderCatalog();
     }
 
     // ==========================================
-    // 10. ONGLET 4 : COLLECTION AVEC FILTRES & RECHERCHE
+    // 10. ONGLET 4 : COLLECTION (SANS DOUBLE BADGE S SUR LES AGENTS)
     // ==========================================
     function renderCollectionTab(mount) {
         const t = L().collection;
@@ -1393,11 +1607,16 @@
                             progBadge = t.lockedLabel;
                         }
 
+                        // Pas de double badge S/A sur les Agents car leur portrait l'inclut déjà
+                        const rankBadgeHTML = it.type !== 'agent'
+                            ? `<span class="gacha-col-rank-tag">${it.rank}</span>`
+                            : '';
+
                         return `
                         <div class="gacha-col-card rank-${it.rank} ${it.unlocked ? '' : 'is-locked'}"
                              data-col-type="${it.type}" data-col-key="${it.rawKey}">
                             <div class="gacha-col-visual">
-                                <span class="gacha-col-rank-tag">${it.rank}</span>
+                                ${rankBadgeHTML}
                                 <span class="gacha-col-dupe-tag ${isMax ? 'maxed' : ''}">${progBadge}</span>
                                 <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
                             </div>
@@ -1454,7 +1673,7 @@
     }
 
     // ==========================================
-    // 11. MODALE DE SAUVEGARDE / TRANSFERT (EXPORT & IMPORT)
+    // 11. MODALE DE SAUVEGARDE / TRANSFERT
     // ==========================================
     function encodeBackupCode(stateObj) {
         try {
@@ -1655,7 +1874,7 @@
             return `
             <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms"
                  data-res-type="${item.type}" data-res-key="${item.rawKey}" title="${itemName(item)} (${t.inspectHint})">
-                <span class="gacha-col-rank-tag">${item.rank}</span>
+                ${item.type !== 'agent' ? `<span class="gacha-col-rank-tag">${item.rank}</span>` : ''}
                 ${topBadge}
                 <img src="${item.img}" alt="${itemName(item)}" class="gacha-res-img ${fitClass}">
                 <div class="gacha-res-bottom">
