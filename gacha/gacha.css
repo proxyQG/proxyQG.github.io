@@ -1,4 +1,4 @@
-/* gacha/gacha.css - Interface ZZZ Pleine Largeur, Topbar 3 zones (Gauche / Centre / Droite) & Mobile 100% Fluide */
+/* gacha/gacha.css - Interface ZZZ Pleine Largeur, Topbar 3 zones, Sélecteur Non-Écrasé & Magasin Visuel */
 
 #zzz-gacha-modal,
 #zzz-gacha-modal *,
@@ -120,7 +120,6 @@
     }
 }
 
-/* Navigation au centre sur PC, pleine largeur sans coupure sur mobile */
 .gacha-nav-pills {
     grid-area: nav;
     display: grid;
@@ -190,7 +189,6 @@
     box-shadow: 0 0 8px #ef4444;
 }
 
-/* Ressources alignées à droite */
 .gacha-currencies {
     grid-area: right;
     justify-self: end;
@@ -263,7 +261,7 @@
 }
 
 /* ========================================================
-   2. CONTENEUR DE VUE (SANS ROGNAGE VERTICAL SUR MOBILE)
+   2. CONTENEUR DE VUE
 ======================================================== */
 .gacha-main-area {
     position: relative;
@@ -427,6 +425,11 @@
     display: block;
 }
 
+.gacha-crt-screen img.is-equip-tv {
+    object-fit: contain;
+    padding: 18px;
+}
+
 .gacha-crt-screen::after {
     content: "";
     position: absolute;
@@ -513,7 +516,6 @@
     max-width: 100%;
 }
 
-/* Panneau de droite */
 .gacha-info-panel {
     display: flex;
     flex-direction: column;
@@ -727,7 +729,6 @@
     object-fit: contain;
 }
 
-/* Barre inférieure du Canal : Télémétrie & Historique des drops S/A */
 .gacha-telemetry-panel {
     display: flex;
     flex-direction: column;
@@ -812,7 +813,7 @@
 }
 
 /* ========================================================
-   4. ONGLET 2 : QUÊTES QUOTIDIENNES + SUCCÈS (2 COLONNES PC)
+   4. ONGLET 2 : QUÊTES QUOTIDIENNES + SUCCÈS
 ======================================================== */
 .gacha-quests-split {
     display: grid;
@@ -1002,7 +1003,7 @@
 }
 
 /* ========================================================
-   5. ONGLET 3 : MAGASIN DE SIGNAUX (6 OFFRES EN GRILLE 3 COLONNES)
+   5. ONGLET 3 : MAGASIN DE SIGNAUX (VITRINES VISUELLES & PROGRESSION)
 ======================================================== */
 .gacha-shop-grid {
     display: grid;
@@ -1039,10 +1040,11 @@
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
 }
 
-.gacha-shop-card.theme-yellow { border-color: #d7f70c; }
-.gacha-shop-card.theme-purple { border-color: #c084fc; }
-.gacha-shop-card.theme-gold   { border-color: #facc15; background: linear-gradient(160deg, #271d0b 0%, #0e0e13 100%); }
-.gacha-shop-card.theme-cyan   { border-color: #38bdf8; }
+.gacha-shop-card.theme-yellow  { border-color: #d7f70c; }
+.gacha-shop-card.theme-purple  { border-color: #c084fc; }
+.gacha-shop-card.theme-gold    { border-color: #facc15; background: linear-gradient(160deg, #271d0b 0%, #0e0e13 100%); }
+.gacha-shop-card.theme-cyan    { border-color: #38bdf8; }
+.gacha-shop-card.theme-emerald { border-color: #10b981; background: linear-gradient(160deg, #0b221c 0%, #0e0e13 100%); }
 
 .gacha-shop-badge {
     font-family: 'Montserrat', sans-serif;
@@ -1056,25 +1058,81 @@
     color: #000;
 }
 
-.theme-purple .gacha-shop-badge { background: #c084fc; color: #000; }
-.theme-gold .gacha-shop-badge   { background: #facc15; color: #000; }
-.theme-cyan .gacha-shop-badge   { background: #38bdf8; color: #000; }
+.theme-purple .gacha-shop-badge  { background: #c084fc; color: #000; }
+.theme-gold .gacha-shop-badge    { background: #facc15; color: #000; }
+.theme-cyan .gacha-shop-badge    { background: #38bdf8; color: #000; }
+.theme-emerald .gacha-shop-badge { background: #10b981; color: #000; }
 
 .gacha-shop-icon-wrap {
-    width: 76px;
-    height: 76px;
-    border-radius: 18px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.65) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: 82px;
+    height: 82px;
+    border-radius: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(0, 0, 0, 0.7) 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .gacha-shop-icon-wrap img {
-    width: 60px;
-    height: 60px;
+    width: 62px;
+    height: 62px;
     object-fit: contain;
+}
+
+.gacha-shop-icon-wrap img.cover-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+/* Trio d'aperçu visuel pour Boîte A, Sélecteur Moteur S et Sélecteur Agent S */
+.gacha-shop-Showcase-trio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 82px;
+    margin: 2px 0;
+}
+
+.gacha-shop-trio-item {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    border: 2px solid #3f3f46;
+    background: #0d0d12;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.85);
+    margin: 0 -8px;
+    position: relative;
+}
+
+.gacha-shop-trio-item.center {
+    width: 72px;
+    height: 72px;
+    z-index: 3;
+    border-color: #facc15;
+    box-shadow: 0 8px 22px rgba(250, 204, 21, 0.35);
+}
+
+.theme-purple .gacha-shop-trio-item.center {
+    border-color: #c084fc;
+    box-shadow: 0 8px 22px rgba(192, 132, 252, 0.35);
+}
+
+.gacha-shop-trio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.gacha-shop-trio-item img.contain- mode {
+    object-fit: contain;
+    padding: 6px;
 }
 
 .gacha-shop-item-title {
@@ -1093,6 +1151,14 @@
     margin: 0;
 }
 
+.gacha-shop-cost-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
 .gacha-shop-cost-lbl {
     font-family: monospace;
     font-size: 11.5px;
@@ -1102,6 +1168,26 @@
     border: 1px solid #272730;
     padding: 5px 12px;
     border-radius: 8px;
+}
+
+.gacha-shop-prog-bar {
+    width: 85%;
+    height: 5px;
+    background: #09090c;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid #22222a;
+}
+
+.gacha-shop-prog-fill {
+    height: 100%;
+    background: #facc15;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.theme-purple .gacha-shop-prog-fill {
+    background: #c084fc;
 }
 
 .gacha-shop-btn-row {
@@ -1134,11 +1220,19 @@
 .gacha-shop-btn.primary-purple   { background: #c084fc; color: #000; }
 .gacha-shop-btn.secondary-purple { background: #1d192b; border-color: #c084fc; color: #e9d5ff; }
 .gacha-shop-btn.primary-gold     { background: #facc15; color: #000; }
+.gacha-shop-btn.secondary-gold   { background: #221c10; border-color: rgba(250, 204, 21, 0.55); color: #fde047; }
 .gacha-shop-btn.primary-cyan     { background: #38bdf8; color: #000; }
+.gacha-shop-btn.primary-emerald  { background: #10b981; color: #000; }
+
+.gacha-shop-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
 .gacha-shop-btn:disabled {
-    background: #1f1f27;
-    border-color: #2e2e38;
-    color: #71717a;
+    background: #1a1a22;
+    border-color: #2b2b36;
+    color: #6e6e7a;
     cursor: not-allowed;
 }
 
@@ -1265,7 +1359,7 @@
 
 .gacha-col-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
     gap: 10px;
 }
 
@@ -1303,24 +1397,28 @@
     box-shadow: none;
 }
 
+/* Hauteur carrée blindée (padding-top 100%) qui ne s'écrase JAMAIS dans une grille scrollable */
 .gacha-col-visual {
     position: relative;
-    aspect-ratio: 1 / 1;
+    width: 100%;
+    padding-top: 100%;
     background: radial-gradient(circle at 50% 40%, #23232e 0%, #0b0b0f 90%);
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-shrink: 0;
 }
 
 .gacha-col-visual img.is-agent {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: bottom center;
+    object-position: top center;
 }
 
 .gacha-col-visual img.is-equip {
+    position: absolute;
+    inset: 13%;
     width: 74%;
     height: 74%;
     object-fit: contain;
@@ -1354,7 +1452,7 @@
     font-size: 10px;
     padding: 2px 6px;
     border-radius: 5px;
-    background: #141418;
+    background: rgba(12, 12, 16, 0.92);
     color: #fff;
     border: 1px solid #3f3f46;
 }
@@ -1372,6 +1470,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    flex-shrink: 0;
 }
 
 .gacha-col-name {
@@ -1396,18 +1495,18 @@
 }
 
 /* ========================================================
-   7. OVERLAY D'ANIMATION TV, MODALES & SEARCH RESULTS
+   7. OVERLAY D'ANIMATION TV, SÉLECTEUR DE CIBLE & SEARCH RESULTS
 ======================================================== */
 #gacha-anim-overlay {
     position: fixed;
     inset: 0;
     z-index: 300;
-    background: radial-gradient(circle at 50% 50%, #1a1c29 0%, #050508 82%);
+    background: radial-gradient(circle at 50% 50%, rgba(22, 24, 36, 0.96) 0%, rgba(5, 5, 8, 0.98) 85%);
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 14px;
     overflow-y: auto;
 }
 
@@ -1606,27 +1705,43 @@
     color: #000;
 }
 
-/* Sélecteur modal (Cible S / Contrat Magasin / Sauvegarde) */
+/* Boîte de dialogue modale (Sélecteur Cible S / Contrat Magasin / Sauvegarde) */
 .gacha-dialog-box {
     background: linear-gradient(145deg, #15161e 0%, #0b0b0f 100%);
     border: 1.5px solid #343442;
     border-radius: 22px;
-    padding: 22px;
-    max-width: 780px;
+    padding: 20px;
+    max-width: 960px;
     width: 100%;
-    max-height: 86vh;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95);
+    overflow: hidden;
+}
+
+/* Grille scrollable sans AUCUN écrasement vertical des cartes */
+.gacha-selector-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 4px 6px 4px 2px;
 }
 
 .gacha-selector-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
-    gap: 10px;
-    overflow-y: auto;
-    padding: 4px;
+    grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+    grid-auto-rows: max-content;
+    align-content: start;
+    gap: 12px;
+}
+
+@media (min-width: 640px) {
+    .gacha-selector-grid {
+        grid-template-columns: repeat(auto-fill, minmax(142px, 1fr));
+        gap: 14px;
+    }
 }
 
 @keyframes gachaCardPop {
