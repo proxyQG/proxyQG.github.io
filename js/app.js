@@ -1106,7 +1106,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
             : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="sync"`);
 
     const newRibbonHTML = isNew ? `
-        <div class="zzz-new-badge" aria-label="Nouveau">
+        <div class="zzz-new-badge" aria-hidden="true">
             <svg viewBox="0 0 86 36" class="zzz-new-svg" aria-hidden="true">
                 <defs>
                     <linearGradient id="zzz-new-grad" x1="6" y1="28" x2="76" y2="6" gradientUnits="userSpaceOnUse">
