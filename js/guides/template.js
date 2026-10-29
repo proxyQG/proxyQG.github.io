@@ -125,12 +125,12 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
     </div>`;
 
     return `
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8 border-b-2 border-zinc-800/80 pb-5 md:pb-6 gap-4">
+    <div class="flex flex-col md:flex-row md:items-end justify-between flex-wrap mb-6 md:mb-8 border-b-2 border-zinc-800/80 pb-5 md:pb-6 gap-4">
         <div class="flex items-center gap-4 sm:gap-5 flex-1 min-w-0">
             ${mobileAvatarHTML}
             <div class="flex flex-col min-w-0 flex-1">
                 ${factionHTML}
-                <h2 class="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
+                <h2 class="font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="font-size: clamp(1.85rem, 3.8vw, 4.5rem); text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
                 <div class="flex md:hidden items-center gap-2 mt-2.5">
                     ${roleBadgeHTML}
                     ${elemBadgeHTML}
@@ -148,14 +148,16 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
 
 function buildStats(data, c, txt) {
     const statsHTML = (data.stats || []).map(stat => {
-        const noteHTML = stat.note ? `<span class="text-zinc-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-wide mt-1 leading-tight opacity-90">${escapeHTML(tData(stat.note))}</span>` : '';
+        const noteHTML = stat.note
+            ? `<span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-wide mt-2 pt-2 border-t border-zinc-800/80 leading-snug text-right break-words">${escapeHTML(tData(stat.note))}</span>`
+            : '';
         return `
-        <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full sm:flex-1 shadow-inner flex justify-between items-center gap-3">
-            <span class="block text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug">${escapeHTML(tStats(stat.label))}</span>
-            <div class="flex flex-col items-end justify-center text-right shrink-0">
-                <span class="text-white font-black text-xl drop-shadow-md leading-tight">${escapeHTML(stat.value)}</span>
-                ${noteHTML}
+        <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full min-w-0 shadow-inner flex flex-col justify-center">
+            <div class="flex items-baseline justify-between gap-3 min-w-0">
+                <span class="text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug min-w-0 break-words">${escapeHTML(tStats(stat.label))}</span>
+                <span class="text-white font-black text-xl drop-shadow-md leading-tight shrink-0 text-right">${escapeHTML(stat.value)}</span>
             </div>
+            ${noteHTML}
         </div>`;
     }).join('');
 
@@ -165,7 +167,7 @@ function buildStats(data, c, txt) {
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-5 relative z-10 gap-2 border-b border-zinc-800/50 pb-4">
             <h3 class="font-display font-black uppercase text-xl sm:text-2xl tracking-wide" style="color: ${c};">${txt.statsLabel}</h3>
         </div>
-        <div class="flex flex-col sm:flex-row gap-4 relative z-10">
+        <div class="guide-stats-grid relative z-10">
             ${statsHTML}
         </div>
     </div>`;
@@ -405,7 +407,7 @@ function buildEngines(data, c, txt) {
     return `
     <div id="guide-sec-engines" style="scroll-margin-top: 96px;" class="mb-14">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-6" style="border-color: ${c};">${txt.engines}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-3.5">
             ${enginesHTML}
         </div>
     </div>`;
@@ -423,25 +425,25 @@ function buildTeams(agentName, data, c, txt) {
         const membersList = team.members || [];
         const membersHTML = membersList.map((m, i) => {
             const memberCard = buildTeamMember(m, i, agentName);
-            const separator = (i < membersList.length - 1) ? `<div class="w-6 h-px bg-zinc-700"></div>` : '';
+            const separator = (i < membersList.length - 1) ? `<div class="w-4 sm:w-6 h-px bg-zinc-700 -mt-4 shrink-0"></div>` : '';
             return memberCard + separator;
         }).join('');
 
         return `
-        <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
+        <div class="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-zinc-800 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden group transition-colors hover:border-zinc-700">
             <div class="absolute right-4 -top-5 text-[85px] font-display font-black text-zinc-800/20 italic tracking-tighter leading-none pointer-events-none select-none transform group-hover:scale-110 transition-all duration-700">${num}</div>
             
             <div class="flex flex-col mb-6 border-b border-zinc-800/80 pb-3 relative z-10">
-                <div class="flex items-center justify-between">
-                    <span class="text-white font-display font-black italic text-2xl tracking-widest drop-shadow-md">${escapeHTML(tData(team.name))}</span>
-                    <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-white font-display font-black italic text-xl sm:text-2xl tracking-widest drop-shadow-md">${escapeHTML(tData(team.name))}</span>
+                    <div class="flex items-center gap-2 flex-wrap">
                         ${buildVideoButton(team)}
                         <span class="text-[10px] font-bold uppercase border px-3 py-1 rounded tracking-wide shadow-sm" style="background-color: ${tagBg}; color: ${tagColor}; border-color: ${tagBorder};">${escapeHTML(tData(team.tag))}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="flex items-center justify-between gap-2 relative z-10">
+            <div class="flex items-center justify-between gap-1 sm:gap-2 relative z-10">
                 ${membersHTML}
             </div>
         </div>`;
@@ -450,7 +452,7 @@ function buildTeams(agentName, data, c, txt) {
     return `
     <div id="guide-sec-teams" style="scroll-margin-top: 96px;" class="border-t border-zinc-800/80 pt-10">
         <h3 class="text-white font-display font-black text-2xl uppercase border-l-4 pl-4 leading-none tracking-wide mb-8" style="border-color: ${c};">${txt.teams}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
             ${teamsHTML}
         </div>
     </div>`;
