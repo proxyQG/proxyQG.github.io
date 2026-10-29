@@ -2580,7 +2580,7 @@
             },
             {
                 "name": "Dodge",
-                "level": "8",
+                "level": "7",
                 "icon": "Esquive.webp"
             }
         ],
@@ -11318,7 +11318,7 @@
             },
             {
                 "name": "Chain",
-                "level": "12",
+                "level": "11",
                 "icon": "Ultime.webp"
             },
             {
@@ -11328,12 +11328,12 @@
             },
             {
                 "name": "Basic",
-                "level": "8",
+                "level": "1",
                 "icon": "Attaque_basic.webp"
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "1",
                 "icon": "Esquive.webp"
             }
         ],
