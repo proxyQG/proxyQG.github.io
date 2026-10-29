@@ -2812,7 +2812,7 @@
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "1",
                 "icon": "Esquive.webp"
             }
         ],
@@ -6995,7 +6995,7 @@
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "5",
                 "icon": "Esquive.webp"
             }
         ],
@@ -13583,23 +13583,23 @@
                 "icon": "Ex.webp"
             },
             {
-                "name": "Chain",
+                "name": "Assist",
+                "level": "12",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Ult",
                 "level": "12",
                 "icon": "Ultime.webp"
             },
             {
-                "name": "Assist",
-                "level": "8",
-                "icon": "Assist.webp"
-            },
-            {
                 "name": "Basic",
-                "level": "8",
+                "level": "1",
                 "icon": "Attaque_basic.webp"
             },
             {
                 "name": "Dodge",
-                "level": "6",
+                "level": "1",
                 "icon": "Esquive.webp"
             }
         ],
