@@ -1,4 +1,4 @@
-// gacha/gacha.js - Simulateur Recherche de Signal ZZZ (Vitrines Magasin, Double Cible S, Recyclage Surplus & Synchro Rétroactive)
+// gacha/gacha.js - Simulateur Recherche de Signal ZZZ (Pastilles Rouges Séparées, Tout Récupérer, Jauges & Historique Mobile)
 (async function () {
     const ASSETS = {
         polychrome: 'assets/Gacha/polychrome.webp',
@@ -60,7 +60,7 @@
     } catch (e) {}
 
     // ==========================================
-    // 1. TRIPLE PERSISTANCE & RECALCUL RÉTROACTIF DES STATS S / A
+    // 1. TRIPLE PERSISTANCE & SYNCHRO RÉTROACTIVE
     // ==========================================
     function openIDB() {
         return new Promise((resolve) => {
@@ -146,7 +146,6 @@
         if (!Array.isArray(state.recentDrops)) state.recentDrops = [];
         if (!state.achievements) state.achievements = { a1: 0, a2: 0, a3: 0, a4: 0, a5: 0, a6: 0 };
 
-        // Synchronisation rétroactive des compteurs S et A à partir de l'inventaire réel du joueur
         let invSCount = 0;
         let invACount = 0;
         const fallbackRecent = [];
@@ -164,7 +163,6 @@
         state.totalSPulls = Math.max(state.totalSPulls || 0, invSCount);
         state.totalAPulls = Math.max(state.totalAPulls || 0, invACount);
         state.totalDupesRes = Math.max(state.totalDupesRes || 0, state.residual || 0);
-        if (typeof state.totalGuidesRead !== 'number') state.totalGuidesRead = 0;
         if (state.recentDrops.length === 0 && fallbackRecent.length > 0) {
             state.recentDrops = fallbackRecent.slice(0, 14);
         }
@@ -183,7 +181,12 @@
             state.daily.visitDone = true;
             if (typeof state.daily.pullsToday !== 'number') state.daily.pullsToday = 0;
             if (!state.daily.claimed) state.daily.claimed = {};
+            if (!Array.isArray(state.daily.guidesOpened)) state.daily.guidesOpened = [];
+            if (!Array.isArray(state.daily.itemsInspected)) state.daily.itemsInspected = [];
         }
+
+        // Garantit que le cumul de guides lus est toujours au moins égal aux guides lus aujourd'hui
+        state.totalGuidesRead = Math.max(state.totalGuidesRead || 0, state.daily.guidesOpened.length);
 
         state.updatedAt = Date.now();
         return state;
@@ -195,7 +198,8 @@
         return (st.totalPulls || 0) * 100 + invCount * 10 + (st.polychromes || 0) * 0.001;
     }
 
-    function hasUnclaimedQuests(st) {
+    // Séparation stricte entre les notifications de Quêtes et la notification du Pack Gratuit Magasin
+    function hasClaimableQuestsOrAch(st) {
         if (!st || !st.daily) return false;
         const d = st.daily;
         const dailyReady = (d.visitDone && !d.claimed.q1)
@@ -210,14 +214,31 @@
             return cfg.val(st) >= cfg.targets[tierIdx];
         });
 
-        return dailyReady || achReady || !d.freePackClaimed;
+        return dailyReady || achReady;
+    }
+
+    function hasClaimableShopFreePack(st) {
+        if (!st || !st.daily) return false;
+        return !st.daily.freePackClaimed;
     }
 
     function updateQuestNotificationDot(st) {
-        const hasNotif = hasUnclaimedQuests(st);
+        const questsReady = hasClaimableQuestsOrAch(st);
+        const shopReady = hasClaimableShopFreePack(st);
+        const anyGlobal = questsReady || shopReady;
+
+        // Pastille sur le bouton de la barre latérale du site
         document.querySelectorAll('.gacha-quest-dot-global').forEach(el => {
-            el.style.display = hasNotif ? 'block' : 'none';
+            el.style.display = anyGlobal ? 'block' : 'none';
         });
+
+        // Pastille uniquement sur l'onglet Quêtes & Succès
+        const qDot = document.getElementById('gacha-dot-quests');
+        if (qDot) qDot.style.display = questsReady ? 'block' : 'none';
+
+        // Pastille uniquement sur l'onglet Magasin
+        const sDot = document.getElementById('gacha-dot-shop');
+        if (sDot) sDot.style.display = shopReady ? 'block' : 'none';
     }
 
     function saveState(state) {
@@ -250,15 +271,18 @@
     let GState = loadState();
 
     // ==========================================
-    // 2. OUVERTURE / FERMETURE PUBLIQUE
+    // 2. OUVERTURE / FERMETURE & HISTORIQUE MOBILE
     // ==========================================
-    function closeGachaModal() {
-        if (!modalEl) return;
+    function closeGachaModal(fromPopState = false) {
+        if (!modalEl || !modalEl.classList.contains('visible')) return;
         modalEl.classList.remove('visible');
         if (animOverlayEl) animOverlayEl.classList.remove('active');
         document.body.classList.remove('modal-open');
+        if (!fromPopState && window.history.state?.gachaOpen) {
+            window.history.back();
+        }
     }
-    window.closeGachaModal = closeGachaModal;
+    window.closeGachaModal = () => closeGachaModal(false);
 
     window.openGachaModal = async function () {
         await ensureDictLoaded();
@@ -268,8 +292,21 @@
         refreshModalStaticLabels();
         renderCurrentTab();
         document.body.classList.add('modal-open');
+        if (!modalEl.classList.contains('visible') && !window.history.state?.gachaOpen) {
+            window.history.pushState({ gachaOpen: true }, '', window.location.href);
+        }
         modalEl.classList.add('visible');
     };
+
+    window.addEventListener('popstate', () => {
+        if (animOverlayEl && animOverlayEl.classList.contains('active')) {
+            animOverlayEl.classList.remove('active');
+            return;
+        }
+        if (modalEl && modalEl.classList.contains('visible')) {
+            closeGachaModal(true);
+        }
+    });
 
     readFromIDB().then(idbState => {
         if (idbState && scoreState(idbState) > scoreState(GState)) {
@@ -545,7 +582,6 @@
         return registerItemToInventory(chosen);
     }
 
-    // Calcule les exemplaires en surnombre au-delà de M6 (7 copies) ou ★5 (5 copies)
     function computeOvercapSurplus() {
         let totalExcess = 0;
         let totalGain = 0;
@@ -562,7 +598,7 @@
     }
 
     // ==========================================
-    // 6. DOM PRINCIPAL & TOPBAR 3 ZONES
+    // 6. DOM PRINCIPAL & TOPBAR (AVEC PASTILLES SÉPARÉES)
     // ==========================================
     function iconFallback(type) {
         if (type === 'poly') {
@@ -596,10 +632,13 @@
                 <div class="gacha-nav-pills">
                     <button type="button" class="gacha-nav-btn active" data-gtab="search" id="gtab-lbl-search">${t.tabs?.search || 'Canal Unifié'}</button>
                     <button type="button" class="gacha-nav-btn" data-gtab="quests">
-                        <span id="gtab-lbl-quests">${t.tabs?.quests || 'Quêtes'}</span>
-                        <span class="gacha-quest-dot gacha-quest-dot-global" style="display:none;"></span>
+                        <span id="gtab-lbl-quests">${t.tabs?.quests || 'Quêtes & Succès'}</span>
+                        <span class="gacha-quest-dot" id="gacha-dot-quests" style="display:none;"></span>
                     </button>
-                    <button type="button" class="gacha-nav-btn" data-gtab="shop" id="gtab-lbl-shop">${t.tabs?.shop || 'Magasin'}</button>
+                    <button type="button" class="gacha-nav-btn" data-gtab="shop">
+                        <span id="gtab-lbl-shop">${t.tabs?.shop || 'Magasin'}</span>
+                        <span class="gacha-quest-dot" id="gacha-dot-shop" style="display:none;"></span>
+                    </button>
                     <button type="button" class="gacha-nav-btn" data-gtab="collection" id="gtab-lbl-collection">${t.tabs?.collection || 'Collection'}</button>
                 </div>
 
@@ -631,7 +670,7 @@
         animOverlayEl.id = 'gacha-anim-overlay';
         document.body.appendChild(animOverlayEl);
 
-        document.getElementById('gacha-close-btn').addEventListener('click', closeGachaModal);
+        document.getElementById('gacha-close-btn').addEventListener('click', () => closeGachaModal(false));
         document.getElementById('gacha-open-backup').addEventListener('click', showBackupModal);
 
         modalEl.querySelectorAll('[data-gtab]').forEach(btn => {
@@ -647,7 +686,7 @@
                 if (animOverlayEl && animOverlayEl.classList.contains('active')) {
                     animOverlayEl.classList.remove('active');
                 } else {
-                    closeGachaModal();
+                    closeGachaModal(false);
                 }
             }
         });
@@ -689,12 +728,16 @@
     }
 
     // ==========================================
-    // 7. ONGLET 1 : CANAL UNIFIÉ + DOUBLE SÉLECTEUR DE CIBLE S
+    // 7. ONGLET 1 : CANAL UNIFIÉ + JAUGES DE PITY
     // ==========================================
     function renderSearchStage(mount) {
         const t = L().banner;
         const sLeft = Math.max(1, 90 - GState.pityS);
         const aLeft = Math.max(1, 10 - GState.pityA);
+        const sPct = Math.min(100, Math.round((GState.pityS / 90) * 100));
+        const aPct = Math.min(100, Math.round((GState.pityA / 10) * 100));
+        const inSoftPity = GState.pityS >= 74;
+
         const feat1 = getPrimaryFeatured();
         const feat2 = getSecondaryFeatured(feat1);
 
@@ -803,12 +846,22 @@
 
                         <div class="gacha-pity-stack">
                             <div class="gacha-pity-pill">
-                                <span>${t.pityA}</span>
-                                <span class="gacha-pity-count c-a">${t.pullsLeft.replace('{n}', aLeft)}</span>
+                                <div class="gacha-pity-row">
+                                    <span>${t.pityA}</span>
+                                    <span class="gacha-pity-count c-a">${t.pullsLeft.replace('{n}', aLeft)}</span>
+                                </div>
+                                <div class="gacha-pity-bar-track">
+                                    <div class="gacha-pity-bar-fill" style="width:${aPct}%;background:#c084fc;"></div>
+                                </div>
                             </div>
                             <div class="gacha-pity-pill">
-                                <span>${t.pityS}</span>
-                                <span class="gacha-pity-count c-s">${t.pullsLeft.replace('{n}', sLeft)}</span>
+                                <div class="gacha-pity-row">
+                                    <span>${t.pityS}</span>
+                                    <span class="gacha-pity-count c-s">${t.pullsLeft.replace('{n}', sLeft)}</span>
+                                </div>
+                                <div class="gacha-pity-bar-track">
+                                    <div class="gacha-pity-bar-fill" style="width:${sPct}%;background:${inSoftPity ? '#ef4444' : '#facc15'};"></div>
+                                </div>
                             </div>
                             <div class="gacha-meta-row">
                                 <span>${t.status5050} <strong>${GState.guaranteedFeatured ? t.guaranteed : t.fiftyFifty}</strong></span>
@@ -879,7 +932,6 @@
         });
     }
 
-    // Sélecteur de Cible S (Slot 1 ou Slot 2) avec portraits 1:1 non-écrasés, recherche et filtres
     function showTargetSelectorModal(slotNum = 1) {
         const tm = L().targetModal;
         let filterCat = slotNum === 1 ? 'agent' : 'all';
@@ -904,7 +956,6 @@
                 candidates = candidates.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
             }
 
-            // Place les plus récents en haut (comme sur la grille principale du site)
             const ordered = [...candidates].reverse();
 
             animOverlayEl.innerHTML = `
@@ -1023,7 +1074,7 @@
     }
 
     // ==========================================
-    // 8. ONGLET 2 : 5 QUÊTES QUOTIDIENNES + 6 SUCCÈS PERMANENTS
+    // 8. ONGLET 2 : QUÊTES & SUCCÈS (AVEC JAUGES & BOUTON TOUT RÉCUPÉRER)
     // ==========================================
     function renderQuestsTab(mount) {
         const t = L().quests;
@@ -1056,6 +1107,10 @@
             };
         });
 
+        const claimableDailyCount = dailyList.filter(q => q.progress >= q.max && !q.claimed).length;
+        const claimableAchCount = achList.filter(a => !a.isMaxed && a.progress >= a.max).length;
+        const totalClaimable = claimableDailyCount + claimableAchCount;
+
         mount.innerHTML = `
             <div class="gacha-page-wrap">
                 <div class="gacha-quests-split">
@@ -1065,30 +1120,39 @@
                                 <h2 class="gacha-sec-title">${t.dailyHeader}</h2>
                                 <p class="gacha-sec-sub">${t.dailySub}</p>
                             </div>
-                            <span class="gacha-reset-pill">${t.resetLabel}</span>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                ${totalClaimable > 0 ? `<button type="button" id="btn-claim-all" class="gacha-claim-btn can-claim">${(t.claimAll || 'Tout récupérer ({n})').replace('{n}', totalClaimable)}</button>` : ''}
+                                <span class="gacha-reset-pill">${t.resetLabel}</span>
+                            </div>
                         </div>
                         <div class="gacha-quest-list">
                             ${dailyList.map(q => {
                                 const isDone = q.progress >= q.max;
                                 const canClaim = isDone && !q.claimed;
+                                const pct = Math.min(100, Math.round((q.progress / q.max) * 100));
                                 return `
                                 <div class="gacha-quest-card ${canClaim ? 'ready' : ''}">
-                                    <div style="flex:1;min-width:0;">
-                                        <div class="gacha-quest-top">
-                                            <span class="gacha-quest-name">${q.title}</span>
-                                            <span class="gacha-quest-prog ${isDone ? 'done' : ''}">${q.progress} / ${q.max}</span>
+                                    <div class="gacha-quest-body">
+                                        <div style="flex:1;min-width:0;">
+                                            <div class="gacha-quest-top">
+                                                <span class="gacha-quest-name">${q.title}</span>
+                                                <span class="gacha-quest-prog ${isDone ? 'done' : ''}">${q.progress} / ${q.max}</span>
+                                            </div>
+                                            <p class="gacha-quest-desc">${q.desc}</p>
                                         </div>
-                                        <p class="gacha-quest-desc">${q.desc}</p>
+                                        <div class="gacha-quest-actions">
+                                            <div class="gacha-reward-box">
+                                                <img src="${ASSETS.polychrome}" ${iconFallback('poly')}>
+                                                <span>+${q.reward}</span>
+                                            </div>
+                                            <button type="button" data-claim-daily="${q.id}" data-reward="${q.reward}" ${!canClaim ? 'disabled' : ''}
+                                                class="gacha-claim-btn ${canClaim ? 'can-claim' : ''}">
+                                                ${q.claimed ? t.claimed : (canClaim ? t.claim : t.inProgress)}
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="gacha-quest-actions">
-                                        <div class="gacha-reward-box">
-                                            <img src="${ASSETS.polychrome}" ${iconFallback('poly')}>
-                                            <span>+${q.reward}</span>
-                                        </div>
-                                        <button type="button" data-claim-daily="${q.id}" data-reward="${q.reward}" ${!canClaim ? 'disabled' : ''}
-                                            class="gacha-claim-btn ${canClaim ? 'can-claim' : ''}">
-                                            ${q.claimed ? t.claimed : (canClaim ? t.claim : t.inProgress)}
-                                        </button>
+                                    <div class="gacha-quest-bar-track">
+                                        <div class="gacha-quest-bar-fill" style="width:${pct}%;background:${q.claimed ? '#22c55e' : (canClaim ? '#d7f70c' : '#38bdf8')};"></div>
                                     </div>
                                 </div>`;
                             }).join('')}
@@ -1105,26 +1169,32 @@
                         <div class="gacha-quest-list">
                             ${achList.map(a => {
                                 const canClaim = !a.isMaxed && a.progress >= a.max;
+                                const pct = Math.min(100, Math.round((a.progress / a.max) * 100));
                                 return `
                                 <div class="gacha-quest-card ${canClaim ? 'ready' : ''}">
-                                    <div style="flex:1;min-width:0;">
-                                        <div class="gacha-quest-top">
-                                            <span class="gacha-quest-name">${a.title}</span>
-                                            <span class="gacha-quest-prog" style="color:#38bdf8;">${t.tierLabel.replace('{n}', a.tier)}</span>
-                                            <span class="gacha-quest-prog ${canClaim || a.isMaxed ? 'done' : ''}">${a.progress} / ${a.max}</span>
+                                    <div class="gacha-quest-body">
+                                        <div style="flex:1;min-width:0;">
+                                            <div class="gacha-quest-top">
+                                                <span class="gacha-quest-name">${a.title}</span>
+                                                <span class="gacha-quest-prog" style="color:#38bdf8;">${t.tierLabel.replace('{n}', a.tier)}</span>
+                                                <span class="gacha-quest-prog ${canClaim || a.isMaxed ? 'done' : ''}">${a.progress} / ${a.max}</span>
+                                            </div>
+                                            <p class="gacha-quest-desc">${a.desc}</p>
                                         </div>
-                                        <p class="gacha-quest-desc">${a.desc}</p>
+                                        <div class="gacha-quest-actions">
+                                            ${!a.isMaxed ? `
+                                            <div class="gacha-reward-box">
+                                                <img src="${ASSETS.polychrome}" ${iconFallback('poly')}>
+                                                <span>+${a.reward}</span>
+                                            </div>` : ''}
+                                            <button type="button" data-claim-ach="${a.id}" ${!canClaim ? 'disabled' : ''}
+                                                class="gacha-claim-btn ${canClaim ? 'can-claim' : ''}">
+                                                ${a.isMaxed ? t.claimed : (canClaim ? t.claim : t.inProgress)}
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="gacha-quest-actions">
-                                        ${!a.isMaxed ? `
-                                        <div class="gacha-reward-box">
-                                            <img src="${ASSETS.polychrome}" ${iconFallback('poly')}>
-                                            <span>+${a.reward}</span>
-                                        </div>` : ''}
-                                        <button type="button" data-claim-ach="${a.id}" ${!canClaim ? 'disabled' : ''}
-                                            class="gacha-claim-btn ${canClaim ? 'can-claim' : ''}">
-                                            ${a.isMaxed ? t.claimed : (canClaim ? t.claim : t.inProgress)}
-                                        </button>
+                                    <div class="gacha-quest-bar-track">
+                                        <div class="gacha-quest-bar-fill" style="width:${pct}%;background:${a.isMaxed ? '#22c55e' : (canClaim ? '#d7f70c' : '#c084fc')};"></div>
                                     </div>
                                 </div>`;
                             }).join('')}
@@ -1133,6 +1203,29 @@
                 </div>
             </div>
         `;
+
+        const claimAllBtn = document.getElementById('btn-claim-all');
+        if (claimAllBtn) {
+            claimAllBtn.addEventListener('click', () => {
+                dailyList.forEach(q => {
+                    if (q.progress >= q.max && !GState.daily.claimed[q.id]) {
+                        GState.daily.claimed[q.id] = true;
+                        GState.polychromes += q.reward;
+                    }
+                });
+                Object.entries(ACH_TIERS).forEach(([key, cfg]) => {
+                    let tierIdx = GState.achievements[key] || 0;
+                    while (tierIdx < cfg.targets.length && cfg.val(GState) >= cfg.targets[tierIdx]) {
+                        GState.polychromes += cfg.rewards[tierIdx];
+                        tierIdx++;
+                        GState.achievements[key] = tierIdx;
+                    }
+                });
+                saveState(GState);
+                renderQuestsTab(mount);
+                updateTopCurrencies();
+            });
+        }
 
         mount.querySelectorAll('[data-claim-daily]').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1165,7 +1258,7 @@
     }
 
     // ==========================================
-    // 9. ONGLET 3 : MAGASIN DE SIGNAUX (AVEC VRAIS VISUELS & RECYCLAGE SURPLUS)
+    // 9. ONGLET 3 : MAGASIN DE SIGNAUX
     // ==========================================
     function renderShopTab(mount) {
         const t = L().shop;
@@ -1203,7 +1296,6 @@
                 </div>
 
                 <div class="gacha-shop-grid">
-                    <!-- 1. Pack Ravitaillement Quotidien Gratuit -->
                     <div class="gacha-shop-card theme-cyan">
                         <span class="gacha-shop-badge">${t.freeBadge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1219,7 +1311,6 @@
                         </div>
                     </div>
 
-                    <!-- 2. Échange Polychromes -> Bandes -->
                     <div class="gacha-shop-card theme-yellow">
                         <span class="gacha-shop-badge">${t.card1Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1236,7 +1327,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. Échange Signaux Résiduels (✦) -> Bandes + Recyclage Surplus -->
                     <div class="gacha-shop-card ${totalGain > 0 ? 'theme-emerald' : 'theme-purple'}">
                         <span class="gacha-shop-badge">${totalGain > 0 ? t.cardRecycleBadge : t.card2Badge}</span>
                         <div class="gacha-shop-icon-wrap">
@@ -1257,7 +1347,6 @@
                         </div>
                     </div>
 
-                    <!-- 4. Boîte Mystère Rang A Garanti (80 ✦) avec Trio d'Agents A -->
                     <div class="gacha-shop-card theme-purple">
                         <span class="gacha-shop-badge">${t.card3Badge}</span>
                         <div class="gacha-shop-Showcase-trio">
@@ -1276,7 +1365,6 @@
                         </div>
                     </div>
 
-                    <!-- 5. Sélecteur de Moteur S au choix (300 ✦) avec Trio de Moteurs S -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card4Badge}</span>
                         <div class="gacha-shop-Showcase-trio">
@@ -1297,7 +1385,6 @@
                         </div>
                     </div>
 
-                    <!-- 6. Contrat Sélecteur d'Agent S au choix (500 ✦) avec Trio d'Agents S -->
                     <div class="gacha-shop-card theme-gold">
                         <span class="gacha-shop-badge">${t.card5Badge}</span>
                         <div class="gacha-shop-Showcase-trio">
@@ -1494,7 +1581,7 @@
     }
 
     // ==========================================
-    // 10. ONGLET 4 : COLLECTION (SANS DOUBLE BADGE S SUR LES AGENTS)
+    // 10. ONGLET 4 : COLLECTION
     // ==========================================
     function renderCollectionTab(mount) {
         const t = L().collection;
@@ -1607,7 +1694,6 @@
                             progBadge = t.lockedLabel;
                         }
 
-                        // Pas de double badge S/A sur les Agents car leur portrait l'inclut déjà
                         const rankBadgeHTML = it.type !== 'agent'
                             ? `<span class="gacha-col-rank-tag">${it.rank}</span>`
                             : '';
@@ -1765,7 +1851,7 @@
     function openItemFromGacha(type, key) {
         if (!key) return;
         if (type === 'agent' && typeof window.openAgentDetail === 'function') {
-            closeGachaModal();
+            closeGachaModal(false);
             window.openAgentDetail(key);
         } else if (type === 'engine' && typeof window.showEngineTooltip === 'function') {
             window.showEngineTooltip(key);
@@ -1809,6 +1895,7 @@
     function playZZZTVAnimation(results) {
         const t = L().results;
         skipRequested = false;
+        animOverlayEl.classList.remove('s-rank-flash');
         animOverlayEl.classList.add('active');
 
         const tvCount = results.length;
@@ -1849,7 +1936,14 @@
             setTimeout(() => {
                 if (skipRequested) return;
                 const tv = document.getElementById(`gtv-${idx}`);
-                if (tv) tv.classList.add(`lit-${item.rank}`);
+                if (tv) {
+                    tv.classList.add(`lit-${item.rank}`);
+                    if (item.rank === 'S') {
+                        animOverlayEl.classList.remove('s-rank-flash');
+                        void animOverlayEl.offsetWidth;
+                        animOverlayEl.classList.add('s-rank-flash');
+                    }
+                }
             }, 130 + idx * 130);
         });
 
