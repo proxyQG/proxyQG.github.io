@@ -79,7 +79,6 @@ export const GACHA_I18N = {
                 Armorer: "Forge"
             }
         },
-        },
         quests: {
             dailyHeader: "Commissions Quotidiennes",
             dailySub: "Se réinitialisent tous les jours à minuit (Jusqu'à 2 000 Polychromes / jour).",
@@ -273,7 +272,6 @@ export const GACHA_I18N = {
             selectedTag: "ACTIVE",
             close: "Close",
             roles: {}
-        },
         },
         quests: {
             dailyHeader: "Daily Commissions",
