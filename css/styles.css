@@ -410,3 +410,35 @@ body.modal-open .zzz-new-glyph {
     70% { transform: scale(1.05) rotate(4deg); }
     100% { transform: scale(1) rotate(0deg); }
 }
+
+/* ========================================================
+   ADAPTATION MULTI-RÉSOLUTIONS DU GUIDE (SPLIT-SCREEN & TABLETTE)
+======================================================== */
+
+.guide-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+}
+
+/* Tablette sans splash art (640px - 767px) et Écran PC large (>= 1150px) : 3 boîtes côte à côte */
+@media (min-width: 640px) and (max-width: 767px), (min-width: 1150px) {
+    .guide-stats-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+    }
+}
+
+/* Couloir latéral réservé pour le bouton #nextAgentBtn dès 768px (0 chevauchement sur les badges) */
+@media (min-width: 768px) and (max-width: 1279px) {
+    #agentGuideContainer {
+        padding-left: 1.75rem !important;
+        padding-right: 4.75rem !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    #agentGuideContainer {
+        padding-right: 4.75rem !important;
+    }
+}
