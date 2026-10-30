@@ -292,6 +292,7 @@
     // 2. OUVERTURE / FERMETURE & HISTORIQUE
     // ==========================================
     let miniCardOverlayEl = null;
+    let gachaOpenedAt = 0;
 
     function closeGachaModal(fromPopState = false) {
         if (!modalEl || !modalEl.classList.contains('visible')) return;
@@ -300,12 +301,17 @@
         if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
         document.body.classList.remove('modal-open');
         if (!fromPopState && window.history.state?.gachaOpen) {
-            window.history.back();
+            try { window.history.back(); } catch (e) {}
         }
     }
     window.closeGachaModal = () => closeGachaModal(false);
 
     window.__realOpenGachaModal = window.openGachaModal = async function () {
+        gachaOpenedAt = Date.now();
+        // Laisse le temps au history.back() de closeModal('mobileFilterModal') de passer sur mobile
+        await new Promise(r => setTimeout(r, 45));
+        gachaOpenedAt = Date.now();
+
         await ensureDictLoaded();
         createModalDOM();
         window.ZZZBuilds?.initTabs?.();
@@ -313,14 +319,27 @@
         GState = loadState();
         refreshModalStaticLabels();
         renderCurrentTab(true);
+
+        gachaOpenedAt = Date.now();
         document.body.classList.add('modal-open');
-        if (!modalEl.classList.contains('visible') && !window.history.state?.gachaOpen) {
-            window.history.pushState({ gachaOpen: true }, '', window.location.href);
+        if (!window.history.state?.gachaOpen) {
+            try { window.history.pushState({ gachaOpen: true }, '', window.location.href); } catch (e) {}
         }
         modalEl.classList.add('visible');
+
+        // Ré-applique modal-open après le timeout de 300ms de closeModal('mobileFilterModal')
+        setTimeout(() => {
+            if (modalEl && modalEl.classList.contains('visible')) {
+                document.body.classList.add('modal-open');
+            }
+        }, 320);
     };
 
     window.addEventListener('popstate', (e) => {
+        // Ignore tout popstate résiduel déclenché par la fermeture du menu mobile lors de l'ouverture du Gacha
+        if (Date.now() - gachaOpenedAt < 500) {
+            return;
+        }
         if (e.state && e.state.gachaOpen) {
             return;
         }
@@ -645,11 +664,12 @@
         let totalExcess = 0;
         let totalGain = 0;
         Object.values(GState.inventory || {}).forEach(it => {
-            const maxCap = it.type === 'agent' ? 7 : 5;
+            if (it.type !== 'agent') return;
+            const maxCap = 7;
             if ((it.count || 0) > maxCap) {
                 const diff = it.count - maxCap;
                 totalExcess += diff;
-                const valPerUnit = it.rank === 'S' ? 40 : (it.rank === 'A' ? 10 : 3);
+                const valPerUnit = it.rank === 'S' ? 40 : 10;
                 totalGain += diff * valPerUnit;
             }
         });
