@@ -192,7 +192,7 @@
                 freePackClaimed: false,
                 guidesOpened: [],
                 itemsInspected: [],
-                claimed: { q1: false, q2: false, q3: false, q4: false, q5: false }
+                claimed: { q1: false, q2: false, q3: false, q4: false, q5: false, q6: false }
             };
         } else {
             state.daily.visitDone = true;
@@ -2123,31 +2123,6 @@
         } finally {
             isPulling = false;
         }
-    }
-
-        if (GState.tapes < count) {
-            const missingTapes = count - GState.tapes;
-            const neededPoly = missingTapes * 160;
-            if (GState.polychromes >= neededPoly) {
-                GState.polychromes -= neededPoly;
-                GState.tapes += missingTapes;
-            } else {
-                activeTab = 'quests';
-                modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b.getAttribute('data-gtab') === 'quests'));
-                renderCurrentTab(true);
-                return;
-            }
-        }
-
-        GState.tapes -= count;
-        const results = [];
-        for (let i = 0; i < count; i++) {
-            results.push(rollSingleItem());
-        }
-        saveState(GState);
-        updateTopCurrencies();
-
-        playZZZTVAnimation(results);
     }
 
     function playZZZTVAnimation(results) {
