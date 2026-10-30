@@ -10,14 +10,31 @@
     const IDB_NAME = 'ProxyQG_Gacha_DB';
     const IDB_STORE = 'save_store';
 
-    const ACH_TIERS = {
-        a1: { targets: [10, 30, 60, 100, 200, 500],      rewards: [320, 480, 640, 800, 1600, 3200], val: (st) => st.totalPulls || 0 },
-        a2: { targets: [1, 3, 6, 12, 25, 50],            rewards: [400, 600, 800, 1200, 1600, 2400], val: (st) => st.totalSPulls || 0 },
-        a3: { targets: [3, 10, 20, 35, 50, 62],          rewards: [300, 500, 800, 1200, 1600, 3200], val: (st) => Object.values(st.inventory || {}).filter(i => i.type === 'agent').length },
-        a4: { targets: [5, 15, 30, 50, 75, 100],         rewards: [300, 500, 800, 1000, 1600, 2400], val: (st) => Object.values(st.inventory || {}).filter(i => i.type !== 'agent').length },
-        a5: { targets: [5, 15, 30, 60, 100, 200],        rewards: [200, 400, 600, 800, 1200, 1600],  val: (st) => st.totalGuidesRead || 0 },
-        a6: { targets: [40, 150, 400, 800, 1500, 3000],  rewards: [200, 400, 600, 1000, 1600, 2400], val: (st) => st.totalDupesRes || 0 }
+    const DAILY_GUIDE_CAP = 10;
+
+    // Paliers adaptatifs INFINIS : une fois les paliers de base franchis, chaque succès continue à l'infini
+    const ACH_CONFIG = {
+        a1: { baseT: [10, 30, 60, 100, 150, 200],      stepT: 50,  baseR: [320, 480, 640, 800, 1000, 1200], stepR: 600, val: (st) => st.totalPulls || 0 },
+        a2: { baseT: [1, 3, 6, 10, 15, 20],            stepT: 5,   baseR: [400, 600, 800, 1000, 1200, 1600], stepR: 800, val: (st) => st.totalSPulls || 0 },
+        a3: { baseT: [3, 8, 15, 25, 40, 60],           stepT: 20,  baseR: [300, 500, 640, 800, 1000, 1200], stepR: 640, val: (st) => Object.values(st.inventory || {}).filter(i => i.type === 'agent').reduce((acc, i) => acc + (i.count || 0), 0) },
+        a4: { baseT: [10, 25, 50, 80, 120, 170],       stepT: 50,  baseR: [300, 450, 600, 800, 1000, 1200], stepR: 500, val: (st) => Object.values(st.inventory || {}).filter(i => i.type !== 'agent').reduce((acc, i) => acc + (i.count || 0), 0) },
+        a5: { baseT: [5, 12, 20, 30, 45, 60],          stepT: 15,  baseR: [300, 400, 500, 600, 800, 1000],  stepR: 500, val: (st) => st.totalGuidesRead || 0 },
+        a6: { baseT: [40, 120, 240, 400, 600, 850],    stepT: 250, baseR: [300, 450, 600, 800, 1000, 1200], stepR: 600, val: (st) => st.totalDupesRes || 0 }
     };
+
+    function getAchTierData(key, tierIdx, st) {
+        const cfg = ACH_CONFIG[key];
+        const idx = Math.max(0, tierIdx || 0);
+        const len = cfg.baseT.length;
+        const target = idx < len
+            ? cfg.baseT[idx]
+            : cfg.baseT[len - 1] + (idx - len + 1) * cfg.stepT;
+        const reward = idx < len
+            ? cfg.baseR[idx]
+            : cfg.stepR;
+        const currentVal = cfg.val(st);
+        return { tier: idx + 1, target, reward, currentVal };
+    }
 
     let DICT = null;
     let modalEl = null;
@@ -206,12 +223,13 @@
             || (d.guidesOpened.length >= 3 && !d.claimed.q2)
             || (d.itemsInspected.length >= 2 && !d.claimed.q3)
             || (d.pullsToday >= 1 && !d.claimed.q4)
-            || (d.guidesOpened.length >= 5 && !d.claimed.q5);
+            || (d.guidesOpened.length >= 6 && !d.claimed.q5)
+            || (d.pullsToday >= 10 && !d.claimed.q6);
 
-        const achReady = Object.entries(ACH_TIERS).some(([key, cfg]) => {
+        const achReady = Object.keys(ACH_CONFIG).some((key) => {
             const tierIdx = st.achievements?.[key] || 0;
-            if (tierIdx >= cfg.targets.length) return false;
-            return cfg.val(st) >= cfg.targets[tierIdx];
+            const info = getAchTierData(key, tierIdx, st);
+            return info.currentVal >= info.target;
         });
 
         return dailyReady || achReady;
@@ -271,58 +289,15 @@
     let GState = loadState();
 
     // ==========================================
-    // 2. OUVERTURE / FERMETURE, SUSPENSION GUIDE & HISTORIQUE
+    // 2. OUVERTURE / FERMETURE & HISTORIQUE
     // ==========================================
-    let pausedForAgentGuide = false;
-    let pausedWithAnimOverlay = false;
-    let ignorePopstateUntil = 0;
-
-    // Surveille la fermeture du guide d'agent (#agentDetailModal) pour restaurer automatiquement le Gacha
-    const agentModalObserver = new MutationObserver(() => {
-        if (!pausedForAgentGuide) return;
-        const agentModal = document.getElementById('agentDetailModal');
-        if (agentModal && agentModal.classList.contains('hidden')) {
-            ignorePopstateUntil = Date.now() + 450;
-            pausedForAgentGuide = false;
-            if (modalEl) {
-                modalEl.style.visibility = '';
-                modalEl.classList.add('visible');
-            }
-            if (pausedWithAnimOverlay && animOverlayEl) {
-                animOverlayEl.style.visibility = '';
-                animOverlayEl.classList.add('active');
-            }
-            pausedWithAnimOverlay = false;
-            document.body.classList.add('modal-open');
-            if (!window.history.state?.gachaOpen) {
-                window.history.pushState({ gachaOpen: true }, '', window.location.href);
-            }
-            GState = loadState();
-            updateTopCurrencies();
-            if (!animOverlayEl || !animOverlayEl.classList.contains('active')) {
-                renderCurrentTab();
-            }
-        }
-    });
-
-    function observeAgentModalOnce() {
-        const agentModal = document.getElementById('agentDetailModal');
-        if (agentModal && !agentModal.__gachaObserved) {
-            agentModal.__gachaObserved = true;
-            agentModalObserver.observe(agentModal, { attributes: true, attributeFilter: ['class'] });
-        }
-    }
+    let miniCardOverlayEl = null;
 
     function closeGachaModal(fromPopState = false) {
-        pausedForAgentGuide = false;
-        pausedWithAnimOverlay = false;
         if (!modalEl || !modalEl.classList.contains('visible')) return;
-        modalEl.style.visibility = '';
         modalEl.classList.remove('visible');
-        if (animOverlayEl) {
-            animOverlayEl.style.visibility = '';
-            animOverlayEl.classList.remove('active');
-        }
+        if (animOverlayEl) animOverlayEl.classList.remove('active');
+        if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
         document.body.classList.remove('modal-open');
         if (!fromPopState && window.history.state?.gachaOpen) {
             window.history.back();
@@ -333,13 +308,11 @@
     window.openGachaModal = async function () {
         await ensureDictLoaded();
         createModalDOM();
-        observeAgentModalOnce();
         await ensurePoolLoaded();
         GState = loadState();
         refreshModalStaticLabels();
-        renderCurrentTab();
+        renderCurrentTab(true);
         document.body.classList.add('modal-open');
-        modalEl.style.visibility = '';
         if (!modalEl.classList.contains('visible') && !window.history.state?.gachaOpen) {
             window.history.pushState({ gachaOpen: true }, '', window.location.href);
         }
@@ -347,10 +320,11 @@
     };
 
     window.addEventListener('popstate', (e) => {
-        if (Date.now() < ignorePopstateUntil || pausedForAgentGuide) {
+        if (e.state && e.state.gachaOpen) {
             return;
         }
-        if (e.state && e.state.gachaOpen) {
+        if (miniCardOverlayEl && miniCardOverlayEl.classList.contains('active')) {
+            miniCardOverlayEl.classList.remove('active');
             return;
         }
         if (animOverlayEl && animOverlayEl.classList.contains('active')) {
@@ -366,35 +340,58 @@
         if (idbState && scoreState(idbState) > scoreState(GState)) {
             GState = normalizeState(idbState);
             saveState(GState);
-            if (modalEl && modalEl.classList.contains('visible')) renderCurrentTab();
+            if (modalEl && modalEl.classList.contains('visible')) renderCurrentTab(false);
         }
     });
 
     await ensureDictLoaded();
 
     // ==========================================
-    // 3. ÉCOUTEURS DE QUÊTES & SYNCHRO LANGUE
+    // 3. QUÊTES (1 FOIS PAR AGENT/JOUR, CAP 10/JOUR, FLÈCHES < > INCLUSES)
     // ==========================================
     function trackGuideOpen(agentName) {
-        if (!agentName) return;
+        const clean = String(agentName || '').trim();
+        if (!clean) return;
         GState = loadState();
+        // 1 seul comptage par agent par jour + plafond strict de 10 guides par jour
+        if (GState.daily.guidesOpened.includes(clean)) return;
+        if (GState.daily.guidesOpened.length >= DAILY_GUIDE_CAP) return;
+
+        GState.daily.guidesOpened.push(clean);
         GState.totalGuidesRead = (GState.totalGuidesRead || 0) + 1;
-        if (!GState.daily.guidesOpened.includes(agentName)) {
-            GState.daily.guidesOpened.push(agentName);
-        }
         saveState(GState);
     }
 
     function trackEquipmentInspect(itemKey) {
-        if (!itemKey) return;
+        const clean = String(itemKey || '').trim();
+        if (!clean) return;
         GState = loadState();
-        if (!GState.daily.itemsInspected.includes(itemKey)) {
-            GState.daily.itemsInspected.push(itemKey);
+        if (!GState.daily.itemsInspected.includes(clean)) {
+            GState.daily.itemsInspected.push(clean);
             saveState(GState);
         }
     }
 
+    // Détecte aussi l'ouverture d'un guide via les flèches Précédent / Suivant ou le clavier
+    function setupGuideNavigationObserver() {
+        const giantTitle = document.getElementById('modalGiantNameText');
+        if (giantTitle && !giantTitle.__gachaWatched) {
+            giantTitle.__gachaWatched = true;
+            const obs = new MutationObserver(() => {
+                const agModal = document.getElementById('agentDetailModal');
+                if (agModal && !agModal.classList.contains('hidden')) {
+                    const currentName = giantTitle.textContent.trim();
+                    if (currentName) trackGuideOpen(currentName);
+                }
+            });
+            obs.observe(giantTitle, { childList: true, characterData: true, subtree: true });
+        }
+    }
+    setupGuideNavigationObserver();
+
     document.addEventListener('click', (e) => {
+        setupGuideNavigationObserver();
+
         const agentCard = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
         if (agentCard) {
             const name = agentCard.getAttribute('data-agent')
@@ -402,6 +399,14 @@
                 || agentCard.getAttribute('data-disc-agent')
                 || (agentCard.getAttribute('onclick')?.match(/openAgentDetail\(\s*['"]([^'"]+)['"]/) || [])[1];
             if (name) trackGuideOpen(name);
+        }
+
+        if (e.target.closest('#prevAgentBtn, #nextAgentBtn')) {
+            setTimeout(() => {
+                const giantTitle = document.getElementById('modalGiantNameText');
+                const currentName = giantTitle && giantTitle.textContent.trim();
+                if (currentName) trackGuideOpen(currentName);
+            }, 40);
         }
 
         const equipTrigger = e.target.closest('[data-engine], [data-disc]');
@@ -415,7 +420,7 @@
                 syncSidebarButtonText();
                 if (modalEl && modalEl.classList.contains('visible')) {
                     refreshModalStaticLabels();
-                    renderCurrentTab();
+                    renderCurrentTab(false);
                 }
             }, 50);
         }
@@ -463,8 +468,9 @@
                     nameEn: displayName,
                     rawKey: a.name,
                     rank: a.rank || 'S',
-                    element: a.element,
-                    role: a.role,
+                    element: a.element || 'Physical',
+                    role: a.role || 'Attack',
+                    faction: a.faction || 'New Eridu',
                     img: `assets/Agents/${a.name}.webp`
                 };
                 POOL.allCatalog.push(item);
@@ -727,11 +733,15 @@
         document.getElementById('gacha-close-btn').addEventListener('click', () => closeGachaModal(false));
         document.getElementById('gacha-open-backup').addEventListener('click', showBackupModal);
 
+        miniCardOverlayEl = document.createElement('div');
+        miniCardOverlayEl.id = 'gacha-agent-minicard-overlay';
+        document.body.appendChild(miniCardOverlayEl);
+
         modalEl.querySelectorAll('[data-gtab]').forEach(btn => {
             btn.addEventListener('click', () => {
                 activeTab = btn.getAttribute('data-gtab');
                 modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b === btn));
-                renderCurrentTab();
+                renderCurrentTab(true);
             });
         });
 
@@ -739,11 +749,12 @@
             if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
                 const engTip = document.getElementById('w-engine-tooltip');
                 const discTip = document.getElementById('disc-tooltip-modal');
-                const agModal = document.getElementById('agentDetailModal');
                 if ((engTip && engTip.classList.contains('visible')) ||
-                    (discTip && discTip.classList.contains('visible')) ||
-                    (agModal && !agModal.classList.contains('hidden')) ||
-                    pausedForAgentGuide) {
+                    (discTip && discTip.classList.contains('visible'))) {
+                    return;
+                }
+                if (miniCardOverlayEl && miniCardOverlayEl.classList.contains('active')) {
+                    miniCardOverlayEl.classList.remove('active');
                     return;
                 }
                 if (animOverlayEl && animOverlayEl.classList.contains('active')) {
@@ -778,16 +789,18 @@
         updateQuestNotificationDot(GState);
     }
 
-    function renderCurrentTab() {
+    function renderCurrentTab(resetScroll = false) {
         updateTopCurrencies();
         const mount = document.getElementById('gacha-view-mount');
         if (!mount) return;
-        mount.scrollTop = 0;
+        const savedScroll = mount.scrollTop;
 
         if (activeTab === 'search') renderSearchStage(mount);
         else if (activeTab === 'quests') renderQuestsTab(mount);
         else if (activeTab === 'shop') renderShopTab(mount);
         else if (activeTab === 'collection') renderCollectionTab(mount);
+
+        mount.scrollTop = resetScroll ? 0 : savedScroll;
     }
 
     // ==========================================
@@ -1155,42 +1168,41 @@
     }
 
     // ==========================================
-    // 8. ONGLET 2 : QUÊTES & SUCCÈS (AVEC JAUGES & BOUTON TOUT RÉCUPÉRER)
+    // 8. ONGLET 2 : 6 QUÊTES QUOTIDIENNES + HAUTS FAITS INFINIS
     // ==========================================
     function renderQuestsTab(mount) {
+        const prevScroll = mount.scrollTop;
         const t = L().quests;
         const d = GState.daily;
 
         const dailyList = [
-            { id: 'q1', title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 500, claimed: !!d.claimed.q1 },
-            { id: 'q2', title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 500, claimed: !!d.claimed.q2 },
+            { id: 'q1', title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 400, claimed: !!d.claimed.q1 },
+            { id: 'q2', title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 400, claimed: !!d.claimed.q2 },
             { id: 'q3', title: t.q3Title, desc: t.q3Desc, progress: Math.min(2, d.itemsInspected.length), max: 2, reward: 400, claimed: !!d.claimed.q3 },
             { id: 'q4', title: t.q4Title, desc: t.q4Desc, progress: Math.min(1, d.pullsToday || 0), max: 1, reward: 300, claimed: !!d.claimed.q4 },
-            { id: 'q5', title: t.q5Title, desc: t.q5Desc, progress: Math.min(5, d.guidesOpened.length), max: 5, reward: 300, claimed: !!d.claimed.q5 }
+            { id: 'q5', title: t.q5Title, desc: t.q5Desc, progress: Math.min(6, d.guidesOpened.length), max: 6, reward: 450, claimed: !!d.claimed.q5 },
+            { id: 'q6', title: t.q6Title, desc: t.q6Desc, progress: Math.min(10, d.pullsToday || 0), max: 10, reward: 450, claimed: !!d.claimed.q6 }
         ];
 
-        const achList = Object.entries(ACH_TIERS).map(([key, cfg], idx) => {
+        const achList = Object.keys(ACH_CONFIG).map((key, idx) => {
             const num = idx + 1;
             const tierIdx = GState.achievements?.[key] || 0;
-            const isMaxed = tierIdx >= cfg.targets.length;
-            const target = isMaxed ? cfg.targets[cfg.targets.length - 1] : cfg.targets[tierIdx];
-            const reward = isMaxed ? 0 : cfg.rewards[tierIdx];
-            const currentVal = cfg.val(GState);
+            const info = getAchTierData(key, tierIdx, GState);
             return {
                 id: key,
-                tier: Math.min(cfg.targets.length, tierIdx + 1),
+                tier: info.tier,
                 title: t[`a${num}Title`],
-                desc: (t[`a${num}Desc`] || '').replace('{target}', target),
-                progress: Math.min(target, currentVal),
-                max: target,
-                reward,
-                isMaxed
+                desc: (t[`a${num}Desc`] || '').replace('{target}', info.target),
+                progress: Math.min(info.target, info.currentVal),
+                max: info.target,
+                reward: info.reward
             };
         });
 
         const claimableDailyCount = dailyList.filter(q => q.progress >= q.max && !q.claimed).length;
-        const claimableAchCount = achList.filter(a => !a.isMaxed && a.progress >= a.max).length;
+        const claimableAchCount = achList.filter(a => a.progress >= a.max).length;
         const totalClaimable = claimableDailyCount + claimableAchCount;
+        const capInfoText = (t.dailyCapInfo || 'Guides du jour : {n} / 10').replace('{n}', Math.min(DAILY_GUIDE_CAP, d.guidesOpened.length));
 
         mount.innerHTML = `
             <div class="gacha-page-wrap">
@@ -1201,8 +1213,9 @@
                                 <h2 class="gacha-sec-title">${t.dailyHeader}</h2>
                                 <p class="gacha-sec-sub">${t.dailySub}</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;">
+                            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                                 ${totalClaimable > 0 ? `<button type="button" id="btn-claim-all" class="gacha-claim-btn can-claim">${(t.claimAll || 'Tout récupérer ({n})').replace('{n}', totalClaimable)}</button>` : ''}
+                                <span class="gacha-reset-pill" style="color:#38bdf8;">${capInfoText}</span>
                                 <span class="gacha-reset-pill">${t.resetLabel}</span>
                             </div>
                         </div>
@@ -1249,7 +1262,7 @@
                         </div>
                         <div class="gacha-quest-list">
                             ${achList.map(a => {
-                                const canClaim = !a.isMaxed && a.progress >= a.max;
+                                const canClaim = a.progress >= a.max;
                                 const pct = Math.min(100, Math.round((a.progress / a.max) * 100));
                                 return `
                                 <div class="gacha-quest-card ${canClaim ? 'ready' : ''}">
@@ -1258,24 +1271,23 @@
                                             <div class="gacha-quest-top">
                                                 <span class="gacha-quest-name">${a.title}</span>
                                                 <span class="gacha-quest-prog" style="color:#38bdf8;">${t.tierLabel.replace('{n}', a.tier)}</span>
-                                                <span class="gacha-quest-prog ${canClaim || a.isMaxed ? 'done' : ''}">${a.progress} / ${a.max}</span>
+                                                <span class="gacha-quest-prog ${canClaim ? 'done' : ''}">${a.progress} / ${a.max}</span>
                                             </div>
                                             <p class="gacha-quest-desc">${a.desc}</p>
                                         </div>
                                         <div class="gacha-quest-actions">
-                                            ${!a.isMaxed ? `
                                             <div class="gacha-reward-box">
                                                 <img src="${ASSETS.polychrome}" ${iconFallback('poly')}>
                                                 <span>+${a.reward}</span>
-                                            </div>` : ''}
+                                            </div>
                                             <button type="button" data-claim-ach="${a.id}" ${!canClaim ? 'disabled' : ''}
                                                 class="gacha-claim-btn ${canClaim ? 'can-claim' : ''}">
-                                                ${a.isMaxed ? t.claimed : (canClaim ? t.claim : t.inProgress)}
+                                                ${canClaim ? t.claim : t.inProgress}
                                             </button>
                                         </div>
                                     </div>
                                     <div class="gacha-quest-bar-track">
-                                        <div class="gacha-quest-bar-fill" style="width:${pct}%;background:${a.isMaxed ? '#22c55e' : (canClaim ? '#d7f70c' : '#c084fc')};"></div>
+                                        <div class="gacha-quest-bar-fill" style="width:${pct}%;background:${canClaim ? '#d7f70c' : '#c084fc'};"></div>
                                     </div>
                                 </div>`;
                             }).join('')}
@@ -1284,6 +1296,7 @@
                 </div>
             </div>
         `;
+        mount.scrollTop = prevScroll;
 
         const claimAllBtn = document.getElementById('btn-claim-all');
         if (claimAllBtn) {
@@ -1294,12 +1307,14 @@
                         GState.polychromes += q.reward;
                     }
                 });
-                Object.entries(ACH_TIERS).forEach(([key, cfg]) => {
+                Object.keys(ACH_CONFIG).forEach((key) => {
                     let tierIdx = GState.achievements[key] || 0;
-                    while (tierIdx < cfg.targets.length && cfg.val(GState) >= cfg.targets[tierIdx]) {
-                        GState.polychromes += cfg.rewards[tierIdx];
+                    let info = getAchTierData(key, tierIdx, GState);
+                    while (info.currentVal >= info.target) {
+                        GState.polychromes += info.reward;
                         tierIdx++;
                         GState.achievements[key] = tierIdx;
+                        info = getAchTierData(key, tierIdx, GState);
                     }
                 });
                 saveState(GState);
@@ -1325,10 +1340,10 @@
         mount.querySelectorAll('[data-claim-ach]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const aId = btn.getAttribute('data-claim-ach');
-                const cfg = ACH_TIERS[aId];
                 const tierIdx = GState.achievements[aId] || 0;
-                if (cfg && tierIdx < cfg.targets.length && cfg.val(GState) >= cfg.targets[tierIdx]) {
-                    GState.polychromes += cfg.rewards[tierIdx];
+                const info = getAchTierData(aId, tierIdx, GState);
+                if (info.currentVal >= info.target) {
+                    GState.polychromes += info.reward;
                     GState.achievements[aId] = tierIdx + 1;
                     saveState(GState);
                     renderQuestsTab(mount);
@@ -1929,15 +1944,93 @@
         });
     }
 
+    // Mini-Fiche Agent affichée directement dans le Gacha (sans jamais quitter le Gacha)
+    const ELEM_ICON_MAP = {
+        Physical: 'physique.webp',
+        Fire: 'feu.webp',
+        Ice: 'glace.webp',
+        Electric: 'electrique.webp',
+        Ether: 'ether.webp',
+        Wind: 'vent.webp',
+        Aurora: 'lumen.webp',
+        HonedEdge: 'lame.webp',
+        Sepia: 'sepia.webp'
+    };
+
+    function showAgentMiniCard(rawKey) {
+        if (!miniCardOverlayEl) return;
+        const agent = POOL.allCatalog.find(i => i.type === 'agent' && i.rawKey === rawKey);
+        if (!agent) return;
+
+        const ac = L().agentCard || {};
+        const tm = L().targetModal || {};
+        const owned = GState.inventory[agent.id]?.count || 0;
+        const statusStr = owned > 0
+            ? `M${Math.min(6, owned - 1)} • ${(ac.copies || '{n} ex.').replace('{n}', owned)}`
+            : (ac.unowned || 'Non obtenu');
+
+        const roleLabel = (tm.roles && tm.roles[agent.role]) || agent.role || 'Attack';
+        const elemLabel = (ac.elements && ac.elements[agent.element]) || agent.element || 'Physical';
+        const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
+        const borderCol = agent.rank === 'S' ? '#facc15' : '#c084fc';
+
+        miniCardOverlayEl.innerHTML = `
+            <div class="gacha-minicard-box" style="border-color:${borderCol};">
+                <div class="gacha-minicard-top">
+                    <div class="gacha-minicard-avatar" style="border-color:${borderCol};">
+                        <img src="${agent.img}" alt="${itemName(agent)}">
+                    </div>
+                    <div class="gacha-minicard-meta">
+                        <span class="gacha-patch-tag" style="width:fit-content;margin-bottom:2px;background:${borderCol};">RANG ${agent.rank}</span>
+                        <h3 class="gacha-minicard-name">${itemName(agent)}</h3>
+                        <span style="font-family:monospace;font-size:11px;font-weight:800;color:#d7f70c;">${statusStr}</span>
+                    </div>
+                </div>
+
+                <div class="gacha-minicard-grid">
+                    <div class="gacha-minicard-pill full">
+                        <span class="gacha-minicard-lbl">${ac.faction || 'Faction'}</span>
+                        <div class="gacha-minicard-val">
+                            <img src="assets/Faction/${agent.faction}.webp" alt="" onerror="this.style.display='none'">
+                            <span>${agent.faction || 'New Eridu'}</span>
+                        </div>
+                    </div>
+                    <div class="gacha-minicard-pill">
+                        <span class="gacha-minicard-lbl">${ac.role || 'Rôle'}</span>
+                        <div class="gacha-minicard-val">
+                            <img src="assets/Rôles/${agent.role}.webp" alt="" onerror="this.style.display='none'">
+                            <span>${roleLabel}</span>
+                        </div>
+                    </div>
+                    <div class="gacha-minicard-pill">
+                        <span class="gacha-minicard-lbl">${ac.element || 'Élément'}</span>
+                        <div class="gacha-minicard-val">
+                            <img src="assets/Icone/${elemIcon}" alt="" onerror="this.style.display='none'">
+                            <span>${elemLabel}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="gacha-res-btn primary" id="close-agent-minicard" style="width:100%;">${ac.close || 'Fermer'}</button>
+            </div>
+        `;
+
+        miniCardOverlayEl.classList.add('active');
+
+        document.getElementById('close-agent-minicard').addEventListener('click', () => {
+            miniCardOverlayEl.classList.remove('active');
+        });
+        miniCardOverlayEl.onclick = (ev) => {
+            if (ev.target === miniCardOverlayEl) {
+                miniCardOverlayEl.classList.remove('active');
+            }
+        };
+    }
+
     function openItemFromGacha(type, key) {
         if (!key) return;
-        if (type === 'agent' && typeof window.openAgentDetail === 'function') {
-            observeAgentModalOnce();
-            pausedForAgentGuide = true;
-            pausedWithAnimOverlay = !!(animOverlayEl && animOverlayEl.classList.contains('active'));
-            if (animOverlayEl) animOverlayEl.style.visibility = 'hidden';
-            if (modalEl) modalEl.style.visibility = 'hidden';
-            window.openAgentDetail(key);
+        if (type === 'agent') {
+            showAgentMiniCard(key);
         } else if (type === 'engine') {
             trackEquipmentInspect(key);
             if (typeof window.showEngineTooltip === 'function') {
@@ -1981,7 +2074,7 @@
             } else {
                 activeTab = 'quests';
                 modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b.getAttribute('data-gtab') === 'quests'));
-                renderCurrentTab();
+                renderCurrentTab(true);
                 return;
             }
         }
@@ -2028,14 +2121,27 @@
         animOverlayEl.innerHTML = `
             <button type="button" class="gacha-skip-btn" id="gacha-skip-anim">${t.skip}</button>
             <div class="gacha-tv-pyramid">${rowsHTML}</div>
+            <p style="margin-top:18px;font-size:11px;font-weight:700;color:#71717a;text-transform:uppercase;letter-spacing:0.06em;text-align:center;">
+                ${t.skipAnywhere || ''}
+            </p>
         `;
 
         const showFinalScreen = () => {
+            if (skipRequested) return;
             skipRequested = true;
+            animOverlayEl.onclick = null;
             renderSearchResultsScreen(results);
         };
 
-        document.getElementById('gacha-skip-anim').addEventListener('click', showFinalScreen);
+        document.getElementById('gacha-skip-anim').addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            showFinalScreen();
+        });
+
+        // Cliquer n'importe où autour des téléviseurs (ou sur l'écran) passe directement l'animation
+        animOverlayEl.onclick = () => {
+            showFinalScreen();
+        };
 
         results.forEach((item, idx) => {
             setTimeout(() => {
@@ -2054,24 +2160,27 @@
 
         const totalDuration = 130 + results.length * 130 + 700;
         setTimeout(() => {
-            if (!skipRequested) renderSearchResultsScreen(results);
+            if (!skipRequested) showFinalScreen();
         }, totalDuration);
     }
 
     function renderSearchResultsScreen(results) {
+        animOverlayEl.onclick = null;
         const t = L().results;
         const rankWeight = { S: 0, A: 1, B: 2 };
         const sorted = [...results].sort((a, b) => (rankWeight[a.rank] ?? 9) - (rankWeight[b.rank] ?? 9));
+
+        const singleStyle = results.length === 1 ? 'aspect-ratio:1/1.05;' : '';
 
         const cardsHTML = sorted.map((item, idx) => {
             const delay = idx * 45;
             const fitClass = item.type === 'agent' ? 'is-agent' : 'is-equip';
             const topBadge = item.isNew
-                ? `<span style="position:absolute;top:6px;right:6px;z-index:10;background:#d7f70c;color:#000;font-size:9px;font-weight:900;padding:2px 6px;border-radius:4px;">${t.newBadge}</span>`
-                : `<span style="position:absolute;top:6px;right:6px;z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`;
+                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
+                : `<span style="position:absolute;top:5px;right:5px;z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`;
 
             return `
-            <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms"
+            <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms;${singleStyle}"
                  data-res-type="${item.type}" data-res-key="${item.rawKey}" title="${itemName(item)} (${t.inspectHint})">
                 ${item.type !== 'agent' ? `<span class="gacha-col-rank-tag">${item.rank}</span>` : ''}
                 ${topBadge}
@@ -2085,7 +2194,7 @@
         animOverlayEl.innerHTML = `
             <div class="gacha-results-wrap">
                 <h2 class="gacha-results-title">${t.title}</h2>
-                <div class="gacha-results-grid" style="${results.length === 1 ? 'max-width:220px;grid-template-columns:1fr;' : ''}">
+                <div class="gacha-results-grid" style="${results.length === 1 ? 'max-width:210px;grid-template-columns:1fr;' : ''}">
                     ${cardsHTML}
                 </div>
                 <div class="gacha-results-bar">
@@ -2105,7 +2214,7 @@
 
         document.getElementById('gacha-confirm-results').addEventListener('click', () => {
             animOverlayEl.classList.remove('active');
-            renderCurrentTab();
+            renderCurrentTab(false);
         });
 
         document.getElementById('gacha-again-btn').addEventListener('click', () => {
