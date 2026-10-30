@@ -2038,11 +2038,25 @@
                     </div>
                 </div>
 
-                <button type="button" class="gacha-res-btn primary" id="close-agent-minicard" style="width:100%;">${ac.close || 'Fermer'}</button>
+                <div style="display:flex;gap:8px;width:100%;">
+                    ${owned > 0 ? `<button type="button" class="gacha-res-btn primary" id="open-agent-build-btn" style="flex:1.3;">🛠️ Build & Disques</button>` : ''}
+                    <button type="button" class="gacha-res-btn ${owned > 0 ? '' : 'primary'}" id="close-agent-minicard" style="flex:1;">${ac.close || 'Fermer'}</button>
+                </div>
             </div>
         `;
 
         miniCardOverlayEl.classList.add('active');
+
+        const buildBtn = document.getElementById('open-agent-build-btn');
+        if (buildBtn) {
+            buildBtn.addEventListener('click', () => {
+                miniCardOverlayEl.classList.remove('active');
+                if (animOverlayEl) animOverlayEl.classList.remove('active');
+                if (window.ZZZBuilds && typeof window.ZZZBuilds.openAgentBuild === 'function') {
+                    window.ZZZBuilds.openAgentBuild(rawKey);
+                }
+            });
+        }
 
         document.getElementById('close-agent-minicard').addEventListener('click', () => {
             miniCardOverlayEl.classList.remove('active');
@@ -2266,6 +2280,41 @@
             });
         });
     }
+
+    // Pont sécurisé pour le module indépendant gacha-builds.js
+    window.ZZZGachaBridge = {
+        getState: () => GState,
+        saveState: (st) => { GState = st; saveState(GState); updateTopCurrencies(); },
+        getPool: () => POOL,
+        getLang: getLang,
+        itemName: itemName,
+        openItemModal: openItemFromGacha,
+        switchCustomTab: (tabName, renderFn) => {
+            activeTab = tabName;
+            if (!modalEl) return;
+            modalEl.querySelectorAll('[data-gtab]').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-gtab') === tabName);
+            });
+            updateTopCurrencies();
+            const mount = document.getElementById('gacha-view-mount');
+            if (mount && typeof renderFn === 'function') {
+                mount.scrollTop = 0;
+                renderFn(mount);
+            }
+        }
+    };
+
+    // Chargement isolé du système de Builds, Disques & Badges
+    try {
+        if (!document.getElementById('zzz-gacha-builds-css')) {
+            const link = document.createElement('link');
+            link.id = 'zzz-gacha-builds-css';
+            link.rel = 'stylesheet';
+            link.href = 'gacha/gacha-builds.css?v=1';
+            document.head.appendChild(link);
+        }
+        import('./gacha-builds.js?v=1').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+    } catch (e) {}
 
     updateQuestNotificationDot(GState);
     syncSidebarButtonText();
