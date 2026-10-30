@@ -1104,7 +1104,7 @@
                                 const isSelected = (slotNum === 1 ? it.rawKey === activeKey : (it.id === activeKey || it.rawKey === activeKey));
                                 const ownedCount = GState.inventory[it.id]?.count || 0;
                                 const ownedBadge = ownedCount > 0
-                                    ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `★${Math.min(5, ownedCount)}`)
+                                    ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `×${ownedCount}`)
                                     : tm.unownedTag;
                                 const roleTranslated = (tm.roles && tm.roles[it.role]) || it.role || 'S-Rank';
 
@@ -1597,8 +1597,9 @@
                 const { totalGain } = computeOvercapSurplus();
                 if (totalGain > 0) {
                     Object.values(GState.inventory || {}).forEach(it => {
-                        const maxCap = it.type === 'agent' ? 7 : 5;
-                        if ((it.count || 0) > maxCap) it.count = maxCap;
+                        if (it.type === 'agent' && (it.count || 0) > 7) {
+                            it.count = 7;
+                        }
                     });
                     GState.residual += totalGain;
                     GState.totalDupesRes = (GState.totalDupesRes || 0) + totalGain;
@@ -1664,7 +1665,7 @@
                         <div class="gacha-selector-grid">
                             ${items.map(it => {
                                 const owned = GState.inventory[it.id]?.count || 0;
-                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `★${Math.min(5, owned)}`) : tm.unownedTag;
+                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `×${owned}`) : tm.unownedTag;
                                 return `
                                 <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
                                     <div class="gacha-col-visual">
@@ -1830,13 +1831,8 @@
                                 const mLvl = Math.min(6, it.count - 1);
                                 isMax = mLvl >= 6;
                                 progBadge = isMax ? `M6 MAX` : `M${mLvl}`;
-                            } else if (it.type === 'engine') {
-                                const sLvl = Math.min(5, it.count);
-                                isMax = sLvl >= 5;
-                                progBadge = `★${sLvl} (×${it.count})`;
                             } else {
-                                isMax = it.count >= 5;
-                                progBadge = isMax ? `MAX (×${it.count})` : `×${it.count}`;
+                                progBadge = `×${it.count}`;
                             }
                         } else {
                             progBadge = t.lockedLabel;
