@@ -121,7 +121,7 @@ export const GACHA_I18N = {
             subtitle: "Échangez vos Polychromes, recyclez vos doublons excédentaires et recrutez directement l'Agent S ou le Moteur S de votre choix.",
             freeBadge: "Cadeau Quotidien",
             freeTitle: "Pack Ravitaillement du QG",
-            freeDesc: "Un ravitaillement gratuit offert chaque jour par Phaéthon (+160 Polychromes & +15 ✦).",
+            freeDesc: "Un ravitaillement gratuit offert chaque jour par Phaéthon (+320 Polychromes & +20 ✦).",
             freeCost: "Gratuit (1 fois / jour)",
             freeClaim: "Récupérer le Pack",
             freeClaimed: "Déjà récupéré aujourd'hui ✓",
@@ -224,6 +224,19 @@ export const GACHA_I18N = {
                 Aurora: "Lumen",
                 HonedEdge: "Lame affûtée",
                 Sepia: "Sépia"
+            },
+            factions: {
+                "Cunning Hares": "Lièvres Rusés",
+                "Belobog Heavy Industries": "Usines Belobog",
+                "Victoria Housekeeping": "Société d'Entretien Victoria",
+                "Criminal Investigation Special Response Team": "Équipe d'Intervention Spéciale",
+                "Sons of Calydon": "Fils de Calydon",
+                "Hollow Special Operations Section 6": "Section 6",
+                "Obol Squad": "Escouade Obole",
+                "Stars of Lyra": "astres de Lyra",
+                "Mockingbird": "Oiseau Moqueur",
+                "Yunkui Summit": "Sommet Yunkui",
+                "Silver Squad": "Escouade d'Argent"
             }
         }
     },
@@ -339,7 +352,7 @@ export const GACHA_I18N = {
             subtitle: "Exchange Polychromes, dismantle surplus duplicates, and directly recruit any S-Rank Agent or W-Engine.",
             freeBadge: "Daily Supply",
             freeTitle: "HQ Daily Supply Pack",
-            freeDesc: "Free daily supply sponsored by Phaethon (+160 Polychromes & +15 ✦).",
+            freeDesc: "Free daily supply sponsored by Phaethon (+320 Polychromes & +20 ✦).",
             freeCost: "Free (Once per day)",
             freeClaim: "Claim Free Pack",
             freeClaimed: "Claimed Today ✓",
