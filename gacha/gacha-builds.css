@@ -1,0 +1,610 @@
+/* gacha/gacha-builds.css - Studio de Build ZZZ, Roue 6 Disques, Compétences & Badges (100% Isolé) */
+
+.zb-wrap {
+    max-width: 1360px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ========================================================
+   1. BARRE DE SÉLECTION D'AGENTS EN HAUT (STYLE ZZZ)
+======================================================== */
+.zb-roster-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(12, 12, 17, 0.95);
+    border: 1px solid #282834;
+    border-radius: 16px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 transparent;
+}
+
+.zb-roster-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #15151d;
+    border: 2px solid #2b2b36;
+    border-radius: 12px;
+    padding: 4px 10px 4px 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.16s ease;
+    transform: skewX(-6deg);
+}
+
+.zb-roster-pill:hover {
+    border-color: #71717a;
+}
+
+.zb-roster-pill.active {
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.22) 0%, #181820 100%);
+    border-color: #d7f70c;
+    box-shadow: 0 0 16px rgba(215, 247, 12, 0.3);
+}
+
+.zb-roster-pill img {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: top center;
+    background: #000;
+    transform: skewX(6deg);
+}
+
+.zb-roster-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    transform: skewX(6deg);
+}
+
+.zb-roster-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.zb-roster-sub {
+    font-family: monospace;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #d7f70c;
+}
+
+/* ========================================================
+   2. SCÈNE PRINCIPALE AGENT (GAUCHE : PORTRAIT + CINEMA | DROITE : PANNEAU)
+======================================================== */
+.zb-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+@media (min-width: 980px) {
+    .zb-stage {
+        grid-template-columns: 0.9fr 1.1fr;
+        min-height: 540px;
+    }
+}
+
+/* Vitrine Agent Gauche */
+.zb-agent-showcase {
+    position: relative;
+    background:
+        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 14px, transparent 14px, transparent 28px),
+        radial-gradient(circle at 50% 35%, rgba(215, 247, 12, 0.14) 0%, #0d0d13 78%);
+    border: 1.5px solid #2b2b36;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
+}
+
+.zb-agent-showcase.overclocked {
+    border-color: #f43f5e;
+    box-shadow: 0 0 32px rgba(244, 63, 94, 0.25), inset 0 0 30px rgba(215, 247, 12, 0.12);
+}
+
+.zb-agent-art {
+    width: 100%;
+    height: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9));
+    z-index: 2;
+}
+
+/* Badge CINEMA X/6 en bas à gauche (fidèle au jeu) */
+.zb-cinema-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 5;
+    background: radial-gradient(circle, #271216 0%, #09090d 90%);
+    border: 2.5px solid #f43f5e;
+    border-radius: 16px;
+    padding: 8px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
+}
+
+.zb-cinema-lbl {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: #f43f5e;
+    text-shadow: 2px 2px 0 #000;
+    line-height: 1;
+}
+
+.zb-cinema-val {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.zb-overclock-pill {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 5;
+    background: linear-gradient(135deg, #f43f5e 0%, #f59e0b 50%, #d7f70c 100%);
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    box-shadow: 0 0 18px rgba(244, 63, 94, 0.6);
+}
+
+/* Panneau Droit (Contient les 3 Menus + la Barre d'onglets du bas) */
+.zb-right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.zb-panel-card {
+    background: linear-gradient(155deg, #161720 0%, #0c0c11 100%);
+    border: 1.5px solid #2b2b36;
+    border-radius: 24px;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
+}
+
+/* Barre des 3 Menus en bas à droite (Stats de base | Compétences | Équipement) */
+.zb-subnav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #0b0b10;
+    border: 1.5px solid #2c2c38;
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.zb-subnav-btn {
+    padding: 10px 8px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: #a1a1aa;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(11px, 2vw, 13.5px);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.zb-subnav-btn:hover {
+    color: #fff;
+}
+
+.zb-subnav-btn.active {
+    background: #d7f70c;
+    color: #000;
+    box-shadow: 0 0 18px rgba(215, 247, 12, 0.4);
+}
+
+/* ========================================================
+   3. MENU 1 : STATS DE BASE (FIDÈLE À IMAGE 2)
+======================================================== */
+.zb-agent-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #101016;
+    border: 1px solid #262632;
+    border-radius: 16px;
+    padding: 12px 16px;
+}
+
+.zb-faction-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #a1a1aa;
+    text-transform: uppercase;
+}
+
+.zb-agent-big-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(20px, 3vw, 28px);
+    color: #fff;
+    margin: 2px 0 0;
+    text-transform: uppercase;
+}
+
+.zb-faction-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.zb-level-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.zb-lvl-pill {
+    flex: 1;
+    background: #0a0a0e;
+    border: 1px solid #292935;
+    border-radius: 999px;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.zb-elem-role-pill {
+    background: #0a0a0e;
+    border: 1px solid #292935;
+    border-radius: 999px;
+    padding: 7px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.zb-elem-role-pill img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.zb-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+@media (min-width: 560px) {
+    .zb-stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+    }
+}
+
+.zb-stat-row {
+    background: #0a0a0f;
+    border: 1px solid #22222c;
+    border-radius: 999px;
+    padding: 7px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 800;
+    color: #e4e4e7;
+}
+
+.zb-stat-row.recommended {
+    border-color: rgba(245, 158, 11, 0.45);
+    color: #fbbf24;
+}
+
+.zb-stat-val {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.zb-eval-bar {
+    background: #0c0c12;
+    border: 1px solid #292936;
+    border-radius: 16px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.zb-eval-grade {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #16161f;
+    border: 1.5px solid #f59e0b;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    color: #fff;
+}
+
+/* ========================================================
+   4. MENU 2 : COMPÉTENCES (SANS LE CORE A-F, FIDÈLE À IMAGE 3)
+======================================================== */
+.zb-skills-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.zb-skill-capsule {
+    background: #0d0d13;
+    border: 2px solid #2b2b36;
+    border-radius: 999px;
+    padding: 14px 6px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.zb-skill-capsule:hover {
+    border-color: #a1a1aa;
+    transform: translateY(-3px);
+}
+
+.zb-skill-capsule.active {
+    border-color: #d7f70c;
+    background: linear-gradient(180deg, rgba(215, 247, 12, 0.16) 0%, #0d0d13 100%);
+    box-shadow: 0 0 20px rgba(215, 247, 12, 0.25);
+}
+
+.zb-skill-circle {
+    width: clamp(44px, 7vw, 62px);
+    height: clamp(44px, 7vw, 62px);
+    border-radius: 999px;
+    background: #181822;
+    border: 2px solid #3f3f4e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.zb-skill-capsule.active .zb-skill-circle {
+    border-color: #d7f70c;
+}
+
+.zb-skill-circle img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+}
+
+.zb-skill-lvl-pill {
+    background: #07070a;
+    border: 1px solid #272732;
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 11px;
+    color: #fff;
+}
+
+.zb-skill-lvl-pill span.max {
+    color: #71717a;
+}
+
+/* ========================================================
+   5. MENU 3 : ROUE HEXAGONALE DES 6 DISQUES + MOTEUR CENTRAL (IMAGE 4 & 5)
+======================================================== */
+.zb-wheel-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.zb-hex-housing {
+    position: relative;
+    width: 310px;
+    height: 310px;
+    background: radial-gradient(circle, #22232e 0%, #101117 72%);
+    border: 3px solid #323342;
+    border-radius: 999px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 14px 35px rgba(0, 0, 0, 0.85);
+    margin: 4px auto;
+}
+
+@media (min-width: 520px) {
+    .zb-hex-housing {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+/* Sphère centrale W-Engine */
+.zb-wengine-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 112px;
+    height: 112px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #2f3142 0%, #09090d 85%);
+    border: 3px solid #facc15;
+    box-shadow: 0 0 25px rgba(250, 204, 21, 0.35), inset 0 0 18px rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 6;
+    transition: transform 0.2s ease;
+}
+
+.zb-wengine-core:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+}
+
+.zb-wengine-core img {
+    width: 74%;
+    height: 74%;
+    object-fit: contain;
+}
+
+.zb-slot-tag {
+    position: absolute;
+    bottom: -10px;
+    background: #09090d;
+    border: 1.5px solid #3f3f4e;
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9.5px;
+    color: #fff;
+    white-space: nowrap;
+    z-index: 8;
+}
+
+/* Les 6 emplacements de disques disposés en hexagone (comme sur image_14a31d.png et image_1450e1.png) */
+.zb-disc-node {
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    margin-left: -39px;
+    margin-top: -39px;
+    border-radius: 999px;
+    background: #0c0c11;
+    border: 2.5px solid #383846;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.85), inset 0 0 12px rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.zb-disc-node:hover {
+    transform: scale(1.08);
+    border-color: #d7f70c;
+}
+
+.zb-disc-node.equipped {
+    border-color: #facc15;
+    box-shadow: 0 0 16px rgba(250, 204, 21, 0.3);
+}
+
+.zb-disc-node img {
+    width: 86%;
+    height: 86%;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.zb-disc-slot-num {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 24px;
+    color: #3f3f4e;
+}
+
+/* Coordonnées hexagonales exactes des 6 Partitions (1: Haut-G, 2: Milieu-G, 3: Bas-G, 4: Bas-D, 5: Milieu-D, 6: Haut-D) */
+.zb-disc-node.slot-1 { top: 20%; left: 26%; }
+.zb-disc-node.slot-2 { top: 50%; left: 13%; }
+.zb-disc-node.slot-3 { top: 80%; left: 26%; }
+.zb-disc-node.slot-4 { top: 80%; left: 74%; }
+.zb-disc-node.slot-5 { top: 50%; left: 87%; }
+.zb-disc-node.slot-6 { top: 20%; left: 74%; }
+
+/* ========================================================
+   6. BADGES DE SÉRIES & FACTIONS
+======================================================== */
+.zb-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+}
+
+.zb-badge-card {
+    background: linear-gradient(150deg, #15161f 0%, #0b0b10 100%);
+    border: 1.5px solid #282834;
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.zb-badge-card.unlocked {
+    border-color: #d7f70c;
+    box-shadow: 0 0 22px rgba(215, 247, 12, 0.16);
+}
+
+.zb-badge-card.claimed {
+    border-color: rgba(34, 197, 94, 0.55);
+}
