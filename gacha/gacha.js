@@ -2317,10 +2317,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=1';
+            link.href = 'gacha/gacha-builds.css?v=2';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=1').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=2').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     updateQuestNotificationDot(GState);
