@@ -1,58 +1,72 @@
-/* gacha/gacha-builds.css - Studio de Build ZZZ, Roue 6 Disques, Compétences & Badges (100% Isolé) */
+/* gacha/gacha-builds.css - Design Haute Précision ZZZ : Builds, Roue d'Équipement + Inspecteur, Studio Elfy & Salle des Trophées */
 
 .zb-wrap {
-    max-width: 1360px;
+    max-width: 1380px;
     width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
 }
 
 /* ========================================================
-   1. BARRE DE SÉLECTION D'AGENTS EN HAUT (STYLE ZZZ)
+   1. BARRE SUPÉRIEURE : SÉLECTEUR D'AGENTS & BOUTON STUDIO ELFY
 ======================================================== */
+.zb-top-bar {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 .zb-roster-bar {
+    flex: 1;
+    min-width: 280px;
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(12, 12, 17, 0.95);
-    border: 1px solid #282834;
-    border-radius: 16px;
+    background: rgba(11, 11, 16, 0.95);
+    border: 1.5px solid #262632;
+    border-radius: 18px;
     padding: 8px 12px;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: #3f3f46 transparent;
 }
 
+.zb-roster-bar::-webkit-scrollbar { height: 4px; }
+.zb-roster-bar::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 999px; }
+
 .zb-roster-pill {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: #15151d;
-    border: 2px solid #2b2b36;
-    border-radius: 12px;
-    padding: 4px 10px 4px 4px;
+    gap: 9px;
+    background: #14141d;
+    border: 2px solid #292935;
+    border-radius: 13px;
+    padding: 5px 12px 5px 5px;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.16s ease;
+    transition: all 0.18s ease;
     transform: skewX(-6deg);
 }
 
 .zb-roster-pill:hover {
     border-color: #71717a;
+    transform: skewX(-6deg) translateY(-2px);
 }
 
 .zb-roster-pill.active {
-    background: linear-gradient(135deg, rgba(215, 247, 12, 0.22) 0%, #181820 100%);
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.24) 0%, #171822 100%);
     border-color: #d7f70c;
-    box-shadow: 0 0 16px rgba(215, 247, 12, 0.3);
+    box-shadow: 0 0 18px rgba(215, 247, 12, 0.3);
 }
 
 .zb-roster-pill img {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
     object-fit: cover;
     object-position: top center;
     background: #000;
@@ -62,7 +76,7 @@
 .zb-roster-meta {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 2px;
     transform: skewX(6deg);
 }
 
@@ -81,8 +95,64 @@
     color: #d7f70c;
 }
 
+/* Gros Bouton Néon d'accès au Studio d'Accordage (Point 6) */
+.zb-bardic-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #d7f70c 0%, #facc15 100%);
+    border: 2px solid #fff;
+    border-radius: 18px;
+    padding: 10px 18px;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(215, 247, 12, 0.35);
+    transition: all 0.18s ease;
+    flex-shrink: 0;
+}
+
+.zb-bardic-cta:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 32px rgba(215, 247, 12, 0.6);
+}
+
+.zb-bardic-cta-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: #09090d;
+    color: #d7f70c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 2px solid #000;
+}
+
+.zb-bardic-cta-txt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.15;
+}
+
+.zb-bardic-cta-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.zb-bardic-cta-sub {
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 900;
+    color: #27272a;
+}
+
 /* ========================================================
-   2. SCÈNE PRINCIPALE AGENT (GAUCHE : PORTRAIT + CINEMA | DROITE : PANNEAU)
+   2. SCÈNE PRINCIPALE AGENT (GAUCHE : VITRINE | DROITE : COCKPIT)
 ======================================================== */
 .zb-stage {
     display: grid;
@@ -91,32 +161,48 @@
     align-items: stretch;
 }
 
-@media (min-width: 980px) {
+@media (min-width: 1024px) {
     .zb-stage {
-        grid-template-columns: 0.9fr 1.1fr;
-        min-height: 540px;
+        grid-template-columns: 0.78fr 1.22fr;
+        min-height: 560px;
     }
 }
 
-/* Vitrine Agent Gauche */
 .zb-agent-showcase {
     position: relative;
     background:
-        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 14px, transparent 14px, transparent 28px),
-        radial-gradient(circle at 50% 35%, rgba(215, 247, 12, 0.14) 0%, #0d0d13 78%);
+        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.022) 0px, rgba(255, 255, 255, 0.022) 14px, transparent 14px, transparent 28px),
+        radial-gradient(circle at 50% 35%, rgba(215, 247, 12, 0.16) 0%, #0b0b11 78%);
     border: 1.5px solid #2b2b36;
     border-radius: 24px;
     overflow: hidden;
-    min-height: 320px;
+    min-height: 340px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
 }
 
 .zb-agent-showcase.overclocked {
     border-color: #f43f5e;
-    box-shadow: 0 0 32px rgba(244, 63, 94, 0.25), inset 0 0 30px rgba(215, 247, 12, 0.12);
+    box-shadow: 0 0 32px rgba(244, 63, 94, 0.28), inset 0 0 30px rgba(215, 247, 12, 0.12);
+}
+
+.zb-agent-bg-name {
+    position: absolute;
+    top: 18px;
+    left: 16px;
+    right: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(36px, 5vw, 64px);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.04);
+    line-height: 0.9;
+    pointer-events: none;
+    z-index: 1;
+    word-break: break-word;
 }
 
 .zb-agent-art {
@@ -125,17 +211,16 @@
     max-height: 520px;
     object-fit: contain;
     object-position: bottom center;
-    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9));
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.92));
     z-index: 2;
 }
 
-/* Badge CINEMA X/6 en bas à gauche (fidèle au jeu) */
 .zb-cinema-badge {
     position: absolute;
     bottom: 16px;
     left: 16px;
     z-index: 5;
-    background: radial-gradient(circle, #271216 0%, #09090d 90%);
+    background: radial-gradient(circle, #2a1216 0%, #09090d 90%);
     border: 2.5px solid #f43f5e;
     border-radius: 16px;
     padding: 8px 14px;
@@ -180,7 +265,6 @@
     box-shadow: 0 0 18px rgba(244, 63, 94, 0.6);
 }
 
-/* Panneau Droit (Contient les 3 Menus + la Barre d'onglets du bas) */
 .zb-right-column {
     display: flex;
     flex-direction: column;
@@ -189,7 +273,7 @@
 }
 
 .zb-panel-card {
-    background: linear-gradient(155deg, #161720 0%, #0c0c11 100%);
+    background: linear-gradient(155deg, #151620 0%, #0b0b10 100%);
     border: 1.5px solid #2b2b36;
     border-radius: 24px;
     padding: 20px;
@@ -201,11 +285,10 @@
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
 }
 
-/* Barre des 3 Menus en bas à droite (Stats de base | Compétences | Équipement) */
 .zb-subnav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background: #0b0b10;
+    background: #0a0a0f;
     border: 1.5px solid #2c2c38;
     border-radius: 999px;
     padding: 4px;
@@ -227,9 +310,7 @@
     transition: all 0.18s ease;
 }
 
-.zb-subnav-btn:hover {
-    color: #fff;
-}
+.zb-subnav-btn:hover { color: #fff; }
 
 .zb-subnav-btn.active {
     background: #d7f70c;
@@ -238,14 +319,14 @@
 }
 
 /* ========================================================
-   3. MENU 1 : STATS DE BASE (FIDÈLE À IMAGE 2)
+   3. MENU 1 : STATS DE BASE (AVEC ICÔNES ÉLÉMENT/RÔLE & BONUS VERT)
 ======================================================== */
 .zb-agent-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background: #101016;
+    background: #0f1017;
     border: 1px solid #262632;
     border-radius: 16px;
     padding: 12px 16px;
@@ -286,6 +367,7 @@
 
 .zb-lvl-pill {
     flex: 1;
+    min-width: 170px;
     background: #0a0a0e;
     border: 1px solid #292935;
     border-radius: 999px;
@@ -306,10 +388,11 @@
     padding: 7px 14px;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
     font-size: 12px;
+    color: #fff;
 }
 
 .zb-elem-role-pill img {
@@ -345,14 +428,25 @@
 }
 
 .zb-stat-row.recommended {
-    border-color: rgba(245, 158, 11, 0.45);
+    border-color: rgba(245, 158, 11, 0.5);
     color: #fbbf24;
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.08) 0%, #0a0a0f 100%);
 }
 
 .zb-stat-val {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zb-stat-bonus {
+    font-family: monospace;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #4ade80;
 }
 
 .zb-eval-bar {
@@ -382,25 +476,25 @@
 }
 
 /* ========================================================
-   4. MENU 2 : COMPÉTENCES (SANS LE CORE A-F, FIDÈLE À IMAGE 3)
+   4. MENU 2 : COMPÉTENCES (AVEC VRAIES ICÔNES ASSETS/SKILLS/*.WEBP)
 ======================================================== */
 .zb-skills-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    margin: 8px 0;
+    margin: 6px 0;
 }
 
 .zb-skill-capsule {
     background: #0d0d13;
     border: 2px solid #2b2b36;
     border-radius: 999px;
-    padding: 14px 6px 12px;
+    padding: 12px 6px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 8px;
     cursor: pointer;
     transition: all 0.18s ease;
 }
@@ -411,30 +505,27 @@
 }
 
 .zb-skill-capsule.active {
-    border-color: #d7f70c;
-    background: linear-gradient(180deg, rgba(215, 247, 12, 0.16) 0%, #0d0d13 100%);
-    box-shadow: 0 0 20px rgba(215, 247, 12, 0.25);
+    border-color: var(--sk-color, #d7f70c);
+    background: linear-gradient(180deg, rgba(215, 247, 12, 0.14) 0%, #0d0d13 100%);
+    box-shadow: 0 0 20px rgba(215, 247, 12, 0.22);
 }
 
 .zb-skill-circle {
-    width: clamp(44px, 7vw, 62px);
-    height: clamp(44px, 7vw, 62px);
+    width: clamp(46px, 6.5vw, 64px);
+    height: clamp(46px, 6.5vw, 64px);
     border-radius: 999px;
-    background: #181822;
-    border: 2px solid #3f3f4e;
+    background: #050508;
+    border: 2.5px solid var(--sk-color, #3f3f4e);
+    box-shadow: 0 0 14px var(--sk-glow, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-.zb-skill-capsule.active .zb-skill-circle {
-    border-color: #d7f70c;
-}
-
 .zb-skill-circle img {
-    width: 72%;
-    height: 72%;
+    width: 82%;
+    height: 82%;
     object-fit: contain;
 }
 
@@ -450,48 +541,72 @@
     color: #fff;
 }
 
-.zb-skill-lvl-pill span.max {
-    color: #71717a;
-}
+.zb-skill-lvl-pill span.max { color: #71717a; }
 
 /* ========================================================
-   5. MENU 3 : ROUE HEXAGONALE DES 6 DISQUES + MOTEUR CENTRAL (IMAGE 4 & 5)
+   5. MENU 3 : COCKPIT D'ÉQUIPEMENT 2 COLONNES (ROUE + INSPECTEUR)
 ======================================================== */
-.zb-wheel-stage {
-    display: flex;
-    flex-direction: column;
+.zb-equip-cockpit {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
     align-items: center;
-    gap: 14px;
+}
+
+@media (min-width: 720px) {
+    .zb-equip-cockpit {
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+    }
 }
 
 .zb-hex-housing {
     position: relative;
-    width: 310px;
-    height: 310px;
-    background: radial-gradient(circle, #22232e 0%, #101117 72%);
-    border: 3px solid #323342;
-    border-radius: 999px;
-    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 14px 35px rgba(0, 0, 0, 0.85);
-    margin: 4px auto;
+    width: 290px;
+    height: 290px;
+    background:
+        radial-gradient(circle at 50% 50%, transparent 56%, rgba(255, 255, 255, 0.03) 57%, transparent 59%),
+        radial-gradient(circle, #242533 0%, #0e0f15 72%);
+    border: 3px solid #353646;
+    border-radius: 36px;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.92), 0 14px 35px rgba(0, 0, 0, 0.85);
+    margin: 0 auto;
+    flex-shrink: 0;
 }
 
 @media (min-width: 520px) {
     .zb-hex-housing {
-        width: 350px;
-        height: 350px;
+        width: 320px;
+        height: 320px;
     }
 }
 
-/* Sphère centrale W-Engine */
+.zb-driver-plaque {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #09090d;
+    border: 1px solid #3f3f4e;
+    color: #f59e0b;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
 .zb-wengine-core {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 112px;
-    height: 112px;
+    width: 104px;
+    height: 104px;
     border-radius: 999px;
-    background: radial-gradient(circle at 35% 30%, #2f3142 0%, #09090d 85%);
+    background: radial-gradient(circle at 35% 30%, #2f3142 0%, #07070b 85%);
     border: 3px solid #facc15;
     box-shadow: 0 0 25px rgba(250, 204, 21, 0.35), inset 0 0 18px rgba(0, 0, 0, 0.9);
     display: flex;
@@ -500,43 +615,43 @@
     justify-content: center;
     cursor: pointer;
     z-index: 6;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .zb-wengine-core:hover {
     transform: translate(-50%, -50%) scale(1.06);
+    border-color: #d7f70c;
 }
 
 .zb-wengine-core img {
-    width: 74%;
-    height: 74%;
+    width: 76%;
+    height: 76%;
     object-fit: contain;
 }
 
 .zb-slot-tag {
     position: absolute;
-    bottom: -10px;
+    bottom: -9px;
     background: #09090d;
     border: 1.5px solid #3f3f4e;
     border-radius: 999px;
-    padding: 2px 8px;
+    padding: 1.5px 7px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 9.5px;
+    font-size: 9px;
     color: #fff;
     white-space: nowrap;
     z-index: 8;
 }
 
-/* Les 6 emplacements de disques disposés en hexagone (comme sur image_14a31d.png et image_1450e1.png) */
 .zb-disc-node {
     position: absolute;
-    width: 78px;
-    height: 78px;
-    margin-left: -39px;
-    margin-top: -39px;
+    width: 74px;
+    height: 74px;
+    margin-left: -37px;
+    margin-top: -37px;
     border-radius: 999px;
-    background: #0c0c11;
+    background: #0b0b10;
     border: 2.5px solid #383846;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.85), inset 0 0 12px rgba(0, 0, 0, 0.9);
     display: flex;
@@ -548,13 +663,13 @@
 }
 
 .zb-disc-node:hover {
-    transform: scale(1.08);
+    transform: scale(1.09);
     border-color: #d7f70c;
 }
 
 .zb-disc-node.equipped {
     border-color: #facc15;
-    box-shadow: 0 0 16px rgba(250, 204, 21, 0.3);
+    box-shadow: 0 0 16px rgba(250, 204, 21, 0.32);
 }
 
 .zb-disc-node img {
@@ -568,43 +683,203 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-style: italic;
-    font-size: 24px;
-    color: #3f3f4e;
+    font-size: 22px;
+    color: #4b4b5c;
 }
 
-/* Coordonnées hexagonales exactes des 6 Partitions (1: Haut-G, 2: Milieu-G, 3: Bas-G, 4: Bas-D, 5: Milieu-D, 6: Haut-D) */
-.zb-disc-node.slot-1 { top: 20%; left: 26%; }
+.zb-disc-node.slot-1 { top: 21%; left: 25%; }
 .zb-disc-node.slot-2 { top: 50%; left: 13%; }
-.zb-disc-node.slot-3 { top: 80%; left: 26%; }
-.zb-disc-node.slot-4 { top: 80%; left: 74%; }
+.zb-disc-node.slot-3 { top: 79%; left: 25%; }
+.zb-disc-node.slot-4 { top: 79%; left: 75%; }
 .zb-disc-node.slot-5 { top: 50%; left: 87%; }
-.zb-disc-node.slot-6 { top: 20%; left: 74%; }
+.zb-disc-node.slot-6 { top: 21%; left: 75%; }
+
+/* Colonne droite du menu Équipement : Résumé Moteur + Sets + Liste des 6 Partitions */
+.zb-equip-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.zb-equip-wcard {
+    background: #0d0d14;
+    border: 1.5px solid #2b2b38;
+    border-radius: 14px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.zb-equip-wcard:hover { border-color: #d7f70c; }
+
+.zb-equip-slot-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.zb-equip-slot-mini {
+    background: #0b0b11;
+    border: 1px solid #252532;
+    border-radius: 10px;
+    padding: 6px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+    min-width: 0;
+}
+
+.zb-equip-slot-mini:hover { border-color: #d7f70c; }
+.zb-equip-slot-mini.filled { border-color: rgba(250, 204, 21, 0.45); }
 
 /* ========================================================
-   6. BADGES DE SÉRIES & FACTIONS
+   6. STUDIO D'ACCORDAGE BARDIC NEEDLE (ELFY) - REFONTE 2 COLONNES
 ======================================================== */
+.zb-bardic-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-height: 0;
+    flex: 1;
+}
+
+@media (min-width: 820px) {
+    .zb-bardic-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+    }
+}
+
+.zb-set-grid-scroll {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+    align-content: start;
+    scrollbar-width: thin;
+    scrollbar-color: #3f3f46 transparent;
+}
+
+.zb-set-card {
+    background: #101017;
+    border: 1.5px solid #272733;
+    border-radius: 14px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.zb-set-card:hover {
+    border-color: #71717a;
+    transform: translateY(-2px);
+}
+
+.zb-set-card.active {
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.18) 0%, #14141d 100%);
+    border-color: #d7f70c;
+    box-shadow: 0 0 16px rgba(215, 247, 12, 0.25);
+}
+
+.zb-set-card img {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* ========================================================
+   7. SALLE DES TROPHÉES : BADGES DE SÉRIES & ESCOUADES AVEC PORTRAITS
+======================================================== */
+.zb-badges-summary {
+    background: linear-gradient(135deg, #161722 0%, #0d0d13 100%);
+    border: 1.5px solid #2c2c3a;
+    border-radius: 20px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
 .zb-badges-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
     gap: 14px;
 }
 
 .zb-badge-card {
-    background: linear-gradient(150deg, #15161f 0%, #0b0b10 100%);
-    border: 1.5px solid #282834;
-    border-radius: 18px;
+    background: linear-gradient(155deg, #14151e 0%, #0b0b10 100%);
+    border: 1.5px solid #272733;
+    border-radius: 20px;
     padding: 16px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 12px;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.zb-badge-card:hover {
+    transform: translateY(-3px);
 }
 
 .zb-badge-card.unlocked {
     border-color: #d7f70c;
-    box-shadow: 0 0 22px rgba(215, 247, 12, 0.16);
+    box-shadow: 0 0 24px rgba(215, 247, 12, 0.18);
 }
 
 .zb-badge-card.claimed {
-    border-color: rgba(34, 197, 94, 0.55);
+    border-color: rgba(34, 197, 94, 0.6);
+    background: linear-gradient(155deg, #0f1f18 0%, #0b0b10 100%);
+}
+
+.zb-squad-avatars {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 6px 8px;
+    background: #09090d;
+    border: 1px solid #22222c;
+    border-radius: 12px;
+}
+
+.zb-squad-mini {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 2px solid #facc15;
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.zb-squad-mini:hover { transform: scale(1.12); }
+
+.zb-squad-mini.missing {
+    border-color: #272730;
+    filter: grayscale(1) brightness(0.45);
+    opacity: 0.6;
+}
+
+.zb-squad-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
 }
