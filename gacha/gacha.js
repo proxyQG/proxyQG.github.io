@@ -294,39 +294,23 @@
     let miniCardOverlayEl = null;
     let gachaOpenedAt = 0;
 
-    function forceCleanupMobileDrawer() {
-        const mobModal = document.getElementById('mobileFilterModal');
-        if (mobModal && !mobModal.classList.contains('hidden')) {
-            mobModal.classList.remove('opacity-100');
-            mobModal.classList.add('opacity-0', 'hidden');
-        }
-        const mobOverlay = document.getElementById('mobileOverlay');
-        if (mobOverlay && !mobOverlay.classList.contains('hidden')) {
-            mobOverlay.classList.remove('opacity-100');
-            mobOverlay.classList.add('opacity-0', 'hidden');
-        }
-    }
-
     function closeGachaModal(fromPopState = false) {
-        if (!modalEl) return;
+        if (!modalEl || !modalEl.classList.contains('visible')) return;
         modalEl.classList.remove('visible');
         if (animOverlayEl) animOverlayEl.classList.remove('active');
         if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
-        forceCleanupMobileDrawer();
         document.body.classList.remove('modal-open');
-
-        // Nettoie l'état d'historique sans déclencher de popstate asynchrone qui bloque la réouverture mobile
         if (!fromPopState && window.history.state?.gachaOpen) {
-            try {
-                window.history.replaceState(null, '', window.location.pathname + window.location.search);
-            } catch (e) {}
+            try { window.history.back(); } catch (e) {}
         }
     }
     window.closeGachaModal = () => closeGachaModal(false);
 
     window.__realOpenGachaModal = window.openGachaModal = async function () {
         gachaOpenedAt = Date.now();
-        forceCleanupMobileDrawer();
+        // Laisse le temps au history.back() de closeModal('mobileFilterModal') de passer sur mobile
+        await new Promise(r => setTimeout(r, 45));
+        gachaOpenedAt = Date.now();
 
         await ensureDictLoaded();
         createModalDOM();
@@ -343,16 +327,17 @@
         }
         modalEl.classList.add('visible');
 
+        // Ré-applique modal-open après le timeout de 300ms de closeModal('mobileFilterModal')
         setTimeout(() => {
             if (modalEl && modalEl.classList.contains('visible')) {
-                forceCleanupMobileDrawer();
                 document.body.classList.add('modal-open');
             }
-        }, 350);
+        }, 320);
     };
 
     window.addEventListener('popstate', (e) => {
-        if (Date.now() - gachaOpenedAt < 450) {
+        // Ignore tout popstate résiduel déclenché par la fermeture du menu mobile lors de l'ouverture du Gacha
+        if (Date.now() - gachaOpenedAt < 500) {
             return;
         }
         if (e.state && e.state.gachaOpen) {
@@ -2351,10 +2336,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=6';
+            link.href = 'gacha/gacha-builds.css?v=3';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=6').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=3').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
