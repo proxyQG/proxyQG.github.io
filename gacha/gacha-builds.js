@@ -515,6 +515,16 @@
             { idx: 4, icon: "assets/Skills/Ultime.webp",        color: "#f59e0b", glow: "rgba(245,158,11,0.4)" }
         ];
 
+        // Retourne la liste des agents qui équipent actuellement ce Moteur-Ampli
+        function getEngineOwnersList(st, engineKey) {
+            if (!engineKey || !st.buildSystem?.agentBuilds) return [];
+            const owners = [];
+            for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
+                if (ab && ab.engineKey === engineKey) owners.push(agKey);
+            }
+            return owners;
+        }
+
         function ensureBuildState(st) {
             if (!st.buildSystem) {
                 st.buildSystem = {
@@ -528,18 +538,32 @@
             if (!st.buildSystem.agentBuilds) st.buildSystem.agentBuilds = {};
             if (!Array.isArray(st.buildSystem.craftedDiscs)) st.buildSystem.craftedDiscs = [];
 
-            // Garantie d'unicité stricte : un même uid de disque ne peut JAMAIS être équipé sur 2 agents différents
+            // 1. Unicité stricte des Disques (1 uid = 1 seul agent)
             const seenDiscUids = new Set();
             const validUids = new Set(st.buildSystem.craftedDiscs.map(d => d.uid));
+            // 2. Moteurs : si on possède N exemplaires d'un moteur, jusqu'à N agents peuvent l'équiper
+            const engineUsedCounts = {};
+
             Object.values(st.buildSystem.agentBuilds).forEach(ab => {
-                if (!ab || !ab.discs) return;
-                for (let s = 1; s <= 6; s++) {
-                    const uid = ab.discs[s];
-                    if (!uid) continue;
-                    if (!validUids.has(uid) || seenDiscUids.has(uid)) {
-                        ab.discs[s] = null;
+                if (!ab) return;
+                if (ab.discs) {
+                    for (let s = 1; s <= 6; s++) {
+                        const uid = ab.discs[s];
+                        if (!uid) continue;
+                        if (!validUids.has(uid) || seenDiscUids.has(uid)) {
+                            ab.discs[s] = null;
+                        } else {
+                            seenDiscUids.add(uid);
+                        }
+                    }
+                }
+                if (ab.engineKey) {
+                    const ownedCount = st.inventory?.[`engine_${ab.engineKey}`]?.count || 0;
+                    const used = engineUsedCounts[ab.engineKey] || 0;
+                    if (used >= ownedCount) {
+                        ab.engineKey = null;
                     } else {
-                        seenDiscUids.add(uid);
+                        engineUsedCounts[ab.engineKey] = used + 1;
                     }
                 }
             });
@@ -570,11 +594,8 @@
         }
 
         function getEngineOwner(st, engineKey) {
-            if (!engineKey || !st.buildSystem?.agentBuilds) return null;
-            for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
-                if (ab.engineKey === engineKey) return agKey;
-            }
-            return null;
+            const owners = getEngineOwnersList(st, engineKey);
+            return owners[0] || null;
         }
 
         function equipDiscUnique(st, targetAgentKey, slotNum, discUid) {
@@ -590,11 +611,16 @@
             targetAb.discs[slotNum] = discUid;
         }
 
+        // Si on a 5 exemplaires de ce moteur, on peut le mettre sur 5 agents sans le retirer aux autres
         function equipEngineUnique(st, targetAgentKey, engineKey) {
             const bs = ensureBuildState(st);
-            Object.entries(bs.agentBuilds).forEach(([, ab]) => {
-                if (ab.engineKey === engineKey) ab.engineKey = null;
-            });
+            const totalOwned = st.inventory?.[`engine_${engineKey}`]?.count || 0;
+            if (totalOwned <= 0) return;
+
+            const otherOwners = getEngineOwnersList(st, engineKey).filter(k => k !== targetAgentKey);
+            if (otherOwners.length >= totalOwned && otherOwners[0]) {
+                bs.agentBuilds[otherOwners[0]].engineKey = null;
+            }
             const targetAb = getOrInitAgentBuild(st, targetAgentKey);
             targetAb.engineKey = engineKey;
         }
@@ -657,10 +683,13 @@
             const bs = ensureBuildState(st);
             const prof = getGuideProfile(agent.rawKey);
 
+            // Un moteur est disponible tant que le nombre d'autres agents qui le portent est inférieur au nombre d'exemplaires possédés
             const ownedEngines = pool.allCatalog.filter(i => {
-                if (i.type !== 'engine' || (st.inventory[i.id]?.count || 0) <= 0) return false;
-                const owner = getEngineOwner(st, i.rawKey);
-                return !owner || owner === agent.rawKey;
+                if (i.type !== 'engine') return false;
+                const totalOwned = st.inventory[i.id]?.count || 0;
+                if (totalOwned <= 0) return false;
+                const otherOwners = getEngineOwnersList(st, i.rawKey).filter(k => k !== agent.rawKey);
+                return otherOwners.length < totalOwned;
             });
 
             let chosenEngine = null;
@@ -726,10 +755,9 @@
             let enginePctBonus = 0;
             if (ab.engineKey) {
                 const engObj = pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey);
-                const engCopies = Math.min(5, st.inventory[`engine_${ab.engineKey}`]?.count || 1);
                 if (engObj) {
                     engineAtkFlat = engObj.rank === 'S' ? 713 : (engObj.rank === 'A' ? 594 : 475);
-                    enginePctBonus = (engObj.rank === 'S' ? 24 : 18) + (engCopies - 1) * 3;
+                    enginePctBonus = engObj.rank === 'S' ? 30 : (engObj.rank === 'A' ? 24 : 18);
                 }
             }
 
@@ -1091,7 +1119,7 @@
         // --- MENU 3 : COCKPIT D'ÉQUIPEMENT ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
-            const engCount = engObj ? Math.min(5, st.inventory[engObj.id]?.count || 1) : 0;
+            const engCount = engObj ? (st.inventory[engObj.id]?.count || 1) : 0;
             const prof = getGuideProfile(agent.rawKey);
 
             const nodesHTML = [1, 2, 3, 4, 5, 6].map(slot => {
@@ -1162,7 +1190,7 @@
                         ${nodesHTML}
                         <div class="zb-wengine-core" id="btn-wheel-wengine" title="${t.engineSlot}">
                             ${engObj
-                                ? `<img src="${engObj.img}" alt="${bridge.itemName(engObj)}"><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">${engObj.rank} ★${engCount}</span>`
+                                ? `<img src="${engObj.img}" alt="${bridge.itemName(engObj)}"><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">${engObj.rank} • ×${engCount}</span>`
                                 : `<span style="font-size:24px;color:#52525b;">➕</span><span class="zb-slot-tag">${t.engineSlot}</span>`
                             }
                         </div>
@@ -1183,7 +1211,7 @@
                                 </div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
-                                <span class="gacha-quest-prog done">${engObj ? `★${engCount}` : '✎'}</span>
+                                <span class="gacha-quest-prog done">${engObj ? `×${engCount}` : '✎'}</span>
                                 ${engObj ? `<button type="button" class="zb-mini-unequip" id="btn-quick-unequip-engine" title="${t.unequipBtn}">✖</button>` : ''}
                             </div>
                         </div>
@@ -1347,27 +1375,29 @@
                     if (!selectedUidOrKey && ownedEngines[0]) selectedUidOrKey = ownedEngines[0].rawKey;
 
                     leftGridHTML = ownedEngines.map(e => {
-                        const cnt = Math.min(5, st.inventory[e.id]?.count || 1);
-                        const ownerKey = getEngineOwner(st, e.rawKey);
+                        const cnt = st.inventory[e.id]?.count || 1;
+                        const owners = getEngineOwnersList(st, e.rawKey);
+                        const avatarOwner = owners.includes(agent.rawKey) ? agent.rawKey : owners[0];
                         const isSel = selectedUidOrKey === e.rawKey;
                         return `
                         <div class="zb-gear-tile rank-${e.rank} ${isSel ? 'selected' : ''}" data-arm-pick="${e.rawKey}">
-                            <span class="zb-gear-tile-slot">★${cnt}</span>
-                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            <span class="zb-gear-tile-slot">×${cnt}</span>
+                            ${avatarOwner ? `<div class="zb-gear-owner-avatar" title="${owners.join(', ')}"><img src="assets/Agents/${avatarOwner}.webp"></div>` : ''}
                             <img src="${e.img}" class="zb-gear-tile-img" alt="">
-                            <span class="zb-gear-tile-lvl">Niv. 60</span>
+                            <span class="zb-gear-tile-lvl">${owners.length}/${cnt} équipé</span>
                         </div>`;
                     }).join('');
 
                     const selEng = ownedEngines.find(e => e.rawKey === selectedUidOrKey) || null;
                     if (selEng) {
                         const rawJson = EXT_DATA.engines[selEng.rawKey] || {};
-                        const cnt = Math.min(5, st.inventory[selEng.id]?.count || 1);
-                        const starsHTML = Array.from({ length: 5 }, (_, i) => `<span style="color:${i < cnt ? '#facc15' : '#3f3f4e'};font-size:14px;">★</span>`).join(' ');
+                        const cnt = st.inventory[selEng.id]?.count || 1;
+                        const owners = getEngineOwnersList(st, selEng.rawKey);
+                        const otherOwners = owners.filter(k => k !== agent.rawKey);
+
                         const baseAtkVal = rawJson.baseAtk || (selEng.rank === 'S' ? 713 : (selEng.rank === 'A' ? 594 : 475));
-                        const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${selEng.rank === 'S' ? 24 : 18}%`;
+                        const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${selEng.rank === 'S' ? 30 : (selEng.rank === 'A' ? 24 : 18)}%`;
                         const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
-                        const ownerKey = getEngineOwner(st, selEng.rawKey);
 
                         centerInspectorHTML = `
                             <div style="display:flex;flex-direction:column;gap:8px;">
@@ -1375,11 +1405,11 @@
                                     <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
                                         ${bridge.itemName(selEng)}
                                     </h3>
-                                    ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" style="width:26px;height:26px;border-radius:999px;border:2px solid #d7f70c;">` : ''}
+                                    <span class="gacha-quest-prog done">×${cnt}</span>
                                 </div>
-                                <div style="display:flex;align-items:center;gap:8px;">
+                                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                                     <span class="gacha-quest-prog done">${selEng.rank} • Niv. 60/60</span>
-                                    <span>${starsHTML}</span>
+                                    <span class="gacha-quest-prog">${owners.length} / ${cnt} équipé(s)</span>
                                 </div>
                                 <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat de base</span>
                                 <div class="zb-insp-subline"><span>ATQ de base</span><strong>${baseAtkVal}</strong></div>
@@ -1393,9 +1423,10 @@
                         `;
 
                         const isEquippedHere = ab.engineKey === selEng.rawKey;
+                        const needTransfer = otherOwners.length >= cnt;
                         bottomRightButtonsHTML = isEquippedHere
                             ? `<button type="button" class="gacha-res-btn" id="btn-arm-unequip" style="border-color:#ef4444;color:#fca5a5;">${t.unequipBtn}</button>`
-                            : `<button type="button" class="gacha-res-btn primary" id="btn-arm-equip">${ownerKey ? t.transferBtn.replace('{owner}', ownerKey) : t.equipBtn}</button>`;
+                            : `<button type="button" class="gacha-res-btn primary" id="btn-arm-equip">${needTransfer ? t.transferBtn.replace('{owner}', otherOwners[0]) : t.equipBtn}</button>`;
                     } else {
                         centerInspectorHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun Moteur-Ampli disponible.</div>`;
                     }
@@ -1831,39 +1862,42 @@
 
                     leftGridHTML = ownedEngines.map(e => {
                         const cnt = st.inventory[e.id]?.count || 1;
-                        const ownerKey = getEngineOwner(st, e.rawKey);
+                        const owners = getEngineOwnersList(st, e.rawKey);
+                        const firstOwner = owners[0] || null;
                         return `
                         <div class="zb-gear-tile rank-${e.rank} ${e.rawKey === selectedId ? 'selected' : ''}" data-st-pick="${e.rawKey}">
-                            <span class="zb-gear-tile-slot">★${Math.min(5, cnt)} (×${cnt})</span>
-                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            <span class="zb-gear-tile-slot">×${cnt}</span>
+                            ${firstOwner ? `<div class="zb-gear-owner-avatar" title="${owners.join(', ')}"><img src="assets/Agents/${firstOwner}.webp"></div>` : ''}
                             <img src="${e.img}" class="zb-gear-tile-img" alt="">
-                            <span class="zb-gear-tile-lvl">Niv. 60</span>
+                            <span class="zb-gear-tile-lvl">${owners.length}/${cnt} équipé</span>
                         </div>`;
                     }).join('');
 
                     const selE = ownedEngines.find(e => e.rawKey === selectedId) || null;
                     if (selE) {
                         const cnt = st.inventory[selE.id]?.count || 1;
-                        const ownerKey = getEngineOwner(st, selE.rawKey);
+                        const owners = getEngineOwnersList(st, selE.rawKey);
                         const rawJson = EXT_DATA.engines[selE.rawKey] || {};
                         const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
                         const unitVal = selE.rank === 'S' ? 40 : (selE.rank === 'A' ? 10 : 3);
+                        const freeCopies = Math.max(0, cnt - owners.length);
 
                         rightDetailHTML = `
                             <div style="display:flex;flex-direction:column;gap:8px;">
                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
                                     ${bridge.itemName(selE)}
                                 </h3>
-                                <div style="display:flex;align-items:center;justify-content:space-between;">
-                                    <span class="gacha-quest-prog done">${selE.rank} • ★${Math.min(5, cnt)} (${cnt} ex.)</span>
-                                    ${ownerKey ? `<span style="font-size:10.5px;font-weight:800;color:#d7f70c;">Porté par ${ownerKey}</span>` : ''}
+                                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                                    <span class="gacha-quest-prog done">${selE.rank} • ×${cnt} exemplaire(s)</span>
+                                    <span class="gacha-quest-prog">${owners.length} / ${cnt} équipé(s)</span>
                                 </div>
+                                ${owners.length > 0 ? `<div style="font-size:10.5px;font-weight:800;color:#d7f70c;">Porté par : ${owners.join(', ')}</div>` : ''}
                                 <div style="font-size:11px;color:#d4d4d8;line-height:1.45;background:#07070b;padding:9px;border-radius:12px;border:1px solid #1f202b;">
                                     ${effectTxt || 'Moteur-Ampli de spécialisation ' + (selE.role || '')}
                                 </div>
                             </div>
-                            <button type="button" class="gacha-shop-btn primary-purple" id="st-btn-recycle-1-eng" ${cnt <= 1 ? 'disabled' : ''}>
-                                🗑️ Recycler 1 doublon (+${unitVal} ✦)
+                            <button type="button" class="gacha-shop-btn primary-purple" id="st-btn-recycle-1-eng" ${cnt <= 1 || freeCopies <= 0 ? 'disabled' : ''}>
+                                🗑️ Recycler 1 exemplaire libre (+${unitVal} ✦)
                             </button>
                         `;
                     }
