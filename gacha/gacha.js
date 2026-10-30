@@ -308,6 +308,7 @@
     window.__realOpenGachaModal = window.openGachaModal = async function () {
         await ensureDictLoaded();
         createModalDOM();
+        window.ZZZBuilds?.initTabs?.();
         await ensurePoolLoaded();
         GState = loadState();
         refreshModalStaticLabels();
@@ -343,8 +344,6 @@
             if (modalEl && modalEl.classList.contains('visible')) renderCurrentTab(false);
         }
     });
-
-    await ensureDictLoaded();
 
     // ==========================================
     // 3. QUÊTES (1 FOIS PAR AGENT/JOUR, CAP 10/JOUR, FLÈCHES < > INCLUSES)
@@ -2317,12 +2316,13 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=2';
+            link.href = 'gacha/gacha-builds.css?v=3';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=2').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=3').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
+    await ensureDictLoaded();
     updateQuestNotificationDot(GState);
     syncSidebarButtonText();
 })();
