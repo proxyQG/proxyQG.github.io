@@ -515,6 +515,27 @@
             { idx: 4, icon: "assets/Skills/Ultime.webp",        color: "#f59e0b", glow: "rgba(245,158,11,0.4)" }
         ];
 
+        // Découpe le total d'exemplaires d'un Moteur en copies physiques de ★1 à ★5 (5 exemplaires = 1 Moteur ★5)
+        // Ex: 5 ex. -> [#0: ★5] | 7 ex. -> [#0: ★5, #1: ★2] | 10 ex. -> [#0: ★5, #1: ★5]
+        function getEngineInstancesForKey(st, engineKey) {
+            const total = st.inventory?.[`engine_${engineKey}`]?.count || 0;
+            if (total <= 0) return [];
+            const numCopies = Math.ceil(total / 5);
+            const instances = [];
+            for (let idx = 0; idx < numCopies; idx++) {
+                const stars = Math.min(5, total - idx * 5);
+                instances.push({
+                    instId: `${engineKey}__${idx}`,
+                    engineKey,
+                    copyIdx: idx,
+                    stars,
+                    totalCopies: total,
+                    totalInstances: numCopies
+                });
+            }
+            return instances;
+        }
+
         function ensureBuildState(st) {
             if (!st.buildSystem) {
                 st.buildSystem = {
@@ -528,18 +549,41 @@
             if (!st.buildSystem.agentBuilds) st.buildSystem.agentBuilds = {};
             if (!Array.isArray(st.buildSystem.craftedDiscs)) st.buildSystem.craftedDiscs = [];
 
-            // Garantie d'unicité stricte : un même uid de disque ne peut JAMAIS être équipé sur 2 agents différents
+            // 1. Unicité stricte des Disques (1 uid = 1 seul agent)
             const seenDiscUids = new Set();
             const validUids = new Set(st.buildSystem.craftedDiscs.map(d => d.uid));
+            // 2. Unicité stricte des Exemplaires de Moteurs (1 instance engineKey__copyIdx = 1 seul agent)
+            const seenEngineInsts = new Set();
+
             Object.values(st.buildSystem.agentBuilds).forEach(ab => {
-                if (!ab || !ab.discs) return;
-                for (let s = 1; s <= 6; s++) {
-                    const uid = ab.discs[s];
-                    if (!uid) continue;
-                    if (!validUids.has(uid) || seenDiscUids.has(uid)) {
-                        ab.discs[s] = null;
+                if (!ab) return;
+                if (ab.discs) {
+                    for (let s = 1; s <= 6; s++) {
+                        const uid = ab.discs[s];
+                        if (!uid) continue;
+                        if (!validUids.has(uid) || seenDiscUids.has(uid)) {
+                            ab.discs[s] = null;
+                        } else {
+                            seenDiscUids.add(uid);
+                        }
+                    }
+                }
+                if (ab.engineKey) {
+                    if (typeof ab.engineCopyIdx !== 'number') ab.engineCopyIdx = 0;
+                    const insts = getEngineInstancesForKey(st, ab.engineKey);
+                    const instId = `${ab.engineKey}__${ab.engineCopyIdx}`;
+                    if (ab.engineCopyIdx >= insts.length || seenEngineInsts.has(instId)) {
+                        // Cherche un autre exemplaire libre de ce moteur si disponible
+                        const freeInst = insts.find(x => !seenEngineInsts.has(x.instId));
+                        if (freeInst) {
+                            ab.engineCopyIdx = freeInst.copyIdx;
+                            seenEngineInsts.add(freeInst.instId);
+                        } else {
+                            ab.engineKey = null;
+                            ab.engineCopyIdx = 0;
+                        }
                     } else {
-                        seenDiscUids.add(uid);
+                        seenEngineInsts.add(instId);
                     }
                 }
             });
@@ -552,6 +596,7 @@
             if (!st.buildSystem.agentBuilds[agentKey]) {
                 st.buildSystem.agentBuilds[agentKey] = {
                     engineKey: null,
+                    engineCopyIdx: 0,
                     discs: { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null },
                     skills: [1, 1, 1, 1, 1]
                 };
@@ -569,12 +614,20 @@
             return null;
         }
 
-        function getEngineOwner(st, engineKey) {
+        function getEngineInstanceOwner(st, engineKey, copyIdx = 0) {
             if (!engineKey || !st.buildSystem?.agentBuilds) return null;
             for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
-                if (ab.engineKey === engineKey) return agKey;
+                if (ab.engineKey === engineKey && (ab.engineCopyIdx || 0) === copyIdx) return agKey;
             }
             return null;
+        }
+
+        function getAgentEngineStars(st, agentKey) {
+            const ab = getOrInitAgentBuild(st, agentKey);
+            if (!ab.engineKey) return 0;
+            const total = st.inventory?.[`engine_${ab.engineKey}`]?.count || 0;
+            const idx = ab.engineCopyIdx || 0;
+            return Math.max(1, Math.min(5, total - idx * 5));
         }
 
         function equipDiscUnique(st, targetAgentKey, slotNum, discUid) {
@@ -590,13 +643,17 @@
             targetAb.discs[slotNum] = discUid;
         }
 
-        function equipEngineUnique(st, targetAgentKey, engineKey) {
+        function equipEngineInstanceUnique(st, targetAgentKey, engineKey, copyIdx = 0) {
             const bs = ensureBuildState(st);
             Object.entries(bs.agentBuilds).forEach(([, ab]) => {
-                if (ab.engineKey === engineKey) ab.engineKey = null;
+                if (ab.engineKey === engineKey && (ab.engineCopyIdx || 0) === copyIdx) {
+                    ab.engineKey = null;
+                    ab.engineCopyIdx = 0;
+                }
             });
             const targetAb = getOrInitAgentBuild(st, targetAgentKey);
             targetAb.engineKey = engineKey;
+            targetAb.engineCopyIdx = copyIdx;
         }
 
         function getFreeGachaDiscCount(st, setKey = null) {
@@ -651,38 +708,44 @@
         }
 
         // ========================================================
-        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE
+        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE (AVEC GESTION MULTI-COPIES MOTEURS)
         // ========================================================
         function autoEquipFromGuide(st, pool, agent) {
             const bs = ensureBuildState(st);
             const prof = getGuideProfile(agent.rawKey);
 
-            const ownedEngines = pool.allCatalog.filter(i => {
-                if (i.type !== 'engine' || (st.inventory[i.id]?.count || 0) <= 0) return false;
-                const owner = getEngineOwner(st, i.rawKey);
-                return !owner || owner === agent.rawKey;
+            // Liste tous les exemplaires de moteurs (tranches de ★5) non équipés par un autre agent
+            const freeEngineInstances = [];
+            pool.allCatalog.filter(i => i.type === 'engine').forEach(eMeta => {
+                const insts = getEngineInstancesForKey(st, eMeta.rawKey);
+                insts.forEach(inst => {
+                    const owner = getEngineInstanceOwner(st, inst.engineKey, inst.copyIdx);
+                    if (!owner || owner === agent.rawKey) {
+                        freeEngineInstances.push({ ...inst, meta: eMeta });
+                    }
+                });
             });
 
-            let chosenEngine = null;
+            let chosenInst = null;
             for (const recEng of prof.engines) {
-                const match = ownedEngines.find(e =>
-                    e.rawKey.toLowerCase() === recEng.rawImg.toLowerCase()
-                    || e.img.toLowerCase().includes(recEng.rawImg.toLowerCase())
+                const match = freeEngineInstances.find(x =>
+                    x.engineKey.toLowerCase() === recEng.rawImg.toLowerCase()
+                    || x.meta.img.toLowerCase().includes(recEng.rawImg.toLowerCase())
                 );
                 if (match) {
-                    chosenEngine = match;
+                    chosenInst = match;
                     break;
                 }
             }
-            if (!chosenEngine && ownedEngines.length > 0) {
-                const roleMatches = ownedEngines.filter(e => (e.role || '').toLowerCase() === (agent.role || '').toLowerCase());
-                const listToPick = roleMatches.length > 0 ? roleMatches : ownedEngines;
+            if (!chosenInst && freeEngineInstances.length > 0) {
+                const roleMatches = freeEngineInstances.filter(x => (x.meta.role || '').toLowerCase() === (agent.role || '').toLowerCase());
+                const listToPick = roleMatches.length > 0 ? roleMatches : freeEngineInstances;
                 const rW = { S: 0, A: 1, B: 2 };
-                listToPick.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
-                chosenEngine = listToPick[0];
+                listToPick.sort((a, b) => (rW[a.meta.rank] ?? 9) - (rW[b.meta.rank] ?? 9) || b.stars - a.stars);
+                chosenInst = listToPick[0];
             }
-            if (chosenEngine) {
-                equipEngineUnique(st, agent.rawKey, chosenEngine.rawKey);
+            if (chosenInst) {
+                equipEngineInstanceUnique(st, agent.rawKey, chosenInst.engineKey, chosenInst.copyIdx);
             }
 
             for (let slot = 1; slot <= 6; slot++) {
@@ -726,7 +789,7 @@
             let enginePctBonus = 0;
             if (ab.engineKey) {
                 const engObj = pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey);
-                const engCopies = Math.min(5, st.inventory[`engine_${ab.engineKey}`]?.count || 1);
+                const engCopies = getAgentEngineStars(st, agentMeta.rawKey);
                 if (engObj) {
                     engineAtkFlat = engObj.rank === 'S' ? 713 : (engObj.rank === 'A' ? 594 : 475);
                     enginePctBonus = (engObj.rank === 'S' ? 24 : 18) + (engCopies - 1) * 3;
@@ -907,12 +970,12 @@
                         </div>
                     </div>
 
-                    <!-- Bandeau d'aide intuitif en 3 étapes -->
+                    ${bs.craftedDiscs.length === 0 ? `
                     <div class="zb-steps-strip">
                         <div class="zb-step-item"><span class="zb-step-num">1</span><span>${t.step1}</span></div>
                         <div class="zb-step-item"><span class="zb-step-num">2</span><span>${t.step2}</span></div>
                         <div class="zb-step-item"><span class="zb-step-num">3</span><span>${t.step3}</span></div>
-                    </div>
+                    </div>` : ''}
 
                     <div class="zb-stage">
                         <div class="zb-agent-showcase ${calc.overclockLvl > 0 ? 'overclocked' : ''} ${currentSubMenu !== 'stats' ? 'hide-on-mobile-sub' : ''}">
@@ -926,14 +989,15 @@
                         </div>
 
                         <div class="zb-right-column">
-                            <div class="zb-panel-card">
-                                ${rightPanelContent}
-                            </div>
-
+                            <!-- Les 3 sous-menus placés en haut pour un accès immédiat sans scroller sur mobile -->
                             <div class="zb-subnav">
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
                                 <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">${t.subStats}</button>
                                 <button type="button" class="zb-subnav-btn ${currentSubMenu === 'skills' ? 'active' : ''}" data-bsub="skills">${t.subSkills}</button>
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
+                            </div>
+
+                            <div class="zb-panel-card">
+                                ${rightPanelContent}
                             </div>
                         </div>
                     </div>
@@ -1091,7 +1155,7 @@
         // --- MENU 3 : COCKPIT D'ÉQUIPEMENT ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
-            const engCount = engObj ? Math.min(5, st.inventory[engObj.id]?.count || 1) : 0;
+            const engCount = engObj ? getAgentEngineStars(st, agent.rawKey) : 0;
             const prof = getGuideProfile(agent.rawKey);
 
             const nodesHTML = [1, 2, 3, 4, 5, 6].map(slot => {
@@ -1303,9 +1367,29 @@
 
             const prof = getGuideProfile(agent.rawKey);
 
+            // Liste tous les exemplaires physiques de Moteurs (tranches de 5 copies = ★5)
+            function buildAllEngineInstances() {
+                const list = [];
+                const rW = { S: 0, A: 1, B: 2 };
+                const ownedCatalog = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
+                ownedCatalog.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
+                ownedCatalog.forEach(eMeta => {
+                    getEngineInstancesForKey(st, eMeta.rawKey).forEach(inst => {
+                        list.push({ ...inst, meta: eMeta });
+                    });
+                });
+                return list;
+            }
+
             function syncDefaultSelection() {
                 if (activeSlotOrEngine === 'engine') {
-                    selectedUidOrKey = ab.engineKey || pool.allCatalog.find(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0)?.rawKey || null;
+                    const allInsts = buildAllEngineInstances();
+                    if (ab.engineKey) {
+                        selectedUidOrKey = `${ab.engineKey}__${ab.engineCopyIdx || 0}`;
+                    } else {
+                        const freeOne = allInsts.find(x => !getEngineInstanceOwner(st, x.engineKey, x.copyIdx));
+                        selectedUidOrKey = (freeOne || allInsts[0])?.instId || null;
+                    }
                 } else {
                     const sl = Number(activeSlotOrEngine) || 1;
                     selectedUidOrKey = ab.discs[sl] || bs.craftedDiscs.find(d => d.slot === sl)?.uid || null;
@@ -1338,70 +1422,71 @@
                 let leftGridHTML = '';
                 let centerInspectorHTML = '';
                 let bottomRightButtonsHTML = '';
+                let hasItemsInList = false;
 
                 if (isEngineMode) {
-                    const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
-                    const rW = { S: 0, A: 1, B: 2 };
-                    ownedEngines.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
+                    const allInsts = buildAllEngineInstances();
+                    hasItemsInList = allInsts.length > 0;
+                    if (!selectedUidOrKey && allInsts[0]) selectedUidOrKey = allInsts[0].instId;
 
-                    if (!selectedUidOrKey && ownedEngines[0]) selectedUidOrKey = ownedEngines[0].rawKey;
-
-                    leftGridHTML = ownedEngines.map(e => {
-                        const cnt = Math.min(5, st.inventory[e.id]?.count || 1);
-                        const ownerKey = getEngineOwner(st, e.rawKey);
-                        const isSel = selectedUidOrKey === e.rawKey;
+                    leftGridHTML = allInsts.map(inst => {
+                        const ownerKey = getEngineInstanceOwner(st, inst.engineKey, inst.copyIdx);
+                        const isSel = selectedUidOrKey === inst.instId;
+                        const copyLabel = inst.totalInstances > 1 ? `#${inst.copyIdx + 1} ★${inst.stars}` : `★${inst.stars}`;
                         return `
-                        <div class="zb-gear-tile rank-${e.rank} ${isSel ? 'selected' : ''}" data-arm-pick="${e.rawKey}">
-                            <span class="zb-gear-tile-slot">★${cnt}</span>
+                        <div class="zb-gear-tile rank-${inst.meta.rank} ${isSel ? 'selected' : ''}" data-arm-pick="${inst.instId}">
+                            <span class="zb-gear-tile-slot">${copyLabel}</span>
                             ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
-                            <img src="${e.img}" class="zb-gear-tile-img" alt="">
-                            <span class="zb-gear-tile-lvl">Niv. 60</span>
+                            <img src="${inst.meta.img}" class="zb-gear-tile-img" alt="">
+                            <span class="zb-gear-tile-lvl">${inst.stars}/5 ex.</span>
                         </div>`;
                     }).join('');
 
-                    const selEng = ownedEngines.find(e => e.rawKey === selectedUidOrKey) || null;
-                    if (selEng) {
+                    const selInst = allInsts.find(x => x.instId === selectedUidOrKey) || null;
+                    if (selInst) {
+                        const selEng = selInst.meta;
                         const rawJson = EXT_DATA.engines[selEng.rawKey] || {};
-                        const cnt = Math.min(5, st.inventory[selEng.id]?.count || 1);
+                        const cnt = selInst.stars;
                         const starsHTML = Array.from({ length: 5 }, (_, i) => `<span style="color:${i < cnt ? '#facc15' : '#3f3f4e'};font-size:14px;">★</span>`).join(' ');
                         const baseAtkVal = rawJson.baseAtk || (selEng.rank === 'S' ? 713 : (selEng.rank === 'A' ? 594 : 475));
-                        const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${selEng.rank === 'S' ? 24 : 18}%`;
+                        const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${(selEng.rank === 'S' ? 24 : 18) + (cnt - 1) * 3}%`;
                         const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
-                        const ownerKey = getEngineOwner(st, selEng.rawKey);
+                        const ownerKey = getEngineInstanceOwner(st, selInst.engineKey, selInst.copyIdx);
 
                         centerInspectorHTML = `
                             <div style="display:flex;flex-direction:column;gap:8px;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
-                                        ${bridge.itemName(selEng)}
+                                        ${bridge.itemName(selEng)} ${selInst.totalInstances > 1 ? `#${selInst.copyIdx + 1}` : ''}
                                     </h3>
                                     ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" style="width:26px;height:26px;border-radius:999px;border:2px solid #d7f70c;">` : ''}
                                 </div>
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <span class="gacha-quest-prog done">${selEng.rank} • Niv. 60/60</span>
+                                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                                    <span class="gacha-quest-prog done">${selEng.rank} • Raffinement ★${cnt}/5 (${cnt}/5 ex.)</span>
                                     <span>${starsHTML}</span>
                                 </div>
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat de base</span>
                                 <div class="zb-insp-subline"><span>ATQ de base</span><strong>${baseAtkVal}</strong></div>
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat avancée</span>
-                                <div class="zb-insp-subline guide-hit"><span>${advStatLbl}</span><strong>MAX</strong></div>
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.engineEffectLabel} (${selEng.role || 'All'})</span>
+                                <div class="zb-insp-subline guide-hit"><span>${advStatLbl}</span><strong>★${cnt}</strong></div>
                                 <div style="font-size:11px;color:#d4d4d8;line-height:1.45;background:#07070b;padding:9px;border-radius:12px;border:1px solid #1f202b;">
                                     ${effectTxt || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.'}
+                                </div>
+                                <div style="font-size:10px;color:#a1a1aa;">
+                                    💡 5 exemplaires = 1 Moteur ★5. Total possédé : <strong style="color:#d7f70c;">${selInst.totalCopies} ex.</strong> (${selInst.totalInstances} moteur(s) équipable(s)).
                                 </div>
                             </div>
                         `;
 
-                        const isEquippedHere = ab.engineKey === selEng.rawKey;
+                        const isEquippedHere = ab.engineKey === selInst.engineKey && (ab.engineCopyIdx || 0) === selInst.copyIdx;
                         bottomRightButtonsHTML = isEquippedHere
                             ? `<button type="button" class="gacha-res-btn" id="btn-arm-unequip" style="border-color:#ef4444;color:#fca5a5;">${t.unequipBtn}</button>`
                             : `<button type="button" class="gacha-res-btn primary" id="btn-arm-equip">${ownerKey ? t.transferBtn.replace('{owner}', ownerKey) : t.equipBtn}</button>`;
                     } else {
-                        centerInspectorHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun Moteur-Ampli disponible.</div>`;
+                        centerInspectorHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;padding:24px;">Aucun Moteur-Ampli disponible.</div>`;
                     }
                 } else {
                     let list = bs.craftedDiscs.filter(d => d.slot === slotNum);
                     if (filterSet !== 'all') list = list.filter(d => d.setKey === filterSet);
+                    hasItemsInList = list.length > 0;
 
                     if (sortMode === 'guide') {
                         list.sort((a, b) => scoreDiscForAgent(b, agent.rawKey) - scoreDiscForAgent(a, agent.rawKey));
@@ -1436,6 +1521,7 @@
                         const ownerKey = getDiscOwner(st, selDisc.uid);
                         const isMainRec = slotNum >= 4 && (prof.mainBySlot[slotNum] || []).includes(selDisc.mainStat);
                         const dismantleGain = calcDiscDismantleGain(selDisc);
+                        const maxCost = ((15 - selDisc.level) / 3) * 4;
 
                         centerInspectorHTML = `
                             <div style="display:flex;flex-direction:column;gap:7px;">
@@ -1444,7 +1530,7 @@
                                         ${sObj ? bridge.itemName(sObj) : selDisc.setKey} [${selDisc.slot}]
                                     </h3>
                                     <div style="display:flex;align-items:center;gap:5px;">
-                                        <button type="button" class="gacha-details-btn" id="btn-arm-lock" title="${selDisc.locked ? t.unlockBtn : t.lockBtn}">${selDisc.locked ? '🔒' : '🔓'}</button>
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-lock">${selDisc.locked ? '🔒' : '🔓'}</button>
                                         <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''}>🗑️ +${dismantleGain}✦</button>
                                     </div>
                                 </div>
@@ -1454,13 +1540,11 @@
                                     ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:18px;height:18px;border-radius:999px;"> ${ownerKey}</span>` : ''}
                                 </div>
 
-                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
                                 <div class="zb-insp-subline ${isMainRec ? 'guide-hit' : ''}">
                                     <span>${tStat(selDisc.mainStat)}</span>
                                     <strong>${formatMainStatValue(selDisc.mainStat, selDisc.level)}</strong>
                                 </div>
 
-                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
                                 <div style="display:flex;flex-direction:column;gap:4px;">
                                     ${selDisc.substats.map(sub => {
                                         const isGuideSub = prof.subPrio.includes(sub.key);
@@ -1472,7 +1556,6 @@
                                     }).join('')}
                                 </div>
 
-                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.setEffectsLabel}</span>
                                 <div style="font-size:10.5px;color:#a1a1aa;line-height:1.4;background:#07070b;padding:8px 10px;border-radius:12px;border:1px solid #1f202b;">
                                     <div><strong style="color:#fff;">2P :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
                                     <div style="margin-top:3px;"><strong style="color:#d7f70c;">4P :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
@@ -1481,8 +1564,6 @@
                         `;
 
                         const isEquippedHere = ab.discs[slotNum] === selDisc.uid;
-                        const maxCost = ((15 - selDisc.level) / 3) * 4;
-
                         bottomRightButtonsHTML = `
                             ${isEquippedHere
                                 ? `<button type="button" class="gacha-res-btn" id="btn-arm-unequip" style="border-color:#ef4444;color:#fca5a5;">${t.unequipBtn}</button>`
@@ -1498,8 +1579,8 @@
                         `;
                     } else {
                         centerInspectorHTML = `
-                            <div style="margin:auto;text-align:center;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;">
-                                <span style="font-size:12px;color:#a1a1aa;">${t.noDiscInSlot.replace('{slot}', slotNum)}</span>
+                            <div style="margin:auto;text-align:center;padding:24px 14px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+                                <span style="font-size:13px;font-weight:700;color:#d4d4d8;">${t.noDiscInSlot.replace('{slot}', slotNum)}</span>
                                 <button type="button" class="gacha-res-btn primary" id="btn-arm-craft-slot">🎵 Graver Partition [${slotNum}]</button>
                             </div>`;
                     }
@@ -1510,11 +1591,10 @@
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal">
-                        <!-- En-tête : Filtres à gauche, Bouton FERMER à droite sans flèche (Point 5) -->
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
                             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                                ${!isEngineMode ? `
-                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:135px;">
+                                ${!isEngineMode && hasItemsInList ? `
+                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:130px;">
                                     <option value="all">${t.filterAllSets}</option>
                                     ${distinctSets.map(sk => {
                                         const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
@@ -1523,7 +1603,7 @@
                                 </select>
                                 <button type="button" class="gacha-col-filter-btn ${sortMode === 'guide' ? 'active' : ''}" id="arm-sort-toggle">
                                     ${sortMode === 'guide' ? t.sortGuide : t.sortLevel}
-                                </button>` : `<span class="gacha-patch-tag" style="margin:0;">${t.engineSlot}</span>`}
+                                </button>` : `<span class="gacha-patch-tag" style="margin:0;">${isEngineMode ? t.engineSlot : `PARTITION [${slotNum}]`}</span>`}
                             </div>
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
@@ -1532,7 +1612,6 @@
                             </div>
                         </div>
 
-                        <!-- Barre rapide de sélection de slot sur Mobile/Tablette -->
                         <div class="zb-mobile-slot-pills">
                             <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-armory-wheel="engine">⚙️ Moteur</button>
                             ${[1, 2, 3, 4, 5, 6].map(s => `
@@ -1540,23 +1619,16 @@
                             `).join('')}
                         </div>
 
-                        <!-- Corps 3 Colonnes (2 colonnes sur Tablette, 1 sur Mobile) -->
-                        <div class="zb-armory-3col">
-                            <div class="zb-armory-grid-scroll">
-                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:24px 10px;font-size:12px;">Aucun élément.</div>`}
-                            </div>
-
-                            <div class="zb-inspector-col">
-                                ${centerInspectorHTML}
-                            </div>
-
+                        <div class="zb-armory-3col" style="${!hasItemsInList ? 'grid-template-columns:1fr;' : ''}">
+                            ${hasItemsInList ? `<div class="zb-armory-grid-scroll">${leftGridHTML}</div>` : ''}
+                            <div class="zb-inspector-col">${centerInspectorHTML}</div>
                             <div class="zb-armory-wheel-col">
                                 <div class="zb-hex-housing">
                                     <span class="zb-driver-plaque">DRIVER</span>
                                     ${wheelNodesHTML}
                                     <div class="zb-wengine-core ${isEngineMode ? 'selected-ring' : ''}" id="arm-wheel-engine">
                                         ${eqEngineObj
-                                            ? `<img src="${eqEngineObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">Niv.60</span>`
+                                            ? `<img src="${eqEngineObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">★${getAgentEngineStars(st, agent.rawKey)}</span>`
                                             : `<span style="font-size:10px;font-weight:900;color:#d7f70c;text-align:center;padding:4px;">CORE AVAILABLE</span>`
                                         }
                                     </div>
@@ -1626,7 +1698,8 @@
                 document.getElementById('btn-arm-equip')?.addEventListener('click', () => {
                     if (!selectedUidOrKey) return;
                     if (isEngineMode) {
-                        equipEngineUnique(st, agent.rawKey, selectedUidOrKey);
+                        const [eKey, cIdxStr] = String(selectedUidOrKey).split('__');
+                        equipEngineInstanceUnique(st, agent.rawKey, eKey, parseInt(cIdxStr, 10) || 0);
                     } else {
                         equipDiscUnique(st, agent.rawKey, slotNum, selectedUidOrKey);
                     }
@@ -1637,6 +1710,7 @@
                 document.getElementById('btn-arm-unequip')?.addEventListener('click', () => {
                     if (isEngineMode) {
                         ab.engineKey = null;
+                        ab.engineCopyIdx = 0;
                     } else {
                         ab.discs[slotNum] = null;
                     }
@@ -1653,6 +1727,7 @@
 
                 document.getElementById('btn-arm-unequip-all')?.addEventListener('click', () => {
                     ab.engineKey = null;
+                    ab.engineCopyIdx = 0;
                     ab.discs = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
                     bridge.saveState(st);
                     renderArmory();
