@@ -305,7 +305,7 @@
     }
     window.closeGachaModal = () => closeGachaModal(false);
 
-    window.openGachaModal = async function () {
+    window.__realOpenGachaModal = window.openGachaModal = async function () {
         await ensureDictLoaded();
         createModalDOM();
         await ensurePoolLoaded();
@@ -728,6 +728,13 @@
 
         animOverlayEl = document.createElement('div');
         animOverlayEl.id = 'gacha-anim-overlay';
+        // Cliquer en dehors d'une boîte de dialogue (.gacha-dialog-box / .zb-modal-box) ferme automatiquement la pop-up
+        animOverlayEl.addEventListener('mousedown', (ev) => {
+            if (ev.target === animOverlayEl && animOverlayEl.querySelector('.gacha-dialog-box, .zb-modal-box')) {
+                animOverlayEl.classList.remove('active');
+                renderCurrentTab(false);
+            }
+        });
         document.body.appendChild(animOverlayEl);
 
         document.getElementById('gacha-close-btn').addEventListener('click', () => closeGachaModal(false));
