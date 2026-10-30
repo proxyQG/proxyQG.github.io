@@ -649,13 +649,13 @@
 
 .zb-hex-housing {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 232px;
+    height: 232px;
     background:
         radial-gradient(circle at 50% 50%, transparent 56%, rgba(255, 255, 255, 0.03) 57%, transparent 59%),
         radial-gradient(circle, #242533 0%, #0e0f15 72%);
     border: 3px solid #353646;
-    border-radius: 34px;
+    border-radius: 32px;
     box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.92), 0 12px 30px rgba(0, 0, 0, 0.85);
     margin: 0 auto;
     flex-shrink: 0;
