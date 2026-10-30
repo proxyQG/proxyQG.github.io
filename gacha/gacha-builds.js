@@ -1,4 +1,4 @@
-// gacha/gacha-builds.js - Studio de Builds ZZZ, Auto-Build relié aux Guides, Armurerie 3 Colonnes, Entrepôt & Unicité Stricte
+// gacha/gacha-builds.js - Studio de Builds ZZZ, Auto-Build relié aux Guides, Prix ×2 Main Stat Ciblée & Responsive Mobile
 (function () {
     try {
         // ========================================================
@@ -11,18 +11,21 @@
                 noAgentsTitle: "Aucun Agent débloqué",
                 noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent et débloquer son studio de Build !",
                 bardicBtnTitle: "Studio Disques (Elfy)",
-                bardicBtnSub: "{free} Gratuits • 🎯 {cal} Calibrateur(s)",
-                storageBtnTitle: "Entrepôt Équipement",
-                storageBtnSub: "{d} Disques S • {e} Moteurs",
+                bardicBtnSub: "{free} Gratuits • {d} Disques S",
+                storageBtnTitle: "Entrepôt ({d})",
+                storageBtnSub: "Trier & Recycler",
+                step1: "Gravez des Disques S dans le Studio Disques",
+                step2: "Cliquez sur ⚡ Équipement Auto (Guide)",
+                step3: "Montez vos Disques (+15) et Compétences",
                 overclockBanner: "⚡ SURCHARGE PRISMATIQUE ★{lvl} (+{pct}% TOUTES STATS)",
                 subStats: "Stats de base",
                 subSkills: "Compétences",
                 subEquip: "Équipement",
-                effectiveSubs: "Nombre de stats secondaires effectives :",
-                combatEval: "Évaluation de préparation au combat",
+                effectiveSubs: "Stats secondaires utiles :",
+                combatEval: "Évaluation de combat",
                 skillsTag: "ENTRAÎNEMENT D'AGENT • MAX NIV. {max}",
                 skillsTitle: "Amélioration des Compétences",
-                skillsDesc: "Améliorez les 5 compétences de l'Agent avec vos Signaux résiduels (✦) ou vos Polychromes pour booster ses statistiques et son score de combat.",
+                skillsDesc: "Améliorez les 5 compétences de l'Agent avec vos Signaux résiduels (✦) ou vos Polychromes pour booster son ATQ et son score de combat.",
                 skillNames: ["Attaque Normale", "Esquive", "Soutien", "Attaque Spéciale EX", "Enchaînement & Ultime"],
                 skillShort: ["Normale", "Esquive", "Soutien", "Spéciale", "Ultime"],
                 skillBonusDesc: ["ATQ de base +{val} & DGT Normaux", "ATQ +{val} & Réflexes d'Esquive", "ATQ +{val} & Impact de Soutien", "ATQ +{val} & DGT Spéciaux EX", "ATQ +{val} & DGT d'Ultime"],
@@ -38,10 +41,10 @@
                 transferBtn: "🔄 Transférer (de {owner})",
                 emptySlot: "Vide",
                 engineSlot: "Moteur-Ampli",
-                noEngineEquipped: "Aucun Moteur-Ampli équipé (Cliquer pour choisir)",
+                noEngineEquipped: "Aucun Moteur-Ampli (Cliquer pour choisir)",
                 activeSetBonuses: "Bonus de Sets Actifs (2P / 4P)",
                 noSetBonus: "Équipez 2 ou 4 disques d'un même set pour activer ses bonus.",
-                guideRecTitle: "💡 Build Recommandé par le Guide ProxyQG :",
+                guideRecTitle: "💡 Build Recommandé par le Guide :",
                 piece2: "Ensemble de 2 pièces",
                 piece4: "Ensemble de 4 pièces",
                 mainStatLabel: "Stat principale",
@@ -55,31 +58,32 @@
                 dismantleSingle: "🗑️ Démanteler (+{gain} ✦)",
                 batchDismantle: "♻️ Démanteler Niv.0 non-équipés (+{gain} ✦)",
                 recycleSurplusEngines: "♻️ Recycler doublons Moteurs (+{gain} ✦)",
-                storageTitle: "📦 Entrepôt : Disques de Poussée & Moteurs-Ampli",
-                storageDiscsTab: "💿 Disques de poussée [{n}/3000]",
-                storageEnginesTab: "⚙️ Moteurs-Ampli [{n}]",
+                storageTitle: "📦 Entrepôt : Disques & Moteurs",
+                storageDiscsTab: "💿 Disques [{n}]",
+                storageEnginesTab: "⚙️ Moteurs [{n}]",
                 filterAllSets: "Tous les Sets",
-                filterAllSlots: "Toutes Partitions",
                 sortLevel: "Tri : Niveau",
-                sortGuide: "Tri : Pertinence Guide",
+                sortGuide: "Tri : Guide",
                 bardicTag: "BARDIC NEEDLE • STUDIO D'ACCORDAGE RANG S",
                 bardicTitle: "Graver des Disques de Poussée",
                 searchSetPlaceholder: "Rechercher un Set de Disques...",
                 randomPartition: "Aléatoire (I–VI)",
-                orientationLabel: "🎯 Orientation Stat Principale (1 Calibrateur si ciblée) :",
-                standardWeighted: "Tirage pondéré standard (0 🎯)",
-                tuneFreeStock: "💿 Graver Stock Gacha ×1 (GRATUIT • {n} dispo)",
-                tune1Res: "🎵 Accordage ×1 (10 ✦)",
-                tune5Res: "🎵 Accordage ×5 (50 ✦)",
-                tune1Poly: "🎵 Accordage ×1 (80 Poly)",
-                equipNow: "Équiper sur {name}",
+                orientationLabel: "🎯 Choisir la Stat Principale (Prix ×2 si sélectionnée) :",
+                standardWeighted: "Aléatoire pondéré (Prix normal ×1)",
+                targetedPriceTag: "Stat choisie : {stat} (Prix ×2)",
+                tuneFreeStock: "💿 Graver Stock Gacha ×1 (Coût : {c} stock • {n} dispo)",
+                tune1Res: "🎵 Accordage ×1 ({cost} ✦)",
+                tune5Res: "🎵 Accordage ×5 ({cost} ✦)",
+                tune1Poly: "🎵 Accordage ×1 ({cost} Poly)",
+                equipNow: "Équiper",
                 equippedTag: "Équipé ✓",
+                noDiscInSlot: "Aucun disque sur la Partition [{slot}].",
                 badgesTitle: "🏆 Salle des Trophées : Séries & Factions",
                 badgesSub: "Complétez les escouades de New Eridu et les défis d'accordage de disques pour gagner des Polychromes.",
-                badgesUnlockedCount: "Badges débloqués : {u} / {t}",
+                badgesUnlockedCount: "Badges : {u} / {t}",
                 filterAllBadges: "Tous ({n})",
                 filterMastery: "Maîtrise & Disques",
-                filterSquads: "Escouades & Factions",
+                filterSquads: "Escouades",
                 claimBadge: "Récupérer",
                 claimedBadge: "Obtenu ✓",
                 inProgress: "En cours",
@@ -116,18 +120,21 @@
                 noAgentsTitle: "No Agents Unlocked Yet",
                 noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent and unlock their Build Studio!",
                 bardicBtnTitle: "Disc Studio (Elfy)",
-                bardicBtnSub: "{free} Free Stock • 🎯 {cal} Calibrator(s)",
-                storageBtnTitle: "Gear Storage",
-                storageBtnSub: "{d} S-Discs • {e} W-Engines",
+                bardicBtnSub: "{free} Free Stock • {d} S-Discs",
+                storageBtnTitle: "Storage ({d})",
+                storageBtnSub: "Sort & Dismantle",
+                step1: "Tune S-Rank Discs in the Disc Studio",
+                step2: "Click ⚡ Auto-Equip (Guide)",
+                step3: "Upgrade Discs (+15) and Skills",
                 overclockBanner: "⚡ PRISMATIC OVERCLOCK ★{lvl} (+{pct}% ALL STATS)",
                 subStats: "Base Stats",
                 subSkills: "Skills",
                 subEquip: "Equipment",
-                effectiveSubs: "Effective Sub-Stat Rolls:",
-                combatEval: "Combat Readiness Evaluation",
+                effectiveSubs: "Effective Sub-Stats:",
+                combatEval: "Combat Readiness",
                 skillsTag: "AGENT TRAINING • MAX LV. {max}",
                 skillsTitle: "Skill Enhancement",
-                skillsDesc: "Upgrade your Agent's 5 combat skills using Residual Signals (✦) or Polychromes to boost their stats and Combat Readiness.",
+                skillsDesc: "Upgrade your Agent's 5 combat skills using Residual Signals (✦) or Polychromes to boost their ATK and Combat Readiness.",
                 skillNames: ["Basic Attack", "Dodge", "Assist", "EX Special Attack", "Chain Attack & Ultimate"],
                 skillShort: ["Basic", "Dodge", "Assist", "Special", "Ultimate"],
                 skillBonusDesc: ["Base ATK +{val} & Basic DMG", "ATK +{val} & Dodge Counter", "ATK +{val} & Assist Impact", "ATK +{val} & EX Special DMG", "ATK +{val} & Ultimate DMG"],
@@ -143,7 +150,7 @@
                 transferBtn: "🔄 Transfer (from {owner})",
                 emptySlot: "Empty",
                 engineSlot: "W-Engine",
-                noEngineEquipped: "No W-Engine equipped (Click to select)",
+                noEngineEquipped: "No W-Engine (Click to select)",
                 activeSetBonuses: "Active Set Bonuses (2P / 4P)",
                 noSetBonus: "Equip 2 or 4 discs from the same set to activate set bonuses.",
                 guideRecTitle: "💡 ProxyQG Guide Recommendation:",
@@ -161,30 +168,31 @@
                 batchDismantle: "♻️ Dismantle Unowned Lv.0 (+{gain} ✦)",
                 recycleSurplusEngines: "♻️ Recycle Surplus W-Engines (+{gain} ✦)",
                 storageTitle: "📦 Storage: Drive Discs & W-Engines",
-                storageDiscsTab: "💿 Drive Discs [{n}/3000]",
+                storageDiscsTab: "💿 Discs [{n}]",
                 storageEnginesTab: "⚙️ W-Engines [{n}]",
                 filterAllSets: "All Sets",
-                filterAllSlots: "All Partitions",
                 sortLevel: "Sort: Level",
-                sortGuide: "Sort: Guide Match",
+                sortGuide: "Sort: Guide",
                 bardicTag: "BARDIC NEEDLE • S-RANK TUNING STUDIO",
                 bardicTitle: "Tune S-Rank Drive Discs",
                 searchSetPlaceholder: "Search a Drive Disc Set...",
                 randomPartition: "Random (I–VI)",
-                orientationLabel: "🎯 Main Stat Orientation (1 Calibrator if targeted):",
-                standardWeighted: "Standard weighted roll (0 🎯)",
-                tuneFreeStock: "💿 Roll Gacha Disc ×1 (FREE • {n} left)",
-                tune1Res: "🎵 Tune ×1 (10 ✦)",
-                tune5Res: "🎵 Tune ×5 (50 ✦)",
-                tune1Poly: "🎵 Tune ×1 (80 Poly)",
-                equipNow: "Equip on {name}",
+                orientationLabel: "🎯 Choose Main Stat (2× Price if selected):",
+                standardWeighted: "Random weighted roll (1× Normal Price)",
+                targetedPriceTag: "Chosen Stat: {stat} (2× Price)",
+                tuneFreeStock: "💿 Roll Gacha Disc ×1 (Cost: {c} stock • {n} left)",
+                tune1Res: "🎵 Tune ×1 ({cost} ✦)",
+                tune5Res: "🎵 Tune ×5 ({cost} ✦)",
+                tune1Poly: "🎵 Tune ×1 ({cost} Poly)",
+                equipNow: "Equip",
                 equippedTag: "Equipped ✓",
+                noDiscInSlot: "No disc in Partition [{slot}].",
                 badgesTitle: "🏆 Trophy Room: Series & Factions",
                 badgesSub: "Complete New Eridu squads and Drive Disc tuning challenges to earn Polychrome rewards.",
-                badgesUnlockedCount: "Unlocked Badges: {u} / {t}",
+                badgesUnlockedCount: "Badges: {u} / {t}",
                 filterAllBadges: "All ({n})",
                 filterMastery: "Mastery & Discs",
-                filterSquads: "Squads & Factions",
+                filterSquads: "Squads",
                 claimBadge: "Claim",
                 claimedBadge: "Claimed ✓",
                 inProgress: "In Progress",
@@ -257,7 +265,6 @@
                 || null;
         }
 
-        // Convertit une étiquette de stat du guide ("TAUX DE PÉN % > ATQ % > DGT GLACE %") en clés mathématiques officielles
         function parseGuideStatKeys(rawLabel) {
             if (!rawLabel) return [];
             const str = String(rawLabel).toUpperCase();
@@ -486,7 +493,7 @@
         }
 
         // ========================================================
-        // 4. UNICITÉ STRICTE DES DISQUES & GESTION D'INVENTAIRE (POINT 8)
+        // 4. UNICITÉ STRICTE DES DISQUES & GESTION D'INVENTAIRE
         // ========================================================
         const ELEM_ICON_MAP = {
             Physical: 'physique.webp',
@@ -513,8 +520,7 @@
                 st.buildSystem = {
                     craftedDiscs: [],
                     agentBuilds: {},
-                    calibrators: 2,
-                    usedGachaDiscs: {}, // { [setKey]: count } -> chaque disque tiré dans le Gacha ne peut être gravé gratuitement qu'une seule fois
+                    usedGachaDiscs: {},
                     claimedBadges: {}
                 };
             }
@@ -538,18 +544,6 @@
                 }
             });
 
-            // Attribution des Calibrateurs M6+
-            Object.values(st.inventory || {}).forEach(it => {
-                if (it.type === 'agent' && (it.count || 0) > 7) {
-                    const ab = getOrInitAgentBuild(st, it.rawKey);
-                    const prevClaimed = ab.overclockClaimed || 7;
-                    if (it.count > prevClaimed) {
-                        st.buildSystem.calibrators = (st.buildSystem.calibrators || 0) + (it.count - prevClaimed);
-                        ab.overclockClaimed = it.count;
-                    }
-                }
-            });
-
             return st.buildSystem;
         }
 
@@ -559,14 +553,12 @@
                 st.buildSystem.agentBuilds[agentKey] = {
                     engineKey: null,
                     discs: { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null },
-                    skills: [1, 1, 1, 1, 1],
-                    overclockClaimed: 7
+                    skills: [1, 1, 1, 1, 1]
                 };
             }
             return st.buildSystem.agentBuilds[agentKey];
         }
 
-        // Retourne l'agentKey qui porte actuellement ce disque (ou null)
         function getDiscOwner(st, discUid) {
             if (!discUid || !st.buildSystem?.agentBuilds) return null;
             for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
@@ -577,7 +569,6 @@
             return null;
         }
 
-        // Retourne l'agentKey qui porte actuellement ce Moteur-Ampli (ou null)
         function getEngineOwner(st, engineKey) {
             if (!engineKey || !st.buildSystem?.agentBuilds) return null;
             for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
@@ -586,7 +577,6 @@
             return null;
         }
 
-        // Équipe un disque sur un agent en le retirant automatiquement de tout autre agent (Unicité 100%)
         function equipDiscUnique(st, targetAgentKey, slotNum, discUid) {
             const bs = ensureBuildState(st);
             Object.entries(bs.agentBuilds).forEach(([, ab]) => {
@@ -609,7 +599,6 @@
             targetAb.engineKey = engineKey;
         }
 
-        // Nombre de disques tirés dans le Gacha pas encore gravés
         function getFreeGachaDiscCount(st, setKey = null) {
             const bs = ensureBuildState(st);
             const inv = st.inventory || {};
@@ -619,7 +608,7 @@
                 return Math.max(0, pulled - used);
             }
             let total = 0;
-            Object.entries(inv).forEach(([id, it]) => {
+            Object.entries(inv).forEach(([, it]) => {
                 if (it.type === 'disc') {
                     const used = bs.usedGachaDiscs[it.rawKey] || 0;
                     total += Math.max(0, (it.count || 0) - used);
@@ -628,14 +617,12 @@
             return total;
         }
 
-        // Calcul du gain de démantèlement d'un disque (5 ✦ de base + 80% des ✦ investis dans ses niveaux)
         function calcDiscDismantleGain(disc) {
             if (!disc) return 0;
             const steps = Math.floor((disc.level || 0) / 3);
             return 5 + Math.round(steps * 4 * 0.8);
         }
 
-        // Score d'un disque selon le Guide de l'Agent (pour Tri & Auto-Équipement)
         function scoreDiscForAgent(disc, agentKey) {
             if (!disc) return 0;
             const prof = getGuideProfile(agentKey);
@@ -664,14 +651,12 @@
         }
 
         // ========================================================
-        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE (POINTS 1 & 4)
+        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE
         // ========================================================
         function autoEquipFromGuide(st, pool, agent) {
             const bs = ensureBuildState(st);
-            const ab = getOrInitAgentBuild(st, agent.rawKey);
             const prof = getGuideProfile(agent.rawKey);
 
-            // 1. Moteur-Ampli : cherche d'abord les moteurs du guide non portés par un autre agent
             const ownedEngines = pool.allCatalog.filter(i => {
                 if (i.type !== 'engine' || (st.inventory[i.id]?.count || 0) <= 0) return false;
                 const owner = getEngineOwner(st, i.rawKey);
@@ -690,7 +675,6 @@
                 }
             }
             if (!chosenEngine && ownedEngines.length > 0) {
-                // Fallback : même rôle que l'agent puis rang S > A > B
                 const roleMatches = ownedEngines.filter(e => (e.role || '').toLowerCase() === (agent.role || '').toLowerCase());
                 const listToPick = roleMatches.length > 0 ? roleMatches : ownedEngines;
                 const rW = { S: 0, A: 1, B: 2 };
@@ -701,7 +685,6 @@
                 equipEngineUnique(st, agent.rawKey, chosenEngine.rawKey);
             }
 
-            // 2. Disques 1 à 6 : uniquement parmi les disques libres (ou déjà sur cet agent)
             for (let slot = 1; slot <= 6; slot++) {
                 const available = bs.craftedDiscs.filter(d => {
                     if (d.slot !== slot) return false;
@@ -878,7 +861,6 @@
             const ab = getOrInitAgentBuild(st, agent.rawKey);
             const calc = computeAgentStats(st, pool, agent);
 
-            const ownedEnginesCount = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0).length;
             const freeDiscsTotal = getFreeGachaDiscCount(st);
 
             const rosterHTML = ownedAgents.map(a => {
@@ -911,22 +893,29 @@
                             <button type="button" class="zb-bardic-cta secondary" id="btn-open-storage">
                                 <span class="zb-bardic-cta-icon">📦</span>
                                 <div class="zb-bardic-cta-txt">
-                                    <span class="zb-bardic-cta-title">${t.storageBtnTitle}</span>
-                                    <span class="zb-bardic-cta-sub" style="color:#38bdf8;">${t.storageBtnSub.replace('{d}', bs.craftedDiscs.length).replace('{e}', ownedEnginesCount)}</span>
+                                    <span class="zb-bardic-cta-title">${t.storageBtnTitle.replace('{d}', bs.craftedDiscs.length)}</span>
+                                    <span class="zb-bardic-cta-sub" style="color:#38bdf8;">${t.storageBtnSub}</span>
                                 </div>
                             </button>
                             <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
                                 <span class="zb-bardic-cta-icon">💿</span>
                                 <div class="zb-bardic-cta-txt">
                                     <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
-                                    <span class="zb-bardic-cta-sub">${t.bardicBtnSub.replace('{free}', freeDiscsTotal).replace('{cal}', bs.calibrators || 0)}</span>
+                                    <span class="zb-bardic-cta-sub">${t.bardicBtnSub.replace('{free}', freeDiscsTotal).replace('{d}', bs.craftedDiscs.length)}</span>
                                 </div>
                             </button>
                         </div>
                     </div>
 
+                    <!-- Bandeau d'aide intuitif en 3 étapes -->
+                    <div class="zb-steps-strip">
+                        <div class="zb-step-item"><span class="zb-step-num">1</span><span>${t.step1}</span></div>
+                        <div class="zb-step-item"><span class="zb-step-num">2</span><span>${t.step2}</span></div>
+                        <div class="zb-step-item"><span class="zb-step-num">3</span><span>${t.step3}</span></div>
+                    </div>
+
                     <div class="zb-stage">
-                        <div class="zb-agent-showcase ${calc.overclockLvl > 0 ? 'overclocked' : ''}">
+                        <div class="zb-agent-showcase ${calc.overclockLvl > 0 ? 'overclocked' : ''} ${currentSubMenu !== 'stats' ? 'hide-on-mobile-sub' : ''}">
                             <div class="zb-agent-bg-name">${bridge.itemName(agent)}</div>
                             ${calc.overclockLvl > 0 ? `<div class="zb-overclock-pill">${t.overclockBanner.replace('{lvl}', calc.overclockLvl).replace('{pct}', Math.min(20, calc.overclockLvl * 2))}</div>` : ''}
                             <img src="assets/splash/${agent.rawKey}.webp" onerror="this.onerror=null;this.src='${agent.img}';" alt="${bridge.itemName(agent)}" class="zb-agent-art">
@@ -1058,7 +1047,7 @@
             return `
                 <div>
                     <span class="gacha-patch-tag">${t.skillsTag.replace('{max}', maxCap)}</span>
-                    <h3 class="gacha-panel-title" style="font-size:22px;">${t.skillsTitle}</h3>
+                    <h3 class="gacha-panel-title" style="font-size:20px;">${t.skillsTitle}</h3>
                     <p class="gacha-panel-desc">${t.skillsDesc}</p>
                 </div>
 
@@ -1071,7 +1060,7 @@
                             <div class="zb-skill-circle">
                                 <img src="${sk.icon}" alt="${t.skillShort[idx]}">
                             </div>
-                            <span style="font-size:9.5px;font-weight:900;text-transform:uppercase;color:#e4e4e7;text-align:center;">${t.skillShort[idx]}</span>
+                            <span style="font-size:9px;font-weight:900;text-transform:uppercase;color:#e4e4e7;text-align:center;">${t.skillShort[idx]}</span>
                             <div class="zb-skill-lvl-pill">
                                 <span style="color:${lv >= maxCap ? '#d7f70c' : '#fff'};">${String(lv).padStart(2, '0')}</span>
                                 <span class="max">/${maxCap}</span>
@@ -1082,7 +1071,7 @@
 
                 <div style="background:#0c0c12;border:1.5px solid #272733;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;">
                     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:14px;text-transform:uppercase;color:#fff;">
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:13.5px;text-transform:uppercase;color:#fff;">
                             ${t.skillNames[activeSkillIdx]} (Lv. ${curLvl} → ${isMax ? 'MAX' : curLvl + 1})
                         </strong>
                         <span class="gacha-quest-prog done">${bonusDesc}</span>
@@ -1099,7 +1088,7 @@
             `;
         }
 
-        // --- MENU 3 : COCKPIT D'ÉQUIPEMENT + CONSEILS DU GUIDE + BOUTONS DÉSÉQUIPER ---
+        // --- MENU 3 : COCKPIT D'ÉQUIPEMENT ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
             const engCount = engObj ? Math.min(5, st.inventory[engObj.id]?.count || 1) : 0;
@@ -1138,17 +1127,16 @@
 
             const activeSets = Object.entries(calc.setCounts).filter(([, c]) => c >= 2);
 
-            // Résumé des sets et stats conseillés par le guide
             const recSet1Obj = prof.sets4[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets4[0]) : null;
             const recSet2Obj = prof.sets2[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets2[0]) : null;
             const guideRecSummary = (recSet1Obj || prof.subPrio.length > 0)
-                ? `<div style="background:rgba(215,247,12,0.06);border:1px solid rgba(215,247,12,0.3);border-radius:12px;padding:7px 10px;font-size:10.5px;color:#d4d4d8;display:flex;flex-direction:column;gap:3px;">
-                    <strong style="color:#d7f70c;font-size:10px;text-transform:uppercase;">${t.guideRecTitle}</strong>
+                ? `<div style="background:rgba(215,247,12,0.06);border:1px solid rgba(215,247,12,0.3);border-radius:12px;padding:7px 10px;font-size:10.5px;color:#d4d4d8;display:flex;flex-direction:column;gap:2px;">
+                    <strong style="color:#d7f70c;font-size:9.5px;text-transform:uppercase;">${t.guideRecTitle}</strong>
                     <div>
                         ${recSet1Obj ? `<strong>4P:</strong> ${bridge.itemName(recSet1Obj)}` : ''}
                         ${recSet2Obj ? ` • <strong>2P:</strong> ${bridge.itemName(recSet2Obj)}` : ''}
                     </div>
-                    <div style="color:#a1a1aa;font-size:10px;">
+                    <div style="color:#a1a1aa;font-size:9.5px;">
                         <strong>[4]</strong> ${(prof.mainBySlot[4]?.[0] && tStat(prof.mainBySlot[4][0])) || 'CRIT/Anomalie'} •
                         <strong>[5]</strong> ${(prof.mainBySlot[5]?.[0] && tStat(prof.mainBySlot[5][0])) || 'DGT/ATQ%'} •
                         <strong>[6]</strong> ${(prof.mainBySlot[6]?.[0] && tStat(prof.mainBySlot[6][0])) || 'ATQ%/Impact/ER'}
@@ -1160,7 +1148,7 @@
                 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                     <div>
                         <span class="gacha-patch-tag">${t.equipTag}</span>
-                        <h3 class="gacha-panel-title" style="font-size:20px;">${t.equipTitle}</h3>
+                        <h3 class="gacha-panel-title" style="font-size:19px;">${t.equipTitle} — ${bridge.itemName(agent)}</h3>
                     </div>
                     <div style="display:flex;gap:6px;flex-wrap:wrap;">
                         <button type="button" class="gacha-details-btn accent" id="btn-auto-equip">${t.autoEquip}</button>
@@ -1175,7 +1163,7 @@
                         <div class="zb-wengine-core" id="btn-wheel-wengine" title="${t.engineSlot}">
                             ${engObj
                                 ? `<img src="${engObj.img}" alt="${bridge.itemName(engObj)}"><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">${engObj.rank} ★${engCount}</span>`
-                                : `<span style="font-size:26px;color:#52525b;">➕</span><span class="zb-slot-tag">${t.engineSlot}</span>`
+                                : `<span style="font-size:24px;color:#52525b;">➕</span><span class="zb-slot-tag">${t.engineSlot}</span>`
                             }
                         </div>
                     </div>
@@ -1184,12 +1172,12 @@
                         <div class="zb-equip-wcard" id="btn-card-wengine">
                             <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
                                 ${engObj
-                                    ? `<img src="${engObj.img}" style="width:40px;height:40px;object-fit:contain;background:#000;border-radius:10px;padding:3px;">`
-                                    : `<div style="width:40px;height:40px;border-radius:10px;background:#181822;display:flex;align-items:center;justify-content:center;font-size:18px;">⚙️</div>`
+                                    ? `<img src="${engObj.img}" style="width:38px;height:38px;object-fit:contain;background:#000;border-radius:10px;padding:3px;">`
+                                    : `<div style="width:38px;height:38px;border-radius:10px;background:#181822;display:flex;align-items:center;justify-content:center;font-size:17px;">⚙️</div>`
                                 }
                                 <div style="min-width:0;flex:1;">
-                                    <span style="font-size:9.5px;font-weight:900;color:#facc15;text-transform:uppercase;display:block;">${t.engineSlot}</span>
-                                    <strong style="font-family:'Montserrat',sans-serif;font-size:11.5px;color:#fff;text-transform:uppercase;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                    <span style="font-size:9px;font-weight:900;color:#facc15;text-transform:uppercase;display:block;">${t.engineSlot}</span>
+                                    <strong style="font-family:'Montserrat',sans-serif;font-size:11px;color:#fff;text-transform:uppercase;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                         ${engObj ? bridge.itemName(engObj) : t.noEngineEquipped}
                                     </strong>
                                 </div>
@@ -1203,9 +1191,9 @@
                         ${guideRecSummary}
 
                         <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:7px 10px;">
-                            <span style="font-size:9.5px;font-weight:900;color:#a1a1aa;text-transform:uppercase;display:block;margin-bottom:4px;">${t.activeSetBonuses}</span>
+                            <span style="font-size:9px;font-weight:900;color:#a1a1aa;text-transform:uppercase;display:block;margin-bottom:3px;">${t.activeSetBonuses}</span>
                             ${activeSets.length === 0
-                                ? `<span style="font-size:10.5px;color:#71717a;">${t.noSetBonus}</span>`
+                                ? `<span style="font-size:10px;color:#71717a;">${t.noSetBonus}</span>`
                                 : `<div style="display:flex;gap:5px;flex-wrap:wrap;">${activeSets.map(([sk, cnt]) => {
                                     const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
                                     return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${dObj ? bridge.itemName(dObj) : sk}</span>`;
@@ -1301,17 +1289,17 @@
         }
 
         // ========================================================
-        // 8. ÉCRAN D'ARMURERIE ZZZ EN 3 COLONNES (FIDÈLE À IMAGE 2 & 4)
+        // 8. ÉCRAN D'ARMURERIE ZZZ (BOUTON FERMER À DROITE SANS FLÈCHE)
         // ========================================================
         function openZZZArmoryModal(mount, st, pool, bs, agent, ab, initialTarget = 1) {
             const bridge = window.ZZZGachaBridge;
             const overlay = document.getElementById('gacha-anim-overlay');
             if (!overlay) return;
 
-            let activeSlotOrEngine = initialTarget; // 1..6 ou 'engine'
+            let activeSlotOrEngine = initialTarget;
             let selectedUidOrKey = null;
             let filterSet = 'all';
-            let sortMode = 'guide'; // 'guide' | 'level'
+            let sortMode = 'guide';
 
             const prof = getGuideProfile(agent.rawKey);
 
@@ -1331,7 +1319,6 @@
                 const isEngineMode = activeSlotOrEngine === 'engine';
                 const slotNum = isEngineMode ? 0 : Number(activeSlotOrEngine);
 
-                // Construction de la roue interactive à droite (Colonne 3)
                 const wheelNodesHTML = [1, 2, 3, 4, 5, 6].map(s => {
                     const u = ab.discs[s];
                     const d = u ? bs.craftedDiscs.find(x => x.uid === u) : null;
@@ -1348,7 +1335,6 @@
 
                 const eqEngineObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
 
-                // Colonne 1 (Grille de gauche) + Colonne 2 (Inspecteur central)
                 let leftGridHTML = '';
                 let centerInspectorHTML = '';
                 let bottomRightButtonsHTML = '';
@@ -1377,7 +1363,7 @@
                     if (selEng) {
                         const rawJson = EXT_DATA.engines[selEng.rawKey] || {};
                         const cnt = Math.min(5, st.inventory[selEng.id]?.count || 1);
-                        const starsHTML = Array.from({ length: 5 }, (_, i) => `<span style="color:${i < cnt ? '#facc15' : '#3f3f4e'};font-size:15px;">★</span>`).join(' ');
+                        const starsHTML = Array.from({ length: 5 }, (_, i) => `<span style="color:${i < cnt ? '#facc15' : '#3f3f4e'};font-size:14px;">★</span>`).join(' ');
                         const baseAtkVal = rawJson.baseAtk || (selEng.rank === 'S' ? 713 : (selEng.rank === 'A' ? 594 : 475));
                         const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${selEng.rank === 'S' ? 24 : 18}%`;
                         const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
@@ -1386,10 +1372,10 @@
                         centerInspectorHTML = `
                             <div style="display:flex;flex-direction:column;gap:8px;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
-                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
                                         ${bridge.itemName(selEng)}
                                     </h3>
-                                    ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" style="width:28px;height:28px;border-radius:999px;border:2px solid #d7f70c;">` : ''}
+                                    ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" style="width:26px;height:26px;border-radius:999px;border:2px solid #d7f70c;">` : ''}
                                 </div>
                                 <div style="display:flex;align-items:center;gap:8px;">
                                     <span class="gacha-quest-prog done">${selEng.rank} • Niv. 60/60</span>
@@ -1400,7 +1386,7 @@
                                 <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat avancée</span>
                                 <div class="zb-insp-subline guide-hit"><span>${advStatLbl}</span><strong>MAX</strong></div>
                                 <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.engineEffectLabel} (${selEng.role || 'All'})</span>
-                                <div style="font-size:11.5px;color:#d4d4d8;line-height:1.5;background:#07070b;padding:10px;border-radius:12px;border:1px solid #1f202b;">
+                                <div style="font-size:11px;color:#d4d4d8;line-height:1.45;background:#07070b;padding:9px;border-radius:12px;border:1px solid #1f202b;">
                                     ${effectTxt || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.'}
                                 </div>
                             </div>
@@ -1414,7 +1400,6 @@
                         centerInspectorHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun Moteur-Ampli disponible.</div>`;
                     }
                 } else {
-                    // Mode Partition de Disque [1..6]
                     let list = bs.craftedDiscs.filter(d => d.slot === slotNum);
                     if (filterSet !== 'all') list = list.filter(d => d.setKey === filterSet);
 
@@ -1453,30 +1438,30 @@
                         const dismantleGain = calcDiscDismantleGain(selDisc);
 
                         centerInspectorHTML = `
-                            <div style="display:flex;flex-direction:column;gap:8px;">
+                            <div style="display:flex;flex-direction:column;gap:7px;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
+                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;color:#fff;text-transform:uppercase;">
                                         ${sObj ? bridge.itemName(sObj) : selDisc.setKey} [${selDisc.slot}]
                                     </h3>
-                                    <div style="display:flex;align-items:center;gap:6px;">
+                                    <div style="display:flex;align-items:center;gap:5px;">
                                         <button type="button" class="gacha-details-btn" id="btn-arm-lock" title="${selDisc.locked ? t.unlockBtn : t.lockBtn}">${selDisc.locked ? '🔒' : '🔓'}</button>
-                                        <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''} title="${t.dismantleSingle.replace('{gain}', dismantleGain)}">🗑️ +${dismantleGain}✦</button>
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''}>🗑️ +${dismantleGain}✦</button>
                                     </div>
                                 </div>
 
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <span class="gacha-quest-prog done">S • Niv. ${selDisc.level}/15 • ${selDisc.isFourLiner ? '4-Liner' : '3-Liner'}</span>
-                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:20px;height:20px;border-radius:999px;"> ${ownerKey}</span>` : ''}
+                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:18px;height:18px;border-radius:999px;"> ${ownerKey}</span>` : ''}
                                 </div>
 
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
+                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
                                 <div class="zb-insp-subline ${isMainRec ? 'guide-hit' : ''}">
                                     <span>${tStat(selDisc.mainStat)}</span>
                                     <strong>${formatMainStatValue(selDisc.mainStat, selDisc.level)}</strong>
                                 </div>
 
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
-                                <div style="display:flex;flex-direction:column;gap:5px;">
+                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
+                                <div style="display:flex;flex-direction:column;gap:4px;">
                                     ${selDisc.substats.map(sub => {
                                         const isGuideSub = prof.subPrio.includes(sub.key);
                                         return `
@@ -1487,10 +1472,10 @@
                                     }).join('')}
                                 </div>
 
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.setEffectsLabel}</span>
-                                <div style="font-size:11px;color:#a1a1aa;line-height:1.45;background:#07070b;padding:9px 10px;border-radius:12px;border:1px solid #1f202b;">
-                                    <div><strong style="color:#fff;">${t.piece2} :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
-                                    <div style="margin-top:4px;"><strong style="color:#d7f70c;">${t.piece4} :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
+                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.setEffectsLabel}</span>
+                                <div style="font-size:10.5px;color:#a1a1aa;line-height:1.4;background:#07070b;padding:8px 10px;border-radius:12px;border:1px solid #1f202b;">
+                                    <div><strong style="color:#fff;">2P :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
+                                    <div style="margin-top:3px;"><strong style="color:#d7f70c;">4P :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
                                 </div>
                             </div>
                         `;
@@ -1514,7 +1499,7 @@
                     } else {
                         centerInspectorHTML = `
                             <div style="margin:auto;text-align:center;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;">
-                                <span style="font-size:12px;color:#a1a1aa;">${t.noDiscInSlot.replace(/\{slot\}/g, slotNum)}</span>
+                                <span style="font-size:12px;color:#a1a1aa;">${t.noDiscInSlot.replace('{slot}', slotNum)}</span>
                                 <button type="button" class="gacha-res-btn primary" id="btn-arm-craft-slot">🎵 Graver Partition [${slotNum}]</button>
                             </div>`;
                     }
@@ -1525,15 +1510,11 @@
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal">
-                        <!-- Barre supérieure de l'Armurerie -->
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #262734;padding-bottom:10px;">
-                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                                <button type="button" class="gacha-back-btn" id="close-armory-modal">
-                                    <span>←</span>
-                                    <span>${t.close}</span>
-                                </button>
+                        <!-- En-tête : Filtres à gauche, Bouton FERMER à droite sans flèche (Point 5) -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
+                            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                                 ${!isEngineMode ? `
-                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:150px;">
+                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:135px;">
                                     <option value="all">${t.filterAllSets}</option>
                                     ${distinctSets.map(sk => {
                                         const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
@@ -1542,25 +1523,34 @@
                                 </select>
                                 <button type="button" class="gacha-col-filter-btn ${sortMode === 'guide' ? 'active' : ''}" id="arm-sort-toggle">
                                     ${sortMode === 'guide' ? t.sortGuide : t.sortLevel}
-                                </button>` : ''}
+                                </button>` : `<span class="gacha-patch-tag" style="margin:0;">${t.engineSlot}</span>`}
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;">
+                            <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
                                 ${!isEngineMode ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">🎵 Graver [${slotNum}]</button>` : ''}
+                                <button type="button" class="gacha-res-btn" id="close-armory-modal">${t.close}</button>
                             </div>
                         </div>
 
-                        <!-- Corps 3 Colonnes façon ZZZ (Grille | Inspecteur | Roue Interactive) -->
+                        <!-- Barre rapide de sélection de slot sur Mobile/Tablette -->
+                        <div class="zb-mobile-slot-pills">
+                            <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-armory-wheel="engine">⚙️ Moteur</button>
+                            ${[1, 2, 3, 4, 5, 6].map(s => `
+                                <button type="button" class="gacha-col-filter-btn ${!isEngineMode && slotNum === s ? 'active' : ''}" data-armory-wheel="${s}">[${s}]</button>
+                            `).join('')}
+                        </div>
+
+                        <!-- Corps 3 Colonnes (2 colonnes sur Tablette, 1 sur Mobile) -->
                         <div class="zb-armory-3col">
                             <div class="zb-armory-grid-scroll">
-                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:30px 10px;font-size:12px;">Aucun élément.</div>`}
+                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:24px 10px;font-size:12px;">Aucun élément.</div>`}
                             </div>
 
                             <div class="zb-inspector-col">
                                 ${centerInspectorHTML}
                             </div>
 
-                            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                            <div class="zb-armory-wheel-col">
                                 <div class="zb-hex-housing">
                                     <span class="zb-driver-plaque">DRIVER</span>
                                     ${wheelNodesHTML}
@@ -1574,13 +1564,12 @@
                             </div>
                         </div>
 
-                        <!-- Barre d'actions inférieure façon ZZZ (Recommandé | Tout déséquiper | Équiper / Déséquiper | Renforcer) -->
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid #262734;padding-top:10px;">
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid #262734;padding-top:10px;">
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                 <button type="button" class="gacha-res-btn" id="btn-arm-auto-guide" style="border-color:#d7f70c;color:#d7f70c;">${t.autoEquip}</button>
                                 <button type="button" class="gacha-res-btn" id="btn-arm-unequip-all">${t.unequipAll}</button>
                             </div>
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
                                 ${bottomRightButtonsHTML}
                             </div>
                         </div>
@@ -1612,10 +1601,10 @@
                     openBardicNeedleModal(mount);
                 });
 
-                // Navigation directe sur la roue de droite (1..6 et Moteur central)
                 overlay.querySelectorAll('[data-armory-wheel]').forEach(el => {
                     el.addEventListener('click', () => {
-                        activeSlotOrEngine = parseInt(el.getAttribute('data-armory-wheel'), 10);
+                        const val = el.getAttribute('data-armory-wheel');
+                        activeSlotOrEngine = val === 'engine' ? 'engine' : parseInt(val, 10);
                         syncDefaultSelection();
                         renderArmory();
                     });
@@ -1634,7 +1623,6 @@
                     });
                 });
 
-                // Équiper / Transférer / Déséquiper
                 document.getElementById('btn-arm-equip')?.addEventListener('click', () => {
                     if (!selectedUidOrKey) return;
                     if (isEngineMode) {
@@ -1670,7 +1658,6 @@
                     renderArmory();
                 });
 
-                // Verrouiller / Démanteler / Renforcer un disque
                 document.getElementById('btn-arm-lock')?.addEventListener('click', () => {
                     const d = bs.craftedDiscs.find(x => x.uid === selectedUidOrKey);
                     if (d) {
@@ -1723,7 +1710,7 @@
         }
 
         // ========================================================
-        // 9. ENTREPÔT GLOBAL DISQUES & MOTEURS (FIDÈLE À IMAGE 3)
+        // 9. ENTREPÔT GLOBAL DISQUES & MOTEURS (FERMER À DROITE SANS FLÈCHE)
         // ========================================================
         function openStorageModal(mount, initialTab = 'discs') {
             const bridge = window.ZZZGachaBridge;
@@ -1733,7 +1720,7 @@
             const overlay = document.getElementById('gacha-anim-overlay');
             if (!overlay) return;
 
-            let storageTab = initialTab; // 'discs' | 'engines'
+            let storageTab = initialTab;
             let filterSet = 'all';
             let filterSlot = 0;
             let selectedId = null;
@@ -1744,11 +1731,9 @@
                 const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
                 const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
-                // Calcul du gain de démantèlement rapide (tous les disques Niv.0 non verrouillés et non équipés)
                 const unownedLv0Discs = bs.craftedDiscs.filter(d => d.level === 0 && !d.locked && !getDiscOwner(st, d.uid));
                 const batchDiscGain = unownedLv0Discs.length * 5;
 
-                // Calcul des doublons de moteurs recyclables (au-delà de 1 exemplaire)
                 let surplusEngineGain = 0;
                 ownedEngines.forEach(e => {
                     const cnt = st.inventory[e.id]?.count || 0;
@@ -1791,30 +1776,30 @@
                         const gain = calcDiscDismantleGain(selD);
 
                         rightDetailHTML = `
-                            <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;flex-direction:column;gap:8px;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <div>
-                                        <span style="font-size:10px;font-weight:900;color:#71717a;">DETAIL</span>
-                                        <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                                        <span style="font-size:9.5px;font-weight:900;color:#71717a;">DETAIL</span>
+                                        <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
                                             ${sObj ? bridge.itemName(sObj) : selD.setKey} [${selD.slot}]
                                         </h3>
                                     </div>
-                                    <img src="${sObj ? sObj.img : ''}" style="width:48px;height:48px;border-radius:999px;">
+                                    <img src="${sObj ? sObj.img : ''}" style="width:44px;height:44px;border-radius:999px;">
                                 </div>
 
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <span class="gacha-quest-prog done">S • Niv. ${selD.level}/15</span>
-                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:22px;height:22px;border-radius:999px;"> ${ownerKey}</span>` : `<span style="font-size:10.5px;color:#71717a;">EMPTY</span>`}
+                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:20px;height:20px;border-radius:999px;"> ${ownerKey}</span>` : `<span style="font-size:10px;color:#71717a;">EMPTY</span>`}
                                 </div>
 
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
+                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
                                 <div class="zb-insp-subline guide-hit">
                                     <span>${tStat(selD.mainStat)}</span>
                                     <strong>${formatMainStatValue(selD.mainStat, selD.level)}</strong>
                                 </div>
 
-                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
-                                <div style="display:flex;flex-direction:column;gap:5px;">
+                                <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
+                                <div style="display:flex;flex-direction:column;gap:4px;">
                                     ${selD.substats.map(sub => `
                                         <div class="zb-insp-subline ${sub.upgrades > 0 ? 'guide-hit' : ''}">
                                             <span>${tStat(sub.key)} ${sub.upgrades > 0 ? `+${sub.upgrades}` : ''}</span>
@@ -1824,7 +1809,7 @@
                                 </div>
                             </div>
 
-                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
                                 <button type="button" class="gacha-details-btn" id="st-btn-lock">${selD.locked ? t.unlockBtn : t.lockBtn}</button>
                                 <button type="button" class="gacha-details-btn" id="st-btn-trash" ${selD.locked || ownerKey ? 'disabled' : ''} style="border-color:#ef4444;color:#fca5a5;">
                                     ${t.dismantleSingle.replace('{gain}', gain)}
@@ -1838,7 +1823,6 @@
                         rightDetailHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun disque dans l'entrepôt.</div>`;
                     }
                 } else {
-                    // Onglet Moteurs-Ampli dans l'Entrepôt
                     const rW = { S: 0, A: 1, B: 2 };
                     ownedEngines.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
                     if (!selectedId || !ownedEngines.some(e => e.rawKey === selectedId)) {
@@ -1866,15 +1850,15 @@
                         const unitVal = selE.rank === 'S' ? 40 : (selE.rank === 'A' ? 10 : 3);
 
                         rightDetailHTML = `
-                            <div style="display:flex;flex-direction:column;gap:10px;">
-                                <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                            <div style="display:flex;flex-direction:column;gap:8px;">
+                                <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
                                     ${bridge.itemName(selE)}
                                 </h3>
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <span class="gacha-quest-prog done">${selE.rank} • ★${Math.min(5, cnt)} (${cnt} ex.)</span>
-                                    ${ownerKey ? `<span style="font-size:11px;font-weight:800;color:#d7f70c;">Porté par ${ownerKey}</span>` : ''}
+                                    ${ownerKey ? `<span style="font-size:10.5px;font-weight:800;color:#d7f70c;">Porté par ${ownerKey}</span>` : ''}
                                 </div>
-                                <div style="font-size:11.5px;color:#d4d4d8;line-height:1.5;background:#07070b;padding:10px;border-radius:12px;border:1px solid #1f202b;">
+                                <div style="font-size:11px;color:#d4d4d8;line-height:1.45;background:#07070b;padding:9px;border-radius:12px;border:1px solid #1f202b;">
                                     ${effectTxt || 'Moteur-Ampli de spécialisation ' + (selE.role || '')}
                                 </div>
                             </div>
@@ -1888,20 +1872,21 @@
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal" style="max-width:1100px;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #262734;padding-bottom:10px;">
-                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                                <button type="button" class="gacha-back-btn" id="close-storage-modal">← ${t.close}</button>
+                        <!-- En-tête : Onglets à gauche, FERMER à droite sans flèche (Point 5) -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
+                            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                                 <button type="button" class="gacha-col-filter-btn ${storageTab === 'discs' ? 'active' : ''}" data-st-tab="discs">${t.storageDiscsTab.replace('{n}', bs.craftedDiscs.length)}</button>
                                 <button type="button" class="gacha-col-filter-btn ${storageTab === 'engines' ? 'active' : ''}" data-st-tab="engines">${t.storageEnginesTab.replace('{n}', ownedEngines.length)}</button>
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;">
+                            <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
+                                <button type="button" class="gacha-res-btn" id="close-storage-modal">${t.close}</button>
                             </div>
                         </div>
 
                         ${storageTab === 'discs' ? `
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                            <div style="display:flex;gap:5px;flex-wrap:wrap;">
                                 <select id="st-filter-set" class="gacha-col-search">
                                     <option value="all">${t.filterAllSets}</option>
                                     ${distinctSets.map(sk => {
@@ -1923,9 +1908,9 @@
                             </button>
                         </div>`}
 
-                        <div style="display:grid;grid-template-columns:1.35fr 0.85fr;gap:16px;min-height:0;flex:1;">
+                        <div class="zb-storage-2col">
                             <div class="zb-armory-grid-scroll">
-                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:30px;">Vide</div>`}
+                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:24px;">Vide</div>`}
                             </div>
                             <div class="zb-inspector-col">
                                 ${rightDetailHTML}
@@ -2041,7 +2026,7 @@
         }
 
         // ========================================================
-        // 10. STUDIO D'ACCORDAGE ELFY (AVEC STOCK GACHA GRATUIT UNIQUE)
+        // 10. STUDIO D'ACCORDAGE ELFY (SANS CALIBRATEUR -> PRIX ×2 SI STAT CHOISIE)
         // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
@@ -2053,7 +2038,6 @@
 
             const allSets = pool.allCatalog.filter(i => i.type === 'disc');
             if (!bardicSetKey || !allSets.some(s => s.rawKey === bardicSetKey)) {
-                // Sélectionne par défaut le Set 4P recommandé de l'agent actif
                 const prof = getGuideProfile(selectedAgentKey);
                 bardicSetKey = prof.sets4[0] || allSets[0]?.rawKey || '';
             }
@@ -2071,7 +2055,6 @@
                     return bridge.itemName(s).toLowerCase().includes(q) || s.rawKey.toLowerCase().includes(q);
                 });
 
-                // Place les sets recommandés par le guide de l'agent en tête de liste
                 filteredSets.sort((a, b) => {
                     const aRec = prof.sets4.includes(a.rawKey) ? 2 : (prof.sets2.includes(a.rawKey) ? 1 : 0);
                     const bRec = prof.sets4.includes(b.rawKey) ? 2 : (prof.sets2.includes(b.rawKey) ? 1 : 0);
@@ -2084,24 +2067,32 @@
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
                 const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
+                // Multiplicateur ×2 si une Main Stat précise est choisie sur Partition 4, 5 ou 6 (Point 4)
+                const isTargeted = !!(selectedMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot][selectedMainStat]);
+                const mult = isTargeted ? 2 : 1;
+
+                const costRes1 = 10 * mult;
+                const costRes5 = 50 * mult;
+                const costPoly1 = 80 * mult;
+                const costFree1 = 1 * mult;
+
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="gacha-dialog-box" style="max-width:1000px;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                             <div>
                                 <span class="gacha-patch-tag">${t.bardicTag}</span>
-                                <h2 class="gacha-panel-title" style="font-size:22px;">${t.bardicTitle}</h2>
+                                <h2 class="gacha-panel-title" style="font-size:21px;">${t.bardicTitle}</h2>
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                            <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
                                 <span class="gacha-reset-pill" style="color:#d7f70c;">Poly : ${st.polychromes}</span>
-                                <span class="gacha-reset-pill" style="color:#38bdf8;">🎯 ${bs.calibrators || 0}</span>
                                 <button type="button" class="gacha-res-btn" id="close-bardic-modal">${t.close}</button>
                             </div>
                         </div>
 
                         <div class="zb-bardic-layout">
-                            <div style="display:flex;flex-direction:column;gap:10px;min-height:0;">
+                            <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
@@ -2116,7 +2107,7 @@
                                                     ${isGuideRec ? '⭐ ' : ''}${bridge.itemName(s)}
                                                 </div>
                                                 <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#a1a1aa'};">
-                                                    ${freeStock > 0 ? `💿 ${freeStock} à graver` : `×${countCrafted} gravés`}
+                                                    ${freeStock > 0 ? `💿 ${freeStock} gratuits` : `×${countCrafted} gravés`}
                                                 </span>
                                             </div>
                                         </div>`;
@@ -2124,19 +2115,19 @@
                                 </div>
                             </div>
 
-                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:12px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
-                                <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
+                                <div style="display:flex;flex-direction:column;gap:9px;">
                                     <div style="display:flex;align-items:center;gap:10px;">
-                                        <img src="${currentSet ? currentSet.img : ''}" style="width:44px;height:44px;border-radius:999px;">
+                                        <img src="${currentSet ? currentSet.img : ''}" style="width:42px;height:42px;border-radius:999px;">
                                         <div>
-                                            <span style="font-size:9.5px;font-weight:900;color:#d7f70c;text-transform:uppercase;">PISTE SÉLECTIONNÉE • 100% UP</span>
-                                            <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;color:#fff;text-transform:uppercase;">
+                                            <span style="font-size:9px;font-weight:900;color:#d7f70c;text-transform:uppercase;">PISTE SÉLECTIONNÉE • 100% UP</span>
+                                            <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                 ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
                                             </h3>
                                         </div>
                                     </div>
 
-                                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+                                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
                                         <button type="button" class="gacha-col-filter-btn ${bardicSlot === 0 ? 'active' : ''}" data-bslot="0" style="grid-column:span 2;">${t.randomPartition}</button>
                                         ${[1, 2, 3, 4, 5, 6].map(n => `
                                             <button type="button" class="gacha-col-filter-btn ${bardicSlot === n ? 'active' : ''}" data-bslot="${n}">[${n}]</button>
@@ -2145,17 +2136,20 @@
 
                                     ${variableMainKeys.length > 0 ? `
                                     <div style="display:flex;flex-direction:column;gap:5px;">
-                                        <span style="font-size:10.5px;font-weight:800;color:#a1a1aa;">${t.orientationLabel}</span>
-                                        <select id="bardic-main-select" class="gacha-col-search" style="width:100%;">
+                                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                                            <span style="font-size:10.5px;font-weight:800;color:#a1a1aa;">${t.orientationLabel}</span>
+                                            ${isTargeted ? `<span class="gacha-quest-prog done">${t.targetedPriceTag.replace('{stat}', tStat(selectedMainStat))}</span>` : ''}
+                                        </div>
+                                        <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isTargeted ? '#d7f70c' : '#2c2c36'};">
                                             <option value="">${t.standardWeighted}</option>
-                                            ${variableMainKeys.map(k => `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${tStat(k)} (${Math.round(PARTITION_WEIGHTS[bardicSlot][k] * 100)}%)</option>`).join('')}
+                                            ${variableMainKeys.map(k => `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>🎯 ${tStat(k)} — Prix ×2 (${Math.round(PARTITION_WEIGHTS[bardicSlot][k] * 100)}% base)</option>`).join('')}
                                         </select>
                                     </div>` : ''}
                                 </div>
 
-                                <div style="display:flex;flex-direction:column;gap:6px;max-height:165px;overflow-y:auto;">
+                                <div style="display:flex;flex-direction:column;gap:6px;max-height:155px;overflow-y:auto;">
                                     ${lastCraftedList.map(d => `
-                                        <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                                        <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-size:10px;font-weight:900;color:#d7f70c;">
                                                     [${d.slot}] ${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)}) • ${d.isFourLiner ? '★ 4-Liner' : '3-Liner'}
@@ -2166,21 +2160,21 @@
                                             </div>
                                             ${activeAgent ? `
                                             <button type="button" class="gacha-claim-btn can-claim" data-quick-equip="${d.uid}" data-qslot="${d.slot}" style="padding:5px 9px;font-size:9.5px;">
-                                                ${t.equipNow.replace('{name}', bridge.itemName(activeAgent))}
+                                                ${t.equipNow}
                                             </button>` : ''}
                                         </div>
                                     `).join('')}
                                 </div>
 
                                 <div style="display:flex;flex-direction:column;gap:6px;">
-                                    ${freeForCurrentSet > 0 ? `
+                                    ${freeForCurrentSet >= costFree1 ? `
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free">
-                                        ${t.tuneFreeStock.replace('{n}', freeForCurrentSet)}
+                                        ${t.tuneFreeStock.replace('{c}', costFree1).replace('{n}', freeForCurrentSet)}
                                     </button>` : ''}
                                     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-                                        <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < 10 ? 'disabled' : ''}>${t.tune1Res}</button>
-                                        <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < 50 ? 'disabled' : ''}>${t.tune5Res}</button>
-                                        <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < 80 ? 'disabled' : ''}>${t.tune1Poly}</button>
+                                        <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < costRes1 ? 'disabled' : ''}>${t.tune1Res.replace('{cost}', costRes1)}</button>
+                                        <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < costRes5 ? 'disabled' : ''}>${t.tune5Res.replace('{cost}', costRes5)}</button>
+                                        <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < costPoly1 ? 'disabled' : ''}>${t.tune1Poly.replace('{cost}', costPoly1)}</button>
                                     </div>
                                 </div>
                             </div>
@@ -2223,27 +2217,26 @@
 
                 document.getElementById('bardic-main-select')?.addEventListener('change', (e) => {
                     selectedMainStat = e.target.value;
+                    renderBardic();
                 });
 
                 function executeCraft(count, mode = 'res') {
+                    const forceStat = isTargeted ? selectedMainStat : null;
                     if (mode === 'free') {
-                        if (getFreeGachaDiscCount(st, bardicSetKey) < 1) return;
-                        bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + 1;
+                        if (getFreeGachaDiscCount(st, bardicSetKey) < costFree1) return;
+                        bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + costFree1;
                     } else if (mode === 'poly') {
-                        if (st.polychromes < 80 * count) return;
-                        st.polychromes -= 80 * count;
+                        const needed = costPoly1 * count;
+                        if (st.polychromes < needed) return;
+                        st.polychromes -= needed;
                     } else {
-                        if (st.residual < 10 * count) return;
-                        st.residual -= 10 * count;
-                    }
-                    let forceStat = null;
-                    if (selectedMainStat && bardicSlot >= 4 && (bs.calibrators || 0) >= 1) {
-                        forceStat = selectedMainStat;
-                        bs.calibrators -= 1;
+                        const needed = costRes1 * count;
+                        if (st.residual < needed) return;
+                        st.residual -= needed;
                     }
                     lastCraftedList = [];
                     for (let i = 0; i < count; i++) {
-                        const d = generateSRankDisc(bardicSetKey, bardicSlot, i === 0 ? forceStat : null);
+                        const d = generateSRankDisc(bardicSetKey, bardicSlot, forceStat);
                         bs.craftedDiscs.unshift(d);
                         lastCraftedList.push(d);
                     }
@@ -2431,12 +2424,12 @@
                             return `
                             <div class="zb-badge-card ${canClaim ? 'unlocked' : (isClaimed ? 'claimed' : '')}">
                                 <div style="display:flex;align-items:center;gap:12px;">
-                                    <div style="width:50px;height:50px;border-radius:14px;background:#09090d;border:1.5px solid #2b2b36;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px;">
-                                        ${b.icon ? `<img src="${b.icon}" style="width:38px;height:38px;object-fit:contain;" onerror="this.outerHTML='🏅'">` : b.emoji}
+                                    <div style="width:48px;height:48px;border-radius:14px;background:#09090d;border:1.5px solid #2b2b36;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">
+                                        ${b.icon ? `<img src="${b.icon}" style="width:36px;height:36px;object-fit:contain;" onerror="this.outerHTML='🏅'">` : b.emoji}
                                     </div>
                                     <div style="min-width:0;flex:1;">
                                         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
-                                            <strong style="font-family:'Montserrat',sans-serif;font-size:12.5px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${b.title}</strong>
+                                            <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${b.title}</strong>
                                             <span class="gacha-quest-prog ${isDone ? 'done' : ''}">${b.cur}/${b.max}</span>
                                         </div>
                                         <p style="font-size:11px;color:#a1a1aa;margin:4px 0 0;">${b.desc}</p>
@@ -2489,19 +2482,19 @@
         }
 
         // ========================================================
-        // 12. INJECTION DES ONGLETS & SYNCHRO DE LANGUE FR / EN
+        // 12. INJECTION DES ONGLETS & FERMETURE UNIVERSELLE AU CLIC AUTOUR (POINT 2)
         // ========================================================
         function injectBuildTabsIntoTopbar() {
             const navPills = document.querySelector('#zzz-gacha-modal .gacha-nav-pills');
             if (!navPills) return;
             const t = B();
 
+            navPills.classList.add('zb-six-tabs');
+
             const existingBuilds = document.getElementById('gtab-lbl-builds');
             const existingBadges = document.getElementById('gtab-lbl-badges');
 
             if (!existingBuilds) {
-                navPills.style.gridTemplateColumns = 'repeat(6, 1fr)';
-
                 const btnBuilds = document.createElement('button');
                 btnBuilds.type = 'button';
                 btnBuilds.className = 'gacha-nav-btn';
@@ -2529,6 +2522,22 @@
             } else {
                 if (existingBuilds.textContent !== t.tabBuilds) existingBuilds.textContent = t.tabBuilds;
                 if (existingBadges && existingBadges.textContent !== t.tabBadges) existingBadges.textContent = t.tabBadges;
+            }
+
+            // Active la fermeture universelle en cliquant autour de n'importe quelle pop-up (Point 2)
+            const animOverlay = document.getElementById('gacha-anim-overlay');
+            if (animOverlay && !animOverlay.__zbBackdropBound) {
+                animOverlay.__zbBackdropBound = true;
+                animOverlay.addEventListener('mousedown', (ev) => {
+                    if (ev.target === animOverlay && animOverlay.querySelector('.zb-armory-modal, .gacha-dialog-box, .zb-modal-box')) {
+                        animOverlay.classList.remove('active');
+                        const mount = document.getElementById('gacha-view-mount');
+                        const activeBtn = document.querySelector('#zzz-gacha-modal .gacha-nav-btn.active');
+                        if (mount && activeBtn?.getAttribute('data-gtab') === 'builds') {
+                            renderBuildsTab(mount);
+                        }
+                    }
+                });
             }
         }
 
