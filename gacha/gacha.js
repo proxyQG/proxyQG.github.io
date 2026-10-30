@@ -314,6 +314,8 @@
         if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
         forceCleanupMobileDrawer();
         document.body.classList.remove('modal-open');
+
+        // Nettoie l'état d'historique sans déclencher de popstate asynchrone qui bloque la réouverture mobile
         if (!fromPopState && window.history.state?.gachaOpen) {
             try {
                 window.history.replaceState(null, '', window.location.pathname + window.location.search);
@@ -1610,9 +1612,8 @@
                 const { totalGain } = computeOvercapSurplus();
                 if (totalGain > 0) {
                     Object.values(GState.inventory || {}).forEach(it => {
-                        if (it.type === 'agent' && (it.count || 0) > 7) {
-                            it.count = 7;
-                        }
+                        const maxCap = it.type === 'agent' ? 7 : 5;
+                        if ((it.count || 0) > maxCap) it.count = maxCap;
                     });
                     GState.residual += totalGain;
                     GState.totalDupesRes = (GState.totalDupesRes || 0) + totalGain;
@@ -1678,7 +1679,7 @@
                         <div class="gacha-selector-grid">
                             ${items.map(it => {
                                 const owned = GState.inventory[it.id]?.count || 0;
-                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `×${owned}`) : tm.unownedTag;
+                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `★${Math.min(5, owned)}`) : tm.unownedTag;
                                 return `
                                 <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
                                     <div class="gacha-col-visual">
@@ -1844,8 +1845,13 @@
                                 const mLvl = Math.min(6, it.count - 1);
                                 isMax = mLvl >= 6;
                                 progBadge = isMax ? `M6 MAX` : `M${mLvl}`;
+                            } else if (it.type === 'engine') {
+                                const sLvl = Math.min(5, it.count);
+                                isMax = sLvl >= 5;
+                                progBadge = `★${sLvl} (×${it.count})`;
                             } else {
-                                progBadge = `×${it.count}`;
+                                isMax = it.count >= 5;
+                                progBadge = isMax ? `MAX (×${it.count})` : `×${it.count}`;
                             }
                         } else {
                             progBadge = t.lockedLabel;
