@@ -1546,14 +1546,17 @@
         }
 
         // ========================================================
-        // 7. INJECTION DES ONGLETS & SYNCHRO DE LANGUE FR / EN
+        // 7. INJECTION DES ONGLETS & SYNCHRO DE LANGUE FR / EN (SANS BOUCLE DOM)
         // ========================================================
         function injectBuildTabsIntoTopbar() {
             const navPills = document.querySelector('#zzz-gacha-modal .gacha-nav-pills');
             if (!navPills) return;
             const t = B();
 
-            if (!document.getElementById('gtab-lbl-builds')) {
+            const existingBuilds = document.getElementById('gtab-lbl-builds');
+            const existingBadges = document.getElementById('gtab-lbl-badges');
+
+            if (!existingBuilds) {
                 navPills.style.gridTemplateColumns = 'repeat(6, 1fr)';
 
                 const btnBuilds = document.createElement('button');
@@ -1581,8 +1584,8 @@
                     window.ZZZGachaBridge?.switchCustomTab('badges', renderBadgesTab);
                 });
             } else {
-                document.getElementById('gtab-lbl-builds').textContent = t.tabBuilds;
-                document.getElementById('gtab-lbl-badges').textContent = t.tabBadges;
+                if (existingBuilds.textContent !== t.tabBuilds) existingBuilds.textContent = t.tabBuilds;
+                if (existingBadges && existingBadges.textContent !== t.tabBadges) existingBadges.textContent = t.tabBadges;
             }
         }
 
@@ -1599,15 +1602,10 @@
             }
         }, true);
 
-        const domObs = new MutationObserver(() => {
-            if (document.getElementById('zzz-gacha-modal')) {
-                injectBuildTabsIntoTopbar();
-            }
-        });
-        domObs.observe(document.body, { childList: true, subtree: true });
         injectBuildTabsIntoTopbar();
 
         window.ZZZBuilds = {
+            initTabs: injectBuildTabsIntoTopbar,
             openAgentBuild: (agentKey) => {
                 injectBuildTabsIntoTopbar();
                 selectedAgentKey = agentKey;
