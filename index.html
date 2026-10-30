@@ -114,7 +114,6 @@
    <!-- 5. Feuilles de style externes -->
     <link href="css/tailwind.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="gacha/gacha.css">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
 
@@ -727,9 +726,85 @@
         </div>
     </div>
         
+    <script type="module" src="js/app.js"></script>
     <script src="js/tooltip.js" defer></script>
-    <script src="js/disc-tooltip.js" defer></script> 
-    <script src="gacha/gacha.js" defer></script>
-    <script type="module" src="js/app.js" defer></script>
+    <script src="js/disc-tooltip.js" defer></script>
+    <script>
+    (function () {
+        const KEY = 'zzz_proxyqg_gacha_v1';
+        let loadingPromise = null;
+
+        function todayStr() {
+            const d = new Date();
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        function updateSilentTracker(cb) {
+            try {
+                const raw = localStorage.getItem(KEY);
+                if (!raw) return;
+                const st = JSON.parse(raw);
+                const t = todayStr();
+                if (!st.daily || st.daily.date !== t) {
+                    st.daily = { date: t, visitDone: true, pullsToday: 0, freePackClaimed: false, guidesOpened: [], itemsInspected: [], claimed: {} };
+                }
+                if (cb) cb(st);
+                localStorage.setItem(KEY, JSON.stringify(st));
+                const d = st.daily;
+                const ready = !d.freePackClaimed || !d.claimed?.q1 || (d.guidesOpened?.length >= 3 && !d.claimed?.q2) || (d.itemsInspected?.length >= 2 && !d.claimed?.q3) || (d.guidesOpened?.length >= 6 && !d.claimed?.q5);
+                document.querySelectorAll('.gacha-quest-dot-global').forEach(el => { el.style.display = ready ? 'block' : 'none'; });
+            } catch (e) {}
+        }
+
+        // Suivi passif 0 Ko des quêtes pendant la lecture des guides
+        document.addEventListener('click', (e) => {
+            if (window.__zzzGachaLoaded) return;
+            const ag = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
+            if (ag) {
+                const name = ag.getAttribute('data-agent') || ag.getAttribute('data-tt-agent') || ag.getAttribute('data-disc-agent') || (ag.getAttribute('onclick')?.match(/openAgentDetail\(\s*['"]([^'"]+)['"]/) || [])[1];
+                if (name) updateSilentTracker(st => {
+                    if (!st.daily.guidesOpened.includes(name) && st.daily.guidesOpened.length < 10) {
+                        st.daily.guidesOpened.push(name);
+                        st.totalGuidesRead = (st.totalGuidesRead || 0) + 1;
+                    }
+                });
+            }
+            const eq = e.target.closest('[data-engine], [data-disc]');
+            if (eq) {
+                const k = eq.getAttribute('data-engine') || eq.getAttribute('data-disc');
+                if (k) updateSilentTracker(st => {
+                    if (!st.daily.itemsInspected.includes(k)) st.daily.itemsInspected.push(k);
+                });
+            }
+        }, true);
+
+        updateSilentTracker();
+
+        // Chargement à la demande uniquement au clic sur "Recherche Signal"
+        window.openGachaModal = function () {
+            if (!loadingPromise) {
+                loadingPromise = new Promise((resolve, reject) => {
+                    if (!document.getElementById('zzz-gacha-core-css')) {
+                        const link = document.createElement('link');
+                        link.id = 'zzz-gacha-core-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'gacha/gacha.css?v=5';
+                        document.head.appendChild(link);
+                    }
+                    const s = document.createElement('script');
+                    s.src = 'gacha/gacha.js?v=5';
+                    s.onload = () => { window.__zzzGachaLoaded = true; resolve(); };
+                    s.onerror = reject;
+                    document.body.appendChild(s);
+                });
+            }
+            return loadingPromise.then(() => {
+                if (typeof window.__realOpenGachaModal === 'function') {
+                    return window.__realOpenGachaModal();
+                }
+            });
+        };
+    })();
+    </script>
 </body>
 </html>
