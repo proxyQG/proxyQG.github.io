@@ -1,8 +1,8 @@
-// gacha/gacha-builds.js - Studio de Builds ZZZ, Moteur Mathématique de Disques Rang S, Accordage Elfy & Salle des Trophées (FR / EN)
+// gacha/gacha-builds.js - Studio de Builds ZZZ, Auto-Build relié aux Guides, Armurerie 3 Colonnes, Entrepôt & Unicité Stricte
 (function () {
     try {
         // ========================================================
-        // 1. DICTIONNAIRE BILINGUE FR / EN COMPLET (POINT 5)
+        // 1. DICTIONNAIRE BILINGUE FR / EN COMPLET
         // ========================================================
         const BUILDS_I18N = {
             fr: {
@@ -11,7 +11,9 @@
                 noAgentsTitle: "Aucun Agent débloqué",
                 noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent et débloquer son studio de Build !",
                 bardicBtnTitle: "Studio Disques (Elfy)",
-                bardicBtnSub: "{n} Disques S • 🎯 {cal} Calibrateur(s)",
+                bardicBtnSub: "{free} Gratuits • 🎯 {cal} Calibrateur(s)",
+                storageBtnTitle: "Entrepôt Équipement",
+                storageBtnSub: "{d} Disques S • {e} Moteurs",
                 overclockBanner: "⚡ SURCHARGE PRISMATIQUE ★{lvl} (+{pct}% TOUTES STATS)",
                 subStats: "Stats de base",
                 subSkills: "Compétences",
@@ -29,34 +31,49 @@
                 upgradeMax: "NIVEAU MAX ✓",
                 equipTag: "LECTEUR DE DISQUES & MOTEUR-AMPLI",
                 equipTitle: "Roue d'Équipement",
-                autoEquip: "⚡ Équipement Auto",
+                autoEquip: "⚡ Équipement Auto (Guide)",
+                unequipAll: "✖ Tout retirer",
+                unequipBtn: "✖ Déséquiper",
+                equipBtn: "Équiper",
+                transferBtn: "🔄 Transférer (de {owner})",
                 emptySlot: "Vide",
                 engineSlot: "Moteur-Ampli",
                 noEngineEquipped: "Aucun Moteur-Ampli équipé (Cliquer pour choisir)",
                 activeSetBonuses: "Bonus de Sets Actifs (2P / 4P)",
                 noSetBonus: "Équipez 2 ou 4 disques d'un même set pour activer ses bonus.",
-                piece2: "2-Pièces",
-                piece4: "4-Pièces",
-                slotModalTitle: "Partition [{slot}] — Disque de Poussée",
-                openStudioSlot: "🎵 Graver Partition [{slot}]",
-                mainStatLabel: "Stat Principale",
-                upStepBtn: "Améliorer +{lvl} (4 ✦)",
+                guideRecTitle: "💡 Build Recommandé par le Guide ProxyQG :",
+                piece2: "Ensemble de 2 pièces",
+                piece4: "Ensemble de 4 pièces",
+                mainStatLabel: "Stat principale",
+                subStatsLabel: "Stats secondaires",
+                setEffectsLabel: "Effets de l'ensemble",
+                engineEffectLabel: "Effet de moteur-ampli",
+                upStepBtn: "Renforcer +{lvl} (4 ✦)",
                 upMaxBtn: "Max +15 ({cost} ✦)",
-                availableSlotDiscs: "Disques Rang S disponibles pour la Partition [{slot}] ({n}) :",
-                noDiscInSlot: "Aucun disque équipé sur la Partition [{slot}]. Cliquez sur « Graver Partition [{slot}] » pour en créer un !",
+                lockBtn: "🔒 Verrouiller",
+                unlockBtn: "🔓 Déverrouiller",
+                dismantleSingle: "🗑️ Démanteler (+{gain} ✦)",
+                batchDismantle: "♻️ Démanteler Niv.0 non-équipés (+{gain} ✦)",
+                recycleSurplusEngines: "♻️ Recycler doublons Moteurs (+{gain} ✦)",
+                storageTitle: "📦 Entrepôt : Disques de Poussée & Moteurs-Ampli",
+                storageDiscsTab: "💿 Disques de poussée [{n}/3000]",
+                storageEnginesTab: "⚙️ Moteurs-Ampli [{n}]",
+                filterAllSets: "Tous les Sets",
+                filterAllSlots: "Toutes Partitions",
+                sortLevel: "Tri : Niveau",
+                sortGuide: "Tri : Pertinence Guide",
                 bardicTag: "BARDIC NEEDLE • STUDIO D'ACCORDAGE RANG S",
                 bardicTitle: "Graver des Disques de Poussée",
                 searchSetPlaceholder: "Rechercher un Set de Disques...",
                 randomPartition: "Aléatoire (I–VI)",
-                partitionN: "Partition [{n}]",
                 orientationLabel: "🎯 Orientation Stat Principale (1 Calibrateur si ciblée) :",
                 standardWeighted: "Tirage pondéré standard (0 🎯)",
+                tuneFreeStock: "💿 Graver Stock Gacha ×1 (GRATUIT • {n} dispo)",
                 tune1Res: "🎵 Accordage ×1 (10 ✦)",
                 tune5Res: "🎵 Accordage ×5 (50 ✦)",
                 tune1Poly: "🎵 Accordage ×1 (80 Poly)",
                 equipNow: "Équiper sur {name}",
                 equippedTag: "Équipé ✓",
-                dismantleBtn: "+3 ✦",
                 badgesTitle: "🏆 Salle des Trophées : Séries & Factions",
                 badgesSub: "Complétez les escouades de New Eridu et les défis d'accordage de disques pour gagner des Polychromes.",
                 badgesUnlockedCount: "Badges débloqués : {u} / {t}",
@@ -78,13 +95,13 @@
                     "Adresse d'anomalie": "Adresse d'anomalie",
                     "Ratio de PÉN": "Taux de PÉN",
                     "Régénération d'énergie": "Récup. d'énergie",
-                    "PV (flat)": "PV (flat)",
-                    "ATQ (flat)": "ATQ (flat)",
-                    "DÉF (flat)": "DÉF (flat)",
+                    "PV (flat)": "PV",
+                    "ATQ (flat)": "ATQ",
+                    "DÉF (flat)": "DÉF",
                     "PV%": "PV%",
                     "ATQ%": "ATQ%",
                     "DÉF%": "DÉF%",
-                    "PÉN (flat)": "PÉN (flat)",
+                    "PÉN (flat)": "PÉN",
                     "DGT Physique": "DGT Physique",
                     "DGT Feu": "DGT Feu",
                     "DGT Glace": "DGT Glace",
@@ -99,7 +116,9 @@
                 noAgentsTitle: "No Agents Unlocked Yet",
                 noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent and unlock their Build Studio!",
                 bardicBtnTitle: "Disc Studio (Elfy)",
-                bardicBtnSub: "{n} S-Discs • 🎯 {cal} Calibrator(s)",
+                bardicBtnSub: "{free} Free Stock • 🎯 {cal} Calibrator(s)",
+                storageBtnTitle: "Gear Storage",
+                storageBtnSub: "{d} S-Discs • {e} W-Engines",
                 overclockBanner: "⚡ PRISMATIC OVERCLOCK ★{lvl} (+{pct}% ALL STATS)",
                 subStats: "Base Stats",
                 subSkills: "Skills",
@@ -117,34 +136,49 @@
                 upgradeMax: "MAX LEVEL ✓",
                 equipTag: "DRIVE DISC PLAYER & W-ENGINE",
                 equipTitle: "Equipment Wheel",
-                autoEquip: "⚡ Auto-Equip",
+                autoEquip: "⚡ Auto-Equip (Guide)",
+                unequipAll: "✖ Unequip All",
+                unequipBtn: "✖ Unequip",
+                equipBtn: "Equip",
+                transferBtn: "🔄 Transfer (from {owner})",
                 emptySlot: "Empty",
                 engineSlot: "W-Engine",
                 noEngineEquipped: "No W-Engine equipped (Click to select)",
                 activeSetBonuses: "Active Set Bonuses (2P / 4P)",
                 noSetBonus: "Equip 2 or 4 discs from the same set to activate set bonuses.",
-                piece2: "2-Piece",
-                piece4: "4-Piece",
-                slotModalTitle: "Partition [{slot}] — Drive Disc",
-                openStudioSlot: "🎵 Tune Partition [{slot}]",
+                guideRecTitle: "💡 ProxyQG Guide Recommendation:",
+                piece2: "2-Piece Set",
+                piece4: "4-Piece Set",
                 mainStatLabel: "Main Stat",
-                upStepBtn: "Upgrade +{lvl} (4 ✦)",
+                subStatsLabel: "Sub-Stats",
+                setEffectsLabel: "Set Effects",
+                engineEffectLabel: "W-Engine Effect",
+                upStepBtn: "Enhance +{lvl} (4 ✦)",
                 upMaxBtn: "Max +15 ({cost} ✦)",
-                availableSlotDiscs: "Available S-Rank Discs for Partition [{slot}] ({n}):",
-                noDiscInSlot: "No disc equipped in Partition [{slot}]. Click 'Tune Partition [{slot}]' to craft one!",
+                lockBtn: "🔒 Lock",
+                unlockBtn: "🔓 Unlock",
+                dismantleSingle: "🗑️ Dismantle (+{gain} ✦)",
+                batchDismantle: "♻️ Dismantle Unowned Lv.0 (+{gain} ✦)",
+                recycleSurplusEngines: "♻️ Recycle Surplus W-Engines (+{gain} ✦)",
+                storageTitle: "📦 Storage: Drive Discs & W-Engines",
+                storageDiscsTab: "💿 Drive Discs [{n}/3000]",
+                storageEnginesTab: "⚙️ W-Engines [{n}]",
+                filterAllSets: "All Sets",
+                filterAllSlots: "All Partitions",
+                sortLevel: "Sort: Level",
+                sortGuide: "Sort: Guide Match",
                 bardicTag: "BARDIC NEEDLE • S-RANK TUNING STUDIO",
                 bardicTitle: "Tune S-Rank Drive Discs",
                 searchSetPlaceholder: "Search a Drive Disc Set...",
                 randomPartition: "Random (I–VI)",
-                partitionN: "Partition [{n}]",
                 orientationLabel: "🎯 Main Stat Orientation (1 Calibrator if targeted):",
                 standardWeighted: "Standard weighted roll (0 🎯)",
+                tuneFreeStock: "💿 Roll Gacha Disc ×1 (FREE • {n} left)",
                 tune1Res: "🎵 Tune ×1 (10 ✦)",
                 tune5Res: "🎵 Tune ×5 (50 ✦)",
                 tune1Poly: "🎵 Tune ×1 (80 Poly)",
                 equipNow: "Equip on {name}",
                 equippedTag: "Equipped ✓",
-                dismantleBtn: "+3 ✦",
                 badgesTitle: "🏆 Trophy Room: Series & Factions",
                 badgesSub: "Complete New Eridu squads and Drive Disc tuning challenges to earn Polychrome rewards.",
                 badgesUnlockedCount: "Unlocked Badges: {u} / {t}",
@@ -166,13 +200,13 @@
                     "Adresse d'anomalie": "Anomaly Proficiency",
                     "Ratio de PÉN": "PEN Ratio",
                     "Régénération d'énergie": "Energy Regen",
-                    "PV (flat)": "HP (Flat)",
-                    "ATQ (flat)": "ATK (Flat)",
-                    "DÉF (flat)": "DEF (Flat)",
+                    "PV (flat)": "HP",
+                    "ATQ (flat)": "ATK",
+                    "DÉF (flat)": "DEF",
                     "PV%": "HP%",
                     "ATQ%": "ATK%",
                     "DÉF%": "DEF%",
-                    "PÉN (flat)": "PEN (Flat)",
+                    "PÉN (flat)": "PEN",
                     "DGT Physique": "Physical DMG",
                     "DGT Feu": "Fire DMG",
                     "DGT Glace": "Ice DMG",
@@ -194,7 +228,104 @@
         }
 
         // ========================================================
-        // 2. MOTEUR MATHÉMATIQUE OFFICIEL DES DISQUES RANG S
+        // 2. CHARGEMENT DES DONNÉES DE GUIDES (AGENT_DATABASE, DISCS, ENGINES)
+        // ========================================================
+        let EXT_DATA = { loaded: false, guides: {}, discs: {}, engines: {} };
+
+        async function ensureExternalDataLoaded() {
+            if (EXT_DATA.loaded) return;
+            try {
+                const [g, d, e] = await Promise.all([
+                    fetch('js/data/agent_database.json').then(r => r.json()).catch(() => ({})),
+                    fetch('js/data/discs.json').then(r => r.json()).catch(() => ({})),
+                    fetch('js/data/engines.json').then(r => r.json()).catch(() => ({}))
+                ]);
+                EXT_DATA.guides = g || {};
+                EXT_DATA.discs = d || {};
+                EXT_DATA.engines = e || {};
+                EXT_DATA.loaded = true;
+            } catch (err) {
+                console.warn('Erreur chargement données externes Builds:', err);
+            }
+        }
+
+        function getAgentGuide(agentKey) {
+            if (!agentKey) return null;
+            return EXT_DATA.guides[agentKey]
+                || (agentKey === 'Jane' ? EXT_DATA.guides['Jane Doe'] : null)
+                || (agentKey === 'Jane Doe' ? EXT_DATA.guides['Jane'] : null)
+                || null;
+        }
+
+        // Convertit une étiquette de stat du guide ("TAUX DE PÉN % > ATQ % > DGT GLACE %") en clés mathématiques officielles
+        function parseGuideStatKeys(rawLabel) {
+            if (!rawLabel) return [];
+            const str = String(rawLabel).toUpperCase();
+            const parts = str.split(/[>/=,]+/).map(s => s.trim()).filter(Boolean);
+            const res = [];
+
+            parts.forEach(p => {
+                if (p.includes('TAUX CRIT') || p.includes('CRIT RATE')) res.push('Taux CRIT');
+                else if (p.includes('DGT CRIT') || p.includes('CRIT DMG') || p.includes('DÉGÂTS CRIT')) res.push('Dégâts CRIT');
+                else if (p.includes('ADRESSE') || p.includes('PROFICIENCY')) res.push("Adresse d'anomalie");
+                else if (p.includes('MAÎTRISE') || p.includes('MAITRISE') || p.includes('MASTERY')) res.push("Maîtrise d'anomalie");
+                else if (p.includes('ÉNERGIE') || p.includes('ENERGIE') || p.includes('ENERGY')) res.push("Régénération d'énergie");
+                else if (p.includes('IMPACT')) res.push('Impact');
+                else if ((p.includes('PÉN') || p.includes('PEN')) && (p.includes('FLAT') || !p.includes('%') && !p.includes('TAUX') && !p.includes('RATIO'))) res.push('PÉN (flat)');
+                else if (p.includes('PÉN') || p.includes('PEN')) res.push('Ratio de PÉN');
+                else if (p.includes('PHYSIQUE') || p.includes('PHYSICAL')) res.push('DGT Physique');
+                else if (p.includes('FEU') || p.includes('FIRE')) res.push('DGT Feu');
+                else if (p.includes('GLACE') || p.includes('ICE')) res.push('DGT Glace');
+                else if (p.includes('ÉLECTRIQUE') || p.includes('ELECTRIQUE') || p.includes('ELECTRIC')) res.push('DGT Électrique');
+                else if (p.includes('ÉTHER') || p.includes('ETHER')) res.push('DGT Éther');
+                else if (p.includes('VENT') || p.includes('WIND')) res.push('DGT Vent');
+                else if ((p.includes('ATQ') || p.includes('ATK')) && p.includes('FLAT')) res.push('ATQ (flat)');
+                else if (p.includes('ATQ') || p.includes('ATK')) res.push('ATQ%');
+                else if (p.includes('PV') && p.includes('FLAT')) res.push('PV (flat)');
+                else if (p.includes('PV') || p.includes('HP')) res.push('PV%');
+                else if ((p.includes('DÉF') || p.includes('DEF')) && p.includes('FLAT')) res.push('DÉF (flat)');
+                else if (p.includes('DÉF') || p.includes('DEF')) res.push('DÉF%');
+            });
+
+            return [...new Set(res)];
+        }
+
+        function getGuideProfile(agentKey) {
+            const g = getAgentGuide(agentKey);
+            if (!g) return { sets4: [], sets2: [], mainBySlot: { 4: [], 5: [], 6: [] }, subPrio: [], engines: [] };
+
+            const sets4 = [];
+            const sets2 = [];
+            (g.discs || []).forEach(d => {
+                if (d.set1 && !sets4.includes(d.set1)) sets4.push(d.set1);
+                if (d.set2 && !sets2.includes(d.set2)) sets2.push(d.set2);
+            });
+
+            const mainBySlot = { 4: [], 5: [], 6: [] };
+            (g.statPriority?.main || []).forEach(m => {
+                const sl = parseInt(m.slot, 10);
+                if (mainBySlot[sl]) {
+                    mainBySlot[sl].push(...parseGuideStatKeys(m.label));
+                }
+            });
+
+            const subPrio = [];
+            (g.statPriority?.sub || []).forEach(s => {
+                parseGuideStatKeys(s.label).forEach(k => {
+                    if (!subPrio.includes(k)) subPrio.push(k);
+                });
+            });
+
+            const engines = (g.engines || []).map(e => {
+                const rawImg = (e.img || e.id || '').replace('.png', '').replace('.webp', '');
+                return { rawImg, name: e.name };
+            });
+
+            return { sets4, sets2, mainBySlot, subPrio, engines };
+        }
+
+        // ========================================================
+        // 3. MOTEUR MATHÉMATIQUE OFFICIEL DES DISQUES RANG S
         // ========================================================
         const MAIN_STAT_MAX_LV15 = {
             "PV (flat)": { val: 2200, isPct: false },
@@ -313,6 +444,7 @@
                 setKey,
                 slot,
                 level: 0,
+                locked: false,
                 isFourLiner,
                 mainStat,
                 substats
@@ -350,11 +482,11 @@
         function formatSubstatValue(sub) {
             const totalUnits = 1 + (sub.upgrades || 0);
             const raw = totalUnits * sub.step;
-            return sub.isPct ? `+${raw.toFixed(1)}%` : `+${Math.round(raw)}`;
+            return sub.isPct ? `${raw.toFixed(1)} %` : `${Math.round(raw)}`;
         }
 
         // ========================================================
-        // 3. ÉTAT ÉTENDU & ICÔNES EXACTES (POINT 2)
+        // 4. UNICITÉ STRICTE DES DISQUES & GESTION D'INVENTAIRE (POINT 8)
         // ========================================================
         const ELEM_ICON_MAP = {
             Physical: 'physique.webp',
@@ -368,7 +500,6 @@
             Sepia: 'sepia.webp'
         };
 
-        // Utilise exactement les fichiers présents dans ton dossier assets/Skills/ (image_09c11b.png)
         const SKILL_DEFS = [
             { idx: 0, icon: "assets/Skills/Attaque_basic.webp", color: "#d7f70c", glow: "rgba(215,247,12,0.35)" },
             { idx: 1, icon: "assets/Skills/Esquive.webp",       color: "#38bdf8", glow: "rgba(56,189,248,0.35)" },
@@ -383,20 +514,42 @@
                     craftedDiscs: [],
                     agentBuilds: {},
                     calibrators: 2,
+                    usedGachaDiscs: {}, // { [setKey]: count } -> chaque disque tiré dans le Gacha ne peut être gravé gratuitement qu'une seule fois
                     claimedBadges: {}
                 };
             }
+            if (!st.buildSystem.usedGachaDiscs) st.buildSystem.usedGachaDiscs = {};
+            if (!st.buildSystem.agentBuilds) st.buildSystem.agentBuilds = {};
+            if (!Array.isArray(st.buildSystem.craftedDiscs)) st.buildSystem.craftedDiscs = [];
+
+            // Garantie d'unicité stricte : un même uid de disque ne peut JAMAIS être équipé sur 2 agents différents
+            const seenDiscUids = new Set();
+            const validUids = new Set(st.buildSystem.craftedDiscs.map(d => d.uid));
+            Object.values(st.buildSystem.agentBuilds).forEach(ab => {
+                if (!ab || !ab.discs) return;
+                for (let s = 1; s <= 6; s++) {
+                    const uid = ab.discs[s];
+                    if (!uid) continue;
+                    if (!validUids.has(uid) || seenDiscUids.has(uid)) {
+                        ab.discs[s] = null;
+                    } else {
+                        seenDiscUids.add(uid);
+                    }
+                }
+            });
+
+            // Attribution des Calibrateurs M6+
             Object.values(st.inventory || {}).forEach(it => {
                 if (it.type === 'agent' && (it.count || 0) > 7) {
                     const ab = getOrInitAgentBuild(st, it.rawKey);
                     const prevClaimed = ab.overclockClaimed || 7;
                     if (it.count > prevClaimed) {
-                        const newOverclocks = it.count - prevClaimed;
-                        st.buildSystem.calibrators = (st.buildSystem.calibrators || 0) + newOverclocks;
+                        st.buildSystem.calibrators = (st.buildSystem.calibrators || 0) + (it.count - prevClaimed);
                         ab.overclockClaimed = it.count;
                     }
                 }
             });
+
             return st.buildSystem;
         }
 
@@ -413,6 +566,158 @@
             return st.buildSystem.agentBuilds[agentKey];
         }
 
+        // Retourne l'agentKey qui porte actuellement ce disque (ou null)
+        function getDiscOwner(st, discUid) {
+            if (!discUid || !st.buildSystem?.agentBuilds) return null;
+            for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
+                for (let s = 1; s <= 6; s++) {
+                    if (ab.discs && ab.discs[s] === discUid) return agKey;
+                }
+            }
+            return null;
+        }
+
+        // Retourne l'agentKey qui porte actuellement ce Moteur-Ampli (ou null)
+        function getEngineOwner(st, engineKey) {
+            if (!engineKey || !st.buildSystem?.agentBuilds) return null;
+            for (const [agKey, ab] of Object.entries(st.buildSystem.agentBuilds)) {
+                if (ab.engineKey === engineKey) return agKey;
+            }
+            return null;
+        }
+
+        // Équipe un disque sur un agent en le retirant automatiquement de tout autre agent (Unicité 100%)
+        function equipDiscUnique(st, targetAgentKey, slotNum, discUid) {
+            const bs = ensureBuildState(st);
+            Object.entries(bs.agentBuilds).forEach(([, ab]) => {
+                for (let s = 1; s <= 6; s++) {
+                    if (ab.discs && ab.discs[s] === discUid) {
+                        ab.discs[s] = null;
+                    }
+                }
+            });
+            const targetAb = getOrInitAgentBuild(st, targetAgentKey);
+            targetAb.discs[slotNum] = discUid;
+        }
+
+        function equipEngineUnique(st, targetAgentKey, engineKey) {
+            const bs = ensureBuildState(st);
+            Object.entries(bs.agentBuilds).forEach(([, ab]) => {
+                if (ab.engineKey === engineKey) ab.engineKey = null;
+            });
+            const targetAb = getOrInitAgentBuild(st, targetAgentKey);
+            targetAb.engineKey = engineKey;
+        }
+
+        // Nombre de disques tirés dans le Gacha pas encore gravés
+        function getFreeGachaDiscCount(st, setKey = null) {
+            const bs = ensureBuildState(st);
+            const inv = st.inventory || {};
+            if (setKey) {
+                const pulled = inv[`disc_${setKey}`]?.count || 0;
+                const used = bs.usedGachaDiscs[setKey] || 0;
+                return Math.max(0, pulled - used);
+            }
+            let total = 0;
+            Object.entries(inv).forEach(([id, it]) => {
+                if (it.type === 'disc') {
+                    const used = bs.usedGachaDiscs[it.rawKey] || 0;
+                    total += Math.max(0, (it.count || 0) - used);
+                }
+            });
+            return total;
+        }
+
+        // Calcul du gain de démantèlement d'un disque (5 ✦ de base + 80% des ✦ investis dans ses niveaux)
+        function calcDiscDismantleGain(disc) {
+            if (!disc) return 0;
+            const steps = Math.floor((disc.level || 0) / 3);
+            return 5 + Math.round(steps * 4 * 0.8);
+        }
+
+        // Score d'un disque selon le Guide de l'Agent (pour Tri & Auto-Équipement)
+        function scoreDiscForAgent(disc, agentKey) {
+            if (!disc) return 0;
+            const prof = getGuideProfile(agentKey);
+            let score = (disc.level || 0) * 2 + (disc.isFourLiner ? 8 : 0);
+
+            if (prof.sets4.includes(disc.setKey)) score += 45;
+            else if (prof.sets2.includes(disc.setKey)) score += 38;
+
+            if (disc.slot >= 4) {
+                const recMains = prof.mainBySlot[disc.slot] || [];
+                const mIdx = recMains.indexOf(disc.mainStat);
+                if (mIdx === 0) score += 110;
+                else if (mIdx === 1) score += 85;
+                else if (mIdx >= 2) score += 65;
+            }
+
+            (disc.substats || []).forEach(sub => {
+                const sIdx = prof.subPrio.indexOf(sub.key);
+                const rolls = 1 + (sub.upgrades || 0);
+                if (sIdx === 0) score += rolls * 24;
+                else if (sIdx === 1 || sIdx === 2) score += rolls * 18;
+                else if (sIdx >= 3) score += rolls * 12;
+            });
+
+            return score;
+        }
+
+        // ========================================================
+        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE (POINTS 1 & 4)
+        // ========================================================
+        function autoEquipFromGuide(st, pool, agent) {
+            const bs = ensureBuildState(st);
+            const ab = getOrInitAgentBuild(st, agent.rawKey);
+            const prof = getGuideProfile(agent.rawKey);
+
+            // 1. Moteur-Ampli : cherche d'abord les moteurs du guide non portés par un autre agent
+            const ownedEngines = pool.allCatalog.filter(i => {
+                if (i.type !== 'engine' || (st.inventory[i.id]?.count || 0) <= 0) return false;
+                const owner = getEngineOwner(st, i.rawKey);
+                return !owner || owner === agent.rawKey;
+            });
+
+            let chosenEngine = null;
+            for (const recEng of prof.engines) {
+                const match = ownedEngines.find(e =>
+                    e.rawKey.toLowerCase() === recEng.rawImg.toLowerCase()
+                    || e.img.toLowerCase().includes(recEng.rawImg.toLowerCase())
+                );
+                if (match) {
+                    chosenEngine = match;
+                    break;
+                }
+            }
+            if (!chosenEngine && ownedEngines.length > 0) {
+                // Fallback : même rôle que l'agent puis rang S > A > B
+                const roleMatches = ownedEngines.filter(e => (e.role || '').toLowerCase() === (agent.role || '').toLowerCase());
+                const listToPick = roleMatches.length > 0 ? roleMatches : ownedEngines;
+                const rW = { S: 0, A: 1, B: 2 };
+                listToPick.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
+                chosenEngine = listToPick[0];
+            }
+            if (chosenEngine) {
+                equipEngineUnique(st, agent.rawKey, chosenEngine.rawKey);
+            }
+
+            // 2. Disques 1 à 6 : uniquement parmi les disques libres (ou déjà sur cet agent)
+            for (let slot = 1; slot <= 6; slot++) {
+                const available = bs.craftedDiscs.filter(d => {
+                    if (d.slot !== slot) return false;
+                    const owner = getDiscOwner(st, d.uid);
+                    return !owner || owner === agent.rawKey;
+                });
+                if (available.length > 0) {
+                    available.sort((a, b) => scoreDiscForAgent(b, agent.rawKey) - scoreDiscForAgent(a, agent.rawKey));
+                    equipDiscUnique(st, agent.rawKey, slot, available[0].uid);
+                }
+            }
+        }
+
+        // ========================================================
+        // 6. CALCUL DES STATISTIQUES COMPLÈTES DE L'AGENT
+        // ========================================================
         const ROLE_BASE_STATS = {
             Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT', 'ATQ (flat)'] },
             Anomaly: { hp: 7800, atk: 885, def: 612, imp: 86,  cr: 5.0, cd: 50.0, am: 148, ap: 118, pen: 0, er: 1.2, rec: ["Adresse d'anomalie", "Maîtrise d'anomalie", "ATQ%"] },
@@ -427,6 +732,8 @@
             const bs = ensureBuildState(st);
             const ab = getOrInitAgentBuild(st, agentMeta.rawKey);
             const base = { ...(ROLE_BASE_STATS[agentMeta.role] || ROLE_BASE_STATS.Attack) };
+            const prof = getGuideProfile(agentMeta.rawKey);
+            const recSubList = prof.subPrio.length > 0 ? prof.subPrio : base.rec;
 
             const ownedCopies = st.inventory[`agent_${agentMeta.rawKey}`]?.count || 1;
             const mindscape = Math.min(6, Math.max(0, ownedCopies - 1));
@@ -489,7 +796,7 @@
                 (d.substats || []).forEach(sub => {
                     const units = 1 + (sub.upgrades || 0);
                     addStatContribution(sub.key, units * sub.step);
-                    if (base.rec.includes(sub.key) || sub.key === 'Taux CRIT' || sub.key === 'Dégâts CRIT' || sub.key === 'ATQ%') {
+                    if (recSubList.includes(sub.key)) {
                         effectiveSubRolls += units;
                     }
                 });
@@ -528,15 +835,15 @@
                 mindscape,
                 overclockLvl,
                 setCounts,
-                recList: base.rec
+                recSubList
             };
         }
 
         // ========================================================
-        // 4. RENDU DE L'ONGLET « BUILDS » & SES 3 MENUS
+        // 7. RENDU DE L'ONGLET « BUILDS » & SES 3 MENUS
         // ========================================================
         let selectedAgentKey = '';
-        let currentSubMenu = 'stats';
+        let currentSubMenu = 'equip';
         let bardicSetKey = '';
         let bardicSlot = 0;
 
@@ -544,7 +851,8 @@
             return pool.allCatalog.filter(i => i.type === 'agent' && (st.inventory[i.id]?.count || 0) > 0);
         }
 
-        function renderBuildsTab(mount) {
+        async function renderBuildsTab(mount) {
+            await ensureExternalDataLoaded();
             const bridge = window.ZZZGachaBridge;
             if (!bridge) return;
             const t = B();
@@ -569,6 +877,9 @@
             const agent = ownedAgents.find(a => a.rawKey === selectedAgentKey) || ownedAgents[0];
             const ab = getOrInitAgentBuild(st, agent.rawKey);
             const calc = computeAgentStats(st, pool, agent);
+
+            const ownedEnginesCount = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0).length;
+            const freeDiscsTotal = getFreeGachaDiscCount(st);
 
             const rosterHTML = ownedAgents.map(a => {
                 const cnt = st.inventory[a.id]?.count || 1;
@@ -596,13 +907,22 @@
                 <div class="zb-wrap">
                     <div class="zb-top-bar">
                         <div class="zb-roster-bar">${rosterHTML}</div>
-                        <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
-                            <span class="zb-bardic-cta-icon">💿</span>
-                            <div class="zb-bardic-cta-txt">
-                                <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
-                                <span class="zb-bardic-cta-sub">${t.bardicBtnSub.replace('{n}', bs.craftedDiscs.length).replace('{cal}', bs.calibrators || 0)}</span>
-                            </div>
-                        </button>
+                        <div class="zb-top-actions">
+                            <button type="button" class="zb-bardic-cta secondary" id="btn-open-storage">
+                                <span class="zb-bardic-cta-icon">📦</span>
+                                <div class="zb-bardic-cta-txt">
+                                    <span class="zb-bardic-cta-title">${t.storageBtnTitle}</span>
+                                    <span class="zb-bardic-cta-sub" style="color:#38bdf8;">${t.storageBtnSub.replace('{d}', bs.craftedDiscs.length).replace('{e}', ownedEnginesCount)}</span>
+                                </div>
+                            </button>
+                            <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
+                                <span class="zb-bardic-cta-icon">💿</span>
+                                <div class="zb-bardic-cta-txt">
+                                    <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
+                                    <span class="zb-bardic-cta-sub">${t.bardicBtnSub.replace('{free}', freeDiscsTotal).replace('{cal}', bs.calibrators || 0)}</span>
+                                </div>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="zb-stage">
@@ -645,9 +965,8 @@
                 });
             });
 
-            document.getElementById('btn-open-bardic-needle')?.addEventListener('click', () => {
-                openBardicNeedleModal(mount);
-            });
+            document.getElementById('btn-open-bardic-needle')?.addEventListener('click', () => openBardicNeedleModal(mount));
+            document.getElementById('btn-open-storage')?.addEventListener('click', () => openStorageModal(mount, 'discs'));
 
             bindSubMenuEvents(mount, st, pool, bs, agent, ab, calc);
         }
@@ -660,7 +979,7 @@
                 .map(([setKey, cnt]) => {
                     const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === setKey);
                     const name = dObj ? bridge.itemName(dObj) : setKey;
-                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? t.piece4 : t.piece2} : ${name}</span>`;
+                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${name}</span>`;
                 }).join(' ');
 
             return `
@@ -725,7 +1044,7 @@
             `;
         }
 
-        // --- MENU 2 : COMPÉTENCES (AVEC TES VRAIES IMAGES ASSETS/SKILLS/*.WEBP) ---
+        // --- MENU 2 : COMPÉTENCES ---
         let activeSkillIdx = 0;
 
         function renderSubMenuSkills(st, agent, ab, calc, t) {
@@ -780,10 +1099,11 @@
             `;
         }
 
-        // --- MENU 3 : COCKPIT D'ÉQUIPEMENT 2 COLONNES (POINT 4) ---
+        // --- MENU 3 : COCKPIT D'ÉQUIPEMENT + CONSEILS DU GUIDE + BOUTONS DÉSÉQUIPER ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
             const engCount = engObj ? Math.min(5, st.inventory[engObj.id]?.count || 1) : 0;
+            const prof = getGuideProfile(agent.rawKey);
 
             const nodesHTML = [1, 2, 3, 4, 5, 6].map(slot => {
                 const uid = ab.discs[slot];
@@ -805,14 +1125,36 @@
                 return `
                 <div class="zb-equip-slot-mini ${disc ? 'filled' : ''}" data-wheel-slot="${slot}">
                     <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:${disc ? '#facc15' : '#52525b'};">[${slot}]</span>
-                    <span style="font-size:10.5px;font-weight:800;color:${disc ? '#fff' : '#71717a'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">
+                    <span style="font-size:10px;font-weight:800;color:${disc ? '#fff' : '#71717a'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">
                         ${disc ? `${tStat(disc.mainStat)} (${formatMainStatValue(disc.mainStat, disc.level)})` : t.emptySlot}
                     </span>
-                    <span style="font-family:monospace;font-size:9.5px;font-weight:900;color:#d7f70c;">${disc ? `+${disc.level}` : '➕'}</span>
+                    ${disc
+                        ? `<span style="font-family:monospace;font-size:9.5px;font-weight:900;color:#d7f70c;">+${disc.level}</span>
+                           <button type="button" class="zb-mini-unequip" data-unequip-slot="${slot}" title="${t.unequipBtn}">✖</button>`
+                        : `<span style="font-size:10px;color:#52525b;">➕</span>`
+                    }
                 </div>`;
             }).join('');
 
             const activeSets = Object.entries(calc.setCounts).filter(([, c]) => c >= 2);
+
+            // Résumé des sets et stats conseillés par le guide
+            const recSet1Obj = prof.sets4[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets4[0]) : null;
+            const recSet2Obj = prof.sets2[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets2[0]) : null;
+            const guideRecSummary = (recSet1Obj || prof.subPrio.length > 0)
+                ? `<div style="background:rgba(215,247,12,0.06);border:1px solid rgba(215,247,12,0.3);border-radius:12px;padding:7px 10px;font-size:10.5px;color:#d4d4d8;display:flex;flex-direction:column;gap:3px;">
+                    <strong style="color:#d7f70c;font-size:10px;text-transform:uppercase;">${t.guideRecTitle}</strong>
+                    <div>
+                        ${recSet1Obj ? `<strong>4P:</strong> ${bridge.itemName(recSet1Obj)}` : ''}
+                        ${recSet2Obj ? ` • <strong>2P:</strong> ${bridge.itemName(recSet2Obj)}` : ''}
+                    </div>
+                    <div style="color:#a1a1aa;font-size:10px;">
+                        <strong>[4]</strong> ${(prof.mainBySlot[4]?.[0] && tStat(prof.mainBySlot[4][0])) || 'CRIT/Anomalie'} •
+                        <strong>[5]</strong> ${(prof.mainBySlot[5]?.[0] && tStat(prof.mainBySlot[5][0])) || 'DGT/ATQ%'} •
+                        <strong>[6]</strong> ${(prof.mainBySlot[6]?.[0] && tStat(prof.mainBySlot[6][0])) || 'ATQ%/Impact/ER'}
+                    </div>
+                   </div>`
+                : '';
 
             return `
                 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
@@ -820,14 +1162,13 @@
                         <span class="gacha-patch-tag">${t.equipTag}</span>
                         <h3 class="gacha-panel-title" style="font-size:20px;">${t.equipTitle}</h3>
                     </div>
-                    <div style="display:flex;gap:6px;">
-                        <button type="button" class="gacha-details-btn accent" id="btn-equip-open-studio">🎵 ${t.bardicBtnTitle}</button>
-                        <button type="button" class="gacha-details-btn" id="btn-auto-equip">${t.autoEquip}</button>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                        <button type="button" class="gacha-details-btn accent" id="btn-auto-equip">${t.autoEquip}</button>
+                        <button type="button" class="gacha-details-btn" id="btn-unequip-all">${t.unequipAll}</button>
                     </div>
                 </div>
 
                 <div class="zb-equip-cockpit">
-                    <!-- Gauche : Roue Mécanique 6 Partitions + Moteur Central -->
                     <div class="zb-hex-housing">
                         <span class="zb-driver-plaque">DRIVER</span>
                         ${nodesHTML}
@@ -839,31 +1180,35 @@
                         </div>
                     </div>
 
-                    <!-- Droite : Inspecteur de Moteur, Bonus de Sets & Liste des 6 Partitions -->
                     <div class="zb-equip-details">
                         <div class="zb-equip-wcard" id="btn-card-wengine">
-                            <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                            <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
                                 ${engObj
-                                    ? `<img src="${engObj.img}" style="width:42px;height:42px;object-fit:contain;background:#000;border-radius:10px;padding:3px;">`
-                                    : `<div style="width:42px;height:42px;border-radius:10px;background:#181822;display:flex;align-items:center;justify-content:center;font-size:18px;">⚙️</div>`
+                                    ? `<img src="${engObj.img}" style="width:40px;height:40px;object-fit:contain;background:#000;border-radius:10px;padding:3px;">`
+                                    : `<div style="width:40px;height:40px;border-radius:10px;background:#181822;display:flex;align-items:center;justify-content:center;font-size:18px;">⚙️</div>`
                                 }
-                                <div style="min-width:0;">
+                                <div style="min-width:0;flex:1;">
                                     <span style="font-size:9.5px;font-weight:900;color:#facc15;text-transform:uppercase;display:block;">${t.engineSlot}</span>
-                                    <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fff;text-transform:uppercase;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                    <strong style="font-family:'Montserrat',sans-serif;font-size:11.5px;color:#fff;text-transform:uppercase;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                         ${engObj ? bridge.itemName(engObj) : t.noEngineEquipped}
                                     </strong>
                                 </div>
                             </div>
-                            <span class="gacha-quest-prog done">${engObj ? `★${engCount}` : '✎'}</span>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <span class="gacha-quest-prog done">${engObj ? `★${engCount}` : '✎'}</span>
+                                ${engObj ? `<button type="button" class="zb-mini-unequip" id="btn-quick-unequip-engine" title="${t.unequipBtn}">✖</button>` : ''}
+                            </div>
                         </div>
 
-                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:8px 10px;">
-                            <span style="font-size:9.5px;font-weight:900;color:#a1a1aa;text-transform:uppercase;display:block;margin-bottom:5px;">${t.activeSetBonuses}</span>
+                        ${guideRecSummary}
+
+                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:7px 10px;">
+                            <span style="font-size:9.5px;font-weight:900;color:#a1a1aa;text-transform:uppercase;display:block;margin-bottom:4px;">${t.activeSetBonuses}</span>
                             ${activeSets.length === 0
-                                ? `<span style="font-size:11px;color:#71717a;">${t.noSetBonus}</span>`
+                                ? `<span style="font-size:10.5px;color:#71717a;">${t.noSetBonus}</span>`
                                 : `<div style="display:flex;gap:5px;flex-wrap:wrap;">${activeSets.map(([sk, cnt]) => {
                                     const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
-                                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? t.piece4 : t.piece2} : ${dObj ? bridge.itemName(dObj) : sk}</span>`;
+                                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${dObj ? bridge.itemName(dObj) : sk}</span>`;
                                 }).join('')}</div>`
                             }
                         </div>
@@ -910,215 +1255,794 @@
                 }
             });
 
-            document.getElementById('btn-wheel-wengine')?.addEventListener('click', () => openWEngineSelectorModal(mount, st, pool, agent, ab));
-            document.getElementById('btn-card-wengine')?.addEventListener('click', () => openWEngineSelectorModal(mount, st, pool, agent, ab));
-            document.getElementById('btn-equip-open-studio')?.addEventListener('click', () => openBardicNeedleModal(mount));
+            document.getElementById('btn-wheel-wengine')?.addEventListener('click', () => openZZZArmoryModal(mount, st, pool, bs, agent, ab, 'engine'));
+            document.getElementById('btn-card-wengine')?.addEventListener('click', (ev) => {
+                if (ev.target.closest('#btn-quick-unequip-engine')) return;
+                openZZZArmoryModal(mount, st, pool, bs, agent, ab, 'engine');
+            });
+
+            document.getElementById('btn-quick-unequip-engine')?.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                ab.engineKey = null;
+                bridge.saveState(st);
+                renderBuildsTab(mount);
+            });
+
+            mount.querySelectorAll('[data-unequip-slot]').forEach(btn => {
+                btn.addEventListener('click', (ev) => {
+                    ev.stopPropagation();
+                    const sl = parseInt(btn.getAttribute('data-unequip-slot'), 10);
+                    if (sl) ab.discs[sl] = null;
+                    bridge.saveState(st);
+                    renderBuildsTab(mount);
+                });
+            });
 
             mount.querySelectorAll('[data-wheel-slot]').forEach(node => {
-                node.addEventListener('click', () => {
+                node.addEventListener('click', (ev) => {
+                    if (ev.target.closest('[data-unequip-slot]')) return;
                     const slotNum = parseInt(node.getAttribute('data-wheel-slot'), 10);
-                    openSlotInspectorModal(mount, st, pool, bs, agent, ab, slotNum);
+                    openZZZArmoryModal(mount, st, pool, bs, agent, ab, slotNum);
                 });
             });
 
             document.getElementById('btn-auto-equip')?.addEventListener('click', () => {
-                const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
-                if (ownedEngines.length > 0) {
-                    ownedEngines.sort((a, b) => (a.rank === 'S' ? -1 : 1) - (b.rank === 'S' ? -1 : 1));
-                    ab.engineKey = ownedEngines[0].rawKey;
-                }
-                for (let s = 1; s <= 6; s++) {
-                    const candidates = bs.craftedDiscs.filter(d => d.slot === s);
-                    if (candidates.length > 0) {
-                        candidates.sort((a, b) => b.level - a.level);
-                        ab.discs[s] = candidates[0].uid;
-                    }
-                }
+                autoEquipFromGuide(st, pool, agent);
+                bridge.saveState(st);
+                renderBuildsTab(mount);
+            });
+
+            document.getElementById('btn-unequip-all')?.addEventListener('click', () => {
+                ab.engineKey = null;
+                ab.discs = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
                 bridge.saveState(st);
                 renderBuildsTab(mount);
             });
         }
 
         // ========================================================
-        // 5. MODALES D'INSPECTION DE PARTITION & STUDIO ELFY (POINT 6 & 7)
+        // 8. ÉCRAN D'ARMURERIE ZZZ EN 3 COLONNES (FIDÈLE À IMAGE 2 & 4)
         // ========================================================
-        function openWEngineSelectorModal(mount, st, pool, agent, ab) {
+        function openZZZArmoryModal(mount, st, pool, bs, agent, ab, initialTarget = 1) {
             const bridge = window.ZZZGachaBridge;
-            const t = B();
             const overlay = document.getElementById('gacha-anim-overlay');
             if (!overlay) return;
 
-            const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
-            overlay.classList.add('active');
-            overlay.innerHTML = `
-                <div class="gacha-dialog-box" style="max-width:740px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <h2 class="gacha-panel-title">${t.engineSlot} (${ownedEngines.length})</h2>
-                        <button type="button" class="gacha-res-btn" id="close-we-sel">${t.close}</button>
-                    </div>
-                    <div class="gacha-selector-scroll custom-scrollbar">
-                        <div class="gacha-selector-grid">
-                            ${ownedEngines.map(e => {
-                                const cnt = st.inventory[e.id]?.count || 1;
-                                const isEq = ab.engineKey === e.rawKey;
-                                return `
-                                <div class="gacha-col-card rank-${e.rank}" data-equip-eng="${e.rawKey}" style="${isEq ? 'border-color:#d7f70c;' : ''}">
-                                    <div class="gacha-col-visual">
-                                        <span class="gacha-col-rank-tag">${e.rank}</span>
-                                        <span class="gacha-col-dupe-tag maxed">★${Math.min(5, cnt)}</span>
-                                        <img src="${e.img}" class="is-equip">
+            let activeSlotOrEngine = initialTarget; // 1..6 ou 'engine'
+            let selectedUidOrKey = null;
+            let filterSet = 'all';
+            let sortMode = 'guide'; // 'guide' | 'level'
+
+            const prof = getGuideProfile(agent.rawKey);
+
+            function syncDefaultSelection() {
+                if (activeSlotOrEngine === 'engine') {
+                    selectedUidOrKey = ab.engineKey || pool.allCatalog.find(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0)?.rawKey || null;
+                } else {
+                    const sl = Number(activeSlotOrEngine) || 1;
+                    selectedUidOrKey = ab.discs[sl] || bs.craftedDiscs.find(d => d.slot === sl)?.uid || null;
+                }
+            }
+            syncDefaultSelection();
+
+            function renderArmory() {
+                const t = B();
+                const isLangEn = (bridge.getLang?.() || 'fr') === 'en';
+                const isEngineMode = activeSlotOrEngine === 'engine';
+                const slotNum = isEngineMode ? 0 : Number(activeSlotOrEngine);
+
+                // Construction de la roue interactive à droite (Colonne 3)
+                const wheelNodesHTML = [1, 2, 3, 4, 5, 6].map(s => {
+                    const u = ab.discs[s];
+                    const d = u ? bs.craftedDiscs.find(x => x.uid === u) : null;
+                    const sObj = d ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === d.setKey) : null;
+                    const isRing = !isEngineMode && slotNum === s;
+                    return `
+                    <div class="zb-disc-node slot-${s} ${d ? 'equipped' : ''} ${isRing ? 'selected-ring' : ''}" data-armory-wheel="${s}">
+                        ${d && sObj
+                            ? `<img src="${sObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">+${d.level}</span>`
+                            : `<span class="zb-disc-slot-num">${s}</span>`
+                        }
+                    </div>`;
+                }).join('');
+
+                const eqEngineObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
+
+                // Colonne 1 (Grille de gauche) + Colonne 2 (Inspecteur central)
+                let leftGridHTML = '';
+                let centerInspectorHTML = '';
+                let bottomRightButtonsHTML = '';
+
+                if (isEngineMode) {
+                    const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
+                    const rW = { S: 0, A: 1, B: 2 };
+                    ownedEngines.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
+
+                    if (!selectedUidOrKey && ownedEngines[0]) selectedUidOrKey = ownedEngines[0].rawKey;
+
+                    leftGridHTML = ownedEngines.map(e => {
+                        const cnt = Math.min(5, st.inventory[e.id]?.count || 1);
+                        const ownerKey = getEngineOwner(st, e.rawKey);
+                        const isSel = selectedUidOrKey === e.rawKey;
+                        return `
+                        <div class="zb-gear-tile rank-${e.rank} ${isSel ? 'selected' : ''}" data-arm-pick="${e.rawKey}">
+                            <span class="zb-gear-tile-slot">★${cnt}</span>
+                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            <img src="${e.img}" class="zb-gear-tile-img" alt="">
+                            <span class="zb-gear-tile-lvl">Niv. 60</span>
+                        </div>`;
+                    }).join('');
+
+                    const selEng = ownedEngines.find(e => e.rawKey === selectedUidOrKey) || null;
+                    if (selEng) {
+                        const rawJson = EXT_DATA.engines[selEng.rawKey] || {};
+                        const cnt = Math.min(5, st.inventory[selEng.id]?.count || 1);
+                        const starsHTML = Array.from({ length: 5 }, (_, i) => `<span style="color:${i < cnt ? '#facc15' : '#3f3f4e'};font-size:15px;">★</span>`).join(' ');
+                        const baseAtkVal = rawJson.baseAtk || (selEng.rank === 'S' ? 713 : (selEng.rank === 'A' ? 594 : 475));
+                        const advStatLbl = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${selEng.rank === 'S' ? 24 : 18}%`;
+                        const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
+                        const ownerKey = getEngineOwner(st, selEng.rawKey);
+
+                        centerInspectorHTML = `
+                            <div style="display:flex;flex-direction:column;gap:8px;">
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                                        ${bridge.itemName(selEng)}
+                                    </h3>
+                                    ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" style="width:28px;height:28px;border-radius:999px;border:2px solid #d7f70c;">` : ''}
+                                </div>
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span class="gacha-quest-prog done">${selEng.rank} • Niv. 60/60</span>
+                                    <span>${starsHTML}</span>
+                                </div>
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat de base</span>
+                                <div class="zb-insp-subline"><span>ATQ de base</span><strong>${baseAtkVal}</strong></div>
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">Stat avancée</span>
+                                <div class="zb-insp-subline guide-hit"><span>${advStatLbl}</span><strong>MAX</strong></div>
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.engineEffectLabel} (${selEng.role || 'All'})</span>
+                                <div style="font-size:11.5px;color:#d4d4d8;line-height:1.5;background:#07070b;padding:10px;border-radius:12px;border:1px solid #1f202b;">
+                                    ${effectTxt || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.'}
+                                </div>
+                            </div>
+                        `;
+
+                        const isEquippedHere = ab.engineKey === selEng.rawKey;
+                        bottomRightButtonsHTML = isEquippedHere
+                            ? `<button type="button" class="gacha-res-btn" id="btn-arm-unequip" style="border-color:#ef4444;color:#fca5a5;">${t.unequipBtn}</button>`
+                            : `<button type="button" class="gacha-res-btn primary" id="btn-arm-equip">${ownerKey ? t.transferBtn.replace('{owner}', ownerKey) : t.equipBtn}</button>`;
+                    } else {
+                        centerInspectorHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun Moteur-Ampli disponible.</div>`;
+                    }
+                } else {
+                    // Mode Partition de Disque [1..6]
+                    let list = bs.craftedDiscs.filter(d => d.slot === slotNum);
+                    if (filterSet !== 'all') list = list.filter(d => d.setKey === filterSet);
+
+                    if (sortMode === 'guide') {
+                        list.sort((a, b) => scoreDiscForAgent(b, agent.rawKey) - scoreDiscForAgent(a, agent.rawKey));
+                    } else {
+                        list.sort((a, b) => b.level - a.level);
+                    }
+
+                    if (!selectedUidOrKey || !list.some(d => d.uid === selectedUidOrKey)) {
+                        selectedUidOrKey = ab.discs[slotNum] || list[0]?.uid || null;
+                    }
+
+                    leftGridHTML = list.map(d => {
+                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === d.setKey);
+                        const ownerKey = getDiscOwner(st, d.uid);
+                        const isSel = d.uid === selectedUidOrKey;
+                        return `
+                        <div class="zb-gear-tile rank-S ${isSel ? 'selected' : ''}" data-arm-pick="${d.uid}">
+                            <span class="zb-gear-tile-slot">${d.slot}</span>
+                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            ${d.locked ? `<span class="zb-gear-lock-badge">🔒</span>` : ''}
+                            <img src="${sObj ? sObj.img : ''}" class="zb-gear-tile-img" style="border-radius:999px;" alt="">
+                            <span class="zb-gear-tile-lvl">Niv. ${d.level}</span>
+                        </div>`;
+                    }).join('');
+
+                    const selDisc = bs.craftedDiscs.find(d => d.uid === selectedUidOrKey) || null;
+                    if (selDisc) {
+                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === selDisc.setKey);
+                        const rawDiscJson = EXT_DATA.discs[selDisc.setKey] || {};
+                        const desc2P = (isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || '';
+                        const desc4P = (isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || '';
+                        const ownerKey = getDiscOwner(st, selDisc.uid);
+                        const isMainRec = slotNum >= 4 && (prof.mainBySlot[slotNum] || []).includes(selDisc.mainStat);
+                        const dismantleGain = calcDiscDismantleGain(selDisc);
+
+                        centerInspectorHTML = `
+                            <div style="display:flex;flex-direction:column;gap:8px;">
+                                <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+                                    <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
+                                        ${sObj ? bridge.itemName(sObj) : selDisc.setKey} [${selDisc.slot}]
+                                    </h3>
+                                    <div style="display:flex;align-items:center;gap:6px;">
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-lock" title="${selDisc.locked ? t.unlockBtn : t.lockBtn}">${selDisc.locked ? '🔒' : '🔓'}</button>
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''} title="${t.dismantleSingle.replace('{gain}', dismantleGain)}">🗑️ +${dismantleGain}✦</button>
                                     </div>
-                                    <div class="gacha-col-info">
-                                        <span class="gacha-col-name">${bridge.itemName(e)}</span>
-                                        <span class="gacha-col-sub">${e.role || 'W-Engine'}</span>
-                                    </div>
-                                </div>`;
-                            }).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
+                                </div>
 
-            document.getElementById('close-we-sel').addEventListener('click', () => overlay.classList.remove('active'));
-            overlay.querySelectorAll('[data-equip-eng]').forEach(card => {
-                card.addEventListener('click', () => {
-                    ab.engineKey = card.getAttribute('data-equip-eng');
-                    bridge.saveState(st);
-                    overlay.classList.remove('active');
-                    renderBuildsTab(mount);
-                });
-            });
-        }
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <span class="gacha-quest-prog done">S • Niv. ${selDisc.level}/15 • ${selDisc.isFourLiner ? '4-Liner' : '3-Liner'}</span>
+                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:20px;height:20px;border-radius:999px;"> ${ownerKey}</span>` : ''}
+                                </div>
 
-        function openSlotInspectorModal(mount, st, pool, bs, agent, ab, slotNum) {
-            const bridge = window.ZZZGachaBridge;
-            const t = B();
-            const overlay = document.getElementById('gacha-anim-overlay');
-            if (!overlay) return;
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
+                                <div class="zb-insp-subline ${isMainRec ? 'guide-hit' : ''}">
+                                    <span>${tStat(selDisc.mainStat)}</span>
+                                    <strong>${formatMainStatValue(selDisc.mainStat, selDisc.level)}</strong>
+                                </div>
 
-            function renderSlotModal() {
-                const slotDiscs = bs.craftedDiscs.filter(d => d.slot === slotNum);
-                const eqDisc = ab.discs[slotNum] ? bs.craftedDiscs.find(d => d.uid === ab.discs[slotNum]) : null;
-                const setObj = eqDisc ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === eqDisc.setKey) : null;
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
+                                <div style="display:flex;flex-direction:column;gap:5px;">
+                                    ${selDisc.substats.map(sub => {
+                                        const isGuideSub = prof.subPrio.includes(sub.key);
+                                        return `
+                                        <div class="zb-insp-subline ${isGuideSub ? 'guide-hit' : ''}">
+                                            <span>${tStat(sub.key)} ${sub.upgrades > 0 ? `+${sub.upgrades}` : ''}</span>
+                                            <strong>${formatSubstatValue(sub)}</strong>
+                                        </div>`;
+                                    }).join('')}
+                                </div>
+
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.setEffectsLabel}</span>
+                                <div style="font-size:11px;color:#a1a1aa;line-height:1.45;background:#07070b;padding:9px 10px;border-radius:12px;border:1px solid #1f202b;">
+                                    <div><strong style="color:#fff;">${t.piece2} :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
+                                    <div style="margin-top:4px;"><strong style="color:#d7f70c;">${t.piece4} :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
+                                </div>
+                            </div>
+                        `;
+
+                        const isEquippedHere = ab.discs[slotNum] === selDisc.uid;
+                        const maxCost = ((15 - selDisc.level) / 3) * 4;
+
+                        bottomRightButtonsHTML = `
+                            ${isEquippedHere
+                                ? `<button type="button" class="gacha-res-btn" id="btn-arm-unequip" style="border-color:#ef4444;color:#fca5a5;">${t.unequipBtn}</button>`
+                                : `<button type="button" class="gacha-res-btn primary" id="btn-arm-equip">${ownerKey ? t.transferBtn.replace('{owner}', ownerKey) : t.equipBtn}</button>`
+                            }
+                            <button type="button" class="gacha-res-btn" id="btn-arm-up-step" ${selDisc.level >= 15 || st.residual < 4 ? 'disabled' : ''}>
+                                ${selDisc.level >= 15 ? t.upgradeMax : t.upStepBtn.replace('{lvl}', selDisc.level + 3)}
+                            </button>
+                            ${selDisc.level < 15 ? `
+                            <button type="button" class="gacha-res-btn" id="btn-arm-up-max" ${st.residual < maxCost ? 'disabled' : ''}>
+                                ${t.upMaxBtn.replace('{cost}', maxCost)}
+                            </button>` : ''}
+                        `;
+                    } else {
+                        centerInspectorHTML = `
+                            <div style="margin:auto;text-align:center;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;">
+                                <span style="font-size:12px;color:#a1a1aa;">${t.noDiscInSlot.replace(/\{slot\}/g, slotNum)}</span>
+                                <button type="button" class="gacha-res-btn primary" id="btn-arm-craft-slot">🎵 Graver Partition [${slotNum}]</button>
+                            </div>`;
+                    }
+                }
+
+                const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
-                    <div class="gacha-dialog-box" style="max-width:760px;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-                            <div>
-                                <span class="gacha-patch-tag">PARTITION [${slotNum}] • S-RANK</span>
-                                <h2 class="gacha-panel-title" style="font-size:22px;">${t.slotModalTitle.replace('{slot}', slotNum)}</h2>
+                    <div class="zb-armory-modal">
+                        <!-- Barre supérieure de l'Armurerie -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #262734;padding-bottom:10px;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <button type="button" class="gacha-back-btn" id="close-armory-modal">
+                                    <span>←</span>
+                                    <span>${t.close}</span>
+                                </button>
+                                ${!isEngineMode ? `
+                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:150px;">
+                                    <option value="all">${t.filterAllSets}</option>
+                                    ${distinctSets.map(sk => {
+                                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
+                                        return `<option value="${sk}" ${filterSet === sk ? 'selected' : ''}>${sObj ? bridge.itemName(sObj) : sk}</option>`;
+                                    }).join('')}
+                                </select>
+                                <button type="button" class="gacha-col-filter-btn ${sortMode === 'guide' ? 'active' : ''}" id="arm-sort-toggle">
+                                    ${sortMode === 'guide' ? t.sortGuide : t.sortLevel}
+                                </button>` : ''}
                             </div>
-                            <div style="display:flex;gap:8px;">
-                                <button type="button" class="gacha-details-btn accent" id="btn-slot-goto-bardic">${t.openStudioSlot.replace('{slot}', slotNum)}</button>
-                                <button type="button" class="gacha-res-btn" id="close-slot-modal">${t.close}</button>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span class="gacha-reset-pill">✦ ${st.residual}</span>
+                                ${!isEngineMode ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">🎵 Graver [${slotNum}]</button>` : ''}
                             </div>
                         </div>
 
-                        ${eqDisc ? `
-                        <div style="background:#0d0d13;border:1.5px solid #facc15;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
-                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-                                <div style="display:flex;align-items:center;gap:12px;">
-                                    <img src="${setObj ? setObj.img : ''}" style="width:54px;height:54px;border-radius:999px;object-fit:cover;">
-                                    <div>
-                                        <span style="font-size:10px;font-weight:900;color:#facc15;text-transform:uppercase;">
-                                            ${eqDisc.isFourLiner ? '★ 4-LINER NATIF' : '3-LINER'} • +${eqDisc.level} / 15
-                                        </span>
-                                        <h3 style="margin:2px 0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;color:#fff;text-transform:uppercase;">
-                                            ${setObj ? bridge.itemName(setObj) : eqDisc.setKey} [${slotNum}]
-                                        </h3>
-                                        <span style="font-family:monospace;font-size:13px;font-weight:900;color:#d7f70c;">
-                                            ${t.mainStatLabel} : ${tStat(eqDisc.mainStat)} (${formatMainStatValue(eqDisc.mainStat, eqDisc.level)})
-                                        </span>
-                                    </div>
-                                </div>
-                                <div style="display:flex;gap:8px;">
-                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-up-disc-step" style="width:auto;padding:9px 14px;" ${eqDisc.level >= 15 || st.residual < 4 ? 'disabled' : ''}>
-                                        ${eqDisc.level >= 15 ? t.upgradeMax : t.upStepBtn.replace('{lvl}', eqDisc.level + 3)}
-                                    </button>
-                                    <button type="button" class="gacha-shop-btn primary-purple" id="btn-up-disc-max" style="width:auto;padding:9px 14px;" ${eqDisc.level >= 15 || st.residual < ((15 - eqDisc.level) / 3) * 4 ? 'disabled' : ''}>
-                                        ${t.upMaxBtn.replace('{cost}', ((15 - eqDisc.level) / 3) * 4)}
-                                    </button>
-                                </div>
+                        <!-- Corps 3 Colonnes façon ZZZ (Grille | Inspecteur | Roue Interactive) -->
+                        <div class="zb-armory-3col">
+                            <div class="zb-armory-grid-scroll">
+                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:30px 10px;font-size:12px;">Aucun élément.</div>`}
                             </div>
 
-                            <div class="zb-stats-grid">
-                                ${eqDisc.substats.map(sub => `
-                                    <div class="zb-stat-row ${sub.upgrades >= 3 ? 'recommended' : ''}">
-                                        <span>• ${tStat(sub.key)} ${sub.upgrades > 0 ? `<strong style="color:#d7f70c;">+${sub.upgrades}</strong>` : ''}</span>
-                                        <span class="zb-stat-val">${formatSubstatValue(sub)}</span>
-                                    </div>
-                                `).join('')}
+                            <div class="zb-inspector-col">
+                                ${centerInspectorHTML}
                             </div>
-                        </div>` : `<div style="padding:18px;background:#0c0c11;border:1px dashed #3f3f4e;border-radius:14px;text-align:center;color:#a1a1aa;font-size:12px;">${t.noDiscInSlot.replace(/\{slot\}/g, slotNum)}</div>`}
 
-                        <div style="font-size:11px;font-weight:900;text-transform:uppercase;color:#a1a1aa;">
-                            ${t.availableSlotDiscs.replace('{slot}', slotNum).replace('{n}', slotDiscs.length)}
+                            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                                <div class="zb-hex-housing">
+                                    <span class="zb-driver-plaque">DRIVER</span>
+                                    ${wheelNodesHTML}
+                                    <div class="zb-wengine-core ${isEngineMode ? 'selected-ring' : ''}" id="arm-wheel-engine">
+                                        ${eqEngineObj
+                                            ? `<img src="${eqEngineObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">Niv.60</span>`
+                                            : `<span style="font-size:10px;font-weight:900;color:#d7f70c;text-align:center;padding:4px;">CORE AVAILABLE</span>`
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="gacha-selector-scroll custom-scrollbar" style="max-height:220px;">
-                            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;">
-                                ${slotDiscs.map(d => {
-                                    const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === d.setKey);
-                                    const isCurrent = ab.discs[slotNum] === d.uid;
-                                    return `
-                                    <div data-equip-disc-uid="${d.uid}" style="background:#111118;border:1.5px solid ${isCurrent ? '#d7f70c' : '#2b2b36'};border-radius:12px;padding:10px;cursor:pointer;display:flex;flex-direction:column;gap:4px;">
-                                        <div style="display:flex;align-items:center;justify-content:space-between;">
-                                            <strong style="font-size:11px;color:#fff;">${sObj ? bridge.itemName(sObj) : d.setKey}</strong>
-                                            <span class="gacha-quest-prog done">+${d.level}</span>
-                                        </div>
-                                        <span style="font-size:11px;font-weight:800;color:#facc15;">${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)})</span>
-                                        <span style="font-size:10px;color:#a1a1aa;">${d.substats.map(s => `${tStat(s.key)}${s.upgrades > 0 ? '+' + s.upgrades : ''}`).join(', ')}</span>
-                                    </div>`;
-                                }).join('')}
+
+                        <!-- Barre d'actions inférieure façon ZZZ (Recommandé | Tout déséquiper | Équiper / Déséquiper | Renforcer) -->
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid #262734;padding-top:10px;">
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button type="button" class="gacha-res-btn" id="btn-arm-auto-guide" style="border-color:#d7f70c;color:#d7f70c;">${t.autoEquip}</button>
+                                <button type="button" class="gacha-res-btn" id="btn-arm-unequip-all">${t.unequipAll}</button>
+                            </div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                ${bottomRightButtonsHTML}
                             </div>
                         </div>
                     </div>
                 `;
 
-                document.getElementById('close-slot-modal').addEventListener('click', () => {
+                document.getElementById('close-armory-modal').addEventListener('click', () => {
                     overlay.classList.remove('active');
                     renderBuildsTab(mount);
                 });
 
-                document.getElementById('btn-slot-goto-bardic').addEventListener('click', () => {
+                document.getElementById('arm-filter-set')?.addEventListener('change', (e) => {
+                    filterSet = e.target.value;
+                    renderArmory();
+                });
+
+                document.getElementById('arm-sort-toggle')?.addEventListener('click', () => {
+                    sortMode = sortMode === 'guide' ? 'level' : 'guide';
+                    renderArmory();
+                });
+
+                document.getElementById('btn-arm-open-studio')?.addEventListener('click', () => {
                     bardicSlot = slotNum;
                     openBardicNeedleModal(mount);
                 });
 
-                document.getElementById('btn-up-disc-step')?.addEventListener('click', () => {
-                    if (eqDisc && eqDisc.level < 15 && st.residual >= 4) {
-                        st.residual -= 4;
-                        upgradeDiscOneStep(eqDisc);
+                document.getElementById('btn-arm-craft-slot')?.addEventListener('click', () => {
+                    bardicSlot = slotNum;
+                    openBardicNeedleModal(mount);
+                });
+
+                // Navigation directe sur la roue de droite (1..6 et Moteur central)
+                overlay.querySelectorAll('[data-armory-wheel]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        activeSlotOrEngine = parseInt(el.getAttribute('data-armory-wheel'), 10);
+                        syncDefaultSelection();
+                        renderArmory();
+                    });
+                });
+
+                document.getElementById('arm-wheel-engine')?.addEventListener('click', () => {
+                    activeSlotOrEngine = 'engine';
+                    syncDefaultSelection();
+                    renderArmory();
+                });
+
+                overlay.querySelectorAll('[data-arm-pick]').forEach(tile => {
+                    tile.addEventListener('click', () => {
+                        selectedUidOrKey = tile.getAttribute('data-arm-pick');
+                        renderArmory();
+                    });
+                });
+
+                // Équiper / Transférer / Déséquiper
+                document.getElementById('btn-arm-equip')?.addEventListener('click', () => {
+                    if (!selectedUidOrKey) return;
+                    if (isEngineMode) {
+                        equipEngineUnique(st, agent.rawKey, selectedUidOrKey);
+                    } else {
+                        equipDiscUnique(st, agent.rawKey, slotNum, selectedUidOrKey);
+                    }
+                    bridge.saveState(st);
+                    renderArmory();
+                });
+
+                document.getElementById('btn-arm-unequip')?.addEventListener('click', () => {
+                    if (isEngineMode) {
+                        ab.engineKey = null;
+                    } else {
+                        ab.discs[slotNum] = null;
+                    }
+                    bridge.saveState(st);
+                    renderArmory();
+                });
+
+                document.getElementById('btn-arm-auto-guide')?.addEventListener('click', () => {
+                    autoEquipFromGuide(st, pool, agent);
+                    bridge.saveState(st);
+                    syncDefaultSelection();
+                    renderArmory();
+                });
+
+                document.getElementById('btn-arm-unequip-all')?.addEventListener('click', () => {
+                    ab.engineKey = null;
+                    ab.discs = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
+                    bridge.saveState(st);
+                    renderArmory();
+                });
+
+                // Verrouiller / Démanteler / Renforcer un disque
+                document.getElementById('btn-arm-lock')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedUidOrKey);
+                    if (d) {
+                        d.locked = !d.locked;
                         bridge.saveState(st);
-                        renderSlotModal();
+                        renderArmory();
                     }
                 });
 
-                document.getElementById('btn-up-disc-max')?.addEventListener('click', () => {
-                    if (!eqDisc || eqDisc.level >= 15) return;
-                    const steps = (15 - eqDisc.level) / 3;
-                    const cost = steps * 4;
+                document.getElementById('btn-arm-trash')?.addEventListener('click', () => {
+                    const idx = bs.craftedDiscs.findIndex(x => x.uid === selectedUidOrKey);
+                    if (idx !== -1) {
+                        const d = bs.craftedDiscs[idx];
+                        if (d.locked || getDiscOwner(st, d.uid)) return;
+                        const gain = calcDiscDismantleGain(d);
+                        bs.craftedDiscs.splice(idx, 1);
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        selectedUidOrKey = null;
+                        bridge.saveState(st);
+                        syncDefaultSelection();
+                        renderArmory();
+                    }
+                });
+
+                document.getElementById('btn-arm-up-step')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedUidOrKey);
+                    if (d && d.level < 15 && st.residual >= 4) {
+                        st.residual -= 4;
+                        upgradeDiscOneStep(d);
+                        bridge.saveState(st);
+                        renderArmory();
+                    }
+                });
+
+                document.getElementById('btn-arm-up-max')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedUidOrKey);
+                    if (!d || d.level >= 15) return;
+                    const cost = ((15 - d.level) / 3) * 4;
                     if (st.residual >= cost) {
                         st.residual -= cost;
-                        while (eqDisc.level < 15) upgradeDiscOneStep(eqDisc);
+                        while (d.level < 15) upgradeDiscOneStep(d);
                         bridge.saveState(st);
-                        renderSlotModal();
+                        renderArmory();
                     }
-                });
-
-                overlay.querySelectorAll('[data-equip-disc-uid]').forEach(el => {
-                    el.addEventListener('click', () => {
-                        ab.discs[slotNum] = el.getAttribute('data-equip-disc-uid');
-                        bridge.saveState(st);
-                        renderSlotModal();
-                    });
                 });
             }
 
-            renderSlotModal();
+            renderArmory();
         }
 
-        // Studio d'Accordage Bardic Needle (Elfy) en 2 Colonnes avec Grille de Sets sans barre grise + Double Monnaie (Point 6)
+        // ========================================================
+        // 9. ENTREPÔT GLOBAL DISQUES & MOTEURS (FIDÈLE À IMAGE 3)
+        // ========================================================
+        function openStorageModal(mount, initialTab = 'discs') {
+            const bridge = window.ZZZGachaBridge;
+            const st = bridge.getState();
+            const pool = bridge.getPool();
+            const bs = ensureBuildState(st);
+            const overlay = document.getElementById('gacha-anim-overlay');
+            if (!overlay) return;
+
+            let storageTab = initialTab; // 'discs' | 'engines'
+            let filterSet = 'all';
+            let filterSlot = 0;
+            let selectedId = null;
+
+            function renderStorage() {
+                const t = B();
+                const isLangEn = (bridge.getLang?.() || 'fr') === 'en';
+                const ownedEngines = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
+                const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
+
+                // Calcul du gain de démantèlement rapide (tous les disques Niv.0 non verrouillés et non équipés)
+                const unownedLv0Discs = bs.craftedDiscs.filter(d => d.level === 0 && !d.locked && !getDiscOwner(st, d.uid));
+                const batchDiscGain = unownedLv0Discs.length * 5;
+
+                // Calcul des doublons de moteurs recyclables (au-delà de 1 exemplaire)
+                let surplusEngineGain = 0;
+                ownedEngines.forEach(e => {
+                    const cnt = st.inventory[e.id]?.count || 0;
+                    if (cnt > 1) {
+                        const diff = cnt - 1;
+                        surplusEngineGain += diff * (e.rank === 'S' ? 40 : (e.rank === 'A' ? 10 : 3));
+                    }
+                });
+
+                let leftGridHTML = '';
+                let rightDetailHTML = '';
+
+                if (storageTab === 'discs') {
+                    let discs = [...bs.craftedDiscs];
+                    if (filterSet !== 'all') discs = discs.filter(d => d.setKey === filterSet);
+                    if (filterSlot > 0) discs = discs.filter(d => d.slot === filterSlot);
+                    discs.sort((a, b) => b.level - a.level || a.slot - b.slot);
+
+                    if (!selectedId || !discs.some(d => d.uid === selectedId)) {
+                        selectedId = discs[0]?.uid || null;
+                    }
+
+                    leftGridHTML = discs.map(d => {
+                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === d.setKey);
+                        const ownerKey = getDiscOwner(st, d.uid);
+                        return `
+                        <div class="zb-gear-tile rank-S ${d.uid === selectedId ? 'selected' : ''}" data-st-pick="${d.uid}">
+                            <span class="zb-gear-tile-slot">${d.slot}</span>
+                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            ${d.locked ? `<span class="zb-gear-lock-badge">🔒</span>` : ''}
+                            <img src="${sObj ? sObj.img : ''}" class="zb-gear-tile-img" style="border-radius:999px;" alt="">
+                            <span class="zb-gear-tile-lvl">Niv. ${d.level}</span>
+                        </div>`;
+                    }).join('');
+
+                    const selD = bs.craftedDiscs.find(d => d.uid === selectedId) || null;
+                    if (selD) {
+                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === selD.setKey);
+                        const ownerKey = getDiscOwner(st, selD.uid);
+                        const gain = calcDiscDismantleGain(selD);
+
+                        rightDetailHTML = `
+                            <div style="display:flex;flex-direction:column;gap:10px;">
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <div>
+                                        <span style="font-size:10px;font-weight:900;color:#71717a;">DETAIL</span>
+                                        <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                                            ${sObj ? bridge.itemName(sObj) : selD.setKey} [${selD.slot}]
+                                        </h3>
+                                    </div>
+                                    <img src="${sObj ? sObj.img : ''}" style="width:48px;height:48px;border-radius:999px;">
+                                </div>
+
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <span class="gacha-quest-prog done">S • Niv. ${selD.level}/15</span>
+                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:22px;height:22px;border-radius:999px;"> ${ownerKey}</span>` : `<span style="font-size:10.5px;color:#71717a;">EMPTY</span>`}
+                                </div>
+
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
+                                <div class="zb-insp-subline guide-hit">
+                                    <span>${tStat(selD.mainStat)}</span>
+                                    <strong>${formatMainStatValue(selD.mainStat, selD.level)}</strong>
+                                </div>
+
+                                <span style="font-size:10px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
+                                <div style="display:flex;flex-direction:column;gap:5px;">
+                                    ${selD.substats.map(sub => `
+                                        <div class="zb-insp-subline ${sub.upgrades > 0 ? 'guide-hit' : ''}">
+                                            <span>${tStat(sub.key)} ${sub.upgrades > 0 ? `+${sub.upgrades}` : ''}</span>
+                                            <strong>${formatSubstatValue(sub)}</strong>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                                <button type="button" class="gacha-details-btn" id="st-btn-lock">${selD.locked ? t.unlockBtn : t.lockBtn}</button>
+                                <button type="button" class="gacha-details-btn" id="st-btn-trash" ${selD.locked || ownerKey ? 'disabled' : ''} style="border-color:#ef4444;color:#fca5a5;">
+                                    ${t.dismantleSingle.replace('{gain}', gain)}
+                                </button>
+                                <button type="button" class="gacha-shop-btn primary-yellow" id="st-btn-up" style="flex:1;" ${selD.level >= 15 || st.residual < 4 ? 'disabled' : ''}>
+                                    ${selD.level >= 15 ? t.upgradeMax : t.upStepBtn.replace('{lvl}', selD.level + 3)}
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        rightDetailHTML = `<div style="margin:auto;text-align:center;color:#71717a;font-size:12px;">Aucun disque dans l'entrepôt.</div>`;
+                    }
+                } else {
+                    // Onglet Moteurs-Ampli dans l'Entrepôt
+                    const rW = { S: 0, A: 1, B: 2 };
+                    ownedEngines.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
+                    if (!selectedId || !ownedEngines.some(e => e.rawKey === selectedId)) {
+                        selectedId = ownedEngines[0]?.rawKey || null;
+                    }
+
+                    leftGridHTML = ownedEngines.map(e => {
+                        const cnt = st.inventory[e.id]?.count || 1;
+                        const ownerKey = getEngineOwner(st, e.rawKey);
+                        return `
+                        <div class="zb-gear-tile rank-${e.rank} ${e.rawKey === selectedId ? 'selected' : ''}" data-st-pick="${e.rawKey}">
+                            <span class="zb-gear-tile-slot">★${Math.min(5, cnt)} (×${cnt})</span>
+                            ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            <img src="${e.img}" class="zb-gear-tile-img" alt="">
+                            <span class="zb-gear-tile-lvl">Niv. 60</span>
+                        </div>`;
+                    }).join('');
+
+                    const selE = ownedEngines.find(e => e.rawKey === selectedId) || null;
+                    if (selE) {
+                        const cnt = st.inventory[selE.id]?.count || 1;
+                        const ownerKey = getEngineOwner(st, selE.rawKey);
+                        const rawJson = EXT_DATA.engines[selE.rawKey] || {};
+                        const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || '';
+                        const unitVal = selE.rank === 'S' ? 40 : (selE.rank === 'A' ? 10 : 3);
+
+                        rightDetailHTML = `
+                            <div style="display:flex;flex-direction:column;gap:10px;">
+                                <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;">
+                                    ${bridge.itemName(selE)}
+                                </h3>
+                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                    <span class="gacha-quest-prog done">${selE.rank} • ★${Math.min(5, cnt)} (${cnt} ex.)</span>
+                                    ${ownerKey ? `<span style="font-size:11px;font-weight:800;color:#d7f70c;">Porté par ${ownerKey}</span>` : ''}
+                                </div>
+                                <div style="font-size:11.5px;color:#d4d4d8;line-height:1.5;background:#07070b;padding:10px;border-radius:12px;border:1px solid #1f202b;">
+                                    ${effectTxt || 'Moteur-Ampli de spécialisation ' + (selE.role || '')}
+                                </div>
+                            </div>
+                            <button type="button" class="gacha-shop-btn primary-purple" id="st-btn-recycle-1-eng" ${cnt <= 1 ? 'disabled' : ''}>
+                                🗑️ Recycler 1 doublon (+${unitVal} ✦)
+                            </button>
+                        `;
+                    }
+                }
+
+                overlay.classList.add('active');
+                overlay.innerHTML = `
+                    <div class="zb-armory-modal" style="max-width:1100px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid #262734;padding-bottom:10px;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <button type="button" class="gacha-back-btn" id="close-storage-modal">← ${t.close}</button>
+                                <button type="button" class="gacha-col-filter-btn ${storageTab === 'discs' ? 'active' : ''}" data-st-tab="discs">${t.storageDiscsTab.replace('{n}', bs.craftedDiscs.length)}</button>
+                                <button type="button" class="gacha-col-filter-btn ${storageTab === 'engines' ? 'active' : ''}" data-st-tab="engines">${t.storageEnginesTab.replace('{n}', ownedEngines.length)}</button>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span class="gacha-reset-pill">✦ ${st.residual}</span>
+                            </div>
+                        </div>
+
+                        ${storageTab === 'discs' ? `
+                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                <select id="st-filter-set" class="gacha-col-search">
+                                    <option value="all">${t.filterAllSets}</option>
+                                    ${distinctSets.map(sk => {
+                                        const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
+                                        return `<option value="${sk}" ${filterSet === sk ? 'selected' : ''}>${sObj ? bridge.itemName(sObj) : sk}</option>`;
+                                    }).join('')}
+                                </select>
+                                ${[0, 1, 2, 3, 4, 5, 6].map(n => `
+                                    <button type="button" class="gacha-col-filter-btn ${filterSlot === n ? 'active' : ''}" data-st-slot="${n}">${n === 0 ? 'I–VI' : `[${n}]`}</button>
+                                `).join('')}
+                            </div>
+                            <button type="button" class="gacha-details-btn accent" id="st-batch-dismantle" ${batchDiscGain <= 0 ? 'disabled' : ''}>
+                                ${t.batchDismantle.replace('{gain}', batchDiscGain)}
+                            </button>
+                        </div>` : `
+                        <div style="display:flex;justify-content:flex-end;">
+                            <button type="button" class="gacha-details-btn accent" id="st-batch-engines" ${surplusEngineGain <= 0 ? 'disabled' : ''}>
+                                ${t.recycleSurplusEngines.replace('{gain}', surplusEngineGain)}
+                            </button>
+                        </div>`}
+
+                        <div style="display:grid;grid-template-columns:1.35fr 0.85fr;gap:16px;min-height:0;flex:1;">
+                            <div class="zb-armory-grid-scroll">
+                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:30px;">Vide</div>`}
+                            </div>
+                            <div class="zb-inspector-col">
+                                ${rightDetailHTML}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('close-storage-modal').addEventListener('click', () => {
+                    overlay.classList.remove('active');
+                    renderBuildsTab(mount);
+                });
+
+                overlay.querySelectorAll('[data-st-tab]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        storageTab = btn.getAttribute('data-st-tab');
+                        selectedId = null;
+                        renderStorage();
+                    });
+                });
+
+                document.getElementById('st-filter-set')?.addEventListener('change', (e) => {
+                    filterSet = e.target.value;
+                    renderStorage();
+                });
+
+                overlay.querySelectorAll('[data-st-slot]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterSlot = parseInt(btn.getAttribute('data-st-slot'), 10) || 0;
+                        renderStorage();
+                    });
+                });
+
+                overlay.querySelectorAll('[data-st-pick]').forEach(tile => {
+                    tile.addEventListener('click', () => {
+                        selectedId = tile.getAttribute('data-st-pick');
+                        renderStorage();
+                    });
+                });
+
+                document.getElementById('st-btn-lock')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedId);
+                    if (d) {
+                        d.locked = !d.locked;
+                        bridge.saveState(st);
+                        renderStorage();
+                    }
+                });
+
+                document.getElementById('st-btn-trash')?.addEventListener('click', () => {
+                    const idx = bs.craftedDiscs.findIndex(x => x.uid === selectedId);
+                    if (idx !== -1) {
+                        const d = bs.craftedDiscs[idx];
+                        if (d.locked || getDiscOwner(st, d.uid)) return;
+                        const gain = calcDiscDismantleGain(d);
+                        bs.craftedDiscs.splice(idx, 1);
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        selectedId = null;
+                        bridge.saveState(st);
+                        renderStorage();
+                    }
+                });
+
+                document.getElementById('st-btn-up')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedId);
+                    if (d && d.level < 15 && st.residual >= 4) {
+                        st.residual -= 4;
+                        upgradeDiscOneStep(d);
+                        bridge.saveState(st);
+                        renderStorage();
+                    }
+                });
+
+                document.getElementById('st-batch-dismantle')?.addEventListener('click', () => {
+                    if (unownedLv0Discs.length === 0) return;
+                    const toRemove = new Set(unownedLv0Discs.map(d => d.uid));
+                    bs.craftedDiscs = bs.craftedDiscs.filter(d => !toRemove.has(d.uid));
+                    st.residual += batchDiscGain;
+                    st.totalDupesRes = (st.totalDupesRes || 0) + batchDiscGain;
+                    selectedId = null;
+                    bridge.saveState(st);
+                    renderStorage();
+                });
+
+                document.getElementById('st-btn-recycle-1-eng')?.addEventListener('click', () => {
+                    const selE = ownedEngines.find(e => e.rawKey === selectedId);
+                    if (selE && (st.inventory[selE.id]?.count || 0) > 1) {
+                        st.inventory[selE.id].count -= 1;
+                        const gain = selE.rank === 'S' ? 40 : (selE.rank === 'A' ? 10 : 3);
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        bridge.saveState(st);
+                        renderStorage();
+                    }
+                });
+
+                document.getElementById('st-batch-engines')?.addEventListener('click', () => {
+                    if (surplusEngineGain <= 0) return;
+                    ownedEngines.forEach(e => {
+                        if ((st.inventory[e.id]?.count || 0) > 1) {
+                            st.inventory[e.id].count = 1;
+                        }
+                    });
+                    st.residual += surplusEngineGain;
+                    st.totalDupesRes = (st.totalDupesRes || 0) + surplusEngineGain;
+                    bridge.saveState(st);
+                    renderStorage();
+                });
+            }
+
+            renderStorage();
+        }
+
+        // ========================================================
+        // 10. STUDIO D'ACCORDAGE ELFY (AVEC STOCK GACHA GRATUIT UNIQUE)
+        // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
             const st = bridge.getState();
@@ -1129,7 +2053,9 @@
 
             const allSets = pool.allCatalog.filter(i => i.type === 'disc');
             if (!bardicSetKey || !allSets.some(s => s.rawKey === bardicSetKey)) {
-                bardicSetKey = allSets[0]?.rawKey || '';
+                // Sélectionne par défaut le Set 4P recommandé de l'agent actif
+                const prof = getGuideProfile(selectedAgentKey);
+                bardicSetKey = prof.sets4[0] || allSets[0]?.rawKey || '';
             }
 
             let setSearch = '';
@@ -1138,19 +2064,29 @@
 
             function renderBardic() {
                 const t = B();
+                const prof = getGuideProfile(selectedAgentKey);
                 const filteredSets = allSets.filter(s => {
                     if (!setSearch.trim()) return true;
                     const q = setSearch.trim().toLowerCase();
                     return bridge.itemName(s).toLowerCase().includes(q) || s.rawKey.toLowerCase().includes(q);
                 });
 
+                // Place les sets recommandés par le guide de l'agent en tête de liste
+                filteredSets.sort((a, b) => {
+                    const aRec = prof.sets4.includes(a.rawKey) ? 2 : (prof.sets2.includes(a.rawKey) ? 1 : 0);
+                    const bRec = prof.sets4.includes(b.rawKey) ? 2 : (prof.sets2.includes(b.rawKey) ? 1 : 0);
+                    if (aRec !== bRec) return bRec - aRec;
+                    return getFreeGachaDiscCount(st, b.rawKey) - getFreeGachaDiscCount(st, a.rawKey);
+                });
+
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
+                const freeForCurrentSet = getFreeGachaDiscCount(st, bardicSetKey);
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
                 const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
-                    <div class="gacha-dialog-box" style="max-width:980px;">
+                    <div class="gacha-dialog-box" style="max-width:1000px;">
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
                             <div>
                                 <span class="gacha-patch-tag">${t.bardicTag}</span>
@@ -1165,27 +2101,29 @@
                         </div>
 
                         <div class="zb-bardic-layout">
-                            <!-- Colonne Gauche : Sélecteur Visuel de Set en Grille avec Recherche -->
                             <div style="display:flex;flex-direction:column;gap:10px;min-height:0;">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
+                                        const freeStock = getFreeGachaDiscCount(st, s.rawKey);
                                         const countCrafted = bs.craftedDiscs.filter(d => d.setKey === s.rawKey).length;
+                                        const isGuideRec = prof.sets4.includes(s.rawKey) || prof.sets2.includes(s.rawKey);
                                         return `
                                         <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}">
                                             <img src="${s.img}" alt="${bridge.itemName(s)}">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                                    ${bridge.itemName(s)}
+                                                    ${isGuideRec ? '⭐ ' : ''}${bridge.itemName(s)}
                                                 </div>
-                                                <span style="font-family:monospace;font-size:9.5px;color:#d7f70c;">×${countCrafted} gravés</span>
+                                                <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#a1a1aa'};">
+                                                    ${freeStock > 0 ? `💿 ${freeStock} à graver` : `×${countCrafted} gravés`}
+                                                </span>
                                             </div>
                                         </div>`;
                                     }).join('')}
                                 </div>
                             </div>
 
-                            <!-- Colonne Droite : Choix de Partition, Orientation & Tirages -->
                             <div style="display:flex;flex-direction:column;justify-content:space-between;gap:12px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
                                 <div style="display:flex;flex-direction:column;gap:10px;">
                                     <div style="display:flex;align-items:center;gap:10px;">
@@ -1215,8 +2153,7 @@
                                     </div>` : ''}
                                 </div>
 
-                                <!-- Résultats des derniers disques gravés avec bouton Équiper direct -->
-                                <div style="display:flex;flex-direction:column;gap:6px;max-height:175px;overflow-y:auto;">
+                                <div style="display:flex;flex-direction:column;gap:6px;max-height:165px;overflow-y:auto;">
                                     ${lastCraftedList.map(d => `
                                         <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
                                             <div style="min-width:0;flex:1;">
@@ -1224,7 +2161,7 @@
                                                     [${d.slot}] ${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)}) • ${d.isFourLiner ? '★ 4-Liner' : '3-Liner'}
                                                 </div>
                                                 <div style="font-size:9.5px;color:#d4d4d8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                                    ${d.substats.map(s => `${tStat(s.key)} ${formatSubstatValue(s)}`).join(' | ')}
+                                                    ${d.substats.map(s => `${tStat(s.key)} +${formatSubstatValue(s)}`).join(' | ')}
                                                 </div>
                                             </div>
                                             ${activeAgent ? `
@@ -1235,10 +2172,16 @@
                                     `).join('')}
                                 </div>
 
-                                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < 10 ? 'disabled' : ''}>${t.tune1Res}</button>
-                                    <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < 50 ? 'disabled' : ''}>${t.tune5Res}</button>
-                                    <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < 80 ? 'disabled' : ''}>${t.tune1Poly}</button>
+                                <div style="display:flex;flex-direction:column;gap:6px;">
+                                    ${freeForCurrentSet > 0 ? `
+                                    <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free">
+                                        ${t.tuneFreeStock.replace('{n}', freeForCurrentSet)}
+                                    </button>` : ''}
+                                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                                        <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < 10 ? 'disabled' : ''}>${t.tune1Res}</button>
+                                        <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < 50 ? 'disabled' : ''}>${t.tune5Res}</button>
+                                        <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < 80 ? 'disabled' : ''}>${t.tune1Poly}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1282,8 +2225,11 @@
                     selectedMainStat = e.target.value;
                 });
 
-                function executeCraft(count, usePoly = false) {
-                    if (usePoly) {
+                function executeCraft(count, mode = 'res') {
+                    if (mode === 'free') {
+                        if (getFreeGachaDiscCount(st, bardicSetKey) < 1) return;
+                        bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + 1;
+                    } else if (mode === 'poly') {
                         if (st.polychromes < 80 * count) return;
                         st.polychromes -= 80 * count;
                     } else {
@@ -1305,17 +2251,17 @@
                     renderBardic();
                 }
 
-                document.getElementById('btn-craft-1')?.addEventListener('click', () => executeCraft(1, false));
-                document.getElementById('btn-craft-5')?.addEventListener('click', () => executeCraft(5, false));
-                document.getElementById('btn-craft-poly')?.addEventListener('click', () => executeCraft(1, true));
+                document.getElementById('btn-craft-free')?.addEventListener('click', () => executeCraft(1, 'free'));
+                document.getElementById('btn-craft-1')?.addEventListener('click', () => executeCraft(1, 'res'));
+                document.getElementById('btn-craft-5')?.addEventListener('click', () => executeCraft(5, 'res'));
+                document.getElementById('btn-craft-poly')?.addEventListener('click', () => executeCraft(1, 'poly'));
 
                 overlay.querySelectorAll('[data-quick-equip]').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const uid = btn.getAttribute('data-quick-equip');
                         const sl = parseInt(btn.getAttribute('data-qslot'), 10);
                         if (selectedAgentKey && uid && sl) {
-                            const ab = getOrInitAgentBuild(st, selectedAgentKey);
-                            ab.discs[sl] = uid;
+                            equipDiscUnique(st, selectedAgentKey, sl, uid);
                             bridge.saveState(st);
                             btn.textContent = t.equippedTag;
                             btn.disabled = true;
@@ -1328,9 +2274,9 @@
         }
 
         // ========================================================
-        // 6. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES AVEC PORTRAITS (POINT 8)
+        // 11. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES
         // ========================================================
-        let badgeFilter = 'all'; // 'all' | 'mastery' | 'squads'
+        let badgeFilter = 'all';
 
         function computeSeriesBadges(st, pool) {
             const bs = ensureBuildState(st);
@@ -1338,7 +2284,6 @@
             const isEn = (window.ZZZGachaBridge?.getLang?.() || 'fr') === 'en';
             const badges = [];
 
-            // A. Badges de Maîtrise & Équipement (Placés en tête !)
             const allDiscs = pool.allCatalog.filter(i => i.type === 'disc');
             const ownedDiscs = allDiscs.filter(d => (inv[d.id]?.count || 0) > 0).length;
             const lv15Count = bs.craftedDiscs.filter(d => d.level >= 15).length;
@@ -1400,7 +2345,6 @@
                 reward: 1200
             });
 
-            // B. Badges d'Escouades (Factions) avec les portraits de chaque membre
             const factionMap = {};
             pool.allCatalog.filter(i => i.type === 'agent').forEach(a => {
                 const fac = a.faction || 'New Eridu';
@@ -1423,7 +2367,6 @@
                 });
             });
 
-            // Tri intelligent : Prêts à récupérer en 1er, puis par pourcentage d'avancement décroissant
             badges.sort((a, b) => {
                 const aClaimed = !!bs.claimedBadges[a.id];
                 const bClaimed = !!bs.claimedBadges[b.id];
@@ -1459,9 +2402,9 @@
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                             <span class="gacha-reset-pill">${t.badgesUnlockedCount.replace('{u}', unlockedTotal).replace('{t}', allBadges.length)}</span>
                             <div class="gacha-col-filter-group">
-                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'all' ? 'active' : ''}" data-bf="${'all'}">${t.filterAllBadges.replace('{n}', allBadges.length)}</button>
-                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'mastery' ? 'active' : ''}" data-bf="${'mastery'}">${t.filterMastery}</button>
-                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'squads' ? 'active' : ''}" data-bf="${'squads'}">${t.filterSquads}</button>
+                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'all' ? 'active' : ''}" data-bf="all">${t.filterAllBadges.replace('{n}', allBadges.length)}</button>
+                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'mastery' ? 'active' : ''}" data-bf="mastery">${t.filterMastery}</button>
+                                <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'squads' ? 'active' : ''}" data-bf="squads">${t.filterSquads}</button>
                             </div>
                         </div>
                     </div>
@@ -1546,7 +2489,7 @@
         }
 
         // ========================================================
-        // 7. INJECTION DES ONGLETS & SYNCHRO DE LANGUE FR / EN (SANS BOUCLE DOM)
+        // 12. INJECTION DES ONGLETS & SYNCHRO DE LANGUE FR / EN
         // ========================================================
         function injectBuildTabsIntoTopbar() {
             const navPills = document.querySelector('#zzz-gacha-modal .gacha-nav-pills');
