@@ -205,11 +205,10 @@
         // Garantit que le cumul de guides lus est toujours au moins égal aux guides lus aujourd'hui
         state.totalGuidesRead = Math.max(state.totalGuidesRead || 0, state.daily.guidesOpened.length);
 
-        // Migration Pack ×5 Disques : convertit une seule fois les anciens drops unitaires de disques en lots ×5
         if (!state.discPackV2Migrated) {
             Object.values(state.inventory).forEach(it => {
                 if (it && it.type === 'disc' && (it.count || 0) > 0) {
-                    it.count = it.count * 5;
+                    it.count = it.count * (Math.floor(Math.random() * 4) + 2);
                 }
             });
             state.discPackV2Migrated = true;
@@ -596,13 +595,8 @@
     function registerItemToInventory(chosen) {
         const prev = GState.inventory[chosen.id];
         const isNew = !prev;
-        // Chaque drop de Disque donne aléatoirement entre 2 et 5 exemplaires + 5 Signaux résiduels (✦) par disque
+        // Chaque drop de Disque donne aléatoirement entre 2 et 5 exemplaires à graver
         const qtyAdded = chosen.type === 'disc' ? (Math.floor(Math.random() * 4) + 2) : 1;
-        if (chosen.type === 'disc') {
-            const bonusRes = qtyAdded * 2;
-            GState.residual = (GState.residual || 0) + bonusRes;
-            GState.totalDupesRes = (GState.totalDupesRes || 0) + bonusRes;
-        }
         GState.inventory[chosen.id] = {
             count: (prev ? prev.count : 0) + qtyAdded,
             type: chosen.type,
@@ -2088,12 +2082,16 @@
         Physical: 'physique.webp',
         Fire: 'feu.webp',
         Ice: 'Ice.webp',
+        Frost: 'Frost.webp',
         Electric: 'electrique.webp',
         Ether: 'Ether.webp',
-        Wind: 'vent.webp',
-        Aurora: 'lumen.webp',
-        HonedEdge: 'lame.webp',
-        Sepia: 'sepia.webp'
+        Wind: 'Vent.webp',
+        Aurora: 'Lumiflux.webp',
+        Lumiflux: 'Lumiflux.webp',
+        HonedEdge: 'Honed_Edge.webp',
+        Honed_Edge: 'Honed_Edge.webp',
+        Sepia: 'Auric_Ink.webp',
+        Auric_Ink: 'Auric_Ink.webp'
     };
 
     function showAgentMiniCard(rawKey) {
