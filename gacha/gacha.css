@@ -244,7 +244,7 @@
 }
 
 .gacha-save-trigger span.lbl {
-    display: none;
+    display: inline;
 }
 
 @media (min-width: 640px) {
@@ -255,9 +255,6 @@
     .gacha-curr-pill img {
         width: 20px;
         height: 20px;
-    }
-    .gacha-save-trigger span.lbl {
-        display: inline;
     }
 }
 
