@@ -596,8 +596,13 @@
     function registerItemToInventory(chosen) {
         const prev = GState.inventory[chosen.id];
         const isNew = !prev;
-        // Chaque drop de Disque donne un Pack de ×5 exemplaires pour pouvoir graver 5 disques !
-        const qtyAdded = chosen.type === 'disc' ? 5 : 1;
+        // Chaque drop de Disque donne aléatoirement entre 2 et 5 exemplaires + 5 Signaux résiduels (✦) par disque
+        const qtyAdded = chosen.type === 'disc' ? (Math.floor(Math.random() * 4) + 2) : 1;
+        if (chosen.type === 'disc') {
+            const bonusRes = qtyAdded * 2;
+            GState.residual = (GState.residual || 0) + bonusRes;
+            GState.totalDupesRes = (GState.totalDupesRes || 0) + bonusRes;
+        }
         GState.inventory[chosen.id] = {
             count: (prev ? prev.count : 0) + qtyAdded,
             type: chosen.type,
@@ -2352,10 +2357,11 @@
             const fitClass = item.type === 'agent' ? 'is-agent' : 'is-equip';
             const badgePos = item.type === 'agent' ? 'left:5px;' : 'right:5px;';
             const topBadge = item.type === 'disc'
-                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">💿 PACK ×5</span>`
+                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">💿 ×${item.qtyAdded || 3}</span>`
                 : (item.isNew
                     ? `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
                     : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`);
+
             return `
             <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms;${singleStyle}"
                  data-res-type="${item.type}" data-res-key="${item.rawKey}" title="${itemName(item)} (${t.inspectHint})">
@@ -2375,10 +2381,12 @@
                     ${cardsHTML}
                 </div>
                 <div class="gacha-results-bar">
-                    <span style="font-family:monospace;font-size:12px;font-weight:800;color:#f43f5e;">✦ ${GState.residual}</span>
-                    <span style="font-family:monospace;font-size:12px;font-weight:800;color:#d7f70c;display:inline-flex;align-items:center;gap:4px;">
-                        <img src="${ASSETS.polychrome}" style="width:16px;height:16px;object-fit:contain;" ${iconFallback('poly')}> ${GState.polychromes}
-                    </span>
+                    <div class="gacha-results-curr-group">
+                        <span style="font-family:monospace;font-size:12px;font-weight:800;color:#f43f5e;">✦ ${GState.residual}</span>
+                        <span style="font-family:monospace;font-size:12px;font-weight:800;color:#d7f70c;display:inline-flex;align-items:center;gap:4px;">
+                            <img src="${ASSETS.polychrome}" style="width:16px;height:16px;object-fit:contain;" ${iconFallback('poly')}> ${GState.polychromes}
+                        </span>
+                    </div>
                     <button type="button" id="gacha-again-btn" class="gacha-res-btn">
                         ${results.length === 10 ? t.pullAgain10 : t.pullAgain1}
                     </button>
