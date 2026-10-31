@@ -15,7 +15,7 @@ export const GACHA_I18N = {
         banner: {
             badge: "CANAL UNIFIÉ • PATCH {patch}",
             title: "Recherche de Signal",
-            subtitle: "Canal permanent regroupant les 62 Agents, les Moteurs-Ampli et les Packs de ×5 Disques (1 Pack ×5 Disques garanti à chaque Multi ×10).",
+            subtitle: "Canal permanent regroupant les 62 Agents, les Moteurs-Ampli et les Packs de ×2 à ×5 Disques (1 Pack de Disques garanti à chaque Multi ×10).",
             rateUpLabel: "DUO EN VEDETTE (RATE-UP 50%)",
             changeDuoBtn: "🎯 Changer le Duo en Vedette",
             tv1Tag: "AGENT S EN VEDETTE",
@@ -259,7 +259,7 @@ export const GACHA_I18N = {
         banner: {
             badge: "UNIFIED CHANNEL • PATCH {patch}",
             title: "Signal Search",
-            subtitle: "Permanent channel featuring all 62 Agents, W-Engines, and ×5 Drive Disc Packs (1 ×5 Disc Pack guaranteed every 10-Pull).",
+            subtitle: "Permanent channel featuring all 62 Agents, W-Engines, and ×2 to ×5 Drive Disc Packs (1 Disc Pack guaranteed every 10-Pull).",
             rateUpLabel: "FEATURED DUO (50% RATE-UP)",
             changeDuoBtn: "🎯 Change Featured Duo",
             tv1Tag: "FEATURED S-AGENT",
