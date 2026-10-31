@@ -2050,3 +2050,137 @@
         max-height: 92dvh;
     }
 }
+
+/* ========================================================
+   10. BOUTON DUO VEDETTE, QUÊTES VISUELLES & RACCOURCIS COLLECTION
+======================================================== */
+.gacha-change-duo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: linear-gradient(135deg, #d7f70c 0%, #facc15 100%);
+    border: 2px solid #fff;
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 0 18px rgba(215, 247, 12, 0.35);
+    transition: all 0.16s ease;
+}
+
+.gacha-change-duo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 26px rgba(215, 247, 12, 0.6);
+}
+
+.gacha-crt-role-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 4;
+    background: rgba(9, 9, 13, 0.88);
+    border: 1px solid rgba(215, 247, 12, 0.5);
+    color: #d7f70c;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.gacha-duo-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: #0a0a0f;
+    border: 1.5px solid #2b2b36;
+    border-radius: 14px;
+    padding: 5px;
+    flex-shrink: 0;
+}
+
+.gacha-duo-tab-btn {
+    padding: 9px 10px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: #a1a1aa;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(10px, 2.3vw, 12px);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.16s ease;
+}
+
+.gacha-duo-tab-btn.active {
+    background: #d7f70c;
+    color: #000;
+    box-shadow: 0 0 16px rgba(215, 247, 12, 0.35);
+}
+
+/* Visibilité améliorée des Quêtes */
+.gacha-daily-summary-banner {
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.12) 0%, #0d0d14 100%);
+    border: 1px solid rgba(215, 247, 12, 0.35);
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.gacha-quest-card.is-claimed-card {
+    opacity: 0.55;
+    border-color: rgba(34, 197, 94, 0.3);
+    background: #0a0b0e;
+}
+
+.gacha-quest-icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: #161722;
+    border: 1px solid #2d2e3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.gacha-quest-card.ready .gacha-quest-icon-box {
+    background: rgba(215, 247, 12, 0.18);
+    border-color: #d7f70c;
+}
+
+/* Bouton rapide Build sur les cartes de la Collection */
+.gacha-col-build-pill {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    z-index: 6;
+    background: rgba(215, 247, 12, 0.92);
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.gacha-col-build-pill:hover {
+    transform: scale(1.06);
+    background: #fff;
+}
