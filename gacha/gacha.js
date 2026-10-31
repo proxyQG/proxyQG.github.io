@@ -205,6 +205,16 @@
         // Garantit que le cumul de guides lus est toujours au moins égal aux guides lus aujourd'hui
         state.totalGuidesRead = Math.max(state.totalGuidesRead || 0, state.daily.guidesOpened.length);
 
+        // Migration Pack ×5 Disques : convertit une seule fois les anciens drops unitaires de disques en lots ×5
+        if (!state.discPackV2Migrated) {
+            Object.values(state.inventory).forEach(it => {
+                if (it && it.type === 'disc' && (it.count || 0) > 0) {
+                    it.count = it.count * 5;
+                }
+            });
+            state.discPackV2Migrated = true;
+        }
+
         state.updatedAt = Date.now();
         return state;
     }
@@ -586,8 +596,10 @@
     function registerItemToInventory(chosen) {
         const prev = GState.inventory[chosen.id];
         const isNew = !prev;
+        // Chaque drop de Disque donne un Pack de ×5 exemplaires pour pouvoir graver 5 disques !
+        const qtyAdded = chosen.type === 'disc' ? 5 : 1;
         GState.inventory[chosen.id] = {
-            count: (prev ? prev.count : 0) + 1,
+            count: (prev ? prev.count : 0) + qtyAdded,
             type: chosen.type,
             rank: chosen.rank,
             nameFr: chosen.nameFr,
@@ -609,7 +621,7 @@
             if (GState.recentDrops.length > 14) GState.recentDrops.pop();
         }
 
-        return { ...chosen, isNew, count: GState.inventory[chosen.id].count };
+        return { ...chosen, isNew, qtyAdded, count: GState.inventory[chosen.id].count };
     }
 
     function rollSingleItem() {
@@ -873,13 +885,8 @@
                         <div class="gacha-showcase-header">
                             <span class="gacha-rateup-tag">★ ${t.rateUpLabel}</span>
                             <div class="gacha-header-btns">
-                                <button type="button" class="gacha-details-btn accent" id="btn-choose-target1">
-                                    <span>🎯</span>
-                                    <span>${t.chooseTarget1}</span>
-                                </button>
-                                <button type="button" class="gacha-details-btn accent" id="btn-choose-target2">
-                                    <span>📺</span>
-                                    <span>${t.chooseTarget2}</span>
+                                <button type="button" class="gacha-change-duo-btn" id="btn-change-duo">
+                                    <span>${t.changeDuoBtn || '🎯 Changer le Duo en Vedette'}</span>
                                 </button>
                                 <button type="button" class="gacha-details-btn" id="btn-open-rates">
                                     <span>ⓘ</span>
@@ -890,17 +897,19 @@
 
                         <div class="gacha-featured-tvs">
                             <div class="gacha-crt-screen primary" id="tv-screen-slot1" title="${t.chooseTarget1}">
+                                <span class="gacha-crt-role-badge">${t.tv1Tag || 'AGENT S EN VEDETTE'}</span>
                                 <img src="${feat1.img}" alt="${itemName(feat1)}">
                                 <div class="gacha-crt-caption">
                                     <span class="gacha-crt-name">${itemName(feat1)}</span>
-                                    <span class="gacha-crt-up-pill">CIBLE #1 ✎</span>
+                                    <span class="gacha-crt-up-pill">RATE-UP</span>
                                 </div>
                             </div>
                             <div class="gacha-crt-screen ${feat2.type === 'engine' ? 'equip-tv-bg' : ''}" id="tv-screen-slot2" title="${t.chooseTarget2}">
+                                <span class="gacha-crt-role-badge">${t.tv2Tag || '2e VEDETTE'}</span>
                                 <img src="${feat2.img}" alt="${itemName(feat2)}" class="${feat2.type === 'engine' ? 'is-equip-tv' : ''}">
                                 <div class="gacha-crt-caption">
                                     <span class="gacha-crt-name">${itemName(feat2)}</span>
-                                    <span class="gacha-crt-up-pill">CIBLE #2 ✎</span>
+                                    <span class="gacha-crt-up-pill">RATE-UP</span>
                                 </div>
                             </div>
                         </div>
@@ -1025,8 +1034,7 @@
         document.getElementById('btn-pull-1').addEventListener('click', () => triggerPull(1));
         document.getElementById('btn-pull-10').addEventListener('click', () => triggerPull(10));
         document.getElementById('btn-open-rates').addEventListener('click', showRatesDetailsModal);
-        document.getElementById('btn-choose-target1').addEventListener('click', () => showTargetSelectorModal(1));
-        document.getElementById('btn-choose-target2').addEventListener('click', () => showTargetSelectorModal(2));
+        document.getElementById('btn-change-duo').addEventListener('click', () => showTargetSelectorModal(1));
         document.getElementById('tv-screen-slot1').addEventListener('click', () => showTargetSelectorModal(1));
         document.getElementById('tv-screen-slot2').addEventListener('click', () => showTargetSelectorModal(2));
 
@@ -1047,18 +1055,19 @@
         });
     }
 
-    function showTargetSelectorModal(slotNum = 1) {
+    function showTargetSelectorModal(initialSlot = 1) {
         const tm = L().targetModal;
-        let filterCat = slotNum === 1 ? 'agent' : 'all';
+        let slotNum = initialSlot === 2 ? 2 : 1;
+        let filterCat = slotNum === 1 ? 'agent' : 'engine';
         let query = '';
-
-        const primaryObj = getPrimaryFeatured();
-        const secondaryObj = getSecondaryFeatured(primaryObj);
-        const activeKey = slotNum === 1 ? primaryObj.rawKey : (secondaryObj.id || secondaryObj.rawKey);
 
         animOverlayEl.classList.add('active');
 
         function renderSelectorContent() {
+            const primaryObj = getPrimaryFeatured();
+            const secondaryObj = getSecondaryFeatured(primaryObj);
+            const activeKey = slotNum === 1 ? primaryObj.rawKey : (secondaryObj.id || secondaryObj.rawKey);
+
             let candidates = slotNum === 1
                 ? POOL.S_all.filter(i => i.type === 'agent')
                 : POOL.S_all.filter(i => i.id !== primaryObj.id);
@@ -1083,19 +1092,29 @@
                 <div class="gacha-dialog-box">
                     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
                         <div>
-                            <span class="gacha-patch-tag">RATE-UP 50/50 • SLOT #${slotNum}</span>
+                            <span class="gacha-patch-tag">DUO EN VEDETTE • 50/50</span>
                             <h2 class="gacha-panel-title">${slotNum === 1 ? tm.title1 : tm.title2}</h2>
                             <p class="gacha-panel-desc">${slotNum === 1 ? tm.subtitle1 : tm.subtitle2}</p>
                         </div>
                         <button type="button" class="gacha-res-btn" id="close-target-modal">${tm.close}</button>
                     </div>
 
+                    <!-- Bascule directe entre l'Écran #1 (Agent S) et l'Écran #2 (Moteur S / Agent S) -->
+                    <div class="gacha-duo-tabs">
+                        <button type="button" class="gacha-duo-tab-btn ${slotNum === 1 ? 'active' : ''}" data-switch-slot="1">
+                            ${tm.tabSlot1 || '📺 Écran #1 : Agent S'} (${itemName(primaryObj)})
+                        </button>
+                        <button type="button" class="gacha-duo-tab-btn ${slotNum === 2 ? 'active' : ''}" data-switch-slot="2">
+                            ${tm.tabSlot2 || '📺 Écran #2 : Moteur / Agent S'} (${itemName(secondaryObj)})
+                        </button>
+                    </div>
+
                     <div class="gacha-col-controls" style="flex-shrink:0;">
                         ${slotNum === 2 ? `
                         <div class="gacha-col-filter-group">
-                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'all' ? 'active' : ''}" data-tcat="all">${tm.filterAll}</button>
-                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'agent' ? 'active' : ''}" data-tcat="agent">${tm.filterAgents}</button>
                             <button type="button" class="gacha-col-filter-btn ${filterCat === 'engine' ? 'active' : ''}" data-tcat="engine">${tm.filterEngines}</button>
+                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'agent' ? 'active' : ''}" data-tcat="agent">${tm.filterAgents}</button>
+                            <button type="button" class="gacha-col-filter-btn ${filterCat === 'all' ? 'active' : ''}" data-tcat="all">${tm.filterAll}</button>
                         </div>` : ''}
                         <input type="text" class="gacha-col-search" id="target-search-inp" placeholder="${phText}" value="${query.replace(/"/g, '&quot;')}" style="flex:1;">
                     </div>
@@ -1133,6 +1152,15 @@
                 animOverlayEl.classList.remove('active');
             });
 
+            animOverlayEl.querySelectorAll('[data-switch-slot]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    slotNum = parseInt(btn.getAttribute('data-switch-slot'), 10) || 1;
+                    filterCat = slotNum === 1 ? 'agent' : 'engine';
+                    query = '';
+                    renderSelectorContent();
+                });
+            });
+
             animOverlayEl.querySelectorAll('[data-tcat]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     filterCat = btn.getAttribute('data-tcat');
@@ -1161,8 +1189,8 @@
                         GState.selectedRateUp2 = card.getAttribute('data-pick-id');
                     }
                     saveState(GState);
-                    animOverlayEl.classList.remove('active');
-                    renderCurrentTab();
+                    renderCurrentTab(false);
+                    renderSelectorContent();
                 });
             });
         }
@@ -1204,20 +1232,22 @@
         const d = GState.daily;
 
         const dailyList = [
-            { id: 'q1', title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 400, claimed: !!d.claimed.q1 },
-            { id: 'q2', title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 400, claimed: !!d.claimed.q2 },
-            { id: 'q3', title: t.q3Title, desc: t.q3Desc, progress: Math.min(2, d.itemsInspected.length), max: 2, reward: 400, claimed: !!d.claimed.q3 },
-            { id: 'q4', title: t.q4Title, desc: t.q4Desc, progress: Math.min(1, d.pullsToday || 0), max: 1, reward: 300, claimed: !!d.claimed.q4 },
-            { id: 'q5', title: t.q5Title, desc: t.q5Desc, progress: Math.min(6, d.guidesOpened.length), max: 6, reward: 450, claimed: !!d.claimed.q5 },
-            { id: 'q6', title: t.q6Title, desc: t.q6Desc, progress: Math.min(10, d.pullsToday || 0), max: 10, reward: 450, claimed: !!d.claimed.q6 }
+            { id: 'q1', icon: '📅', title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 400, claimed: !!d.claimed.q1 },
+            { id: 'q2', icon: '📖', title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 400, claimed: !!d.claimed.q2 },
+            { id: 'q3', icon: '🔍', title: t.q3Title, desc: t.q3Desc, progress: Math.min(2, d.itemsInspected.length), max: 2, reward: 400, claimed: !!d.claimed.q3 },
+            { id: 'q4', icon: '📺', title: t.q4Title, desc: t.q4Desc, progress: Math.min(1, d.pullsToday || 0), max: 1, reward: 300, claimed: !!d.claimed.q4 },
+            { id: 'q5', icon: '📚', title: t.q5Title, desc: t.q5Desc, progress: Math.min(6, d.guidesOpened.length), max: 6, reward: 450, claimed: !!d.claimed.q5 },
+            { id: 'q6', icon: '⚡', title: t.q6Title, desc: t.q6Desc, progress: Math.min(10, d.pullsToday || 0), max: 10, reward: 450, claimed: !!d.claimed.q6 }
         ];
 
+        const achIcons = ['🎰', '🌟', '👥', '⚙️', '🧠', '✦'];
         const achList = Object.keys(ACH_CONFIG).map((key, idx) => {
             const num = idx + 1;
             const tierIdx = GState.achievements?.[key] || 0;
             const info = getAchTierData(key, tierIdx, GState);
             return {
                 id: key,
+                icon: achIcons[idx] || '🏆',
                 tier: info.tier,
                 title: t[`a${num}Title`],
                 desc: (t[`a${num}Desc`] || '').replace('{target}', info.target),
@@ -1226,6 +1256,24 @@
                 reward: info.reward
             };
         });
+
+        // Tri intelligent : 1. Prêt à récupérer -> 2. En cours -> 3. Terminé en bas !
+        const sortedDaily = [...dailyList].sort((a, b) => {
+            const aState = (a.progress >= a.max && !a.claimed) ? 0 : (!a.claimed ? 1 : 2);
+            const bState = (b.progress >= b.max && !b.claimed) ? 0 : (!b.claimed ? 1 : 2);
+            return aState - bState;
+        });
+
+        const sortedAch = [...achList].sort((a, b) => {
+            const aReady = a.progress >= a.max ? 1 : 0;
+            const bReady = b.progress >= b.max ? 1 : 0;
+            if (aReady !== bReady) return bReady - aReady;
+            return (b.progress / (b.max || 1)) - (a.progress / (a.max || 1));
+        });
+
+        const dailyEarnedPoly = dailyList.filter(q => q.claimed).reduce((acc, q) => acc + q.reward, 0);
+        const dailyTotalPoly = dailyList.reduce((acc, q) => acc + q.reward, 0);
+        const dailyEarnedPct = Math.round((dailyEarnedPoly / dailyTotalPoly) * 100);
 
         const claimableDailyCount = dailyList.filter(q => q.progress >= q.max && !q.claimed).length;
         const claimableAchCount = achList.filter(a => a.progress >= a.max).length;
@@ -1247,20 +1295,34 @@
                                 <span class="gacha-reset-pill">${t.resetLabel}</span>
                             </div>
                         </div>
+
+                        <div class="gacha-daily-summary-banner">
+                            <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:900;">
+                                <span style="color:#e4e4e7;">RÉCOMPENSES QUOTIDIENNES OBTENUES</span>
+                                <span style="font-family:monospace;color:#d7f70c;">${dailyEarnedPoly} / ${dailyTotalPoly} POLYCHROMES (${dailyEarnedPct}%)</span>
+                            </div>
+                            <div class="gacha-quest-bar-track" style="height:6px;">
+                                <div class="gacha-quest-bar-fill" style="width:${dailyEarnedPct}%;background:#d7f70c;"></div>
+                            </div>
+                        </div>
+
                         <div class="gacha-quest-list">
-                            ${dailyList.map(q => {
+                            ${sortedDaily.map(q => {
                                 const isDone = q.progress >= q.max;
                                 const canClaim = isDone && !q.claimed;
                                 const pct = Math.min(100, Math.round((q.progress / q.max) * 100));
                                 return `
-                                <div class="gacha-quest-card ${canClaim ? 'ready' : ''}">
+                                <div class="gacha-quest-card ${canClaim ? 'ready' : ''} ${q.claimed ? 'is-claimed-card' : ''}">
                                     <div class="gacha-quest-body">
-                                        <div style="flex:1;min-width:0;">
-                                            <div class="gacha-quest-top">
-                                                <span class="gacha-quest-name">${q.title}</span>
-                                                <span class="gacha-quest-prog ${isDone ? 'done' : ''}">${q.progress} / ${q.max}</span>
+                                        <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;">
+                                            <div class="gacha-quest-icon-box">${q.icon}</div>
+                                            <div style="flex:1;min-width:0;">
+                                                <div class="gacha-quest-top">
+                                                    <span class="gacha-quest-name">${q.title}</span>
+                                                    <span class="gacha-quest-prog ${isDone ? 'done' : ''}">${q.progress} / ${q.max}</span>
+                                                </div>
+                                                <p class="gacha-quest-desc">${q.desc}</p>
                                             </div>
-                                            <p class="gacha-quest-desc">${q.desc}</p>
                                         </div>
                                         <div class="gacha-quest-actions">
                                             <div class="gacha-reward-box">
@@ -1289,19 +1351,22 @@
                             </div>
                         </div>
                         <div class="gacha-quest-list">
-                            ${achList.map(a => {
+                            ${sortedAch.map(a => {
                                 const canClaim = a.progress >= a.max;
                                 const pct = Math.min(100, Math.round((a.progress / a.max) * 100));
                                 return `
                                 <div class="gacha-quest-card ${canClaim ? 'ready' : ''}">
                                     <div class="gacha-quest-body">
-                                        <div style="flex:1;min-width:0;">
-                                            <div class="gacha-quest-top">
-                                                <span class="gacha-quest-name">${a.title}</span>
-                                                <span class="gacha-quest-prog" style="color:#38bdf8;">${t.tierLabel.replace('{n}', a.tier)}</span>
-                                                <span class="gacha-quest-prog ${canClaim ? 'done' : ''}">${a.progress} / ${a.max}</span>
+                                        <div style="display:flex;align-items:center;gap:12px;flex:1;min-width:0;">
+                                            <div class="gacha-quest-icon-box">${a.icon}</div>
+                                            <div style="flex:1;min-width:0;">
+                                                <div class="gacha-quest-top">
+                                                    <span class="gacha-quest-name">${a.title}</span>
+                                                    <span class="gacha-quest-prog" style="color:#38bdf8;">${t.tierLabel.replace('{n}', a.tier)}</span>
+                                                    <span class="gacha-quest-prog ${canClaim ? 'done' : ''}">${a.progress} / ${a.max}</span>
+                                                </div>
+                                                <p class="gacha-quest-desc">${a.desc}</p>
                                             </div>
-                                            <p class="gacha-quest-desc">${a.desc}</p>
                                         </div>
                                         <div class="gacha-quest-actions">
                                             <div class="gacha-reward-box">
@@ -1844,17 +1909,26 @@
                             ? `<span class="gacha-col-rank-tag">${it.rank}</span>`
                             : '';
 
+                        const buildShortcutHTML = (it.unlocked && it.type === 'agent')
+                            ? `<button type="button" class="gacha-col-build-pill" data-col-quick-build="${it.rawKey}" title="Ouvrir le Build">🛠️ Build</button>`
+                            : '';
+
+                        const subText = it.type === 'agent'
+                            ? `${it.element || ''} • ${it.role || typeLabel(it.type)}`
+                            : (it.type === 'engine' && it.role ? `${it.role}` : typeLabel(it.type));
+
                         return `
                         <div class="gacha-col-card rank-${it.rank} ${it.unlocked ? '' : 'is-locked'}"
                              data-col-type="${it.type}" data-col-key="${it.rawKey}">
                             <div class="gacha-col-visual">
                                 ${rankBadgeHTML}
+                                ${buildShortcutHTML}
                                 <span class="gacha-col-dupe-tag ${isMax ? 'maxed' : ''}">${progBadge}</span>
                                 <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
                             </div>
                             <div class="gacha-col-info">
                                 <span class="gacha-col-name">${itemName(it)}</span>
-                                <span class="gacha-col-sub">${typeLabel(it.type)}</span>
+                                <span class="gacha-col-sub">${subText}</span>
                             </div>
                         </div>`;
                     }).join('')}
@@ -1896,6 +1970,16 @@
                 renderCollectionTab(mount);
             });
         }
+
+        mount.querySelectorAll('[data-col-quick-build]').forEach(btn => {
+            btn.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                const agKey = btn.getAttribute('data-col-quick-build');
+                if (agKey && window.ZZZBuilds?.openAgentBuild) {
+                    window.ZZZBuilds.openAgentBuild(agKey);
+                }
+            });
+        });
 
         mount.querySelectorAll('[data-col-type]').forEach(card => {
             card.addEventListener('click', () => {
@@ -2154,6 +2238,24 @@
             for (let i = 0; i < count; i++) {
                 results.push(rollSingleItem());
             }
+
+            // Garantie Multi ×10 : assure toujours au moins 1 Pack de ×5 Disques sur un tirage ×10
+            if (count >= 10 && !results.some(r => r.type === 'disc')) {
+                const discPool = POOL.A_all.filter(i => i.type === 'disc');
+                const bIdx = results.findIndex(r => r.rank === 'B');
+                if (discPool.length > 0 && bIdx !== -1) {
+                    const oldB = results[bIdx];
+                    if (GState.inventory[oldB.id] && GState.inventory[oldB.id].count > 1) {
+                        GState.inventory[oldB.id].count -= 1;
+                    }
+                    const chosenDisc = pickRandom(discPool);
+                    GState.residual += 6;
+                    GState.totalDupesRes = (GState.totalDupesRes || 0) + 6;
+                    GState.totalAPulls = (GState.totalAPulls || 0) + 1;
+                    results[bIdx] = registerItemToInventory(chosenDisc);
+                }
+            }
+
             saveState(GState);
             updateTopCurrencies();
 
@@ -2249,10 +2351,11 @@
             const delay = idx * 45;
             const fitClass = item.type === 'agent' ? 'is-agent' : 'is-equip';
             const badgePos = item.type === 'agent' ? 'left:5px;' : 'right:5px;';
-            const topBadge = item.isNew
-                ? `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
-                : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`;
-
+            const topBadge = item.type === 'disc'
+                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">💿 PACK ×5</span>`
+                : (item.isNew
+                    ? `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
+                    : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`);
             return `
             <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms;${singleStyle}"
                  data-res-type="${item.type}" data-res-key="${item.rawKey}" title="${itemName(item)} (${t.inspectHint})">
