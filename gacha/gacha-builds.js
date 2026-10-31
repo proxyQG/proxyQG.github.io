@@ -10,10 +10,8 @@
                 tabBadges: "🏆 Badges",
                 noAgentsTitle: "Aucun Agent débloqué",
                 noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent et débloquer son studio de Build !",
-                bardicBtnTitle: "Studio Disques (Elfy)",
-                bardicBtnSub: "{free} Gratuits • {d} Disques S",
-                storageBtnTitle: "Entrepôt ({d})",
-                storageBtnSub: "Trier & Recycler",
+                bardicBtnTitle: "Studio Disques",
+                storageBtnTitle: "Entrepôt",
                 step1: "Gravez des Disques S dans le Studio Disques",
                 step2: "Cliquez sur ⚡ Équipement Auto (Guide)",
                 step3: "Montez vos Disques (+15) et Compétences",
@@ -119,10 +117,8 @@
                 tabBadges: "🏆 Badges",
                 noAgentsTitle: "No Agents Unlocked Yet",
                 noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent and unlock their Build Studio!",
-                bardicBtnTitle: "Disc Studio (Elfy)",
-                bardicBtnSub: "{free} Free Stock • {d} S-Discs",
-                storageBtnTitle: "Storage ({d})",
-                storageBtnSub: "Sort & Dismantle",
+                bardicBtnTitle: "Disc Studio",
+                storageBtnTitle: "Storage",
                 step1: "Tune S-Rank Discs in the Disc Studio",
                 step2: "Click ⚡ Auto-Equip (Guide)",
                 step3: "Upgrade Discs (+15) and Skills",
@@ -728,16 +724,16 @@
         }
 
         // ========================================================
-        // 6. CALCUL DES STATISTIQUES COMPLÈTES DE L'AGENT
+        // 6. CALCUL DES STATISTIQUES & ÉVALUATION SUR LES GOAL STATS DU GUIDE
         // ========================================================
         const ROLE_BASE_STATS = {
-            Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT', 'ATQ (flat)'] },
-            Anomaly: { hp: 7800, atk: 885, def: 612, imp: 86,  cr: 5.0, cd: 50.0, am: 148, ap: 118, pen: 0, er: 1.2, rec: ["Adresse d'anomalie", "Maîtrise d'anomalie", "ATQ%"] },
-            Stun:    { hp: 8250, atk: 790, def: 650, imp: 136, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['Impact', 'Taux CRIT', 'ATQ%'] },
-            Support: { hp: 8400, atk: 810, def: 660, imp: 90,  cr: 5.0, cd: 50.0, am: 94,  ap: 96,  pen: 0, er: 1.4, rec: ["Régénération d'énergie", 'ATQ%', 'PV%'] },
-            Defense: { hp: 9100, atk: 740, def: 780, imp: 110, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['DÉF%', 'PV%', 'Impact'] },
-            Rupture: { hp: 8100, atk: 895, def: 620, imp: 98,  cr: 5.0, cd: 50.0, am: 96,  ap: 98,  pen: 8, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'ATQ%', 'Ratio de PÉN'] },
-            Armorer: { hp: 8300, atk: 870, def: 675, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT'] }
+            Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'ATQ%'], goals: { atk: 2600, cr: 60, cd: 130 } },
+            Anomaly: { hp: 7800, atk: 885, def: 612, imp: 86,  cr: 5.0, cd: 50.0, am: 148, ap: 118, pen: 0, er: 1.2, rec: ["Adresse d'anomalie", 'ATQ%'], goals: { ap: 350, atk: 2400, am: 170 } },
+            Stun:    { hp: 8250, atk: 790, def: 650, imp: 136, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['Impact', 'Taux CRIT', 'ATQ%'], goals: { imp: 160, atk: 2000, cr: 50 } },
+            Support: { hp: 8400, atk: 810, def: 660, imp: 90,  cr: 5.0, cd: 50.0, am: 94,  ap: 96,  pen: 0, er: 1.4, rec: ["Régénération d'énergie", 'ATQ%', 'PV%'], goals: { er: 2.1, atk: 2200, hp: 9500 } },
+            Defense: { hp: 9100, atk: 740, def: 780, imp: 110, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['DÉF%', 'PV%', 'Impact'], goals: { def: 1650, hp: 10500, imp: 120 } },
+            Rupture: { hp: 8100, atk: 895, def: 620, imp: 98,  cr: 5.0, cd: 50.0, am: 96,  ap: 98,  pen: 8, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'PV%', 'ATQ%'], goals: { cr: 60, cd: 130, atk: 2400 } },
+            Armorer: { hp: 8300, atk: 870, def: 675, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT'], goals: { atk: 2400, cr: 55, cd: 120 } }
         };
 
         function computeAgentStats(st, pool, agentMeta) {
@@ -753,11 +749,16 @@
 
             let engineAtkFlat = 0;
             let enginePctBonus = 0;
+            let isGuideEngine = false;
             if (ab.engineKey) {
                 const engObj = pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey);
                 if (engObj) {
                     engineAtkFlat = engObj.rank === 'S' ? 713 : (engObj.rank === 'A' ? 594 : 475);
                     enginePctBonus = engObj.rank === 'S' ? 30 : (engObj.rank === 'A' ? 24 : 18);
+                    isGuideEngine = prof.engines.some(re =>
+                        engObj.rawKey.toLowerCase() === re.rawImg.toLowerCase()
+                        || engObj.img.toLowerCase().includes(re.rawImg.toLowerCase())
+                    );
                 }
             }
 
@@ -771,6 +772,8 @@
             let cr = base.cr, cd = base.cd;
             let ap = base.ap, amPct = 0, impPct = 0, erPct = 0, penPct = base.pen;
             let effectiveSubRolls = 0;
+            let totalDiscLevels = 0;
+            let matchingMainStats = 0;
 
             const setCounts = {};
 
@@ -796,7 +799,15 @@
                 const d = bs.craftedDiscs.find(x => x.uid === uid);
                 if (!d) continue;
 
+                totalDiscLevels += (d.level || 0);
                 setCounts[d.setKey] = (setCounts[d.setKey] || 0) + 1;
+
+                if (slot >= 4) {
+                    const recMains = prof.mainBySlot[slot] || [];
+                    if (recMains.length === 0 || recMains.includes(d.mainStat)) {
+                        matchingMainStats += 1;
+                    }
+                }
 
                 const mCfg = MAIN_STAT_MAX_LV15[d.mainStat];
                 if (mCfg) {
@@ -813,19 +824,59 @@
                 });
             }
 
-            const totalSkillLvls = (ab.skills || [1, 1, 1, 1, 1]).reduce((a, b) => a + b, 0);
             const overclockMult = 1 + Math.min(0.20, overclockLvl * 0.02);
 
             const finalHp = Math.round(((baseHp * (1 + hpPct / 100)) + hpFlat) * overclockMult);
-            const finalAtk = Math.round(((baseAtk * (1 + atkPct / 100)) + atkFlat + totalSkillLvls * 5) * overclockMult);
+            const finalAtk = Math.round(((baseAtk * (1 + atkPct / 100)) + atkFlat) * overclockMult);
             const finalDef = Math.round(((baseDef * (1 + defPct / 100)) + defFlat) * overclockMult);
             const finalImp = Math.round(base.imp * (1 + impPct / 100));
             const finalAm = Math.round(base.am * (1 + amPct / 100));
-            const finalEr = (base.er * (1 + erPct / 100)).toFixed(2);
+            const finalErNum = Number((base.er * (1 + erPct / 100)).toFixed(2));
+            const finalAp = Math.round(ap);
 
+            // Évaluation sur 100 points basée sur les Goal Stats et les recommandations du Guide
             const equippedDiscsCount = Object.values(ab.discs).filter(Boolean).length;
-            const score = effectiveSubRolls * 3 + equippedDiscsCount * 6 + (ab.engineKey ? 15 : 0) + totalSkillLvls + mindscape * 4;
-            const grade = score >= 135 ? 'SSS' : (score >= 110 ? 'SS' : (score >= 80 ? 'S' : (score >= 50 ? 'A' : 'B')));
+            let evalPoints = 0;
+
+            // 1. Moteur-Ampli (max 15 pts)
+            if (ab.engineKey) {
+                evalPoints += isGuideEngine ? 15 : 10;
+            }
+            // 2. Niveau des 6 Disques (max 20 pts : exige des disques montés +15)
+            evalPoints += (totalDiscLevels / 90) * 20;
+
+            // 3. Sets 4P / 2P recommandés par le guide (max 15 pts)
+            const hasGuide4P = Object.entries(setCounts).some(([sk, c]) => c >= 4 && (prof.sets4.length === 0 || prof.sets4.includes(sk)));
+            const hasAny2P = Object.entries(setCounts).filter(([, c]) => c >= 2).length >= 2 || Object.values(setCounts).some(c => c >= 4);
+            if (hasGuide4P) evalPoints += 10;
+            if (hasAny2P) evalPoints += 5;
+
+            // 4. Stats principales [4], [5], [6] conformes au guide (max 15 pts)
+            evalPoints += matchingMainStats * 5;
+
+            // 5. Atteinte des Goal Stats du Rôle/Guide (max 20 pts) + Rolls de sous-stats utiles (max 15 pts)
+            const gTargets = base.goals || { atk: 2500, cr: 60, cd: 120 };
+            const ratios = [];
+            if (gTargets.atk) ratios.push(Math.min(1, finalAtk / gTargets.atk));
+            if (gTargets.cr)  ratios.push(Math.min(1, cr / gTargets.cr));
+            if (gTargets.cd)  ratios.push(Math.min(1, cd / gTargets.cd));
+            if (gTargets.ap)  ratios.push(Math.min(1, finalAp / gTargets.ap));
+            if (gTargets.am)  ratios.push(Math.min(1, finalAm / gTargets.am));
+            if (gTargets.imp) ratios.push(Math.min(1, finalImp / gTargets.imp));
+            if (gTargets.er)  ratios.push(Math.min(1, finalErNum / gTargets.er));
+            if (gTargets.hp)  ratios.push(Math.min(1, finalHp / gTargets.hp));
+            if (gTargets.def) ratios.push(Math.min(1, finalDef / gTargets.def));
+
+            const avgGoalRatio = ratios.length > 0 ? (ratios.reduce((a, b) => a + b, 0) / ratios.length) : 0.5;
+            if (equippedDiscsCount > 0) {
+                evalPoints += avgGoalRatio * 20;
+                evalPoints += Math.min(15, effectiveSubRolls * 0.75);
+            }
+
+            const finalScore = Math.round(evalPoints);
+            const grade = equippedDiscsCount === 0
+                ? 'C'
+                : (finalScore >= 90 ? 'SSS' : (finalScore >= 78 ? 'SS' : (finalScore >= 64 ? 'S' : (finalScore >= 45 ? 'A' : 'B'))));
 
             return {
                 hp: finalHp,
@@ -838,11 +889,12 @@
                 cr: cr.toFixed(1) + ' %',
                 cd: cd.toFixed(1) + ' %',
                 am: finalAm,
-                ap: Math.round(ap),
+                ap: finalAp,
                 pen: penPct.toFixed(1) + ' %',
-                er: finalEr,
+                er: finalErNum.toFixed(2),
                 effectiveSubRolls,
                 grade,
+                finalScore,
                 mindscape,
                 overclockLvl,
                 setCounts,
@@ -916,17 +968,11 @@
                         <div class="zb-top-actions">
                             <button type="button" class="zb-bardic-cta secondary" id="btn-open-storage">
                                 <span class="zb-bardic-cta-icon">📦</span>
-                                <div class="zb-bardic-cta-txt">
-                                    <span class="zb-bardic-cta-title">${t.storageBtnTitle.replace('{d}', bs.craftedDiscs.length)}</span>
-                                    <span class="zb-bardic-cta-sub" style="color:#38bdf8;">${t.storageBtnSub}</span>
-                                </div>
+                                <span class="zb-bardic-cta-title">${t.storageBtnTitle}</span>
                             </button>
                             <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
                                 <span class="zb-bardic-cta-icon">💿</span>
-                                <div class="zb-bardic-cta-txt">
-                                    <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
-                                    <span class="zb-bardic-cta-sub">${t.bardicBtnSub.replace('{free}', freeDiscsTotal).replace('{d}', bs.craftedDiscs.length)}</span>
-                                </div>
+                                <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
                             </button>
                         </div>
                     </div>
@@ -1006,10 +1052,10 @@
                         <span style="background:#272732;color:#d7f70c;font-size:10px;padding:2px 7px;border-radius:5px;">MAX</span>
                     </div>
                     <div class="zb-elem-role-pill">
-                        <img src="assets/Icone/${elemIcon}" alt="">
+                        <span style="color:#d7f70c;">✦</span>
                         <span>${agent.element}</span>
                         <span style="color:#3f3f46;">|</span>
-                        <img src="assets/Rôles/${agent.role}.webp" alt="">
+                        <img src="assets/Rôles/${agent.role}.webp" alt="" onerror="this.style.display='none'">
                         <span>${agent.role}</span>
                     </div>
                 </div>
@@ -1778,8 +1824,10 @@
                 let surplusEngineGain = 0;
                 ownedEngines.forEach(e => {
                     const cnt = st.inventory[e.id]?.count || 0;
-                    if (cnt > 1) {
-                        const diff = cnt - 1;
+                    const equippedCount = getEngineOwnersList(st, e.rawKey).length;
+                    const keepCount = Math.max(1, equippedCount);
+                    if (cnt > keepCount) {
+                        const diff = cnt - keepCount;
                         surplusEngineGain += diff * (e.rank === 'S' ? 40 : (e.rank === 'A' ? 10 : 3));
                     }
                 });
@@ -2055,8 +2103,11 @@
                 document.getElementById('st-batch-engines')?.addEventListener('click', () => {
                     if (surplusEngineGain <= 0) return;
                     ownedEngines.forEach(e => {
-                        if ((st.inventory[e.id]?.count || 0) > 1) {
-                            st.inventory[e.id].count = 1;
+                        const cnt = st.inventory[e.id]?.count || 0;
+                        const equippedCount = getEngineOwnersList(st, e.rawKey).length;
+                        const keepCount = Math.max(1, equippedCount);
+                        if (cnt > keepCount) {
+                            st.inventory[e.id].count = keepCount;
                         }
                     });
                     st.residual += surplusEngineGain;
@@ -2070,7 +2121,7 @@
         }
 
         // ========================================================
-        // 10. STUDIO D'ACCORDAGE ELFY (SANS CALIBRATEUR -> PRIX ×2 SI STAT CHOISIE)
+        // 10. STUDIO DISQUES : GRAVURE 100% GRATUITE + CHOIX MAIN STAT & SUBSTATS PAYANT
         // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
@@ -2088,11 +2139,54 @@
 
             let setSearch = '';
             let selectedMainStat = '';
+            let selectedSubStats = []; // Jusqu'à 4 sous-stats choisies à la carte
             let lastCraftedList = [];
+
+            function generateCustomSRankDisc(setKey, partitionSlot, forcedMain = null, forcedSubs = []) {
+                const slot = Number(partitionSlot) || (Math.floor(Math.random() * 6) + 1);
+                const mainStat = (forcedMain && PARTITION_WEIGHTS[slot][forcedMain])
+                    ? forcedMain
+                    : drawWeightedKey(PARTITION_WEIGHTS[slot]);
+
+                const available = SUBSTAT_POOL
+                    .filter(s => s.key !== mainStat)
+                    .map(s => ({ ...s }));
+
+                const substats = [];
+                // 1. Ajoute d'abord les sous-stats choisies par le joueur
+                forcedSubs.forEach(subKey => {
+                    if (subKey === mainStat || substats.length >= 4) return;
+                    const idx = available.findIndex(a => a.key === subKey);
+                    if (idx !== -1) {
+                        const picked = available.splice(idx, 1)[0];
+                        substats.push({ key: picked.key, step: picked.step, isPct: picked.isPct, upgrades: 0 });
+                    }
+                });
+
+                // 2. Complète le reste aléatoirement jusqu'à 3 ou 4 lignes
+                const isFourLiner = substats.length === 4 || Math.random() < 0.20;
+                const targetCount = isFourLiner ? 4 : 3;
+                while (substats.length < targetCount && available.length > 0) {
+                    substats.push(drawSubstatFromPool(available));
+                }
+
+                return {
+                    uid: 'disc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7),
+                    setKey,
+                    slot,
+                    level: 0,
+                    locked: false,
+                    isFourLiner: substats.length >= 4,
+                    mainStat,
+                    substats
+                };
+            }
 
             function renderBardic() {
                 const t = B();
+                const isEn = (bridge.getLang?.() || 'fr') === 'en';
                 const prof = getGuideProfile(selectedAgentKey);
+
                 const filteredSets = allSets.filter(s => {
                     if (!setSearch.trim()) return true;
                     const q = setSearch.trim().toLowerCase();
@@ -2102,27 +2196,26 @@
                 filteredSets.sort((a, b) => {
                     const aRec = prof.sets4.includes(a.rawKey) ? 2 : (prof.sets2.includes(a.rawKey) ? 1 : 0);
                     const bRec = prof.sets4.includes(b.rawKey) ? 2 : (prof.sets2.includes(b.rawKey) ? 1 : 0);
-                    if (aRec !== bRec) return bRec - aRec;
-                    return getFreeGachaDiscCount(st, b.rawKey) - getFreeGachaDiscCount(st, a.rawKey);
+                    return bRec - aRec;
                 });
 
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
-                const freeForCurrentSet = getFreeGachaDiscCount(st, bardicSetKey);
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
                 const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
-                // Multiplicateur ×2 si une Main Stat précise est choisie sur Partition 4, 5 ou 6 (Point 4)
-                const isTargeted = !!(selectedMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot][selectedMainStat]);
-                const mult = isTargeted ? 2 : 1;
+                // Nettoyage automatique si une sous-stat choisie est identique à la Main Stat de la partition
+                const fixedMainForSlot = bardicSlot === 1 ? 'PV (flat)' : (bardicSlot === 2 ? 'ATQ (flat)' : (bardicSlot === 3 ? 'DÉF (flat)' : selectedMainStat));
+                selectedSubStats = selectedSubStats.filter(k => k !== fixedMainForSlot);
 
-                const costRes1 = 10 * mult;
-                const costRes5 = 50 * mult;
-                const costPoly1 = 80 * mult;
-                const costFree1 = 1 * mult;
+                const isMainTargeted = !!(selectedMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot][selectedMainStat]);
+                // Tarification claire : Gravure de base = 0 (GRATUIT) | Main Stat choisie = +15 ✦ | Chaque Substat choisie = +10 ✦
+                const customResCost = (isMainTargeted ? 15 : 0) + (selectedSubStats.length * 10);
+                const customPolyCost = customResCost * 8;
+                const isFreeRoll = customResCost === 0;
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
-                    <div class="gacha-dialog-box" style="max-width:1000px;">
+                    <div class="gacha-dialog-box" style="max-width:1020px;">
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                             <div>
                                 <span class="gacha-patch-tag">${t.bardicTag}</span>
@@ -2136,11 +2229,11 @@
                         </div>
 
                         <div class="zb-bardic-layout">
+                            <!-- Colonne Gauche : Choix du Set -->
                             <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
-                                        const freeStock = getFreeGachaDiscCount(st, s.rawKey);
                                         const countCrafted = bs.craftedDiscs.filter(d => d.setKey === s.rawKey).length;
                                         const isGuideRec = prof.sets4.includes(s.rawKey) || prof.sets2.includes(s.rawKey);
                                         return `
@@ -2150,8 +2243,8 @@
                                                 <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                                     ${isGuideRec ? '⭐ ' : ''}${bridge.itemName(s)}
                                                 </div>
-                                                <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#a1a1aa'};">
-                                                    ${freeStock > 0 ? `💿 ${freeStock} gratuits` : `×${countCrafted} gravés`}
+                                                <span style="font-family:monospace;font-size:9.5px;color:#a1a1aa;">
+                                                    ×${countCrafted} ${isEn ? 'tuned' : 'gravés'}
                                                 </span>
                                             </div>
                                         </div>`;
@@ -2159,18 +2252,23 @@
                                 </div>
                             </div>
 
+                            <!-- Colonne Droite : Partition + Main Stat (Optionnel) + Substats (Optionnel) -->
                             <div style="display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
                                 <div style="display:flex;flex-direction:column;gap:9px;">
-                                    <div style="display:flex;align-items:center;gap:10px;">
-                                        <img src="${currentSet ? currentSet.img : ''}" style="width:42px;height:42px;border-radius:999px;">
-                                        <div>
-                                            <span style="font-size:9px;font-weight:900;color:#d7f70c;text-transform:uppercase;">PISTE SÉLECTIONNÉE • 100% UP</span>
-                                            <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
-                                                ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
-                                            </h3>
+                                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                                        <div style="display:flex;align-items:center;gap:10px;">
+                                            <img src="${currentSet ? currentSet.img : ''}" style="width:40px;height:40px;border-radius:999px;">
+                                            <div>
+                                                <span style="font-size:9px;font-weight:900;color:#4ade80;text-transform:uppercase;">${isEn ? 'BASE TUNING: 100% FREE' : 'GRAVURE DE BASE : 100% GRATUITE'}</span>
+                                                <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
+                                                    ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
+                                                </h3>
+                                            </div>
                                         </div>
+                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">↺ ${isEn ? 'Reset (Free)' : 'Réinitialiser (Gratuit)'}</button>` : ''}
                                     </div>
 
+                                    <!-- 1. Choix de la Partition (Gratuit) -->
                                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
                                         <button type="button" class="gacha-col-filter-btn ${bardicSlot === 0 ? 'active' : ''}" data-bslot="0" style="grid-column:span 2;">${t.randomPartition}</button>
                                         ${[1, 2, 3, 4, 5, 6].map(n => `
@@ -2178,22 +2276,49 @@
                                         `).join('')}
                                     </div>
 
+                                    <!-- 2. Choix de la Stat Principale sur [4], [5], [6] (+15 ✦ si choisie) -->
                                     ${variableMainKeys.length > 0 ? `
-                                    <div style="display:flex;flex-direction:column;gap:5px;">
-                                        <div style="display:flex;align-items:center;justify-content:space-between;">
-                                            <span style="font-size:10.5px;font-weight:800;color:#a1a1aa;">${t.orientationLabel}</span>
-                                            ${isTargeted ? `<span class="gacha-quest-prog done">${t.targetedPriceTag.replace('{stat}', tStat(selectedMainStat))}</span>` : ''}
-                                        </div>
-                                        <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isTargeted ? '#d7f70c' : '#2c2c36'};">
-                                            <option value="">${t.standardWeighted}</option>
-                                            ${variableMainKeys.map(k => `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>🎯 ${tStat(k)} — Prix ×2 (${Math.round(PARTITION_WEIGHTS[bardicSlot][k] * 100)}% base)</option>`).join('')}
+                                    <div style="display:flex;flex-direction:column;gap:4px;">
+                                        <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
+                                            🎯 ${isEn ? 'Main Stat (Free if random, +15 ✦ if chosen):' : 'Stat Principale (Gratuit en aléatoire, +15 ✦ si choisie) :'}
+                                        </span>
+                                        <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isMainTargeted ? '#d7f70c' : '#2c2c36'};">
+                                            <option value="">🎲 ${isEn ? 'Random Main Stat (FREE)' : 'Aléatoire (GRATUIT)'}</option>
+                                            ${variableMainKeys.map(k => {
+                                                const isRecMain = (prof.mainBySlot[bardicSlot] || []).includes(k);
+                                                return `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${isRecMain ? '⭐ ' : ''}${tStat(k)} (+15 ✦)</option>`;
+                                            }).join('')}
                                         </select>
                                     </div>` : ''}
+
+                                    <!-- 3. Choix des Sous-Stats à la carte (+10 ✦ par sous-stat garantie, max 4) -->
+                                    <div style="display:flex;flex-direction:column;gap:5px;">
+                                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                                            <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
+                                                ✨ ${isEn ? 'Guaranteed Sub-Stats (+10 ✦ each, max 4):' : 'Sous-Stats garanties (+10 ✦ / sous-stat, max 4) :'}
+                                            </span>
+                                            <span class="gacha-quest-prog ${selectedSubStats.length > 0 ? 'done' : ''}">${selectedSubStats.length} / 4</span>
+                                        </div>
+                                        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                                            ${SUBSTAT_POOL.map(s => {
+                                                const isPicked = selectedSubStats.includes(s.key);
+                                                const isConflict = s.key === fixedMainForSlot;
+                                                const isGuideSub = prof.subPrio.includes(s.key);
+                                                return `
+                                                <button type="button" class="gacha-col-filter-btn ${isPicked ? 'active' : ''}"
+                                                        data-bsubstat="${s.key}" ${isConflict ? 'disabled style="opacity:0.3;"' : ''}
+                                                        style="padding:4px 8px;font-size:9.5px;${isGuideSub && !isPicked ? 'border-color:rgba(250,204,21,0.5);color:#fde047;' : ''}">
+                                                    ${isGuideSub ? '⭐ ' : ''}${tStat(s.key)}
+                                                </button>`;
+                                            }).join('')}
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div style="display:flex;flex-direction:column;gap:6px;max-height:155px;overflow-y:auto;">
+                                <!-- Aperçu des disques qui viennent d'être gravés -->
+                                <div style="display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto;">
                                     ${lastCraftedList.map(d => `
-                                        <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:7px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                                        <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-size:10px;font-weight:900;color:#d7f70c;">
                                                     [${d.slot}] ${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)}) • ${d.isFourLiner ? '★ 4-Liner' : '3-Liner'}
@@ -2210,17 +2335,24 @@
                                     `).join('')}
                                 </div>
 
-                                <div style="display:flex;flex-direction:column;gap:6px;">
-                                    ${freeForCurrentSet >= costFree1 ? `
-                                    <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free">
-                                        ${t.tuneFreeStock.replace('{c}', costFree1).replace('{n}', freeForCurrentSet)}
-                                    </button>` : ''}
-                                    <div class="zb-tune-actions-grid">
-                                        <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < costRes1 ? 'disabled' : ''}>${t.tune1Res.replace('{cost}', costRes1)}</button>
-                                        <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < costRes5 ? 'disabled' : ''}>${t.tune5Res.replace('{cost}', costRes5)}</button>
-                                        <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < costPoly1 ? 'disabled' : ''}>${t.tune1Poly.replace('{cost}', costPoly1)}</button>
-                                    </div>
-                                </div>
+                                <!-- Boutons de Gravure : Gratuit si aléatoire, Payant si stats choisies -->
+                                ${isFreeRoll ? `
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                                    <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
+                                        💿 ${isEn ? 'Tune ×1 (FREE)' : 'Graver ×1 (GRATUIT)'}
+                                    </button>
+                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-5">
+                                        💿 ${isEn ? 'Tune ×5 (FREE)' : 'Graver ×5 (GRATUIT)'}
+                                    </button>
+                                </div>` : `
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
+                                        🎯 ${isEn ? `Custom Tune (${customResCost} ✦)` : `Graver Sur-Mesure (${customResCost} ✦)`}
+                                    </button>
+                                    <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
+                                        🎯 ${isEn ? `Custom Tune (${customPolyCost} Poly)` : `Graver Sur-Mesure (${customPolyCost} Poly)`}
+                                    </button>
+                                </div>`}
                             </div>
                         </div>
                     </div>
@@ -2229,6 +2361,12 @@
                 document.getElementById('close-bardic-modal').addEventListener('click', () => {
                     overlay.classList.remove('active');
                     renderBuildsTab(mount);
+                });
+
+                document.getElementById('bardic-reset-custom')?.addEventListener('click', () => {
+                    selectedMainStat = '';
+                    selectedSubStats = [];
+                    renderBardic();
                 });
 
                 const sInp = document.getElementById('bardic-set-search');
@@ -2264,23 +2402,32 @@
                     renderBardic();
                 });
 
-                function executeCraft(count, mode = 'res') {
-                    const forceStat = isTargeted ? selectedMainStat : null;
-                    if (mode === 'free') {
-                        if (getFreeGachaDiscCount(st, bardicSetKey) < costFree1) return;
-                        bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + costFree1;
-                    } else if (mode === 'poly') {
-                        const needed = costPoly1 * count;
-                        if (st.polychromes < needed) return;
-                        st.polychromes -= needed;
-                    } else {
-                        const needed = costRes1 * count;
-                        if (st.residual < needed) return;
-                        st.residual -= needed;
+                overlay.querySelectorAll('[data-bsubstat]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const k = btn.getAttribute('data-bsubstat');
+                        const idx = selectedSubStats.indexOf(k);
+                        if (idx !== -1) {
+                            selectedSubStats.splice(idx, 1);
+                        } else if (selectedSubStats.length < 4) {
+                            selectedSubStats.push(k);
+                        }
+                        renderBardic();
+                    });
+                });
+
+                function executeCraft(count, payMode = 'free') {
+                    if (payMode === 'res') {
+                        if (st.residual < customResCost * count) return;
+                        st.residual -= customResCost * count;
+                    } else if (payMode === 'poly') {
+                        if (st.polychromes < customPolyCost * count) return;
+                        st.polychromes -= customPolyCost * count;
                     }
+
+                    const forceMain = isMainTargeted ? selectedMainStat : null;
                     lastCraftedList = [];
                     for (let i = 0; i < count; i++) {
-                        const d = generateSRankDisc(bardicSetKey, bardicSlot, forceStat);
+                        const d = generateCustomSRankDisc(bardicSetKey, bardicSlot, forceMain, selectedSubStats);
                         bs.craftedDiscs.unshift(d);
                         lastCraftedList.push(d);
                     }
@@ -2288,10 +2435,10 @@
                     renderBardic();
                 }
 
-                document.getElementById('btn-craft-free')?.addEventListener('click', () => executeCraft(1, 'free'));
-                document.getElementById('btn-craft-1')?.addEventListener('click', () => executeCraft(1, 'res'));
-                document.getElementById('btn-craft-5')?.addEventListener('click', () => executeCraft(5, 'res'));
-                document.getElementById('btn-craft-poly')?.addEventListener('click', () => executeCraft(1, 'poly'));
+                document.getElementById('btn-craft-free-1')?.addEventListener('click', () => executeCraft(1, 'free'));
+                document.getElementById('btn-craft-free-5')?.addEventListener('click', () => executeCraft(5, 'free'));
+                document.getElementById('btn-craft-custom-res')?.addEventListener('click', () => executeCraft(1, 'res'));
+                document.getElementById('btn-craft-custom-poly')?.addEventListener('click', () => executeCraft(1, 'poly'));
 
                 overlay.querySelectorAll('[data-quick-equip]').forEach(btn => {
                     btn.addEventListener('click', () => {
