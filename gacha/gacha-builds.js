@@ -1,29 +1,37 @@
-// gacha/gacha-builds.js - Réplique 1:1 du Menu Équipement Zenless Zone Zero (Grille 4x, Inspecteur, Comparer, Roue & Studio)
+// gacha/gacha-builds.js - Réplique 1:1 du Menu Équipement Zenless Zone Zero (Sans Flash & Boutons Complets)
 (function () {
     try {
-        // ========================================================
-        // 1. DICTIONNAIRE BILINGUE FR / EN COMPLET (SANS ÉMOJIS)
-        // ========================================================
         const BUILDS_I18N = {
             fr: {
                 tabBuilds: "Builds",
                 tabBadges: "Badges",
                 noAgentsTitle: "Aucun Agent débloqué",
-                noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent et débloquer son menu d'Équipement !",
-                filterBtn: "Filtrer",
-                dismantleBtn: "Démanteler",
-                recycleBtn: "Recycler",
-                customDiscBtn: "Personnalisation de disque de poussée",
-                compareBtn: "Comparer",
-                collapseBtn: "Réduire",
-                recommendedBtn: "Recommandé",
+                noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent !",
+                bardicBtnTitle: "Magasin de musique",
+                storageBtnTitle: "Entrepôt",
+                step1: "Gravez des Disques S dans le Studio",
+                step2: "Cliquez sur Recommandé (Guide)",
+                step3: "Montez vos Disques (+15)",
+                subStats: "Stats & Objectifs",
+                subEquip: "Équipement",
+                effectiveSubs: "Stats secondaires utiles :",
+                combatEval: "Évaluation de combat",
+                equipTag: "LECTEUR DE DISQUES & MOTEUR-AMPLI",
+                equipTitle: "Roue d'Équipement",
+                autoEquip: "Recommandé",
                 unequipAllBtn: "Tout déséquiper",
-                removeBtn: "Retirer",
-                replaceBtn: "Remplacer",
+                equipAllBtn: "Tout équiper",
+                unequipBtn: "Retirer",
                 equipBtn: "Équiper",
-                enhanceBtn: "Renforcer",
-                currentSelection: "Sélection actuelle",
-                currentlyEquipped: "Équipé",
+                transferBtn: "Transférer (de {owner})",
+                emptySlot: "Vide",
+                engineSlot: "Moteur-Ampli",
+                noEngineEquipped: "Aucun Moteur-Ampli",
+                activeSetBonuses: "Bonus de Sets Actifs",
+                noSetBonus: "Aucun bonus actif.",
+                guideRecTitle: "Build Recommandé par le Guide :",
+                piece2: "Ensemble de 2 pièces",
+                piece4: "Ensemble de 4 pièces",
                 mainStatLabel: "Stat principale",
                 subStatsLabel: "Stats secondaires",
                 setEffectsLabel: "Effets de l'ensemble",
@@ -31,23 +39,22 @@
                 advStatLabel: "Stat avancée",
                 engineEffectLabel: "Effet de moteur-ampli",
                 engineSpecIntro: "Les effets suivants sont appliqués pour les personnages de la spécialisation",
-                piece2: "Ensemble de 2 pièces",
-                piece4: "Ensemble de 4 pièces",
+                upStepBtn: "Renforcer +{lvl} (4 ✦)",
+                upMaxBtn: "Max +15 ({cost} ✦)",
+                lockBtn: "Verrouiller",
+                unlockBtn: "Déverrouiller",
+                dismantleSingle: "Démanteler (+{gain} ✦)",
+                recycleBtn: "Recycler",
+                customDiscBtn: "Magasin de musique",
+                compareBtn: "Comparer",
+                collapseBtn: "Réduire",
+                currentSelection: "Sélection actuelle",
+                currentlyEquipped: "Équipé",
                 filterAllSets: "Tous les Sets",
                 allPartitions: "Toutes Partitions (I–VI)",
                 slotOnly: "Partition [{s}] uniquement",
-                emptyDiscList: "Aucun disque sur cette partition. Cliquez sur « Personnalisation de disque de poussée » en haut à droite pour en graver.",
+                emptyDiscList: "Aucun disque sur cette partition. Cliquez sur « Magasin de musique » en haut à droite pour en graver.",
                 emptyEngineList: "Aucun Moteur-Ampli possédé.",
-                subStats: "Stats & Objectifs",
-                subEquip: "Équipement ZZZ",
-                effectiveSubs: "Stats secondaires utiles :",
-                combatEval: "Évaluation de combat",
-                bardicTag: "BARDIC NEEDLE • PERSONNALISATION DE DISQUE DE POUSSÉE",
-                bardicTitle: "Graver des Disques de Poussée",
-                searchSetPlaceholder: "Rechercher un Set de Disques...",
-                randomPartition: "Aléatoire (I–VI)",
-                equipNow: "Équiper",
-                equippedTag: "Équipé",
                 badgesTitle: "Salle des Trophées : Séries & Factions",
                 badgesSub: "Complétez les escouades de New Eridu et les défis d'accordage de disques pour gagner des Polychromes.",
                 badgesUnlockedCount: "Badges : {u} / {t}",
@@ -73,21 +80,32 @@
                 tabBuilds: "Builds",
                 tabBadges: "Badges",
                 noAgentsTitle: "No Agents Unlocked Yet",
-                noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent and unlock their Equipment menu!",
-                filterBtn: "Filter",
-                dismantleBtn: "Dismantle",
-                recycleBtn: "Recycle",
-                customDiscBtn: "Drive Disc Customization",
-                compareBtn: "Compare",
-                collapseBtn: "Collapse",
-                recommendedBtn: "Recommended",
+                noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent!",
+                bardicBtnTitle: "Music Store",
+                storageBtnTitle: "Storage",
+                step1: "Tune S-Rank Discs in the Studio",
+                step2: "Click Recommended (Guide)",
+                step3: "Upgrade Discs (+15)",
+                subStats: "Stats & Goals",
+                subEquip: "Equipment",
+                effectiveSubs: "Effective Sub-Stats:",
+                combatEval: "Combat Readiness",
+                equipTag: "DRIVE DISC PLAYER & W-ENGINE",
+                equipTitle: "Equipment Wheel",
+                autoEquip: "Recommended",
                 unequipAllBtn: "Unequip All",
-                removeBtn: "Remove",
-                replaceBtn: "Replace",
+                equipAllBtn: "Equip All",
+                unequipBtn: "Remove",
                 equipBtn: "Equip",
-                enhanceBtn: "Enhance",
-                currentSelection: "Current Selection",
-                currentlyEquipped: "Equipped",
+                transferBtn: "Transfer (from {owner})",
+                emptySlot: "Empty",
+                engineSlot: "W-Engine",
+                noEngineEquipped: "No W-Engine",
+                activeSetBonuses: "Active Set Bonuses",
+                noSetBonus: "No active set bonus.",
+                guideRecTitle: "ProxyQG Guide Recommendation:",
+                piece2: "2-Piece Set",
+                piece4: "4-Piece Set",
                 mainStatLabel: "Main Stat",
                 subStatsLabel: "Sub-Stats",
                 setEffectsLabel: "Set Effects",
@@ -95,23 +113,22 @@
                 advStatLabel: "Advanced Stat",
                 engineEffectLabel: "W-Engine Effect",
                 engineSpecIntro: "The following effects apply to characters with the specialty",
-                piece2: "2-Piece Set",
-                piece4: "4-Piece Set",
+                upStepBtn: "Enhance +{lvl} (4 ✦)",
+                upMaxBtn: "Max +15 ({cost} ✦)",
+                lockBtn: "Lock",
+                unlockBtn: "Unlock",
+                dismantleSingle: "Dismantle (+{gain} ✦)",
+                recycle: "Recycle",
+                customDiscBtn: "Music Store",
+                compareBtn: "Compare",
+                collapseBtn: "Collapse",
+                currentSelection: "Current Selection",
+                currentlyEquipped: "Equipped",
                 filterAllSets: "All Sets",
                 allPartitions: "All Partitions (I–VI)",
                 slotOnly: "Partition [{s}] Only",
-                emptyDiscList: "No Drive Discs in this partition. Click 'Drive Disc Customization' at the top right to tune discs.",
+                emptyDiscList: "No Drive Discs in this partition. Click 'Music Store' at the top right to tune discs.",
                 emptyEngineList: "No W-Engines owned.",
-                subStats: "Stats & Goals",
-                subEquip: "ZZZ Equipment",
-                effectiveSubs: "Effective Sub-Stats:",
-                combatEval: "Combat Readiness",
-                bardicTag: "BARDIC NEEDLE • DRIVE DISC CUSTOMIZATION",
-                bardicTitle: "Tune S-Rank Drive Discs",
-                searchSetPlaceholder: "Search a Drive Disc Set...",
-                randomPartition: "Random (I–VI)",
-                equipNow: "Equip",
-                equippedTag: "Equipped",
                 badgesTitle: "Trophy Room: Series & Factions",
                 badgesSub: "Complete New Eridu squads and Drive Disc tuning challenges to earn Polychrome rewards.",
                 badgesUnlockedCount: "Badges: {u} / {t}",
@@ -135,7 +152,6 @@
             }
         };
 
-        // Icônes vectorielles SVG exactes de l'interface ZZZ
         const UI_SVGS = {
             funnel: `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-7 8v7l-4 2v-9L3 4z"/></svg>`,
             trash: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>`,
@@ -157,9 +173,6 @@
             return dict[statKey] || statKey;
         }
 
-        // ========================================================
-        // 2. CHARGEMENT DES DONNÉES DE GUIDES (AGENT_DATABASE, DISCS, ENGINES)
-        // ========================================================
         let EXT_DATA = { loaded: false, guides: {}, discs: {}, engines: {} };
 
         async function ensureExternalDataLoaded() {
@@ -253,9 +266,6 @@
             return { sets4, sets2, mainBySlot, subPrio, engines };
         }
 
-        // ========================================================
-        // 3. MOTEUR MATHÉMATIQUE OFFICIEL DES DISQUES RANG S
-        // ========================================================
         const MAIN_STAT_MAX_LV15 = {
             "PV (flat)": { val: 2200, isPct: false },
             "ATQ (flat)": { val: 316, isPct: false },
@@ -283,46 +293,30 @@
             2: { "ATQ (flat)": 1.0 },
             3: { "DÉF (flat)": 1.0 },
             4: {
-                "Adresse d'anomalie": 0.2105,
-                "Taux CRIT": 0.1579,
-                "Dégâts CRIT": 0.1579,
-                "ATQ%": 0.1579,
-                "PV%": 0.1579,
-                "DÉF%": 0.1579
+                "Adresse d'anomalie": 0.2105, "Taux CRIT": 0.1579, "Dégâts CRIT": 0.1579,
+                "ATQ%": 0.1579, "PV%": 0.1579, "DÉF%": 0.1579
             },
             5: {
-                "DGT Physique": 0.088,
-                "DGT Feu": 0.088,
-                "DGT Glace": 0.088,
-                "DGT Électrique": 0.088,
-                "DGT Éther": 0.088,
-                "DGT Vent": 0.088,
-                "Ratio de PÉN": 0.088,
-                "ATQ%": 0.128,
-                "PV%": 0.128,
-                "DÉF%": 0.128
+                "DGT Physique": 0.088, "DGT Feu": 0.088, "DGT Glace": 0.088, "DGT Électrique": 0.088,
+                "DGT Éther": 0.088, "DGT Vent": 0.088, "Ratio de PÉN": 0.088, "ATQ%": 0.128, "PV%": 0.128, "DÉF%": 0.128
             },
             6: {
-                "Maîtrise d'anomalie": 0.150,
-                "Régénération d'énergie": 0.150,
-                "Impact": 0.150,
-                "ATQ%": 0.183,
-                "PV%": 0.183,
-                "DÉF%": 0.184
+                "Maîtrise d'anomalie": 0.150, "Régénération d'énergie": 0.150, "Impact": 0.150,
+                "ATQ%": 0.183, "PV%": 0.183, "DÉF%": 0.184
             }
         };
 
         const SUBSTAT_POOL = [
-            { key: "PV (flat)",          weight: 150, step: 112, isPct: false },
-            { key: "ATQ (flat)",         weight: 150, step: 19,  isPct: false },
-            { key: "DÉF (flat)",         weight: 150, step: 15,  isPct: false },
-            { key: "PV%",                weight: 100, step: 3.0, isPct: true },
-            { key: "ATQ%",               weight: 100, step: 3.0, isPct: true },
-            { key: "DÉF%",               weight: 100, step: 4.8, isPct: true },
-            { key: "Adresse d'anomalie", weight: 100, step: 9,   isPct: false },
-            { key: "PÉN (flat)",         weight: 100, step: 9,   isPct: false },
-            { key: "Taux CRIT",          weight: 75,  step: 2.4, isPct: true },
-            { key: "Dégâts CRIT",        weight: 75,  step: 4.8, isPct: true }
+            { key: "PV (flat)", weight: 150, step: 112, isPct: false },
+            { key: "ATQ (flat)", weight: 150, step: 19, isPct: false },
+            { key: "DÉF (flat)", weight: 150, step: 15, isPct: false },
+            { key: "PV%", weight: 100, step: 3.0, isPct: true },
+            { key: "ATQ%", weight: 100, step: 3.0, isPct: true },
+            { key: "DÉF%", weight: 100, step: 4.8, isPct: true },
+            { key: "Adresse d'anomalie", weight: 100, step: 9, isPct: false },
+            { key: "PÉN (flat)", weight: 100, step: 9, isPct: false },
+            { key: "Taux CRIT", weight: 75, step: 2.4, isPct: true },
+            { key: "Dégâts CRIT", weight: 75, step: 4.8, isPct: true }
         ];
 
         function drawWeightedKey(table) {
@@ -356,9 +350,7 @@
 
             if (!disc.isFourLiner && disc.level === 3 && disc.substats.length < 4) {
                 const usedKeys = new Set([disc.mainStat, ...disc.substats.map(s => s.key)]);
-                const remaining = SUBSTAT_POOL
-                    .filter(s => !usedKeys.has(s.key))
-                    .map(s => ({ ...s }));
+                const remaining = SUBSTAT_POOL.filter(s => !usedKeys.has(s.key)).map(s => ({ ...s }));
                 if (remaining.length > 0) {
                     disc.substats.push(drawSubstatFromPool(remaining));
                 }
@@ -384,23 +376,11 @@
             return sub.isPct ? `${raw.toFixed(1).replace('.0', '').replace('.', ',')} %` : `${Math.round(raw)}`;
         }
 
-        // ========================================================
-        // 4. UNICITÉ DES DISQUES & GESTION MULTI-PORTEURS DES MOTEURS
-        // ========================================================
         const ELEM_ICON_MAP = {
-            Physical: 'physique.webp',
-            Fire: 'feu.webp',
-            Ice: 'Ice.webp',
-            Frost: 'Frost.webp',
-            Electric: 'electrique.webp',
-            Ether: 'Ether.webp',
-            Wind: 'Vent.webp',
-            Aurora: 'Lumiflux.webp',
-            Lumiflux: 'Lumiflux.webp',
-            HonedEdge: 'Honed_Edge.webp',
-            Honed_Edge: 'Honed_Edge.webp',
-            Sepia: 'Auric_Ink.webp',
-            Auric_Ink: 'Auric_Ink.webp'
+            Physical: 'physique.webp', Fire: 'feu.webp', Ice: 'Ice.webp', Frost: 'Frost.webp',
+            Electric: 'electrique.webp', Ether: 'Ether.webp', Wind: 'Vent.webp',
+            Aurora: 'Lumiflux.webp', Lumiflux: 'Lumiflux.webp', HonedEdge: 'Honed_Edge.webp',
+            Honed_Edge: 'Honed_Edge.webp', Sepia: 'Auric_Ink.webp', Auric_Ink: 'Auric_Ink.webp'
         };
 
         function getEngineOwnersList(st, engineKey) {
@@ -414,12 +394,7 @@
 
         function ensureBuildState(st) {
             if (!st.buildSystem) {
-                st.buildSystem = {
-                    craftedDiscs: [],
-                    agentBuilds: {},
-                    usedGachaDiscs: {},
-                    claimedBadges: {}
-                };
+                st.buildSystem = { craftedDiscs: [], agentBuilds: {}, usedGachaDiscs: {}, claimedBadges: {} };
             }
             if (!st.buildSystem.usedGachaDiscs) st.buildSystem.usedGachaDiscs = {};
             if (!st.buildSystem.agentBuilds) st.buildSystem.agentBuilds = {};
@@ -482,9 +457,7 @@
             const bs = ensureBuildState(st);
             Object.entries(bs.agentBuilds).forEach(([, ab]) => {
                 for (let s = 1; s <= 6; s++) {
-                    if (ab.discs && ab.discs[s] === discUid) {
-                        ab.discs[s] = null;
-                    }
+                    if (ab.discs && ab.discs[s] === discUid) ab.discs[s] = null;
                 }
             });
             const targetAb = getOrInitAgentBuild(st, targetAgentKey);
@@ -556,7 +529,7 @@
         }
 
         // ========================================================
-        // 5. ÉQUIPEMENT RECOMMANDÉ AUTO V2 (PRIORITÉ 4P + 2P DU GUIDE)
+        // 5. ÉQUIPEMENT RECOMMANDÉ AUTO V2 (4P + 2P)
         // ========================================================
         function autoEquipFromGuide(st, pool, agent) {
             const bs = ensureBuildState(st);
@@ -644,7 +617,7 @@
         }
 
         // ========================================================
-        // 6. CALCUL DES STATISTIQUES & ÉVALUATION SUR LES GOAL STATS
+        // 6. CALCUL STATISTIQUE & ÉVALUATION
         // ========================================================
         const ROLE_BASE_STATS = {
             Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'ATQ%'], goals: { atk: 2600, cr: 65, cd: 135 } },
@@ -812,39 +785,23 @@
             }
 
             return {
-                hp: finalHp,
-                hpBonus: finalHp - base.hp,
-                atk: finalAtk,
-                atkBonus: finalAtk - base.atk,
-                def: finalDef,
-                defBonus: finalDef - base.def,
-                imp: finalImp,
-                cr: cr.toFixed(1) + ' %',
-                cd: cd.toFixed(1) + ' %',
-                am: finalAm,
-                ap: finalAp,
-                pen: penPct.toFixed(1) + ' %',
-                er: finalErNum.toFixed(2),
-                effectiveSubRolls,
-                totalDiscLevels,
-                matchingMainStats,
-                goalItems: goalItems.slice(0, 3),
-                grade,
-                finalScore,
-                mindscape,
-                overclockLvl,
-                setCounts,
-                recSubList
+                hp: finalHp, hpBonus: finalHp - base.hp, atk: finalAtk, atkBonus: finalAtk - base.atk,
+                def: finalDef, defBonus: finalDef - base.def, imp: finalImp,
+                cr: cr.toFixed(1) + ' %', cd: cd.toFixed(1) + ' %', am: finalAm, ap: finalAp,
+                pen: penPct.toFixed(1) + ' %', er: finalErNum.toFixed(2),
+                effectiveSubRolls, totalDiscLevels, matchingMainStats,
+                goalItems: goalItems.slice(0, 3), grade, finalScore,
+                mindscape, overclockLvl, setCounts, recSubList
             };
         }
 
         // ========================================================
-        // 7. INTERFACE D'ÉQUIPEMENT ZZZ 1:1 (COMME DANS LE JEU)
+        // 7. INTERFACE D'ÉQUIPEMENT ZZZ 1:1
         // ========================================================
         let selectedAgentKey = '';
-        let currentSubMenu = 'equip'; // 'equip' | 'stats'
-        let activeWheelTarget = 1;    // 1..6 (Partitions) ou 'engine'
-        let selectedItemId = null;    // uid du disque ou rawKey du moteur sélectionné dans la grille de gauche
+        let currentSubMenu = 'equip';
+        let activeWheelTarget = 1;
+        let selectedItemId = null;
         let isCompareMode = false;
         let showFilterBar = false;
         let filterSetKey = 'all';
@@ -856,7 +813,6 @@
             return pool.allCatalog.filter(i => i.type === 'agent' && (st.inventory[i.id]?.count || 0) > 0);
         }
 
-        // Construit le bloc HTML d'un Disque ou d'un Moteur dans la colonne centrale (utilisé en vue simple ET en vue Comparer)
         function buildInspectorPaneHTML(st, pool, agent, itemObj, isEngineMode, headerTag = '', isLangEn = false, t, bridge, prof) {
             if (!itemObj) {
                 return `
@@ -876,7 +832,6 @@
                 const effectTitle = (isLangEn ? rawJson.passiveName?.en : rawJson.passiveName?.fr) || bridge.itemName(itemObj);
                 const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.';
 
-                // Sépare le nom de la stat avancée et son pourcentage
                 const matchPct = String(rawSub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
                 const advName = matchPct ? matchPct[1].trim() : rawSub;
                 const advVal = matchPct ? matchPct[2].replace('+', '').trim() : 'MAX';
@@ -925,7 +880,6 @@
                 `;
             }
 
-            // Mode Disque de poussée (Identique aux captures 1, 3 et 4)
             const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === itemObj.setKey);
             const setName = sObj ? bridge.itemName(sObj) : itemObj.setKey;
             const rawDiscJson = EXT_DATA.discs[itemObj.setKey] || {};
@@ -1006,7 +960,6 @@
             const prof = getGuideProfile(agent.rawKey);
             const freeDiscsTotal = getFreeGachaDiscCount(st);
 
-            // Barre supérieure d'agents + bascule Équipement / Stats
             const rosterHTML = ownedAgents.map(a => {
                 const cnt = st.inventory[a.id]?.count || 1;
                 const mTag = cnt > 7 ? `M6 +${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
@@ -1039,11 +992,9 @@
                 return;
             }
 
-            // --- VUE ÉQUIPEMENT 1:1 COMME DANS LE JEU ---
             const isEngineMode = activeWheelTarget === 'engine';
             const slotNum = isEngineMode ? 0 : (Number(activeWheelTarget) || 1);
 
-            // Liste des éléments de la grille de gauche (4 colonnes)
             let gridItems = [];
             if (isEngineMode) {
                 gridItems = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
@@ -1063,7 +1014,6 @@
                 }
             }
 
-            // Rendu des boîtiers de la grille 4 colonnes à gauche
             const leftGridHTML = gridItems.map(it => {
                 if (isEngineMode) {
                     const cnt = st.inventory[it.id]?.count || 1;
@@ -1103,7 +1053,6 @@
                 }
             }).join('');
 
-            // Objet sélectionné et objet actuellement équipé sur ce slot
             const selectedObj = isEngineMode
                 ? (gridItems.find(e => e.rawKey === selectedItemId) || null)
                 : (bs.craftedDiscs.find(d => d.uid === selectedItemId) || null);
@@ -1112,7 +1061,6 @@
                 ? (ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null)
                 : (ab.discs[slotNum] ? bs.craftedDiscs.find(d => d.uid === ab.discs[slotNum]) : null);
 
-            // Colonne centrale : Inspecteur simple OU Comparaison côte à côte (Capture 4)
             let centerHTML = '';
             if (isCompareMode && selectedObj && equippedObj && ((isEngineMode && selectedObj.rawKey !== equippedObj.rawKey) || (!isEngineMode && selectedObj.uid !== equippedObj.uid))) {
                 centerHTML = `
@@ -1129,7 +1077,6 @@
                 `;
             }
 
-            // Colonne de droite : La Grande Roue Mécanique ZZZ (DRIVER + 6 Disques + Moteur central)
             const eqEngineForWheel = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
             const wheelDiscsHTML = [1, 2, 3, 4, 5, 6].map(s => {
                 const u = ab.discs[s];
@@ -1146,49 +1093,35 @@
                 </div>`;
             }).join('');
 
-            // Calcul des états des boutons du haut et du bas
             const canTrashSelected = !isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid);
-            const unownedLv0Discs = bs.craftedDiscs.filter(d => d.level === 0 && !d.locked && !getDiscOwner(st, d.uid));
-            const batchDiscGain = unownedLv0Discs.length * 5;
-
-            let surplusEngineGain = 0;
-            pool.allCatalog.filter(i => i.type === 'engine').forEach(e => {
-                const cnt = st.inventory[e.id]?.count || 0;
-                const keepCount = Math.max(1, getEngineOwnersList(st, e.rawKey).length);
-                if (cnt > keepCount) {
-                    surplusEngineGain += (cnt - keepCount) * (e.rank === 'S' ? 40 : (e.rank === 'A' ? 10 : 3));
-                }
-            });
-
+            const singleDiscGain = (!isEngineMode && selectedObj) ? calcDiscDismantleGain(selectedObj) : 0;
             const isSelectedEquippedHere = isEngineMode
                 ? (selectedObj && ab.engineKey === selectedObj.rawKey)
                 : (selectedObj && ab.discs[slotNum] === selectedObj.uid);
 
             const hasEquippedInSlot = isEngineMode ? !!ab.engineKey : !!ab.discs[slotNum];
-            const equipBtnLabel = isSelectedEquippedHere
-                ? t.removeBtn
-                : (hasEquippedInSlot ? t.replaceBtn : t.equipBtn);
-
+            const equipBtnLabel = isSelectedEquippedHere ? t.removeBtn : (hasEquippedInSlot ? t.replaceBtn : t.equipBtn);
             const canEnhanceSelected = !isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4;
             const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
+            const prevRosterLeft = document.getElementById('zb-roster-scroll')?.scrollLeft || 0;
+            const prevGridTop = mount.querySelector('.zzz-left-grid-wrap')?.scrollTop || 0;
+            const prevInspTop = mount.querySelector('.zzz-center-inspector-wrap')?.scrollTop || 0;
+
             mount.innerHTML = `
                 <div class="zb-wrap">
-                    <!-- Barre de sélection d'Agent + Bascule vers les Stats complètes & Score -->
                     <div class="zb-roster-strip">
                         <div class="zb-roster-bar" id="zb-roster-scroll">${rosterHTML}</div>
                         <button type="button" class="zzz-pill-btn" id="btn-toggle-subview">
                             <span class="zzz-pill-icon yellow">${UI_SVGS.recommend}</span>
-                            <span>${t.subStats} (Rang ${calc.grade})</span>
+                            <span>${t.subStats}</span>
                         </button>
                     </div>
 
-                    <!-- Écran d'Équipement 1:1 Zenless Zone Zero -->
                     <div class="zzz-eq-screen">
                         <div class="zzz-eq-bg-art" style="background-image:url('assets/splash/${agent.rawKey}.webp'), url('${agent.img}');"></div>
                         <div class="zzz-eq-bg-stripes"></div>
 
-                        <!-- BARRE SUPÉRIEURE ZZZ -->
                         <div class="zzz-eq-topbar">
                             <div class="zzz-eq-top-left">
                                 <button type="button" class="zzz-pill-btn ${showFilterBar ? 'active' : ''}" id="zzz-btn-filter">
@@ -1212,23 +1145,18 @@
                                     </button>
                                 </div>` : ''}
 
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-batch-dismantle"
-                                    ${isEngineMode ? (surplusEngineGain <= 0 ? 'disabled' : '') : (batchDiscGain <= 0 ? 'disabled' : '')}>
+                                <button type="button" class="zzz-pill-btn" id="zzz-btn-trash-one" ${!canTrashSelected ? 'disabled' : ''}>
                                     <span class="zzz-pill-icon cyan">${UI_SVGS.dismantle}</span>
-                                    <span>${isEngineMode
-                                        ? `${t.recycleBtn}${surplusEngineGain > 0 ? ` (+${surplusEngineGain} ✦)` : ''}`
-                                        : `${t.dismantleBtn}${batchDiscGain > 0 ? ` (+${batchDiscGain} ✦)` : ''}`
-                                    }</span>
+                                    <span>${t.dismantleBtn}${canTrashSelected ? ` (+${singleDiscGain} ✦)` : ''}</span>
                                 </button>
 
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-open-bardic">
-                                    <span class="zzz-pill-icon orange">${UI_SVGS.discTune}</span>
+                                <button type="button" class="zzz-pill-btn bardic-music-btn" id="zzz-btn-open-bardic">
+                                    <span class="zzz-pill-icon bardic-teal">${UI_SVGS.discTune}</span>
                                     <span>${t.customDiscBtn}${freeDiscsTotal > 0 ? ` (${freeDiscsTotal})` : ''}</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- TIROIR DE FILTRE (S'OUVRE QUAND ON CLIQUE SUR FILTRER) -->
                         ${showFilterBar && !isEngineMode ? `
                         <div class="zzz-filter-drawer">
                             <select id="zzz-select-set-filter" class="gacha-col-search" style="min-width:160px;">
@@ -1246,7 +1174,6 @@
                             </button>
                         </div>` : ''}
 
-                        <!-- SÉLECTEUR DE PARTITION RAPIDE SUR MOBILE/TABLETTE -->
                         <div class="zzz-mobile-slots">
                             <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-wheel-pick="engine">W-Engine</button>
                             ${[1, 2, 3, 4, 5, 6].map(s => `
@@ -1254,7 +1181,6 @@
                             `).join('')}
                         </div>
 
-                        <!-- CORPS 3 COLONNES : GRILLE 4x | INSPECTEUR / COMPARER | GRANDE ROUE -->
                         <div class="zzz-eq-body ${isCompareMode ? 'compare-active' : ''}">
                             <div class="zzz-left-grid-wrap">
                                 ${gridItems.length > 0
@@ -1282,14 +1208,13 @@
                             </div>
                         </div>
 
-                        <!-- BARRE INFÉRIEURE ZZZ (COMPARER / RECOMMANDÉ | TOUT DÉSÉQUIPER / RETIRER / RENFORCER) -->
                         <div class="zzz-eq-bottombar">
                             <div class="zzz-eq-bot-left">
                                 <button type="button" class="zzz-pill-btn ${isCompareMode ? 'active' : ''}" id="zzz-btn-compare">
                                     <span class="zzz-pill-icon yellow">${UI_SVGS.compare}</span>
                                     <span>${isCompareMode ? t.collapseBtn : t.compareBtn}</span>
                                 </button>
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-recommended" title="Équiper automatiquement le meilleur build recommandé par le Guide">
+                                <button type="button" class="zzz-pill-btn" id="zzz-btn-recommended">
                                     <span class="zzz-pill-icon green">${UI_SVGS.recommend}</span>
                                     <span>${t.recommendedBtn}</span>
                                 </button>
@@ -1298,6 +1223,9 @@
                             <div class="zzz-eq-bot-right">
                                 <button type="button" class="zzz-action-pill" id="zzz-btn-unequip-all">
                                     ${t.unequipAllBtn}
+                                </button>
+                                <button type="button" class="zzz-action-pill" id="zzz-btn-equip-all">
+                                    ${t.equipAllBtn}
                                 </button>
                                 <button type="button" class="zzz-action-pill ${!isSelectedEquippedHere && selectedObj ? 'primary-highlight' : ''}" id="zzz-btn-equip-or-remove" ${!selectedObj ? 'disabled' : ''}>
                                     ${equipBtnLabel}
@@ -1311,8 +1239,15 @@
                 </div>
             `;
 
+            const newRosterEl = document.getElementById('zb-roster-scroll');
+            if (newRosterEl) newRosterEl.scrollLeft = prevRosterLeft;
+            const newGridEl = mount.querySelector('.zzz-left-grid-wrap');
+            if (newGridEl) newGridEl.scrollTop = prevGridTop;
+            const newInspEl = mount.querySelector('.zzz-center-inspector-wrap');
+            if (newInspEl) newInspEl.scrollTop = prevInspTop;
+
             bindRosterAndSubViewEvents(mount);
-            bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum, unownedLv0Discs, batchDiscGain, surplusEngineGain);
+            bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum);
         }
 
         function bindRosterAndSubViewEvents(mount) {
@@ -1340,10 +1275,9 @@
             });
         }
 
-        function bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum, unownedLv0Discs, batchDiscGain, surplusEngineGain) {
+        function bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum) {
             const bridge = window.ZZZGachaBridge;
 
-            // Sélection d'une partition [1..6] ou du Moteur central sur la Roue
             mount.querySelectorAll('[data-wheel-pick]').forEach(el => {
                 el.addEventListener('click', () => {
                     const val = el.getAttribute('data-wheel-pick');
@@ -1359,7 +1293,6 @@
                 renderBuildsTab(mount);
             });
 
-            // Sélection d'un boîtier dans la grille 4 colonnes de gauche
             mount.querySelectorAll('[data-grid-pick]').forEach(el => {
                 el.addEventListener('click', () => {
                     selectedItemId = el.getAttribute('data-grid-pick');
@@ -1367,7 +1300,6 @@
                 });
             });
 
-            // Bouton [Filtrer]
             document.getElementById('zzz-btn-filter')?.addEventListener('click', () => {
                 showFilterBar = !showFilterBar;
                 renderBuildsTab(mount);
@@ -1391,7 +1323,6 @@
                 renderBuildsTab(mount);
             });
 
-            // Bouton [T] Cadenas (Verrouiller/Déverrouiller le disque sélectionné)
             document.getElementById('zzz-btn-lock-one')?.addEventListener('click', () => {
                 if (!isEngineMode && selectedObj) {
                     selectedObj.locked = !selectedObj.locked;
@@ -1400,8 +1331,7 @@
                 }
             });
 
-            // Bouton [R] Poubelle (Démanteler le disque sélectionné)
-            document.getElementById('zzz-btn-trash-one')?.addEventListener('click', () => {
+            function dismantleSelectedDisc() {
                 if (!isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid)) {
                     const idx = bs.craftedDiscs.findIndex(x => x.uid === selectedObj.uid);
                     if (idx !== -1) {
@@ -1414,53 +1344,27 @@
                         renderBuildsTab(mount);
                     }
                 }
-            });
+            }
 
-            // Bouton [Démanteler] / [Recycler] en lot
-            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', () => {
-                if (isEngineMode) {
-                    if (surplusEngineGain <= 0) return;
-                    pool.allCatalog.filter(i => i.type === 'engine').forEach(e => {
-                        const cnt = st.inventory[e.id]?.count || 0;
-                        const keepCount = Math.max(1, getEngineOwnersList(st, e.rawKey).length);
-                        if (cnt > keepCount) st.inventory[e.id].count = keepCount;
-                    });
-                    st.residual += surplusEngineGain;
-                    st.totalDupesRes = (st.totalDupesRes || 0) + surplusEngineGain;
-                    bridge.saveState(st);
-                    renderBuildsTab(mount);
-                } else {
-                    if (unownedLv0Discs.length === 0) return;
-                    const toRemove = new Set(unownedLv0Discs.map(d => d.uid));
-                    bs.craftedDiscs = bs.craftedDiscs.filter(d => !toRemove.has(d.uid));
-                    st.residual += batchDiscGain;
-                    st.totalDupesRes = (st.totalDupesRes || 0) + batchDiscGain;
-                    selectedItemId = null;
-                    bridge.saveState(st);
-                    renderBuildsTab(mount);
-                }
-            });
+            document.getElementById('zzz-btn-trash-one')?.addEventListener('click', dismantleSelectedDisc);
+            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleSelectedDisc);
 
-            // Bouton [Personnalisation de disque de poussée] -> Ouvre le Studio de gravure sur la partition actuelle
             document.getElementById('zzz-btn-open-bardic')?.addEventListener('click', () => {
                 bardicSlot = isEngineMode ? 0 : slotNum;
                 openBardicNeedleModal(mount);
             });
 
-            // Bouton [Comparer] / [Réduire]
             document.getElementById('zzz-btn-compare')?.addEventListener('click', () => {
                 isCompareMode = !isCompareMode;
                 renderBuildsTab(mount);
             });
 
-            // Bouton [Recommandé] -> Équipe automatiquement le meilleur build 4P+2P du guide
             document.getElementById('zzz-btn-recommended')?.addEventListener('click', () => {
                 autoEquipFromGuide(st, pool, agent);
                 bridge.saveState(st);
                 renderBuildsTab(mount);
             });
 
-            // Bouton [Tout déséquiper]
             document.getElementById('zzz-btn-unequip-all')?.addEventListener('click', () => {
                 ab.engineKey = null;
                 ab.discs = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
@@ -1468,7 +1372,12 @@
                 renderBuildsTab(mount);
             });
 
-            // Bouton [Retirer] / [Remplacer] / [Équiper]
+            document.getElementById('zzz-btn-equip-all')?.addEventListener('click', () => {
+                autoEquipFromGuide(st, pool, agent);
+                bridge.saveState(st);
+                renderBuildsTab(mount);
+            });
+
             document.getElementById('zzz-btn-equip-or-remove')?.addEventListener('click', () => {
                 if (!selectedObj) return;
                 if (isEngineMode) {
@@ -1490,7 +1399,6 @@
                 renderBuildsTab(mount);
             });
 
-            // Bouton [Renforcer] (+3 niveaux sur le disque sélectionné)
             document.getElementById('zzz-btn-enhance')?.addEventListener('click', () => {
                 if (!isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4) {
                     st.residual -= 4;
@@ -1501,7 +1409,6 @@
             });
         }
 
-        // --- VUE STATS DE BASE & DIAGNOSTIC DES GOAL STATS ---
         function renderSubMenuStats(agent, calc, pool, bridge, t) {
             const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
             const isEn = (bridge.getLang?.() || 'fr') === 'en';
@@ -1539,49 +1446,16 @@
                 </div>
 
                 <div class="zb-stats-grid">
-                    <div class="zb-stat-row ${calc.recSubList.includes('PV%') ? 'recommended' : ''}">
-                        <span>${tStat('PV')}</span>
-                        <span class="zb-stat-val">${calc.hp} ${calc.hpBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.hpBonus})</small>` : ''}</span>
-                    </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('ATQ%') ? 'recommended' : ''}">
-                        <span>${tStat('ATQ')}</span>
-                        <span class="zb-stat-val">${calc.atk} ${calc.atkBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.atkBonus})</small>` : ''}</span>
-                    </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('DÉF%') ? 'recommended' : ''}">
-                        <span>${tStat('DÉF')}</span>
-                        <span class="zb-stat-val">${calc.def} ${calc.defBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.defBonus})</small>` : ''}</span>
-                    </div>
-                    <div class="zb-stat-row ${agent.role === 'Stun' || calc.recSubList.includes('Impact') ? 'recommended' : ''}"><span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span></div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('Taux CRIT') ? 'recommended' : ''}"><span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span></div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('Dégâts CRIT') ? 'recommended' : ''}"><span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span></div>
-                    <div class="zb-stat-row ${agent.role === 'Anomaly' ? 'recommended' : ''}"><span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span></div>
-                    <div class="zb-stat-row ${calc.recSubList.includes("Adresse d'anomalie") ? 'recommended' : ''}"><span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('PV')}</span><span class="zb-stat-val">${calc.hp}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('ATQ')}</span><span class="zb-stat-val">${calc.atk}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('DÉF')}</span><span class="zb-stat-val">${calc.def}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span></div>
+                    <div class="zb-stat-row"><span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span></div>
+                    <div class="zb-stat-row"><span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span></div>
+                    <div class="zb-stat-row"><span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span></div>
                     <div class="zb-stat-row"><span>${tStat('Ratio de PÉN')}</span><span class="zb-stat-val">${calc.pen}</span></div>
-                    <div class="zb-stat-row ${agent.role === 'Support' ? 'recommended' : ''}"><span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span></div>
-                </div>
-
-                <div style="background:#0a0b10;border:1px solid #242534;border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-                        <span style="font-size:10px;font-weight:900;color:#d7f70c;text-transform:uppercase;">
-                            ${isEn ? 'GUIDE GOAL STATS & BUILD CHECKLIST' : 'OBJECTIFS DE STATS DU GUIDE & DIAGNOSTIC'}
-                        </span>
-                        <span style="font-family:monospace;font-size:10.5px;color:#a1a1aa;">
-                            ${isEn ? `Disc Levels: ${calc.totalDiscLevels}/90 • Main Stats [4-6]: ${calc.matchingMainStats}/3` : `Niv. Disques : ${calc.totalDiscLevels}/90 • Stats [4-6] : ${calc.matchingMainStats}/3`}
-                        </span>
-                    </div>
-                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-                        ${calc.goalItems.map(g => `
-                            <div style="background:#12131c;border:1px solid #232432;border-radius:10px;padding:6px 8px;display:flex;flex-direction:column;gap:4px;">
-                                <div style="display:flex;justify-content:space-between;font-size:9.5px;font-weight:800;">
-                                    <span style="color:#a1a1aa;">${g.label}</span>
-                                    <span style="color:${g.pct >= 100 ? '#4ade80' : '#fde047'};font-family:monospace;">${g.cur} / ${g.target}</span>
-                                </div>
-                                <div class="zb-goal-bar-track">
-                                    <div class="zb-goal-bar-fill" style="width:${g.pct}%;background:${g.pct >= 100 ? '#4ade80' : '#d7f70c'};"></div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
+                    <div class="zb-stat-row"><span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span></div>
                 </div>
 
                 ${activeSetsHTML ? `<div style="display:flex;gap:6px;flex-wrap:wrap;">${activeSetsHTML}</div>` : ''}
@@ -1589,7 +1463,6 @@
                 <div class="zb-eval-bar">
                     <span style="font-size:12px;font-weight:800;color:#d4d4d8;">
                         ${t.effectiveSubs} <strong style="color:#facc15;font-size:14px;">${calc.effectiveSubRolls}</strong>
-                        <span style="color:#71717a;font-size:11px;margin-left:6px;">(Score : ${calc.finalScore} / 100)</span>
                     </span>
                     <div class="zb-eval-grade">
                         <span style="color:#f59e0b;font-size:14px;">${calc.grade}</span>
@@ -1600,7 +1473,7 @@
         }
 
         // ========================================================
-        // 8. PERSONNALISATION DE DISQUE DE POUSSÉE (STUDIO BARDIC NEEDLE)
+        // 8. MAGASIN DE MUSIQUE (STUDIO BARDIC NEEDLE)
         // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
@@ -1628,10 +1501,7 @@
                     ? forcedMain
                     : drawWeightedKey(PARTITION_WEIGHTS[slot]);
 
-                const available = SUBSTAT_POOL
-                    .filter(s => s.key !== mainStat)
-                    .map(s => ({ ...s }));
-
+                const available = SUBSTAT_POOL.filter(s => s.key !== mainStat).map(s => ({ ...s }));
                 const substats = [];
                 forcedSubs.forEach(subKey => {
                     if (subKey === mainStat || substats.length >= 4) return;
@@ -1650,13 +1520,7 @@
 
                 return {
                     uid: 'disc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7),
-                    setKey,
-                    slot,
-                    level: 0,
-                    locked: false,
-                    isFourLiner: substats.length >= 4,
-                    mainStat,
-                    substats
+                    setKey, slot, level: 0, locked: false, isFourLiner: substats.length >= 4, mainStat, substats
                 };
             }
 
@@ -1664,7 +1528,6 @@
                 const t = B();
                 const isEn = (bridge.getLang?.() || 'fr') === 'en';
                 const prof = getGuideProfile(selectedAgentKey);
-                const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
                 const filteredSets = allSets.filter(s => {
                     if (!setSearch.trim()) return true;
@@ -1708,7 +1571,6 @@
                                 <h2 class="gacha-panel-title" style="font-size:21px;">${t.bardicTitle}</h2>
                             </div>
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
-                                ${activeAgent ? `<span class="gacha-reset-pill" style="color:#fde047;">GUIDE : ${bridge.itemName(activeAgent)}</span>` : ''}
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
                                 <span class="gacha-reset-pill" style="color:#d7f70c;">Poly : ${st.polychromes}</span>
                                 <button type="button" class="gacha-res-btn" id="close-bardic-modal">${t.close}</button>
@@ -1749,15 +1611,15 @@
                                         <div style="display:flex;align-items:center;gap:10px;">
                                             <img src="${currentSet ? currentSet.img : ''}" style="width:42px;height:42px;border-radius:999px;">
                                             <div>
-                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#f43f5e'};text-transform:uppercase;">
-                                                    ${isEn ? `AVAILABLE STOCK: ${stockForCurrentSet} DISC(S)` : `STOCK DISPONIBLE : ${stockForCurrentSet} DISQUE(S)`}
+                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#38bdf8'};text-transform:uppercase;">
+                                                    ${stockForCurrentSet > 0 ? `Stock disponible : ${stockForCurrentSet} disque(s)` : `0 stock • Gravure standard : 10 ✦`}
                                                 </span>
                                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                     ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
                                                 </h3>
                                             </div>
                                         </div>
-                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">${isEn ? 'Reset (Free)' : 'Réinitialiser (Gratuit)'}</button>` : ''}
+                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">Réinitialiser</button>` : ''}
                                     </div>
 
                                     <div style="font-size:10px;color:#a1a1aa;line-height:1.35;background:#08080c;padding:7px 10px;border-radius:10px;border:1px solid #1f202b;">
@@ -1774,11 +1636,9 @@
 
                                     ${variableMainKeys.length > 0 ? `
                                     <div style="display:flex;flex-direction:column;gap:4px;">
-                                        <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
-                                            ${isEn ? 'Main Stat (Free if random, +15 ✦ if chosen):' : 'Stat Principale (Gratuit en aléatoire, +15 ✦ si choisie) :'}
-                                        </span>
+                                        <span style="font-size:10px;font-weight:800;color:#a1a1aa;">Stat Principale (+15 ✦ si choisie) :</span>
                                         <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isMainTargeted ? '#d7f70c' : '#2c2c36'};">
-                                            <option value="">${isEn ? 'Random Main Stat (FREE)' : 'Aléatoire (GRATUIT)'}</option>
+                                            <option value="">Aléatoire (Gratuit)</option>
                                             ${variableMainKeys.map(k => {
                                                 const isRecMain = (prof.mainBySlot[bardicSlot] || []).includes(k);
                                                 return `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${tStat(k)} ${isRecMain ? '[GUIDE]' : ''} (+15 ✦)</option>`;
@@ -1788,9 +1648,7 @@
 
                                     <div style="display:flex;flex-direction:column;gap:5px;">
                                         <div style="display:flex;align-items:center;justify-content:space-between;">
-                                            <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
-                                                ${isEn ? 'Guaranteed Sub-Stats (+10 ✦ each, max 4):' : 'Sous-Stats garanties (+10 ✦ / sous-stat, max 4) :'}
-                                            </span>
+                                            <span style="font-size:10px;font-weight:800;color:#a1a1aa;">Sous-Stats garanties (+10 ✦ chacune, max 4) :</span>
                                             <span class="gacha-quest-prog ${selectedSubStats.length > 0 ? 'done' : ''}">${selectedSubStats.length} / 4</span>
                                         </div>
                                         <div style="display:flex;flex-wrap:wrap;gap:5px;">
@@ -1830,23 +1688,23 @@
 
                                 ${stockForCurrentSet <= 0 ? `
                                 <div style="text-align:center;padding:10px;background:#14141d;border:1px solid #2b2b38;border-radius:12px;font-size:11px;font-weight:800;color:#a1a1aa;">
-                                    ${isEn ? 'No disc in stock for this set. Pull on the Unified Channel to obtain more!' : 'Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !'}
+                                    Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !
                                 </div>` : (isFreeRoll ? `
                                 <div style="display:grid;grid-template-columns:${bulkFreeCount > 1 ? '1fr 1fr' : '1fr'};gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
-                                        ${isEn ? `Tune ×1 (FREE • ${stockForCurrentSet} in stock)` : `Graver ×1 (GRATUIT • ${stockForCurrentSet} dispo)`}
+                                        Graver ×1 (Gratuit • ${stockForCurrentSet} dispo)
                                     </button>
                                     ${bulkFreeCount > 1 ? `
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-bulk">
-                                        ${isEn ? `Tune ×${bulkFreeCount} (FREE)` : `Graver ×${bulkFreeCount} (GRATUIT)`}
+                                        Graver ×${bulkFreeCount} (Gratuit)
                                     </button>` : ''}
                                 </div>` : `
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
-                                        ${isEn ? `Custom Tune (${customResCost} ✦ • 1 stock)` : `Graver Sur-Mesure (${customResCost} ✦ • 1 stock)`}
+                                        Graver Sur-Mesure (${customResCost} ✦)
                                     </button>
                                     <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
-                                        ${isEn ? `Custom Tune (${customPolyCost} Poly • 1 stock)` : `Graver Sur-Mesure (${customPolyCost} Poly • 1 stock)`}
+                                        Graver Sur-Mesure (${customPolyCost} Poly)
                                     </button>
                                 </div>`)}
                             </div>
@@ -1962,13 +1820,13 @@
         }
 
         // ========================================================
-        // 9. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES (ICÔNES SVG)
+        // 9. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES
         // ========================================================
         let badgeFilter = 'all';
 
         const BADGE_SVGS = {
             squadReady: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d7f70c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>`,
-            engines: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+            engines: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06-.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
             vinyl: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M6 12a6 6 0 0 1 6-6"/></svg>`,
             tuning: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
             resonance: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
@@ -1994,80 +1852,46 @@
             ).length;
 
             badges.push({
-                id: 'series_squad_ready_3',
-                cat: 'mastery',
-                svg: BADGE_SVGS.squadReady,
+                id: 'series_squad_ready_3', cat: 'mastery', svg: BADGE_SVGS.squadReady,
                 title: isEn ? 'Combat Ready Squad (3 Built Agents)' : 'Escouade Opérationnelle (3 Agents Équipés)',
                 desc: isEn ? 'Equip 3 different Agents with a W-Engine and all 6 Drive Discs.' : 'Équiper 3 Agents différents avec un Moteur-Ampli et leurs 6 Disques.',
-                cur: Math.min(3, fullyEquippedAgents),
-                max: 3,
-                reward: 1000
+                cur: Math.min(3, fullyEquippedAgents), max: 3, reward: 1000
             });
-
             badges.push({
-                id: 'series_s_engines_5',
-                cat: 'mastery',
-                svg: BADGE_SVGS.engines,
+                id: 'series_s_engines_5', cat: 'mastery', svg: BADGE_SVGS.engines,
                 title: isEn ? 'Signature Arsenal (5 S-Engines)' : 'Arsenal Signature (5 Moteurs Rang S)',
                 desc: isEn ? 'Unlock 5 different S-Rank W-Engines in your Collection.' : 'Débloquer 5 Moteurs-Ampli de Rang S différents dans la Collection.',
-                cur: Math.min(5, sEnginesOwned),
-                max: 5,
-                reward: 1200
+                cur: Math.min(5, sEnginesOwned), max: 5, reward: 1200
             });
-
             badges.push({
-                id: 'series_all_discs',
-                cat: 'mastery',
-                svg: BADGE_SVGS.vinyl,
+                id: 'series_all_discs', cat: 'mastery', svg: BADGE_SVGS.vinyl,
                 title: isEn ? 'Master Vinyl Collector' : 'Maître Disquaire de New Eridu',
                 desc: isEn ? 'Unlock all Drive Disc sets in your Collection.' : 'Débloquer l\'intégralité des Sets de Disques dans la Collection.',
-                cur: ownedDiscs,
-                max: allDiscs.length || 30,
-                reward: 1600
+                cur: ownedDiscs, max: allDiscs.length || 30, reward: 1600
             });
-
             badges.push({
-                id: 'series_craft_20',
-                cat: 'mastery',
-                svg: BADGE_SVGS.tuning,
-                title: isEn ? 'Bardic Needle Regular' : 'Habitué de Bardic Needle',
-                desc: isEn ? 'Tune 20 S-Rank Drive Discs in the Studio.' : 'Graver 20 Disques de Poussée de Rang S dans le Studio.',
-                cur: Math.min(20, bs.craftedDiscs.length),
-                max: 20,
-                reward: 800
+                id: 'series_craft_20', cat: 'mastery', svg: BADGE_SVGS.tuning,
+                title: isEn ? 'Bardic Needle Regular' : 'Habitué du Magasin de musique',
+                desc: isEn ? 'Tune 20 S-Rank Drive Discs in the Studio.' : 'Graver 20 Disques de Poussée de Rang S dans le Magasin de musique.',
+                cur: Math.min(20, bs.craftedDiscs.length), max: 20, reward: 800
             });
-
             badges.push({
-                id: 'series_lv15_6',
-                cat: 'mastery',
-                svg: BADGE_SVGS.resonance,
+                id: 'series_lv15_6', cat: 'mastery', svg: BADGE_SVGS.resonance,
                 title: isEn ? 'Full Resonance (+15 Set)' : 'Résonance Maximale (6 Disques +15)',
                 desc: isEn ? 'Upgrade 6 S-Rank Drive Discs to Level +15.' : 'Améliorer 6 Disques de Rang S jusqu\'au niveau maximal +15.',
-                cur: Math.min(6, lv15Count),
-                max: 6,
-                reward: 1000
+                cur: Math.min(6, lv15Count), max: 6, reward: 1000
             });
-
             badges.push({
-                id: 'series_god_roll',
-                cat: 'mastery',
-                svg: BADGE_SVGS.miracle,
+                id: 'series_god_roll', cat: 'mastery', svg: BADGE_SVGS.miracle,
                 title: isEn ? 'Statistical Miracle (+4 / +5 Roll)' : 'Miracle Statistique (+4 / +5 Roll)',
                 desc: isEn ? 'Hit at least +4 upgrades on a single Drive Disc substat.' : 'Obtenir au moins +4 améliorations sur une seule sous-statistique de Disque S.',
-                cur: hasGodRoll ? 1 : 0,
-                max: 1,
-                reward: 1200
+                cur: hasGodRoll ? 1 : 0, max: 1, reward: 1200
             });
-
             badges.push({
-                id: 'series_overclock_m6',
-                cat: 'mastery',
-                svg: BADGE_SVGS.overclock,
+                id: 'series_overclock_m6', cat: 'mastery', svg: BADGE_SVGS.overclock,
                 title: isEn ? 'Beyond Limits (M6+ Overclock)' : 'Au-Delà des Limites (Surcharge M6+)',
                 desc: isEn ? 'Obtain an 8th copy of any Agent to awaken Prismatic Overclock.' : 'Obtenir un 8e exemplaire d\'un même Agent pour éveiller sa Surcharge Prismatique.',
-                cur: hasOverclock ? 1 : 0,
-                max: 1,
-                reward: 1200
+                cur: hasOverclock ? 1 : 0, max: 1, reward: 1200
             });
 
             const factionMap = {};
@@ -2080,16 +1904,11 @@
             Object.entries(factionMap).forEach(([facName, members]) => {
                 const ownedCount = members.filter(m => (inv[m.id]?.count || 0) > 0).length;
                 badges.push({
-                    id: `fac_${facName}`,
-                    cat: 'squads',
-                    icon: `assets/Faction/${facName}.webp`,
-                    svg: BADGE_SVGS.squadReady,
+                    id: `fac_${facName}`, cat: 'squads',
+                    icon: `assets/Faction/${facName}.webp`, svg: BADGE_SVGS.squadReady,
                     title: `${facName}`,
                     desc: isEn ? `Recruit all ${members.length} Agents from ${facName}.` : `Recruter les ${members.length} Agents de l'escouade ${facName}.`,
-                    cur: ownedCount,
-                    max: members.length,
-                    reward: 800,
-                    members
+                    cur: ownedCount, max: members.length, reward: 800, members
                 });
             });
 
@@ -2225,9 +2044,6 @@
             });
         }
 
-        // ========================================================
-        // 10. INJECTION DES ONGLETS & FERMETURE AU CLIC AUTOUR
-        // ========================================================
         function injectBuildTabsIntoTopbar() {
             const navPills = document.querySelector('#zzz-gacha-modal .gacha-nav-pills');
             if (!navPills) return;
