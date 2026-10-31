@@ -495,12 +495,16 @@
             Physical: 'physique.webp',
             Fire: 'feu.webp',
             Ice: 'Ice.webp',
+            Frost: 'Frost.webp',
             Electric: 'electrique.webp',
             Ether: 'Ether.webp',
-            Wind: 'vent.webp',
-            Aurora: 'lumen.webp',
-            HonedEdge: 'lame.webp',
-            Sepia: 'sepia.webp'
+            Wind: 'Vent.webp',
+            Aurora: 'Lumiflux.webp',
+            Lumiflux: 'Lumiflux.webp',
+            HonedEdge: 'Honed_Edge.webp',
+            Honed_Edge: 'Honed_Edge.webp',
+            Sepia: 'Auric_Ink.webp',
+            Auric_Ink: 'Auric_Ink.webp'
         };
 
         const SKILL_DEFS = [
@@ -1052,10 +1056,10 @@
                         <span style="background:#272732;color:#d7f70c;font-size:10px;padding:2px 7px;border-radius:5px;">MAX</span>
                     </div>
                     <div class="zb-elem-role-pill">
-                        <span style="color:#d7f70c;">✦</span>
+                        <img src="assets/Icone/${elemIcon}" alt="">
                         <span>${agent.element}</span>
                         <span style="color:#3f3f46;">|</span>
-                        <img src="assets/Rôles/${agent.role}.webp" alt="" onerror="this.style.display='none'">
+                        <img src="assets/Rôles/${agent.role}.webp" alt="">
                         <span>${agent.role}</span>
                     </div>
                 </div>
@@ -2121,7 +2125,7 @@
         }
 
         // ========================================================
-        // 10. STUDIO DISQUES : GRAVURE 100% GRATUITE + CHOIX MAIN STAT & SUBSTATS PAYANT
+        // 10. STUDIO DISQUES : GRAVURE UNIQUEMENT SUR LE STOCK TIRÉ (GRATUIT OU SUR-MESURE PAYANT)
         // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
@@ -2134,12 +2138,13 @@
             const allSets = pool.allCatalog.filter(i => i.type === 'disc');
             if (!bardicSetKey || !allSets.some(s => s.rawKey === bardicSetKey)) {
                 const prof = getGuideProfile(selectedAgentKey);
-                bardicSetKey = prof.sets4[0] || allSets[0]?.rawKey || '';
+                const firstWithStock = allSets.find(s => getFreeGachaDiscCount(st, s.rawKey) > 0);
+                bardicSetKey = firstWithStock?.rawKey || prof.sets4[0] || allSets[0]?.rawKey || '';
             }
 
             let setSearch = '';
             let selectedMainStat = '';
-            let selectedSubStats = []; // Jusqu'à 4 sous-stats choisies à la carte
+            let selectedSubStats = [];
             let lastCraftedList = [];
 
             function generateCustomSRankDisc(setKey, partitionSlot, forcedMain = null, forcedSubs = []) {
@@ -2153,7 +2158,6 @@
                     .map(s => ({ ...s }));
 
                 const substats = [];
-                // 1. Ajoute d'abord les sous-stats choisies par le joueur
                 forcedSubs.forEach(subKey => {
                     if (subKey === mainStat || substats.length >= 4) return;
                     const idx = available.findIndex(a => a.key === subKey);
@@ -2163,7 +2167,6 @@
                     }
                 });
 
-                // 2. Complète le reste aléatoirement jusqu'à 3 ou 4 lignes
                 const isFourLiner = substats.length === 4 || Math.random() < 0.20;
                 const targetCount = isFourLiner ? 4 : 3;
                 while (substats.length < targetCount && available.length > 0) {
@@ -2193,25 +2196,31 @@
                     return bridge.itemName(s).toLowerCase().includes(q) || s.rawKey.toLowerCase().includes(q);
                 });
 
+                // Place en haut les sets recommandés par le guide et ceux qui ont du stock à graver
                 filteredSets.sort((a, b) => {
+                    const aStock = getFreeGachaDiscCount(st, a.rawKey);
+                    const bStock = getFreeGachaDiscCount(st, b.rawKey);
+                    if ((aStock > 0) !== (bStock > 0)) return bStock > 0 ? 1 : -1;
                     const aRec = prof.sets4.includes(a.rawKey) ? 2 : (prof.sets2.includes(a.rawKey) ? 1 : 0);
                     const bRec = prof.sets4.includes(b.rawKey) ? 2 : (prof.sets2.includes(b.rawKey) ? 1 : 0);
-                    return bRec - aRec;
+                    if (aRec !== bRec) return bRec - aRec;
+                    return bStock - aStock;
                 });
 
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
+                const stockForCurrentSet = getFreeGachaDiscCount(st, bardicSetKey);
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
                 const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
-                // Nettoyage automatique si une sous-stat choisie est identique à la Main Stat de la partition
                 const fixedMainForSlot = bardicSlot === 1 ? 'PV (flat)' : (bardicSlot === 2 ? 'ATQ (flat)' : (bardicSlot === 3 ? 'DÉF (flat)' : selectedMainStat));
                 selectedSubStats = selectedSubStats.filter(k => k !== fixedMainForSlot);
 
                 const isMainTargeted = !!(selectedMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot][selectedMainStat]);
-                // Tarification claire : Gravure de base = 0 (GRATUIT) | Main Stat choisie = +15 ✦ | Chaque Substat choisie = +10 ✦
+                // Coût des options choisies : 0 si aléatoire (Gratuit), +15 ✦ pour la Main Stat, +10 ✦ par Substat
                 const customResCost = (isMainTargeted ? 15 : 0) + (selectedSubStats.length * 10);
                 const customPolyCost = customResCost * 8;
                 const isFreeRoll = customResCost === 0;
+                const bulkFreeCount = Math.min(5, stockForCurrentSet);
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
@@ -2229,22 +2238,23 @@
                         </div>
 
                         <div class="zb-bardic-layout">
-                            <!-- Colonne Gauche : Choix du Set -->
+                            <!-- Colonne Gauche : Choix du Set et stock disponible -->
                             <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
+                                        const freeStock = getFreeGachaDiscCount(st, s.rawKey);
                                         const countCrafted = bs.craftedDiscs.filter(d => d.setKey === s.rawKey).length;
                                         const isGuideRec = prof.sets4.includes(s.rawKey) || prof.sets2.includes(s.rawKey);
                                         return `
-                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}">
+                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}" style="${freeStock <= 0 ? 'opacity:0.55;' : ''}">
                                             <img src="${s.img}" alt="${bridge.itemName(s)}">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                                     ${isGuideRec ? '⭐ ' : ''}${bridge.itemName(s)}
                                                 </div>
-                                                <span style="font-family:monospace;font-size:9.5px;color:#a1a1aa;">
-                                                    ×${countCrafted} ${isEn ? 'tuned' : 'gravés'}
+                                                <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#71717a'};">
+                                                    ${freeStock > 0 ? `💿 ${freeStock} à graver` : `0 stock (×${countCrafted})`}
                                                 </span>
                                             </div>
                                         </div>`;
@@ -2252,14 +2262,16 @@
                                 </div>
                             </div>
 
-                            <!-- Colonne Droite : Partition + Main Stat (Optionnel) + Substats (Optionnel) -->
+                            <!-- Colonne Droite : Partition + Options sur-mesure -->
                             <div style="display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
                                 <div style="display:flex;flex-direction:column;gap:9px;">
-                                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
                                         <div style="display:flex;align-items:center;gap:10px;">
                                             <img src="${currentSet ? currentSet.img : ''}" style="width:40px;height:40px;border-radius:999px;">
                                             <div>
-                                                <span style="font-size:9px;font-weight:900;color:#4ade80;text-transform:uppercase;">${isEn ? 'BASE TUNING: 100% FREE' : 'GRAVURE DE BASE : 100% GRATUITE'}</span>
+                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#f43f5e'};text-transform:uppercase;">
+                                                    💿 ${isEn ? `AVAILABLE STOCK: ${stockForCurrentSet} DISC(S)` : `STOCK DISPONIBLE : ${stockForCurrentSet} DISQUE(S)`}
+                                                </span>
                                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                     ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
                                                 </h3>
@@ -2335,24 +2347,28 @@
                                     `).join('')}
                                 </div>
 
-                                <!-- Boutons de Gravure : Gratuit si aléatoire, Payant si stats choisies -->
-                                ${isFreeRoll ? `
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                                <!-- Boutons de Gravure : nécessitent toujours au moins 1 disque en stock -->
+                                ${stockForCurrentSet <= 0 ? `
+                                <div style="text-align:center;padding:10px;background:#14141d;border:1px solid #2b2b38;border-radius:12px;font-size:11px;font-weight:800;color:#a1a1aa;">
+                                    ${isEn ? 'No disc in stock for this set. Pull on the Unified Channel to obtain more!' : 'Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !'}
+                                </div>` : (isFreeRoll ? `
+                                <div style="display:grid;grid-template-columns:${bulkFreeCount > 1 ? '1fr 1fr' : '1fr'};gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
-                                        💿 ${isEn ? 'Tune ×1 (FREE)' : 'Graver ×1 (GRATUIT)'}
+                                        💿 ${isEn ? `Tune ×1 (FREE • ${stockForCurrentSet} in stock)` : `Graver ×1 (GRATUIT • ${stockForCurrentSet} dispo)`}
                                     </button>
-                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-5">
-                                        💿 ${isEn ? 'Tune ×5 (FREE)' : 'Graver ×5 (GRATUIT)'}
-                                    </button>
+                                    ${bulkFreeCount > 1 ? `
+                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-bulk">
+                                        💿 ${isEn ? `Tune ×${bulkFreeCount} (FREE)` : `Graver ×${bulkFreeCount} (GRATUIT)`}
+                                    </button>` : ''}
                                 </div>` : `
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
-                                        🎯 ${isEn ? `Custom Tune (${customResCost} ✦)` : `Graver Sur-Mesure (${customResCost} ✦)`}
+                                        🎯 ${isEn ? `Custom Tune (${customResCost} ✦ • 1 stock)` : `Graver Sur-Mesure (${customResCost} ✦ • 1 stock)`}
                                     </button>
                                     <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
-                                        🎯 ${isEn ? `Custom Tune (${customPolyCost} Poly)` : `Graver Sur-Mesure (${customPolyCost} Poly)`}
+                                        🎯 ${isEn ? `Custom Tune (${customPolyCost} Poly • 1 stock)` : `Graver Sur-Mesure (${customPolyCost} Poly • 1 stock)`}
                                     </button>
-                                </div>`}
+                                </div>`)}
                             </div>
                         </div>
                     </div>
@@ -2416,6 +2432,9 @@
                 });
 
                 function executeCraft(count, payMode = 'free') {
+                    const avail = getFreeGachaDiscCount(st, bardicSetKey);
+                    if (avail < count) return;
+
                     if (payMode === 'res') {
                         if (st.residual < customResCost * count) return;
                         st.residual -= customResCost * count;
@@ -2423,6 +2442,9 @@
                         if (st.polychromes < customPolyCost * count) return;
                         st.polychromes -= customPolyCost * count;
                     }
+
+                    // Consomme exactement `count` disque(s) du stock tiré dans le Gacha
+                    bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + count;
 
                     const forceMain = isMainTargeted ? selectedMainStat : null;
                     lastCraftedList = [];
@@ -2436,7 +2458,7 @@
                 }
 
                 document.getElementById('btn-craft-free-1')?.addEventListener('click', () => executeCraft(1, 'free'));
-                document.getElementById('btn-craft-free-5')?.addEventListener('click', () => executeCraft(5, 'free'));
+                document.getElementById('btn-craft-free-bulk')?.addEventListener('click', () => executeCraft(bulkFreeCount, 'free'));
                 document.getElementById('btn-craft-custom-res')?.addEventListener('click', () => executeCraft(1, 'res'));
                 document.getElementById('btn-craft-custom-poly')?.addEventListener('click', () => executeCraft(1, 'poly'));
 
