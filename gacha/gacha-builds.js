@@ -935,12 +935,12 @@
                         </div>
                     </div>
 
-                    <!-- Bandeau d'aide intuitif en 3 étapes -->
+                    ${bs.craftedDiscs.length === 0 ? `
                     <div class="zb-steps-strip">
                         <div class="zb-step-item"><span class="zb-step-num">1</span><span>${t.step1}</span></div>
                         <div class="zb-step-item"><span class="zb-step-num">2</span><span>${t.step2}</span></div>
                         <div class="zb-step-item"><span class="zb-step-num">3</span><span>${t.step3}</span></div>
-                    </div>
+                    </div>` : ''}
 
                     <div class="zb-stage">
                         <div class="zb-agent-showcase ${calc.overclockLvl > 0 ? 'overclocked' : ''} ${currentSubMenu !== 'stats' ? 'hide-on-mobile-sub' : ''}">
@@ -954,14 +954,14 @@
                         </div>
 
                         <div class="zb-right-column">
-                            <div class="zb-panel-card">
-                                ${rightPanelContent}
-                            </div>
-
                             <div class="zb-subnav">
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
                                 <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">${t.subStats}</button>
                                 <button type="button" class="zb-subnav-btn ${currentSubMenu === 'skills' ? 'active' : ''}" data-bsub="skills">${t.subSkills}</button>
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
+                            </div>
+
+                            <div class="zb-panel-card">
+                                ${rightPanelContent}
                             </div>
                         </div>
                     </div>
@@ -1537,15 +1537,16 @@
                 }
 
                 const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
+                const hasGridItems = leftGridHTML.trim().length > 0;
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal">
-                        <!-- En-tête : Filtres à gauche, Bouton FERMER à droite sans flèche (Point 5) -->
+                        <!-- En-tête épuré : Titre ou Filtres à gauche, ✦ + FERMER à droite -->
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
                             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                                ${!isEngineMode ? `
-                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:135px;">
+                                ${!isEngineMode && hasGridItems ? `
+                                <select id="arm-filter-set" class="gacha-col-search" style="min-width:125px;">
                                     <option value="all">${t.filterAllSets}</option>
                                     ${distinctSets.map(sk => {
                                         const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
@@ -1554,16 +1555,16 @@
                                 </select>
                                 <button type="button" class="gacha-col-filter-btn ${sortMode === 'guide' ? 'active' : ''}" id="arm-sort-toggle">
                                     ${sortMode === 'guide' ? t.sortGuide : t.sortLevel}
-                                </button>` : `<span class="gacha-patch-tag" style="margin:0;">${t.engineSlot}</span>`}
+                                </button>` : `<span class="gacha-patch-tag" style="margin:0;">${isEngineMode ? t.engineSlot : `PARTITION [${slotNum}]`}</span>`}
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+                            <div style="display:flex;align-items:center;gap:6px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
-                                ${!isEngineMode ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">🎵 Graver [${slotNum}]</button>` : ''}
-                                <button type="button" class="gacha-res-btn" id="close-armory-modal">${t.close}</button>
+                                ${!isEngineMode && hasGridItems ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">🎵 Graver [${slotNum}]</button>` : ''}
+                                <button type="button" class="gacha-res-btn" id="close-armory-modal" style="padding:7px 14px;">${t.close}</button>
                             </div>
                         </div>
 
-                        <!-- Barre rapide de sélection de slot sur Mobile/Tablette -->
+                        <!-- Barre rapide de sélection de slot sur Mobile/Tablette (1 seule ligne) -->
                         <div class="zb-mobile-slot-pills">
                             <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-armory-wheel="engine">⚙️ Moteur</button>
                             ${[1, 2, 3, 4, 5, 6].map(s => `
@@ -1571,11 +1572,9 @@
                             `).join('')}
                         </div>
 
-                        <!-- Corps 3 Colonnes (2 colonnes sur Tablette, 1 sur Mobile) -->
-                        <div class="zb-armory-3col">
-                            <div class="zb-armory-grid-scroll">
-                                ${leftGridHTML || `<div style="grid-column:1/-1;text-align:center;color:#71717a;padding:24px 10px;font-size:12px;">Aucun élément.</div>`}
-                            </div>
+                        <!-- Corps : masque la boîte vide quand il n'y a aucun élément pour éviter le doublon "Aucun élément" -->
+                        <div class="zb-armory-3col" style="${!hasGridItems ? 'grid-template-columns:1fr;' : ''}">
+                            ${hasGridItems ? `<div class="zb-armory-grid-scroll">${leftGridHTML}</div>` : ''}
 
                             <div class="zb-inspector-col">
                                 ${centerInspectorHTML}
@@ -1587,7 +1586,7 @@
                                     ${wheelNodesHTML}
                                     <div class="zb-wengine-core ${isEngineMode ? 'selected-ring' : ''}" id="arm-wheel-engine">
                                         ${eqEngineObj
-                                            ? `<img src="${eqEngineObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">Niv.60</span>`
+                                            ? `<img src="${eqEngineObj.img}" alt=""><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">×${st.inventory[eqEngineObj.id]?.count || 1}</span>`
                                             : `<span style="font-size:10px;font-weight:900;color:#d7f70c;text-align:center;padding:4px;">CORE AVAILABLE</span>`
                                         }
                                     </div>
@@ -2205,7 +2204,7 @@
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free">
                                         ${t.tuneFreeStock.replace('{c}', costFree1).replace('{n}', freeForCurrentSet)}
                                     </button>` : ''}
-                                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                                    <div class="zb-tune-actions-grid">
                                         <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-1" ${st.residual < costRes1 ? 'disabled' : ''}>${t.tune1Res.replace('{cost}', costRes1)}</button>
                                         <button type="button" class="gacha-shop-btn primary-purple" id="btn-craft-5" ${st.residual < costRes5 ? 'disabled' : ''}>${t.tune5Res.replace('{cost}', costRes5)}</button>
                                         <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-poly" ${st.polychromes < costPoly1 ? 'disabled' : ''}>${t.tune1Poly.replace('{cost}', costPoly1)}</button>
