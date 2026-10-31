@@ -2082,9 +2082,9 @@
     const ELEM_ICON_MAP = {
         Physical: 'physique.webp',
         Fire: 'feu.webp',
-        Ice: 'glace.webp',
+        Ice: 'Ice.webp',
         Electric: 'electrique.webp',
-        Ether: 'ether.webp',
+        Ether: 'Ether.webp',
         Wind: 'vent.webp',
         Aurora: 'lumen.webp',
         HonedEdge: 'lame.webp',
