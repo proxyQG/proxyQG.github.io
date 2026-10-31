@@ -748,7 +748,6 @@
                         <span id="gacha-ui-tapes">0</span>
                     </div>
                     <button type="button" class="gacha-save-trigger" id="gacha-open-backup" title="Backup / Transfer">
-                        <span>💾</span>
                         <span class="lbl" id="gacha-lbl-save">${t.saveBtn || 'Sauvegarde'}</span>
                     </button>
                 </div>
@@ -882,13 +881,12 @@
                 <div class="gacha-stage-grid">
                     <div class="gacha-tv-showcase">
                         <div class="gacha-showcase-header">
-                            <span class="gacha-rateup-tag">★ ${t.rateUpLabel}</span>
+                            <span class="gacha-rateup-tag">${t.rateUpLabel}</span>
                             <div class="gacha-header-btns">
                                 <button type="button" class="gacha-change-duo-btn" id="btn-change-duo">
-                                    <span>${t.changeDuoBtn || '🎯 Changer le Duo en Vedette'}</span>
+                                    <span>${t.changeDuoBtn || 'Changer le Duo en Vedette'}</span>
                                 </button>
                                 <button type="button" class="gacha-details-btn" id="btn-open-rates">
-                                    <span>ⓘ</span>
                                     <span>${t.detailsBtn}</span>
                                 </button>
                             </div>
@@ -1003,7 +1001,7 @@
 
                 <div class="gacha-telemetry-panel">
                     <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:#a1a1aa;">
-                        📊 ${t.statsBarTitle}
+                        ${t.statsBarTitle}
                     </div>
                     <div class="gacha-telemetry-stats">
                         <div class="gacha-tstat-card">
@@ -1098,13 +1096,12 @@
                         <button type="button" class="gacha-res-btn" id="close-target-modal">${tm.close}</button>
                     </div>
 
-                    <!-- Bascule directe entre l'Écran #1 (Agent S) et l'Écran #2 (Moteur S / Agent S) -->
                     <div class="gacha-duo-tabs">
                         <button type="button" class="gacha-duo-tab-btn ${slotNum === 1 ? 'active' : ''}" data-switch-slot="1">
-                            ${tm.tabSlot1 || '📺 Écran #1 : Agent S'} (${itemName(primaryObj)})
+                            ${tm.tabSlot1 || 'Écran #1 : Agent S'} (${itemName(primaryObj)})
                         </button>
                         <button type="button" class="gacha-duo-tab-btn ${slotNum === 2 ? 'active' : ''}" data-switch-slot="2">
-                            ${tm.tabSlot2 || '📺 Écran #2 : Moteur / Agent S'} (${itemName(secondaryObj)})
+                            ${tm.tabSlot2 || 'Écran #2 : Moteur / Agent S'} (${itemName(secondaryObj)})
                         </button>
                     </div>
 
@@ -1132,7 +1129,7 @@
                                 <div class="gacha-col-card rank-S" data-pick-id="${it.id}" data-pick-key="${it.rawKey}"
                                      style="${isSelected ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
                                     <div class="gacha-col-visual">
-                                        ${isSelected ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">★ ${tm.selectedTag}</span>` : (it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : '')}
+                                        ${isSelected ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${tm.selectedTag}</span>` : (it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : '')}
                                         <span class="gacha-col-dupe-tag ${ownedCount > 0 ? 'maxed' : ''}">${ownedBadge}</span>
                                         <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
                                     </div>
@@ -1225,28 +1222,40 @@
     // ==========================================
     // 8. ONGLET 2 : 6 QUÊTES QUOTIDIENNES + HAUTS FAITS INFINIS
     // ==========================================
-    function renderQuestsTab(mount) {
-        const prevScroll = mount.scrollTop;
-        const t = L().quests;
-        const d = GState.daily;
+    const QUEST_SVGS = {
+            q1: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d7f70c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>`,
+            q2: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+            q3: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3"/></svg>`,
+            q4: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>`,
+            q5: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+            q6: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`
+        };
 
-        const dailyList = [
-            { id: 'q1', icon: '📅', title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 400, claimed: !!d.claimed.q1 },
-            { id: 'q2', icon: '📖', title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 400, claimed: !!d.claimed.q2 },
-            { id: 'q3', icon: '🔍', title: t.q3Title, desc: t.q3Desc, progress: Math.min(2, d.itemsInspected.length), max: 2, reward: 400, claimed: !!d.claimed.q3 },
-            { id: 'q4', icon: '📺', title: t.q4Title, desc: t.q4Desc, progress: Math.min(1, d.pullsToday || 0), max: 1, reward: 300, claimed: !!d.claimed.q4 },
-            { id: 'q5', icon: '📚', title: t.q5Title, desc: t.q5Desc, progress: Math.min(6, d.guidesOpened.length), max: 6, reward: 450, claimed: !!d.claimed.q5 },
-            { id: 'q6', icon: '⚡', title: t.q6Title, desc: t.q6Desc, progress: Math.min(10, d.pullsToday || 0), max: 10, reward: 450, claimed: !!d.claimed.q6 }
+        const ACH_SVGS = [
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d7f70c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+            `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 14.8 9.2 22 12 14.8 14.8 12 22 9.2 14.8 2 12 9.2 9.2 12 2"/></svg>`
         ];
 
-        const achIcons = ['🎰', '🌟', '👥', '⚙️', '🧠', '✦'];
+        const dailyList = [
+            { id: 'q1', icon: QUEST_SVGS.q1, title: t.q1Title, desc: t.q1Desc, progress: d.visitDone ? 1 : 0, max: 1, reward: 400, claimed: !!d.claimed.q1 },
+            { id: 'q2', icon: QUEST_SVGS.q2, title: t.q2Title, desc: t.q2Desc, progress: Math.min(3, d.guidesOpened.length), max: 3, reward: 400, claimed: !!d.claimed.q2 },
+            { id: 'q3', icon: QUEST_SVGS.q3, title: t.q3Title, desc: t.q3Desc, progress: Math.min(2, d.itemsInspected.length), max: 2, reward: 400, claimed: !!d.claimed.q3 },
+            { id: 'q4', icon: QUEST_SVGS.q4, title: t.q4Title, desc: t.q4Desc, progress: Math.min(1, d.pullsToday || 0), max: 1, reward: 300, claimed: !!d.claimed.q4 },
+            { id: 'q5', icon: QUEST_SVGS.q5, title: t.q5Title, desc: t.q5Desc, progress: Math.min(6, d.guidesOpened.length), max: 6, reward: 450, claimed: !!d.claimed.q5 },
+            { id: 'q6', icon: QUEST_SVGS.q6, title: t.q6Title, desc: t.q6Desc, progress: Math.min(10, d.pullsToday || 0), max: 10, reward: 450, claimed: !!d.claimed.q6 }
+        ];
+
         const achList = Object.keys(ACH_CONFIG).map((key, idx) => {
             const num = idx + 1;
             const tierIdx = GState.achievements?.[key] || 0;
             const info = getAchTierData(key, tierIdx, GState);
             return {
                 id: key,
-                icon: achIcons[idx] || '🏆',
+                icon: ACH_SVGS[idx] || ACH_SVGS[0],
                 tier: info.tier,
                 title: t[`a${num}Title`],
                 desc: (t[`a${num}Desc`] || '').replace('{target}', info.target),
@@ -1909,7 +1918,7 @@
                             : '';
 
                         const buildShortcutHTML = (it.unlocked && it.type === 'agent')
-                            ? `<button type="button" class="gacha-col-build-pill" data-col-quick-build="${it.rawKey}" title="Ouvrir le Build">🛠️ Build</button>`
+                            ? `<button type="button" class="gacha-col-build-pill" data-col-quick-build="${it.rawKey}" title="Ouvrir le Build">Build</button>`
                             : '';
 
                         const subText = it.type === 'agent'
@@ -2020,8 +2029,8 @@
                 </div>
 
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                    <button type="button" id="btn-copy-backup" class="gacha-shop-btn primary-yellow" style="flex:1;">📋 ${b.copyBtn}</button>
-                    <button type="button" id="btn-dl-backup" class="gacha-shop-btn secondary-yellow" style="flex:1;">⬇️ ${b.downloadBtn}</button>
+                    <button type="button" id="btn-copy-backup" class="gacha-shop-btn primary-yellow" style="flex:1;">${b.copyBtn}</button>
+                    <button type="button" id="btn-dl-backup" class="gacha-shop-btn secondary-yellow" style="flex:1;">${b.downloadBtn}</button>
                 </div>
                 <div id="backup-status-msg" style="font-size:12px;font-weight:800;color:#d7f70c;min-height:18px;"></div>
 
@@ -2150,7 +2159,7 @@
                 </div>
 
                 <div style="display:flex;gap:8px;width:100%;">
-                    ${owned > 0 ? `<button type="button" class="gacha-res-btn primary" id="open-agent-build-btn" style="flex:1.3;">🛠️ Build & Disques</button>` : ''}
+                    ${owned > 0 ? `<button type="button" class="gacha-res-btn primary" id="open-agent-build-btn" style="flex:1.3;">Build & Disques</button>` : ''}
                     <button type="button" class="gacha-res-btn ${owned > 0 ? '' : 'primary'}" id="close-agent-minicard" style="flex:1;">${ac.close || 'Fermer'}</button>
                 </div>
             </div>
@@ -2355,7 +2364,7 @@
             const fitClass = item.type === 'agent' ? 'is-agent' : 'is-equip';
             const badgePos = item.type === 'agent' ? 'left:5px;' : 'right:5px;';
             const topBadge = item.type === 'disc'
-                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">💿 ×${item.qtyAdded || 3}</span>`
+                ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">PACK ×${item.qtyAdded || 3}</span>`
                 : (item.isNew
                     ? `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
                     : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`);
