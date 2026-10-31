@@ -295,13 +295,15 @@
     let gachaOpenedAt = 0;
 
     function closeGachaModal(fromPopState = false) {
-        if (!modalEl || !modalEl.classList.contains('visible')) return;
+        if (!modalEl) return;
         modalEl.classList.remove('visible');
         if (animOverlayEl) animOverlayEl.classList.remove('active');
         if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
         document.body.classList.remove('modal-open');
         if (!fromPopState && window.history.state?.gachaOpen) {
-            try { window.history.back(); } catch (e) {}
+            try {
+                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+            } catch (e) {}
         }
     }
     window.closeGachaModal = () => closeGachaModal(false);
@@ -2332,10 +2334,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=3';
+            link.href = 'gacha/gacha-builds.css?v=7';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=3').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=7').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
