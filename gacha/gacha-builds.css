@@ -1,9 +1,4 @@
-/* gacha/gacha-builds.css - Réplique 1:1 du Menu Équipement Zenless Zone Zero */
-
-@keyframes zbFadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* gacha/gacha-builds.css - Réplique 1:1 du Menu Équipement Zenless Zone Zero (Sans Flash) */
 
 .zb-wrap {
     max-width: 1440px;
@@ -13,7 +8,6 @@
     flex-direction: column;
     gap: 10px;
     overflow-x: hidden;
-    animation: zbFadeIn 0.2s ease-out;
 }
 
 .zb-wrap > * {
@@ -231,6 +225,26 @@
 .zzz-pill-icon.orange { background: #f97316; color: #000; }
 .zzz-pill-icon.yellow { background: #eab308; color: #000; }
 .zzz-pill-icon.green  { background: #84cc16; color: #000; }
+.zzz-pill-icon.bardic-teal {
+    background: radial-gradient(circle, #38b29a 0%, #1e5248 70%, #112d28 100%);
+    border: 1.5px solid #6ee7b7;
+    color: #fff;
+}
+
+/* Style Bardic Needle "Magasin de musique" (Image 3) */
+.zzz-pill-btn.bardic-music-btn {
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(56, 178, 154, 0.42) 0%, rgba(30, 82, 72, 0.88) 55%, #0c1816 100%);
+    border-color: #38b29a;
+    color: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(110, 231, 183, 0.35), 0 4px 14px rgba(20, 83, 70, 0.55);
+}
+
+.zzz-pill-btn.bardic-music-btn:hover:not(:disabled) {
+    border-color: #6ee7b7;
+    box-shadow: 0 0 16px rgba(56, 178, 154, 0.55);
+    transform: translateY(-1px);
+}
 
 /* Boutons ronds R (Poubelle) et T (Cadenas) */
 .zzz-key-action {
