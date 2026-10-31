@@ -646,14 +646,40 @@
             return score;
         }
 
+        // Abréviations lisibles des Stats Principales pour les tuiles de l'Entrepôt et de l'Armurerie
+        function shortStatLabel(statKey) {
+            const isEn = (window.ZZZGachaBridge?.getLang?.() || 'fr') === 'en';
+            const mapFr = {
+                "PV (flat)": "PV", "ATQ (flat)": "ATQ", "DÉF (flat)": "DÉF",
+                "PV%": "PV%", "ATQ%": "ATQ%", "DÉF%": "DÉF%",
+                "Taux CRIT": "T.CRIT", "Dégâts CRIT": "DGT.CRIT",
+                "Adresse d'anomalie": "ADRESSE", "Maîtrise d'anomalie": "MAÎTRISE",
+                "Ratio de PÉN": "PÉN%", "PÉN (flat)": "PÉN",
+                "Régénération d'énergie": "ÉNERGIE", "Impact": "IMPACT",
+                "DGT Physique": "PHYSIQUE", "DGT Feu": "FEU", "DGT Glace": "GLACE",
+                "DGT Électrique": "ÉLEC", "DGT Éther": "ÉTHER", "DGT Vent": "VENT"
+            };
+            const mapEn = {
+                "PV (flat)": "HP", "ATQ (flat)": "ATK", "DÉF (flat)": "DEF",
+                "PV%": "HP%", "ATQ%": "ATK%", "DÉF%": "DEF%",
+                "Taux CRIT": "CRIT%", "Dégâts CRIT": "CDMG%",
+                "Adresse d'anomalie": "AP", "Maîtrise d'anomalie": "AM",
+                "Ratio de PÉN": "PEN%", "PÉN (flat)": "PEN",
+                "Régénération d'énergie": "ER%", "Impact": "IMPACT",
+                "DGT Physique": "PHYS", "DGT Feu": "FIRE", "DGT Glace": "ICE",
+                "DGT Électrique": "ELEC", "DGT Éther": "ETHER", "DGT Vent": "WIND"
+            };
+            return (isEn ? mapEn[statKey] : mapFr[statKey]) || tStat(statKey);
+        }
+
         // ========================================================
-        // 5. ÉQUIPEMENT AUTO RELIÉ AU GUIDE
+        // 5. ÉQUIPEMENT AUTO INTELLIGENT V2 (PRIORITÉ 4P + 2P DU GUIDE)
         // ========================================================
         function autoEquipFromGuide(st, pool, agent) {
             const bs = ensureBuildState(st);
             const prof = getGuideProfile(agent.rawKey);
 
-            // Un moteur est disponible tant que le nombre d'autres agents qui le portent est inférieur au nombre d'exemplaires possédés
+            // 1. Sélection du meilleur Moteur-Ampli libre
             const ownedEngines = pool.allCatalog.filter(i => {
                 if (i.type !== 'engine') return false;
                 const totalOwned = st.inventory[i.id]?.count || 0;
@@ -684,30 +710,73 @@
                 equipEngineUnique(st, agent.rawKey, chosenEngine.rawKey);
             }
 
-            for (let slot = 1; slot <= 6; slot++) {
-                const available = bs.craftedDiscs.filter(d => {
-                    if (d.slot !== slot) return false;
+            // 2. Solveur 4-Pièces + 2-Pièces sur les 6 Partitions
+            const availBySlot = {};
+            for (let s = 1; s <= 6; s++) {
+                availBySlot[s] = bs.craftedDiscs.filter(d => {
+                    if (d.slot !== s) return false;
                     const owner = getDiscOwner(st, d.uid);
                     return !owner || owner === agent.rawKey;
                 });
-                if (available.length > 0) {
-                    available.sort((a, b) => scoreDiscForAgent(b, agent.rawKey) - scoreDiscForAgent(a, agent.rawKey));
-                    equipDiscUnique(st, agent.rawKey, slot, available[0].uid);
+                availBySlot[s].sort((a, b) => scoreDiscForAgent(b, agent.rawKey) - scoreDiscForAgent(a, agent.rawKey));
+            }
+
+            const target4P = prof.sets4[0] || null;
+            const target2P = prof.sets2[0] || null;
+            const chosenBySlot = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
+
+            if (target4P) {
+                // On évalue dans quels slots on possède une pièce du set 4P recommandé
+                const slotsWith4P = [1, 2, 3, 4, 5, 6].map(s => {
+                    const best4P = availBySlot[s].find(d => d.setKey === target4P) || null;
+                    const best2P = target2P ? (availBySlot[s].find(d => d.setKey === target2P) || null) : null;
+                    const bestAny = availBySlot[s][0] || null;
+                    return { slot: s, best4P, best2P, bestAny };
+                }).filter(x => x.best4P !== null);
+
+                if (slotsWith4P.length >= 4) {
+                    // Trie les slots pour mettre le 4P là où on perd le moins par rapport au 2P / meilleur disque
+                    slotsWith4P.sort((a, b) => {
+                        const scoreA = scoreDiscForAgent(a.best4P, agent.rawKey) - (a.best2P ? scoreDiscForAgent(a.best2P, agent.rawKey) : 0);
+                        const scoreB = scoreDiscForAgent(b.best4P, agent.rawKey) - (b.best2P ? scoreDiscForAgent(b.best2P, agent.rawKey) : 0);
+                        return scoreB - scoreA;
+                    });
+                    slotsWith4P.slice(0, 4).forEach(x => {
+                        chosenBySlot[x.slot] = x.best4P;
+                    });
+                }
+            }
+
+            // Remplit les slots restants en privilégiant le Set 2P recommandé, sinon le meilleur disque disponible
+            for (let s = 1; s <= 6; s++) {
+                if (chosenBySlot[s]) continue;
+                const best2P = target2P ? availBySlot[s].find(d => d.setKey === target2P) : null;
+                const bestAny = availBySlot[s][0] || null;
+                if (best2P && (!bestAny || scoreDiscForAgent(best2P, agent.rawKey) >= scoreDiscForAgent(bestAny, agent.rawKey) - 35)) {
+                    chosenBySlot[s] = best2P;
+                } else if (bestAny) {
+                    chosenBySlot[s] = bestAny;
+                }
+            }
+
+            for (let s = 1; s <= 6; s++) {
+                if (chosenBySlot[s]) {
+                    equipDiscUnique(st, agent.rawKey, s, chosenBySlot[s].uid);
                 }
             }
         }
 
         // ========================================================
-        // 6. CALCUL DES STATISTIQUES & ÉVALUATION SUR LES GOAL STATS DU GUIDE
+        // 6. CALCUL DES STATISTIQUES & ÉVALUATION STRICTE SUR LES GOAL STATS
         // ========================================================
         const ROLE_BASE_STATS = {
-            Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'ATQ%'], goals: { atk: 2600, cr: 60, cd: 130 } },
-            Anomaly: { hp: 7800, atk: 885, def: 612, imp: 86,  cr: 5.0, cd: 50.0, am: 148, ap: 118, pen: 0, er: 1.2, rec: ["Adresse d'anomalie", 'ATQ%'], goals: { ap: 350, atk: 2400, am: 170 } },
-            Stun:    { hp: 8250, atk: 790, def: 650, imp: 136, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['Impact', 'Taux CRIT', 'ATQ%'], goals: { imp: 160, atk: 2000, cr: 50 } },
-            Support: { hp: 8400, atk: 810, def: 660, imp: 90,  cr: 5.0, cd: 50.0, am: 94,  ap: 96,  pen: 0, er: 1.4, rec: ["Régénération d'énergie", 'ATQ%', 'PV%'], goals: { er: 2.1, atk: 2200, hp: 9500 } },
-            Defense: { hp: 9100, atk: 740, def: 780, imp: 110, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['DÉF%', 'PV%', 'Impact'], goals: { def: 1650, hp: 10500, imp: 120 } },
-            Rupture: { hp: 8100, atk: 895, def: 620, imp: 98,  cr: 5.0, cd: 50.0, am: 96,  ap: 98,  pen: 8, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'PV%', 'ATQ%'], goals: { cr: 60, cd: 130, atk: 2400 } },
-            Armorer: { hp: 8300, atk: 870, def: 675, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT'], goals: { atk: 2400, cr: 55, cd: 120 } }
+            Attack:  { hp: 7650, atk: 915, def: 605, imp: 92,  cr: 5.0, cd: 50.0, am: 92,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'ATQ%'], goals: { atk: 2600, cr: 65, cd: 135 } },
+            Anomaly: { hp: 7800, atk: 885, def: 612, imp: 86,  cr: 5.0, cd: 50.0, am: 148, ap: 118, pen: 0, er: 1.2, rec: ["Adresse d'anomalie", 'ATQ%'], goals: { ap: 360, atk: 2450, am: 175 } },
+            Stun:    { hp: 8250, atk: 790, def: 650, imp: 136, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['Impact', 'Taux CRIT', 'ATQ%'], goals: { imp: 162, atk: 2050, cr: 52 } },
+            Support: { hp: 8400, atk: 810, def: 660, imp: 90,  cr: 5.0, cd: 50.0, am: 94,  ap: 96,  pen: 0, er: 1.4, rec: ["Régénération d'énergie", 'ATQ%', 'PV%'], goals: { er: 2.2, atk: 2250, hp: 9600 } },
+            Defense: { hp: 9100, atk: 740, def: 780, imp: 110, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['DÉF%', 'PV%', 'Impact'], goals: { def: 1700, hp: 10800, imp: 125 } },
+            Rupture: { hp: 8100, atk: 895, def: 620, imp: 98,  cr: 5.0, cd: 50.0, am: 96,  ap: 98,  pen: 8, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'PV%', 'ATQ%'], goals: { cr: 62, cd: 135, atk: 2450 } },
+            Armorer: { hp: 8300, atk: 870, def: 675, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT'], goals: { atk: 2450, cr: 58, cd: 125 } }
         };
 
         function computeAgentStats(st, pool, agentMeta) {
@@ -724,9 +793,11 @@
             let engineAtkFlat = 0;
             let enginePctBonus = 0;
             let isGuideEngine = false;
+            let engRank = null;
             if (ab.engineKey) {
                 const engObj = pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey);
                 if (engObj) {
+                    engRank = engObj.rank;
                     engineAtkFlat = engObj.rank === 'S' ? 713 : (engObj.rank === 'A' ? 594 : 475);
                     enginePctBonus = engObj.rank === 'S' ? 30 : (engObj.rank === 'A' ? 24 : 18);
                     isGuideEngine = prof.engines.some(re =>
@@ -808,49 +879,69 @@
             const finalErNum = Number((base.er * (1 + erPct / 100)).toFixed(2));
             const finalAp = Math.round(ap);
 
-            // Évaluation sur 100 points basée sur les Goal Stats et les recommandations du Guide
+            // Construction des 3 Goal Stats dynamiques du rôle de l'Agent
+            const gTargets = base.goals || { atk: 2500, cr: 60, cd: 120 };
+            const goalItems = [];
+            if (gTargets.imp) goalItems.push({ label: tStat('Impact'), cur: finalImp, target: gTargets.imp, pct: Math.min(100, Math.round(finalImp / gTargets.imp * 100)) });
+            if (gTargets.ap)  goalItems.push({ label: tStat("Adresse d'anomalie"), cur: finalAp, target: gTargets.ap, pct: Math.min(100, Math.round(finalAp / gTargets.ap * 100)) });
+            if (gTargets.am)  goalItems.push({ label: tStat("Maîtrise d'anomalie"), cur: finalAm, target: gTargets.am, pct: Math.min(100, Math.round(finalAm / gTargets.am * 100)) });
+            if (gTargets.er)  goalItems.push({ label: tStat("Régénération d'énergie"), cur: finalErNum.toFixed(2), target: gTargets.er, pct: Math.min(100, Math.round(finalErNum / gTargets.er * 100)) });
+            if (gTargets.def) goalItems.push({ label: tStat('DÉF'), cur: finalDef, target: gTargets.def, pct: Math.min(100, Math.round(finalDef / gTargets.def * 100)) });
+            if (gTargets.hp)  goalItems.push({ label: tStat('PV'), cur: finalHp, target: gTargets.hp, pct: Math.min(100, Math.round(finalHp / gTargets.hp * 100)) });
+            if (gTargets.atk) goalItems.push({ label: tStat('ATQ'), cur: finalAtk, target: gTargets.atk, pct: Math.min(100, Math.round(finalAtk / gTargets.atk * 100)) });
+            if (gTargets.cr)  goalItems.push({ label: tStat('Taux CRIT'), cur: `${cr.toFixed(1)}%`, target: `${gTargets.cr}%`, pct: Math.min(100, Math.round(cr / gTargets.cr * 100)) });
+            if (gTargets.cd)  goalItems.push({ label: tStat('Dégâts CRIT'), cur: `${cd.toFixed(1)}%`, target: `${gTargets.cd}%`, pct: Math.min(100, Math.round(cd / gTargets.cd * 100)) });
+
+            // Évaluation STRICTE sur 100 points :
+            // Un build avec des disques +0 ne peut JAMAIS avoir le Rang A ou S !
             const equippedDiscsCount = Object.values(ab.discs).filter(Boolean).length;
             let evalPoints = 0;
 
-            // 1. Moteur-Ampli (max 15 pts)
+            // 1. Moteur-Ampli (max 12 pts)
             if (ab.engineKey) {
-                evalPoints += isGuideEngine ? 15 : 10;
+                evalPoints += isGuideEngine ? 12 : (engRank === 'S' ? 10 : (engRank === 'A' ? 7 : 4));
             }
-            // 2. Niveau des 6 Disques (max 20 pts : exige des disques montés +15)
-            evalPoints += (totalDiscLevels / 90) * 20;
+            // 2. Niveau des 6 Disques (max 30 pts : un build +0 perd 30 pts d'office)
+            evalPoints += (totalDiscLevels / 90) * 30;
 
-            // 3. Sets 4P / 2P recommandés par le guide (max 15 pts)
+            // 3. Sets 4P + 2P du guide (max 16 pts)
             const hasGuide4P = Object.entries(setCounts).some(([sk, c]) => c >= 4 && (prof.sets4.length === 0 || prof.sets4.includes(sk)));
-            const hasAny2P = Object.entries(setCounts).filter(([, c]) => c >= 2).length >= 2 || Object.values(setCounts).some(c => c >= 4);
-            if (hasGuide4P) evalPoints += 10;
-            if (hasAny2P) evalPoints += 5;
+            const hasAny4P = Object.values(setCounts).some(c => c >= 4);
+            const twoPieceSetsCount = Object.values(setCounts).filter(c => c >= 2).length;
+            if (hasGuide4P) evalPoints += 11;
+            else if (hasAny4P) evalPoints += 7;
+            if ((hasAny4P && twoPieceSetsCount >= 2) || twoPieceSetsCount >= 3) evalPoints += 5;
+            else if (twoPieceSetsCount >= 2) evalPoints += 2;
 
             // 4. Stats principales [4], [5], [6] conformes au guide (max 15 pts)
             evalPoints += matchingMainStats * 5;
 
-            // 5. Atteinte des Goal Stats du Rôle/Guide (max 20 pts) + Rolls de sous-stats utiles (max 15 pts)
-            const gTargets = base.goals || { atk: 2500, cr: 60, cd: 120 };
-            const ratios = [];
-            if (gTargets.atk) ratios.push(Math.min(1, finalAtk / gTargets.atk));
-            if (gTargets.cr)  ratios.push(Math.min(1, cr / gTargets.cr));
-            if (gTargets.cd)  ratios.push(Math.min(1, cd / gTargets.cd));
-            if (gTargets.ap)  ratios.push(Math.min(1, finalAp / gTargets.ap));
-            if (gTargets.am)  ratios.push(Math.min(1, finalAm / gTargets.am));
-            if (gTargets.imp) ratios.push(Math.min(1, finalImp / gTargets.imp));
-            if (gTargets.er)  ratios.push(Math.min(1, finalErNum / gTargets.er));
-            if (gTargets.hp)  ratios.push(Math.min(1, finalHp / gTargets.hp));
-            if (gTargets.def) ratios.push(Math.min(1, finalDef / gTargets.def));
-
-            const avgGoalRatio = ratios.length > 0 ? (ratios.reduce((a, b) => a + b, 0) / ratios.length) : 0.5;
+            // 5. Atteinte des Goal Stats + Rolls de sous-stats utiles (max 27 pts)
+            const avgGoalPct = goalItems.length > 0
+                ? (goalItems.reduce((acc, g) => acc + g.pct, 0) / (goalItems.length * 100))
+                : 0.4;
             if (equippedDiscsCount > 0) {
-                evalPoints += avgGoalRatio * 20;
-                evalPoints += Math.min(15, effectiveSubRolls * 0.75);
+                // Pondéré par le niveau moyen des disques pour éviter qu'une stat de base élevée gonfle un build +0
+                const lvlFactor = 0.35 + 0.65 * (totalDiscLevels / 90);
+                evalPoints += (avgGoalPct * 14) * lvlFactor;
+                evalPoints += Math.min(13, effectiveSubRolls * 0.65);
             }
 
-            const finalScore = Math.round(evalPoints);
-            const grade = equippedDiscsCount === 0
-                ? 'C'
-                : (finalScore >= 90 ? 'SSS' : (finalScore >= 78 ? 'SS' : (finalScore >= 64 ? 'S' : (finalScore >= 45 ? 'A' : 'B'))));
+            const finalScore = Math.min(100, Math.round(evalPoints));
+            let grade = 'C';
+            if (equippedDiscsCount < 4 || (totalDiscLevels < 18 && finalScore < 42)) {
+                grade = 'C';
+            } else if (finalScore >= 90 && totalDiscLevels >= 75) {
+                grade = 'SSS';
+            } else if (finalScore >= 80 && totalDiscLevels >= 60) {
+                grade = 'SS';
+            } else if (finalScore >= 68 && totalDiscLevels >= 45) {
+                grade = 'S';
+            } else if (finalScore >= 52 && totalDiscLevels >= 18) {
+                grade = 'A';
+            } else {
+                grade = 'B';
+            }
 
             return {
                 hp: finalHp,
@@ -867,6 +958,11 @@
                 pen: penPct.toFixed(1) + ' %',
                 er: finalErNum.toFixed(2),
                 effectiveSubRolls,
+                totalDiscLevels,
+                matchingMainStats,
+                hasGuide4P,
+                isGuideEngine,
+                goalItems: goalItems.slice(0, 3),
                 grade,
                 finalScore,
                 mindscape,
@@ -877,7 +973,7 @@
         }
 
         // ========================================================
-        // 7. RENDU DE L'ONGLET « BUILDS » & SES 3 MENUS
+        // 7. RENDU DE L'ONGLET « BUILDS » (ÉQUIPEMENT & STATS/OBJECTIFS)
         // ========================================================
         let selectedAgentKey = '';
         let currentSubMenu = 'equip';
@@ -914,12 +1010,11 @@
             const agent = ownedAgents.find(a => a.rawKey === selectedAgentKey) || ownedAgents[0];
             const ab = getOrInitAgentBuild(st, agent.rawKey);
             const calc = computeAgentStats(st, pool, agent);
-
             const freeDiscsTotal = getFreeGachaDiscCount(st);
 
             const rosterHTML = ownedAgents.map(a => {
                 const cnt = st.inventory[a.id]?.count || 1;
-                const mTag = cnt > 7 ? `M6 ★${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
+                const mTag = cnt > 7 ? `M6 +${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
                 return `
                 <div class="zb-roster-pill ${a.rawKey === agent.rawKey ? 'active' : ''}" data-pick-build-agent="${a.rawKey}">
                     <img src="${a.img}" alt="${bridge.itemName(a)}">
@@ -938,13 +1033,15 @@
             mount.innerHTML = `
                 <div class="zb-wrap">
                     <div class="zb-top-bar">
-                        <div class="zb-roster-bar">${rosterHTML}</div>
+                        <div class="zb-roster-bar" id="zb-roster-scroll">${rosterHTML}</div>
                         <div class="zb-top-actions">
                             <button type="button" class="zb-bardic-cta secondary" id="btn-open-storage">
                                 <span class="zb-bardic-cta-title">${t.storageBtnTitle}</span>
+                                <span class="zb-cta-count-pill">${bs.craftedDiscs.length}</span>
                             </button>
                             <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
                                 <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
+                                ${freeDiscsTotal > 0 ? `<span class="zb-cta-count-pill">${freeDiscsTotal}</span>` : ''}
                             </button>
                         </div>
                     </div>
@@ -974,6 +1071,17 @@
                 </div>
             `;
 
+            // Défilement horizontal fluide de la barre d'agents à la molette
+            const rosterScroll = document.getElementById('zb-roster-scroll');
+            if (rosterScroll) {
+                rosterScroll.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault();
+                        rosterScroll.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+            }
+
             mount.querySelectorAll('[data-pick-build-agent]').forEach(el => {
                 el.addEventListener('click', () => {
                     selectedAgentKey = el.getAttribute('data-pick-build-agent');
@@ -994,9 +1102,10 @@
             bindSubMenuEvents(mount, st, pool, bs, agent, ab, calc);
         }
 
-        // --- MENU 1 : STATS DE BASE ---
+        // --- MENU STATS DE BASE & DIAGNOSTIC DES OBJECTIFS DU GUIDE ---
         function renderSubMenuStats(agent, calc, pool, bridge, t) {
             const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
+            const isEn = (bridge.getLang?.() || 'fr') === 'en';
             const activeSetsHTML = Object.entries(calc.setCounts)
                 .filter(([, cnt]) => cnt >= 2)
                 .map(([setKey, cnt]) => {
@@ -1031,25 +1140,50 @@
                 </div>
 
                 <div class="zb-stats-grid">
-                    <div class="zb-stat-row">
+                    <div class="zb-stat-row ${calc.recSubList.includes('PV%') ? 'recommended' : ''}">
                         <span>${tStat('PV')}</span>
                         <span class="zb-stat-val">${calc.hp} ${calc.hpBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.hpBonus})</small>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row recommended">
+                    <div class="zb-stat-row ${calc.recSubList.includes('ATQ%') ? 'recommended' : ''}">
                         <span>${tStat('ATQ')}</span>
                         <span class="zb-stat-val">${calc.atk} ${calc.atkBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.atkBonus})</small>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row">
+                    <div class="zb-stat-row ${calc.recSubList.includes('DÉF%') ? 'recommended' : ''}">
                         <span>${tStat('DÉF')}</span>
                         <span class="zb-stat-val">${calc.def} ${calc.defBonus > 0 ? `<small class="zb-stat-bonus">(+${calc.defBonus})</small>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row"><span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span></div>
-                    <div class="zb-stat-row recommended"><span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span></div>
-                    <div class="zb-stat-row recommended"><span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span></div>
+                    <div class="zb-stat-row ${agent.role === 'Stun' || calc.recSubList.includes('Impact') ? 'recommended' : ''}"><span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span></div>
+                    <div class="zb-stat-row ${calc.recSubList.includes('Taux CRIT') ? 'recommended' : ''}"><span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span></div>
+                    <div class="zb-stat-row ${calc.recSubList.includes('Dégâts CRIT') ? 'recommended' : ''}"><span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span></div>
+                    <div class="zb-stat-row ${agent.role === 'Anomaly' ? 'recommended' : ''}"><span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span></div>
+                    <div class="zb-stat-row ${calc.recSubList.includes("Adresse d'anomalie") ? 'recommended' : ''}"><span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span></div>
                     <div class="zb-stat-row"><span>${tStat('Ratio de PÉN')}</span><span class="zb-stat-val">${calc.pen}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span></div>
+                    <div class="zb-stat-row ${agent.role === 'Support' ? 'recommended' : ''}"><span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span></div>
+                </div>
+
+                <!-- Diagnostic des Goal Stats du Guide -->
+                <div style="background:#0a0b10;border:1px solid #242534;border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+                        <span style="font-size:10px;font-weight:900;color:#d7f70c;text-transform:uppercase;">
+                            ${isEn ? 'GUIDE GOAL STATS & BUILD CHECKLIST' : 'OBJECTIFS DE STATS DU GUIDE & DIAGNOSTIC'}
+                        </span>
+                        <span style="font-family:monospace;font-size:10.5px;color:#a1a1aa;">
+                            ${isEn ? `Disc Levels: ${calc.totalDiscLevels}/90 • Main Stats [4-6]: ${calc.matchingMainStats}/3` : `Niv. Disques : ${calc.totalDiscLevels}/90 • Stats [4-6] : ${calc.matchingMainStats}/3`}
+                        </span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+                        ${calc.goalItems.map(g => `
+                            <div style="background:#12131c;border:1px solid #232432;border-radius:10px;padding:6px 8px;display:flex;flex-direction:column;gap:4px;">
+                                <div style="display:flex;justify-content:space-between;font-size:9.5px;font-weight:800;">
+                                    <span style="color:#a1a1aa;">${g.label}</span>
+                                    <span style="color:${g.pct >= 100 ? '#4ade80' : '#fde047'};font-family:monospace;">${g.cur} / ${g.target}</span>
+                                </div>
+                                <div class="zb-goal-bar-track">
+                                    <div class="zb-goal-bar-fill" style="width:${g.pct}%;background:${g.pct >= 100 ? '#4ade80' : '#d7f70c'};"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
 
                 ${activeSetsHTML ? `<div style="display:flex;gap:6px;flex-wrap:wrap;">${activeSetsHTML}</div>` : ''}
@@ -1057,6 +1191,7 @@
                 <div class="zb-eval-bar">
                     <span style="font-size:12px;font-weight:800;color:#d4d4d8;">
                         ${t.effectiveSubs} <strong style="color:#facc15;font-size:14px;">${calc.effectiveSubRolls}</strong>
+                        <span style="color:#71717a;font-size:11px;margin-left:6px;">(Score : ${calc.finalScore} / 100)</span>
                     </span>
                     <div class="zb-eval-grade">
                         <span style="color:#f59e0b;font-size:14px;">${calc.grade}</span>
@@ -1066,68 +1201,12 @@
             `;
         }
 
-        // --- MENU 2 : COMPÉTENCES ---
-        let activeSkillIdx = 0;
-
-        function renderSubMenuSkills(st, agent, ab, calc, t) {
-            const maxCap = calc.mindscape >= 5 ? 16 : (calc.mindscape >= 3 ? 14 : 12);
-            const curLvl = ab.skills[activeSkillIdx] || 1;
-            const costRes = curLvl * 4;
-            const costPoly = curLvl * 30;
-            const isMax = curLvl >= maxCap;
-            const bonusDesc = (t.skillBonusDesc[activeSkillIdx] || '').replace('{val}', curLvl * 5);
-
-            return `
-                <div>
-                    <span class="gacha-patch-tag">${t.skillsTag.replace('{max}', maxCap)}</span>
-                    <h3 class="gacha-panel-title" style="font-size:20px;">${t.skillsTitle}</h3>
-                    <p class="gacha-panel-desc">${t.skillsDesc}</p>
-                </div>
-
-                <div class="zb-skills-row">
-                    ${SKILL_DEFS.map((sk, idx) => {
-                        const lv = ab.skills[idx] || 1;
-                        return `
-                        <div class="zb-skill-capsule ${idx === activeSkillIdx ? 'active' : ''}" data-pick-skill="${idx}"
-                             style="--sk-color:${sk.color};--sk-glow:${sk.glow};">
-                            <div class="zb-skill-circle">
-                                <img src="${sk.icon}" alt="${t.skillShort[idx]}">
-                            </div>
-                            <span style="font-size:9px;font-weight:900;text-transform:uppercase;color:#e4e4e7;text-align:center;">${t.skillShort[idx]}</span>
-                            <div class="zb-skill-lvl-pill">
-                                <span style="color:${lv >= maxCap ? '#d7f70c' : '#fff'};">${String(lv).padStart(2, '0')}</span>
-                                <span class="max">/${maxCap}</span>
-                            </div>
-                        </div>`;
-                    }).join('')}
-                </div>
-
-                <div style="background:#0c0c12;border:1.5px solid #272733;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;">
-                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:13.5px;text-transform:uppercase;color:#fff;">
-                            ${t.skillNames[activeSkillIdx]} (Lv. ${curLvl} → ${isMax ? 'MAX' : curLvl + 1})
-                        </strong>
-                        <span class="gacha-quest-prog done">${bonusDesc}</span>
-                    </div>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                        <button type="button" class="gacha-shop-btn primary-purple" id="btn-up-skill-res" ${isMax || st.residual < costRes ? 'disabled' : ''}>
-                            ${isMax ? t.upgradeMax : t.upgradeRes.replace('{cost}', costRes)}
-                        </button>
-                        <button type="button" class="gacha-shop-btn primary-yellow" id="btn-up-skill-poly" ${isMax || st.polychromes < costPoly ? 'disabled' : ''}>
-                            ${isMax ? t.upgradeMax : t.upgradePoly.replace('{cost}', costPoly)}
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        // --- MENU ÉQUIPEMENT TOUT-EN-UN (AVEC STATS EN DIRECT & MONTER +15 EN 1 CLIC) ---
+        // --- MENU ÉQUIPEMENT TOUT-EN-UN (AVEC GOAL STATS DYNAMIQUES & SOUS-STATS SUR LES 6 CARTES) ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
             const engCount = engObj ? (st.inventory[engObj.id]?.count || 1) : 0;
             const prof = getGuideProfile(agent.rawKey);
 
-            // Calcule le coût pour monter tous les disques équipés au niveau +15
             let totalUpStepsNeeded = 0;
             for (let s = 1; s <= 6; s++) {
                 const u = ab.discs[s];
@@ -1146,7 +1225,7 @@
                 return `
                 <div class="zb-disc-node slot-${slot} ${disc ? 'equipped' : ''}" data-wheel-slot="${slot}" title="Partition [${slot}]">
                     ${disc && setObj
-                        ? `<img src="${setObj.img}" alt="Slot ${slot}"><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">+${disc.level}</span>`
+                        ? `<img src="${setObj.img}" alt="Slot ${slot}"><span class="zb-slot-tag" style="border-color:${disc.level >= 15 ? '#d7f70c' : '#facc15'};color:${disc.level >= 15 ? '#d7f70c' : '#facc15'};">+${disc.level}</span>`
                         : `<span class="zb-disc-slot-num">${slot}</span><span class="zb-slot-tag">${t.emptySlot}</span>`
                     }
                 </div>`;
@@ -1155,17 +1234,39 @@
             const slotRowsHTML = [1, 2, 3, 4, 5, 6].map(slot => {
                 const uid = ab.discs[slot];
                 const disc = uid ? bs.craftedDiscs.find(d => d.uid === uid) : null;
+                const setObj = disc ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === disc.setKey) : null;
+                const isMainGuideOk = disc && slot >= 4 && (prof.mainBySlot[slot] || []).includes(disc.mainStat);
+
+                const subsSummary = disc
+                    ? (disc.substats || []).map(sub => {
+                        const isRec = prof.subPrio.includes(sub.key);
+                        const lbl = `${shortStatLabel(sub.key)}${sub.upgrades > 0 ? `+${sub.upgrades}` : ''}`;
+                        return isRec ? `<strong>${lbl}</strong>` : lbl;
+                    }).join(' • ')
+                    : '';
+
                 return `
-                <div class="zb-equip-slot-mini ${disc ? 'filled' : ''}" data-wheel-slot="${slot}">
-                    <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:${disc ? '#facc15' : '#52525b'};">[${slot}]</span>
-                    <span style="font-size:10px;font-weight:800;color:${disc ? '#fff' : '#71717a'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;">
-                        ${disc ? `${tStat(disc.mainStat)} (${formatMainStatValue(disc.mainStat, disc.level)})` : t.emptySlot}
-                    </span>
-                    ${disc
-                        ? `<span style="font-family:monospace;font-size:9.5px;font-weight:900;color:#d7f70c;">+${disc.level}</span>
-                           <button type="button" class="zb-mini-unequip" data-unequip-slot="${slot}" title="${t.unequipBtn}">✖</button>`
-                        : `<span style="font-size:9.5px;font-weight:900;color:#d7f70c;">+ Choisir</span>`
-                    }
+                <div class="zb-equip-slot-mini ${disc ? 'filled' : ''} ${isMainGuideOk ? 'guide-main-ok' : ''}" data-wheel-slot="${slot}">
+                    <div class="zb-slot-mini-top">
+                        <div style="display:flex;align-items:center;gap:6px;min-width:0;flex:1;">
+                            ${disc && setObj
+                                ? `<img src="${setObj.img}" style="width:20px;height:20px;border-radius:999px;flex-shrink:0;">`
+                                : `<span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#52525b;">[${slot}]</span>`
+                            }
+                            <span style="font-size:10px;font-weight:800;color:${disc ? '#fff' : '#71717a'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                ${disc ? `[${slot}] ${tStat(disc.mainStat)} (${formatMainStatValue(disc.mainStat, disc.level)})` : t.emptySlot}
+                            </span>
+                            ${isMainGuideOk ? `<span class="zb-guide-chip">GUIDE</span>` : ''}
+                        </div>
+                        ${disc
+                            ? `<div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
+                                <span style="font-family:monospace;font-size:9.5px;font-weight:900;color:${disc.level >= 15 ? '#4ade80' : '#d7f70c'};">+${disc.level}</span>
+                                <button type="button" class="zb-mini-unequip" data-unequip-slot="${slot}" title="${t.unequipBtn}">×</button>
+                               </div>`
+                            : `<span style="font-size:9.5px;font-weight:900;color:#d7f70c;">+ Choisir</span>`
+                        }
+                    </div>
+                    ${disc ? `<div class="zb-slot-mini-subs">${subsSummary}</div>` : ''}
                 </div>`;
             }).join('');
 
@@ -1188,28 +1289,32 @@
                    </div>`
                 : '';
 
+            const gradeColor = calc.grade.startsWith('S') ? '#d7f70c' : (calc.grade === 'A' ? '#c084fc' : '#38bdf8');
+
             return `
-                <!-- Bandeau de Stats en Direct visible en permanence pendant qu'on équipe son Agent -->
+                <!-- Bandeau de Goal Stats Dynamique adapté au Rôle de l'Agent -->
                 <div class="zb-live-stats-strip">
-                    <div class="zb-live-stat-box">
-                        <span style="font-size:9px;font-weight:800;color:#71717a;">${tStat('PV')}</span>
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fff;">${calc.hp}</strong>
-                    </div>
-                    <div class="zb-live-stat-box">
-                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('ATQ')}</span>
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.atk}</strong>
-                    </div>
-                    <div class="zb-live-stat-box">
-                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('Taux CRIT')}</span>
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.cr}</strong>
-                    </div>
-                    <div class="zb-live-stat-box">
-                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('Dégâts CRIT')}</span>
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.cd}</strong>
-                    </div>
-                    <div class="zb-live-stat-box" style="border-color:rgba(245,158,11,0.5);">
-                        <span style="font-size:9px;font-weight:800;color:#d7f70c;">SCORE (${calc.effectiveSubRolls} subs)</span>
-                        <strong style="font-family:'Montserrat',sans-serif;font-size:13px;color:#d7f70c;">RANG ${calc.grade}</strong>
+                    ${calc.goalItems.map(g => `
+                        <div class="zb-live-stat-box">
+                            <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
+                                <span style="font-size:9px;font-weight:800;color:#a1a1aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${g.label}</span>
+                                <span style="font-family:monospace;font-size:9px;color:#71717a;">Obj. ${g.target}</span>
+                            </div>
+                            <strong style="font-family:'Montserrat',sans-serif;font-size:12.5px;color:${g.pct >= 100 ? '#4ade80' : '#fbbf24'};">${g.cur}</strong>
+                            <div class="zb-goal-bar-track">
+                                <div class="zb-goal-bar-fill" style="width:${g.pct}%;background:${g.pct >= 100 ? '#4ade80' : '#fbbf24'};"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div class="zb-live-stat-box grade-box">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <span style="font-size:9px;font-weight:800;color:#d7f70c;">SCORE (${calc.finalScore}/100)</span>
+                            <span style="font-family:monospace;font-size:9px;color:#a1a1aa;">${calc.effectiveSubRolls} subs</span>
+                        </div>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:13.5px;color:${gradeColor};">RANG ${calc.grade}</strong>
+                        <div class="zb-goal-bar-track">
+                            <div class="zb-goal-bar-fill" style="width:${calc.finalScore}%;background:${gradeColor};"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -1251,6 +1356,7 @@
                                 </div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
+                                ${calc.isGuideEngine ? `<span class="zb-guide-chip">GUIDE</span>` : ''}
                                 <span class="gacha-quest-prog done">${engObj ? `×${engCount}` : '+'}</span>
                                 ${engObj ? `<button type="button" class="zb-mini-unequip" id="btn-quick-unequip-engine" title="${t.unequipBtn}">×</button>` : ''}
                             </div>
@@ -1259,7 +1365,7 @@
                         ${guideRecSummary}
 
                         ${activeSets.length > 0 ? `
-                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:7px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
+                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:6px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
                             <span style="font-size:9px;font-weight:900;color:#a1a1aa;text-transform:uppercase;margin-right:4px;">SETS ACTIFS :</span>
                             ${activeSets.map(([sk, cnt]) => {
                                 const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
@@ -1344,7 +1450,7 @@
         }
 
         // ========================================================
-        // 8. ÉCRAN D'ARMURERIE ZZZ (BOUTON FERMER À DROITE SANS FLÈCHE)
+        // 8. ÉCRAN D'ARMURERIE ZZZ (TUILES AVEC STAT PRINCIPALE & ZÉRO ÉMOJI)
         // ========================================================
         function openZZZArmoryModal(mount, st, pool, bs, agent, ab, initialTarget = 1) {
             const bridge = window.ZZZGachaBridge;
@@ -1477,11 +1583,11 @@
                         const isSel = d.uid === selectedUidOrKey;
                         return `
                         <div class="zb-gear-tile rank-S ${isSel ? 'selected' : ''}" data-arm-pick="${d.uid}">
-                            <span class="zb-gear-tile-slot">${d.slot}</span>
+                            <span class="zb-gear-tile-slot">[${d.slot}] +${d.level}</span>
                             ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
-                            ${d.locked ? `<span class="zb-gear-lock-badge">🔒</span>` : ''}
+                            ${d.locked ? `<span class="zb-gear-lock-badge">LOCK</span>` : ''}
                             <img src="${sObj ? sObj.img : ''}" class="zb-gear-tile-img" style="border-radius:999px;" alt="">
-                            <span class="zb-gear-tile-lvl">Niv. ${d.level}</span>
+                            <span class="zb-gear-tile-lvl">${shortStatLabel(d.mainStat)}</span>
                         </div>`;
                     }).join('');
 
@@ -1514,7 +1620,7 @@
 
                                 <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
                                 <div class="zb-insp-subline ${isMainRec ? 'guide-hit' : ''}">
-                                    <span>${tStat(selDisc.mainStat)}</span>
+                                    <span>${tStat(selDisc.mainStat)} ${isMainRec ? '(GUIDE)' : ''}</span>
                                     <strong>${formatMainStatValue(selDisc.mainStat, selDisc.level)}</strong>
                                 </div>
 
@@ -1597,14 +1703,9 @@
                             `).join('')}
                         </div>
 
-                        <!-- Corps : masque la boîte vide quand il n'y a aucun élément pour éviter le doublon "Aucun élément" -->
                         <div class="zb-armory-3col" style="${!hasGridItems ? 'grid-template-columns:1fr;' : ''}">
                             ${hasGridItems ? `<div class="zb-armory-grid-scroll">${leftGridHTML}</div>` : ''}
-
-                            <div class="zb-inspector-col">
-                                ${centerInspectorHTML}
-                            </div>
-
+                            <div class="zb-inspector-col">${centerInspectorHTML}</div>
                             <div class="zb-armory-wheel-col">
                                 <div class="zb-hex-housing">
                                     <span class="zb-driver-plaque">DRIVER</span>
@@ -1765,7 +1866,7 @@
         }
 
         // ========================================================
-        // 9. ENTREPÔT GLOBAL DISQUES & MOTEURS (FERMER À DROITE SANS FLÈCHE)
+        // 9. ENTREPÔT GLOBAL DISQUES & MOTEURS (TUILES LISIBLES, EFFETS 2P/4P & MAX +15)
         // ========================================================
         function openStorageModal(mount, initialTab = 'discs') {
             const bridge = window.ZZZGachaBridge;
@@ -1818,41 +1919,45 @@
                         const ownerKey = getDiscOwner(st, d.uid);
                         return `
                         <div class="zb-gear-tile rank-S ${d.uid === selectedId ? 'selected' : ''}" data-st-pick="${d.uid}">
-                            <span class="zb-gear-tile-slot">${d.slot}</span>
+                            <span class="zb-gear-tile-slot">[${d.slot}] +${d.level}</span>
                             ${ownerKey ? `<div class="zb-gear-owner-avatar" title="${ownerKey}"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
-                            ${d.locked ? `<span class="zb-gear-lock-badge">🔒</span>` : ''}
+                            ${d.locked ? `<span class="zb-gear-lock-badge">LOCK</span>` : ''}
                             <img src="${sObj ? sObj.img : ''}" class="zb-gear-tile-img" style="border-radius:999px;" alt="">
-                            <span class="zb-gear-tile-lvl">Niv. ${d.level}</span>
+                            <span class="zb-gear-tile-lvl">${shortStatLabel(d.mainStat)}</span>
                         </div>`;
                     }).join('');
 
                     const selD = bs.craftedDiscs.find(d => d.uid === selectedId) || null;
                     if (selD) {
                         const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === selD.setKey);
+                        const rawDiscJson = EXT_DATA.discs[selD.setKey] || {};
+                        const desc2P = (isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || '';
+                        const desc4P = (isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || '';
                         const ownerKey = getDiscOwner(st, selD.uid);
                         const gain = calcDiscDismantleGain(selD);
+                        const maxCost = ((15 - selD.level) / 3) * 4;
 
                         rightDetailHTML = `
                             <div style="display:flex;flex-direction:column;gap:8px;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
                                     <div>
-                                        <span style="font-size:9.5px;font-weight:900;color:#71717a;">DETAIL</span>
+                                        <span style="font-size:9.5px;font-weight:900;color:#71717a;">PARTITION [${selD.slot}]</span>
                                         <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:17px;color:#fff;text-transform:uppercase;">
-                                            ${sObj ? bridge.itemName(sObj) : selD.setKey} [${selD.slot}]
+                                            ${sObj ? bridge.itemName(sObj) : selD.setKey}
                                         </h3>
                                     </div>
                                     <img src="${sObj ? sObj.img : ''}" style="width:44px;height:44px;border-radius:999px;">
                                 </div>
 
                                 <div style="display:flex;align-items:center;justify-content:space-between;">
-                                    <span class="gacha-quest-prog done">S • Niv. ${selD.level}/15</span>
-                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:20px;height:20px;border-radius:999px;"> ${ownerKey}</span>` : `<span style="font-size:10px;color:#71717a;">EMPTY</span>`}
+                                    <span class="gacha-quest-prog done">Rang S • Niv. ${selD.level}/15 • ${selD.isFourLiner ? '4-Liner' : '3-Liner'}</span>
+                                    ${ownerKey ? `<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;color:#d7f70c;"><img src="assets/Agents/${ownerKey}.webp" style="width:20px;height:20px;border-radius:999px;"> ${ownerKey}</span>` : `<span style="font-size:10px;color:#71717a;">${isLangEn ? 'Unowned' : 'Non équipé'}</span>`}
                                 </div>
 
                                 <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.mainStatLabel}</span>
-                                <div class="zb-insp-subline guide-hit">
+                                <div class="zb-insp-subline" style="border-color:rgba(215,247,12,0.4);">
                                     <span>${tStat(selD.mainStat)}</span>
-                                    <strong>${formatMainStatValue(selD.mainStat, selD.level)}</strong>
+                                    <strong style="color:#d7f70c;">${formatMainStatValue(selD.mainStat, selD.level)}</strong>
                                 </div>
 
                                 <span style="font-size:9.5px;font-weight:900;color:#71717a;text-transform:uppercase;">${t.subStatsLabel}</span>
@@ -1864,16 +1969,29 @@
                                         </div>
                                     `).join('')}
                                 </div>
+
+                                <div style="font-size:10px;color:#a1a1aa;line-height:1.4;background:#07070b;padding:7px 9px;border-radius:11px;border:1px solid #1f202b;">
+                                    <div><strong style="color:#fff;">2P :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
+                                    <div style="margin-top:2px;"><strong style="color:#d7f70c;">4P :</strong> ${desc4P || 'Effet passif 4 pièces.'}</div>
+                                </div>
                             </div>
 
-                            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-                                <button type="button" class="gacha-details-btn" id="st-btn-lock">${selD.locked ? t.unlockBtn : t.lockBtn}</button>
-                                <button type="button" class="gacha-details-btn" id="st-btn-trash" ${selD.locked || ownerKey ? 'disabled' : ''} style="border-color:#ef4444;color:#fca5a5;">
-                                    ${t.dismantleSingle.replace('{gain}', gain)}
-                                </button>
-                                <button type="button" class="gacha-shop-btn primary-yellow" id="st-btn-up" style="flex:1;" ${selD.level >= 15 || st.residual < 4 ? 'disabled' : ''}>
-                                    ${selD.level >= 15 ? t.upgradeMax : t.upStepBtn.replace('{lvl}', selD.level + 3)}
-                                </button>
+                            <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                                    <button type="button" class="gacha-details-btn" id="st-btn-lock" style="justify-content:center;">${selD.locked ? t.unlockBtn : t.lockBtn}</button>
+                                    <button type="button" class="gacha-details-btn" id="st-btn-trash" ${selD.locked || ownerKey ? 'disabled' : ''} style="justify-content:center;border-color:#ef4444;color:#fca5a5;">
+                                        ${t.dismantleSingle.replace('{gain}', gain)}
+                                    </button>
+                                </div>
+                                <div style="display:grid;grid-template-columns:${selD.level < 15 ? '1fr 1fr' : '1fr'};gap:6px;">
+                                    <button type="button" class="gacha-shop-btn primary-yellow" id="st-btn-up" ${selD.level >= 15 || st.residual < 4 ? 'disabled' : ''}>
+                                        ${selD.level >= 15 ? t.upgradeMax : t.upStepBtn.replace('{lvl}', selD.level + 3)}
+                                    </button>
+                                    ${selD.level < 15 ? `
+                                    <button type="button" class="gacha-shop-btn primary-purple" id="st-btn-up-max" ${st.residual < maxCost ? 'disabled' : ''}>
+                                        ${t.upMaxBtn.replace('{cost}', maxCost)}
+                                    </button>` : ''}
+                                </div>
                             </div>
                         `;
                     } else {
@@ -1932,7 +2050,6 @@
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal" style="max-width:1100px;">
-                        <!-- En-tête : Onglets à gauche, FERMER à droite sans flèche (Point 5) -->
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
                             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                                 <button type="button" class="gacha-col-filter-btn ${storageTab === 'discs' ? 'active' : ''}" data-st-tab="discs">${t.storageDiscsTab.replace('{n}', bs.craftedDiscs.length)}</button>
@@ -2045,6 +2162,18 @@
                     }
                 });
 
+                document.getElementById('st-btn-up-max')?.addEventListener('click', () => {
+                    const d = bs.craftedDiscs.find(x => x.uid === selectedId);
+                    if (!d || d.level >= 15) return;
+                    const cost = ((15 - d.level) / 3) * 4;
+                    if (st.residual >= cost) {
+                        st.residual -= cost;
+                        while (d.level < 15) upgradeDiscOneStep(d);
+                        bridge.saveState(st);
+                        renderStorage();
+                    }
+                });
+
                 document.getElementById('st-batch-dismantle')?.addEventListener('click', () => {
                     if (unownedLv0Discs.length === 0) return;
                     const toRemove = new Set(unownedLv0Discs.map(d => d.uid));
@@ -2058,7 +2187,9 @@
 
                 document.getElementById('st-btn-recycle-1-eng')?.addEventListener('click', () => {
                     const selE = ownedEngines.find(e => e.rawKey === selectedId);
-                    if (selE && (st.inventory[selE.id]?.count || 0) > 1) {
+                    const equippedCount = selE ? getEngineOwnersList(st, selE.rawKey).length : 0;
+                    const keepCount = Math.max(1, equippedCount);
+                    if (selE && (st.inventory[selE.id]?.count || 0) > keepCount) {
                         st.inventory[selE.id].count -= 1;
                         const gain = selE.rank === 'S' ? 40 : (selE.rank === 'A' ? 10 : 3);
                         st.residual += gain;
@@ -2089,7 +2220,7 @@
         }
 
         // ========================================================
-        // 10. STUDIO DISQUES : GRAVURE UNIQUEMENT SUR LE STOCK TIRÉ (GRATUIT OU SUR-MESURE PAYANT)
+        // 10. STUDIO DISQUES : ZÉRO ÉMOJI, 2 COLONNES LISIBLES, STOCK GRATUIT OU GRAVURE 10 ✦
         // ========================================================
         function openBardicNeedleModal(mount) {
             const bridge = window.ZZZGachaBridge;
@@ -2103,7 +2234,7 @@
             if (!bardicSetKey || !allSets.some(s => s.rawKey === bardicSetKey)) {
                 const prof = getGuideProfile(selectedAgentKey);
                 const firstWithStock = allSets.find(s => getFreeGachaDiscCount(st, s.rawKey) > 0);
-                bardicSetKey = firstWithStock?.rawKey || prof.sets4[0] || allSets[0]?.rawKey || '';
+                bardicSetKey = prof.sets4[0] || firstWithStock?.rawKey || allSets[0]?.rawKey || '';
             }
 
             let setSearch = '';
@@ -2153,6 +2284,7 @@
                 const t = B();
                 const isEn = (bridge.getLang?.() || 'fr') === 'en';
                 const prof = getGuideProfile(selectedAgentKey);
+                const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
                 const filteredSets = allSets.filter(s => {
                     if (!setSearch.trim()) return true;
@@ -2160,41 +2292,43 @@
                     return bridge.itemName(s).toLowerCase().includes(q) || s.rawKey.toLowerCase().includes(q);
                 });
 
-                // Place en haut les sets recommandés par le guide et ceux qui ont du stock à graver
                 filteredSets.sort((a, b) => {
-                    const aStock = getFreeGachaDiscCount(st, a.rawKey);
-                    const bStock = getFreeGachaDiscCount(st, b.rawKey);
-                    if ((aStock > 0) !== (bStock > 0)) return bStock > 0 ? 1 : -1;
                     const aRec = prof.sets4.includes(a.rawKey) ? 2 : (prof.sets2.includes(a.rawKey) ? 1 : 0);
                     const bRec = prof.sets4.includes(b.rawKey) ? 2 : (prof.sets2.includes(b.rawKey) ? 1 : 0);
                     if (aRec !== bRec) return bRec - aRec;
-                    return bStock - aStock;
+                    return getFreeGachaDiscCount(st, b.rawKey) - getFreeGachaDiscCount(st, a.rawKey);
                 });
 
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
+                const rawDiscJson = EXT_DATA.discs[bardicSetKey] || {};
+                const desc2P = (isEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || '';
+                const desc4P = (isEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || '';
+
                 const stockForCurrentSet = getFreeGachaDiscCount(st, bardicSetKey);
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
-                const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
                 const fixedMainForSlot = bardicSlot === 1 ? 'PV (flat)' : (bardicSlot === 2 ? 'ATQ (flat)' : (bardicSlot === 3 ? 'DÉF (flat)' : selectedMainStat));
                 selectedSubStats = selectedSubStats.filter(k => k !== fixedMainForSlot);
 
                 const isMainTargeted = !!(selectedMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot][selectedMainStat]);
-                // Coût des options choisies : 0 si aléatoire (Gratuit), +15 ✦ pour la Main Stat, +10 ✦ par Substat
-                const customResCost = (isMainTargeted ? 15 : 0) + (selectedSubStats.length * 10);
-                const customPolyCost = customResCost * 8;
-                const isFreeRoll = customResCost === 0;
+                // Coût des options sur-mesure : +15 ✦ si Main Stat choisie, +10 ✦ par Sous-stat choisie
+                const optionsResCost = (isMainTargeted ? 15 : 0) + (selectedSubStats.length * 10);
+                // Si le joueur a du stock gratuit Gacha : coût de base = 0 ✦. S'il est à 0 stock : il peut quand même graver contre 10 ✦ !
+                const baseResCost = stockForCurrentSet > 0 ? 0 : 10;
+                const totalUnitResCost = baseResCost + optionsResCost;
+                const totalUnitPolyCost = totalUnitResCost * 8;
                 const bulkFreeCount = Math.min(5, stockForCurrentSet);
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
-                    <div class="gacha-dialog-box" style="max-width:1020px;">
+                    <div class="gacha-dialog-box" style="max-width:1060px;">
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                             <div>
                                 <span class="gacha-patch-tag">${t.bardicTag}</span>
                                 <h2 class="gacha-panel-title" style="font-size:21px;">${t.bardicTitle}</h2>
                             </div>
                             <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+                                ${activeAgent ? `<span class="gacha-reset-pill" style="color:#fde047;">GUIDE : ${bridge.itemName(activeAgent)}</span>` : ''}
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
                                 <span class="gacha-reset-pill" style="color:#d7f70c;">Poly : ${st.polychromes}</span>
                                 <button type="button" class="gacha-res-btn" id="close-bardic-modal">${t.close}</button>
@@ -2202,23 +2336,27 @@
                         </div>
 
                         <div class="zb-bardic-layout">
-                            <!-- Colonne Gauche : Choix du Set et stock disponible -->
+                            <!-- Colonne Gauche : Grille 2 Colonnes avec noms complets -->
                             <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
                                         const freeStock = getFreeGachaDiscCount(st, s.rawKey);
                                         const countCrafted = bs.craftedDiscs.filter(d => d.setKey === s.rawKey).length;
-                                        const isGuideRec = prof.sets4.includes(s.rawKey) || prof.sets2.includes(s.rawKey);
+                                        const is4P = prof.sets4.includes(s.rawKey);
+                                        const is2P = prof.sets2.includes(s.rawKey);
                                         return `
-                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}" style="${freeStock <= 0 ? 'opacity:0.55;' : ''}">
+                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}">
                                             <img src="${s.img}" alt="${bridge.itemName(s)}">
-                                            <div style="min-width:0;flex:1;">
-                                                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                                    ${isGuideRec ? '⭐ ' : ''}${bridge.itemName(s)}
+                                            <div style="min-width:0;flex:1;display:flex;flex-direction:column;gap:2px;">
+                                                <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
+                                                    <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                                        ${bridge.itemName(s)}
+                                                    </span>
+                                                    ${is4P ? `<span class="zb-guide-chip">4P</span>` : (is2P ? `<span class="zb-guide-chip">2P</span>` : '')}
                                                 </div>
                                                 <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#71717a'};">
-                                                    ${freeStock > 0 ? `💿 ${freeStock} à graver` : `0 stock (×${countCrafted})`}
+                                                    ${freeStock > 0 ? `Stock gratuit : ${freeStock}` : `Possédés : ×${countCrafted}`}
                                                 </span>
                                             </div>
                                         </div>`;
@@ -2226,25 +2364,33 @@
                                 </div>
                             </div>
 
-                            <!-- Colonne Droite : Partition + Options sur-mesure -->
-                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:10px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
-                                <div style="display:flex;flex-direction:column;gap:9px;">
+                            <!-- Colonne Droite : Effets du Set, Partition, Main Stat & Sous-Stats -->
+                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:9px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
+                                <div style="display:flex;flex-direction:column;gap:8px;">
                                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
                                         <div style="display:flex;align-items:center;gap:10px;">
-                                            <img src="${currentSet ? currentSet.img : ''}" style="width:40px;height:40px;border-radius:999px;">
+                                            <img src="${currentSet ? currentSet.img : ''}" style="width:42px;height:42px;border-radius:999px;">
                                             <div>
-                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#f43f5e'};text-transform:uppercase;">
-                                                    💿 ${isEn ? `AVAILABLE STOCK: ${stockForCurrentSet} DISC(S)` : `STOCK DISPONIBLE : ${stockForCurrentSet} DISQUE(S)`}
+                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#38bdf8'};text-transform:uppercase;">
+                                                    ${stockForCurrentSet > 0
+                                                        ? (isEn ? `FREE GACHA STOCK: ${stockForCurrentSet} DISC(S)` : `STOCK GRATUIT DISPONIBLE : ${stockForCurrentSet} DISQUE(S)`)
+                                                        : (isEn ? `0 FREE STOCK • STANDARD TUNING: 10 ✦` : `0 STOCK GRATUIT • GRAVURE STANDARD : 10 ✦`)}
                                                 </span>
                                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                     ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
                                                 </h3>
                                             </div>
                                         </div>
-                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">↺ ${isEn ? 'Reset (Free)' : 'Réinitialiser (Gratuit)'}</button>` : ''}
+                                        ${optionsResCost > 0 ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">${isEn ? 'Reset Options' : 'Réinitialiser options'}</button>` : ''}
                                     </div>
 
-                                    <!-- 1. Choix de la Partition (Gratuit) -->
+                                    <!-- Effets 2P / 4P du set sélectionné -->
+                                    <div style="font-size:10px;color:#a1a1aa;line-height:1.35;background:#08080c;padding:7px 10px;border-radius:10px;border:1px solid #1f202b;">
+                                        <div><strong style="color:#fff;">2P :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
+                                        <div style="margin-top:2px;"><strong style="color:#d7f70c;">4P :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
+                                    </div>
+
+                                    <!-- 1. Choix de la Partition -->
                                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
                                         <button type="button" class="gacha-col-filter-btn ${bardicSlot === 0 ? 'active' : ''}" data-bslot="0" style="grid-column:span 2;">${t.randomPartition}</button>
                                         ${[1, 2, 3, 4, 5, 6].map(n => `
@@ -2256,13 +2402,13 @@
                                     ${variableMainKeys.length > 0 ? `
                                     <div style="display:flex;flex-direction:column;gap:4px;">
                                         <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
-                                            🎯 ${isEn ? 'Main Stat (Free if random, +15 ✦ if chosen):' : 'Stat Principale (Gratuit en aléatoire, +15 ✦ si choisie) :'}
+                                            ${isEn ? 'Main Stat (Free if random, +15 ✦ if chosen):' : 'Stat Principale (Aléatoire sans surcoût, +15 ✦ si choisie) :'}
                                         </span>
                                         <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isMainTargeted ? '#d7f70c' : '#2c2c36'};">
-                                            <option value="">🎲 ${isEn ? 'Random Main Stat (FREE)' : 'Aléatoire (GRATUIT)'}</option>
+                                            <option value="">${isEn ? 'Random Main Stat (+0 ✦)' : 'Aléatoire (+0 ✦)'}</option>
                                             ${variableMainKeys.map(k => {
                                                 const isRecMain = (prof.mainBySlot[bardicSlot] || []).includes(k);
-                                                return `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${isRecMain ? '⭐ ' : ''}${tStat(k)} (+15 ✦)</option>`;
+                                                return `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${tStat(k)} ${isRecMain ? '[GUIDE]' : ''} (+15 ✦)</option>`;
                                             }).join('')}
                                         </select>
                                     </div>` : ''}
@@ -2271,7 +2417,7 @@
                                     <div style="display:flex;flex-direction:column;gap:5px;">
                                         <div style="display:flex;align-items:center;justify-content:space-between;">
                                             <span style="font-size:10px;font-weight:800;color:#a1a1aa;">
-                                                ✨ ${isEn ? 'Guaranteed Sub-Stats (+10 ✦ each, max 4):' : 'Sous-Stats garanties (+10 ✦ / sous-stat, max 4) :'}
+                                                ${isEn ? 'Guaranteed Sub-Stats (+10 ✦ each, max 4):' : 'Sous-Stats garanties (+10 ✦ / sous-stat, max 4) :'}
                                             </span>
                                             <span class="gacha-quest-prog ${selectedSubStats.length > 0 ? 'done' : ''}">${selectedSubStats.length} / 4</span>
                                         </div>
@@ -2283,8 +2429,8 @@
                                                 return `
                                                 <button type="button" class="gacha-col-filter-btn ${isPicked ? 'active' : ''}"
                                                         data-bsubstat="${s.key}" ${isConflict ? 'disabled style="opacity:0.3;"' : ''}
-                                                        style="padding:4px 8px;font-size:9.5px;${isGuideSub && !isPicked ? 'border-color:rgba(250,204,21,0.5);color:#fde047;' : ''}">
-                                                    ${isGuideSub ? '⭐ ' : ''}${tStat(s.key)}
+                                                        style="padding:4px 8px;font-size:9.5px;${isGuideSub && !isPicked ? 'border-color:rgba(250,204,21,0.55);color:#fde047;' : ''}">
+                                                    ${tStat(s.key)}${isGuideSub ? ' • GUIDE' : ''}
                                                 </button>`;
                                             }).join('')}
                                         </div>
@@ -2292,12 +2438,12 @@
                                 </div>
 
                                 <!-- Aperçu des disques qui viennent d'être gravés -->
-                                <div style="display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto;">
+                                <div style="display:flex;flex-direction:column;gap:5px;max-height:115px;overflow-y:auto;">
                                     ${lastCraftedList.map(d => `
                                         <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-size:10px;font-weight:900;color:#d7f70c;">
-                                                    [${d.slot}] ${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)}) • ${d.isFourLiner ? '★ 4-Liner' : '3-Liner'}
+                                                    [${d.slot}] ${tStat(d.mainStat)} (${formatMainStatValue(d.mainStat, d.level)}) • ${d.isFourLiner ? '4-Liner' : '3-Liner'}
                                                 </div>
                                                 <div style="font-size:9.5px;color:#d4d4d8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                                     ${d.substats.map(s => `${tStat(s.key)} +${formatSubstatValue(s)}`).join(' | ')}
@@ -2311,11 +2457,8 @@
                                     `).join('')}
                                 </div>
 
-                                <!-- Boutons de Gravure : nécessitent toujours au moins 1 disque en stock -->
-                                ${stockForCurrentSet <= 0 ? `
-                                <div style="text-align:center;padding:10px;background:#14141d;border:1px solid #2b2b38;border-radius:12px;font-size:11px;font-weight:800;color:#a1a1aa;">
-                                    ${isEn ? 'No disc in stock for this set. Pull on the Unified Channel to obtain more!' : 'Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !'}
-                                </div>` : (isFreeRoll ? `
+                                <!-- Boutons de Gravure : Gratuit sur stock, ou en ✦ / Poly (jamais bloqué à 0 stock) -->
+                                ${totalUnitResCost === 0 ? `
                                 <div style="display:grid;grid-template-columns:${bulkFreeCount > 1 ? '1fr 1fr' : '1fr'};gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
                                         ${isEn ? `Tune ×1 (FREE • ${stockForCurrentSet} in stock)` : `Graver ×1 (GRATUIT • ${stockForCurrentSet} dispo)`}
@@ -2326,13 +2469,17 @@
                                     </button>` : ''}
                                 </div>` : `
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
-                                        ${isEn ? `Custom Tune (${customResCost} ✦ • 1 stock)` : `Graver Sur-Mesure (${customResCost} ✦ • 1 stock)`}
+                                    <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < totalUnitResCost ? 'disabled' : ''}>
+                                        ${optionsResCost > 0
+                                            ? (isEn ? `Custom Tune (${totalUnitResCost} ✦)` : `Graver Sur-Mesure (${totalUnitResCost} ✦)`)
+                                            : (isEn ? `Tune ×1 (${totalUnitResCost} ✦)` : `Graver ×1 (${totalUnitResCost} ✦)`)}
                                     </button>
-                                    <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
-                                        ${isEn ? `Custom Tune (${customPolyCost} Poly • 1 stock)` : `Graver Sur-Mesure (${customPolyCost} Poly • 1 stock)`}
+                                    <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < totalUnitPolyCost ? 'disabled' : ''}>
+                                        ${optionsResCost > 0
+                                            ? (isEn ? `Custom Tune (${totalUnitPolyCost} Poly)` : `Graver Sur-Mesure (${totalUnitPolyCost} Poly)`)
+                                            : (isEn ? `Tune ×1 (${totalUnitPolyCost} Poly)` : `Graver ×1 (${totalUnitPolyCost} Poly)`)}
                                     </button>
-                                </div>`)}
+                                </div>`}
                             </div>
                         </div>
                     </div>
@@ -2396,19 +2543,24 @@
                 });
 
                 function executeCraft(count, payMode = 'free') {
-                    const avail = getFreeGachaDiscCount(st, bardicSetKey);
-                    if (avail < count) return;
+                    const availFree = getFreeGachaDiscCount(st, bardicSetKey);
 
-                    if (payMode === 'res') {
-                        if (st.residual < customResCost * count) return;
-                        st.residual -= customResCost * count;
+                    if (payMode === 'free') {
+                        if (availFree < count || optionsResCost > 0) return;
+                        bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + count;
+                    } else if (payMode === 'res') {
+                        if (st.residual < totalUnitResCost * count) return;
+                        st.residual -= totalUnitResCost * count;
+                        if (availFree >= count) {
+                            bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + count;
+                        }
                     } else if (payMode === 'poly') {
-                        if (st.polychromes < customPolyCost * count) return;
-                        st.polychromes -= customPolyCost * count;
+                        if (st.polychromes < totalUnitPolyCost * count) return;
+                        st.polychromes -= totalUnitPolyCost * count;
+                        if (availFree >= count) {
+                            bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + count;
+                        }
                     }
-
-                    // Consomme exactement `count` disque(s) du stock tiré dans le Gacha
-                    bs.usedGachaDiscs[bardicSetKey] = (bs.usedGachaDiscs[bardicSetKey] || 0) + count;
 
                     const forceMain = isMainTargeted ? selectedMainStat : null;
                     lastCraftedList = [];
