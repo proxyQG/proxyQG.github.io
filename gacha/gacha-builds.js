@@ -904,14 +904,10 @@
                 </div>`;
             }).join('');
 
-            let rightPanelContent = '';
-            if (currentSubMenu === 'stats') {
-                rightPanelContent = renderSubMenuStats(agent, calc, pool, bridge, t);
-            } else if (currentSubMenu === 'skills') {
-                rightPanelContent = renderSubMenuSkills(st, agent, ab, calc, t);
-            } else {
-                rightPanelContent = renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t);
-            }
+            if (currentSubMenu !== 'stats') currentSubMenu = 'equip';
+            const rightPanelContent = currentSubMenu === 'stats'
+                ? renderSubMenuStats(agent, calc, pool, bridge, t)
+                : renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t);
 
             mount.innerHTML = `
                 <div class="zb-wrap">
@@ -935,13 +931,6 @@
                         </div>
                     </div>
 
-                    ${bs.craftedDiscs.length === 0 ? `
-                    <div class="zb-steps-strip">
-                        <div class="zb-step-item"><span class="zb-step-num">1</span><span>${t.step1}</span></div>
-                        <div class="zb-step-item"><span class="zb-step-num">2</span><span>${t.step2}</span></div>
-                        <div class="zb-step-item"><span class="zb-step-num">3</span><span>${t.step3}</span></div>
-                    </div>` : ''}
-
                     <div class="zb-stage">
                         <div class="zb-agent-showcase ${calc.overclockLvl > 0 ? 'overclocked' : ''} ${currentSubMenu !== 'stats' ? 'hide-on-mobile-sub' : ''}">
                             <div class="zb-agent-bg-name">${bridge.itemName(agent)}</div>
@@ -954,10 +943,10 @@
                         </div>
 
                         <div class="zb-right-column">
+                            <!-- Seulement 2 onglets ultra-clairs : Équipement & Roue | Stats Détaillées -->
                             <div class="zb-subnav">
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">${t.subStats}</button>
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'skills' ? 'active' : ''}" data-bsub="skills">${t.subSkills}</button>
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">🛠️ ${t.subEquip}</button>
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">📊 ${t.subStats}</button>
                             </div>
 
                             <div class="zb-panel-card">
@@ -1116,11 +1105,22 @@
             `;
         }
 
-        // --- MENU 3 : COCKPIT D'ÉQUIPEMENT ---
+        // --- MENU ÉQUIPEMENT TOUT-EN-UN (AVEC STATS EN DIRECT & MONTER +15 EN 1 CLIC) ---
         function renderSubMenuEquip(st, pool, bs, agent, ab, calc, bridge, t) {
             const engObj = ab.engineKey ? pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey) : null;
             const engCount = engObj ? (st.inventory[engObj.id]?.count || 1) : 0;
             const prof = getGuideProfile(agent.rawKey);
+
+            // Calcule le coût pour monter tous les disques équipés au niveau +15
+            let totalUpStepsNeeded = 0;
+            for (let s = 1; s <= 6; s++) {
+                const u = ab.discs[s];
+                const d = u ? bs.craftedDiscs.find(x => x.uid === u) : null;
+                if (d && d.level < 15) {
+                    totalUpStepsNeeded += Math.round((15 - d.level) / 3);
+                }
+            }
+            const maxAllCost = totalUpStepsNeeded * 4;
 
             const nodesHTML = [1, 2, 3, 4, 5, 6].map(slot => {
                 const uid = ab.discs[slot];
@@ -1148,15 +1148,15 @@
                     ${disc
                         ? `<span style="font-family:monospace;font-size:9.5px;font-weight:900;color:#d7f70c;">+${disc.level}</span>
                            <button type="button" class="zb-mini-unequip" data-unequip-slot="${slot}" title="${t.unequipBtn}">✖</button>`
-                        : `<span style="font-size:10px;color:#52525b;">➕</span>`
+                        : `<span style="font-size:9.5px;font-weight:900;color:#d7f70c;">+ Choisir</span>`
                     }
                 </div>`;
             }).join('');
 
             const activeSets = Object.entries(calc.setCounts).filter(([, c]) => c >= 2);
-
             const recSet1Obj = prof.sets4[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets4[0]) : null;
             const recSet2Obj = prof.sets2[0] ? pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === prof.sets2[0]) : null;
+
             const guideRecSummary = (recSet1Obj || prof.subPrio.length > 0)
                 ? `<div style="background:rgba(215,247,12,0.06);border:1px solid rgba(215,247,12,0.3);border-radius:12px;padding:7px 10px;font-size:10.5px;color:#d4d4d8;display:flex;flex-direction:column;gap:2px;">
                     <strong style="color:#d7f70c;font-size:9.5px;text-transform:uppercase;">${t.guideRecTitle}</strong>
@@ -1173,13 +1173,37 @@
                 : '';
 
             return `
+                <!-- Bandeau de Stats en Direct visible en permanence pendant qu'on équipe son Agent -->
+                <div class="zb-live-stats-strip">
+                    <div class="zb-live-stat-box">
+                        <span style="font-size:9px;font-weight:800;color:#71717a;">${tStat('PV')}</span>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fff;">${calc.hp}</strong>
+                    </div>
+                    <div class="zb-live-stat-box">
+                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('ATQ')}</span>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.atk}</strong>
+                    </div>
+                    <div class="zb-live-stat-box">
+                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('Taux CRIT')}</span>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.cr}</strong>
+                    </div>
+                    <div class="zb-live-stat-box">
+                        <span style="font-size:9px;font-weight:800;color:#fbbf24;">${tStat('Dégâts CRIT')}</span>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:12px;color:#fbbf24;">${calc.cd}</strong>
+                    </div>
+                    <div class="zb-live-stat-box" style="border-color:rgba(245,158,11,0.5);">
+                        <span style="font-size:9px;font-weight:800;color:#d7f70c;">SCORE (${calc.effectiveSubRolls} subs)</span>
+                        <strong style="font-family:'Montserrat',sans-serif;font-size:13px;color:#d7f70c;">RANG ${calc.grade}</strong>
+                    </div>
+                </div>
+
                 <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
                     <div>
-                        <span class="gacha-patch-tag">${t.equipTag}</span>
-                        <h3 class="gacha-panel-title" style="font-size:19px;">${t.equipTitle} — ${bridge.itemName(agent)}</h3>
+                        <h3 class="gacha-panel-title" style="font-size:18px;">${t.equipTitle} — ${bridge.itemName(agent)}</h3>
                     </div>
                     <div style="display:flex;gap:6px;flex-wrap:wrap;">
                         <button type="button" class="gacha-details-btn accent" id="btn-auto-equip">${t.autoEquip}</button>
+                        ${maxAllCost > 0 ? `<button type="button" class="gacha-details-btn accent" id="btn-upgrade-all-15" ${st.residual < maxAllCost ? 'disabled' : ''}>⬆️ Tout Monter +15 (${maxAllCost} ✦)</button>` : ''}
                         <button type="button" class="gacha-details-btn" id="btn-unequip-all">${t.unequipAll}</button>
                     </div>
                 </div>
@@ -1218,16 +1242,14 @@
 
                         ${guideRecSummary}
 
-                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:7px 10px;">
-                            <span style="font-size:9px;font-weight:900;color:#a1a1aa;text-transform:uppercase;display:block;margin-bottom:3px;">${t.activeSetBonuses}</span>
-                            ${activeSets.length === 0
-                                ? `<span style="font-size:10px;color:#71717a;">${t.noSetBonus}</span>`
-                                : `<div style="display:flex;gap:5px;flex-wrap:wrap;">${activeSets.map(([sk, cnt]) => {
-                                    const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
-                                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${dObj ? bridge.itemName(dObj) : sk}</span>`;
-                                }).join('')}</div>`
-                            }
-                        </div>
+                        ${activeSets.length > 0 ? `
+                        <div style="background:#0b0b11;border:1px solid #252532;border-radius:12px;padding:7px 10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
+                            <span style="font-size:9px;font-weight:900;color:#a1a1aa;text-transform:uppercase;margin-right:4px;">SETS ACTIFS :</span>
+                            ${activeSets.map(([sk, cnt]) => {
+                                const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === sk);
+                                return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${dObj ? bridge.itemName(dObj) : sk}</span>`;
+                            }).join('')}
+                        </div>` : ''}
 
                         <div class="zb-equip-slot-list">
                             ${slotRowsHTML}
@@ -1239,37 +1261,6 @@
 
         function bindSubMenuEvents(mount, st, pool, bs, agent, ab, calc) {
             const bridge = window.ZZZGachaBridge;
-
-            mount.querySelectorAll('[data-pick-skill]').forEach(el => {
-                el.addEventListener('click', () => {
-                    activeSkillIdx = parseInt(el.getAttribute('data-pick-skill'), 10) || 0;
-                    renderBuildsTab(mount);
-                });
-            });
-
-            document.getElementById('btn-up-skill-res')?.addEventListener('click', () => {
-                const maxCap = calc.mindscape >= 5 ? 16 : (calc.mindscape >= 3 ? 14 : 12);
-                const cur = ab.skills[activeSkillIdx] || 1;
-                const cost = cur * 4;
-                if (cur < maxCap && st.residual >= cost) {
-                    st.residual -= cost;
-                    ab.skills[activeSkillIdx] = cur + 1;
-                    bridge.saveState(st);
-                    renderBuildsTab(mount);
-                }
-            });
-
-            document.getElementById('btn-up-skill-poly')?.addEventListener('click', () => {
-                const maxCap = calc.mindscape >= 5 ? 16 : (calc.mindscape >= 3 ? 14 : 12);
-                const cur = ab.skills[activeSkillIdx] || 1;
-                const cost = cur * 30;
-                if (cur < maxCap && st.polychromes >= cost) {
-                    st.polychromes -= cost;
-                    ab.skills[activeSkillIdx] = cur + 1;
-                    bridge.saveState(st);
-                    renderBuildsTab(mount);
-                }
-            });
 
             document.getElementById('btn-wheel-wengine')?.addEventListener('click', () => openZZZArmoryModal(mount, st, pool, bs, agent, ab, 'engine'));
             document.getElementById('btn-card-wengine')?.addEventListener('click', (ev) => {
@@ -1306,6 +1297,26 @@
                 autoEquipFromGuide(st, pool, agent);
                 bridge.saveState(st);
                 renderBuildsTab(mount);
+            });
+
+            document.getElementById('btn-upgrade-all-15')?.addEventListener('click', () => {
+                let steps = 0;
+                for (let s = 1; s <= 6; s++) {
+                    const u = ab.discs[s];
+                    const d = u ? bs.craftedDiscs.find(x => x.uid === u) : null;
+                    if (d && d.level < 15) steps += Math.round((15 - d.level) / 3);
+                }
+                const cost = steps * 4;
+                if (steps > 0 && st.residual >= cost) {
+                    st.residual -= cost;
+                    for (let s = 1; s <= 6; s++) {
+                        const u = ab.discs[s];
+                        const d = u ? bs.craftedDiscs.find(x => x.uid === u) : null;
+                        while (d && d.level < 15) upgradeDiscOneStep(d);
+                    }
+                    bridge.saveState(st);
+                    renderBuildsTab(mount);
+                }
             });
 
             document.getElementById('btn-unequip-all')?.addEventListener('click', () => {
@@ -2316,6 +2327,34 @@
             const hasGodRoll = bs.craftedDiscs.some(d => (d.substats || []).some(s => (s.upgrades || 0) >= 4));
             const hasOverclock = Object.values(inv).some(i => i.type === 'agent' && (i.count || 0) > 7);
 
+            // Nouveaux compteurs de maîtrise
+            const sEnginesOwned = pool.allCatalog.filter(i => i.type === 'engine' && i.rank === 'S' && (inv[i.id]?.count || 0) > 0).length;
+            const fullyEquippedAgents = Object.values(bs.agentBuilds || {}).filter(ab =>
+                ab && ab.engineKey && [1, 2, 3, 4, 5, 6].every(s => !!ab.discs?.[s])
+            ).length;
+
+            badges.push({
+                id: 'series_squad_ready_3',
+                cat: 'mastery',
+                emoji: '🛡️',
+                title: isEn ? 'Combat Ready Squad (3 Built Agents)' : 'Escouade Opérationnelle (3 Agents Équipés)',
+                desc: isEn ? 'Equip 3 different Agents with a W-Engine and all 6 Drive Discs.' : 'Équiper 3 Agents différents avec un Moteur-Ampli et leurs 6 Disques.',
+                cur: Math.min(3, fullyEquippedAgents),
+                max: 3,
+                reward: 1000
+            });
+
+            badges.push({
+                id: 'series_s_engines_5',
+                cat: 'mastery',
+                emoji: '⚙️',
+                title: isEn ? 'Signature Arsenal (5 S-Engines)' : 'Arsenal Signature (5 Moteurs Rang S)',
+                desc: isEn ? 'Unlock 5 different S-Rank W-Engines in your Collection.' : 'Débloquer 5 Moteurs-Ampli de Rang S différents dans la Collection.',
+                cur: Math.min(5, sEnginesOwned),
+                max: 5,
+                reward: 1200
+            });
+
             badges.push({
                 id: 'series_all_discs',
                 cat: 'mastery',
@@ -2416,6 +2455,7 @@
             const allBadges = computeSeriesBadges(st, pool);
 
             const unlockedTotal = allBadges.filter(b => b.cur >= b.max).length;
+            const claimableBadges = allBadges.filter(b => b.cur >= b.max && !bs.claimedBadges[b.id]);
             const filtered = badgeFilter === 'all' ? allBadges : allBadges.filter(b => b.cat === badgeFilter);
 
             mount.innerHTML = `
@@ -2426,6 +2466,7 @@
                             <p class="gacha-sec-sub">${t.badgesSub}</p>
                         </div>
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                            ${claimableBadges.length > 0 ? `<button type="button" class="gacha-claim-btn can-claim" id="btn-claim-all-badges">🏆 Tout récupérer (${claimableBadges.length})</button>` : ''}
                             <span class="gacha-reset-pill">${t.badgesUnlockedCount.replace('{u}', unlockedTotal).replace('{t}', allBadges.length)}</span>
                             <div class="gacha-col-filter-group">
                                 <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'all' ? 'active' : ''}" data-bf="all">${t.filterAllBadges.replace('{n}', allBadges.length)}</button>
@@ -2486,6 +2527,15 @@
                     </div>
                 </div>
             `;
+
+            document.getElementById('btn-claim-all-badges')?.addEventListener('click', () => {
+                claimableBadges.forEach(b => {
+                    bs.claimedBadges[b.id] = true;
+                    st.polychromes += b.reward;
+                });
+                bridge.saveState(st);
+                renderBadgesTab(mount);
+            });
 
             mount.querySelectorAll('[data-bf]').forEach(btn => {
                 btn.addEventListener('click', () => {
