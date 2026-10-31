@@ -6,16 +6,16 @@
         // ========================================================
         const BUILDS_I18N = {
             fr: {
-                tabBuilds: "🛠️ Builds",
-                tabBadges: "🏆 Badges",
+                tabBuilds: "Builds",
+                tabBadges: "Badges",
                 noAgentsTitle: "Aucun Agent débloqué",
                 noAgentsDesc: "Effectuez des Recherches de Signal sur le Canal Unifié pour recruter votre premier Agent et débloquer son studio de Build !",
                 bardicBtnTitle: "Studio Disques",
                 storageBtnTitle: "Entrepôt",
                 step1: "Gravez des Disques S dans le Studio Disques",
-                step2: "Cliquez sur ⚡ Équipement Auto (Guide)",
-                step3: "Montez vos Disques (+15) et Compétences",
-                overclockBanner: "⚡ SURCHARGE PRISMATIQUE ★{lvl} (+{pct}% TOUTES STATS)",
+                step2: "Cliquez sur Équipement Auto (Guide)",
+                step3: "Montez vos Disques (+15)",
+                overclockBanner: "SURCHARGE PRISMATIQUE +{pct}% TOUTES STATS",
                 subStats: "Stats de base",
                 subSkills: "Compétences",
                 subEquip: "Équipement",
@@ -29,20 +29,20 @@
                 skillBonusDesc: ["ATQ de base +{val} & DGT Normaux", "ATQ +{val} & Réflexes d'Esquive", "ATQ +{val} & Impact de Soutien", "ATQ +{val} & DGT Spéciaux EX", "ATQ +{val} & DGT d'Ultime"],
                 upgradeRes: "Niv. +1 ({cost} ✦)",
                 upgradePoly: "Niv. +1 ({cost} Poly)",
-                upgradeMax: "NIVEAU MAX ✓",
+                upgradeMax: "NIVEAU MAX",
                 equipTag: "LECTEUR DE DISQUES & MOTEUR-AMPLI",
                 equipTitle: "Roue d'Équipement",
-                autoEquip: "⚡ Équipement Auto (Guide)",
-                unequipAll: "✖ Tout retirer",
-                unequipBtn: "✖ Déséquiper",
+                autoEquip: "Équipement Auto (Guide)",
+                unequipAll: "Tout retirer",
+                unequipBtn: "Déséquiper",
                 equipBtn: "Équiper",
-                transferBtn: "🔄 Transférer (de {owner})",
+                transferBtn: "Transférer (de {owner})",
                 emptySlot: "Vide",
                 engineSlot: "Moteur-Ampli",
                 noEngineEquipped: "Aucun Moteur-Ampli (Cliquer pour choisir)",
                 activeSetBonuses: "Bonus de Sets Actifs (2P / 4P)",
                 noSetBonus: "Équipez 2 ou 4 disques d'un même set pour activer ses bonus.",
-                guideRecTitle: "💡 Build Recommandé par le Guide :",
+                guideRecTitle: "Build Recommandé par le Guide :",
                 piece2: "Ensemble de 2 pièces",
                 piece4: "Ensemble de 4 pièces",
                 mainStatLabel: "Stat principale",
@@ -51,14 +51,14 @@
                 engineEffectLabel: "Effet de moteur-ampli",
                 upStepBtn: "Renforcer +{lvl} (4 ✦)",
                 upMaxBtn: "Max +15 ({cost} ✦)",
-                lockBtn: "🔒 Verrouiller",
-                unlockBtn: "🔓 Déverrouiller",
-                dismantleSingle: "🗑️ Démanteler (+{gain} ✦)",
-                batchDismantle: "♻️ Démanteler Niv.0 non-équipés (+{gain} ✦)",
-                recycleSurplusEngines: "♻️ Recycler doublons Moteurs (+{gain} ✦)",
-                storageTitle: "📦 Entrepôt : Disques & Moteurs",
-                storageDiscsTab: "💿 Disques [{n}]",
-                storageEnginesTab: "⚙️ Moteurs [{n}]",
+                lockBtn: "Verrouiller",
+                unlockBtn: "Déverrouiller",
+                dismantleSingle: "Démanteler (+{gain} ✦)",
+                batchDismantle: "Démanteler Niv.0 non-équipés (+{gain} ✦)",
+                recycleSurplusEngines: "Recycler doublons Moteurs (+{gain} ✦)",
+                storageTitle: "Entrepôt : Disques & Moteurs",
+                storageDiscsTab: "Disques [{n}]",
+                storageEnginesTab: "Moteurs [{n}]",
                 filterAllSets: "Tous les Sets",
                 sortLevel: "Tri : Niveau",
                 sortGuide: "Tri : Guide",
@@ -66,63 +66,48 @@
                 bardicTitle: "Graver des Disques de Poussée",
                 searchSetPlaceholder: "Rechercher un Set de Disques...",
                 randomPartition: "Aléatoire (I–VI)",
-                orientationLabel: "🎯 Choisir la Stat Principale (Prix ×2 si sélectionnée) :",
-                standardWeighted: "Aléatoire pondéré (Prix normal ×1)",
-                targetedPriceTag: "Stat choisie : {stat} (Prix ×2)",
-                tuneFreeStock: "💿 Graver Stock Gacha ×1 (Coût : {c} stock • {n} dispo)",
-                tune1Res: "🎵 Accordage ×1 ({cost} ✦)",
-                tune5Res: "🎵 Accordage ×5 ({cost} ✦)",
-                tune1Poly: "🎵 Accordage ×1 ({cost} Poly)",
+                orientationLabel: "Choisir la Stat Principale :",
+                standardWeighted: "Aléatoire pondéré",
+                targetedPriceTag: "Stat choisie : {stat}",
+                tuneFreeStock: "Graver Stock Gacha ×1 ({n} dispo)",
+                tune1Res: "Accordage ×1 ({cost} ✦)",
+                tune5Res: "Accordage ×5 ({cost} ✦)",
+                tune1Poly: "Accordage ×1 ({cost} Poly)",
                 equipNow: "Équiper",
-                equippedTag: "Équipé ✓",
+                equippedTag: "Équipé",
                 noDiscInSlot: "Aucun disque sur la Partition [{slot}].",
-                badgesTitle: "🏆 Salle des Trophées : Séries & Factions",
+                badgesTitle: "Salle des Trophées : Séries & Factions",
                 badgesSub: "Complétez les escouades de New Eridu et les défis d'accordage de disques pour gagner des Polychromes.",
                 badgesUnlockedCount: "Badges : {u} / {t}",
                 filterAllBadges: "Tous ({n})",
                 filterMastery: "Maîtrise & Disques",
                 filterSquads: "Escouades",
                 claimBadge: "Récupérer",
-                claimedBadge: "Obtenu ✓",
+                claimedBadge: "Obtenu",
                 inProgress: "En cours",
                 close: "Fermer",
                 stats: {
-                    "PV": "PV",
-                    "ATQ": "ATQ",
-                    "DÉF": "DÉF",
-                    "Impact": "Impact",
-                    "Taux CRIT": "Taux CRIT",
-                    "Dégâts CRIT": "DGT CRIT",
-                    "Maîtrise d'anomalie": "Maîtrise d'anomalie",
-                    "Adresse d'anomalie": "Adresse d'anomalie",
-                    "Ratio de PÉN": "Taux de PÉN",
-                    "Régénération d'énergie": "Récup. d'énergie",
-                    "PV (flat)": "PV",
-                    "ATQ (flat)": "ATQ",
-                    "DÉF (flat)": "DÉF",
-                    "PV%": "PV%",
-                    "ATQ%": "ATQ%",
-                    "DÉF%": "DÉF%",
-                    "PÉN (flat)": "PÉN",
-                    "DGT Physique": "DGT Physique",
-                    "DGT Feu": "DGT Feu",
-                    "DGT Glace": "DGT Glace",
-                    "DGT Électrique": "DGT Électrique",
-                    "DGT Éther": "DGT Éther",
-                    "DGT Vent": "DGT Vent"
+                    "PV": "PV", "ATQ": "ATQ", "DÉF": "DÉF", "Impact": "Impact",
+                    "Taux CRIT": "Taux CRIT", "Dégâts CRIT": "DGT CRIT",
+                    "Maîtrise d'anomalie": "Maîtrise d'anomalie", "Adresse d'anomalie": "Adresse d'anomalie",
+                    "Ratio de PÉN": "Taux de PÉN", "Régénération d'énergie": "Récup. d'énergie",
+                    "PV (flat)": "PV", "ATQ (flat)": "ATQ", "DÉF (flat)": "DÉF",
+                    "PV%": "PV%", "ATQ%": "ATQ%", "DÉF%": "DÉF%", "PÉN (flat)": "PÉN",
+                    "DGT Physique": "DGT Physique", "DGT Feu": "DGT Feu", "DGT Glace": "DGT Glace",
+                    "DGT Électrique": "DGT Électrique", "DGT Éther": "DGT Éther", "DGT Vent": "DGT Vent"
                 }
             },
             en: {
-                tabBuilds: "🛠️ Builds",
-                tabBadges: "🏆 Badges",
+                tabBuilds: "Builds",
+                tabBadges: "Badges",
                 noAgentsTitle: "No Agents Unlocked Yet",
                 noAgentsDesc: "Perform Signal Searches on the Unified Channel to recruit your first Agent and unlock their Build Studio!",
                 bardicBtnTitle: "Disc Studio",
                 storageBtnTitle: "Storage",
                 step1: "Tune S-Rank Discs in the Disc Studio",
-                step2: "Click ⚡ Auto-Equip (Guide)",
-                step3: "Upgrade Discs (+15) and Skills",
-                overclockBanner: "⚡ PRISMATIC OVERCLOCK ★{lvl} (+{pct}% ALL STATS)",
+                step2: "Click Auto-Equip (Guide)",
+                step3: "Upgrade Discs (+15)",
+                overclockBanner: "PRISMATIC OVERCLOCK +{pct}% ALL STATS",
                 subStats: "Base Stats",
                 subSkills: "Skills",
                 subEquip: "Equipment",
@@ -136,20 +121,20 @@
                 skillBonusDesc: ["Base ATK +{val} & Basic DMG", "ATK +{val} & Dodge Counter", "ATK +{val} & Assist Impact", "ATK +{val} & EX Special DMG", "ATK +{val} & Ultimate DMG"],
                 upgradeRes: "Lv. +1 ({cost} ✦)",
                 upgradePoly: "Lv. +1 ({cost} Poly)",
-                upgradeMax: "MAX LEVEL ✓",
+                upgradeMax: "MAX LEVEL",
                 equipTag: "DRIVE DISC PLAYER & W-ENGINE",
                 equipTitle: "Equipment Wheel",
-                autoEquip: "⚡ Auto-Equip (Guide)",
-                unequipAll: "✖ Unequip All",
-                unequipBtn: "✖ Unequip",
+                autoEquip: "Auto-Equip (Guide)",
+                unequipAll: "Unequip All",
+                unequipBtn: "Unequip",
                 equipBtn: "Equip",
-                transferBtn: "🔄 Transfer (from {owner})",
+                transferBtn: "Transfer (from {owner})",
                 emptySlot: "Empty",
                 engineSlot: "W-Engine",
                 noEngineEquipped: "No W-Engine (Click to select)",
                 activeSetBonuses: "Active Set Bonuses (2P / 4P)",
                 noSetBonus: "Equip 2 or 4 discs from the same set to activate set bonuses.",
-                guideRecTitle: "💡 ProxyQG Guide Recommendation:",
+                guideRecTitle: "ProxyQG Guide Recommendation:",
                 piece2: "2-Piece Set",
                 piece4: "4-Piece Set",
                 mainStatLabel: "Main Stat",
@@ -158,14 +143,14 @@
                 engineEffectLabel: "W-Engine Effect",
                 upStepBtn: "Enhance +{lvl} (4 ✦)",
                 upMaxBtn: "Max +15 ({cost} ✦)",
-                lockBtn: "🔒 Lock",
-                unlockBtn: "🔓 Unlock",
-                dismantleSingle: "🗑️ Dismantle (+{gain} ✦)",
-                batchDismantle: "♻️ Dismantle Unowned Lv.0 (+{gain} ✦)",
-                recycleSurplusEngines: "♻️ Recycle Surplus W-Engines (+{gain} ✦)",
-                storageTitle: "📦 Storage: Drive Discs & W-Engines",
-                storageDiscsTab: "💿 Discs [{n}]",
-                storageEnginesTab: "⚙️ W-Engines [{n}]",
+                lockBtn: "Lock",
+                unlockBtn: "Unlock",
+                dismantleSingle: "Dismantle (+{gain} ✦)",
+                batchDismantle: "Dismantle Unowned Lv.0 (+{gain} ✦)",
+                recycleSurplusEngines: "Recycle Surplus W-Engines (+{gain} ✦)",
+                storageTitle: "Storage: Drive Discs & W-Engines",
+                storageDiscsTab: "Discs [{n}]",
+                storageEnginesTab: "W-Engines [{n}]",
                 filterAllSets: "All Sets",
                 sortLevel: "Sort: Level",
                 sortGuide: "Sort: Guide",
@@ -173,50 +158,35 @@
                 bardicTitle: "Tune S-Rank Drive Discs",
                 searchSetPlaceholder: "Search a Drive Disc Set...",
                 randomPartition: "Random (I–VI)",
-                orientationLabel: "🎯 Choose Main Stat (2× Price if selected):",
-                standardWeighted: "Random weighted roll (1× Normal Price)",
-                targetedPriceTag: "Chosen Stat: {stat} (2× Price)",
-                tuneFreeStock: "💿 Roll Gacha Disc ×1 (Cost: {c} stock • {n} left)",
-                tune1Res: "🎵 Tune ×1 ({cost} ✦)",
-                tune5Res: "🎵 Tune ×5 ({cost} ✦)",
-                tune1Poly: "🎵 Tune ×1 ({cost} Poly)",
+                orientationLabel: "Choose Main Stat:",
+                standardWeighted: "Random weighted roll",
+                targetedPriceTag: "Chosen Stat: {stat}",
+                tuneFreeStock: "Roll Gacha Disc ×1 ({n} left)",
+                tune1Res: "Tune ×1 ({cost} ✦)",
+                tune5Res: "Tune ×5 ({cost} ✦)",
+                tune1Poly: "Tune ×1 ({cost} Poly)",
                 equipNow: "Equip",
-                equippedTag: "Equipped ✓",
+                equippedTag: "Equipped",
                 noDiscInSlot: "No disc in Partition [{slot}].",
-                badgesTitle: "🏆 Trophy Room: Series & Factions",
+                badgesTitle: "Trophy Room: Series & Factions",
                 badgesSub: "Complete New Eridu squads and Drive Disc tuning challenges to earn Polychrome rewards.",
                 badgesUnlockedCount: "Badges: {u} / {t}",
                 filterAllBadges: "All ({n})",
                 filterMastery: "Mastery & Discs",
                 filterSquads: "Squads",
                 claimBadge: "Claim",
-                claimedBadge: "Claimed ✓",
+                claimedBadge: "Claimed",
                 inProgress: "In Progress",
                 close: "Close",
                 stats: {
-                    "PV": "HP",
-                    "ATQ": "ATK",
-                    "DÉF": "DEF",
-                    "Impact": "Impact",
-                    "Taux CRIT": "CRIT Rate",
-                    "Dégâts CRIT": "CRIT DMG",
-                    "Maîtrise d'anomalie": "Anomaly Mastery",
-                    "Adresse d'anomalie": "Anomaly Proficiency",
-                    "Ratio de PÉN": "PEN Ratio",
-                    "Régénération d'énergie": "Energy Regen",
-                    "PV (flat)": "HP",
-                    "ATQ (flat)": "ATK",
-                    "DÉF (flat)": "DEF",
-                    "PV%": "HP%",
-                    "ATQ%": "ATK%",
-                    "DÉF%": "DEF%",
-                    "PÉN (flat)": "PEN",
-                    "DGT Physique": "Physical DMG",
-                    "DGT Feu": "Fire DMG",
-                    "DGT Glace": "Ice DMG",
-                    "DGT Électrique": "Electric DMG",
-                    "DGT Éther": "Ether DMG",
-                    "DGT Vent": "Wind DMG"
+                    "PV": "HP", "ATQ": "ATK", "DÉF": "DEF", "Impact": "Impact",
+                    "Taux CRIT": "CRIT Rate", "Dégâts CRIT": "CRIT DMG",
+                    "Maîtrise d'anomalie": "Anomaly Mastery", "Adresse d'anomalie": "Anomaly Proficiency",
+                    "Ratio de PÉN": "PEN Ratio", "Régénération d'énergie": "Energy Regen",
+                    "PV (flat)": "HP", "ATQ (flat)": "ATK", "DÉF (flat)": "DEF",
+                    "PV%": "HP%", "ATQ%": "ATK%", "DÉF%": "DEF%", "PÉN (flat)": "PEN",
+                    "DGT Physique": "Physical DMG", "DGT Feu": "Fire DMG", "DGT Glace": "Ice DMG",
+                    "DGT Électrique": "Electric DMG", "DGT Éther": "Ether DMG", "DGT Vent": "Wind DMG"
                 }
             }
         };
@@ -971,11 +941,9 @@
                         <div class="zb-roster-bar">${rosterHTML}</div>
                         <div class="zb-top-actions">
                             <button type="button" class="zb-bardic-cta secondary" id="btn-open-storage">
-                                <span class="zb-bardic-cta-icon">📦</span>
                                 <span class="zb-bardic-cta-title">${t.storageBtnTitle}</span>
                             </button>
                             <button type="button" class="zb-bardic-cta" id="btn-open-bardic-needle">
-                                <span class="zb-bardic-cta-icon">💿</span>
                                 <span class="zb-bardic-cta-title">${t.bardicBtnTitle}</span>
                             </button>
                         </div>
@@ -993,10 +961,9 @@
                         </div>
 
                         <div class="zb-right-column">
-                            <!-- Seulement 2 onglets ultra-clairs : Équipement & Roue | Stats Détaillées -->
                             <div class="zb-subnav">
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">🛠️ ${t.subEquip}</button>
-                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">📊 ${t.subStats}</button>
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'equip' ? 'active' : ''}" data-bsub="equip">${t.subEquip}</button>
+                                <button type="button" class="zb-subnav-btn ${currentSubMenu === 'stats' ? 'active' : ''}" data-bsub="stats">${t.subStats}</button>
                             </div>
 
                             <div class="zb-panel-card">
@@ -1042,8 +1009,7 @@
                 <div class="zb-agent-header">
                     <div>
                         <div class="zb-faction-line">
-                            <span style="color:#facc15;">★ ${agent.rank}</span>
-                            <span>• ${agent.faction || 'New Eridu'}</span>
+                            <span>${agent.faction || 'New Eridu'}</span>
                         </div>
                         <h2 class="zb-agent-big-name">${bridge.itemName(agent)}</h2>
                     </div>
@@ -1253,7 +1219,7 @@
                     </div>
                     <div style="display:flex;gap:6px;flex-wrap:wrap;">
                         <button type="button" class="gacha-details-btn accent" id="btn-auto-equip">${t.autoEquip}</button>
-                        ${maxAllCost > 0 ? `<button type="button" class="gacha-details-btn accent" id="btn-upgrade-all-15" ${st.residual < maxAllCost ? 'disabled' : ''}>⬆️ Tout Monter +15 (${maxAllCost} ✦)</button>` : ''}
+                        ${maxAllCost > 0 ? `<button type="button" class="gacha-details-btn accent" id="btn-upgrade-all-15" ${st.residual < maxAllCost ? 'disabled' : ''}>Tout Monter +15 (${maxAllCost} ✦)</button>` : ''}
                         <button type="button" class="gacha-details-btn" id="btn-unequip-all">${t.unequipAll}</button>
                     </div>
                 </div>
@@ -1265,7 +1231,7 @@
                         <div class="zb-wengine-core" id="btn-wheel-wengine" title="${t.engineSlot}">
                             ${engObj
                                 ? `<img src="${engObj.img}" alt="${bridge.itemName(engObj)}"><span class="zb-slot-tag" style="border-color:#facc15;color:#facc15;">${engObj.rank} • ×${engCount}</span>`
-                                : `<span style="font-size:24px;color:#52525b;">➕</span><span class="zb-slot-tag">${t.engineSlot}</span>`
+                                : `<span style="font-size:26px;font-weight:900;color:#52525b;">+</span><span class="zb-slot-tag">${t.engineSlot}</span>`
                             }
                         </div>
                     </div>
@@ -1275,7 +1241,7 @@
                             <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1;">
                                 ${engObj
                                     ? `<img src="${engObj.img}" style="width:38px;height:38px;object-fit:contain;background:#000;border-radius:10px;padding:3px;">`
-                                    : `<div style="width:38px;height:38px;border-radius:10px;background:#181822;display:flex;align-items:center;justify-content:center;font-size:17px;">⚙️</div>`
+                                    : `<div style="width:38px;height:38px;border-radius:10px;background:#181822;border:1px solid #2e2f3e;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#71717a;">+</div>`
                                 }
                                 <div style="min-width:0;flex:1;">
                                     <span style="font-size:9px;font-weight:900;color:#facc15;text-transform:uppercase;display:block;">${t.engineSlot}</span>
@@ -1285,8 +1251,8 @@
                                 </div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
-                                <span class="gacha-quest-prog done">${engObj ? `×${engCount}` : '✎'}</span>
-                                ${engObj ? `<button type="button" class="zb-mini-unequip" id="btn-quick-unequip-engine" title="${t.unequipBtn}">✖</button>` : ''}
+                                <span class="gacha-quest-prog done">${engObj ? `×${engCount}` : '+'}</span>
+                                ${engObj ? `<button type="button" class="zb-mini-unequip" id="btn-quick-unequip-engine" title="${t.unequipBtn}">×</button>` : ''}
                             </div>
                         </div>
 
@@ -1536,8 +1502,8 @@
                                         ${sObj ? bridge.itemName(sObj) : selDisc.setKey} [${selDisc.slot}]
                                     </h3>
                                     <div style="display:flex;align-items:center;gap:5px;">
-                                        <button type="button" class="gacha-details-btn" id="btn-arm-lock" title="${selDisc.locked ? t.unlockBtn : t.lockBtn}">${selDisc.locked ? '🔒' : '🔓'}</button>
-                                        <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''}>🗑️ +${dismantleGain}✦</button>
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-lock">${selDisc.locked ? t.unlockBtn : t.lockBtn}</button>
+                                        <button type="button" class="gacha-details-btn" id="btn-arm-trash" ${selDisc.locked || ownerKey ? 'disabled' : ''}>Démanteler (+${dismantleGain} ✦)</button>
                                     </div>
                                 </div>
 
@@ -1592,7 +1558,7 @@
                         centerInspectorHTML = `
                             <div style="margin:auto;text-align:center;padding:20px;display:flex;flex-direction:column;gap:10px;align-items:center;">
                                 <span style="font-size:12px;color:#a1a1aa;">${t.noDiscInSlot.replace('{slot}', slotNum)}</span>
-                                <button type="button" class="gacha-res-btn primary" id="btn-arm-craft-slot">🎵 Graver Partition [${slotNum}]</button>
+                                <button type="button" class="gacha-res-btn primary" id="btn-arm-craft-slot">Graver Partition [${slotNum}]</button>
                             </div>`;
                     }
                 }
@@ -1603,7 +1569,6 @@
                 overlay.classList.add('active');
                 overlay.innerHTML = `
                     <div class="zb-armory-modal">
-                        <!-- En-tête épuré : Titre ou Filtres à gauche, ✦ + FERMER à droite -->
                         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid #262734;padding-bottom:10px;">
                             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                                 ${!isEngineMode && hasGridItems ? `
@@ -1620,14 +1585,13 @@
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;margin-left:auto;">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
-                                ${!isEngineMode && hasGridItems ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">🎵 Graver [${slotNum}]</button>` : ''}
+                                ${!isEngineMode && hasGridItems ? `<button type="button" class="gacha-details-btn accent" id="btn-arm-open-studio">Graver [${slotNum}]</button>` : ''}
                                 <button type="button" class="gacha-res-btn" id="close-armory-modal" style="padding:7px 14px;">${t.close}</button>
                             </div>
                         </div>
 
-                        <!-- Barre rapide de sélection de slot sur Mobile/Tablette (1 seule ligne) -->
                         <div class="zb-mobile-slot-pills">
-                            <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-armory-wheel="engine">⚙️ Moteur</button>
+                            <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-armory-wheel="engine">Moteur</button>
                             ${[1, 2, 3, 4, 5, 6].map(s => `
                                 <button type="button" class="gacha-col-filter-btn ${!isEngineMode && slotNum === s ? 'active' : ''}" data-armory-wheel="${s}">[${s}]</button>
                             `).join('')}
@@ -1959,7 +1923,7 @@
                                 </div>
                             </div>
                             <button type="button" class="gacha-shop-btn primary-purple" id="st-btn-recycle-1-eng" ${cnt <= 1 || freeCopies <= 0 ? 'disabled' : ''}>
-                                🗑️ Recycler 1 exemplaire libre (+${unitVal} ✦)
+                                Recycler 1 exemplaire libre (+${unitVal} ✦)
                             </button>
                         `;
                     }
@@ -2354,19 +2318,19 @@
                                 </div>` : (isFreeRoll ? `
                                 <div style="display:grid;grid-template-columns:${bulkFreeCount > 1 ? '1fr 1fr' : '1fr'};gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
-                                        💿 ${isEn ? `Tune ×1 (FREE • ${stockForCurrentSet} in stock)` : `Graver ×1 (GRATUIT • ${stockForCurrentSet} dispo)`}
+                                        ${isEn ? `Tune ×1 (FREE • ${stockForCurrentSet} in stock)` : `Graver ×1 (GRATUIT • ${stockForCurrentSet} dispo)`}
                                     </button>
                                     ${bulkFreeCount > 1 ? `
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-bulk">
-                                        💿 ${isEn ? `Tune ×${bulkFreeCount} (FREE)` : `Graver ×${bulkFreeCount} (GRATUIT)`}
+                                        ${isEn ? `Tune ×${bulkFreeCount} (FREE)` : `Graver ×${bulkFreeCount} (GRATUIT)`}
                                     </button>` : ''}
                                 </div>` : `
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
-                                        🎯 ${isEn ? `Custom Tune (${customResCost} ✦ • 1 stock)` : `Graver Sur-Mesure (${customResCost} ✦ • 1 stock)`}
+                                        ${isEn ? `Custom Tune (${customResCost} ✦ • 1 stock)` : `Graver Sur-Mesure (${customResCost} ✦ • 1 stock)`}
                                     </button>
                                     <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
-                                        🎯 ${isEn ? `Custom Tune (${customPolyCost} Poly • 1 stock)` : `Graver Sur-Mesure (${customPolyCost} Poly • 1 stock)`}
+                                        ${isEn ? `Custom Tune (${customPolyCost} Poly • 1 stock)` : `Graver Sur-Mesure (${customPolyCost} Poly • 1 stock)`}
                                     </button>
                                 </div>`)}
                             </div>
@@ -2480,9 +2444,19 @@
         }
 
         // ========================================================
-        // 11. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES
+        // 11. SALLE DES TROPHÉES : BADGES DE MAÎTRISE & ESCOUADES (AVEC ICÔNES SVG)
         // ========================================================
         let badgeFilter = 'all';
+
+        const BADGE_SVGS = {
+            squadReady: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d7f70c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>`,
+            engines: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+            vinyl: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><path d="M6 12a6 6 0 0 1 6-6"/></svg>`,
+            tuning: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+            resonance: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+            miracle: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 12 12 22 2 12 12 2"/><circle cx="12" cy="12" r="3"/></svg>`,
+            overclock: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+        };
 
         function computeSeriesBadges(st, pool) {
             const bs = ensureBuildState(st);
@@ -2496,7 +2470,6 @@
             const hasGodRoll = bs.craftedDiscs.some(d => (d.substats || []).some(s => (s.upgrades || 0) >= 4));
             const hasOverclock = Object.values(inv).some(i => i.type === 'agent' && (i.count || 0) > 7);
 
-            // Nouveaux compteurs de maîtrise
             const sEnginesOwned = pool.allCatalog.filter(i => i.type === 'engine' && i.rank === 'S' && (inv[i.id]?.count || 0) > 0).length;
             const fullyEquippedAgents = Object.values(bs.agentBuilds || {}).filter(ab =>
                 ab && ab.engineKey && [1, 2, 3, 4, 5, 6].every(s => !!ab.discs?.[s])
@@ -2505,7 +2478,7 @@
             badges.push({
                 id: 'series_squad_ready_3',
                 cat: 'mastery',
-                emoji: '🛡️',
+                svg: BADGE_SVGS.squadReady,
                 title: isEn ? 'Combat Ready Squad (3 Built Agents)' : 'Escouade Opérationnelle (3 Agents Équipés)',
                 desc: isEn ? 'Equip 3 different Agents with a W-Engine and all 6 Drive Discs.' : 'Équiper 3 Agents différents avec un Moteur-Ampli et leurs 6 Disques.',
                 cur: Math.min(3, fullyEquippedAgents),
@@ -2516,7 +2489,7 @@
             badges.push({
                 id: 'series_s_engines_5',
                 cat: 'mastery',
-                emoji: '⚙️',
+                svg: BADGE_SVGS.engines,
                 title: isEn ? 'Signature Arsenal (5 S-Engines)' : 'Arsenal Signature (5 Moteurs Rang S)',
                 desc: isEn ? 'Unlock 5 different S-Rank W-Engines in your Collection.' : 'Débloquer 5 Moteurs-Ampli de Rang S différents dans la Collection.',
                 cur: Math.min(5, sEnginesOwned),
@@ -2527,7 +2500,7 @@
             badges.push({
                 id: 'series_all_discs',
                 cat: 'mastery',
-                emoji: '💿',
+                svg: BADGE_SVGS.vinyl,
                 title: isEn ? 'Master Vinyl Collector' : 'Maître Disquaire de New Eridu',
                 desc: isEn ? 'Unlock all Drive Disc sets in your Collection.' : 'Débloquer l\'intégralité des Sets de Disques dans la Collection.',
                 cur: ownedDiscs,
@@ -2538,7 +2511,7 @@
             badges.push({
                 id: 'series_craft_20',
                 cat: 'mastery',
-                emoji: '🎵',
+                svg: BADGE_SVGS.tuning,
                 title: isEn ? 'Bardic Needle Regular' : 'Habitué de Bardic Needle',
                 desc: isEn ? 'Tune 20 S-Rank Drive Discs in Elfy\'s Studio.' : 'Graver 20 Disques de Poussée de Rang S dans le Studio d\'Accordage.',
                 cur: Math.min(20, bs.craftedDiscs.length),
@@ -2549,7 +2522,7 @@
             badges.push({
                 id: 'series_lv15_6',
                 cat: 'mastery',
-                emoji: '⚡',
+                svg: BADGE_SVGS.resonance,
                 title: isEn ? 'Full Resonance (+15 Set)' : 'Résonance Maximale (6 Disques +15)',
                 desc: isEn ? 'Upgrade 6 S-Rank Drive Discs to Level +15.' : 'Améliorer 6 Disques de Rang S jusqu\'au niveau maximal +15.',
                 cur: Math.min(6, lv15Count),
@@ -2560,7 +2533,7 @@
             badges.push({
                 id: 'series_god_roll',
                 cat: 'mastery',
-                emoji: '🎲',
+                svg: BADGE_SVGS.miracle,
                 title: isEn ? 'Statistical Miracle (+4 / +5 Roll)' : 'Miracle Statistique (+4 / +5 Roll)',
                 desc: isEn ? 'Hit at least +4 upgrades on a single Drive Disc substat.' : 'Obtenir au moins +4 améliorations sur une seule sous-statistique de Disque S.',
                 cur: hasGodRoll ? 1 : 0,
@@ -2571,7 +2544,7 @@
             badges.push({
                 id: 'series_overclock_m6',
                 cat: 'mastery',
-                emoji: '🌈',
+                svg: BADGE_SVGS.overclock,
                 title: isEn ? 'Beyond Limits (M6+ Overclock)' : 'Au-Delà des Limites (Surcharge M6+)',
                 desc: isEn ? 'Obtain an 8th copy of any Agent to awaken Prismatic Overclock.' : 'Obtenir un 8e exemplaire d\'un même Agent pour éveiller sa Surcharge Prismatique.',
                 cur: hasOverclock ? 1 : 0,
@@ -2592,6 +2565,7 @@
                     id: `fac_${facName}`,
                     cat: 'squads',
                     icon: `assets/Faction/${facName}.webp`,
+                    svg: BADGE_SVGS.squadReady,
                     title: `${facName}`,
                     desc: isEn ? `Recruit all ${members.length} Agents from ${facName}.` : `Recruter les ${members.length} Agents de l'escouade ${facName}.`,
                     cur: ownedCount,
@@ -2635,7 +2609,7 @@
                             <p class="gacha-sec-sub">${t.badgesSub}</p>
                         </div>
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                            ${claimableBadges.length > 0 ? `<button type="button" class="gacha-claim-btn can-claim" id="btn-claim-all-badges">🏆 Tout récupérer (${claimableBadges.length})</button>` : ''}
+                            ${claimableBadges.length > 0 ? `<button type="button" class="gacha-claim-btn can-claim" id="btn-claim-all-badges">Tout récupérer (${claimableBadges.length})</button>` : ''}
                             <span class="gacha-reset-pill">${t.badgesUnlockedCount.replace('{u}', unlockedTotal).replace('{t}', allBadges.length)}</span>
                             <div class="gacha-col-filter-group">
                                 <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'all' ? 'active' : ''}" data-bf="all">${t.filterAllBadges.replace('{n}', allBadges.length)}</button>
@@ -2667,8 +2641,8 @@
                             return `
                             <div class="zb-badge-card ${canClaim ? 'unlocked' : (isClaimed ? 'claimed' : '')}">
                                 <div style="display:flex;align-items:center;gap:12px;">
-                                    <div style="width:48px;height:48px;border-radius:14px;background:#09090d;border:1.5px solid #2b2b36;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">
-                                        ${b.icon ? `<img src="${b.icon}" style="width:36px;height:36px;object-fit:contain;" onerror="this.outerHTML='🏅'">` : b.emoji}
+                                    <div style="width:48px;height:48px;border-radius:14px;background:#09090d;border:1.5px solid #2b2b36;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                        ${b.icon ? `<img src="${b.icon}" style="width:36px;height:36px;object-fit:contain;" onerror="this.style.display='none'">` : b.svg}
                                     </div>
                                     <div style="min-width:0;flex:1;">
                                         <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
