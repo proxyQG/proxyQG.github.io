@@ -193,18 +193,21 @@
 
         function parseGuideStatKeys(rawLabel) {
             if (!rawLabel) return [];
-            const str = String(rawLabel).toUpperCase();
-            const parts = str.split(/[>/=,]+/).map(s => s.trim()).filter(Boolean);
+            const text = typeof rawLabel === 'object'
+                ? (rawLabel.fr || rawLabel.en || '')
+                : String(rawLabel);
+            const str = text.toUpperCase();
+            const parts = str.split(/[>/=,()/]+|\bOU\b|\bOR\b/).map(s => s.trim()).filter(Boolean);
             const res = [];
 
             parts.forEach(p => {
                 if (p.includes('TAUX CRIT') || p.includes('CRIT RATE')) res.push('Taux CRIT');
-                else if (p.includes('DGT CRIT') || p.includes('CRIT DMG') || p.includes('DÉGÂTS CRIT')) res.push('Dégâts CRIT');
-                else if (p.includes('ADRESSE') || p.includes('PROFICIENCY')) res.push("Adresse d'anomalie");
-                else if (p.includes('MAÎTRISE') || p.includes('MAITRISE') || p.includes('MASTERY')) res.push("Maîtrise d'anomalie");
+                else if (p.includes('DGT CRIT') || p.includes('CRIT DMG') || p.includes('DÉGÂTS CRIT') || p.includes('DEGAT CRIT')) res.push('Dégâts CRIT');
+                else if (p.includes('ADRESSE') || p.includes('ADRE.') || p.includes('PROFICIENCY')) res.push("Adresse d'anomalie");
+                else if (p.includes('MAÎTRISE') || p.includes('MAITRISE') || p.includes('MAÎ.') || p.includes('MASTERY')) res.push("Maîtrise d'anomalie");
                 else if (p.includes('ÉNERGIE') || p.includes('ENERGIE') || p.includes('ENERGY')) res.push("Régénération d'énergie");
                 else if (p.includes('IMPACT')) res.push('Impact');
-                else if ((p.includes('PÉN') || p.includes('PEN')) && (p.includes('FLAT') || !p.includes('%') && !p.includes('TAUX') && !p.includes('RATIO'))) res.push('PÉN (flat)');
+                else if ((p.includes('PÉN') || p.includes('PEN')) && (p.includes('FLAT') || (!p.includes('%') && !p.includes('TAUX') && !p.includes('RATIO')))) res.push('PÉN (flat)');
                 else if (p.includes('PÉN') || p.includes('PEN')) res.push('Ratio de PÉN');
                 else if (p.includes('PHYSIQUE') || p.includes('PHYSICAL')) res.push('DGT Physique');
                 else if (p.includes('FEU') || p.includes('FIRE')) res.push('DGT Feu');
@@ -212,9 +215,9 @@
                 else if (p.includes('ÉLECTRIQUE') || p.includes('ELECTRIQUE') || p.includes('ELECTRIC')) res.push('DGT Électrique');
                 else if (p.includes('ÉTHER') || p.includes('ETHER')) res.push('DGT Éther');
                 else if (p.includes('VENT') || p.includes('WIND')) res.push('DGT Vent');
-                else if ((p.includes('ATQ') || p.includes('ATK')) && p.includes('FLAT')) res.push('ATQ (flat)');
-                else if (p.includes('ATQ') || p.includes('ATK')) res.push('ATQ%');
-                else if (p.includes('PV') && p.includes('FLAT')) res.push('PV (flat)');
+                else if ((p.includes('ATQ') || p.includes('ATK') || p.includes('ATTAQUE')) && p.includes('FLAT')) res.push('ATQ (flat)');
+                else if (p.includes('ATQ') || p.includes('ATK') || p.includes('ATTAQUE')) res.push('ATQ%');
+                else if ((p.includes('PV') || p.includes('HP')) && p.includes('FLAT')) res.push('PV (flat)');
                 else if (p.includes('PV') || p.includes('HP')) res.push('PV%');
                 else if ((p.includes('DÉF') || p.includes('DEF')) && p.includes('FLAT')) res.push('DÉF (flat)');
                 else if (p.includes('DÉF') || p.includes('DEF')) res.push('DÉF%');
@@ -225,11 +228,12 @@
 
         function getGuideProfile(agentKey) {
             const g = getAgentGuide(agentKey);
-            if (!g) return { sets4: [], sets2: [], mainBySlot: { 4: [], 5: [], 6: [] }, subPrio: [], engines: [] };
+            if (!g) return { sets: [], sets4: [], sets2: [], mainBySlot: { 4: [], 5: [], 6: [] }, subPrio: [], engines: [] };
 
+            const sets = (g.discs || []).filter(d => d.set1 && d.set2);
             const sets4 = [];
             const sets2 = [];
-            (g.discs || []).forEach(d => {
+            sets.forEach(d => {
                 if (d.set1 && !sets4.includes(d.set1)) sets4.push(d.set1);
                 if (d.set2 && !sets2.includes(d.set2)) sets2.push(d.set2);
             });
@@ -238,7 +242,9 @@
             (g.statPriority?.main || []).forEach(m => {
                 const sl = parseInt(m.slot, 10);
                 if (mainBySlot[sl]) {
-                    mainBySlot[sl].push(...parseGuideStatKeys(m.label));
+                    parseGuideStatKeys(m.label).forEach(k => {
+                        if (!mainBySlot[sl].includes(k)) mainBySlot[sl].push(k);
+                    });
                 }
             });
 
@@ -254,7 +260,7 @@
                 return { rawImg, name: e.name };
             });
 
-            return { sets4, sets2, mainBySlot, subPrio, engines };
+            return { sets, sets4, sets2, mainBySlot, subPrio, engines };
         }
 
         const MAIN_STAT_MAX_LV15 = {
@@ -1104,11 +1110,11 @@
             const canEnhanceSelected = !isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4;
             const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
-            // Construction du tiroir officiel "Recommandations" (image_f26266.png & image_f25f7a.png)
+            // Construction du tiroir "Recommandations" 100% raccordé au Guide de l'Agent (sans taux ni phrase en bas)
             let recommendationDrawerHTML = '';
             if (window.__zzzRecOpen) {
                 if (isEngineMode) {
-                    // --- TIROIR MOTEURS-AMPLIS RECOMMANDÉS ---
+                    // --- TIROIR MOTEURS-AMPLIS RECOMMANDÉS PAR LE GUIDE ---
                     const recEngList = [];
                     (prof.engines || []).forEach(re => {
                         const found = pool.allCatalog.find(i =>
@@ -1118,9 +1124,6 @@
                             )
                         );
                         if (found && !recEngList.some(x => x.rawKey === found.rawKey)) recEngList.push(found);
-                    });
-                    pool.allCatalog.filter(i => i.type === 'engine' && (i.role || '').toLowerCase() === (agent.role || '').toLowerCase()).forEach(e => {
-                        if (recEngList.length < 4 && !recEngList.some(x => x.rawKey === e.rawKey)) recEngList.push(e);
                     });
 
                     if (!window.__zzzRecEngKey || !recEngList.some(e => e.rawKey === window.__zzzRecEngKey)) {
@@ -1138,7 +1141,7 @@
                     const effectTxt = formatCleanDesc((isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.');
 
                     const exclusiveEng = recEngList[0] || null;
-                    const popularEngs = recEngList.slice(1, 4);
+                    const popularEngs = recEngList.slice(1);
 
                     const renderSphere = (eObj) => {
                         if (!eObj) return '';
@@ -1195,21 +1198,17 @@
 
                                 <div class="zzz-rec-eng-right">
                                     ${exclusiveEng ? `
-                                        <span class="zzz-rec-eng-group-lbl">${isLangEn ? 'Agent Exclusive' : 'Exclusif à l\'agent'}</span>
+                                        <span class="zzz-rec-eng-group-lbl">${isLangEn ? 'Best in Slot' : 'Exclusif à l\'agent'}</span>
                                         ${renderSphere(exclusiveEng)}
                                     ` : ''}
                                     ${popularEngs.length > 0 ? `
-                                        <span class="zzz-rec-eng-group-lbl" style="margin-top:4px;">${isLangEn ? 'Popular' : 'Populaire'}</span>
+                                        <span class="zzz-rec-eng-group-lbl" style="margin-top:4px;">${isLangEn ? 'Alternatives' : 'Populaire'}</span>
                                         ${popularEngs.map(renderSphere).join('')}
                                     ` : ''}
                                 </div>
                             </div>
 
                             <div class="zzz-rec-footer">
-                                <div class="zzz-rec-footnote">
-                                    <span>${UI_SVGS.users}</span>
-                                    <span>${isLangEn ? 'Data obtained from recently active players' : 'Données obtenues auprès des joueurs actifs récemment'}</span>
-                                </div>
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                                     <button type="button" class="zzz-action-pill" id="zzz-rec-eng-details" style="min-width:0;">
                                         ${isLangEn ? 'Details' : 'Détails'}
@@ -1222,43 +1221,20 @@
                         </div>
                     `;
                 } else {
-                    // --- TIROIR RECOMMANDATIONS DE DISQUES (image_f26266.png) ---
-                    const guideDiscs = getAgentGuide(agent.rawKey)?.discs || [];
+                    // --- TIROIR RECOMMANDATIONS DE DISQUES (100% RACCORDÉ AU GUIDE DE L'AGENT) ---
                     const allDiscCat = pool.allCatalog.filter(i => i.type === 'disc');
-                    const combos = [];
+                    const combos = prof.sets || [];
 
-                    guideDiscs.forEach((gd, idx) => {
-                        if (gd.set1 && gd.set2) {
-                            combos.push({
-                                set4: gd.set1,
-                                set2: gd.set2,
-                                rate: idx === 0 ? '97,1 %' : (idx === 1 ? '1,8 %' : '0,6 %')
-                            });
-                        }
-                    });
-                    if (combos.length === 1 && combos[0]) {
-                        combos.push({ set4: combos[0].set2, set2: combos[0].set4, rate: '0,8 %' });
-                    }
-                    while (combos.length < 3 && allDiscCat.length >= 2) {
-                        const f1 = allDiscCat[(combos.length * 2) % allDiscCat.length]?.rawKey;
-                        const f2 = allDiscCat[(combos.length * 2 + 1) % allDiscCat.length]?.rawKey;
-                        combos.push({ set4: f1, set2: f2, rate: combos.length === 0 ? '94,2 %' : '0,4 %' });
-                    }
-
-                    // Stats principales recommandées pour la partition active (slotNum)
+                    // Stats principales recommandées par le guide pour la partition active (slotNum)
                     let mainRecKeys = [];
-                    if (slotNum === 1) mainRecKeys = [{ k: 'PV (flat)', r: '100 %' }];
-                    else if (slotNum === 2) mainRecKeys = [{ k: 'ATQ (flat)', r: '100 %' }];
-                    else if (slotNum === 3) mainRecKeys = [{ k: 'DÉF (flat)', r: '100 %' }];
+                    if (slotNum === 1) mainRecKeys = ['PV (flat)'];
+                    else if (slotNum === 2) mainRecKeys = ['ATQ (flat)'];
+                    else if (slotNum === 3) mainRecKeys = ['DÉF (flat)'];
                     else {
-                        const fromGuide = [...(prof.mainBySlot[slotNum] || [])];
-                        const fallbacks = Object.keys(PARTITION_WEIGHTS[slotNum] || {});
-                        fallbacks.forEach(fk => { if (fromGuide.length < 3 && !fromGuide.includes(fk)) fromGuide.push(fk); });
-                        const rates = ['81,8 %', '8,8 %', '7,3 %'];
-                        mainRecKeys = fromGuide.slice(0, 3).map((k, idx) => ({ k, r: rates[idx] || '4,5 %' }));
+                        mainRecKeys = [...(prof.mainBySlot[slotNum] || [])];
                     }
 
-                    const subRecKeys = (prof.subPrio.length > 0 ? prof.subPrio : ['Taux CRIT', 'Dégâts CRIT', 'ATQ%', "Adresse d'anomalie"]).slice(0, 4);
+                    const subRecKeys = prof.subPrio || [];
 
                     recommendationDrawerHTML = `
                         <div class="zzz-rec-drawer">
@@ -1273,15 +1249,16 @@
                             <div class="zzz-rec-body">
                                 <div class="zzz-rec-sec-head">
                                     <span>${isLangEn ? 'Recommended Sets' : 'Ensembles recommandés'}</span>
-                                    <span>${isLangEn ? 'Usage Rate' : 'Taux d\'utilisation'}</span>
                                 </div>
 
-                                ${combos.slice(0, 3).map((cb, idx) => {
-                                    const s4Obj = allDiscCat.find(i => i.rawKey === cb.set4);
+                                ${combos.map((cb) => {
+                                    const s4Obj = allDiscCat.find(i => i.rawKey === cb.set1);
                                     const s2Obj = allDiscCat.find(i => i.rawKey === cb.set2);
-                                    const isFiltered = filterSetKey === cb.set4;
+                                    const isFiltered = filterSetKey === cb.set1;
+                                    const s4Name = s4Obj ? bridge.itemName(s4Obj) : cb.set1;
+                                    const s2Name = s2Obj ? bridge.itemName(s2Obj) : cb.set2;
                                     return `
-                                    <div class="zzz-rec-set-row" data-rec-filter-set="${cb.set4}" title="Filtrer par ${s4Obj ? bridge.itemName(s4Obj) : cb.set4}">
+                                    <div class="zzz-rec-set-row" data-rec-filter-set="${cb.set1}" style="${isFiltered ? 'border-color:#84cc16;' : ''}" title="${s4Name} (4P) + ${s2Name} (2P)">
                                         <div class="zzz-rec-set-icons">
                                             <div class="zzz-rec-disc-circle">
                                                 ${s4Obj ? `<img src="${s4Obj.img}" alt="">` : ''}
@@ -1295,31 +1272,24 @@
                                                 <span style="font-size:18px;font-weight:900;color:#52525b;">✕</span>
                                             </div>
                                         </div>
-                                        <div class="zzz-rec-rate-pill">
-                                            <span style="color:#a1a1aa;display:inline-flex;">${UI_SVGS.users}</span>
-                                            <span>${cb.rate}</span>
-                                            <span class="zzz-green-radio ${isFiltered || idx === 0 ? 'active' : ''}"></span>
+                                        <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;flex:1;padding-right:6px;">
+                                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">4P ${s4Name}</span>
+                                            <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;color:#a1a1aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">2P ${s2Name}</span>
                                         </div>
                                     </div>`;
                                 }).join('')}
 
                                 <div class="zzz-rec-sec-head" style="margin-top:4px;">
                                     <span>${isLangEn ? `Recommended Main Stats for Partition ${slotNum}` : `Stats principales recommandées pour la partition ${slotNum}`}</span>
-                                    <span>${isLangEn ? 'Usage Rate' : 'Taux d\'utilisation'}</span>
                                 </div>
 
-                                ${mainRecKeys.map((mObj, idx) => `
-                                    <div class="zzz-rec-main-row" data-rec-open-bardic="${mObj.k}">
+                                ${mainRecKeys.map((statKey) => `
+                                    <div class="zzz-rec-main-row" data-rec-open-bardic="${statKey}">
                                         <div style="display:flex;align-items:center;gap:10px;min-width:0;">
                                             <span style="width:26px;height:26px;border-radius:999px;background:#14151c;border:1px solid #343644;display:inline-flex;align-items:center;justify-content:center;color:#f97316;font-weight:900;font-size:12px;">✦</span>
                                             <strong style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                                                ${tStat(mObj.k)}
+                                                ${tStat(statKey)}
                                             </strong>
-                                        </div>
-                                        <div class="zzz-rec-rate-pill">
-                                            <span style="color:#a1a1aa;display:inline-flex;">${UI_SVGS.users}</span>
-                                            <span>${mObj.r}</span>
-                                            <span class="zzz-green-radio ${idx === 0 ? 'active' : ''}"></span>
                                         </div>
                                     </div>
                                 `).join('')}
@@ -1330,18 +1300,10 @@
 
                                 <div class="zzz-rec-sub-grid">
                                     ${subRecKeys.map(sk => `
-                                        <div class="zzz-rec-sub-pill">
+                                        <div class="zzz-rec-sub-pill" style="justify-content:center;">
                                             <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${tStat(sk)}</span>
-                                            <span class="zzz-green-radio active"></span>
                                         </div>
                                     `).join('')}
-                                </div>
-                            </div>
-
-                            <div class="zzz-rec-footer">
-                                <div class="zzz-rec-footnote">
-                                    <span>${UI_SVGS.users}</span>
-                                    <span>${isLangEn ? 'Data obtained from recently active players' : 'Données obtenues auprès des joueurs actifs récemment'}</span>
                                 </div>
                             </div>
                         </div>
