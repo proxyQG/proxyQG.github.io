@@ -1225,3 +1225,342 @@
     object-fit: cover;
     object-position: top center;
 }
+
+/* ========================================================
+   7. TIROIR OFFICIEL ZZZ : RECOMMANDATIONS (DISQUES & MOTEURS)
+======================================================== */
+.zzz-rec-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 500px;
+    z-index: 35;
+    background:
+        repeating-linear-gradient(-55deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 3px, transparent 3px, transparent 9px),
+        linear-gradient(180deg, #16171d 0%, #0e0f13 100%);
+    border-left: 2px solid #2e303d;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.92);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 14px 18px;
+    overflow: hidden;
+}
+
+.zzz-rec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+}
+
+.zzz-rec-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.zzz-rec-agent-ava {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 2px solid #e4e4e7;
+    background: #000;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.zzz-rec-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    margin: 0;
+}
+
+/* Bouton rouge/orange incliné [X] officiel de ZZZ */
+.zzz-rec-close-btn {
+    width: 44px;
+    height: 32px;
+    border-radius: 999px;
+    background: #dc2626;
+    border: 2px solid #000;
+    outline: 2px solid #dc2626;
+    color: #000;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.zzz-rec-close-btn:hover {
+    transform: scale(1.06);
+    filter: brightness(1.15);
+}
+
+.zzz-rec-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 4px 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #52525b transparent;
+}
+
+.zzz-rec-sec-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #8e8e99;
+    padding: 0 2px;
+}
+
+.zzz-rec-set-row,
+.zzz-rec-main-row {
+    background: linear-gradient(180deg, #25262e 0%, #1b1c23 100%);
+    border: 1.5px solid #343642;
+    border-radius: 999px;
+    padding: 7px 10px 7px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.zzz-rec-set-row:hover,
+.zzz-rec-main-row:hover {
+    border-color: #84cc16;
+}
+
+.zzz-rec-set-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.zzz-rec-disc-circle {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: #09090c;
+    border: 2px solid #383a47;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zzz-rec-disc-circle img {
+    width: 88%;
+    height: 88%;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.zzz-rec-disc-num {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #09090c;
+    border: 1.5px solid #52525b;
+    border-radius: 999px;
+    padding: 0 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9.5px;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.zzz-rec-rate-pill {
+    background: #0b0b0f;
+    border: 1.5px solid #262730;
+    border-radius: 999px;
+    padding: 5px 8px 5px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.zzz-green-radio {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    border: 2.5px solid #65a30d;
+    background: radial-gradient(circle, #4d7c0f 0%, #1a2e05 80%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 6px rgba(132, 204, 22, 0.6);
+    flex-shrink: 0;
+}
+
+.zzz-green-radio.active {
+    border-color: #a3e635;
+    background: radial-gradient(circle, #84cc16 0%, #365314 85%);
+    box-shadow: 0 0 10px rgba(132, 204, 22, 0.8);
+}
+
+.zzz-rec-sub-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.zzz-rec-sub-pill {
+    background: linear-gradient(180deg, #25262e 0%, #1a1b22 100%);
+    border: 1.5px solid #343642;
+    border-radius: 999px;
+    padding: 9px 12px 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    color: #f59e0b;
+}
+
+/* Vue Moteurs-amplis recommandés (2 colonnes : détails à gauche, sphères à droite) */
+.zzz-rec-engine-split {
+    display: grid;
+    grid-template-columns: 1fr 124px;
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.zzz-rec-eng-left {
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.zzz-rec-eng-right {
+    background: #0a0a0e;
+    border: 1px solid #242530;
+    border-radius: 18px;
+    padding: 10px 8px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.zzz-rec-eng-group-lbl {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9.5px;
+    color: #d4d4d8;
+    text-align: center;
+}
+
+.zzz-rec-eng-sphere {
+    position: relative;
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    background: radial-gradient(circle, #2a2c38 0%, #0e0f14 80%);
+    border: 3.5px solid #343644;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+
+.zzz-rec-eng-sphere.active {
+    border-color: #d7f70c;
+    box-shadow: 0 0 18px rgba(215, 247, 12, 0.55);
+}
+
+.zzz-rec-eng-sphere img.eng-art {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+}
+
+.zzz-rec-eng-sphere.unowned img.eng-art {
+    filter: grayscale(1) brightness(0.45);
+}
+
+.zzz-rec-eng-lock-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a1a1aa;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 999px;
+}
+
+.zzz-rec-eng-rank-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+}
+
+.zzz-rec-eng-check {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #84cc16;
+    border: 2px solid #000;
+    color: #000;
+    font-size: 11px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+}
+
+.zzz-rec-footer {
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.zzz-rec-footnote {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #8e8e99;
+}
