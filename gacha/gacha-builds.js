@@ -22,7 +22,7 @@
                 enhanceBtn: "Renforcer",
                 currentSelection: "Sélection actuelle",
                 currentlyEquipped: "Équipé",
-                subStats: "Stats & Objectifs",
+                subStats: "Stats de l'agent",
                 subEquip: "Équipement",
                 effectiveSubs: "Stats secondaires utiles :",
                 combatEval: "Évaluation de combat",
@@ -87,7 +87,7 @@
                 enhanceBtn: "Enhance",
                 currentSelection: "Current Selection",
                 currentlyEquipped: "Equipped",
-                subStats: "Stats & Goals",
+                subStats: "Agent Stats",
                 subEquip: "Equipment",
                 effectiveSubs: "Effective Sub-Stats:",
                 combatEval: "Combat Readiness",
@@ -153,6 +153,14 @@
         function tStat(statKey) {
             const dict = B().stats || {};
             return dict[statKey] || statKey;
+        }
+
+        // Supprime les {accolades} et [crochets] des textes JSON et met en valeur les chiffres/mots-clés comme en jeu
+        function formatCleanDesc(rawText) {
+            if (!rawText) return '';
+            return String(rawText)
+                .replace(/\[([^\]]+)\]/g, '<span style="color:#4ade80;font-weight:900;">$1</span>')
+                .replace(/\{([^}]+)\}/g, '<span style="color:#fbbf24;font-weight:800;">$1</span>');
         }
 
         let EXT_DATA = { loaded: false, guides: {}, discs: {}, engines: {} };
@@ -812,7 +820,7 @@
                 const baseAtkVal = rawJson.baseAtk || (itemObj.rank === 'S' ? 713 : (itemObj.rank === 'A' ? 594 : 475));
                 const rawSub = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${itemObj.rank === 'S' ? '30%' : '24%'}`;
                 const effectTitle = (isLangEn ? rawJson.passiveName?.en : rawJson.passiveName?.fr) || bridge.itemName(itemObj);
-                const effectTxt = (isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.';
+                const effectTxt = formatCleanDesc((isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.');
 
                 const matchPct = String(rawSub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
                 const advName = matchPct ? matchPct[1].trim() : rawSub;
@@ -865,8 +873,8 @@
             const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === itemObj.setKey);
             const setName = sObj ? bridge.itemName(sObj) : itemObj.setKey;
             const rawDiscJson = EXT_DATA.discs[itemObj.setKey] || {};
-            const desc2P = (isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || 'Bonus de statistique 2 pièces.';
-            const desc4P = (isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || 'Effet passif 4 pièces en combat.';
+            const desc2P = formatCleanDesc((isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || 'Bonus de statistique 2 pièces.');
+            const desc4P = formatCleanDesc((isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || 'Effet passif 4 pièces en combat.');
             const ownerKey = getDiscOwner(st, itemObj.uid);
 
             return `
@@ -1530,8 +1538,8 @@
 
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
                 const rawDiscJson = EXT_DATA.discs[bardicSetKey] || {};
-                const desc2P = (isEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || '';
-                const desc4P = (isEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || '';
+                const desc2P = formatCleanDesc((isEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || '');
+                const desc4P = formatCleanDesc((isEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || '');
 
                 const stockForCurrentSet = getFreeGachaDiscCount(st, bardicSetKey);
                 const variableMainKeys = bardicSlot >= 4 ? Object.keys(PARTITION_WEIGHTS[bardicSlot]) : [];
