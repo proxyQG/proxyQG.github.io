@@ -62,7 +62,7 @@
                     "Maîtrise d'anomalie": "Maîtrise d'anomalie", "Adresse d'anomalie": "Adresse d'anomalie",
                     "Ratio de PÉN": "Taux de PÉN", "Régénération d'énergie": "Récup. d'énergie",
                     "PV (flat)": "PV", "ATQ (flat)": "ATQ", "DÉF (flat)": "DÉF",
-                    "PV%": "PV", "ATQ%": "ATQ", "DÉF%": "DÉF", "PÉN (flat)": "PÉN",
+                    "PV%": "PV %", "ATQ%": "ATQ %", "DÉF%": "DÉF %", "PÉN (flat)": "PÉN",
                     "DGT Physique": "DGT Physique", "DGT Feu": "DGT Feu", "DGT Glace": "DGT Glace",
                     "DGT Électrique": "DGT Électrique", "DGT Éther": "DGT Éther", "DGT Vent": "DGT Vent"
                 }
@@ -127,7 +127,7 @@
                     "Maîtrise d'anomalie": "Anomaly Mastery", "Adresse d'anomalie": "Anomaly Proficiency",
                     "Ratio de PÉN": "PEN Ratio", "Régénération d'énergie": "Energy Regen",
                     "PV (flat)": "HP", "ATQ (flat)": "ATK", "DÉF (flat)": "DEF",
-                    "PV%": "HP", "ATQ%": "ATK", "DÉF%": "DEF", "PÉN (flat)": "PEN",
+                    "PV%": "HP %", "ATQ%": "ATK %", "DÉF%": "DEF %", "PÉN (flat)": "PEN",
                     "DGT Physique": "Physical DMG", "DGT Feu": "Fire DMG", "DGT Glace": "Ice DMG",
                     "DGT Électrique": "Electric DMG", "DGT Éther": "Ether DMG", "DGT Vent": "Wind DMG"
                 }
@@ -1845,13 +1845,13 @@
 
                 overlay.classList.add('active');
                 overlay.innerHTML = `
-                    <div class="gacha-dialog-box" style="max-width:1060px;">
-                        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                    <div class="gacha-dialog-box zb-bardic-dialog">
+                        <div class="zb-bardic-top">
                             <div>
                                 <span class="gacha-patch-tag">${t.bardicTag}</span>
-                                <h2 class="gacha-panel-title" style="font-size:21px;">${t.bardicTitle}</h2>
+                                <h2 class="gacha-panel-title zb-bardic-main-title">${t.bardicTitle}</h2>
                             </div>
-                            <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+                            <div class="zb-bardic-top-curr">
                                 <span class="gacha-reset-pill">✦ ${st.residual}</span>
                                 <span class="gacha-reset-pill" style="color:#d7f70c;">Poly : ${st.polychromes}</span>
                                 <button type="button" class="gacha-res-btn" id="close-bardic-modal">${t.close}</button>
@@ -1859,7 +1859,7 @@
                         </div>
 
                         <div class="zb-bardic-layout">
-                            <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
+                            <div class="zb-bardic-left-col">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
                                     ${filteredSets.map(s => {
@@ -1886,14 +1886,14 @@
                                 </div>
                             </div>
 
-                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:9px;background:#0c0c12;border:1px solid #262632;border-radius:18px;padding:14px;">
+                            <div class="zb-bardic-right-col">
                                 <div style="display:flex;flex-direction:column;gap:8px;">
                                     <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
                                         <div style="display:flex;align-items:center;gap:10px;">
-                                            <img src="${currentSet ? currentSet.img : ''}" style="width:42px;height:42px;border-radius:999px;">
+                                            <img src="${currentSet ? currentSet.img : ''}" style="width:40px;height:40px;border-radius:999px;flex-shrink:0;">
                                             <div>
-                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#38bdf8'};text-transform:uppercase;">
-                                                    ${stockForCurrentSet > 0 ? `Stock disponible : ${stockForCurrentSet} disque(s)` : `0 stock • Gravure standard : 10 ✦`}
+                                                <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#f43f5e'};text-transform:uppercase;">
+                                                    ${stockForCurrentSet > 0 ? `Stock disponible : ${stockForCurrentSet} disque(s)` : `Stock disponible : 0 disque`}
                                                 </span>
                                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                     ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
