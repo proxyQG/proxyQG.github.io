@@ -213,16 +213,25 @@
 
 @media (max-width: 639px) {
     .zzz-eq-topbar {
-        display: grid;
-        grid-template-columns: auto 1fr;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
         gap: 6px;
     }
+    .zzz-eq-top-left {
+        flex-shrink: 0;
+    }
     .zzz-eq-top-right {
+        flex: 1;
         justify-content: flex-end;
+        gap: 5px;
     }
     .zzz-eq-top-right > .bardic-music-btn {
+        width: 100%;
         flex: 1 1 100%;
         justify-content: center;
+        margin-top: 2px;
     }
 }
 
@@ -397,26 +406,8 @@
     margin-top: 8px;
 }
 
-/* Sélecteur rapide de slot sur Mobile/Tablette */
 .zzz-mobile-slots {
-    position: relative;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 1.45fr repeat(6, 1fr);
-    gap: 4px;
-    margin: 8px 0 4px;
-}
-
-.zzz-mobile-slots .gacha-col-filter-btn {
-    padding: 6px 2px;
-    font-size: clamp(9px, 2.4vw, 10.5px);
-    text-align: center;
-}
-
-@media (min-width: 1024px) {
-    .zzz-mobile-slots {
-        display: none;
-    }
+    display: none !important;
 }
 
 /* ========================================================
@@ -782,7 +773,7 @@
     margin-top: 2px;
 }
 
-/* --- COLONNE 3 : LA GRANDE ROUE MÉCANIQUE ZZZ 100% FLUIDE --- */
+/* --- COLONNE 3 : LA GRANDE ROUE MÉCANIQUE ZZZ 100% FLUIDE SANS CHEVAUCHEMENT --- */
 .zzz-wheel-stage {
     display: flex;
     align-items: center;
@@ -797,7 +788,7 @@
 
 .zzz-driver-chassis {
     position: relative;
-    width: min(82vw, 286px);
+    width: min(76vw, 256px);
     aspect-ratio: 1 / 1;
     height: auto;
     border-radius: 22%;
@@ -806,19 +797,19 @@
     border: 3.5px solid #2e303b;
     box-shadow:
         inset 0 0 35px rgba(0, 0, 0, 0.95),
-        0 16px 40px rgba(0, 0, 0, 0.9);
+        0 14px 34px rgba(0, 0, 0, 0.9);
     flex-shrink: 0;
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .zzz-driver-chassis {
-        width: 330px;
+        width: 320px;
     }
 }
 
 @media (min-width: 1024px) {
     .zzz-driver-chassis {
-        width: clamp(300px, 28vw, 420px);
+        width: clamp(305px, 28vw, 415px);
         border-width: 4px;
     }
 }
@@ -828,17 +819,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 46%;
-    height: 46%;
+    width: 41%;
+    height: 41%;
     border-radius: 999px;
-    border: 6px solid #1e2028;
+    border: 5px solid #1e2028;
     box-shadow: inset 0 0 18px #000, 0 0 12px rgba(0, 0, 0, 0.8);
     pointer-events: none;
 }
 
 .zzz-driver-top-plaque {
     position: absolute;
-    top: 13%;
+    top: 11%;
     left: 50%;
     transform: translateX(-50%);
     background: #432010;
@@ -855,11 +846,11 @@
 
 .zzz-driver-bottom-vent {
     position: absolute;
-    bottom: 9%;
+    bottom: 7%;
     left: 50%;
     transform: translateX(-50%);
-    width: 6%;
-    height: 10.5%;
+    width: 5.5%;
+    height: 9.5%;
     border-radius: 999px;
     background: linear-gradient(180deg, #272832 0%, #43180c 100%);
     border: 2px solid #18181f;
@@ -867,13 +858,14 @@
     z-index: 4;
 }
 
+/* Sphère centrale calibrée à 33.5% pour laisser un espace net avec les 6 disques */
 .zzz-wheel-wengine {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 38%;
-    height: 38%;
+    width: 33.5%;
+    height: 33.5%;
     border-radius: 999px;
     background: radial-gradient(circle at 40% 35%, #2e3140 0%, #09090d 85%);
     border: 3px solid #2f313d;
@@ -882,7 +874,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 6;
+    z-index: 8;
     transition: all 0.18s ease;
 }
 
@@ -891,8 +883,8 @@
 }
 
 .zzz-wheel-wengine.active-ring {
-    border: 4px solid #d7f70c !important;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.9), 0 0 26px rgba(215, 247, 12, 0.65);
+    border: 3.5px solid #d7f70c !important;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.9), 0 0 24px rgba(215, 247, 12, 0.65);
 }
 
 .zzz-wheel-wengine img {
@@ -904,8 +896,8 @@
 
 .zzz-wheel-disc {
     position: absolute;
-    width: 25.5%;
-    height: 25.5%;
+    width: 24%;
+    height: 24%;
     transform: translate(-50%, -50%);
     border-radius: 999px;
     background: radial-gradient(circle, #1c1d24 0%, #09090c 85%);
@@ -924,9 +916,10 @@
 }
 
 .zzz-wheel-disc.active-ring {
-    border: 4px solid #d7f70c !important;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.95), 0 0 24px rgba(215, 247, 12, 0.7);
-    transform: translate(-50%, -50%) scale(1.04);
+    border: 3.5px solid #d7f70c !important;
+    box-shadow: 0 0 0 2.5px rgba(0, 0, 0, 0.95), 0 0 20px rgba(215, 247, 12, 0.7);
+    transform: translate(-50%, -50%) scale(1.03);
+    z-index: 10;
 }
 
 .zzz-wheel-disc img {
@@ -940,35 +933,36 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
     font-style: italic;
-    font-size: clamp(16px, 4.5vw, 24px);
+    font-size: clamp(15px, 4.2vw, 23px);
     color: #3f4150;
 }
 
-.zzz-wheel-disc.pos-1 { top: 20%; left: 31%; }
-.zzz-wheel-disc.pos-2 { top: 50%; left: 16%; }
-.zzz-wheel-disc.pos-3 { top: 80%; left: 31%; }
-.zzz-wheel-disc.pos-4 { top: 80%; left: 69%; }
-.zzz-wheel-disc.pos-5 { top: 50%; left: 84%; }
-.zzz-wheel-disc.pos-6 { top: 20%; left: 69%; }
+/* Coordonnées espacées sur l'anneau extérieur pour éviter toute collision avec le centre */
+.zzz-wheel-disc.pos-1 { top: 18.5%; left: 29%; }
+.zzz-wheel-disc.pos-2 { top: 50%;   left: 14.5%; }
+.zzz-wheel-disc.pos-3 { top: 81.5%; left: 29%; }
+.zzz-wheel-disc.pos-4 { top: 81.5%; left: 71%; }
+.zzz-wheel-disc.pos-5 { top: 50%;   left: 85.5%; }
+.zzz-wheel-disc.pos-6 { top: 18.5%; left: 71%; }
 
 .zzz-wheel-lvl-tag {
     position: absolute;
-    bottom: -10px;
+    bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
     background: #060609;
     border: 1.5px solid #2d2e3a;
     border-radius: 999px;
-    padding: 1px 6px 1px 3px;
+    padding: 1px 6px 1px 2px;
     display: inline-flex;
     align-items: center;
     gap: 3px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: clamp(7.5px, 1.8vw, 9px);
+    font-size: clamp(7px, 1.7vw, 8.8px);
     color: #fff;
     white-space: nowrap;
-    z-index: 9;
+    z-index: 11;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.95);
 }
 
@@ -1263,43 +1257,131 @@
     color: #fff;
 }
 
-/* Studio Disques ("Magasin de musique") & Badges 100% Responsives */
+/* Studio Disques ("Magasin de musique") 100% Responsive Mobile & PC */
+.zb-bardic-dialog {
+    max-width: 1060px !important;
+    width: 100% !important;
+    max-height: 92dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 820px) {
+    .zb-bardic-dialog {
+        padding: 20px !important;
+        gap: 14px !important;
+        overflow: hidden !important;
+    }
+}
+
+.zb-bardic-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.zb-bardic-main-title {
+    font-size: clamp(16px, 4.2vw, 22px) !important;
+    line-height: 1.1 !important;
+}
+
+.zb-bardic-top-curr {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+
 .zb-bardic-layout {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 12px;
-    min-height: 0;
     flex: 1;
-    overflow-y: auto;
-    max-height: calc(88dvh - 85px);
-    padding-right: 2px;
+    min-height: 0;
 }
 
 @media (min-width: 820px) {
     .zb-bardic-layout {
+        display: grid;
         grid-template-columns: 1fr 1.05fr;
-        gap: 14px;
-        overflow-y: visible;
-        max-height: none;
+        gap: 16px;
+        overflow: hidden;
     }
 }
 
+.zb-bardic-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 820px) {
+    .zb-bardic-left-col {
+        min-height: 0;
+        flex: 1;
+    }
+}
+
+.zb-bardic-right-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    background: #0c0c12;
+    border: 1px solid #262632;
+    border-radius: 16px;
+    padding: 12px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 820px) {
+    .zb-bardic-right-col {
+        border-radius: 18px;
+        padding: 14px;
+        overflow-y: auto;
+    }
+}
+
+/* Hauteur garantie de 156px sur mobile (affiche 2 lignes complètes de sets sans jamais les écraser) */
 .zb-set-grid-scroll {
-    max-height: 165px;
+    height: 156px;
+    min-height: 156px;
+    max-height: 156px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding-right: 4px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-    gap: 7px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
     align-content: start;
+    flex-shrink: 0;
     scrollbar-width: thin;
     scrollbar-color: #3f3f46 transparent;
 }
 
+@media (max-width: 360px) {
+    .zb-set-grid-scroll {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (min-width: 820px) {
     .zb-set-grid-scroll {
-        max-height: 380px;
+        height: auto;
+        min-height: 0;
+        max-height: 390px;
         grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+        flex: 1;
     }
 }
 
