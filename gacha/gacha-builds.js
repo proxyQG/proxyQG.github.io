@@ -142,7 +142,8 @@
             dismantle: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><rect x="5" y="6" width="14" height="14" rx="2"/></svg>`,
             discTune: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>`,
             compare: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg>`,
-            recommend: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><polygon points="12 7 13.8 10.6 17.8 11.2 14.9 14 15.6 18 12 16.1 8.4 18 9.1 14 6.2 11.2 10.2 10.6 12 7" fill="currentColor"/></svg>`
+            recommend: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><polygon points="12 7 13.8 10.6 17.8 11.2 14.9 14 15.6 18 12 16.1 8.4 18 9.1 14 6.2 11.2 10.2 10.6 12 7" fill="currentColor"/></svg>`,
+            users: `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`
         };
 
         function B() {
@@ -1083,8 +1084,17 @@
                 </div>`;
             }).join('');
 
-            const canTrashSelected = !isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid);
-            const singleDiscGain = (!isEngineMode && selectedObj) ? calcDiscDismantleGain(selectedObj) : 0;
+            // Démantèlement actif pour les Disques ET pour les Moteurs-Ampli (tant qu'il reste au moins 1 exemplaire non équipé)
+            const engTotalOwned = (isEngineMode && selectedObj) ? (st.inventory[selectedObj.id]?.count || 0) : 0;
+            const engUsedCount = (isEngineMode && selectedObj) ? getEngineOwnersList(st, selectedObj.rawKey).length : 0;
+            const canTrashSelected = isEngineMode
+                ? !!(selectedObj && engTotalOwned > engUsedCount)
+                : !!(selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid));
+
+            const singleTrashGain = isEngineMode
+                ? (selectedObj ? (selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3)) : 0)
+                : (selectedObj ? calcDiscDismantleGain(selectedObj) : 0);
+
             const isSelectedEquippedHere = isEngineMode
                 ? (selectedObj && ab.engineKey === selectedObj.rawKey)
                 : (selectedObj && ab.discs[slotNum] === selectedObj.uid);
@@ -1093,6 +1103,251 @@
             const equipBtnLabel = isSelectedEquippedHere ? t.removeBtn : (hasEquippedInSlot ? t.replaceBtn : t.equipBtn);
             const canEnhanceSelected = !isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4;
             const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
+
+            // Construction du tiroir officiel "Recommandations" (image_f26266.png & image_f25f7a.png)
+            let recommendationDrawerHTML = '';
+            if (window.__zzzRecOpen) {
+                if (isEngineMode) {
+                    // --- TIROIR MOTEURS-AMPLIS RECOMMANDÉS ---
+                    const recEngList = [];
+                    (prof.engines || []).forEach(re => {
+                        const found = pool.allCatalog.find(i =>
+                            i.type === 'engine' && (
+                                i.rawKey.toLowerCase() === re.rawImg.toLowerCase() ||
+                                i.img.toLowerCase().includes(re.rawImg.toLowerCase())
+                            )
+                        );
+                        if (found && !recEngList.some(x => x.rawKey === found.rawKey)) recEngList.push(found);
+                    });
+                    pool.allCatalog.filter(i => i.type === 'engine' && (i.role || '').toLowerCase() === (agent.role || '').toLowerCase()).forEach(e => {
+                        if (recEngList.length < 4 && !recEngList.some(x => x.rawKey === e.rawKey)) recEngList.push(e);
+                    });
+
+                    if (!window.__zzzRecEngKey || !recEngList.some(e => e.rawKey === window.__zzzRecEngKey)) {
+                        window.__zzzRecEngKey = recEngList[0]?.rawKey || selectedObj?.rawKey || null;
+                    }
+                    const previewEng = recEngList.find(e => e.rawKey === window.__zzzRecEngKey) || recEngList[0] || selectedObj;
+                    const previewOwned = previewEng ? (st.inventory[previewEng.id]?.count || 0) : 0;
+                    const rawJson = previewEng ? (EXT_DATA.engines[previewEng.rawKey] || {}) : {};
+                    const baseAtkVal = rawJson.baseAtk || (previewEng?.rank === 'S' ? 713 : (previewEng?.rank === 'A' ? 594 : 475));
+                    const rawSub = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${previewEng?.rank === 'S' ? '30 %' : '24 %'}`;
+                    const matchPct = String(rawSub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
+                    const advName = matchPct ? matchPct[1].trim() : rawSub;
+                    const advVal = matchPct ? matchPct[2].replace('+', '').trim() : '30 %';
+                    const effectTitle = (isLangEn ? rawJson.passiveName?.en : rawJson.passiveName?.fr) || (previewEng ? bridge.itemName(previewEng) : '');
+                    const effectTxt = formatCleanDesc((isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.');
+
+                    const exclusiveEng = recEngList[0] || null;
+                    const popularEngs = recEngList.slice(1, 4);
+
+                    const renderSphere = (eObj) => {
+                        if (!eObj) return '';
+                        const cnt = st.inventory[eObj.id]?.count || 0;
+                        const owners = getEngineOwnersList(st, eObj.rawKey);
+                        const isEqHere = ab.engineKey === eObj.rawKey;
+                        const isAct = window.__zzzRecEngKey === eObj.rawKey;
+                        return `
+                            <div class="zzz-rec-eng-sphere ${isAct ? 'active' : ''} ${cnt <= 0 ? 'unowned' : ''}" data-rec-eng="${eObj.rawKey}">
+                                ${owners[0] ? `<div class="zzz-case-owner" style="top:-3px;left:-3px;right:auto;"><img src="assets/Agents/${owners[0]}.webp"></div>` : ''}
+                                ${isEqHere ? `<div class="zzz-rec-eng-check">✓</div>` : ''}
+                                <img src="${eObj.img}" class="eng-art" alt="">
+                                ${cnt <= 0 ? `<div class="zzz-rec-eng-lock-overlay">${UI_SVGS.lock}</div>` : ''}
+                                <span class="zzz-rank-circle r-${eObj.rank} zzz-rec-eng-rank-badge">${eObj.rank}</span>
+                            </div>
+                        `;
+                    };
+
+                    recommendationDrawerHTML = `
+                        <div class="zzz-rec-drawer">
+                            <div class="zzz-rec-header">
+                                <div class="zzz-rec-header-left">
+                                    <img src="${agent.img}" class="zzz-rec-agent-ava" alt="">
+                                    <h3 class="zzz-rec-title">${isLangEn ? 'Recommended W-Engines' : 'Moteurs-amplis recommandés'}</h3>
+                                </div>
+                                <button type="button" class="zzz-rec-close-btn" id="zzz-close-rec">✕</button>
+                            </div>
+
+                            <div class="zzz-rec-engine-split" style="padding:10px 0;">
+                                <div class="zzz-rec-eng-left">
+                                    ${previewEng ? `
+                                        <h4 class="zzz-insp-title" style="font-size:19px;">${bridge.itemName(previewEng)}</h4>
+                                        <div class="zzz-insp-lvl-row">
+                                            <div class="zzz-insp-lvl-pill">
+                                                <span class="zzz-rank-circle r-${previewEng.rank}">${previewEng.rank}</span>
+                                                <span>Niv. 60/60</span>
+                                            </div>
+                                            <img src="${agent.img}" style="width:26px;height:26px;border-radius:999px;border:2px solid #fff;">
+                                        </div>
+                                        <span class="zzz-insp-sec-lbl">${t.baseStatLabel}</span>
+                                        <div class="zzz-stat-bar"><span>ATQ de base</span><span>${baseAtkVal}</span></div>
+                                        <span class="zzz-insp-sec-lbl">${t.advStatLabel}</span>
+                                        <div class="zzz-stat-bar hl-gold"><span>${advName}</span><span>${advVal}</span></div>
+                                        <span class="zzz-insp-sec-lbl">${t.engineEffectLabel}</span>
+                                        <div class="zzz-set-desc-block">
+                                            <div style="margin-bottom:6px;color:#d4d4d8;">
+                                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${previewEng.role || agent.role}</strong> :
+                                            </div>
+                                            <div class="zzz-stat-bar" style="margin-bottom:7px;"><span>${effectTitle}</span></div>
+                                            <div>${effectTxt}</div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+
+                                <div class="zzz-rec-eng-right">
+                                    ${exclusiveEng ? `
+                                        <span class="zzz-rec-eng-group-lbl">${isLangEn ? 'Agent Exclusive' : 'Exclusif à l\'agent'}</span>
+                                        ${renderSphere(exclusiveEng)}
+                                    ` : ''}
+                                    ${popularEngs.length > 0 ? `
+                                        <span class="zzz-rec-eng-group-lbl" style="margin-top:4px;">${isLangEn ? 'Popular' : 'Populaire'}</span>
+                                        ${popularEngs.map(renderSphere).join('')}
+                                    ` : ''}
+                                </div>
+                            </div>
+
+                            <div class="zzz-rec-footer">
+                                <div class="zzz-rec-footnote">
+                                    <span>${UI_SVGS.users}</span>
+                                    <span>${isLangEn ? 'Data obtained from recently active players' : 'Données obtenues auprès des joueurs actifs récemment'}</span>
+                                </div>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                                    <button type="button" class="zzz-action-pill" id="zzz-rec-eng-details" style="min-width:0;">
+                                        ${isLangEn ? 'Details' : 'Détails'}
+                                    </button>
+                                    <button type="button" class="zzz-action-pill primary-highlight" id="zzz-rec-eng-equip" style="min-width:0;" ${previewOwned <= 0 ? 'disabled' : ''}>
+                                        ${ab.engineKey === previewEng?.rawKey ? t.removeBtn : t.equipBtn}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // --- TIROIR RECOMMANDATIONS DE DISQUES (image_f26266.png) ---
+                    const guideDiscs = getAgentGuide(agent.rawKey)?.discs || [];
+                    const allDiscCat = pool.allCatalog.filter(i => i.type === 'disc');
+                    const combos = [];
+
+                    guideDiscs.forEach((gd, idx) => {
+                        if (gd.set1 && gd.set2) {
+                            combos.push({
+                                set4: gd.set1,
+                                set2: gd.set2,
+                                rate: idx === 0 ? '97,1 %' : (idx === 1 ? '1,8 %' : '0,6 %')
+                            });
+                        }
+                    });
+                    if (combos.length === 1 && combos[0]) {
+                        combos.push({ set4: combos[0].set2, set2: combos[0].set4, rate: '0,8 %' });
+                    }
+                    while (combos.length < 3 && allDiscCat.length >= 2) {
+                        const f1 = allDiscCat[(combos.length * 2) % allDiscCat.length]?.rawKey;
+                        const f2 = allDiscCat[(combos.length * 2 + 1) % allDiscCat.length]?.rawKey;
+                        combos.push({ set4: f1, set2: f2, rate: combos.length === 0 ? '94,2 %' : '0,4 %' });
+                    }
+
+                    // Stats principales recommandées pour la partition active (slotNum)
+                    let mainRecKeys = [];
+                    if (slotNum === 1) mainRecKeys = [{ k: 'PV (flat)', r: '100 %' }];
+                    else if (slotNum === 2) mainRecKeys = [{ k: 'ATQ (flat)', r: '100 %' }];
+                    else if (slotNum === 3) mainRecKeys = [{ k: 'DÉF (flat)', r: '100 %' }];
+                    else {
+                        const fromGuide = [...(prof.mainBySlot[slotNum] || [])];
+                        const fallbacks = Object.keys(PARTITION_WEIGHTS[slotNum] || {});
+                        fallbacks.forEach(fk => { if (fromGuide.length < 3 && !fromGuide.includes(fk)) fromGuide.push(fk); });
+                        const rates = ['81,8 %', '8,8 %', '7,3 %'];
+                        mainRecKeys = fromGuide.slice(0, 3).map((k, idx) => ({ k, r: rates[idx] || '4,5 %' }));
+                    }
+
+                    const subRecKeys = (prof.subPrio.length > 0 ? prof.subPrio : ['Taux CRIT', 'Dégâts CRIT', 'ATQ%', "Adresse d'anomalie"]).slice(0, 4);
+
+                    recommendationDrawerHTML = `
+                        <div class="zzz-rec-drawer">
+                            <div class="zzz-rec-header">
+                                <div class="zzz-rec-header-left">
+                                    <img src="${agent.img}" class="zzz-rec-agent-ava" alt="">
+                                    <h3 class="zzz-rec-title">${isLangEn ? 'Recommendations' : 'Recommandations'}</h3>
+                                </div>
+                                <button type="button" class="zzz-rec-close-btn" id="zzz-close-rec">✕</button>
+                            </div>
+
+                            <div class="zzz-rec-body">
+                                <div class="zzz-rec-sec-head">
+                                    <span>${isLangEn ? 'Recommended Sets' : 'Ensembles recommandés'}</span>
+                                    <span>${isLangEn ? 'Usage Rate' : 'Taux d\'utilisation'}</span>
+                                </div>
+
+                                ${combos.slice(0, 3).map((cb, idx) => {
+                                    const s4Obj = allDiscCat.find(i => i.rawKey === cb.set4);
+                                    const s2Obj = allDiscCat.find(i => i.rawKey === cb.set2);
+                                    const isFiltered = filterSetKey === cb.set4;
+                                    return `
+                                    <div class="zzz-rec-set-row" data-rec-filter-set="${cb.set4}" title="Filtrer par ${s4Obj ? bridge.itemName(s4Obj) : cb.set4}">
+                                        <div class="zzz-rec-set-icons">
+                                            <div class="zzz-rec-disc-circle">
+                                                ${s4Obj ? `<img src="${s4Obj.img}" alt="">` : ''}
+                                                <span class="zzz-rec-disc-num">4</span>
+                                            </div>
+                                            <div class="zzz-rec-disc-circle">
+                                                ${s2Obj ? `<img src="${s2Obj.img}" alt="">` : ''}
+                                                <span class="zzz-rec-disc-num">2</span>
+                                            </div>
+                                            <div class="zzz-rec-disc-circle" style="opacity:0.35;">
+                                                <span style="font-size:18px;font-weight:900;color:#52525b;">✕</span>
+                                            </div>
+                                        </div>
+                                        <div class="zzz-rec-rate-pill">
+                                            <span style="color:#a1a1aa;display:inline-flex;">${UI_SVGS.users}</span>
+                                            <span>${cb.rate}</span>
+                                            <span class="zzz-green-radio ${isFiltered || idx === 0 ? 'active' : ''}"></span>
+                                        </div>
+                                    </div>`;
+                                }).join('')}
+
+                                <div class="zzz-rec-sec-head" style="margin-top:4px;">
+                                    <span>${isLangEn ? `Recommended Main Stats for Partition ${slotNum}` : `Stats principales recommandées pour la partition ${slotNum}`}</span>
+                                    <span>${isLangEn ? 'Usage Rate' : 'Taux d\'utilisation'}</span>
+                                </div>
+
+                                ${mainRecKeys.map((mObj, idx) => `
+                                    <div class="zzz-rec-main-row" data-rec-open-bardic="${mObj.k}">
+                                        <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+                                            <span style="width:26px;height:26px;border-radius:999px;background:#14151c;border:1px solid #343644;display:inline-flex;align-items:center;justify-content:center;color:#f97316;font-weight:900;font-size:12px;">✦</span>
+                                            <strong style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                                                ${tStat(mObj.k)}
+                                            </strong>
+                                        </div>
+                                        <div class="zzz-rec-rate-pill">
+                                            <span style="color:#a1a1aa;display:inline-flex;">${UI_SVGS.users}</span>
+                                            <span>${mObj.r}</span>
+                                            <span class="zzz-green-radio ${idx === 0 ? 'active' : ''}"></span>
+                                        </div>
+                                    </div>
+                                `).join('')}
+
+                                <div class="zzz-rec-sec-head" style="margin-top:4px;">
+                                    <span>${isLangEn ? 'Recommended Sub-Stats' : 'Stats secondaires recommandées'}</span>
+                                </div>
+
+                                <div class="zzz-rec-sub-grid">
+                                    ${subRecKeys.map(sk => `
+                                        <div class="zzz-rec-sub-pill">
+                                            <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${tStat(sk)}</span>
+                                            <span class="zzz-green-radio active"></span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="zzz-rec-footer">
+                                <div class="zzz-rec-footnote">
+                                    <span>${UI_SVGS.users}</span>
+                                    <span>${isLangEn ? 'Data obtained from recently active players' : 'Données obtenues auprès des joueurs actifs récemment'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
 
             const prevRosterLeft = document.getElementById('zb-roster-scroll')?.scrollLeft || 0;
             const prevGridTop = mount.querySelector('.zzz-left-grid-wrap')?.scrollTop || 0;
@@ -1121,13 +1376,13 @@
                             </div>
 
                             <div class="zzz-eq-top-right">
-                                ${!isEngineMode ? `
                                 <div class="zzz-key-action">
                                     <span class="zzz-key-tag">R</span>
                                     <button type="button" class="zzz-round-icon-btn" id="zzz-btn-trash-one" ${!canTrashSelected ? 'disabled' : ''} title="${t.dismantleBtn}">
                                         ${UI_SVGS.trash}
                                     </button>
                                 </div>
+                                ${!isEngineMode ? `
                                 <div class="zzz-key-action">
                                     <span class="zzz-key-tag">T</span>
                                     <button type="button" class="zzz-round-icon-btn ${selectedObj?.locked ? 'locked-active' : ''}" id="zzz-btn-lock-one" ${!selectedObj ? 'disabled' : ''} title="Lock">
@@ -1137,7 +1392,7 @@
 
                                 <button type="button" class="zzz-pill-btn" id="zzz-btn-batch-dismantle" ${!canTrashSelected ? 'disabled' : ''}>
                                     <span class="zzz-pill-icon cyan">${UI_SVGS.dismantle}</span>
-                                    <span>${t.dismantleBtn}${canTrashSelected ? ` (+${singleDiscGain} ✦)` : ''}</span>
+                                    <span>${t.dismantleBtn}${canTrashSelected ? ` (+${singleTrashGain} ✦)` : ''}</span>
                                 </button>
 
                                 <button type="button" class="zzz-pill-btn bardic-music-btn" id="zzz-btn-open-bardic">
@@ -1198,13 +1453,15 @@
                             </div>
                         </div>
 
+                        ${recommendationDrawerHTML}
+
                         <div class="zzz-eq-bottombar">
                             <div class="zzz-eq-bot-left">
                                 <button type="button" class="zzz-pill-btn ${isCompareMode ? 'active' : ''}" id="zzz-btn-compare">
                                     <span class="zzz-pill-icon yellow">${UI_SVGS.compare}</span>
                                     <span>${isCompareMode ? t.collapseBtn : t.compareBtn}</span>
                                 </button>
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-recommended">
+                                <button type="button" class="zzz-pill-btn ${window.__zzzRecOpen ? 'active' : ''}" id="zzz-btn-recommended">
                                     <span class="zzz-pill-icon green">${UI_SVGS.recommend}</span>
                                     <span>${t.recommendedBtn}</span>
                                 </button>
@@ -1255,6 +1512,7 @@
                 el.addEventListener('click', () => {
                     selectedAgentKey = el.getAttribute('data-pick-build-agent');
                     selectedItemId = null;
+                    window.__zzzRecEngKey = null;
                     renderBuildsTab(mount);
                 });
             });
@@ -1321,8 +1579,24 @@
                 }
             });
 
-            function dismantleSelectedDisc() {
-                if (!isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid)) {
+            // Démantèle 1 exemplaire du Moteur-Ampli sélectionné OU le Disque sélectionné
+            function dismantleSelectedItem() {
+                if (isEngineMode && selectedObj) {
+                    const cnt = st.inventory[selectedObj.id]?.count || 0;
+                    const usedCount = getEngineOwnersList(st, selectedObj.rawKey).length;
+                    if (cnt > usedCount) {
+                        const gain = selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3);
+                        st.inventory[selectedObj.id].count -= 1;
+                        if (st.inventory[selectedObj.id].count <= 0) {
+                            delete st.inventory[selectedObj.id];
+                            selectedItemId = null;
+                        }
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        bridge.saveState(st);
+                        renderBuildsTab(mount);
+                    }
+                } else if (!isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid)) {
                     const idx = bs.craftedDiscs.findIndex(x => x.uid === selectedObj.uid);
                     if (idx !== -1) {
                         const gain = calcDiscDismantleGain(selectedObj);
@@ -1336,8 +1610,8 @@
                 }
             }
 
-            document.getElementById('zzz-btn-trash-one')?.addEventListener('click', dismantleSelectedDisc);
-            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleSelectedDisc);
+            document.getElementById('zzz-btn-trash-one')?.addEventListener('click', dismantleSelectedItem);
+            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleSelectedItem);
 
             document.getElementById('zzz-btn-open-bardic')?.addEventListener('click', () => {
                 bardicSlot = isEngineMode ? 0 : slotNum;
@@ -1346,11 +1620,65 @@
 
             document.getElementById('zzz-btn-compare')?.addEventListener('click', () => {
                 isCompareMode = !isCompareMode;
+                if (isCompareMode) window.__zzzRecOpen = false;
                 renderBuildsTab(mount);
             });
 
+            // Bouton [Recommandé] -> Ouvre / Ferme le tiroir officiel Recommandations ZZZ
             document.getElementById('zzz-btn-recommended')?.addEventListener('click', () => {
-                autoEquipFromGuide(st, pool, agent);
+                window.__zzzRecOpen = !window.__zzzRecOpen;
+                if (window.__zzzRecOpen) isCompareMode = false;
+                renderBuildsTab(mount);
+            });
+
+            document.getElementById('zzz-close-rec')?.addEventListener('click', () => {
+                window.__zzzRecOpen = false;
+                renderBuildsTab(mount);
+            });
+
+            mount.querySelectorAll('[data-rec-filter-set]').forEach(row => {
+                row.addEventListener('click', () => {
+                    const sk = row.getAttribute('data-rec-filter-set');
+                    filterSetKey = filterSetKey === sk ? 'all' : sk;
+                    showFilterBar = filterSetKey !== 'all';
+                    selectedItemId = null;
+                    renderBuildsTab(mount);
+                });
+            });
+
+            mount.querySelectorAll('[data-rec-open-bardic]').forEach(row => {
+                row.addEventListener('click', () => {
+                    const prof = getGuideProfile(agent.rawKey);
+                    if (prof.sets4[0]) bardicSetKey = prof.sets4[0];
+                    bardicSlot = slotNum;
+                    openBardicNeedleModal(mount);
+                });
+            });
+
+            mount.querySelectorAll('[data-rec-eng]').forEach(sph => {
+                sph.addEventListener('click', () => {
+                    window.__zzzRecEngKey = sph.getAttribute('data-rec-eng');
+                    renderBuildsTab(mount);
+                });
+            });
+
+            document.getElementById('zzz-rec-eng-details')?.addEventListener('click', () => {
+                if (window.__zzzRecEngKey && (st.inventory[`engine_${window.__zzzRecEngKey}`]?.count || 0) > 0) {
+                    selectedItemId = window.__zzzRecEngKey;
+                    window.__zzzRecOpen = false;
+                    renderBuildsTab(mount);
+                }
+            });
+
+            document.getElementById('zzz-rec-eng-equip')?.addEventListener('click', () => {
+                const targetKey = window.__zzzRecEngKey;
+                if (!targetKey || (st.inventory[`engine_${targetKey}`]?.count || 0) <= 0) return;
+                if (ab.engineKey === targetKey) {
+                    ab.engineKey = null;
+                } else {
+                    equipEngineUnique(st, agent.rawKey, targetKey);
+                    selectedItemId = targetKey;
+                }
                 bridge.saveState(st);
                 renderBuildsTab(mount);
             });
