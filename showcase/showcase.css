@@ -1,4 +1,4 @@
-/* showcase/showcase.css - Charte FAE V2 1:1, Modale Supports 3 Colonnes, Leaderboards & Update Report */
+/* showcase/showcase.css - Fiches Cyber-Holographiques ZZZ, Animations Rang Z/S+ & Stats de Base 1:1 */
 
 #zzz-showcase-modal,
 #zzz-showcase-modal * {
@@ -10,8 +10,33 @@
 }
 
 @keyframes zscFadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(10px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes zscZPulse {
+    0%, 100% {
+        box-shadow: 0 0 18px rgba(244, 63, 94, 0.65), 0 0 34px rgba(250, 204, 21, 0.35), inset 0 0 14px rgba(244, 63, 94, 0.45);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 26px rgba(244, 63, 94, 0.95), 0 0 48px rgba(250, 204, 21, 0.6), inset 0 0 20px rgba(250, 204, 21, 0.55);
+        transform: scale(1.05);
+    }
+}
+
+@keyframes zscSpPulse {
+    0%, 100% {
+        box-shadow: 0 0 14px rgba(56, 189, 248, 0.5), inset 0 0 10px rgba(56, 189, 248, 0.28);
+    }
+    50% {
+        box-shadow: 0 0 24px rgba(56, 189, 248, 0.85), 0 0 36px rgba(168, 85, 247, 0.35), inset 0 0 16px rgba(56, 189, 248, 0.45);
+    }
+}
+
+@keyframes zscWingSweep {
+    0% { transform: translateX(-130%) skewX(-20deg); }
+    45%, 100% { transform: translateX(230%) skewX(-20deg); }
 }
 
 /* ========================================================
@@ -114,10 +139,10 @@
     position: fixed;
     inset: 0;
     z-index: 260;
-    background-color: #0b0b0e;
+    background-color: #09090c;
     background-image:
-        radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.07) 0%, transparent 55%),
-        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.014) 0px, rgba(255, 255, 255, 0.014) 2px, transparent 2px, transparent 12px);
+        radial-gradient(circle at 50% 0%, rgba(167, 139, 250, 0.08) 0%, transparent 55%),
+        repeating-linear-gradient(-35deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 2px, transparent 2px, transparent 12px);
     color: #f4f4f5;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     display: flex;
@@ -182,7 +207,6 @@
     color: #000;
 }
 
-/* Groupe central : Barre de recherche UID + Bouton SVG Leaderboard juste à droite */
 .zsc-top-center-group {
     display: flex;
     align-items: center;
@@ -249,8 +273,8 @@
 }
 
 .zsc-left-rail {
-    width: 62px;
-    background: rgba(9, 9, 13, 0.9);
+    width: 64px;
+    background: rgba(9, 9, 13, 0.92);
     border-right: 1px solid #1d1d25;
     display: flex;
     flex-direction: column;
@@ -269,14 +293,14 @@
 
 .zsc-rail-avatar {
     position: relative;
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border-radius: 999px;
     background: #16161e;
     border: 2px solid #2e2e3a;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .zsc-rail-avatar img {
@@ -294,7 +318,7 @@
 
 .zsc-rail-avatar.active {
     border-color: #d7f70c;
-    box-shadow: 0 0 14px rgba(215, 247, 12, 0.55);
+    box-shadow: 0 0 16px rgba(215, 247, 12, 0.6);
     transform: scale(1.12);
 }
 
@@ -328,11 +352,11 @@
 }
 
 .zsc-container {
-    max-width: 1090px;
+    max-width: 1120px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 26px;
 }
 
 /* En-tête du Profil Joueur */
@@ -353,13 +377,14 @@
 }
 
 .zsc-profile-ava {
-    width: 56px;
-    height: 56px;
+    width: 58px;
+    height: 58px;
     border-radius: 999px;
     border: 2.5px solid #d7f70c;
     background: #121217;
     object-fit: cover;
     object-position: top center;
+    box-shadow: 0 0 20px rgba(215, 247, 12, 0.25);
 }
 
 .zsc-profile-name-row {
@@ -385,7 +410,7 @@
 
 .zsc-update-btn {
     height: 40px;
-    padding: 0 20px;
+    padding: 0 22px;
     border-radius: 999px;
     background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
     color: #09090d;
@@ -403,7 +428,8 @@
 
 .zsc-update-btn:hover:not(:disabled) {
     transform: translateY(-2px);
-    filter: brightness(1.06);
+    filter: brightness(1.08);
+    box-shadow: 0 10px 28px rgba(167, 139, 250, 0.5);
 }
 
 .zsc-update-btn:disabled {
@@ -481,72 +507,85 @@
 }
 
 /* ========================================================
-   4. CARTE D'AGENT MONUMENTALE (RÉPLIQUE 1:1 FAE V2)
+   4. CARTE D'AGENT HOLO-CINÉMATIQUE & EFFETS HAUTE NOTATION
 ======================================================== */
 .zsc-agent-card {
     position: relative;
-    border-radius: 26px;
+    border-radius: 28px;
     background:
-        radial-gradient(circle at 78% 25%, color-mix(in srgb, var(--ag-color, #e11d48) 38%, transparent) 0%, transparent 62%),
-        linear-gradient(135deg, color-mix(in srgb, var(--ag-color, #e11d48) 44%, #121218) 0%, #101016 58%, #0b0b0f 100%);
-    border: 2px solid color-mix(in srgb, var(--ag-color, #e11d48) 76%, #2e2e38);
-    box-shadow: 0 22px 55px rgba(0, 0, 0, 0.88), 0 0 35px color-mix(in srgb, var(--ag-color, #e11d48) 16%, transparent);
-    padding: 20px 22px 16px;
+        radial-gradient(circle at 80% 22%, color-mix(in srgb, var(--ag-color, #e11d48) 42%, transparent) 0%, transparent 58%),
+        radial-gradient(circle at 15% 85%, color-mix(in srgb, var(--ag-color, #e11d48) 18%, transparent) 0%, transparent 50%),
+        linear-gradient(135deg, color-mix(in srgb, var(--ag-color, #e11d48) 38%, #13131a) 0%, #0f0f15 55%, #09090d 100%);
+    border: 2px solid color-mix(in srgb, var(--ag-color, #e11d48) 78%, #32323e);
+    box-shadow:
+        0 26px 65px rgba(0, 0, 0, 0.92),
+        0 0 42px color-mix(in srgb, var(--ag-color, #e11d48) 20%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    padding: 22px 24px 18px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    animation: zscFadeUp 0.24s ease-out;
+    gap: 16px;
+    animation: zscFadeUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.zsc-agent-card:hover {
+    box-shadow:
+        0 30px 75px rgba(0, 0, 0, 0.95),
+        0 0 55px color-mix(in srgb, var(--ag-color, #e11d48) 28%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .zsc-card-watermark {
     position: absolute;
-    right: -15px;
+    right: -10px;
     top: -10px;
     bottom: -10px;
-    width: 46%;
+    width: 48%;
     background-repeat: no-repeat;
     background-position: right top;
     background-size: cover;
-    opacity: 0.22;
+    opacity: 0.24;
     mix-blend-mode: screen;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to left, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 32%, rgba(0,0,0,0) 100%);
 }
 
 .zsc-card-actions {
     position: absolute;
-    top: 16px;
-    right: 18px;
+    top: 18px;
+    right: 20px;
     z-index: 15;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     flex-wrap: wrap;
 }
 
 .zsc-card-act-btn {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 999px;
-    background: rgba(12, 12, 16, 0.82);
-    backdrop-filter: blur(6px);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    background: rgba(12, 12, 17, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
     color: #e4e4e7;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .zsc-card-act-btn:hover,
 .zsc-card-act-btn.active {
     border-color: #d7f70c;
     color: #d7f70c;
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow: 0 0 14px rgba(215, 247, 12, 0.35);
 }
 
 .zsc-card-header {
@@ -556,19 +595,19 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 4px;
+    gap: 5px;
 }
 
 .zsc-card-title-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 11px;
 }
 
 .zsc-card-ava-wrap {
     position: relative;
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
 }
 
 .zsc-card-ava-wrap img {
@@ -577,8 +616,9 @@
     border-radius: 999px;
     object-fit: cover;
     object-position: top center;
-    border: 2px solid var(--ag-color, #e11d48);
+    border: 2.5px solid var(--ag-color, #e11d48);
     background: #09090d;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--ag-color, #e11d48) 55%, transparent);
 }
 
 .zsc-card-m-badge {
@@ -593,14 +633,17 @@
     padding: 1px 6px;
     border-radius: 999px;
     border: 1.5px solid #09090d;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .zsc-card-agent-name {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 22px;
+    font-size: 24px;
     color: #fff;
     margin: 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
 }
 
 .zsc-card-lb-line {
@@ -610,7 +653,7 @@
     align-items: center;
     gap: 6px;
     cursor: pointer;
-    padding: 2px 8px;
+    padding: 2px 9px;
     border-radius: 8px;
     transition: background 0.15s ease;
 }
@@ -641,7 +684,7 @@
     box-shadow: 0 2px 10px rgba(56, 189, 248, 0.35);
 }
 
-/* Corps : Colonne Stats/Supports à gauche + Châssis 6 Disques au centre */
+/* Corps : Panneau Stats de Base à gauche + Châssis 6 Disques au centre */
 .zsc-card-body {
     position: relative;
     z-index: 5;
@@ -653,144 +696,119 @@
 
 @media (min-width: 920px) {
     .zsc-card-body {
-        grid-template-columns: 238px 1fr;
+        grid-template-columns: 248px 1fr;
         gap: 22px;
     }
 }
 
+/* Panneau "Stats de base" style ZZZ officiel (Image 4) */
 .zsc-stats-panel {
-    background: rgba(13, 13, 17, 0.88);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 18px;
-    padding: 13px 15px;
+    background: linear-gradient(180deg, rgba(16, 16, 22, 0.94) 0%, rgba(10, 10, 14, 0.96) 100%);
+    backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
-}
-
-.zsc-supports-box {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    padding-bottom: 9px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.zsc-supports-slots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.zsc-sup-slot {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    border-radius: 999px;
-    background: #17171f;
-    border: 2px solid #2d2d39;
-    color: #52525b;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.16s ease;
-}
-
-.zsc-sup-slot:hover {
-    border-color: #c4b5fd;
-    color: #c4b5fd;
-    transform: scale(1.05);
-}
-
-.zsc-sup-slot img.sup-ava {
-    width: 100%;
-    height: 100%;
-    border-radius: 999px;
-    object-fit: cover;
-    object-position: top center;
-}
-
-.zsc-sup-mini-wep {
-    position: absolute;
-    bottom: -3px;
-    left: -4px;
-    width: 20px;
-    height: 20px;
-    border-radius: 999px;
-    background: #09090d;
-    border: 1.5px solid #3f3f4a;
-    object-fit: contain;
-    padding: 1px;
-}
-
-.zsc-sup-mini-set {
-    position: absolute;
-    bottom: -3px;
-    right: -4px;
-    width: 20px;
-    height: 20px;
-    border-radius: 999px;
-    background: #09090d;
-    border: 1.5px solid #3f3f4a;
-    object-fit: cover;
+    gap: 8px;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.78), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .zsc-stats-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 10.5px;
-    font-weight: 800;
-    color: #8e8e99;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zsc-stats-head-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #d7f70c;
+    letter-spacing: 0.04em;
+}
+
+.zsc-stats-head-lvl {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    background: #1f1f29;
+    border: 1px solid #343444;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 999px;
 }
 
 .zsc-stats-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 4.5px;
 }
 
 .zsc-stat-line {
+    background: #07070a;
+    border: 1px solid #1b1b24;
+    border-radius: 999px;
+    padding: 5px 11px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 11px;
-    font-weight: 700;
-    color: #71717a;
+    font-weight: 800;
+    color: #d4d4d8;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.zsc-stat-line:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+    transform: translateX(2px);
 }
 
 .zsc-stat-line.is-major {
-    color: var(--ag-color, #f43f5e);
-    font-weight: 800;
-}
-
-.zsc-stat-line.is-minor {
-    color: #e4e4e7;
+    color: #f59e0b;
+    border-color: rgba(245, 158, 11, 0.35);
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.1) 0%, #07070a 100%);
 }
 
 .zsc-stat-lbl-wrap {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .zsc-stat-vals {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 11px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    font-size: 11.5px;
+    color: #ffffff;
 }
 
-/* Châssis mécanique des 6 Disques + Moteur Central */
+.zsc-stat-line.is-major .zsc-stat-vals {
+    color: #fbbf24;
+}
+
+/* Barre d'évaluation de préparation au combat en bas du bloc Stats */
+.zsc-combat-eval-pill {
+    margin-top: 2px;
+    background: #0c0c12;
+    border: 1px solid #282836;
+    border-radius: 999px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 800;
+    color: #a1a1aa;
+}
+
+/* ========================================================
+   5. CHÂSSIS DES 6 DISQUES & EFFETS SPÉCIAUX SUR RANGS Z / S+ / S
+======================================================== */
 .zsc-discs-assembly {
     position: relative;
     display: grid;
@@ -802,47 +820,79 @@
 @media (min-width: 680px) {
     .zsc-discs-assembly {
         grid-template-columns: 1fr auto 1fr;
-        gap: 6px;
-        background: radial-gradient(circle at 50% 50%, rgba(16, 16, 22, 0.92) 0%, rgba(12, 12, 17, 0.45) 65%, transparent 100%);
-        padding: 8px;
-        border-radius: 42px;
+        gap: 8px;
+        background: radial-gradient(circle at 50% 50%, rgba(16, 16, 22, 0.94) 0%, rgba(12, 12, 17, 0.45) 68%, transparent 100%);
+        padding: 10px;
+        border-radius: 44px;
     }
 }
 
 .zsc-disc-col {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
 }
 
 .zsc-disc-Wing {
-    background: linear-gradient(180deg, rgba(20, 20, 26, 0.96) 0%, rgba(13, 13, 18, 0.96) 100%);
-    border: 2.5px solid #2b2b36;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(22, 22, 29, 0.96) 0%, rgba(12, 12, 17, 0.98) 100%);
+    border: 2px solid #2b2b38;
     border-radius: 999px;
     padding: 7px 13px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    min-height: 82px;
-    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.9), 0 8px 20px rgba(0, 0, 0, 0.7);
-    transition: border-color 0.16s ease;
+    min-height: 84px;
+    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.92), 0 8px 22px rgba(0, 0, 0, 0.72);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .zsc-disc-Wing:hover {
-    border-color: color-mix(in srgb, var(--ag-color, #e11d48) 65%, #fff);
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--ag-color, #e11d48) 70%, #fff);
+}
+
+/* Tuile de Disque de Rang Z : Aura Rouge/Or & Balayage Laser Holographique */
+.zsc-disc-Wing.wing-grade-Z {
+    border-color: rgba(244, 63, 94, 0.68);
+    background:
+        radial-gradient(circle at 18% 50%, rgba(244, 63, 94, 0.16) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(26, 18, 24, 0.96) 0%, rgba(13, 11, 16, 0.98) 100%);
+    box-shadow: 0 8px 26px rgba(244, 63, 94, 0.22), inset 0 0 18px rgba(244, 63, 94, 0.12);
+}
+
+.zsc-disc-Wing.wing-grade-Z::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), rgba(250, 204, 21, 0.12), transparent);
+    animation: zscWingSweep 4.2s infinite ease-in-out;
+    pointer-events: none;
+}
+
+/* Tuile de Disque de Rang S+ : Lueur Néon Cyan */
+.zsc-disc-Wing.wing-grade-Sp {
+    border-color: rgba(56, 189, 248, 0.52);
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.16), inset 0 0 16px rgba(56, 189, 248, 0.08);
 }
 
 .zsc-disc-Wing.right-side {
     flex-direction: row-reverse;
 }
 
+/* Cercles de Note (Z, S+, S, A, B, C, D) avec Animations Poussées */
 .zsc-grade-circle {
-    width: 52px;
-    height: 52px;
+    position: relative;
+    width: 54px;
+    height: 54px;
     border-radius: 999px;
-    background: #0a0a0e;
-    border: 2px solid #272732;
+    background: #09090d;
+    border: 2.5px solid #272732;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -851,17 +901,54 @@
     font-style: italic;
     font-size: 24px;
     flex-shrink: 0;
-    text-shadow: 0 2px 10px currentColor;
+    z-index: 2;
 }
 
-.zsc-grade-Z  { color: #f43f5e; border-color: #f43f5e; box-shadow: 0 0 16px rgba(244, 63, 94, 0.45); }
-.zsc-grade-Sp { color: #38bdf8; border-color: #38bdf8; box-shadow: 0 0 14px rgba(56, 189, 248, 0.35); }
-.zsc-grade-S  { color: #f59e0b; border-color: #f59e0b; }
-.zsc-grade-A  { color: #a855f7; border-color: #a855f7; }
-.zsc-grade-B  { color: #3b82f6; border-color: #3b82f6; }
-.zsc-grade-C  { color: #22c55e; border-color: #22c55e; }
+.zsc-grade-Z {
+    color: #fff;
+    border-color: #fbbf24;
+    background: radial-gradient(circle at 35% 30%, #f43f5e 0%, #9f1239 55%, #09090d 95%);
+    text-shadow: 0 0 10px #fbbf24, 0 0 20px #f43f5e;
+    animation: zscZPulse 2.4s infinite ease-in-out;
+}
+
+.zsc-grade-Sp {
+    color: #e0f2fe;
+    border-color: #38bdf8;
+    background: radial-gradient(circle at 35% 30%, rgba(56, 189, 248, 0.35) 0%, #09090d 85%);
+    text-shadow: 0 0 12px #38bdf8;
+    animation: zscSpPulse 3s infinite ease-in-out;
+}
+
+.zsc-grade-S {
+    color: #fbbf24;
+    border-color: #f59e0b;
+    background: radial-gradient(circle at 35% 30%, rgba(245, 158, 11, 0.25) 0%, #09090d 85%);
+    box-shadow: 0 0 14px rgba(245, 158, 11, 0.35);
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+}
+
+.zsc-grade-A {
+    color: #c084fc;
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.25);
+}
+
+.zsc-grade-B {
+    color: #60a5fa;
+    border-color: #3b82f6;
+}
+
+.zsc-grade-C {
+    color: #4ade80;
+    border-color: #22c55e;
+}
+
 .zsc-grade-D,
-.zsc-grade-E  { color: #71717a; border-color: #3f3f46; }
+.zsc-grade-E {
+    color: #71717a;
+    border-color: #3f3f46;
+}
 
 .zsc-disc-stats-mid {
     flex: 1;
@@ -869,9 +956,9 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    z-index: 2;
 }
 
-/* Badge Main Stat uniquement sur les Partitions 4, 5, 6 (comme sur FAE) */
 .zsc-disc-main-pill {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
@@ -883,6 +970,9 @@
     padding: 1px 7px;
     width: fit-content;
     margin-bottom: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .zsc-disc-sub-row {
@@ -916,6 +1006,7 @@
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
+    z-index: 2;
 }
 
 .zsc-disc-set-circle img {
@@ -925,19 +1016,25 @@
     object-fit: cover;
 }
 
+/* Moteur-Ampli Central avec Halo Élémentaire */
 .zsc-center-wengine {
     position: relative;
-    width: 98px;
-    height: 98px;
+    width: 102px;
+    height: 102px;
     border-radius: 999px;
-    background: radial-gradient(circle, #2a2a38 0%, #09090d 82%);
-    border: 3.5px solid #383846;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.95), inset 0 0 16px rgba(0, 0, 0, 0.9);
+    background: radial-gradient(circle, color-mix(in srgb, var(--ag-color, #e11d48) 32%, #242430) 0%, #09090d 80%);
+    border: 3.5px solid color-mix(in srgb, var(--ag-color, #e11d48) 65%, #3f3f4e);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.95), 0 0 22px color-mix(in srgb, var(--ag-color, #e11d48) 28%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
     flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.zsc-center-wengine:hover {
+    transform: scale(1.06);
 }
 
 .zsc-center-wengine img {
@@ -1044,126 +1141,7 @@
 }
 
 /* ========================================================
-   5. MODALE "ASSEMBLE YOUR SUPPORT AGENT" (IMAGE_39BFC8.PNG)
-======================================================== */
-.zsc-sup-modal-box {
-    width: 100%;
-    max-width: 540px;
-    max-height: 88vh;
-    background: #17171d;
-    border: 1.5px solid #2e2e3a;
-    border-radius: 22px;
-    padding: 18px 20px;
-    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.95);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    overflow: hidden;
-}
-
-.zsc-sup-slot-tag {
-    display: inline-block;
-    width: fit-content;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 9px;
-    padding: 2px 7px;
-    border-radius: 5px;
-    background: #252530;
-    border: 1px solid #3f3f4e;
-    color: #d4d4d8;
-    text-transform: uppercase;
-}
-
-.zsc-sup-3col-head {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 9.5px;
-    color: #71717a;
-    text-transform: uppercase;
-    padding: 0 4px;
-}
-
-.zsc-sup-3col-scroll {
-    flex: 1;
-    min-height: 0;
-    max-height: 430px;
-    overflow-y: auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding-right: 4px;
-    scrollbar-width: thin;
-    scrollbar-color: #c4b5fd #14141a;
-}
-
-.zsc-sup-col-list {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.zsc-sup-item-btn {
-    background: #202028;
-    border: 1.5px solid #2d2d39;
-    border-radius: 13px;
-    padding: 7px 9px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    text-align: left;
-    color: #f4f4f5;
-    transition: all 0.14s ease;
-    min-height: 48px;
-}
-
-.zsc-sup-item-btn:hover {
-    border-color: #71717a;
-    background: #252530;
-}
-
-.zsc-sup-item-btn.active {
-    border-color: #c4b5fd;
-    background: rgba(196, 181, 253, 0.12);
-    box-shadow: 0 0 14px rgba(196, 181, 253, 0.2);
-}
-
-.zsc-sup-item-btn img {
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    object-fit: cover;
-    background: #09090d;
-    flex-shrink: 0;
-}
-
-.zsc-sup-item-name {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 10.5px;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-.zsc-sup-item-buffs {
-    font-size: 9px;
-    font-weight: 800;
-    color: #a1a1aa;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* ========================================================
-   6. VUE LEADERBOARDS DÉTAILLÉE PAR AGENT (IMAGE_39BFE0.PNG)
+   6. VUE LEADERBOARDS, UPDATE REPORT & CALCULATEUR
 ======================================================== */
 .zsc-lb-agents-grid {
     display: grid;
@@ -1239,9 +1217,6 @@
     font-size: 11.5px;
 }
 
-/* ========================================================
-   7. POP-UP "UPDATE REPORT" & CALCULATEUR
-======================================================== */
 .zsc-report-overlay {
     position: fixed;
     inset: 0;
@@ -1413,7 +1388,7 @@
 }
 
 /* ========================================================
-   8. ADAPTATION RESPONSIVE UNIVERSELLE (MOBILE 320px -> TABLETTE -> 4K)
+   7. ADAPTATION RESPONSIVE UNIVERSELLE (MOBILE 320px -> TABLETTE -> 4K)
 ======================================================== */
 @media (max-width: 767px) {
     .zsc-topbar {
@@ -1439,7 +1414,7 @@
 
     .zsc-left-rail {
         width: 100%;
-        height: 56px;
+        height: 58px;
         flex-direction: row;
         border-right: none;
         border-bottom: 1px solid #1f1f27;
@@ -1454,7 +1429,7 @@
 
     .zsc-agent-card {
         padding: 14px 12px;
-        border-radius: 20px;
+        border-radius: 22px;
     }
 
     .zsc-card-actions {
@@ -1473,21 +1448,21 @@
 
     .zsc-center-wengine {
         order: -1;
-        width: 84px;
-        height: 84px;
+        width: 86px;
+        height: 86px;
         margin: 4px auto;
     }
 
     .zsc-disc-Wing,
     .zsc-disc-Wing.right-side {
         flex-direction: row;
-        border-radius: 18px;
-        padding: 8px 10px;
+        border-radius: 20px;
+        padding: 8px 11px;
     }
 
     .zsc-grade-circle {
-        width: 44px;
-        height: 44px;
+        width: 46px;
+        height: 46px;
         font-size: 20px;
     }
 
@@ -1495,10 +1470,5 @@
         flex-direction: column;
         gap: 6px;
         text-align: center;
-    }
-
-    .zsc-sup-3col-scroll {
-        grid-template-columns: 1fr;
-        max-height: 60vh;
     }
 }
