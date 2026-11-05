@@ -1,6 +1,7 @@
-// showcase/showcase-math.js - Décodeur Enka.Network Haute Précision, Vrais Moteurs, Classement Site & Diff Report
+// showcase/showcase-math.js - Moteur Mathématique FAE V2, Décodage Enka.Network & Calculateur de Dégâts
 
-export const WORKER_BASE_URL = '';
+// URL de ton Cloudflare Worker (si vide, utilise automatiquement le relais Enka direct + profil de démo)
+export const WORKER_BASE_URL = 'https://steep-cake-e8d6proxyqg-worker.aloisetienvre5.workers.dev';
 
 export const ELEMENT_COLORS = {
     Ice: '#00d5be',
