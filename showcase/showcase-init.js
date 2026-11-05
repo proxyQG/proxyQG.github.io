@@ -1,26 +1,26 @@
-// showcase/showcase-init.js - Contrôleur Showcase V4 (Vrais Agents, Modale Supports 3 Colonnes, Leaderboards & Update Report)
+// showcase/showcase-init.js - Contrôleur Showcase V6 (Stats de Base Exactes 1:1 En Jeu & Effets Haute Notation Z/S+)
 import {
     ELEMENT_COLORS,
     AGENT_CUSTOM_COLORS,
-    SUPPORT_CATALOG,
     fetchEnkaShowcaseData,
     evaluateAgentBuild,
     computeCalculatorSimulation
-} from './showcase-math.js?v=4';
+} from './showcase-math.js?v=6';
 
-// Purge automatique des anciens caches v1 à v4 pour re-synchroniser proprement les vrais noms d'agents et de moteurs
+// Purge des caches précédents v1 à v5 pour recalculer immédiatement les vraies Stats de base
 try {
     ['zzz_proxyqg_showcase_accounts_v1', 'zzz_proxyqg_showcase_profiles_v1',
      'zzz_proxyqg_showcase_accounts_v2', 'zzz_proxyqg_showcase_profiles_v2',
      'zzz_proxyqg_showcase_accounts_v3', 'zzz_proxyqg_showcase_profiles_v3',
-     'zzz_proxyqg_showcase_accounts_v4', 'zzz_proxyqg_showcase_profiles_v4'].forEach(k => localStorage.removeItem(k));
+     'zzz_proxyqg_showcase_accounts_v4', 'zzz_proxyqg_showcase_profiles_v4',
+     'zzz_proxyqg_showcase_accounts_v5', 'zzz_proxyqg_showcase_profiles_v5'].forEach(k => localStorage.removeItem(k));
 } catch (e) {}
 
-const STORAGE_ACCOUNTS_KEY = 'zzz_proxyqg_showcase_accounts_v5';
-const STORAGE_PROFILES_KEY = 'zzz_proxyqg_showcase_profiles_v5';
+const STORAGE_ACCOUNTS_KEY = 'zzz_proxyqg_showcase_accounts_v6';
+const STORAGE_PROFILES_KEY = 'zzz_proxyqg_showcase_profiles_v6';
 
 let modalEl = null;
-let currentView = 'profile'; // 'profile' | 'leaderboards' | 'agent_leaderboard' | 'calculator'
+let currentView = 'profile';
 let activeUID = '';
 let activeLbAgentName = 'Miyabi';
 let activeLbRegion = 'Global';
@@ -31,9 +31,6 @@ let sortByMode = 'top';
 let filterDiscSet = 'all';
 let filterDiscGrade = 'all';
 let lastUpdateReport = null;
-
-// État de la modale "Assemble your support agent" (Image 4)
-let supportModalState = null; // { agentName, slotIdx: 0 | 1, agentKey, weaponKey, setKey }
 
 let calcState = {
     mindscape: 0,
@@ -47,22 +44,22 @@ fetch('js/data/agents.json').then(r => r.json()).then(list => {
     allSiteAgents = Array.isArray(list) ? list : [];
 }).catch(() => {});
 
-// Petites icônes SVG de statistiques comme sur FAE
 const STAT_ICONS = {
-    HP:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
-    HP_:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
-    ATK:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.92 5H5l9 9 1-.94m4.96 6.06l-.84.84a.996.996 0 0 1-1.41 0l-3.12-3.12-2.68 2.66-1.41-1.41 1.42-1.42L3 7.75V3h4.75l8.92 8.92 1.42-1.42 1.41 1.41-2.67 2.67 3.12 3.12c.4.4.4 1.03.01 1.42z"/></svg>`,
-    ATK_: `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.92 5H5l9 9 1-.94m4.96 6.06l-.84.84a.996.996 0 0 1-1.41 0l-3.12-3.12-2.68 2.66-1.41-1.41 1.42-1.42L3 7.75V3h4.75l8.92 8.92 1.42-1.42 1.41 1.41-2.67 2.67 3.12 3.12c.4.4.4 1.03.01 1.42z"/></svg>`,
-    DEF:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`,
-    DEF_: `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`,
-    CR:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="12" cy="12" r="3"/></svg>`,
-    CDMG: `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16 14 18 21 12 17 6 21 8 14 2 9 9 9"/></svg>`,
-    AP:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>`,
-    AM:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>`,
-    PEN:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
-    IMP:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
-    ER:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 14.8 9.2 22 12 14.8 14.8 12 22 9.2 14.8 2 12 9.2 9.2"/></svg>`,
-    DMG:  `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 14.8 9.2 22 12 14.8 14.8 12 22 9.2 14.8 2 12 9.2 9.2"/></svg>`
+    HP:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+    HP_:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+    ATK:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.92 5H5l9 9 1-.94m4.96 6.06l-.84.84a.996.996 0 0 1-1.41 0l-3.12-3.12-2.68 2.66-1.41-1.41 1.42-1.42L3 7.75V3h4.75l8.92 8.92 1.42-1.42 1.41 1.41-2.67 2.67 3.12 3.12c.4.4.4 1.03.01 1.42z"/></svg>`,
+    ATK_:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M6.92 5H5l9 9 1-.94m4.96 6.06l-.84.84a.996.996 0 0 1-1.41 0l-3.12-3.12-2.68 2.66-1.41-1.41 1.42-1.42L3 7.75V3h4.75l8.92 8.92 1.42-1.42 1.41 1.41-2.67 2.67 3.12 3.12c.4.4.4 1.03.01 1.42z"/></svg>`,
+    DEF:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`,
+    DEF_:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>`,
+    CR:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="12" cy="12" r="3"/></svg>`,
+    CDMG:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 9 22 9 16 14 18 21 12 17 6 21 8 14 2 9 9 9"/></svg>`,
+    AP:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>`,
+    AM:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>`,
+    PEN:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    PEN_:   `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    IMP:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    ER:     `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 14.8 9.2 22 12 14.8 14.8 12 22 9.2 14.8 2 12 9.2 9.2"/></svg>`,
+    DMG:    `<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 14.8 9.2 22 12 14.8 14.8 12 22 9.2 14.8 2 12 9.2 9.2"/></svg>`
 };
 
 function getSavedAccounts() {
@@ -178,10 +175,6 @@ function mergeShowcaseAndBuildReport(uid, incomingProfile) {
 
             mergedAgents[idx] = {
                 ...newAg,
-                supports: mergedAgents[idx].supports || [
-                    { agent: 'none', weapon: 'none', set: 'none' },
-                    { agent: 'none', weapon: 'none', set: 'none' }
-                ],
                 favorite: mergedAgents[idx].favorite,
                 locked: false,
                 lastUpdatedTs: Date.now()
@@ -293,7 +286,6 @@ export async function openShowcaseFromInput(rawUid) {
     currentView = 'profile';
     syncErrorMsg = '';
     lastUpdateReport = null;
-    supportModalState = null;
     document.body.classList.add('modal-open');
     modalEl.classList.add('visible');
 
@@ -435,7 +427,6 @@ function renderShowcaseModal() {
     }
 
     const reportPopupHTML = lastUpdateReport ? renderUpdateReportPopup(lastUpdateReport) : '';
-    const supportPopupHTML = supportModalState ? renderSupportSelectorModal(supportModalState) : '';
 
     modalEl.innerHTML = `
         <div class="zsc-topbar">
@@ -445,13 +436,12 @@ function renderShowcaseModal() {
                 </button>
             </div>
 
-            <!-- Barre UID au centre + Bouton SVG Leaderboard juste à droite -->
             <div class="zsc-top-center-group">
                 <div class="zsc-top-search-wrap">
                     <svg class="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
-                    <input type="text" id="zsc-modal-uid-inp" inputmode="numeric" maxlength="10" class="zsc-top-search-box" value="${activeUID}" placeholder="Search by UID...">
+                    <input type="text" id="zsc-modal-uid-inp" inputmode="numeric" maxlength="10" class="zsc-top-search-box" value="${activeUID}" placeholder="Entrez un UID">
                 </div>
 
                 <button type="button" class="zsc-top-lb-svg-btn ${currentView === 'leaderboards' || currentView === 'agent_leaderboard' ? 'active' : ''}" id="zsc-btn-top-leaderboards" title="Leaderboards">
@@ -474,76 +464,9 @@ function renderShowcaseModal() {
         </div>
 
         ${reportPopupHTML}
-        ${supportPopupHTML}
     `;
 
     bindShowcaseEvents(profile, evaluatedAgents);
-}
-
-// Génère la Modale "Assemble your support agent" (3 Colonnes : AGENT | WEAPON | SET) - Image 4
-function renderSupportSelectorModal(stModal) {
-    const slotLabel = stModal.slotIdx === 0 ? 'SLOT A' : 'SLOT B';
-    return `
-        <div class="zsc-report-overlay" id="zsc-sup-backdrop">
-            <div class="zsc-sup-modal-box">
-                <span class="zsc-sup-slot-tag">${slotLabel}</span>
-                <div class="zsc-report-header">
-                    <h3 class="zsc-report-title" style="font-size:17px;">Assemble your support agent</h3>
-                    <button type="button" class="zsc-report-close" id="zsc-close-sup-x">✕</button>
-                </div>
-
-                <div class="zsc-report-note-box">
-                    <strong>Please note:</strong> Only agents and gear that provides team-wide buffs are being listed here. If the gear you are running is not being listed, just leave it blank.
-                </div>
-
-                <div class="zsc-sup-3col-head">
-                    <span>AGENT</span>
-                    <span>WEAPON</span>
-                    <span>SET</span>
-                </div>
-
-                <div class="zsc-sup-3col-scroll">
-                    <div class="zsc-sup-col-list">
-                        ${SUPPORT_CATALOG.agents.map(a => `
-                            <button type="button" class="zsc-sup-item-btn ${stModal.agentKey === a.key ? 'active' : ''}" data-sup-pick-agent="${a.key}">
-                                ${a.img ? `<img src="${a.img}" alt="${a.name}">` : `<div style="width:28px;height:28px;border-radius:999px;background:#14141a;border:1px solid #3f3f4a;flex-shrink:0;"></div>`}
-                                <div style="min-width:0;flex:1;">
-                                    <span class="zsc-sup-item-name">${a.name}</span>
-                                    ${a.buffsLbl ? `<span class="zsc-sup-item-buffs">${a.buffsLbl}</span>` : ''}
-                                </div>
-                            </button>
-                        `).join('')}
-                    </div>
-
-                    <div class="zsc-sup-col-list">
-                        ${SUPPORT_CATALOG.weapons.map(w => `
-                            <button type="button" class="zsc-sup-item-btn ${stModal.weaponKey === w.key ? 'active' : ''}" data-sup-pick-weapon="${w.key}">
-                                ${w.img ? `<img src="${w.img}" alt="${w.name}">` : `<div style="width:28px;height:28px;border-radius:999px;background:#14141a;border:1px solid #3f3f4a;flex-shrink:0;"></div>`}
-                                <div style="min-width:0;flex:1;">
-                                    <span class="zsc-sup-item-name">${w.name}</span>
-                                    ${w.buffsLbl ? `<span class="zsc-sup-item-buffs">${w.buffsLbl}</span>` : ''}
-                                </div>
-                            </button>
-                        `).join('')}
-                    </div>
-
-                    <div class="zsc-sup-col-list">
-                        ${SUPPORT_CATALOG.sets.map(s => `
-                            <button type="button" class="zsc-sup-item-btn ${stModal.setKey === s.key ? 'active' : ''}" data-sup-pick-set="${s.key}">
-                                ${s.img ? `<img src="${s.img}" alt="${s.name}">` : `<div style="width:28px;height:28px;border-radius:999px;background:#14141a;border:1px solid #3f3f4a;flex-shrink:0;"></div>`}
-                                <div style="min-width:0;flex:1;">
-                                    <span class="zsc-sup-item-name">${s.name}</span>
-                                    ${s.buffsLbl ? `<span class="zsc-sup-item-buffs">${s.buffsLbl}</span>` : ''}
-                                </div>
-                            </button>
-                        `).join('')}
-                    </div>
-                </div>
-
-                <button type="button" class="zsc-report-gotit-btn" id="zsc-confirm-sup-btn">Confirm</button>
-            </div>
-        </div>
-    `;
 }
 
 function renderUpdateReportPopup(report) {
@@ -624,10 +547,10 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
         return `
             <div style="text-align:center;padding:70px 20px;background:#121218;border:1.5px solid #272734;border-radius:24px;display:flex;flex-direction:column;align-items:center;gap:14px;">
                 <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;color:#fff;margin:0;">
-                    ${syncErrorMsg ? 'Vitrine inaccessible ou vide' : 'Entrez votre UID Zenless Zone Zero'}
+                    ${syncErrorMsg ? 'Vitrine inaccessible ou vide' : 'Entrez un UID'}
                 </h2>
                 <p style="font-size:13px;color:#a1a1aa;max-width:520px;line-height:1.55;margin:0;">
-                    ${syncErrorMsg || 'Tapez votre UID à 10 chiffres dans la barre ci-dessus pour importer automatiquement les 6 agents de votre vitrine en jeu et calculer vos notes E à Z.'}
+                    ${syncErrorMsg || 'Tapez un UID à 10 chiffres dans la barre ci-dessus pour importer automatiquement les 6 agents de la vitrine en jeu et calculer les notes E à Z.'}
                 </p>
                 ${activeUID ? `
                 <button type="button" class="zsc-update-btn" id="zsc-btn-sync-enka">
@@ -643,10 +566,12 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
         const rightDiscs = ag.discs.filter(d => d.slot >= 4);
 
         const renderDiscWing = (d, isRight) => {
-            const gClass = d.eval.grade === 'S+' ? 'zsc-grade-Sp' : `zsc-grade-${d.eval.grade}`;
+            const gCode = d.eval.grade === 'S+' ? 'Sp' : d.eval.grade;
+            const gClass = `zsc-grade-${gCode}`;
+            const wingGradeClass = `wing-grade-${gCode}`;
             const mainIcon = STAT_ICONS[d.main.replace('%', '_')] || STAT_ICONS.DMG;
             return `
-                <div class="zsc-disc-Wing ${isRight ? 'right-side' : ''}">
+                <div class="zsc-disc-Wing ${wingGradeClass} ${isRight ? 'right-side' : ''}">
                     <div class="zsc-grade-circle ${gClass}">${d.eval.grade}</div>
                     <div class="zsc-disc-stats-mid">
                         ${isRight ? `<span class="zsc-disc-main-pill">${mainIcon} ${d.main}</span>` : ''}
@@ -671,18 +596,19 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
 
         const st = ag.stats || {};
         const statRows = [
-            { k: 'HP',   lbl: 'HP',     d: st.hp },
-            { k: 'DEF',  lbl: 'DEF',    d: st.def },
-            { k: 'ATK',  lbl: 'ATK',    d: st.atk },
-            { k: 'IMP',  lbl: 'Impact', d: st.imp },
-            { k: 'CR',   lbl: 'CR',     d: st.cr },
-            { k: 'CDMG', lbl: 'CDMG',   d: st.cdmg },
-            { k: 'AP',   lbl: 'AP',     d: st.ap },
-            { k: 'AM',   lbl: 'AM',     d: st.am },
-            { k: 'PEN',  lbl: 'PEN',    d: st.pen },
-            { k: 'ER',   lbl: 'ER',     d: st.er },
-            { k: 'DMG',  lbl: st.dmg?.label || 'DMG%', d: st.dmg }
-        ].filter(r => r.d && (r.d.init || r.d.buffed));
+            { k: 'HP',   lbl: 'PV',                  d: st.hp },
+            { k: 'ATK',  lbl: 'ATQ',                 d: st.atk },
+            { k: 'DEF',  lbl: 'DÉF',                 d: st.def },
+            { k: 'IMP',  lbl: 'Impact',              d: st.imp },
+            { k: 'CR',   lbl: 'Taux CRIT',           d: st.cr },
+            { k: 'CDMG', lbl: 'DGT CRIT',            d: st.cdmg },
+            { k: 'AM',   lbl: "Maîtrise d'anomalie", d: st.am },
+            { k: 'AP',   lbl: "Adresse d'anomalie",  d: st.ap },
+            { k: 'PEN_', lbl: 'Taux de PÉN',         d: st.penPct },
+            { k: 'PEN',  lbl: 'PÉN',                 d: st.pen },
+            { k: 'ER',   lbl: "Récup. d'énergie",    d: st.er },
+            { k: 'DMG',  lbl: st.dmg?.label || 'Bonus DGT', d: st.dmg }
+        ].filter(r => r.d && r.d.val !== undefined);
 
         const rollChipsHTML = Object.entries(ag.rollSummary).map(([k, count]) => `
             <div class="zsc-roll-chip">
@@ -691,24 +617,6 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
                 <span>${k.replace('_', '%')}</span>
             </div>
         `).join('');
-
-        const renderSupSlot = (slotIdx) => {
-            const sup = ag.supports?.[slotIdx] || { agent: 'none', weapon: 'none', set: 'none' };
-            const aObj = SUPPORT_CATALOG.agents.find(x => x.key === sup.agent);
-            const wObj = SUPPORT_CATALOG.weapons.find(x => x.key === sup.weapon);
-            const sObj = SUPPORT_CATALOG.sets.find(x => x.key === sup.set);
-
-            if (!aObj || aObj.key === 'none') {
-                return `<div class="zsc-sup-slot" data-open-sup="${ag.name}" data-sup-idx="${slotIdx}" title="Ajouter un Support">${slotIdx + 1}</div>`;
-            }
-            return `
-                <div class="zsc-sup-slot" data-open-sup="${ag.name}" data-sup-idx="${slotIdx}" title="${aObj.name}">
-                    <img src="${aObj.img}" class="sup-ava" alt="${aObj.name}">
-                    ${wObj && wObj.key !== 'none' ? `<img src="${wObj.img}" class="zsc-sup-mini-wep" alt="">` : ''}
-                    ${sObj && sObj.key !== 'none' ? `<img src="${sObj.img}" class="zsc-sup-mini-set" alt="">` : ''}
-                </div>
-            `;
-        };
 
         return `
         <section class="zsc-agent-card" id="zsc-card-${ag.name}" style="--ag-color: ${agColor};">
@@ -742,31 +650,25 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
             </div>
 
             <div class="zsc-card-body">
+                <!-- Panneau Stats de Base 100% fidèle à l'écran en jeu (Image 4) -->
                 <div class="zsc-stats-panel">
-                    <div class="zsc-supports-box">
-                        <span style="font-size:10.5px;font-weight:800;color:#d4d4d8;">Supports</span>
-                        <div class="zsc-supports-slots">
-                            ${renderSupSlot(0)}
-                            ${renderSupSlot(1)}
-                        </div>
-                    </div>
-
                     <div class="zsc-stats-head">
-                        <span><strong style="color:#fff;">Stats</strong> &nbsp;Buffs</span>
-                        <span>Initial &gt; <strong style="color:var(--ag-color);">Buffed</strong></span>
+                        <span class="zsc-stats-head-title">Stats de base</span>
+                        <span class="zsc-stats-head-lvl">Niv. 60 / 60</span>
                     </div>
 
                     <div class="zsc-stats-list">
                         ${statRows.map(r => `
-                            <div class="zsc-stat-line ${r.d.highlight ? 'is-major' : 'is-minor'}">
+                            <div class="zsc-stat-line ${r.d.highlight ? 'is-major' : ''}">
                                 <span class="zsc-stat-lbl-wrap">${STAT_ICONS[r.k] || ''}<span>${r.lbl}</span></span>
-                                <span class="zsc-stat-vals">
-                                    ${r.d.init ? `<span style="color:${r.d.buffed ? '#71717a' : 'inherit'};">${r.d.init}</span>` : ''}
-                                    ${r.d.init && r.d.buffed ? `<span style="color:#52525b;">&gt;</span>` : ''}
-                                    ${r.d.buffed ? `<span style="color:${r.d.highlight ? 'var(--ag-color)' : '#fff'};">${r.d.buffed}</span>` : ''}
-                                </span>
+                                <span class="zsc-stat-vals">${r.d.val}</span>
                             </div>
                         `).join('')}
+                    </div>
+
+                    <div class="zsc-combat-eval-pill">
+                        <span>Stats utiles : <strong style="color:#fbbf24;">${ag.totalMajor}</strong></span>
+                        <span style="color:#fff;font-family:'Montserrat',sans-serif;font-weight:900;">Rang <strong style="color:#f59e0b;">${ag.overallGrade}</strong></span>
                     </div>
                 </div>
 
@@ -853,7 +755,6 @@ function renderProfileCardsView(profile, evaluatedAgents, allSetsInProfile) {
     `;
 }
 
-// --- VUE LEADERBOARDS GLOBALE PAR AGENT ---
 function renderLeaderboardsOverview(profilesMap) {
     const list = allSiteAgents.length > 0 ? [...allSiteAgents].reverse() : [];
     const countBuildsForAgent = (agName) => {
@@ -870,7 +771,7 @@ function renderLeaderboardsOverview(profilesMap) {
                 <div>
                     <button type="button" class="zsc-sort-btn active" id="zsc-lb-back-profile" style="margin-bottom:8px;">← Back to Profile</button>
                     <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;color:#fff;margin:0;">Leaderboards</h2>
-                    <p style="font-size:12.5px;color:#8e8e99;margin:4px 0 0;">Browse builds registered by players on ProxyQG.</p>
+                    <p style="font-size:12.5px;color:#8e8e99;margin:4px 0 0;">Classements basés sur les profils enregistrés sur ProxyQG.</p>
                 </div>
             </div>
 
@@ -891,7 +792,6 @@ function renderLeaderboardsOverview(profilesMap) {
     `;
 }
 
-// --- VUE CLASSEMENT D'UN AGENT (IMAGE 3 : PHOENIX LEADERBOARD) ---
 function renderAgentSpecificLeaderboard(agentName, profilesMap) {
     const contenders = [];
     Object.values(profilesMap || {}).forEach(p => {
@@ -1096,7 +996,6 @@ function bindShowcaseEvents(profile, evaluatedAgents) {
         }
     });
 
-    // Bouton SVG Leaderboard en haut à droite de l'input UID
     document.getElementById('zsc-btn-top-leaderboards')?.addEventListener('click', () => {
         currentView = currentView === 'leaderboards' ? 'profile' : 'leaderboards';
         renderShowcaseModal();
@@ -1134,81 +1033,6 @@ function bindShowcaseEvents(profile, evaluatedAgents) {
         });
     });
 
-    // Modale "Assemble your support agent" (SLOT A / SLOT B)
-    modalEl.querySelectorAll('[data-open-sup]').forEach(slotEl => {
-        slotEl.addEventListener('click', () => {
-            const agName = slotEl.getAttribute('data-open-sup');
-            const slotIdx = parseInt(slotEl.getAttribute('data-sup-idx'), 10) || 0;
-            const ag = evaluatedAgents.find(a => a.name === agName);
-            const cur = ag?.supports?.[slotIdx] || { agent: 'none', weapon: 'none', set: 'none' };
-            supportModalState = {
-                agentName: agName,
-                slotIdx,
-                agentKey: cur.agent || 'none',
-                weaponKey: cur.weapon || 'none',
-                setKey: cur.set || 'none'
-            };
-            renderShowcaseModal();
-        });
-    });
-
-    const closeSupModal = () => {
-        supportModalState = null;
-        renderShowcaseModal();
-    };
-    document.getElementById('zsc-close-sup-x')?.addEventListener('click', closeSupModal);
-    document.getElementById('zsc-sup-backdrop')?.addEventListener('mousedown', (e) => {
-        if (e.target.id === 'zsc-sup-backdrop') closeSupModal();
-    });
-
-    modalEl.querySelectorAll('[data-sup-pick-agent]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (!supportModalState) return;
-            supportModalState.agentKey = btn.getAttribute('data-sup-pick-agent');
-            renderShowcaseModal();
-        });
-    });
-
-    modalEl.querySelectorAll('[data-sup-pick-weapon]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (!supportModalState) return;
-            supportModalState.weaponKey = btn.getAttribute('data-sup-pick-weapon');
-            renderShowcaseModal();
-        });
-    });
-
-    modalEl.querySelectorAll('[data-sup-pick-set]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (!supportModalState) return;
-            supportModalState.setKey = btn.getAttribute('data-sup-pick-set');
-            renderShowcaseModal();
-        });
-    });
-
-    document.getElementById('zsc-confirm-sup-btn')?.addEventListener('click', () => {
-        if (!supportModalState) return;
-        const map = getSavedProfilesMap();
-        const p = map[activeUID];
-        const target = p?.agents?.find(a => a.name === supportModalState.agentName);
-        if (target) {
-            if (!Array.isArray(target.supports)) {
-                target.supports = [
-                    { agent: 'none', weapon: 'none', set: 'none' },
-                    { agent: 'none', weapon: 'none', set: 'none' }
-                ];
-            }
-            target.supports[supportModalState.slotIdx] = {
-                agent: supportModalState.agentKey,
-                weapon: supportModalState.weaponKey,
-                set: supportModalState.setKey
-            };
-            saveProfilesMap(map);
-        }
-        supportModalState = null;
-        renderShowcaseModal();
-    });
-
-    // Fermeture de la pop-up Update report
     const closeReport = () => {
         lastUpdateReport = null;
         renderShowcaseModal();
