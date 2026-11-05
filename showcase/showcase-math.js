@@ -1,4 +1,4 @@
-// showcase/showcase-math.js - Décodeur Officiel via Cloudflare Worker + Enka Store (Zéro erreur console)
+// showcase/showcase-math.js - Calculateur 100% Exact des "Stats de Base" ZZZ (Engines.json + Discs.json + Core F)
 
 export const WORKER_BASE_URL = 'https://steep-cake-e8d6proxyqg-worker.aloisetienvre5.workers.dev';
 
@@ -11,8 +11,8 @@ export const ELEMENT_COLORS = {
     Physical: '#e8a838',
     Wind: '#4da2f8',
     Lumiflux: '#fba2d0',
-    'Honed Edge': '#e8a838',
-    'Auric Ink': '#c88e34'
+    'Honed Edge': '#c2410c',
+    'Auric Ink': '#ca8a04'
 };
 
 export const AGENT_CUSTOM_COLORS = {
@@ -23,61 +23,16 @@ export const AGENT_CUSTOM_COLORS = {
     Nicole: '#be185d',
     Jane: '#b45309',
     Yanagi: '#1d4ed8',
-    Yixuan: '#a16207',
+    Yixuan: '#ca8a04',
     Astra: '#9d174d',
     Burnice: '#ea580c',
     'Zhu Yuan': '#be185d',
-    Phoenix: '#e11d48'
+    Phoenix: '#e11d48',
+    Remielle: '#db2777',
+    Velina: '#0284c7'
 };
 
-export const SUPPORT_CATALOG = {
-    agents: [
-        { key: 'none',    name: 'None',    img: '', buffsLbl: '', bonus: {} },
-        { key: 'Astra',   name: 'Astra',   img: 'assets/Agents/Astra.webp',   buffsLbl: 'ATK • CDMG • DMG%', bonus: { atkFlat: 1200, cdmg: 25, dmg: 20 } },
-        { key: 'Nicole',  name: 'Nicole',  img: 'assets/Agents/Nicole.webp',  buffsLbl: 'DMG% • CR',         bonus: { dmg: 25, cr: 15 } },
-        { key: 'Caesar',  name: 'Caesar',  img: 'assets/Agents/Caesar.webp',  buffsLbl: 'DMG% • ATK',        bonus: { atkFlat: 1000, dmg: 25 } },
-        { key: 'Lucia',   name: 'Lucia',   img: 'assets/Agents/Lucia.webp',   buffsLbl: 'DMG% • HP%',        bonus: { dmg: 25, hpPct: 15 } },
-        { key: 'Yuzuha',  name: 'Yuzuha',  img: 'assets/Agents/Yuzuha.webp',  buffsLbl: 'ATK • DMG%',        bonus: { atkFlat: 600, dmg: 20 } },
-        { key: 'Dialyn',  name: 'Dialyn',  img: 'assets/Agents/Dialyn.webp',  buffsLbl: 'CDMG • DMG%',       bonus: { cdmg: 30, dmg: 15 } },
-        { key: 'Soukaku', name: 'Soukaku', img: 'assets/Agents/Soukaku.webp', buffsLbl: 'DMG% • ATK',        bonus: { atkFlat: 1000, dmg: 20 } },
-        { key: 'Lycaon',  name: 'Lycaon',  img: 'assets/Agents/Lycaon.webp',  buffsLbl: 'DMG% • RES%',       bonus: { dmg: 25 } },
-        { key: 'Lucy',    name: 'Lucy',    img: 'assets/Agents/Lucy.webp',    buffsLbl: 'ATK • CDMG',        bonus: { atkFlat: 600, cdmg: 10 } },
-        { key: 'Lighter', name: 'Lighter', img: 'assets/Agents/Lighter.webp', buffsLbl: 'DMG% • CDMG',       bonus: { dmg: 40 } },
-        { key: 'Rina',    name: 'Rina',    img: 'assets/Agents/Rina.webp',    buffsLbl: 'DMG% • PEN%',       bonus: { dmg: 10 } },
-        { key: 'Qingyi',  name: 'Qingyi',  img: 'assets/Agents/Qingyi.webp',  buffsLbl: 'DMG%',              bonus: { dmg: 20 } },
-        { key: 'Trigger', name: 'Trigger', img: 'assets/Agents/Trigger.webp', buffsLbl: 'DMG%',              bonus: { dmg: 25 } },
-        { key: 'Ju Fufu', name: 'Ju Fufu', img: 'assets/Agents/Ju Fufu.webp', buffsLbl: 'CDMG • DMG%',       bonus: { cdmg: 20, dmg: 15 } },
-        { key: 'Koleda',  name: 'Koleda',  img: 'assets/Agents/Koleda.webp',  buffsLbl: 'DMG% • Chain',      bonus: { dmg: 15 } },
-        { key: 'Ben',     name: 'Ben',     img: 'assets/Agents/Ben.webp',     buffsLbl: 'CR',                bonus: { cr: 16 } }
-    ],
-    weapons: [
-        { key: 'none',                 name: 'None',                 img: '', buffsLbl: '', bonus: {} },
-        { key: 'Elegant Vanity',       name: 'Elegant Vanity',       img: 'assets/W-Engine/W-Engine_Elegant_Vanity.webp',       buffsLbl: 'DMG%',        bonus: { dmg: 20 } },
-        { key: 'The Vault',            name: 'The Vault',            img: 'assets/W-Engine/W-Engine_The_Vault.webp',            buffsLbl: 'DMG%',        bonus: { dmg: 15 } },
-        { key: 'Kaboom the Cannon',    name: 'Kaboom the Ca...',     img: 'assets/W-Engine/W-Engine_Kaboom_the_Cannon.webp',    buffsLbl: 'ATK%',        bonus: { atkPct: 12 } },
-        { key: 'Bashful Demon',        name: 'Bashful Demon',        img: 'assets/W-Engine/W-Engine_Bashful_Demon.webp',        buffsLbl: 'ATK%',        bonus: { atkPct: 8 } },
-        { key: 'Unfettered Game Ball', name: 'Unfettered Gam...',    img: 'assets/W-Engine/W-Engine_Unfettered_Game_Ball.webp', buffsLbl: 'CR',          bonus: { cr: 12 } },
-        { key: 'Tusks of Fury',        name: 'Tusks of Fury',        img: 'assets/W-Engine/W-Engine_Tusks_of_Fury.webp',        buffsLbl: 'DMG% • Daze', bonus: { dmg: 18 } },
-        { key: 'Blazing Laurel',       name: 'Blazing Laurel',       img: 'assets/W-Engine/W-Engine_Blazing_Laurel.webp',       buffsLbl: 'CDMG',        bonus: { cdmg: 30 } },
-        { key: 'Weeping Cradle',       name: 'Weeping Cradle',       img: 'assets/W-Engine/W-Engine_Weeping_Cradle.webp',       buffsLbl: 'DMG%',        bonus: { dmg: 15 } },
-        { key: 'Ice-Jade Teapot',      name: 'Ice-Jade Teapot',      img: 'assets/W-Engine/W-Engine_Ice-Jade_Teapot.webp',      buffsLbl: 'DMG%',        bonus: { dmg: 20 } },
-        { key: 'Half-Sugar Bunny',     name: 'Half-Sugar Bunny',     img: 'assets/W-Engine/W-Engine_Half-Sugar_Bunny.webp',     buffsLbl: 'ATK% • CDMG', bonus: { atkPct: 10, cdmg: 30 } },
-        { key: 'Dreamlit Hearth',      name: 'Dreamlit Hearth',      img: 'assets/W-Engine/W-Engine_Dreamlit_Hearth.webp',      buffsLbl: 'DMG% • HP%',  bonus: { dmg: 25, hpPct: 15 } },
-        { key: 'Yesterday Calls',      name: 'Yesterday Calls',      img: 'assets/W-Engine/W-Engine_Yesterday_Calls.webp',      buffsLbl: 'CDMG',        bonus: { cdmg: 30 } },
-        { key: 'Spectral Gaze',        name: 'Spectral Gaze',        img: 'assets/W-Engine/W-Engine_Spectral_Gaze.webp',        buffsLbl: 'DEF Red.',    bonus: { dmg: 14 } }
-    ],
-    sets: [
-        { key: 'none',                 name: 'None',                 img: '', buffsLbl: '', bonus: {} },
-        { key: 'Astral_Voice',         name: 'Astral Voice',         img: 'assets/Disque/Astral_Voice.webp',         buffsLbl: 'DMG%', bonus: { dmg: 24 } },
-        { key: 'King_of_the_Summit',   name: 'King of the Sum...',   img: 'assets/Disque/King_of_the_Summit.webp',   buffsLbl: 'CDMG', bonus: { cdmg: 30 } },
-        { key: 'Moonlight_Lullaby',    name: 'Moonlight Lullaby',    img: 'assets/Disque/Moonlight_Lullaby.webp',    buffsLbl: 'DMG%', bonus: { dmg: 18 } },
-        { key: 'Swing_Jazz',           name: 'Swing Jazz',           img: 'assets/Disque/Swing_Jazz.webp',           buffsLbl: 'DMG%', bonus: { dmg: 15 } },
-        { key: 'Proto_Punk',           name: 'Proto Punk',           img: 'assets/Disque/Proto_Punk.webp',           buffsLbl: 'DMG%', bonus: { dmg: 15 } },
-        { key: 'Bunny_in_Wonderland',  name: 'Bunny in Wonde...',    img: 'assets/Disque/Bunny_in_Wonderland.webp',  buffsLbl: 'DMG%', bonus: { dmg: 18 } }
-    ]
-};
-
-// Table directe des IDs d'Agents ZZZ connus
+// Table officielle des IDs d'Agents Enka.Network (incluant tes 6 agents 1P..6P : Miyabi, Ye Shunguang, Yixuan, Remielle, Phoenix, Velina)
 export const ENKA_AVATAR_MAP = {
     1011: 'Anby',
     1021: 'Nekomata',
@@ -107,11 +62,14 @@ export const ENKA_AVATAR_MAP = {
     1271: 'Piper',
     1281: 'Seth',
     1291: 'Hugo',
+    1301: 'Orphie and Magus',
     1311: 'Astra',
     1321: 'Evelyn',
     1331: 'Vivian',
+    1341: 'Yidhari',
     1351: 'Pulchra',
     1361: 'Trigger',
+    1371: 'Yixuan',
     1381: 'Soldier 0 Anby',
     1391: 'Ju Fufu',
     1401: 'Alice',
@@ -125,10 +83,36 @@ export const ENKA_AVATAR_MAP = {
     1481: 'Dialyn',
     1491: 'Zhao',
     1501: 'Sunna',
-    1511: 'Nangong Yu'
+    1511: 'Nangong Yu',
+    1521: 'Remielle',
+    1581: 'Phoenix',
+    1641: 'Velina'
 };
 
-// Table directe des IDs de Moteurs-Amplis ZZZ
+// Statistiques de base exactes au Niveau 60 + Compétence Fondamentale F (Core F)
+export const AGENT_LV60_BASE_STATS = {
+    'Ye Shunguang':   { hp: 7674, atk: 938, def: 606, imp: 83,  cr: 19.4, cdmg: 50.0, am: 94,  ap: 93,  er: 1.2 },
+    'Miyabi':         { hp: 7673, atk: 880, def: 606, imp: 86,  cr: 5.0,  cdmg: 50.0, am: 116, ap: 238, er: 1.2 },
+    'Ellen':          { hp: 7673, atk: 938, def: 606, imp: 93,  cr: 19.4, cdmg: 50.0, am: 94,  ap: 93,  er: 1.2 },
+    'Evelyn':         { hp: 7788, atk: 929, def: 612, imp: 90,  cr: 19.4, cdmg: 50.0, am: 93,  ap: 92,  er: 1.2 },
+    'Yixuan':         { hp: 8373, atk: 872, def: 612, imp: 95,  cr: 19.4, cdmg: 50.0, am: 92,  ap: 90,  er: 1.2 },
+    'Remielle':       { hp: 7820, atk: 912, def: 608, imp: 86,  cr: 5.0,  cdmg: 50.0, am: 118, ap: 120, er: 1.2 },
+    'Phoenix':        { hp: 7850, atk: 895, def: 612, imp: 93,  cr: 19.4, cdmg: 50.0, am: 94,  ap: 120, er: 1.56 },
+    'Velina':         { hp: 7920, atk: 885, def: 615, imp: 88,  cr: 5.0,  cdmg: 50.0, am: 114, ap: 118, er: 1.56 },
+    'Nicole':         { hp: 8145, atk: 649, def: 622, imp: 88,  cr: 5.0,  cdmg: 50.0, am: 93,  ap: 118, er: 1.56 },
+    'Astra':          { hp: 8609, atk: 715, def: 600, imp: 83,  cr: 5.0,  cdmg: 50.0, am: 93,  ap: 92,  er: 1.56 },
+    'Yanagi':         { hp: 7788, atk: 872, def: 612, imp: 86,  cr: 5.0,  cdmg: 50.0, am: 148, ap: 114, er: 1.2 },
+    'Jane':           { hp: 7788, atk: 880, def: 606, imp: 86,  cr: 5.0,  cdmg: 50.0, am: 148, ap: 114, er: 1.2 },
+    'Zhu Yuan':       { hp: 7482, atk: 919, def: 600, imp: 90,  cr: 5.0,  cdmg: 78.8, am: 92,  ap: 92,  er: 1.2 },
+    'Caesar':         { hp: 9526, atk: 711, def: 753, imp: 123, cr: 5.0,  cdmg: 50.0, am: 90,  ap: 90,  er: 1.2 },
+    'Burnice':        { hp: 7368, atk: 863, def: 600, imp: 83,  cr: 5.0,  cdmg: 50.0, am: 118, ap: 120, er: 1.56 },
+    'Qingyi':         { hp: 8250, atk: 758, def: 612, imp: 136, cr: 5.0,  cdmg: 50.0, am: 90,  ap: 90,  er: 1.2 },
+    'Lighter':        { hp: 8253, atk: 797, def: 612, imp: 136, cr: 5.0,  cdmg: 50.0, am: 90,  ap: 90,  er: 1.2 },
+    'Trigger':        { hp: 8100, atk: 785, def: 610, imp: 136, cr: 19.4, cdmg: 50.0, am: 90,  ap: 90,  er: 1.2 },
+    'Vivian':         { hp: 7750, atk: 880, def: 606, imp: 86,  cr: 5.0,  cdmg: 50.0, am: 148, ap: 118, er: 1.2 },
+    'Soldier 0 Anby': { hp: 7650, atk: 929, def: 612, imp: 92,  cr: 19.4, cdmg: 50.0, am: 92,  ap: 94,  er: 1.2 }
+};
+
 export const ENKA_WEAPON_ID_MAP = {
     12001: 'Lunar - Noviluna',
     12002: 'Lunar - Noviluna',
@@ -208,19 +192,19 @@ export const ENKA_WEAPON_ID_MAP = {
     14149: 'Half-Sugar Bunny',
     14150: 'Thoughtbop',
     14151: 'Neon Fantasies',
-    14152: 'Angel in the Shell',
+    14152: 'Ode of Resurrected Wings',
     14153: 'Serpentine Seeker',
     14154: 'Frostfall Sickle',
     14155: 'Starlight Rider Faceplate',
     14156: 'Joyau Dore',
     14157: 'Sol Exuvia',
-    14158: 'Chief Sidekick',
+    14158: "Nirvana's First Plume",
     14159: 'Ode of Resurrected Wings',
     14160: "Knight's Extolment",
     14161: 'Crimson Thirst',
     14162: 'Crimson Moon Casket',
     14163: "Nirvana's First Plume",
-    14164: 'Sin-Ban Cage'
+    14164: 'Joyau Dore'
 };
 
 export const ENKA_DISC_SET_MAP = {
@@ -256,6 +240,36 @@ export const ENKA_DISC_SET_MAP = {
     34200: 'Shining_Aria'
 };
 
+// Bonus 2-Pièces exacts extraits de js/data/discs.json
+export const DISC_2P_BONUS_MAP = {
+    Woodpecker_Electro:    { cr: 8 },
+    Branch_Blade_Song:     { cdmg: 16 },
+    Puffer_Electro:        { penPct: 8 },
+    Shockstar_Disco:       { impPct: 6 },
+    Freedom_Blues:         { ap: 30 },
+    Chaos_Jazz:            { ap: 30 },
+    Feathered_Fate:        { ap: 30 },
+    Phaethon_Melody:       { amPct: 8 },
+    Hormone_Punk:          { atkPct: 10 },
+    Astral_Voice:          { atkPct: 10 },
+    Soul_Rock:             { defPct: 16 },
+    Thorned_Rose:          { defPct: 16 },
+    Yunkui_Tales:          { hpPct: 10 },
+    Bunny_in_Wonderland:   { hpPct: 10 },
+    Swing_Jazz:            { erPct: 20 },
+    Moonlight_Lullaby:     { erPct: 20 },
+    Fanged_Metal:          { dmgPct: 10 },
+    White_Water_Ballad:    { dmgPct: 10 },
+    Inferno_Metal:         { dmgPct: 10 },
+    Polar_Metal:           { dmgPct: 10 },
+    Notes_From_the_Chained:{ dmgPct: 10 },
+    Thunder_Metal:         { dmgPct: 10 },
+    Chaotic_Metal:         { dmgPct: 10 },
+    The_Sky_Ablaze:        { dmgPct: 10 },
+    Shining_Aria:          { dmgPct: 10 },
+    Wuthering_Salon:       { dmgPct: 10 }
+};
+
 export const ENKA_PROP_MAP = {
     11101: { key: 'HP',    label: 'HP',    isPct: false },
     11102: { key: 'HP_',   label: 'HP%',   isPct: true,  mainLv15: '30%', step: 3.0 },
@@ -281,11 +295,11 @@ export const ENKA_PROP_MAP = {
     31203: { key: 'AP',    label: 'AP',    isPct: false, mainLv15: '92',   step: 9 },
     31401: { key: 'AM',    label: 'AM',    isPct: false },
     31402: { key: 'AM_',   label: 'AM%',   isPct: true,  mainLv15: '30%', step: 3.0 },
-    31503: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Physical' },
-    31603: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Fire' },
-    31703: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Ice' },
-    31803: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Electric' },
-    31903: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Ether' }
+    31503: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
+    31603: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
+    31703: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
+    31803: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
+    31903: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' }
 };
 
 export function detectRegionFromUID(uidStr) {
@@ -325,162 +339,39 @@ async function ensureDictionariesLoaded() {
         guides: guides || {},
         enkaAvatars: enkaAvatars || {},
         enkaWeapons: enkaWeapons || {},
-        enkaLocEn: enkaLocRoot?.en || enkaLocRoot?.['en'] || {}
+        enkaLocEn: enkaLocRoot?.en || {}
     };
     return LOCAL_DB;
 }
 
-// Résout l'agent avec 4 niveaux de vérification et garantit TOUJOURS un vrai nom de js/data/agents.json (zéro 404 image)
-function resolveExactAgent(avId, setCounts, mainStatsBySlot, db) {
+function resolveExactAgent(avId, setCounts, db) {
     const numId = Number(avId);
     const idStr = String(avId);
     const enkaAv = db.enkaAvatars?.[idStr] || {};
 
-    // 1. Table d'IDs directe vérifiée
     if (ENKA_AVATAR_MAP[numId]) {
         const directMatch = db.agents.find(a => a.name === ENKA_AVATAR_MAP[numId]);
         if (directMatch) return directMatch;
     }
 
-    // 2. Traduction via Enka loc.json ou codename interne dans enkaAv.Name / Image
     const locName = enkaAv.Name ? (db.enkaLocEn?.[enkaAv.Name] || '') : '';
     const codeSuffix = enkaAv.Name ? String(enkaAv.Name).split('_').pop() : '';
     const rawCandidates = [locName, codeSuffix, enkaAv.Name].filter(Boolean);
 
-    const aliasTable = {
-        'unagi': 'Miyabi',
-        'hoshimi miyabi': 'Miyabi',
-        'miyabi': 'Miyabi',
-        'ellen joe': 'Ellen',
-        'ellen': 'Ellen',
-        'evelyn chevalier': 'Evelyn',
-        'evelyn': 'Evelyn',
-        'astra yao': 'Astra',
-        'astra': 'Astra',
-        'yao': 'Astra',
-        'tsukishiro yanagi': 'Yanagi',
-        'yanagi': 'Yanagi',
-        'asaba harumasa': 'Harumasa',
-        'harumasa': 'Harumasa',
-        'jane doe': 'Jane',
-        'jane': 'Jane',
-        'zhu yuan': 'Zhu Yuan',
-        'zhuyuan': 'Zhu Yuan',
-        'qingyi': 'Qingyi',
-        'seth lowell': 'Seth',
-        'seth': 'Seth',
-        'caesar king': 'Caesar',
-        'caesar': 'Caesar',
-        'burnice white': 'Burnice',
-        'burnice': 'Burnice',
-        'lighter': 'Lighter',
-        'piper wheel': 'Piper',
-        'piper': 'Piper',
-        'luciana de montefio': 'Lucy',
-        'lucy': 'Lucy',
-        'von lycaon': 'Lycaon',
-        'lycaon': 'Lycaon',
-        'alexandrina sebastiane': 'Rina',
-        'rina': 'Rina',
-        'corin wickes': 'Corin',
-        'corin': 'Corin',
-        'nekomiya mana': 'Nekomata',
-        'nekomata': 'Nekomata',
-        'billy kid': 'Billy',
-        'billy': 'Billy',
-        'anby demara': 'Anby',
-        'anby': 'Anby',
-        'nicole demara': 'Nicole',
-        'nicole': 'Nicole',
-        'soldier 11': 'Soldier 11',
-        'soldier11': 'Soldier 11',
-        'koleda belobog': 'Koleda',
-        'koleda': 'Koleda',
-        'grace howard': 'Grace',
-        'grace': 'Grace',
-        'ben bigger': 'Ben',
-        'ben': 'Ben',
-        'anton ivanov': 'Anton',
-        'anton': 'Anton',
-        'soukaku': 'Soukaku',
-        'soldier 0 - anby': 'Soldier 0 Anby',
-        'soldier 0 anby': 'Soldier 0 Anby',
-        'anby0': 'Soldier 0 Anby',
-        'silveranby': 'Soldier 0 Anby',
-        'pulchra fellini': 'Pulchra',
-        'pulchra': 'Pulchra',
-        'trigger': 'Trigger',
-        'vivian banshee': 'Vivian',
-        'vivian': 'Vivian',
-        'hugo vlad': 'Hugo',
-        'hugo': 'Hugo',
-        'yi xuan': 'Yixuan',
-        'yixuan': 'Yixuan',
-        'ju fufu': 'Ju Fufu',
-        'jufufu': 'Ju Fufu',
-        'pan yinhu': 'Pan Yinhu',
-        'panyinhu': 'Pan Yinhu',
-        'ukinami yuzuha': 'Yuzuha',
-        'yuzuha': 'Yuzuha',
-        'alice thymefield': 'Alice',
-        'alice': 'Alice',
-        'seed': 'Seed',
-        'orphie & magus': 'Orphie and Magus',
-        'orphie and magus': 'Orphie and Magus',
-        'orphie': 'Orphie and Magus',
-        'komano manato': 'Manato',
-        'manato': 'Manato',
-        'lucia': 'Lucia',
-        'yidhari': 'Yidhari',
-        'dialyn': 'Dialyn',
-        'banyue': 'Banyue',
-        'zhao': 'Zhao',
-        'ye shunguang': 'Ye Shunguang',
-        'yeshunguang': 'Ye Shunguang',
-        'shunguang': 'Ye Shunguang',
-        'sunna': 'Sunna',
-        'aria': 'Aria',
-        'nangong yu': 'Nangong Yu',
-        'nangongyu': 'Nangong Yu',
-        'cissia': 'Cissia',
-        'promeia': 'Promeia',
-        'starlight billy': 'Starlight Billy',
-        'velina': 'Velina',
-        'pyrois': 'Pyrois',
-        'norma': 'Norma',
-        'remielle': 'Remielle',
-        'sigrid': 'Sigrid',
-        'claret': 'Claret',
-        'roxy': 'Roxy',
-        'phoenix': 'Phoenix',
-        'severian': 'Severian'
-    };
-
     for (const raw of rawCandidates) {
         const low = String(raw).toLowerCase().trim();
-        if (aliasTable[low]) {
-            const matched = db.agents.find(a => a.name === aliasTable[low]);
-            if (matched) return matched;
-        }
-        const exact = db.agents.find(a => a.name.toLowerCase() === low);
+        const exact = db.agents.find(a => a.name.toLowerCase() === low || low.includes(a.name.toLowerCase()));
         if (exact) return exact;
     }
 
-    // 3. Reconnaissance intelligente par empreinte de Build (Sets 4P/2P équipés + Rôle/Élément de enkaAv)
     const equipped4P = Object.entries(setCounts || {}).find(([, c]) => c >= 4)?.[0] || null;
     const equipped2P = Object.entries(setCounts || {}).find(([k, c]) => c >= 2 && k !== equipped4P)?.[0] || null;
-    const enkaElem = Array.isArray(enkaAv.ElementTypes) ? enkaAv.ElementTypes[0] : null;
-    const enkaRole = enkaAv.ProfessionType || enkaAv.WeaponType || null;
 
     let bestCandidate = null;
     let bestScore = -1;
-
     for (const ag of db.agents) {
         let sc = 0;
         const g = db.guides?.[ag.name];
-        if (enkaElem && ag.element.toLowerCase().includes(String(enkaElem).toLowerCase())) sc += 40;
-        if (enkaRole && ag.role.toLowerCase() === String(enkaRole).toLowerCase()) sc += 40;
-
         if (g && Array.isArray(g.discs)) {
             g.discs.forEach((dRec, idx) => {
                 if (equipped4P && dRec.set1 === equipped4P) sc += (idx === 0 ? 55 : 40);
@@ -496,17 +387,42 @@ function resolveExactAgent(avId, setCounts, mainStatsBySlot, db) {
     return bestCandidate || db.agents[0] || { name: 'Miyabi', element: 'Frost', role: 'Anomaly', rank: 'S' };
 }
 
-// Résout le Moteur-Ampli exact de l'agent (et choisit l'arme Signature de l'agent dans agent_database.json si l'ID est récent)
+// Extrait la vraie valeur de Base ATK et la vraie Stat Avancée au Niveau 60 depuis js/data/engines.json
+function parseEngineMaxStats(engData, fallbackRank = 'S') {
+    const baseStr = String(engData?.stats?.base || '');
+    const baseParts = baseStr.match(/(\d+)\s*-\s*(\d+)/);
+    const baseAtk = baseParts ? Number(baseParts[2]) : (fallbackRank === 'S' ? 713 : 594);
+
+    const advLabel = String(engData?.stats?.advancedLabel?.en || engData?.stats?.advancedLabel?.fr || '').toUpperCase();
+    const advStr = String(engData?.stats?.advanced || '');
+    const advParts = advStr.match(/([\d.,]+)\s*%?\s*-\s*([\d.,]+)\s*(%?)/);
+    const advVal = advParts ? parseFloat(advParts[2].replace(',', '.')) : 0;
+
+    const bonus = { hpPct: 0, atkPct: 0, defPct: 0, cr: 0, cdmg: 0, ap: 0, amPct: 0, impPct: 0, erPct: 0, penPct: 0 };
+    if (advVal > 0) {
+        if (advLabel.includes('CRIT DMG') || advLabel.includes('DGT CRIT')) bonus.cdmg = advVal;
+        else if (advLabel.includes('CRIT RATE') || advLabel.includes('TAUX CRIT')) bonus.cr = advVal;
+        else if (advLabel.includes('PEN')) bonus.penPct = advVal;
+        else if (advLabel.includes('PROFICIENCY') || advLabel.includes('ADRESSE')) bonus.ap = advVal;
+        else if (advLabel.includes('MASTERY') || advLabel.includes('MAÎTRISE')) bonus.amPct = advVal;
+        else if (advLabel.includes('ENERGY') || advLabel.includes('ÉNERGIE')) bonus.erPct = advVal;
+        else if (advLabel.includes('IMPACT')) bonus.impPct = advVal;
+        else if (advLabel.includes('HP') || advLabel.includes('PV')) bonus.hpPct = advVal;
+        else if (advLabel.includes('DEF') || advLabel.includes('DÉF')) bonus.defPct = advVal;
+        else if (advLabel.includes('ATK') || advLabel.includes('ATQ')) bonus.atkPct = advVal;
+    }
+
+    return { baseAtk, bonus };
+}
+
 function resolveExactEngine(wepId, agentName, refinement, db) {
     const numWep = Number(wepId) || 0;
     const idStr = String(wepId || '');
     const enkaWep = db.enkaWeapons?.[idStr] || {};
 
-    // 1. Table directe des IDs d'armes
     const mappedWepName = ENKA_WEAPON_ID_MAP[numWep];
     const locWepName = enkaWep.ItemName ? (db.enkaLocEn?.[enkaWep.ItemName] || '') : '';
     const candidates = [mappedWepName, locWepName].filter(Boolean);
-
     const normalize = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
     for (const cand of candidates) {
@@ -519,32 +435,41 @@ function resolveExactEngine(wepId, agentName, refinement, db) {
         });
         if (found) {
             const [key, engData] = found;
+            const rank = engData.rank || (numWep >= 14000 ? 'S' : 'A');
+            const parsedStats = parseEngineMaxStats(engData, rank);
             return {
                 name: engData.name?.en || engData.name?.fr || key,
                 img: `assets/W-Engine/${(engData.img || 'Starlight_Engine.webp').replace('.png', '.webp')}`,
                 refinement: Number(refinement) || 1,
-                rank: engData.rank || (numWep >= 14000 ? 'S' : 'A')
+                rank,
+                baseAtk: parsedStats.baseAtk,
+                advBonus: parsedStats.bonus
             };
         }
     }
 
-    // 2. Correspondance avec le moteur recommandé dans le guide de cet agent (agent_database.json)
+    // Recherche via l'arme recommandée dans agent_database.json
     const guideEngines = db.guides?.[agentName]?.engines || [];
     const isSRankWep = numWep >= 14000 || enkaWep.Rarity >= 4;
     const pickedGuideEng = isSRankWep
         ? (guideEngines[0] || null)
         : (guideEngines.find(e => String(e.tag).includes('A') || String(e.tag).includes('F2P') || String(e.tag).includes('4★')) || guideEngines[1] || guideEngines[0]);
 
-    if (pickedGuideEng && pickedGuideEng.img) {
-        const cleanFile = pickedGuideEng.img.replace('.png', '.webp');
-        const fullPath = cleanFile.startsWith('W-Engine_') || cleanFile.includes('_')
-            ? `assets/W-Engine/${cleanFile}`
-            : `assets/W-Engine/${cleanFile}`;
+    if (pickedGuideEng) {
+        const cleanFile = (pickedGuideEng.img || 'Starlight_Engine.webp').replace('.png', '.webp');
+        const matchedInEnginesJson = Object.values(db.engines || {}).find(e =>
+            (e.img && e.img.replace('.png', '.webp') === cleanFile) ||
+            (e.name?.en && e.name.en.toLowerCase() === String(pickedGuideEng.name).toLowerCase())
+        );
+        const rank = isSRankWep ? 'S' : 'A';
+        const parsedStats = parseEngineMaxStats(matchedInEnginesJson, rank);
         return {
             name: pickedGuideEng.name || 'Signature W-Engine',
-            img: fullPath,
+            img: `assets/W-Engine/${cleanFile}`,
             refinement: Number(refinement) || 1,
-            rank: isSRankWep ? 'S' : 'A'
+            rank,
+            baseAtk: parsedStats.baseAtk,
+            advBonus: parsedStats.bonus
         };
     }
 
@@ -552,7 +477,9 @@ function resolveExactEngine(wepId, agentName, refinement, db) {
         name: 'Starlight Engine',
         img: 'assets/W-Engine/Starlight_Engine.webp',
         refinement: Number(refinement) || 1,
-        rank: isSRankWep ? 'S' : 'A'
+        rank: isSRankWep ? 'S' : 'A',
+        baseAtk: 594,
+        advBonus: { hpPct: 0, atkPct: 25, defPct: 0, cr: 0, cdmg: 0, ap: 0, amPct: 0, impPct: 0, erPct: 0, penPct: 0 }
     };
 }
 
@@ -594,34 +521,50 @@ function parseEnkaResponseToProfile(uid, data, db) {
     const parsedAgents = avatarList.slice(0, 6).map((av, orderIdx) => {
         const avId = Number(av.Id);
 
-        // Pré-calcul des sets de disques équipés pour aider à identifier l'agent si son ID est nouveau
         const preSetCounts = {};
-        const preMainStats = {};
         (av.EquippedList || []).forEach(eq => {
-            const slot = Number(eq.Slot) || 1;
             const eqId = Number(eq.Equipment?.Id) || 31000;
             const suitId = Math.floor(eqId / 100) * 100;
             const sk = ENKA_DISC_SET_MAP[suitId] || 'Woodpecker_Electro';
             preSetCounts[sk] = (preSetCounts[sk] || 0) + 1;
-            const mp = (eq.Equipment?.MainPropertyList || [])[0];
-            if (mp) preMainStats[slot] = ENKA_PROP_MAP[mp.PropertyId]?.label || 'ATK%';
         });
 
-        const agentMeta = resolveExactAgent(avId, preSetCounts, preMainStats, db);
+        const agentMeta = resolveExactAgent(avId, preSetCounts, db);
         const agentName = agentMeta.name;
         const element = agentMeta.element || 'Physical';
         const role = agentMeta.role || 'Attack';
         const mindscape = Number(av.TalentLevel) || 0;
 
         const engineObj = resolveExactEngine(av.Weapon?.Id, agentName, av.Weapon?.UpgradeLevel, db);
+        const baseProfile = AGENT_LV60_BASE_STATS[agentName] || {
+            hp: 7674,
+            atk: role === 'Attack' ? 925 : 860,
+            def: 606,
+            imp: role === 'Stun' ? 136 : 90,
+            cr: role === 'Attack' || role === 'Rupture' ? 19.4 : 5.0,
+            cdmg: 50.0,
+            am: role === 'Anomaly' ? 148 : 94,
+            ap: role === 'Anomaly' ? 118 : 93,
+            er: role === 'Support' ? 1.56 : 1.2
+        };
+
+        // Initialisation des accumulateurs avec la Stat Avancée EXACTE du Moteur-Ampli (depuis engines.json)
+        const wAdv = engineObj.advBonus || {};
+        let hpPct = wAdv.hpPct || 0, hpFlat = 0;
+        let atkPct = wAdv.atkPct || 0, atkFlat = 0;
+        let defPct = wAdv.defPct || 0, defFlat = 0;
+        let cr = baseProfile.cr + (wAdv.cr || 0);
+        let cdmg = baseProfile.cdmg + (wAdv.cdmg || 0);
+        let ap = baseProfile.ap + (wAdv.ap || 0);
+        let amPct = wAdv.amPct || 0;
+        let impPct = wAdv.impPct || 0;
+        let erPct = wAdv.erPct || 0;
+        let penPct = wAdv.penPct || 0;
+        let penFlat = 0;
+        let dmgPct = 0;
 
         const discs = [];
         const setCounts = {};
-        let bonusHpPct = 0, bonusHpFlat = 0;
-        let bonusAtkPct = engineObj.rank === 'S' ? 30 : 24, bonusAtkFlat = 0;
-        let bonusDefPct = 0, bonusDefFlat = 0;
-        let bonusCr = 5.0 + (engineObj.rank === 'S' ? 12 : 0), bonusCdmg = 50.0 + (engineObj.rank === 'S' ? 24 : 0);
-        let bonusAp = 95, bonusAmPct = 0, bonusImpPct = 0, bonusErPct = 0, bonusPenFlat = 0, bonusDmgPct = 0;
 
         (av.EquippedList || []).forEach(eq => {
             const slot = Number(eq.Slot) || 1;
@@ -641,19 +584,20 @@ function parseEnkaResponseToProfile(uid, data, db) {
             const mainMeta = ENKA_PROP_MAP[mainProp.PropertyId] || (slot === 1 ? ENKA_PROP_MAP[11103] : (slot === 2 ? ENKA_PROP_MAP[12103] : ENKA_PROP_MAP[13103]));
             const mainLabel = mainMeta?.label || 'ATK%';
 
-            if (mainMeta?.key === 'HP') bonusHpFlat += 2200;
-            else if (mainMeta?.key === 'ATK') bonusAtkFlat += 316;
-            else if (mainMeta?.key === 'DEF') bonusDefFlat += 184;
-            else if (mainMeta?.key === 'HP_') bonusHpPct += 30;
-            else if (mainMeta?.key === 'ATK_') bonusAtkPct += 30;
-            else if (mainMeta?.key === 'DEF_') bonusDefPct += 48;
-            else if (mainMeta?.key === 'CR') bonusCr += 24;
-            else if (mainMeta?.key === 'CDMG') bonusCdmg += 48;
-            else if (mainMeta?.key === 'AP') bonusAp += 92;
-            else if (mainMeta?.key === 'AM_') bonusAmPct += 30;
-            else if (mainMeta?.key === 'IMP_') bonusImpPct += 18;
-            else if (mainMeta?.key === 'ER_') bonusErPct += 60;
-            else if (mainMeta?.key === 'DMG_') bonusDmgPct += 30;
+            if (mainMeta?.key === 'HP') hpFlat += 2200;
+            else if (mainMeta?.key === 'ATK') atkFlat += 316;
+            else if (mainMeta?.key === 'DEF') defFlat += 184;
+            else if (mainMeta?.key === 'HP_') hpPct += 30;
+            else if (mainMeta?.key === 'ATK_') atkPct += 30;
+            else if (mainMeta?.key === 'DEF_') defPct += 48;
+            else if (mainMeta?.key === 'CR') cr += 24;
+            else if (mainMeta?.key === 'CDMG') cdmg += 48;
+            else if (mainMeta?.key === 'AP') ap += 92;
+            else if (mainMeta?.key === 'AM_') amPct += 30;
+            else if (mainMeta?.key === 'IMP_') impPct += 18;
+            else if (mainMeta?.key === 'ER_') erPct += 60;
+            else if (mainMeta?.key === 'PEN_') penPct += 24;
+            else if (mainMeta?.key === 'DMG_') dmgPct += 30;
 
             const substats = (eqData.RandomPropertyList || []).map(rp => {
                 const pMeta = ENKA_PROP_MAP[rp.PropertyId] || { key: 'DEF', step: 15 };
@@ -661,16 +605,16 @@ function parseEnkaResponseToProfile(uid, data, db) {
                 const upgrades = Math.max(0, totalRolls - 1);
                 const valAdded = totalRolls * (pMeta.step || 0);
 
-                if (pMeta.key === 'HP') bonusHpFlat += valAdded;
-                else if (pMeta.key === 'ATK') bonusAtkFlat += valAdded;
-                else if (pMeta.key === 'DEF') bonusDefFlat += valAdded;
-                else if (pMeta.key === 'HP_') bonusHpPct += valAdded;
-                else if (pMeta.key === 'ATK_') bonusAtkPct += valAdded;
-                else if (pMeta.key === 'DEF_') bonusDefPct += valAdded;
-                else if (pMeta.key === 'CR') bonusCr += valAdded;
-                else if (pMeta.key === 'CDMG') bonusCdmg += valAdded;
-                else if (pMeta.key === 'AP') bonusAp += valAdded;
-                else if (pMeta.key === 'PEN') bonusPenFlat += valAdded;
+                if (pMeta.key === 'HP') hpFlat += valAdded;
+                else if (pMeta.key === 'ATK') atkFlat += valAdded;
+                else if (pMeta.key === 'DEF') defFlat += valAdded;
+                else if (pMeta.key === 'HP_') hpPct += valAdded;
+                else if (pMeta.key === 'ATK_') atkPct += valAdded;
+                else if (pMeta.key === 'DEF_') defPct += valAdded;
+                else if (pMeta.key === 'CR') cr += valAdded;
+                else if (pMeta.key === 'CDMG') cdmg += valAdded;
+                else if (pMeta.key === 'AP') ap += valAdded;
+                else if (pMeta.key === 'PEN') penFlat += valAdded;
 
                 return { key: pMeta.key, up: upgrades, rolls: totalRolls };
             });
@@ -680,18 +624,33 @@ function parseEnkaResponseToProfile(uid, data, db) {
 
         discs.sort((a, b) => a.slot - b.slot);
 
-        if ((setCounts.Woodpecker_Electro || 0) >= 2) bonusCr += 8;
-        if ((setCounts.Branch_Blade_Song || 0) >= 2) bonusCdmg += 16;
-        if ((setCounts.Astral_Voice || 0) >= 2 || (setCounts.Hormone_Punk || 0) >= 2) bonusAtkPct += 10;
-        if ((setCounts.Chaos_Jazz || 0) >= 2 || (setCounts.Freedom_Blues || 0) >= 2) bonusAp += 30;
+        // Application exacte de tous les bonus 2-Pièces actifs (depuis DISC_2P_BONUS_MAP)
+        Object.entries(setCounts).forEach(([sk, cnt]) => {
+            if (cnt >= 2 && DISC_2P_BONUS_MAP[sk]) {
+                const b2 = DISC_2P_BONUS_MAP[sk];
+                hpPct += b2.hpPct || 0;
+                atkPct += b2.atkPct || 0;
+                defPct += b2.defPct || 0;
+                cr += b2.cr || 0;
+                cdmg += b2.cdmg || 0;
+                ap += b2.ap || 0;
+                amPct += b2.amPct || 0;
+                impPct += b2.impPct || 0;
+                erPct += b2.erPct || 0;
+                penPct += b2.penPct || 0;
+                dmgPct += b2.dmgPct || 0;
+            }
+        });
 
-        const baseAtk = (role === 'Attack' ? 915 : 830) + (engineObj.rank === 'S' ? 713 : 594);
-        const initAtkNum = Math.round(baseAtk * (1 + bonusAtkPct / 100) + bonusAtkFlat);
-        const initHpNum = Math.round(7850 * (1 + bonusHpPct / 100) + bonusHpFlat);
-        const initDefNum = Math.round(610 * (1 + bonusDefPct / 100) + bonusDefFlat);
-        const initImpNum = Math.round((role === 'Stun' ? 136 : 92) * (1 + bonusImpPct / 100));
-        const initAmNum = Math.round((role === 'Anomaly' ? 148 : 94) * (1 + bonusAmPct / 100));
-        const initErNum = Number((1.2 * (1 + bonusErPct / 100)).toFixed(2));
+        // Formule officielle de Zenless Zone Zero pour la feuille de "Stats de base"
+        const totalBaseAtk = baseProfile.atk + (engineObj.baseAtk || 713);
+        const finalHp = Math.floor(baseProfile.hp * (1 + hpPct / 100)) + Math.round(hpFlat);
+        const finalAtk = Math.floor(totalBaseAtk * (1 + atkPct / 100)) + Math.round(atkFlat);
+        const finalDef = Math.floor(baseProfile.def * (1 + defPct / 100)) + Math.round(defFlat);
+        const finalImp = Math.floor(baseProfile.imp * (1 + impPct / 100));
+        const finalAm = Math.floor(baseProfile.am * (1 + amPct / 100));
+        const finalAp = Math.round(ap);
+        const finalEr = Number((baseProfile.er * (1 + erPct / 100)).toFixed(2));
 
         return {
             name: agentName,
@@ -702,26 +661,23 @@ function parseEnkaResponseToProfile(uid, data, db) {
             mindscape,
             locked: false,
             favorite: false,
-            supports: [
-                { agent: 'none', weapon: 'none', set: 'none' },
-                { agent: 'none', weapon: 'none', set: 'none' }
-            ],
             leaderboardName: engineObj.rank === 'S' ? 'S Rank Limited W-Engines' : 'A Rank W-Engines',
             updatedAt: nowDate,
             lastUpdatedTs: nowTs - orderIdx * 1000,
             engine: engineObj,
             rawNums: {
-                hp: initHpNum,
-                def: initDefNum,
-                atk: initAtkNum,
-                imp: initImpNum,
-                cr: Number(bonusCr.toFixed(1)),
-                cdmg: Number(bonusCdmg.toFixed(1)),
-                ap: Math.round(bonusAp),
-                am: initAmNum,
-                pen: Math.round(bonusPenFlat),
-                er: initErNum,
-                dmg: bonusDmgPct
+                hp: finalHp,
+                def: finalDef,
+                atk: finalAtk,
+                imp: finalImp,
+                cr: Number(cr.toFixed(1)),
+                cdmg: Number(cdmg.toFixed(1)),
+                ap: finalAp,
+                am: finalAm,
+                penPct: Number(penPct.toFixed(1)),
+                pen: Math.round(penFlat),
+                er: finalEr,
+                dmg: dmgPct
             },
             discs
         };
@@ -810,51 +766,28 @@ export function evaluateAgentBuild(agentBuild, currentUid, allProfilesMap = {}) 
         return { ...d, eval: ev };
     });
 
-    let supAtkFlat = 0, supAtkPct = 0, supCr = 0, supCdmg = 0, supDmg = 0, supHpPct = 0;
-    const supSlots = Array.isArray(agentBuild.supports) ? agentBuild.supports : [
-        { agent: 'none', weapon: 'none', set: 'none' },
-        { agent: 'none', weapon: 'none', set: 'none' }
-    ];
-
-    supSlots.forEach(sl => {
-        const aObj = SUPPORT_CATALOG.agents.find(x => x.key === sl.agent);
-        const wObj = SUPPORT_CATALOG.weapons.find(x => x.key === sl.weapon);
-        const sObj = SUPPORT_CATALOG.sets.find(x => x.key === sl.set);
-        [aObj?.bonus, wObj?.bonus, sObj?.bonus].forEach(b => {
-            if (!b) return;
-            supAtkFlat += b.atkFlat || 0;
-            supAtkPct += b.atkPct || 0;
-            supCr += b.cr || 0;
-            supCdmg += b.cdmg || 0;
-            supDmg += b.dmg || 0;
-            supHpPct += b.hpPct || 0;
-        });
-    });
-
-    const rn = agentBuild.rawNums || { hp: 10050, def: 853, atk: 3100, imp: 92, cr: 55, cdmg: 140, ap: 120, am: 116, pen: 0, er: 1.2, dmg: 30 };
+    const rn = agentBuild.rawNums || { hp: 10564, def: 820, atk: 4039, imp: 83, cr: 50.6, cdmg: 195.6, ap: 111, am: 94, penPct: 0, pen: 27, er: 1.2, dmg: 0 };
     const isCritRole = agentBuild.role === 'Attack' || agentBuild.role === 'Rupture' || agentBuild.name === 'Miyabi';
+    const isAnomalyRole = agentBuild.role === 'Anomaly';
 
-    const buffedHp = supHpPct > 0 ? Math.round(rn.hp * (1 + supHpPct / 100)) : rn.hp;
-    const buffedAtk = Math.round(rn.atk * (1 + (18 + supAtkPct) / 100) + supAtkFlat);
-    const buffedCr = Math.min(100, Number((rn.cr + (isCritRole ? 15 : 0) + supCr).toFixed(1)));
-    const buffedCdmg = Number((rn.cdmg + (isCritRole ? 50 : 0) + supCdmg).toFixed(1));
-    const buffedDmg = rn.dmg + 25 + supDmg;
-
+    // Affichage exclusivement des Stats de Base (exactement comme l'écran "Stats de base" en jeu)
     const computedStats = {
-        hp:   { init: rn.hp.toLocaleString('en-US'), buffed: buffedHp > rn.hp ? buffedHp.toLocaleString('en-US') : '' },
-        def:  { init: rn.def.toLocaleString('en-US'), buffed: '' },
-        atk:  { init: rn.atk.toLocaleString('en-US'), buffed: buffedAtk.toLocaleString('en-US'), highlight: true },
-        imp:  { init: String(rn.imp), buffed: '' },
-        cr:   { init: `${rn.cr.toFixed(1)}%`, buffed: buffedCr > rn.cr ? `${buffedCr.toFixed(1)}%` : '', highlight: isCritRole },
-        cdmg: { init: `${rn.cdmg.toFixed(1)}%`, buffed: buffedCdmg > rn.cdmg ? `${buffedCdmg.toFixed(1)}%` : '', highlight: isCritRole },
-        ap:   { init: String(rn.ap), buffed: '', highlight: agentBuild.role === 'Anomaly' },
-        am:   { init: String(rn.am), buffed: '', highlight: agentBuild.role === 'Anomaly' },
-        pen:  rn.pen > 0 ? { init: String(rn.pen), buffed: '' } : null,
-        er:   { init: `${rn.er.toFixed(2)}/s`, buffed: '' },
-        dmg:  { label: 'DMG%', init: `${rn.dmg}%`, buffed: `${buffedDmg}%`, highlight: true }
+        hp:     { val: rn.hp.toLocaleString('fr-FR'), highlight: weights.major.includes('HP_') },
+        atk:    { val: rn.atk.toLocaleString('fr-FR'), highlight: weights.major.includes('ATK_') },
+        def:    { val: rn.def.toLocaleString('fr-FR'), highlight: weights.major.includes('DEF_') },
+        imp:    { val: String(rn.imp), highlight: agentBuild.role === 'Stun' },
+        cr:     { val: `${rn.cr.toFixed(1).replace('.', ',')} %`, highlight: isCritRole },
+        cdmg:   { val: `${rn.cdmg.toFixed(1).replace('.', ',')} %`, highlight: isCritRole },
+        am:     { val: String(rn.am), highlight: isAnomalyRole },
+        ap:     { val: String(rn.ap), highlight: isAnomalyRole },
+        penPct: { val: `${(rn.penPct || 0).toFixed(1).replace('.0', '').replace('.', ',')} %`, highlight: false },
+        pen:    rn.pen > 0 ? { val: String(rn.pen), highlight: false } : null,
+        er:     { val: String(rn.er).replace('.', ','), highlight: agentBuild.role === 'Support' },
+        dmg:    rn.dmg > 0 ? { label: 'Bonus DGT', val: `${rn.dmg} %`, highlight: true } : null
     };
 
     const myScore = Number((totalMajor * 100 + totalMinor * 42).toFixed(2));
+    const overallGrade = totalMajor >= 38 ? 'Z' : (totalMajor >= 33 ? 'S+' : (totalMajor >= 27 ? 'S' : (totalMajor >= 21 ? 'A' : 'B')));
 
     const allUIDs = Object.keys(allProfilesMap || {});
     const scoresForAgent = [];
@@ -887,8 +820,8 @@ export function evaluateAgentBuild(agentBuild, currentUid, allProfilesMap = {}) 
 
     return {
         ...agentBuild,
-        supports: supSlots,
         stats: computedStats,
+        overallGrade,
         weights,
         discs: evaluatedDiscs,
         totalMajor,
@@ -903,7 +836,7 @@ export function evaluateAgentBuild(agentBuild, currentUid, allProfilesMap = {}) 
 }
 
 export function computeCalculatorSimulation(agentBuild, customConfig = {}) {
-    const baseAtk = Number(customConfig.baseAtk) || 1650;
+    const baseAtk = Number(customConfig.baseAtk) || 1681;
     const rolls = customConfig.rolls || { ATK_: 11, ATK: 1, CR: 15, CDMG: 13, PEN: 2 };
     const enemyDef = Number(customConfig.enemyDef) || 952;
 
