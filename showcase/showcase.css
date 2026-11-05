@@ -1,4 +1,4 @@
-/* showcase/showcase.css - Design Haute Précision Showcase, Châssis Mécanique & Update Report (.zsc-*) */
+/* showcase/showcase.css - Charte FAE V2 1:1, Modale Supports 3 Colonnes, Leaderboards & Update Report */
 
 #zzz-showcase-modal,
 #zzz-showcase-modal * {
@@ -9,8 +9,8 @@
     to { transform: rotate(360deg); }
 }
 
-@keyframes zscCardIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes zscFadeUp {
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -108,7 +108,7 @@
 }
 
 /* ========================================================
-   2. MODAL PLEIN ÉCRAN SHOWCASE
+   2. MODAL PLEIN ÉCRAN SHOWCASE & TOPBAR
 ======================================================== */
 #zzz-showcase-modal {
     position: fixed;
@@ -133,10 +133,9 @@
     pointer-events: auto;
 }
 
-/* Barre supérieure épurée (Retour QG à gauche + Recherche UID centrée) */
 .zsc-topbar {
     height: 62px;
-    background: rgba(10, 10, 14, 0.94);
+    background: rgba(10, 10, 14, 0.95);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid #202028;
     display: grid;
@@ -183,10 +182,17 @@
     color: #000;
 }
 
+/* Groupe central : Barre de recherche UID + Bouton SVG Leaderboard juste à droite */
+.zsc-top-center-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-self: center;
+}
+
 .zsc-top-search-wrap {
     position: relative;
-    width: min(56vw, 340px);
-    justify-self: center;
+    width: min(54vw, 330px);
 }
 
 .zsc-top-search-box {
@@ -207,6 +213,29 @@
 .zsc-top-search-box:focus {
     border-color: #c4b5fd;
     box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.18);
+}
+
+.zsc-top-lb-svg-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: #14141a;
+    border: 1.5px solid #2b2b36;
+    color: #d4d4d8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.16s ease;
+    flex-shrink: 0;
+}
+
+.zsc-top-lb-svg-btn:hover,
+.zsc-top-lb-svg-btn.active {
+    border-color: #c4b5fd;
+    color: #c4b5fd;
+    background: rgba(196, 181, 253, 0.12);
+    transform: translateY(-1px);
 }
 
 /* ========================================================
@@ -452,7 +481,7 @@
 }
 
 /* ========================================================
-   4. CARTE D'AGENT MONUMENTALE & CHÂSSIS MÉCANIQUE CONNECTÉ
+   4. CARTE D'AGENT MONUMENTALE (RÉPLIQUE 1:1 FAE V2)
 ======================================================== */
 .zsc-agent-card {
     position: relative;
@@ -467,7 +496,7 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
-    animation: zscCardIn 0.25s ease-out;
+    animation: zscFadeUp 0.24s ease-out;
 }
 
 .zsc-card-watermark {
@@ -487,7 +516,6 @@
     -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
 }
 
-/* Actions flottantes en haut à droite de la carte */
 .zsc-card-actions {
     position: absolute;
     top: 16px;
@@ -578,11 +606,17 @@
 .zsc-card-lb-line {
     font-size: 11.5px;
     color: #d4d4d8;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+
+.zsc-card-lb-line:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .zsc-card-rank-row {
@@ -648,13 +682,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 20px;
 }
 
 .zsc-sup-slot {
     position: relative;
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     border-radius: 999px;
     background: #17171f;
     border: 2px solid #2d2d39;
@@ -666,15 +700,16 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.16s ease;
 }
 
 .zsc-sup-slot:hover {
-    border-color: #d7f70c;
-    color: #d7f70c;
+    border-color: #c4b5fd;
+    color: #c4b5fd;
+    transform: scale(1.05);
 }
 
-.zsc-sup-slot img {
+.zsc-sup-slot img.sup-ava {
     width: 100%;
     height: 100%;
     border-radius: 999px;
@@ -682,16 +717,29 @@
     object-position: top center;
 }
 
-.zsc-sup-tag {
+.zsc-sup-mini-wep {
     position: absolute;
-    top: -5px;
-    background: #09090d;
-    border: 1px solid #3f3f4a;
-    color: #d4d4d8;
-    font-size: 8px;
-    font-weight: 900;
-    padding: 0 5px;
+    bottom: -3px;
+    left: -4px;
+    width: 20px;
+    height: 20px;
     border-radius: 999px;
+    background: #09090d;
+    border: 1.5px solid #3f3f4a;
+    object-fit: contain;
+    padding: 1px;
+}
+
+.zsc-sup-mini-set {
+    position: absolute;
+    bottom: -3px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #09090d;
+    border: 1.5px solid #3f3f4a;
+    object-fit: cover;
 }
 
 .zsc-stats-head {
@@ -727,6 +775,12 @@
     color: #e4e4e7;
 }
 
+.zsc-stat-lbl-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .zsc-stat-vals {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
@@ -736,7 +790,7 @@
     gap: 4px;
 }
 
-/* Châssis mécanique des 6 Disques + Moteur Central (Style FAE authentique) */
+/* Châssis mécanique des 6 Disques + Moteur Central */
 .zsc-discs-assembly {
     position: relative;
     display: grid;
@@ -765,14 +819,14 @@
     background: linear-gradient(180deg, rgba(20, 20, 26, 0.96) 0%, rgba(13, 13, 18, 0.96) 100%);
     border: 2.5px solid #2b2b36;
     border-radius: 999px;
-    padding: 6px 12px;
+    padding: 7px 13px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 9px;
-    min-height: 80px;
+    gap: 10px;
+    min-height: 82px;
     box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.9), 0 8px 20px rgba(0, 0, 0, 0.7);
-    transition: border-color 0.16s ease, transform 0.16s ease;
+    transition: border-color 0.16s ease;
 }
 
 .zsc-disc-Wing:hover {
@@ -814,20 +868,21 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5px;
+    gap: 2px;
 }
 
+/* Badge Main Stat uniquement sur les Partitions 4, 5, 6 (comme sur FAE) */
 .zsc-disc-main-pill {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 10px;
+    font-size: 9.5px;
     color: var(--ag-color, #f43f5e);
     background: linear-gradient(90deg, color-mix(in srgb, var(--ag-color, #e11d48) 24%, rgba(255,255,255,0.06)) 0%, rgba(255,255,255,0.04) 100%);
-    border-left: 2.5px solid var(--ag-color, #f43f5e);
-    border-radius: 4px;
+    border: 1px solid color-mix(in srgb, var(--ag-color, #e11d48) 45%, transparent);
+    border-radius: 5px;
     padding: 1px 7px;
     width: fit-content;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 .zsc-disc-sub-row {
@@ -989,7 +1044,203 @@
 }
 
 /* ========================================================
-   5. POP-UP "UPDATE REPORT" (RÉPLIQUE EXACTE IMAGE_3A33EA.PNG)
+   5. MODALE "ASSEMBLE YOUR SUPPORT AGENT" (IMAGE_39BFC8.PNG)
+======================================================== */
+.zsc-sup-modal-box {
+    width: 100%;
+    max-width: 540px;
+    max-height: 88vh;
+    background: #17171d;
+    border: 1.5px solid #2e2e3a;
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: 0 28px 75px rgba(0, 0, 0, 0.95);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.zsc-sup-slot-tag {
+    display: inline-block;
+    width: fit-content;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    background: #252530;
+    border: 1px solid #3f3f4e;
+    color: #d4d4d8;
+    text-transform: uppercase;
+}
+
+.zsc-sup-3col-head {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9.5px;
+    color: #71717a;
+    text-transform: uppercase;
+    padding: 0 4px;
+}
+
+.zsc-sup-3col-scroll {
+    flex: 1;
+    min-height: 0;
+    max-height: 430px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #c4b5fd #14141a;
+}
+
+.zsc-sup-col-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.zsc-sup-item-btn {
+    background: #202028;
+    border: 1.5px solid #2d2d39;
+    border-radius: 13px;
+    padding: 7px 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-align: left;
+    color: #f4f4f5;
+    transition: all 0.14s ease;
+    min-height: 48px;
+}
+
+.zsc-sup-item-btn:hover {
+    border-color: #71717a;
+    background: #252530;
+}
+
+.zsc-sup-item-btn.active {
+    border-color: #c4b5fd;
+    background: rgba(196, 181, 253, 0.12);
+    box-shadow: 0 0 14px rgba(196, 181, 253, 0.2);
+}
+
+.zsc-sup-item-btn img {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    object-fit: cover;
+    background: #09090d;
+    flex-shrink: 0;
+}
+
+.zsc-sup-item-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 10.5px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.zsc-sup-item-buffs {
+    font-size: 9px;
+    font-weight: 800;
+    color: #a1a1aa;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ========================================================
+   6. VUE LEADERBOARDS DÉTAILLÉE PAR AGENT (IMAGE_39BFE0.PNG)
+======================================================== */
+.zsc-lb-agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.zsc-lb-agent-tile {
+    background: #14141b;
+    border: 1.5px solid #262632;
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.16s ease;
+}
+
+.zsc-lb-agent-tile:hover {
+    border-color: #c4b5fd;
+    transform: translateY(-2px);
+}
+
+.zsc-lb-contenders-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+@media (min-width: 720px) {
+    .zsc-lb-contenders-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1040px) {
+    .zsc-lb-contenders-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.zsc-contender-card {
+    background: rgba(20, 20, 26, 0.94);
+    border: 1.5px solid #2b2b36;
+    border-radius: 18px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.16s ease;
+}
+
+.zsc-contender-card:hover {
+    border-color: #c4b5fd;
+    transform: translateY(-2px);
+}
+
+.zsc-contender-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #8e8e99;
+    font-weight: 700;
+}
+
+.zsc-contender-row strong {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: #fff;
+    font-size: 11.5px;
+}
+
+/* ========================================================
+   7. POP-UP "UPDATE REPORT" & CALCULATEUR
 ======================================================== */
 .zsc-report-overlay {
     position: fixed;
@@ -1001,7 +1252,7 @@
     align-items: center;
     justify-content: center;
     padding: 16px;
-    animation: zscCardIn 0.18s ease-out;
+    animation: zscFadeUp 0.18s ease-out;
 }
 
 .zsc-report-modal {
@@ -1102,7 +1353,7 @@
     align-self: center;
     margin-top: 4px;
     height: 36px;
-    padding: 0 22px;
+    padding: 0 24px;
     border-radius: 999px;
     background: #c4b5fd;
     color: #09090d;
@@ -1119,9 +1370,6 @@
     filter: brightness(1.06);
 }
 
-/* ========================================================
-   6. CALCULATEUR INTERACTIF
-======================================================== */
 .zsc-calc-box {
     background: rgba(18, 18, 24, 0.92);
     border: 1.5px solid #2d2d3a;
@@ -1165,7 +1413,7 @@
 }
 
 /* ========================================================
-   7. ADAPTATION RESPONSIVE UNIVERSELLE (MOBILE 320px -> TABLETTE -> 4K)
+   8. ADAPTATION RESPONSIVE UNIVERSELLE (MOBILE 320px -> TABLETTE -> 4K)
 ======================================================== */
 @media (max-width: 767px) {
     .zsc-topbar {
@@ -1175,8 +1423,14 @@
         gap: 8px;
     }
 
+    .zsc-top-center-group {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
     .zsc-top-search-wrap {
         width: 100%;
+        flex: 1;
     }
 
     .zsc-body-layout {
@@ -1241,5 +1495,10 @@
         flex-direction: column;
         gap: 6px;
         text-align: center;
+    }
+
+    .zsc-sup-3col-scroll {
+        grid-template-columns: 1fr;
+        max-height: 60vh;
     }
 }
