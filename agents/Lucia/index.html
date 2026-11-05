@@ -424,7 +424,7 @@
             <!-- Recherche UID Showcase Mobile/Tablette (0 Ko au démarrage, vide par défaut) -->
             <div id="zsc-mobile-uid-bar" class="xl:hidden flex items-center gap-2 bg-[#121214] border border-zinc-800/90 focus-within:border-[#d7f70c] rounded-xl px-3 py-1.5 mb-3.5 shadow-inner relative">
                 <svg class="w-4 h-4 text-[#d7f70c] shrink-0 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" id="zsc-mobile-uid-input" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="Entrer un UID ZZZ (Vitrine & Rangs)..." value="" class="flex-1 min-w-0 bg-transparent border-none outline-none text-white font-mono font-bold text-xs placeholder-zinc-500">
+                <input type="text" id="zsc-mobile-uid-input" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="Entrez un UID" value="" class="flex-1 min-w-0 bg-transparent border-none outline-none text-white font-mono font-bold text-xs placeholder-zinc-500">
                 <button type="button" id="zsc-mobile-uid-btn" class="h-7 px-3 rounded-lg bg-[#d7f70c] text-black font-display font-black italic text-[10px] uppercase tracking-wider shrink-0">Profil ➔</button>
             </div>
             
@@ -835,10 +835,10 @@
                     const l = document.createElement('link');
                     l.id = 'zzz-showcase-css';
                     l.rel = 'stylesheet';
-                    l.href = 'showcase/showcase.css?v=4';
+                    l.href = 'showcase/showcase.css?v=6';
                     document.head.appendChild(l);
                 }
-                scPromise = import('./showcase/showcase-init.js?v=4');
+                scPromise = import('./showcase/showcase-init.js?v=6');
             }
             return scPromise;
         }
