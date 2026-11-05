@@ -1151,3 +1151,107 @@
     border-color: #d7f70c;
     transform: translateY(-2px);
 }
+
+/* ========================================================
+   8. ADAPTATION RESPONSIVE UNIVERSELLE (MOBILE 320px -> TABLETTE -> 4K)
+======================================================== */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 767px) {
+    .zsc-topbar {
+        height: auto;
+        padding: 10px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .zsc-top-brand {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .zsc-top-search-wrap {
+        max-width: none;
+        width: 100%;
+        order: 2;
+    }
+
+    .zsc-top-nav-icons {
+        width: 100%;
+        order: 3;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .zsc-nav-icon-btn {
+        justify-content: center;
+        padding: 0 6px;
+        font-size: 10.5px;
+    }
+
+    /* Sur mobile, le rail d'avatars passe en barre horizontale en haut */
+    .zsc-body-layout {
+        flex-direction: column;
+    }
+
+    .zsc-left-rail {
+        width: 100%;
+        height: 56px;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid #1f1f27;
+        padding: 0 12px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .zsc-main-scroll {
+        padding: 14px 10px 50px;
+    }
+
+    .zsc-agent-card {
+        padding: 14px 12px;
+        border-radius: 20px;
+    }
+
+    .zsc-card-actions {
+        position: static;
+        justify-content: center;
+        margin-bottom: 4px;
+    }
+
+    .zsc-discs-assembly {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .zsc-center-wengine {
+        order: -1;
+        width: 82px;
+        height: 82px;
+        margin: 4px auto;
+    }
+
+    .zsc-disc-Wing,
+    .zsc-disc-Wing.right-side {
+        flex-direction: row;
+        border-radius: 18px;
+        padding: 8px 10px;
+    }
+
+    .zsc-grade-circle {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .zsc-bottom-meta {
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+    }
+}
