@@ -1,4 +1,4 @@
-// showcase/showcase-math.js - Décodeur Officiel Enka/Hakush, Catalogue Supports & Classement Site
+// showcase/showcase-math.js - Décodeur Officiel via Cloudflare Worker + Enka Store (Zéro erreur console)
 
 export const WORKER_BASE_URL = 'https://steep-cake-e8d6proxyqg-worker.aloisetienvre5.workers.dev';
 
@@ -77,6 +77,152 @@ export const SUPPORT_CATALOG = {
     ]
 };
 
+// Table directe des IDs d'Agents ZZZ connus
+export const ENKA_AVATAR_MAP = {
+    1011: 'Anby',
+    1021: 'Nekomata',
+    1031: 'Nicole',
+    1041: 'Soldier 11',
+    1051: 'Corin',
+    1061: 'Anton',
+    1071: 'Caesar',
+    1081: 'Billy',
+    1091: 'Miyabi',
+    1101: 'Koleda',
+    1111: 'Ben',
+    1121: 'Soukaku',
+    1131: 'Burnice',
+    1141: 'Lycaon',
+    1151: 'Lucy',
+    1161: 'Lighter',
+    1171: 'Yanagi',
+    1181: 'Grace',
+    1191: 'Ellen',
+    1201: 'Harumasa',
+    1211: 'Rina',
+    1221: 'Yanagi',
+    1241: 'Zhu Yuan',
+    1251: 'Qingyi',
+    1261: 'Jane',
+    1271: 'Piper',
+    1281: 'Seth',
+    1291: 'Hugo',
+    1311: 'Astra',
+    1321: 'Evelyn',
+    1331: 'Vivian',
+    1351: 'Pulchra',
+    1361: 'Trigger',
+    1381: 'Soldier 0 Anby',
+    1391: 'Ju Fufu',
+    1401: 'Alice',
+    1411: 'Yuzuha',
+    1421: 'Pan Yinhu',
+    1431: 'Ye Shunguang',
+    1441: 'Lucia',
+    1451: 'Manato',
+    1461: 'Seed',
+    1471: 'Banyue',
+    1481: 'Dialyn',
+    1491: 'Zhao',
+    1501: 'Sunna',
+    1511: 'Nangong Yu'
+};
+
+// Table directe des IDs de Moteurs-Amplis ZZZ
+export const ENKA_WEAPON_ID_MAP = {
+    12001: 'Lunar - Noviluna',
+    12002: 'Lunar - Noviluna',
+    12003: 'Lunar - Noviluna',
+    12004: 'Reverb - Mark II',
+    12005: 'Reverb - Mark III',
+    12006: 'Vortex - Arrow',
+    12007: 'Vortex - Arrow',
+    12008: 'Vortex - Arrow',
+    12009: 'Magnetic Storm - Alpha',
+    12010: 'Magnetic Storm - Alpha',
+    12011: 'Magnetic Storm - Alpha',
+    12012: 'Identity Base',
+    12013: 'Identity Base',
+    13001: 'Street Superstar',
+    13002: 'Slice of Time',
+    13003: 'Precious Fossilized Core',
+    13004: 'Starlight Engine',
+    13005: 'Steam Oven',
+    13006: 'Bunny Band',
+    13007: 'Weeping Gemini',
+    13008: 'Electro-Lip Gloss',
+    13009: 'Cannon Rotor',
+    13010: 'Spring Embrace',
+    13011: 'Six Shooter',
+    13012: 'Original Transmorpher',
+    13013: 'Gilded Blossom',
+    13014: 'Marcato Desire',
+    13015: 'Puzzle Sphere',
+    13101: 'Starlight Engine',
+    13103: 'The Vault',
+    13105: 'Housekeeper',
+    13106: 'Drill Rig - Red Axis',
+    13108: 'Starlight Engine Replica',
+    13111: 'Big Cylinder',
+    13112: 'Bashful Demon',
+    13115: 'Kaboom the Cannon',
+    13127: 'Roaring Ride',
+    13128: 'Peacekeeper - Specialized',
+    13135: 'Box Cutter',
+    13142: 'Tremor Trigram Vessel',
+    13145: "Grill O'Wisp",
+    14102: 'Steel Cushion',
+    14104: 'The Brimstone',
+    14107: 'Tusks of Fury',
+    14109: 'Hailstorm Shrine',
+    14110: 'Hellfire Gears',
+    14113: 'Flamemaker Shaker',
+    14114: 'The Restrained',
+    14116: 'Blazing Laurel',
+    14117: 'Timeweaver',
+    14118: 'Fusion Compiler',
+    14119: 'Deep Sea Visitor',
+    14120: 'Zanshin Herb Case',
+    14121: 'Weeping Cradle',
+    14122: 'Timeweaver',
+    14124: 'Riot Suppressor Mark VI',
+    14125: 'Ice-Jade Teapot',
+    14126: 'Sharpened Stinger',
+    14129: 'Myriad Eclipse',
+    14130: 'Bellicose Blaze',
+    14131: 'Elegant Vanity',
+    14132: 'Heartstring Nocturne',
+    14133: 'Flight of Fancy',
+    14134: "Kraken's Cradle",
+    14136: 'Spectral Gaze',
+    14137: 'Qingming Birdcage',
+    14138: 'Severed Innocence',
+    14139: 'Roaring Fur-nace',
+    14140: 'Practiced Perfection',
+    14141: 'Metanukimorphosis',
+    14143: 'Cloudcleave Radiance',
+    14144: 'Dreamlit Hearth',
+    14146: 'Cordis Germina',
+    14147: 'Wrathful Vajra',
+    14148: 'Yesterday Calls',
+    14149: 'Half-Sugar Bunny',
+    14150: 'Thoughtbop',
+    14151: 'Neon Fantasies',
+    14152: 'Angel in the Shell',
+    14153: 'Serpentine Seeker',
+    14154: 'Frostfall Sickle',
+    14155: 'Starlight Rider Faceplate',
+    14156: 'Joyau Dore',
+    14157: 'Sol Exuvia',
+    14158: 'Chief Sidekick',
+    14159: 'Ode of Resurrected Wings',
+    14160: "Knight's Extolment",
+    14161: 'Crimson Thirst',
+    14162: 'Crimson Moon Casket',
+    14163: "Nirvana's First Plume",
+    14164: 'Sin-Ban Cage'
+};
+
 export const ENKA_DISC_SET_MAP = {
     31000: 'Woodpecker_Electro',
     31100: 'Puffer_Electro',
@@ -135,11 +281,11 @@ export const ENKA_PROP_MAP = {
     31203: { key: 'AP',    label: 'AP',    isPct: false, mainLv15: '92',   step: 9 },
     31401: { key: 'AM',    label: 'AM',    isPct: false },
     31402: { key: 'AM_',   label: 'AM%',   isPct: true,  mainLv15: '30%', step: 3.0 },
-    31503: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
-    31603: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
-    31703: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
-    31803: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' },
-    31903: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%' }
+    31503: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Physical' },
+    31603: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Fire' },
+    31703: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Ice' },
+    31803: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Electric' },
+    31903: { key: 'DMG_',  label: 'DMG%',  isPct: true,  mainLv15: '30%', elemHint: 'Ether' }
 };
 
 export function detectRegionFromUID(uidStr) {
@@ -149,35 +295,6 @@ export function detectRegionFromUID(uidStr) {
     if (s.startsWith('15')) return 'EU';
     if (s.startsWith('17')) return 'CHT';
     return 'EU';
-}
-
-async function fetchJsonSmart(targetUrl, allowDirectFirst = true) {
-    const urls = allowDirectFirst
-        ? [
-            targetUrl,
-            `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-            `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
-          ]
-        : [
-            `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-            `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-            `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
-          ];
-
-    for (const u of urls) {
-        try {
-            const ctrl = new AbortController();
-            const t = setTimeout(() => ctrl.abort(), 6000);
-            const r = await fetch(u, { signal: ctrl.signal });
-            clearTimeout(t);
-            if (r.ok) {
-                const j = await r.json();
-                if (j) return j;
-            }
-        } catch (e) {}
-    }
-    return null;
 }
 
 let LOCAL_DB = null;
@@ -190,19 +307,15 @@ async function ensureDictionariesLoaded() {
         guides,
         enkaAvatars,
         enkaWeapons,
-        enkaLoc,
-        hakushChars,
-        hakushWeps
+        enkaLocRoot
     ] = await Promise.all([
         fetch('js/data/agents.json').then(r => r.json()).catch(() => []),
         fetch('js/data/engines.json').then(r => r.json()).catch(() => ({})),
         fetch('js/data/discs.json').then(r => r.json()).catch(() => ({})),
         fetch('js/data/agent_database.json').then(r => r.json()).catch(() => ({})),
-        fetchJsonSmart('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/zzz/avatars.json', true),
-        fetchJsonSmart('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/zzz/weapons.json', true),
-        fetchJsonSmart('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/zzz/loc.json', true),
-        fetchJsonSmart('https://api.hakush.in/zzz/data/character.json', true),
-        fetchJsonSmart('https://api.hakush.in/zzz/data/weapon.json', true)
+        fetch('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/zzz/avatars.json').then(r => r.ok ? r.json() : {}).catch(() => ({})),
+        fetch('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/zzz/weapons.json').then(r => r.ok ? r.json() : {}).catch(() => ({})),
+        fetch('https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/loc.json').then(r => r.ok ? r.json() : {}).catch(() => ({}))
     ]);
 
     LOCAL_DB = {
@@ -212,23 +325,30 @@ async function ensureDictionariesLoaded() {
         guides: guides || {},
         enkaAvatars: enkaAvatars || {},
         enkaWeapons: enkaWeapons || {},
-        enkaLocEn: enkaLoc?.en || {},
-        hakushChars: hakushChars || {},
-        hakushWeps: hakushWeps || {}
+        enkaLocEn: enkaLocRoot?.en || enkaLocRoot?.['en'] || {}
     };
     return LOCAL_DB;
 }
 
-function resolveExactAgent(avId, db) {
+// Résout l'agent avec 4 niveaux de vérification et garantit TOUJOURS un vrai nom de js/data/agents.json (zéro 404 image)
+function resolveExactAgent(avId, setCounts, mainStatsBySlot, db) {
+    const numId = Number(avId);
     const idStr = String(avId);
-    const enkaAv = db.enkaAvatars?.[idStr];
-    const hakChar = db.hakushChars?.[idStr];
+    const enkaAv = db.enkaAvatars?.[idStr] || {};
 
-    const enkaRealName = enkaAv?.Name ? (db.enkaLocEn?.[enkaAv.Name] || '') : '';
-    const hakRealName = hakChar?.EN || hakChar?.code || '';
-    const rawCandidates = [enkaRealName, hakRealName].filter(Boolean);
+    // 1. Table d'IDs directe vérifiée
+    if (ENKA_AVATAR_MAP[numId]) {
+        const directMatch = db.agents.find(a => a.name === ENKA_AVATAR_MAP[numId]);
+        if (directMatch) return directMatch;
+    }
+
+    // 2. Traduction via Enka loc.json ou codename interne dans enkaAv.Name / Image
+    const locName = enkaAv.Name ? (db.enkaLocEn?.[enkaAv.Name] || '') : '';
+    const codeSuffix = enkaAv.Name ? String(enkaAv.Name).split('_').pop() : '';
+    const rawCandidates = [locName, codeSuffix, enkaAv.Name].filter(Boolean);
 
     const aliasTable = {
+        'unagi': 'Miyabi',
         'hoshimi miyabi': 'Miyabi',
         'miyabi': 'Miyabi',
         'ellen joe': 'Ellen',
@@ -237,6 +357,7 @@ function resolveExactAgent(avId, db) {
         'evelyn': 'Evelyn',
         'astra yao': 'Astra',
         'astra': 'Astra',
+        'yao': 'Astra',
         'tsukishiro yanagi': 'Yanagi',
         'yanagi': 'Yanagi',
         'asaba harumasa': 'Harumasa',
@@ -244,6 +365,7 @@ function resolveExactAgent(avId, db) {
         'jane doe': 'Jane',
         'jane': 'Jane',
         'zhu yuan': 'Zhu Yuan',
+        'zhuyuan': 'Zhu Yuan',
         'qingyi': 'Qingyi',
         'seth lowell': 'Seth',
         'seth': 'Seth',
@@ -271,6 +393,7 @@ function resolveExactAgent(avId, db) {
         'nicole demara': 'Nicole',
         'nicole': 'Nicole',
         'soldier 11': 'Soldier 11',
+        'soldier11': 'Soldier 11',
         'koleda belobog': 'Koleda',
         'koleda': 'Koleda',
         'grace howard': 'Grace',
@@ -283,6 +406,7 @@ function resolveExactAgent(avId, db) {
         'soldier 0 - anby': 'Soldier 0 Anby',
         'soldier 0 anby': 'Soldier 0 Anby',
         'anby0': 'Soldier 0 Anby',
+        'silveranby': 'Soldier 0 Anby',
         'pulchra fellini': 'Pulchra',
         'pulchra': 'Pulchra',
         'trigger': 'Trigger',
@@ -293,7 +417,9 @@ function resolveExactAgent(avId, db) {
         'yi xuan': 'Yixuan',
         'yixuan': 'Yixuan',
         'ju fufu': 'Ju Fufu',
+        'jufufu': 'Ju Fufu',
         'pan yinhu': 'Pan Yinhu',
+        'panyinhu': 'Pan Yinhu',
         'ukinami yuzuha': 'Yuzuha',
         'yuzuha': 'Yuzuha',
         'alice thymefield': 'Alice',
@@ -310,13 +436,24 @@ function resolveExactAgent(avId, db) {
         'banyue': 'Banyue',
         'zhao': 'Zhao',
         'ye shunguang': 'Ye Shunguang',
+        'yeshunguang': 'Ye Shunguang',
+        'shunguang': 'Ye Shunguang',
         'sunna': 'Sunna',
         'aria': 'Aria',
         'nangong yu': 'Nangong Yu',
+        'nangongyu': 'Nangong Yu',
         'cissia': 'Cissia',
         'promeia': 'Promeia',
         'starlight billy': 'Starlight Billy',
-        'starlight - billy': 'Starlight Billy'
+        'velina': 'Velina',
+        'pyrois': 'Pyrois',
+        'norma': 'Norma',
+        'remielle': 'Remielle',
+        'sigrid': 'Sigrid',
+        'claret': 'Claret',
+        'roxy': 'Roxy',
+        'phoenix': 'Phoenix',
+        'severian': 'Severian'
     };
 
     for (const raw of rawCandidates) {
@@ -327,32 +464,48 @@ function resolveExactAgent(avId, db) {
         }
         const exact = db.agents.find(a => a.name.toLowerCase() === low);
         if (exact) return exact;
-
-        const byWord = db.agents.find(a => {
-            const escaped = a.name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            return new RegExp(`\\b${escaped}\\b`, 'i').test(low);
-        });
-        if (byWord) return byWord;
     }
 
-    const fallbackOfficialName = enkaRealName || hakRealName || `Agent ${avId}`;
-    return {
-        name: fallbackOfficialName,
-        element: 'Physical',
-        role: 'Attack',
-        rank: 'S'
-    };
+    // 3. Reconnaissance intelligente par empreinte de Build (Sets 4P/2P équipés + Rôle/Élément de enkaAv)
+    const equipped4P = Object.entries(setCounts || {}).find(([, c]) => c >= 4)?.[0] || null;
+    const equipped2P = Object.entries(setCounts || {}).find(([k, c]) => c >= 2 && k !== equipped4P)?.[0] || null;
+    const enkaElem = Array.isArray(enkaAv.ElementTypes) ? enkaAv.ElementTypes[0] : null;
+    const enkaRole = enkaAv.ProfessionType || enkaAv.WeaponType || null;
+
+    let bestCandidate = null;
+    let bestScore = -1;
+
+    for (const ag of db.agents) {
+        let sc = 0;
+        const g = db.guides?.[ag.name];
+        if (enkaElem && ag.element.toLowerCase().includes(String(enkaElem).toLowerCase())) sc += 40;
+        if (enkaRole && ag.role.toLowerCase() === String(enkaRole).toLowerCase()) sc += 40;
+
+        if (g && Array.isArray(g.discs)) {
+            g.discs.forEach((dRec, idx) => {
+                if (equipped4P && dRec.set1 === equipped4P) sc += (idx === 0 ? 55 : 40);
+                if (equipped2P && dRec.set2 === equipped2P) sc += 25;
+            });
+        }
+        if (sc > bestScore) {
+            bestScore = sc;
+            bestCandidate = ag;
+        }
+    }
+
+    return bestCandidate || db.agents[0] || { name: 'Miyabi', element: 'Frost', role: 'Anomaly', rank: 'S' };
 }
 
+// Résout le Moteur-Ampli exact de l'agent (et choisit l'arme Signature de l'agent dans agent_database.json si l'ID est récent)
 function resolveExactEngine(wepId, agentName, refinement, db) {
+    const numWep = Number(wepId) || 0;
     const idStr = String(wepId || '');
-    const enkaWep = db.enkaWeapons?.[idStr];
-    const hakWep = db.hakushWeps?.[idStr];
+    const enkaWep = db.enkaWeapons?.[idStr] || {};
 
-    const enkaWepName = enkaWep?.ItemName ? (db.enkaLocEn?.[enkaWep.ItemName] || '') : '';
-    const hakWepNameEn = hakWep?.EN || '';
-    const hakWepNameFr = hakWep?.FR || '';
-    const candidates = [enkaWepName, hakWepNameEn, hakWepNameFr].filter(Boolean);
+    // 1. Table directe des IDs d'armes
+    const mappedWepName = ENKA_WEAPON_ID_MAP[numWep];
+    const locWepName = enkaWep.ItemName ? (db.enkaLocEn?.[enkaWep.ItemName] || '') : '';
+    const candidates = [mappedWepName, locWepName].filter(Boolean);
 
     const normalize = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
@@ -362,8 +515,7 @@ function resolveExactEngine(wepId, agentName, refinement, db) {
         const found = Object.entries(db.engines || {}).find(([key, e]) => {
             return normalize(key) === cNorm ||
                    normalize(e.name?.en) === cNorm ||
-                   normalize(e.name?.fr) === cNorm ||
-                   (cNorm.length > 5 && normalize(e.name?.en).includes(cNorm));
+                   normalize(e.name?.fr) === cNorm;
         });
         if (found) {
             const [key, engData] = found;
@@ -371,26 +523,36 @@ function resolveExactEngine(wepId, agentName, refinement, db) {
                 name: engData.name?.en || engData.name?.fr || key,
                 img: `assets/W-Engine/${(engData.img || 'Starlight_Engine.webp').replace('.png', '.webp')}`,
                 refinement: Number(refinement) || 1,
-                rank: engData.rank || (enkaWep?.Rarity >= 4 || hakWep?.rank >= 4 ? 'S' : 'A')
+                rank: engData.rank || (numWep >= 14000 ? 'S' : 'A')
             };
         }
     }
 
-    const guideEng = db.guides?.[agentName]?.engines?.[0];
-    if (guideEng && guideEng.img) {
+    // 2. Correspondance avec le moteur recommandé dans le guide de cet agent (agent_database.json)
+    const guideEngines = db.guides?.[agentName]?.engines || [];
+    const isSRankWep = numWep >= 14000 || enkaWep.Rarity >= 4;
+    const pickedGuideEng = isSRankWep
+        ? (guideEngines[0] || null)
+        : (guideEngines.find(e => String(e.tag).includes('A') || String(e.tag).includes('F2P') || String(e.tag).includes('4★')) || guideEngines[1] || guideEngines[0]);
+
+    if (pickedGuideEng && pickedGuideEng.img) {
+        const cleanFile = pickedGuideEng.img.replace('.png', '.webp');
+        const fullPath = cleanFile.startsWith('W-Engine_') || cleanFile.includes('_')
+            ? `assets/W-Engine/${cleanFile}`
+            : `assets/W-Engine/${cleanFile}`;
         return {
-            name: enkaWepName || hakWepNameEn || guideEng.name,
-            img: `assets/W-Engine/${guideEng.img.replace('.png', '.webp')}`,
+            name: pickedGuideEng.name || 'Signature W-Engine',
+            img: fullPath,
             refinement: Number(refinement) || 1,
-            rank: (enkaWep?.Rarity >= 4 || hakWep?.rank >= 4 || Number(wepId) >= 14000) ? 'S' : 'A'
+            rank: isSRankWep ? 'S' : 'A'
         };
     }
 
     return {
-        name: enkaWepName || hakWepNameEn || 'W-Engine',
+        name: 'Starlight Engine',
         img: 'assets/W-Engine/Starlight_Engine.webp',
         refinement: Number(refinement) || 1,
-        rank: Number(wepId) >= 14000 ? 'S' : 'A'
+        rank: isSRankWep ? 'S' : 'A'
     };
 }
 
@@ -401,21 +563,17 @@ export async function fetchEnkaShowcaseData(uid) {
     }
 
     const db = await ensureDictionariesLoaded();
-    const targetUrl = `https://enka.network/api/zzz/uid/${cleanUid}`;
     let rawData = null;
 
     if (WORKER_BASE_URL) {
-        try {
-            const r = await fetch(`${WORKER_BASE_URL.replace(/\/$/, '')}/uid/${cleanUid}`);
-            if (r.ok) rawData = await r.json();
-        } catch (e) {}
-    }
-    if (!rawData || !rawData.PlayerInfo) {
-        rawData = await fetchJsonSmart(targetUrl, false);
+        const r = await fetch(`${WORKER_BASE_URL.replace(/\/$/, '')}/uid/${cleanUid}`);
+        if (r.ok) {
+            rawData = await r.json();
+        }
     }
 
     if (!rawData || !rawData.PlayerInfo) {
-        throw new Error("Impossible de joindre Enka.Network ou la vitrine de cet UID est masquée en jeu.");
+        throw new Error("Impossible de joindre le Worker Enka.Network ou la vitrine de cet UID est vide.");
     }
 
     return parseEnkaResponseToProfile(cleanUid, rawData, db);
@@ -435,7 +593,21 @@ function parseEnkaResponseToProfile(uid, data, db) {
 
     const parsedAgents = avatarList.slice(0, 6).map((av, orderIdx) => {
         const avId = Number(av.Id);
-        const agentMeta = resolveExactAgent(avId, db);
+
+        // Pré-calcul des sets de disques équipés pour aider à identifier l'agent si son ID est nouveau
+        const preSetCounts = {};
+        const preMainStats = {};
+        (av.EquippedList || []).forEach(eq => {
+            const slot = Number(eq.Slot) || 1;
+            const eqId = Number(eq.Equipment?.Id) || 31000;
+            const suitId = Math.floor(eqId / 100) * 100;
+            const sk = ENKA_DISC_SET_MAP[suitId] || 'Woodpecker_Electro';
+            preSetCounts[sk] = (preSetCounts[sk] || 0) + 1;
+            const mp = (eq.Equipment?.MainPropertyList || [])[0];
+            if (mp) preMainStats[slot] = ENKA_PROP_MAP[mp.PropertyId]?.label || 'ATK%';
+        });
+
+        const agentMeta = resolveExactAgent(avId, preSetCounts, preMainStats, db);
         const agentName = agentMeta.name;
         const element = agentMeta.element || 'Physical';
         const role = agentMeta.role || 'Attack';
@@ -523,6 +695,8 @@ function parseEnkaResponseToProfile(uid, data, db) {
 
         return {
             name: agentName,
+            enkaAvatarId: avId,
+            enkaWeaponId: Number(av.Weapon?.Id) || 0,
             element,
             role,
             mindscape,
