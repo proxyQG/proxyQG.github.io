@@ -8,15 +8,16 @@ import {
     computeCalculatorSimulation
 } from './showcase-math.js?v=4';
 
-// Purge automatique des anciens caches de test v1/v2/v3 pour ne garder que tes vrais agents Enka
+// Purge automatique des anciens caches v1 à v4 pour re-synchroniser proprement les vrais noms d'agents et de moteurs
 try {
     ['zzz_proxyqg_showcase_accounts_v1', 'zzz_proxyqg_showcase_profiles_v1',
      'zzz_proxyqg_showcase_accounts_v2', 'zzz_proxyqg_showcase_profiles_v2',
-     'zzz_proxyqg_showcase_accounts_v3', 'zzz_proxyqg_showcase_profiles_v3'].forEach(k => localStorage.removeItem(k));
+     'zzz_proxyqg_showcase_accounts_v3', 'zzz_proxyqg_showcase_profiles_v3',
+     'zzz_proxyqg_showcase_accounts_v4', 'zzz_proxyqg_showcase_profiles_v4'].forEach(k => localStorage.removeItem(k));
 } catch (e) {}
 
-const STORAGE_ACCOUNTS_KEY = 'zzz_proxyqg_showcase_accounts_v4';
-const STORAGE_PROFILES_KEY = 'zzz_proxyqg_showcase_profiles_v4';
+const STORAGE_ACCOUNTS_KEY = 'zzz_proxyqg_showcase_accounts_v5';
+const STORAGE_PROFILES_KEY = 'zzz_proxyqg_showcase_profiles_v5';
 
 let modalEl = null;
 let currentView = 'profile'; // 'profile' | 'leaderboards' | 'agent_leaderboard' | 'calculator'
