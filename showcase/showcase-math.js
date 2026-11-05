@@ -1,24 +1,23 @@
-// showcase/showcase-math.js - Décodeur Temps Réel Enka.Network (6 Agents max/vitrine) & Moteur FAE V2
+// showcase/showcase-math.js - Décodeur Enka.Network Haute Précision, Vrais Moteurs, Classement Site & Diff Report
 
-// Si tu déploies showcase/cloudflare-worker.js sur ton compte Cloudflare, colle son URL ici (ex: 'https://zzz-showcase.tonpseudo.workers.dev')
-export const WORKER_BASE_URL = 'https://steep-cake-e8d6proxyqg-worker.aloisetienvre5.workers.dev';
+export const WORKER_BASE_URL = '';
 
 export const ELEMENT_COLORS = {
-    Ice: '#e11d48',
+    Ice: '#00d5be',
     Frost: '#0284c7',
-    Fire: '#7c3aed',
-    Electric: '#2563eb',
-    Ether: '#db2777',
-    Physical: '#d97706',
-    Wind: '#0d9488',
-    Lumiflux: '#ec4899',
-    'Honed Edge': '#ea580c',
-    'Auric Ink': '#ca8a04'
+    Fire: '#f05432',
+    Electric: '#3182eb',
+    Ether: '#f23c8a',
+    Physical: '#e8a838',
+    Wind: '#4da2f8',
+    Lumiflux: '#fba2d0',
+    'Honed Edge': '#e8a838',
+    'Auric Ink': '#c88e34'
 };
 
 export const AGENT_CUSTOM_COLORS = {
     Ellen: '#e11d48',
-    Evelyn: '#6d28d9',
+    Evelyn: '#7c3aed',
     Miyabi: '#0284c7',
     'Ye Shunguang': '#c2410c',
     Nicole: '#be185d',
@@ -27,11 +26,11 @@ export const AGENT_CUSTOM_COLORS = {
     Yixuan: '#a16207',
     Astra: '#9d174d',
     Burnice: '#ea580c',
-    ZhuYuan: '#be185d',
-    'Zhu Yuan': '#be185d'
+    'Zhu Yuan': '#be185d',
+    Phoenix: '#e11d48'
 };
 
-// Table officielle des IDs d'Agents ZZZ (Enka.Network AvatarId -> Nom ProxyQG)
+// Table complète des AvatarId ZZZ -> Nom exact dans js/data/agents.json
 export const ENKA_AVATAR_MAP = {
     1011: 'Anby',
     1021: 'Nekomata',
@@ -54,35 +53,149 @@ export const ENKA_AVATAR_MAP = {
     1191: 'Ellen',
     1201: 'Harumasa',
     1211: 'Rina',
-    1221: 'Qingyi',
+    1221: 'Yanagi',
     1241: 'Zhu Yuan',
-    1251: 'Seth',
+    1251: 'Qingyi',
     1261: 'Jane',
     1271: 'Piper',
+    1281: 'Seth',
+    1291: 'Hugo',
+    1301: 'Orphie and Magus',
     1311: 'Astra',
     1321: 'Evelyn',
     1331: 'Vivian',
-    1341: 'Hugo',
+    1341: 'Yidhari',
     1351: 'Pulchra',
     1361: 'Trigger',
     1371: 'Yixuan',
-    1381: 'Ju Fufu',
-    1391: 'Pan Yinhu',
+    1381: 'Soldier 0 Anby',
+    1391: 'Ju Fufu',
     1401: 'Alice',
     1411: 'Yuzuha',
-    1421: 'Seed',
-    1431: 'Orphie and Magus',
+    1421: 'Pan Yinhu',
+    1431: 'Ye Shunguang',
     1441: 'Lucia',
     1451: 'Manato',
-    1461: 'Yidhari',
+    1461: 'Seed',
     1471: 'Banyue',
     1481: 'Dialyn',
     1491: 'Zhao',
-    1501: 'Ye Shunguang',
-    1511: 'Nangong Yu'
+    1501: 'Sunna',
+    1511: 'Nangong Yu',
+    1521: 'Aria',
+    1531: 'Cissia',
+    1541: 'Promeia',
+    1551: 'Starlight Billy',
+    1561: 'Velina',
+    1571: 'Pyrois',
+    1581: 'Norma',
+    1591: 'Remielle',
+    1601: 'Sigrid',
+    1611: 'Claret',
+    1621: 'Roxy',
+    1631: 'Phoenix',
+    1641: 'Severian'
 };
 
-// Table officielle des Sets de Disques ZZZ (Préfixe d'ID Enka Math.floor(Id/100)*100 -> Clé discs.json)
+// Table directe des IDs de Moteurs-Amplis ZZZ (Enka WeaponId -> Nom exact dans js/data/engines.json)
+export const ENKA_WEAPON_ID_MAP = {
+    // Moteurs Rang B
+    12001: 'Lunar - Noviluna',
+    12002: 'Lunar - Noviluna',
+    12003: 'Lunar - Noviluna',
+    12004: 'Reverb - Mark II',
+    12005: 'Reverb - Mark III',
+    12006: 'Vortex - Arrow',
+    12007: 'Vortex - Arrow',
+    12008: 'Vortex - Arrow',
+    12009: 'Magnetic Storm - Alpha',
+    12010: 'Magnetic Storm - Alpha',
+    12011: 'Magnetic Storm - Alpha',
+    12012: 'Identity Base',
+    12013: 'Identity Base',
+    // Moteurs Rang A Génériques / Craftables / BP
+    13001: 'Street Superstar',
+    13002: 'Slice of Time',
+    13003: 'Precious Fossilized Core',
+    13004: 'Starlight Engine',
+    13005: 'Steam Oven',
+    13006: 'Bunny Band',
+    13007: 'Weeping Gemini',
+    13008: 'Electro-Lip Gloss',
+    13009: 'Cannon Rotor',
+    13010: 'Spring Embrace',
+    13011: 'Six Shooter',
+    13012: 'Original Transmorpher',
+    13013: 'Gilded Blossom',
+    13014: 'Marcato Desire',
+    13015: 'Puzzle Sphere',
+    // Moteurs Rang A Signatures (13 + 3 derniers chiffres de l'Agent)
+    13101: 'Starlight Engine',
+    13103: 'The Vault',
+    13105: 'Housekeeper',
+    13106: 'Drill Rig - Red Axis',
+    13108: 'Starlight Engine Replica',
+    13111: 'Big Cylinder',
+    13112: 'Bashful Demon',
+    13115: 'Kaboom the Cannon',
+    13127: 'Roaring Ride',
+    13128: 'Peacekeeper - Specialized',
+    13135: 'Box Cutter',
+    13142: 'Tremor Trigram Vessel',
+    13145: "Grill O'Wisp",
+    // Moteurs Rang S Standards & Limités (14 + 3 derniers chiffres de l'Agent)
+    14102: 'Steel Cushion',
+    14104: 'The Brimstone',
+    14107: 'Tusks of Fury',
+    14109: 'Hailstorm Shrine',
+    14110: 'Hellfire Gears',
+    14113: 'Flamemaker Shaker',
+    14114: 'The Restrained',
+    14116: 'Blazing Laurel',
+    14117: 'Timeweaver',
+    14118: 'Fusion Compiler',
+    14119: 'Deep Sea Visitor',
+    14120: 'Zanshin Herb Case',
+    14121: 'Weeping Cradle',
+    14122: 'Timeweaver',
+    14124: 'Riot Suppressor Mark VI',
+    14125: 'Ice-Jade Teapot',
+    14126: 'Sharpened Stinger',
+    14129: 'Myriad Eclipse',
+    14130: 'Bellicose Blaze',
+    14131: 'Elegant Vanity',
+    14132: 'Heartstring Nocturne',
+    14133: 'Flight of Fancy',
+    14134: "Kraken's Cradle",
+    14136: 'Spectral Gaze',
+    14137: 'Qingming Birdcage',
+    14138: 'Severed Innocence',
+    14139: 'Roaring Fur-nace',
+    14140: 'Practiced Perfection',
+    14141: 'Metanukimorphosis',
+    14143: 'Cloudcleave Radiance',
+    14144: 'Dreamlit Hearth',
+    14146: 'Cordis Germina',
+    14147: 'Wrathful Vajra',
+    14148: 'Yesterday Calls',
+    14149: 'Half-Sugar Bunny',
+    14150: 'Thoughtbop',
+    14151: 'Neon Fantasies',
+    14152: 'Angel in the Shell',
+    14153: 'Serpentine Seeker',
+    14154: 'Frostfall Sickle',
+    14155: 'Starlight Rider Faceplate',
+    14156: 'Joyau Dore',
+    14157: 'Sol Exuvia',
+    14158: 'Chief Sidekick',
+    14159: 'Ode of Resurrected Wings',
+    14160: "Knight's Extolment",
+    14161: 'Crimson Thirst',
+    14162: 'Crimson Moon Casket',
+    14163: "Nirvana's First Plume",
+    14164: 'Sin-Ban Cage'
+};
+
 export const ENKA_DISC_SET_MAP = {
     31000: 'Woodpecker_Electro',
     31100: 'Puffer_Electro',
@@ -111,10 +224,11 @@ export const ENKA_DISC_SET_MAP = {
     33700: 'The_Sky_Ablaze',
     33800: 'Wuthering_Salon',
     33900: 'Feathered_Fate',
-    34000: 'Bunny_in_Wonderland'
+    34000: 'Bunny_in_Wonderland',
+    34100: 'Notes_From_the_Chained',
+    34200: 'Shining_Aria'
 };
 
-// Table officielle des PropertyId ZZZ dans Enka.Network
 export const ENKA_PROP_MAP = {
     11101: { key: 'HP',    label: 'HP',    isPct: false },
     11102: { key: 'HP_',   label: 'HP%',   isPct: true,  mainLv15: '30%', step: 3.0 },
@@ -156,23 +270,151 @@ export function detectRegionFromUID(uidStr) {
     return 'EU';
 }
 
-// Cache mémoire des dictionnaires locaux ProxyQG + tables Enka
+async function fetchJsonViaProxy(targetUrl) {
+    const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
+    ];
+    for (const p of proxies) {
+        try {
+            const ctrl = new AbortController();
+            const t = setTimeout(() => ctrl.abort(), 5500);
+            const r = await fetch(p, { signal: ctrl.signal });
+            clearTimeout(t);
+            if (r.ok) return await r.json();
+        } catch (e) {}
+    }
+    return null;
+}
+
 let LOCAL_DB = null;
 async function ensureDictionariesLoaded() {
     if (LOCAL_DB) return LOCAL_DB;
-    const [agents, engines, discs, guides, hakushChars, hakushWeps] = await Promise.all([
+    const [agents, engines, discs, guides] = await Promise.all([
         fetch('js/data/agents.json').then(r => r.json()).catch(() => []),
         fetch('js/data/engines.json').then(r => r.json()).catch(() => ({})),
         fetch('js/data/discs.json').then(r => r.json()).catch(() => ({})),
-        fetch('js/data/agent_database.json').then(r => r.json()).catch(() => ({})),
-        fetch('https://api.hakush.in/zzz/data/character.json').then(r => r.json()).catch(() => ({})),
-        fetch('https://api.hakush.in/zzz/data/weapon.json').then(r => r.json()).catch(() => ({}))
+        fetch('js/data/agent_database.json').then(r => r.json()).catch(() => ({}))
     ]);
+
+    let hakushChars = {};
+    let hakushWeps = {};
+    try {
+        const cachedC = sessionStorage.getItem('zsc_hakush_chars');
+        const cachedW = sessionStorage.getItem('zsc_hakush_weps');
+        if (cachedC && cachedW) {
+            hakushChars = JSON.parse(cachedC);
+            hakushWeps = JSON.parse(cachedW);
+        } else {
+            const [hc, hw] = await Promise.all([
+                fetchJsonViaProxy('https://api.hakush.in/zzz/data/character.json'),
+                fetchJsonViaProxy('https://api.hakush.in/zzz/data/weapon.json')
+            ]);
+            if (hc) { hakushChars = hc; sessionStorage.setItem('zsc_hakush_chars', JSON.stringify(hc)); }
+            if (hw) { hakushWeps = hw; sessionStorage.setItem('zsc_hakush_weps', JSON.stringify(hw)); }
+        }
+    } catch (e) {}
+
     LOCAL_DB = { agents, engines, discs, guides, hakushChars, hakushWeps };
     return LOCAL_DB;
 }
 
-// Récupère le JSON Enka.Network d'un UID avec bascule multi-relais anti-CORS
+// Associe n'importe quel nom complet/anglais d'agent d'Enka/Hakush au vrai nom dans js/data/agents.json
+function resolveProxyQGAgent(avId, rawName, db) {
+    const cleanRaw = String(rawName || '').trim();
+    const lower = cleanRaw.toLowerCase();
+
+    // 1. Correspondance directe ou par sous-chaîne avec js/data/agents.json (ex: "Hoshimi Miyabi" -> "Miyabi", "Ellen Joe" -> "Ellen")
+    if (cleanRaw) {
+        const exact = db.agents.find(a => a.name.toLowerCase() === lower);
+        if (exact) return exact;
+
+        const aliasMap = {
+            'astra yao': 'Astra',
+            'jane doe': 'Jane',
+            'soldier 0 - anby': 'Soldier 0 Anby',
+            'soldier 0 anby': 'Soldier 0 Anby',
+            'starlight - billy': 'Starlight Billy',
+            'orphie & magus': 'Orphie and Magus',
+            'orphie': 'Orphie and Magus',
+            'nekomiya mana': 'Nekomata',
+            'alexandrina': 'Rina',
+            'von lycaon': 'Lycaon'
+        };
+        if (aliasMap[lower]) {
+            const aliased = db.agents.find(a => a.name === aliasMap[lower]);
+            if (aliased) return aliased;
+        }
+
+        const partial = db.agents.find(a =>
+            lower.includes(a.name.toLowerCase()) || a.name.toLowerCase().includes(lower)
+        );
+        if (partial) return partial;
+    }
+
+    // 2. Correspondance par Table d'ID
+    const mappedName = ENKA_AVATAR_MAP[avId];
+    if (mappedName) {
+        const found = db.agents.find(a => a.name === mappedName);
+        if (found) return found;
+    }
+
+    // 3. Fallback sécurisé sur un agent existant de agents.json (ne renvoie JAMAIS "Agent #..." sans image)
+    const fallbackIdx = Math.abs(Number(avId) || 0) % (db.agents.length || 1);
+    return db.agents[fallbackIdx] || { name: 'Miyabi', element: 'Frost', role: 'Anomaly', rank: 'S' };
+}
+
+// Associe l'ID d'arme Enka (`av.Weapon.Id`) au vrai Moteur-Ampli de js/data/engines.json
+function resolveProxyQGEngine(wepId, agentName, refinement, db) {
+    const wId = Number(wepId) || 0;
+    const hakWep = db.hakushWeps?.[wId];
+    const candidates = [
+        ENKA_WEAPON_ID_MAP[wId],
+        hakWep?.EN,
+        hakWep?.FR
+    ].filter(Boolean);
+
+    for (const cand of candidates) {
+        const cLow = String(cand).toLowerCase().replace(/[\[\]\-_]/g, ' ').trim();
+        const found = Object.entries(db.engines || {}).find(([key, e]) => {
+            const kLow = key.toLowerCase().replace(/[\[\]\-_]/g, ' ').trim();
+            const enLow = (e.name?.en || '').toLowerCase().replace(/[\[\]\-_]/g, ' ').trim();
+            const frLow = (e.name?.fr || '').toLowerCase().replace(/[\[\]\-_]/g, ' ').trim();
+            return kLow === cLow || enLow === cLow || frLow === cLow || enLow.includes(cLow) || cLow.includes(enLow);
+        });
+        if (found) {
+            const [key, engData] = found;
+            return {
+                name: engData.name?.en || engData.name?.fr || key,
+                img: `assets/W-Engine/${(engData.img || 'Starlight_Engine.webp').replace('.png', '.webp')}`,
+                refinement: Number(refinement) || 1,
+                rank: engData.rank || (wId >= 14000 ? 'S' : (wId >= 13000 ? 'A' : 'B'))
+            };
+        }
+    }
+
+    // Si c'est une arme Signature (14xxx ou 13xxx) ou non résolue, on prend l'arme recommandée n°1 du guide de cet Agent dans agent_database.json !
+    const guideEngines = db.guides?.[agentName]?.engines || [];
+    const sigFromGuide = wId >= 14000 ? guideEngines[0] : (guideEngines.find(e => !String(e.tag).includes('5★') && !String(e.tag).includes('Signature')) || guideEngines[0]);
+    if (sigFromGuide && sigFromGuide.img) {
+        const cleanImg = sigFromGuide.img.replace('.png', '.webp');
+        return {
+            name: sigFromGuide.name || 'Signature W-Engine',
+            img: `assets/W-Engine/${cleanImg}`,
+            refinement: Number(refinement) || 1,
+            rank: wId >= 14000 ? 'S' : 'A'
+        };
+    }
+
+    return {
+        name: 'Starlight Engine',
+        img: 'assets/W-Engine/Starlight_Engine.webp',
+        refinement: Number(refinement) || 1,
+        rank: wId >= 14000 ? 'S' : 'A'
+    };
+}
+
 export async function fetchEnkaShowcaseData(uid) {
     const cleanUid = String(uid || '').replace(/\D/g, '');
     if (cleanUid.length < 8) {
@@ -181,32 +423,16 @@ export async function fetchEnkaShowcaseData(uid) {
 
     const db = await ensureDictionariesLoaded();
     const targetUrl = `https://enka.network/api/zzz/uid/${cleanUid}`;
-    const endpoints = [];
+    let rawData = null;
 
     if (WORKER_BASE_URL) {
-        endpoints.push(`${WORKER_BASE_URL.replace(/\/$/, '')}/uid/${cleanUid}`);
-    }
-    endpoints.push(
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`,
-        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
-    );
-
-    let rawData = null;
-    for (const ep of endpoints) {
         try {
-            const ctrl = new AbortController();
-            const timer = setTimeout(() => ctrl.abort(), 7500);
-            const res = await fetch(ep, { signal: ctrl.signal });
-            clearTimeout(timer);
-            if (res.ok) {
-                const json = await res.json();
-                if (json && json.PlayerInfo) {
-                    rawData = json;
-                    break;
-                }
-            }
+            const r = await fetch(`${WORKER_BASE_URL.replace(/\/$/, '')}/uid/${cleanUid}`);
+            if (r.ok) rawData = await r.json();
         } catch (e) {}
+    }
+    if (!rawData || !rawData.PlayerInfo) {
+        rawData = await fetchJsonViaProxy(targetUrl);
     }
 
     if (!rawData || !rawData.PlayerInfo) {
@@ -216,7 +442,6 @@ export async function fetchEnkaShowcaseData(uid) {
     return parseEnkaResponseToProfile(cleanUid, rawData, db);
 }
 
-// Convertit la réponse brute d'Enka.Network (jusqu'à 6 agents dans AvatarList) en profil ProxyQG
 function parseEnkaResponseToProfile(uid, data, db) {
     const pInfo = data.PlayerInfo || {};
     const social = pInfo.SocialDetail || {};
@@ -226,65 +451,35 @@ function parseEnkaResponseToProfile(uid, data, db) {
     const nickname = profDetail.Nickname || `Proxy #${uid.slice(-4)}`;
     const signature = social.Desc || `Inter-Nœud Niv. ${profDetail.Level || 60}`;
     const region = detectRegionFromUID(uid);
-
     const nowDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const nowTs = Date.now();
 
-    // Décodage des 6 agents maximum de la vitrine en jeu
-    const parsedAgents = avatarList.slice(0, 6).map(av => {
+    const parsedAgents = avatarList.slice(0, 6).map((av, orderIdx) => {
         const avId = Number(av.Id);
-        let agentName = ENKA_AVATAR_MAP[avId] || db.hakushChars?.[avId]?.EN || '';
-
-        // Normalisation avec agents.json de ProxyQG
-        const matchedAgent = db.agents.find(a =>
-            a.name.toLowerCase() === String(agentName).toLowerCase() ||
-            (agentName === 'Jane Doe' && a.name === 'Jane') ||
-            (agentName === 'Soukaku' && a.name === 'Soukaku')
-        );
-        if (matchedAgent) agentName = matchedAgent.name;
-        if (!agentName) agentName = `Agent #${avId}`;
-
-        const element = matchedAgent?.element || 'Physical';
-        const role = matchedAgent?.role || 'Attack';
+        const rawHakushName = db.hakushChars?.[avId]?.EN || db.hakushChars?.[avId]?.name || '';
+        const agentMeta = resolveProxyQGAgent(avId, rawHakushName, db);
+        const agentName = agentMeta.name;
+        const element = agentMeta.element || 'Physical';
+        const role = agentMeta.role || 'Attack';
         const mindscape = Number(av.TalentLevel) || 0;
 
-        // Décodage du Moteur-Ampli (Weapon)
-        let engineObj = { name: 'W-Engine', img: 'assets/W-Engine/Starlight_Engine.webp', refinement: 1, rank: 'A' };
-        if (av.Weapon && av.Weapon.Id) {
-            const wId = Number(av.Weapon.Id);
-            const hakWep = db.hakushWeps?.[wId];
-            const wepEnName = hakWep?.EN || '';
-            const foundEngEntry = Object.entries(db.engines || {}).find(([k, e]) =>
-                (e.name?.en && e.name.en.toLowerCase() === wepEnName.toLowerCase()) ||
-                (e.name?.fr && e.name.fr.toLowerCase() === wepEnName.toLowerCase()) ||
-                k.toLowerCase() === wepEnName.toLowerCase().replace(/[^a-z0-9]/g, '_')
-            );
-            if (foundEngEntry) {
-                const [, engData] = foundEngEntry;
-                engineObj = {
-                    name: engData.name?.en || engData.name?.fr || wepEnName,
-                    img: `assets/W-Engine/${(engData.img || 'Starlight_Engine.webp').replace('.png', '.webp')}`,
-                    refinement: Number(av.Weapon.UpgradeLevel) || 1,
-                    rank: engData.rank || (hakWep?.rank === 4 ? 'S' : 'A')
-                };
-            } else if (wepEnName) {
-                engineObj.name = wepEnName;
-                engineObj.refinement = Number(av.Weapon.UpgradeLevel) || 1;
-                engineObj.rank = hakWep?.rank === 4 ? 'S' : 'A';
-            }
-        }
+        const engineObj = resolveProxyQGEngine(av.Weapon?.Id, agentName, av.Weapon?.UpgradeLevel, db);
 
-        // Décodage des 6 Disques de Poussée (EquippedList)
         const discs = [];
         const setCounts = {};
         let bonusHpPct = 0, bonusHpFlat = 0;
         let bonusAtkPct = engineObj.rank === 'S' ? 30 : 24, bonusAtkFlat = 0;
         let bonusDefPct = 0, bonusDefFlat = 0;
-        let bonusCr = 5.0, bonusCdmg = 50.0;
+        let bonusCr = 5.0 + (engineObj.rank === 'S' ? 12 : 0), bonusCdmg = 50.0 + (engineObj.rank === 'S' ? 24 : 0);
         let bonusAp = 95, bonusAmPct = 0, bonusImpPct = 0, bonusErPct = 0, bonusPenFlat = 0, bonusDmgPct = 0;
 
         (av.EquippedList || []).forEach(eq => {
             const slot = Number(eq.Slot) || 1;
             const eqData = eq.Equipment || {};
+            const discLevel = Number(eqData.Level) ?? 15;
+            // Respecte la règle FAE : seuls les disques niveau 15 sont pris en compte
+            if (discLevel < 15 && eqData.Level !== undefined) return;
+
             const eqId = Number(eqData.Id) || 31000;
             const suitId = Math.floor(eqId / 100) * 100;
             const setKey = ENKA_DISC_SET_MAP[suitId] || 'Woodpecker_Electro';
@@ -293,7 +488,6 @@ function parseEnkaResponseToProfile(uid, data, db) {
             const discJson = db.discs?.[setKey];
             const setImg = discJson?.img ? `assets/Disque/${discJson.img}` : `assets/Disque/${setKey}.webp`;
 
-            // Stat principale du disque
             const mainProp = (eqData.MainPropertyList || [])[0] || {};
             const mainMeta = ENKA_PROP_MAP[mainProp.PropertyId] || (slot === 1 ? ENKA_PROP_MAP[11103] : (slot === 2 ? ENKA_PROP_MAP[12103] : ENKA_PROP_MAP[13103]));
             const mainLabel = mainMeta?.label || 'ATK%';
@@ -312,7 +506,6 @@ function parseEnkaResponseToProfile(uid, data, db) {
             else if (mainMeta?.key === 'ER_') bonusErPct += 60;
             else if (mainMeta?.key === 'DMG_') bonusDmgPct += 30;
 
-            // Sous-stats du disque (RandomPropertyList)
             const substats = (eqData.RandomPropertyList || []).map(rp => {
                 const pMeta = ENKA_PROP_MAP[rp.PropertyId] || { key: 'DEF', step: 15 };
                 const totalRolls = Math.max(1, Number(rp.PropertyLevel) || 1);
@@ -330,31 +523,19 @@ function parseEnkaResponseToProfile(uid, data, db) {
                 else if (pMeta.key === 'AP') bonusAp += valAdded;
                 else if (pMeta.key === 'PEN') bonusPenFlat += valAdded;
 
-                return {
-                    key: pMeta.key,
-                    up: upgrades,
-                    rolls: totalRolls
-                };
+                return { key: pMeta.key, up: upgrades, rolls: totalRolls };
             });
 
-            discs.push({
-                slot,
-                setKey,
-                setImg,
-                main: mainLabel,
-                substats
-            });
+            discs.push({ slot, setKey, setImg, main: mainLabel, substats });
         });
 
         discs.sort((a, b) => a.slot - b.slot);
 
-        // Bonus 2-Pièces des sets actifs
         if ((setCounts.Woodpecker_Electro || 0) >= 2) bonusCr += 8;
         if ((setCounts.Branch_Blade_Song || 0) >= 2) bonusCdmg += 16;
         if ((setCounts.Astral_Voice || 0) >= 2 || (setCounts.Hormone_Punk || 0) >= 2) bonusAtkPct += 10;
         if ((setCounts.Chaos_Jazz || 0) >= 2 || (setCounts.Freedom_Blues || 0) >= 2) bonusAp += 30;
 
-        // Calcul des statistiques Initial -> Buffed de l'Agent
         const baseAtk = (role === 'Attack' ? 915 : 830) + (engineObj.rank === 'S' ? 713 : 594);
         const initAtk = Math.round(baseAtk * (1 + bonusAtkPct / 100) + bonusAtkFlat);
         const buffedAtk = Math.round(initAtk * 1.18 + 600);
@@ -377,6 +558,7 @@ function parseEnkaResponseToProfile(uid, data, db) {
             favorite: false,
             leaderboardName: engineObj.rank === 'S' ? 'S Rank Limited W-Engines' : 'A Rank W-Engines',
             updatedAt: nowDate,
+            lastUpdatedTs: nowTs - orderIdx * 1000,
             engine: engineObj,
             stats: {
                 hp: { init: initHp.toLocaleString('en-US'), buffed: '' },
@@ -395,7 +577,7 @@ function parseEnkaResponseToProfile(uid, data, db) {
         };
     });
 
-    const firstAvatarName = parsedAgents[0]?.name || 'Ellen';
+    const firstAvatarName = parsedAgents[0]?.name || 'Miyabi';
 
     return {
         uid,
@@ -412,16 +594,16 @@ export function getAgentSubstatWeights(agentName, role = 'Attack') {
     if (agentName === 'Miyabi') {
         return { major: ['ATK_', 'CDMG', 'CR'], minor: ['AP', 'ATK'] };
     }
-    if (agentName === 'Yixuan' || agentName === 'Banyue' || agentName === 'Manato') {
+    if (agentName === 'Yixuan' || agentName === 'Banyue' || agentName === 'Manato' || agentName === 'Yidhari') {
         return { major: ['CR', 'CDMG', 'HP_'], minor: ['ATK_', 'HP'] };
     }
-    if (role === 'Anomaly' || ['Jane', 'Piper', 'Yanagi', 'Burnice', 'Vivian', 'Alice'].includes(agentName)) {
+    if (role === 'Anomaly' || ['Jane', 'Piper', 'Yanagi', 'Burnice', 'Vivian', 'Alice', 'Phoenix', 'Velina', 'Remielle'].includes(agentName)) {
         return { major: ['AP', 'ATK_'], minor: ['PEN', 'CR', 'ATK'] };
     }
     if (agentName === 'Nicole') {
         return { major: ['AP', 'ATK_'], minor: ['PEN', 'CR', 'ATK'] };
     }
-    if (role === 'Defense' || agentName === 'Ben') {
+    if (role === 'Defense' || role === 'Armorer' || agentName === 'Ben' || agentName === 'Claret') {
         return { major: ['DEF_', 'CR', 'CDMG'], minor: ['ATK_', 'HP_'] };
     }
     return { major: ['CDMG', 'ATK_', 'CR'], minor: ['PEN', 'ATK'] };
@@ -459,7 +641,8 @@ export function evaluateSingleDisc(disc, weights) {
     return { grade, majorRolls, minorRolls, weightedRolls: eff };
 }
 
-export function evaluateAgentBuild(agentBuild) {
+// Calcule le classement réel (Rank #X out of Y et Top %) uniquement par rapport aux profils (UIDs) enregistrés sur le site !
+export function evaluateAgentBuild(agentBuild, currentUid, allProfilesMap = {}) {
     const weights = getAgentSubstatWeights(agentBuild.name, agentBuild.role);
     let totalMajor = 0;
     let totalMinor = 0;
@@ -478,10 +661,38 @@ export function evaluateAgentBuild(agentBuild) {
         return { ...d, eval: ev };
     });
 
-    const totalPool = agentBuild.lbTotal || 18450;
-    const qualityRatio = Math.min(0.9995, (totalMajor + totalMinor * 0.35) / 43);
-    const computedRank = agentBuild.lbRank || Math.max(1, Math.round(totalPool * Math.pow(1 - qualityRatio, 3.2)));
-    const topPct = ((computedRank / totalPool) * 100).toFixed(2);
+    const myScore = Number((totalMajor * 100 + totalMinor * 42).toFixed(2));
+
+    // Recense tous les profils (UIDs différents) enregistrés sur le site
+    const allUIDs = Object.keys(allProfilesMap || {});
+    const scoresForAgent = [];
+
+    allUIDs.forEach(u => {
+        const p = allProfilesMap[u];
+        const matchingAg = (p?.agents || []).find(a => a.name === agentBuild.name);
+        if (matchingAg) {
+            let maj = 0, min = 0;
+            (matchingAg.discs || []).forEach(d => {
+                const ev = evaluateSingleDisc(d, weights);
+                maj += ev.majorRolls;
+                min += ev.minorRolls;
+            });
+            scoresForAgent.push({ uid: u, score: Number((maj * 100 + min * 42).toFixed(2)) });
+        }
+    });
+
+    if (!scoresForAgent.some(s => s.uid === currentUid)) {
+        scoresForAgent.push({ uid: currentUid, score: myScore });
+    }
+
+    scoresForAgent.sort((a, b) => b.score - a.score);
+
+    // Nombre total de profils ayant cet agent (ou nombre total d'UIDs sur le site)
+    const totalProfilesOnSite = Math.max(1, scoresForAgent.length);
+    const myRankIndex = scoresForAgent.findIndex(s => s.uid === currentUid);
+    const computedRank = myRankIndex !== -1 ? myRankIndex + 1 : 1;
+    const topPctNum = (computedRank / totalProfilesOnSite) * 100;
+    const topPct = topPctNum < 10 ? topPctNum.toFixed(2) : topPctNum.toFixed(1);
 
     return {
         ...agentBuild,
@@ -489,10 +700,12 @@ export function evaluateAgentBuild(agentBuild) {
         discs: evaluatedDiscs,
         totalMajor,
         totalMinor,
+        buildScore: myScore,
         rollSummary,
         lbRank: computedRank,
-        lbTotal: totalPool,
-        topPct
+        lbTotal: totalProfilesOnSite,
+        topPct,
+        topPctNum
     };
 }
 
