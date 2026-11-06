@@ -14256,6 +14256,21 @@
                 "tag": "Signature (100 %)",
                 "name": "Sin-Ban Cage",
                 "img": "cage-of-forbidden-sins.webp"
+            },
+            {
+                "tag": "Alternative S",
+                "name": "Cordis Germina",
+                "img": "W-Engine_Cordis_Germina.webp"
+            },
+            {
+                "tag": { "fr": "Rang S Gratuit", "en": "Free S-Rank" },
+                "name": "Sol Exuvia",
+                "img": "W-Engine_Sol_Exuvia.webp"
+            },
+            {
+                "tag": { "fr": "Meilleur Rang A", "en": "Best A-Rank" },
+                "name": "Marcato Desire",
+                "img": "Marcato_Desire.webp"
             }
         ],
         "teams": [
