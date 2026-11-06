@@ -14185,39 +14185,84 @@
             "en": "Metropolitan Order Division"
         },
         "stats": [
-            { "label": "Taux Crit", "value": "..." },
-            { "label": "Dégât Crit", "value": "..." },
-            { "label": "Attaque", "value": "..." }
+            {
+                "label": "Taux Crit",
+                "value": "80 - 100%",
+                "note": {
+                    "fr": "76 % max hors combat avec Signature, 80 % avec Exuvie solaire, 85 % avec Cordis Germina pour atteindre 100 % en combat",
+                    "en": "76% max out of combat with Signature, 80% with Sol Exuvia, 85% with Cordis Germina to reach 100% in combat"
+                }
+            },
+            {
+                "label": "Dégât Crit",
+                "value": "140 - 170%+",
+                "note": {
+                    "fr": "Il gagne déjà +60 % DGT CRIT via sa compétence principale",
+                    "en": "He already gains +60% CRIT DMG from his Core Skill"
+                }
+            },
+            {
+                "label": "Attaque",
+                "value": "2600 - 3000+",
+                "note": {
+                    "fr": "Il gagne jusqu'à +850 ATQ flat en combat à 100 % Taux CRIT",
+                    "en": "He gains up to +850 flat ATK in combat at 100% CRIT Rate"
+                }
+            }
         ],
         "discs": [
             {
                 "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
                 "set1": "Dawn_Bloom",
-                "set2": "Astral_Voice",
+                "set2": "Woodpecker_Electro",
                 "set1Name": "4pc Dawn's Bloom",
-                "set2Name": "+ 2pc Astral Voice",
+                "set2Name": "+ 2pc Woodpecker Electro",
                 "note": {
-                    "fr": "en attente.",
-                    "en": "pending..."
+                    "fr": "Le meilleur set généraliste de Severian. Comme son Attaque de base renforcée (EBA) représente la majeure partie de ses dégâts et qu'il utilise très souvent son Attaque spéciale EX et son Ultime, il maintient le bonus de +40 % de DGT d'Attaque de base en permanence. Si tu atteins déjà 100 % de Taux CRIT en combat, tu peux remplacer le 2-pièces par Électro fugu (Puffer Electro).",
+                    "en": "Severian's best all-around set. Since his Enhanced Basic Attack (EBA) accounts for the vast majority of his damage and he frequently casts his EX Special and Ultimate, he maintains the full +40% Basic Attack DMG bonus permanently. If you already reach 100% CRIT Rate in combat, you can swap the 2-piece for Puffer Electro."
+                }
+            },
+            {
+                "tag": { "fr": "Alternative Crit", "en": "Crit Alternative" },
+                "set1": "Woodpecker_Electro",
+                "set2": "Dawn_Bloom",
+                "set1Name": "4pc Woodpecker Electro",
+                "set2Name": "+ 2pc Dawn's Bloom",
+                "note": {
+                    "fr": "Excellente alternative si tu manques de Taux CRIT pour activer le plein potentiel de son passif (+850 ATQ à 100 % Taux CRIT). Les coups critiques de ses Attaques de base et de son Attaque spéciale EX maintiennent facilement le bonus d'ATQ % en combat.",
+                    "en": "Great alternative if you need extra CRIT Rate to max out his passive (+850 combat ATK at 100% CRIT Rate). Critical hits from his Basic Attacks and EX Special easily keep the ATK% buff active."
+                }
+            },
+            {
+                "tag": { "fr": "Burst Stun", "en": "Stun Burst" },
+                "set1": "Hormone_Punk",
+                "set2": "Woodpecker_Electro",
+                "set1Name": "4pc Hormone Punk",
+                "set2Name": "+ 2pc Woodpecker Electro",
+                "note": {
+                    "fr": "Très performant pour concentrer un maximum de dégâts dans la fenêtre d'étourdissement. Le bonus de +25 % d'ATQ pendant 10 secondes couvre l'intégralité de son combo de Stun (3 EBA + Ultime) lorsqu'il entre sur le terrain.",
+                    "en": "Strong option to frontload maximum damage during the Stun window. The +25% ATK buff for 10s covers his entire Stun combo (3 EBAs + Ultimate) upon switching in."
                 }
             }
         ],
         "skills": [
             { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
             { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
+            { "name": "Assist", "level": "11", "icon": "Assist.webp" },
             { "name": "Ex", "level": "11", "icon": "Ex.webp" },
-            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
-            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
+            { "name": "Dodge", "level": "1", "icon": "Esquive.webp" }
         ],
         "statPriority": {
             "main": [
-                { "slot": "6", "label": { "fr": "...", "en": "..." } },
-                { "slot": "5", "label": { "fr": "...", "en": "..." } },
-                { "slot": "4", "label": { "fr": "...", "en": "..." } }
+                { "slot": "6", "label": { "fr": "ATQ %", "en": "ATK %" } },
+                { "slot": "5", "label": { "fr": "Taux de PÉN > DGT Vent % / ATQ %", "en": "PEN Ratio > Wind DMG % / ATK %" } },
+                { "slot": "4", "label": { "fr": "Taux CRIT", "en": "CRIT Rate" } }
             ],
             "sub": [
-                { "label": { "fr": "...", "en": "..." }, "highlight": true },
-                { "label": { "fr": "...", "en": "..." }, "highlight": true }
+                { "label": { "fr": "Taux CRIT (jusqu'à 100 % en combat)", "en": "CRIT Rate (up to 100% in combat)" }, "highlight": true },
+                { "label": { "fr": "DGT CRIT", "en": "CRIT DMG" }, "highlight": true },
+                { "label": { "fr": "ATQ %", "en": "ATK %" }, "highlight": false },
+                { "label": { "fr": "PÉN (encore plus fort avec Disque 5 Taux de PÉN, Rina ou sa M2)", "en": "PEN (even stronger with Disc 5 PEN Ratio, Rina or his M2)" }, "highlight": false }
             ]
         },
         "engines": [
@@ -14225,20 +14270,61 @@
                 "tag": "Signature (100 %)",
                 "name": "Sin-Ban Cage",
                 "img": "cage-of-forbidden-sins.webp"
+            },
+            {
+                "tag": "Alternative S",
+                "name": "Cordis Germina",
+                "img": "W-Engine_Cordis_Germina.webp"
+            },
+            {
+                "tag": { "fr": "Rang S Gratuit", "en": "Free S-Rank" },
+                "name": "Sol Exuvia",
+                "img": "W-Engine_Sol_Exuvia.webp"
+            },
+            {
+                "tag": { "fr": "Meilleur Rang A", "en": "Best A-Rank" },
+                "name": "Marcato Desire",
+                "img": "Marcato_Desire.webp"
             }
         ],
         "teams": [
             {
                 "name": "TEAM 01",
-                "tag": { "fr": "Souffle du loup", "en": "Breath of the Wolf" },
+                "tag": { "fr": "Synergie Absolue 👑", "en": "Absolute Synergy 👑" },
                 "members": [
                     { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
-                    { "img": "Roxy.webp", "color": "#2dd4bf", "initial": "R" },
+                    { "img": "Roxy.webp", "color": "#3bbedb", "initial": "R" },
                     { "img": "Sunna.webp", "color": "#e8a838", "initial": "S" }
                 ]
+            },
+            {
+                "name": "TEAM 02",
+                "tag": { "fr": "Hypercarry Stun ⚡", "en": "Stun Hypercarry ⚡" },
+                "members": [
+                    { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
+                    { "img": "Norma.webp", "color": "#f05432", "initial": "N" },
+                    { "img": "Sunna.webp", "color": "#e8a838", "initial": "S" }
+                ]
+            },
+            {
+                "name": "TEAM 03",
+                "tag": { "fr": "Pénétration Max 🗡️", "en": "Max Penetration 🗡️" },
+                "members": [
+                    { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
+                    { "img": "Roxy.webp", "color": "#3bbedb", "initial": "R" },
+                    { "img": "Rina.webp", "color": "#3182eb", "initial": "R" }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": { "fr": "F2P", "en": "F2P" },
+                "members": [
+                    { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
+                    { "img": "Lycaon.webp", "color": "#3bbedb", "initial": "L" },
+                    { "img": "Velina.webp", "color": "#3bbedb", "initial": "V" }
+                ]
             }
-        ]
-    },
+        ],
     "Hugo": {
         "color": "#3bbedb",
         "element": "Ice",
