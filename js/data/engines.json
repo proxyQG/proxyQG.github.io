@@ -197,24 +197,24 @@
     },
     "overclocks": [
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [24 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [10 %], et les {DGT} infligés ignorent [16 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [24%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [10%], and the DMG dealt ignores [16%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux critique} de l'équipementier de [20 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [10 %], et les {DGT} infligés ignorent [15 %] de la {RÉS Vent} de la cible pendant 16 s.",
+        "en": "Increases the equipper's {CRIT Rate} by [20%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [10%], and the DMG dealt ignores [15%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [27.6 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [11.5 %], et les {DGT} infligés ignorent [18.4 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [27.6%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [11.5%], and the DMG dealt ignores [18.4%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux critique} de l'équipementier de [23 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [11.5 %], et les {DGT} infligés ignorent [17.3%] de la {RÉS Vent} de la cible pendant 16 s.",
+        "en": "Increases the equipper's {CRIT Rate} by [23%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [11.5%], and the DMG dealt ignores [17.3%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [31.2 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [13 %], et les {DGT} infligés ignorent [20.8 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [31.2%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [13%], and the DMG dealt ignores [20.8%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux critique} de l'équipementier de [26% %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [13 %], et les {DGT} infligés ignorent [19.5%] de la {RÉS Vent} de la cible pendant 16 s.",
+        "en": "Increases the equipper's {CRIT Rate} by [26%%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [13%], and the DMG dealt ignores [19.5%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [34.8 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [14.5 %], et les {DGT} infligés ignorent [23.2 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [34.8%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [14.5%], and the DMG dealt ignores [23.2%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux critique} de l'équipementier de [29%]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [14.5 %], et les {DGT} infligés ignorent [21.8%] de la {RÉS Vent} de la cible pendant 16 s.",
+        "en": "Increases the equipper's {CRIT Rate} by [29%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [14.5%], and the DMG dealt ignores [21.8%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [38.4 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [16 %], et les {DGT} infligés ignorent [25.6 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [38.4%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [16%], and the DMG dealt ignores [25.6%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux critique} de l'équipementier de [32%]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [16 %], et les {DGT} infligés ignorent [24%] de la {RÉS Vent} de la cible pendant 16 s.",
+        "en": "Increases the equipper's {CRIT Rate} by [32%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [16%], and the DMG dealt ignores [24%] of the target's {Wind RES} for 16s."
       }
     ]
   },
