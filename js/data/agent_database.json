@@ -14177,68 +14177,231 @@
         ]
     },
     "Severian": {
-        "color": "#3bbedb",
-        "element": "Wind",
-        "rank": "S",
-        "factionTitle": {
-            "fr": "Division de l'Ordre urbain",
-            "en": "Metropolitan Order Division"
-        },
-        "stats": [
-            { "label": "Taux Crit", "value": "..." },
-            { "label": "Dégât Crit", "value": "..." },
-            { "label": "Attaque", "value": "..." }
-        ],
-        "discs": [
-            {
-                "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
-                "set1": "Dawn_Bloom",
-                "set2": "Astral_Voice",
-                "set1Name": "4pc Dawn's Bloom",
-                "set2Name": "+ 2pc Astral Voice",
-                "note": {
-                    "fr": "en attente.",
-                    "en": "pending..."
-                }
+    "color": "#3bbedb",
+    "element": "Wind",
+    "rank": "S",
+    "factionTitle": {
+        "fr": "Division de l'Ordre urbain",
+        "en": "Metropolitan Order Division"
+    },
+    "stats": [
+        {
+            "label": { "fr": "Taux CRIT", "en": "CRIT Rate" },
+            "value": "80 - 100 %",
+            "note": {
+                "fr": "(76 % max hors combat avec Signature, 80 % avec Exuvie solaire, 85 % avec Cordis Germina pour atteindre 100 % en combat)",
+                "en": "(76% max out of combat with Signature, 80% with Sol Exuvia, 85% with Cordis Germina to reach 100% in combat)"
             }
-        ],
-        "skills": [
-            { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
-            { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
-            { "name": "Ex", "level": "11", "icon": "Ex.webp" },
-            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
-            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
-        ],
-        "statPriority": {
-            "main": [
-                { "slot": "6", "label": { "fr": "...", "en": "..." } },
-                { "slot": "5", "label": { "fr": "...", "en": "..." } },
-                { "slot": "4", "label": { "fr": "...", "en": "..." } }
-            ],
-            "sub": [
-                { "label": { "fr": "...", "en": "..." }, "highlight": true },
-                { "label": { "fr": "...", "en": "..." }, "highlight": true }
-            ]
         },
-        "engines": [
-            {
-                "tag": "Signature (100 %)",
-                "name": "Sin-Ban Cage",
-                "img": "cage-of-forbidden-sins.webp"
+        {
+            "label": { "fr": "DGT CRIT", "en": "CRIT DMG" },
+            "value": "140 - 170 %+"
+        },
+        {
+            "label": { "fr": "Attaque", "en": "ATK" },
+            "value": "2600 - 3000+"
+        }
+    ],
+    "discs": [
+        {
+            "tag": { "fr": "BUILD OPTIMAL 👑", "en": "OPTIMAL BUILD 👑" },
+            "set1": "Dawn_Bloom",
+            "set2": "Puffer_Electro",
+            "set1Name": { "fr": "4-pièces Floraison de l'aube", "en": "4pc Dawn's Bloom" },
+            "set2Name": { "fr": "+ 2-pièces Électro fugu", "en": "+ 2pc Puffer Electro" },
+            "note": {
+                "fr": "Le meilleur set de Severian. Comme son Attaque de base renforcée (EBA) représente la majeure partie de ses dégâts et qu'il utilise très souvent son Attaque spéciale EX et son Ultime, il maintient le bonus de +40 % de DGT d'Attaque de base en permanence.",
+                "en": "Severian's best set. Since his Enhanced Basic Attack (EBA) accounts for the vast majority of his damage and he frequently casts his EX Special and Ultimate, he maintains the full +40% Basic Attack DMG bonus permanently."
             }
+        },
+        {
+            "tag": { "fr": "ALTERNATIVE CRIT", "en": "CRIT ALTERNATIVE" },
+            "set1": "Woodpecker_Electro",
+            "set2": "Dawn_Bloom",
+            "set1Name": { "fr": "4-pièces Électro pivert", "en": "4pc Woodpecker Electro" },
+            "set2Name": { "fr": "+ 2-pièces Floraison de l'aube", "en": "+ 2pc Dawn's Bloom" },
+            "note": {
+                "fr": "Excellente alternative si tu manques de Taux CRIT pour activer le plein potentiel de son passif (+850 ATQ à 100 % Taux CRIT). Les coups critiques de ses Attaques de base et de son Attaque spéciale EX maintiennent facilement le bonus d'ATQ % en combat.",
+                "en": "Great alternative if you need extra CRIT Rate to max out his passive (+850 combat ATK at 100% CRIT Rate). Critical hits from his Basic Attacks and EX Special easily keep the ATK% buff active."
+            }
+        },
+        {
+            "tag": { "fr": "BURST STUN ⚡", "en": "BURST STUN ⚡" },
+            "set1": "Hormone_Punk",
+            "set2": "Woodpecker_Electro",
+            "set1Name": { "fr": "4-pièces Punk hormonal", "en": "4pc Hormone Punk" },
+            "set2Name": { "fr": "+ 2-pièces Électro pivert", "en": "+ 2pc Woodpecker Electro" },
+            "note": {
+                "fr": "Très performant pour concentrer un maximum de dégâts dans la fenêtre d'étourdissement. Le bonus de +25 % d'ATQ pendant 10 secondes couvre l'intégralité de son combo de Stun (3 EBA + Ultime) lorsqu'il entre sur le terrain.",
+                "en": "Strong option to frontload maximum damage during the Stun window. The +25% ATK buff for 10s covers his entire Stun combo (3 EBAs + Ultimate) upon switching in."
+            }
+        }
+    ],
+    "skills": [
+        { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
+        { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
+        { "name": "Assist", "level": "11", "icon": "Assist.webp" },
+        { "name": "Ex", "level": "10", "icon": "Ex.webp" },
+        { "name": "Dodge", "level": "1", "icon": "Esquive.webp" }
+    ],
+    "statPriority": {
+        "main": [
+            { "slot": "6", "label": { "fr": "ATQ %", "en": "ATK %" } },
+            { "slot": "5", "label": { "fr": "TAUX DE PÉN", "en": "PEN Ratio" } },
+            { "slot": "4", "label": { "fr": "TAUX CRIT", "en": "CRIT Rate" } }
         ],
-        "teams": [
+        "sub": [
             {
-                "name": "TEAM 01",
-                "tag": { "fr": "Souffle du loup", "en": "Breath of the Wolf" },
-                "members": [
-                    { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
-                    { "img": "Roxy.webp", "color": "#2dd4bf", "initial": "R" },
-                    { "img": "Sunna.webp", "color": "#e8a838", "initial": "S" }
-                ]
+                "label": {
+                    "fr": "Taux CRIT (100 % en combat)",
+                    "en": "CRIT Rate (100% in combat)"
+                },
+                "highlight": true
+            },
+            {
+                "label": {
+                    "fr": "DGT CRIT",
+                    "en": "CRIT DMG"
+                },
+                "highlight": false
+            },
+            {
+                "label": {
+                    "fr": "ATQ %",
+                    "en": "ATK %"
+                },
+                "highlight": false
+            },
+            {
+                "label": {
+                    "fr": "PÉN Flat",
+                    "en": "Flat PEN"
+                },
+                "highlight": false
             }
         ]
     },
+    "engines": [
+        {
+            "tag": { "fr": "SIGNATURE (100 %)", "en": "SIGNATURE (100%)" },
+            "name": "Sin-Ban Cage",
+            "img": "cage-of-forbidden-sins.webp"
+        },
+        {
+            "tag": { "fr": "ALTERNATIVE S", "en": "S-RANK ALTERNATIVE" },
+            "name": "Cordis Germina",
+            "img": "W-Engine_Cordis_Germina.webp"
+        },
+        {
+            "tag": { "fr": "RANG S GRATUIT", "en": "FREE S-RANK" },
+            "name": "Sol Exuvia",
+            "img": "W-Engine_Sol_Exuvia.webp"
+        },
+        {
+            "tag": { "fr": "OPTION F2P A", "en": "F2P A-RANK" },
+            "name": "Starlight Engine",
+            "img": "Starlight_Engine.webp"
+        }
+    ],
+    "teams": [
+        {
+            "name": "TEAM 01",
+            "tag": {
+                "fr": "SYNERGIE ABSOLUE 👑",
+                "en": "ABSOLUTE SYNERGY 👑"
+            },
+            "members": [
+                {
+                    "img": "Severian.webp",
+                    "color": "#3bbedb",
+                    "initial": "S"
+                },
+                {
+                    "img": "Roxy.webp",
+                    "color": "#2dd4bf",
+                    "initial": "R"
+                },
+                {
+                    "img": "Sunna.webp",
+                    "color": "#e8a838",
+                    "initial": "S"
+                }
+            ]
+        },
+        {
+            "name": "TEAM 02",
+            "tag": {
+                "fr": "HYPERCARRY STUN ⚡",
+                "en": "HYPERCARRY STUN ⚡"
+            },
+            "members": [
+                {
+                    "img": "Severian.webp",
+                    "color": "#3bbedb",
+                    "initial": "S"
+                },
+                {
+                    "img": "Norma.webp",
+                    "color": "#ff3333",
+                    "initial": "N"
+                },
+                {
+                    "img": "Sunna.webp",
+                    "color": "#e8a838",
+                    "initial": "S"
+                }
+            ]
+        },
+        {
+            "name": "TEAM 03",
+            "tag": {
+                "fr": "PÉN MAX 🗡️",
+                "en": "MAX PEN 🗡️"
+            },
+            "members": [
+                {
+                    "img": "Severian.webp",
+                    "color": "#3bbedb",
+                    "initial": "S"
+                },
+                {
+                    "img": "Roxy.webp",
+                    "color": "#2dd4bf",
+                    "initial": "R"
+                },
+                {
+                    "img": "Rina.webp",
+                    "color": "#3182eb",
+                    "initial": "R"
+                }
+            ]
+        },
+        {
+            "name": "TEAM 04",
+            "tag": {
+                "fr": "F2P",
+                "en": "F2P"
+            },
+            "members": [
+                {
+                    "img": "Severian.webp",
+                    "color": "#3bbedb",
+                    "initial": "S"
+                },
+                {
+                    "img": "Lycaon.webp",
+                    "color": "#00d5be",
+                    "initial": "L"
+                },
+                {
+                    "img": "Nicole.webp",
+                    "color": "#f23c8a",
+                    "initial": "N"
+                }
+            ]
+        }
+    ]
+},
     "Hugo": {
         "color": "#3bbedb",
         "element": "Ice",
