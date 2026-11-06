@@ -14306,8 +14306,8 @@
                 "tag": { "fr": "F2P", "en": "F2P" },
                 "members": [
                     { "img": "Severian.webp", "color": "#3bbedb", "initial": "S" },
-                    { "img": "Dialyn.webp", "color": "#e8a838", "initial": "D" },
-                    { "img": "Sunna.webp", "color": "#e8a838", "initial": "S" }
+                    { "img": "Anby.webp", "color": "#3182eb", "initial": "A" },
+                    { "img": "Nicole.webp", "color": "#f23c8a", "initial": "N" }
                 ]
             }
         ]
