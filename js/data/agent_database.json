@@ -14234,19 +14234,21 @@
         "skills": [
             { "name": "Basic", "level": "12", "icon": "Attaque_basic.webp" },
             { "name": "Ult", "level": "12", "icon": "Ultime.webp" },
+            { "name": "Assist", "level": "11", "icon": "Assist.webp" },
             { "name": "Ex", "level": "11", "icon": "Ex.webp" },
-            { "name": "Assist", "level": "8", "icon": "Assist.webp" },
-            { "name": "Dodge", "level": "6", "icon": "Esquive.webp" }
+            { "name": "Dodge", "level": "1", "icon": "Esquive.webp" }
         ],
         "statPriority": {
             "main": [
-                { "slot": "6", "label": { "fr": "...", "en": "..." } },
-                { "slot": "5", "label": { "fr": "...", "en": "..." } },
-                { "slot": "4", "label": { "fr": "...", "en": "..." } }
+                { "slot": "6", "label": { "fr": "ATQ %", "en": "ATK %" } },
+                { "slot": "5", "label": { "fr": "Taux de PÉN > DGT Vent % / ATQ %", "en": "PEN Ratio > Wind DMG % / ATK %" } },
+                { "slot": "4", "label": { "fr": "Taux CRIT", "en": "CRIT Rate" } }
             ],
             "sub": [
-                { "label": { "fr": "...", "en": "..." }, "highlight": true },
-                { "label": { "fr": "...", "en": "..." }, "highlight": true }
+                { "label": { "fr": "Taux CRIT (jusqu'à 100 % en combat)", "en": "CRIT Rate (up to 100% in combat)" }, "highlight": true },
+                { "label": { "fr": "DGT CRIT", "en": "CRIT DMG" }, "highlight": true },
+                { "label": { "fr": "ATQ %", "en": "ATK %" }, "highlight": false },
+                { "label": { "fr": "PÉN (encore plus fort avec Disque 5 Taux de PÉN, Rina ou sa M2)", "en": "PEN (even stronger with Disc 5 PEN Ratio, Rina or his M2)" }, "highlight": false }
             ]
         },
         "engines": [
