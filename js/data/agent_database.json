@@ -14185,20 +14185,49 @@
             "en": "Metropolitan Order Division"
         },
         "stats": [
-            { "label": "Taux Crit", "value": "..." },
-            { "label": "Dégât Crit", "value": "..." },
-            { "label": "Attaque", "value": "..." }
+           {
+        "label": "Taux Crit",
+        "value": "60 - 100%",
+        "note": {
+          "fr": "76 % max avec son moteur signature",
+          "en": "76% max with her Signature W-Engine"
+        }
+      },
+            { "label": "Dégât Crit", "value": "140 - 170%+" },
+            { "label": "Attaque", "value": "2600 - 3000+" }
         ],
         "discs": [
             {
                 "tag": { "fr": "Build Optimal 👑", "en": "Optimal Build 👑" },
                 "set1": "Dawn_Bloom",
-                "set2": "Astral_Voice",
+                "set2": "Woodpecker_Electro",
                 "set1Name": "4pc Dawn's Bloom",
-                "set2Name": "+ 2pc Astral Voice",
+                "set2Name": "+ 2pc Woodpecker Electro",
                 "note": {
-                    "fr": "en attente.",
-                    "en": "pending..."
+                    "fr": "Le meilleur set généraliste de Severian. Comme son Attaque de base renforcée (EBA) représente la majeure partie de ses dégâts et qu'il utilise très souvent son Attaque spéciale EX et son Ultime, il maintient le bonus de +40 % de DGT d'Attaque de base en permanence. Si tu atteins déjà 100 % de Taux CRIT en combat, tu peux remplacer le 2-pièces par Électro fugu (Puffer Electro).",
+                    "en": "Severian's best all-around set. Since his Enhanced Basic Attack (EBA) accounts for the vast majority of his damage and he frequently casts his EX Special and Ultimate, he maintains the full +40% Basic Attack DMG bonus permanently. If you already reach 100% CRIT Rate in combat, you can swap the 2-piece for Puffer Electro."
+                }
+            },
+            {
+                "tag": { "fr": "Alternative Crit", "en": "Crit Alternative" },
+                "set1": "Woodpecker_Electro",
+                "set2": "Dawn_Bloom",
+                "set1Name": "4pc Woodpecker Electro",
+                "set2Name": "+ 2pc Dawn's Bloom",
+                "note": {
+                    "fr": "Excellente alternative si tu manques de Taux CRIT pour activer le plein potentiel de son passif (+850 ATQ à 100 % Taux CRIT). Les coups critiques de ses Attaques de base et de son Attaque spéciale EX maintiennent facilement le bonus d'ATQ % en combat.",
+                    "en": "Great alternative if you need extra CRIT Rate to max out his passive (+850 combat ATK at 100% CRIT Rate). Critical hits from his Basic Attacks and EX Special easily keep the ATK% buff active."
+                }
+            },
+            {
+                "tag": { "fr": "Burst Stun", "en": "Stun Burst" },
+                "set1": "Hormone_Punk",
+                "set2": "Woodpecker_Electro",
+                "set1Name": "4pc Hormone Punk",
+                "set2Name": "+ 2pc Woodpecker Electro",
+                "note": {
+                    "fr": "Très performant pour concentrer un maximum de dégâts dans la fenêtre d'étourdissement. Le bonus de +25 % d'ATQ pendant 10 secondes couvre l'intégralité de son combo de Stun (3 EBA + Ultime) lorsqu'il entre sur le terrain.",
+                    "en": "Strong option to frontload maximum damage during the Stun window. The +25% ATK buff for 10s covers his entire Stun combo (3 EBAs + Ultimate) upon switching in."
                 }
             }
         ],
