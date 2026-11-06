@@ -177,7 +177,7 @@ export const enginesDict = {
     "Spectral Gaze": "Regard spectral",
     "Spring Embrace": "Étreinte printanière",
     "Starlight Engine Replica": "Stellaire - Réplique",
-    "Starlight Engine": "Stellaire",
+    "Starlight Engine": "Moteur stellaire",
     "Steam Oven": "Four à vapeur",
     "The Steam Oven": "Four à vapeur",
     "Steel Cushion": "Coussin d'acier",
