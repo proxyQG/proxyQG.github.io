@@ -2,8 +2,8 @@ name: Auto-Sync ZZZ Banner Timer (Prydwen)
 
 on:
   schedule:
-    # Vérifie automatiquement toutes les 12 heures (06h00 et 18h00 UTC)
-    - cron: '0 6,18 * * *'
+    # Vérifie aux heures de reset des bannières (06h15, 11h15, 12h15, 14h15 et 18h15 UTC)
+    - cron: '15 6,11,12,14,18 * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,10 +15,10 @@ concurrency:
 
 jobs:
   sync-timer:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Fetch & Parse Prydwen ZZZ Banners
         run: |
@@ -30,35 +30,40 @@ jobs:
 
           url = "https://www.prydwen.gg/zenless/banners"
           cmd = [
-              "curl", "-sL", "--max-time", "20",
+              "curl", "-sL", "--max-time", "25",
               "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
               url
           ]
           res = subprocess.run(cmd, capture_output=True, text=True)
           raw_html = res.stdout or ""
 
-          if not raw_html or "current-banners" not in raw_html:
+          if not raw_html or ("current-banners" not in raw_html and "CURRENT CHARACTER BANNERS" not in raw_html.upper()):
               print("Prydwen indisponible ou structure modifiée : conservation du timer actuel.")
               raise SystemExit(0)
 
-          # Cible précisément la balise <section ... id="current-banners"> jusqu'à sa fermeture </section>
-          section_match = re.search(r'id="current-banners"(.*?)</section>', raw_html, re.S)
-          chunk = section_match.group(1) if section_match else raw_html
+          # Cible uniquement la zone des bannières actuelles (avant UPCOMING BANNERS)
+          up_split = re.split(r'id="upcoming-banners"|UPCOMING\s+BANNERS', raw_html, maxsplit=1, flags=re.I)
+          current_zone = up_split[0]
+          sec_match = re.search(r'(?:id="current-banners"|CURRENT\s+CHARACTER\s+BANNERS)(.*)', current_zone, re.S | re.I)
+          chunk = sec_match.group(1) if sec_match else current_zone
 
-          # Décode les entités HTML (&ndash;, &amp;, etc.) et retire les balises
           clean_text = html_lib.unescape(re.sub(r'<[^>]+>', ' ', chunk))
           clean_text = re.sub(r'\s+', ' ', clean_text)
 
-          # Gère "Oct 21, 2026 – Nov 11, 2026" ET "Oct 21 – Nov 11, 2026"
+          # Trouve toutes les mentions "PATCH X.Y PHASE Z Mois Jour, Année – Mois Jour, Année"
           pattern = r'PATCH\s+(\d+\.\d+)(?:\s+PHASE\s+(\d+))?\s+([A-Za-z]+\s+\d{1,2})(?:,\s*(\d{4}))?\s*[–—\-]\s*([A-Za-z]+\s+\d{1,2}),\s*(\d{4})'
-          m = re.search(pattern, clean_text, re.I)
+          matches = list(re.finditer(pattern, clean_text, re.I))
 
-          if not m:
+          if not matches:
               print("Aucune date détectée : conservation du timer actuel.")
               raise SystemExit(0)
 
+          # Corrige les coquilles de Prydwen (ex: titre dit PHASE 1 mais les badges disent PHASE 2)
+          m = matches[0]
           patch_num = m.group(1)
-          phase_num = m.group(2) or "1"
+          detected_phases = [int(x.group(2)) for x in matches if x.group(1) == patch_num and x.group(2)]
+          phase_num = str(max(detected_phases)) if detected_phases else "1"
+
           end_year = m.group(6)
           start_year = m.group(4) or end_year
 
@@ -74,18 +79,28 @@ jobs:
                       pass
               return None
 
-          start_iso = parse_date(start_str, 3)
-          end_iso = parse_date(end_str, 11)
+          # 14:00:00Z (15h00 CET) correspond exactement au compteur EU Server de Prydwen
+          start_iso = parse_date(start_str, 11)
+          end_iso = parse_date(end_str, 14)
 
           if not start_iso or not end_iso:
               print("Format de date non reconnu : conservation du timer actuel.")
               raise SystemExit(0)
 
+          # Extraction multi-sources des personnages et armes vedettes (Featured Rate Up + Cartes S-Rank)
           featured = []
-          for name in re.findall(r'aria-label="Open\s+([^"]+)"', chunk):
-              clean_name = html_lib.unescape(name).strip()
-              if clean_name and clean_name not in featured:
-                  featured.append(clean_name)
+          # 1. Via les badges "FEATURED RATE UP" de Prydwen
+          for f_match in re.finditer(r'FEATURED\s+RATE\s+UP\s*(?:</[^>]+>\s*)*<[^>]+>([^<]+)<', chunk, re.I):
+              name = html_lib.unescape(f_match.group(1)).strip()
+              if name and name not in featured:
+                  featured.append(name)
+
+          # 2. Fallback via aria-label ou noms de cartes si FEATURED RATE UP est absent
+          if not featured:
+              for name in re.findall(r'aria-label="Open\s+([^"]+)"', chunk):
+                  clean_name = html_lib.unescape(name).strip()
+                  if clean_name and clean_name not in featured:
+                      featured.append(clean_name)
 
           data = {
               "patch": patch_num,
@@ -114,7 +129,7 @@ jobs:
               )
               index_path.write_text(idx_html, encoding="utf-8")
 
-          print(f"Timer synchronisé : Patch {patch_num} Phase {phase_num} -> fin le {end_iso}")
+          print(f"Timer synchronisé : Patch {patch_num} Phase {phase_num} ({', '.join(featured[:4])}) -> fin le {end_iso}")
           EOF
 
       - name: Commit & Push if changed
