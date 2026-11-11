@@ -1,13 +1,13 @@
 {
   "patch": "3.3",
-  "phase": "1",
-  "startDate": "2026-10-21T03:00:00Z",
-  "endDate": "2026-11-11T11:00:00Z",
-  "rawRange": "Oct 21, 2026 – Nov 11, 2026",
+  "phase": "2",
+  "startDate": "2026-11-11T11:00:00Z",
+  "endDate": "2026-12-01T14:00:00Z",
+  "rawRange": "Nov 11, 2026 – Dec 1, 2026",
   "featured": [
-    "Phoenix",
-    "Velina",
-    "Plume of Rebirth",
-    "Joyau Dore"
+    "Severian",
+    "Norma",
+    "Incarcerating Grip",
+    "Chief Sidekick"
   ]
 }
