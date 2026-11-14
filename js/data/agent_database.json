@@ -13567,9 +13567,9 @@
                     "en": "Support Alternative"
                 },
                 "set1": "Astral_Voice",
-                "set2": "Swing_Jazz",
+                "set2": "Moonlight_Lullaby",
                 "set1Name": "4pc Astral Voice",
-                "set2Name": "+ 2pc Swing Jazz",
+                "set2Name": "+ 2pc Moonlight Lullaby",
                 "note": {
                     "fr": "Une excellente option de soutien. Norma possède l'une des Assistances Rapides les plus accessibles du jeu (en maintenant l'Attaque de Base).",
                     "en": "A great generalist Support set. Norma has some of the most accessible Quick Assists in the game (hold Basic)."
@@ -13589,7 +13589,7 @@
             },
             {
                 "name": "Ult",
-                "level": "12",
+                "level": "11",
                 "icon": "Ultime.webp"
             },
             {
@@ -13608,8 +13608,8 @@
                 {
                     "slot": "6",
                     "label": {
-                        "fr": "Réc. d'énergie = Impact %",
-                        "en": "Energy Regen = Impact %"
+                        "fr": "Impact % > Réc. d'énergie",
+                        "en": "Impact % > Energy Regen"
                     }
                 },
                 {
@@ -13684,16 +13684,16 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "Duo E.S.D 👑",
-                    "en": "E.S.D Duo 👑"
+                    "fr": "Ingènieur ailé",
+                    "en": "Winged Engineer"
                 },
-                "videoId": "2bR-lv_iD1M",
-                "startTime": 5,
+                "videoId": "SiXLw88JeFM",
+                "startTime": 4,
                 "members": [
                     {
-                        "img": "Pyrois.webp",
-                        "color": "#5d57a6",
-                        "initial": "P"
+                        "img": "Claret.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
                     },
                     {
                         "img": "Norma.webp",
@@ -13701,24 +13701,24 @@
                         "initial": "N"
                     },
                     {
-                        "img": "Sunna.webp",
-                        "color": "#e8a838",
-                        "initial": "S"
+                        "img": "Rina.webp",
+                        "color": "#3182eb",
+                        "initial": "R"
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "DPS Feu",
-                    "en": "Fire DPS"
+                    "fr": "Ingènieur en G.A.V",
+                    "en": "Engineer on duty"
                 },
-                "videoId": "0vkdCbq8kzg",
+                "videoId": "6_KsOi3d1qo",
                 "members": [
                     {
-                        "img": "Soldier 11.webp",
-                        "color": "#f05432",
-                        "initial": "S11"
+                        "img": "Severian.webp",
+                        "color": "#3bbedb",
+                        "initial": "S"
                     },
                     {
                         "img": "Norma.webp",
@@ -13735,16 +13735,16 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "Elec DPS",
-                    "en": "Electric DPS "
+                    "fr": "Rupture",
+                    "en": "Rupture "
                 },
-                "videoId": "BhUj5qvH6ao",
-                "startTime": 12,
+                "videoId": "w4Tg4OScQVU",
+                "startTime": 5,
                 "members": [
                     {
-                        "img": "Cissia.webp",
-                        "color": "#3182eb",
-                        "initial": "C"
+                        "img": "Starlight Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "SB"
                     },
                     {
                         "img": "Norma.webp",
@@ -13752,9 +13752,9 @@
                         "initial": "N"
                     },
                     {
-                        "img": "Sunna.webp",
-                        "color": "#e8a838",
-                        "initial": "S"
+                        "img": "Lucia.webp",
+                        "color": "#f23c8a",
+                        "initial": "L"
                     }
                 ]
             },
