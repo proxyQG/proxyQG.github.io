@@ -690,7 +690,9 @@ const factionTranslations = {
     "Département de la patrouille aérienne": "Airspace Patrol Department",
     "Entente de Dayat": "Void Hunters",
     "Phaéthon": "Phaethon",
-    "Atelier Flint": "Flint Workshop"
+    "Atelier Flint": "Flint Workshop",
+    "Unknown Realm": "Unknown Realm",
+    "Roscaelifer": "Roscaelifer"
 };
 
 window.translateFactionName = function(rawFaction) {
@@ -946,7 +948,7 @@ function buildInitialGrid() {
                 </div>
             </div>`;
         }
-        finalHTML += createCardHTML(agent, index === 0, index);
+        finalHTML += createCardHTML(agent, Boolean(agent.isNew) || index < 3, index);
     });
     
     DOM.grid.innerHTML = finalHTML;
@@ -1978,7 +1980,8 @@ if (installBtn) {
 async function initPatchCountdown() {
     let timerData = null;
     try {
-        const res = await fetch('./js/data/patch_timer.json');
+        // cache: 'no-cache' garantit la récupération immédiate après chaque mise à jour GitHub Actions
+        const res = await fetch('./js/data/patch_timer.json', { cache: 'no-cache' });
         if (res.ok) timerData = await res.json();
     } catch (e) {}
 
@@ -1993,6 +1996,7 @@ async function initPatchCountdown() {
 
     let lastLabelTxt = '';
     let lastSubTxt = '';
+    let lastTooltipTxt = '';
 
     const updateTimer = (forceText = false) => {
         if (!forceText && (document.hidden || document.body.classList.contains('modal-open'))) return;
@@ -2001,11 +2005,18 @@ async function initPatchCountdown() {
         let endMs = Date.parse(timerData.endDate);
         if (Number.isNaN(endMs)) return;
 
+        let startMs = Date.parse(timerData.startDate);
+        if (Number.isNaN(startMs)) startMs = endMs - 20 * 86400000;
+
         const now = Date.now();
         let patch = timerData.patch || '3.3';
         let phase = parseInt(timerData.phase || '1', 10);
+        let rolledOver = false;
 
+        // Si la date de fin est dépassée avant le passage du robot GitHub, bascule proprement sur la phase suivante
         while (now >= endMs) {
+            rolledOver = true;
+            startMs = endMs;
             endMs += 21 * 24 * 60 * 60 * 1000;
             if (phase === 1) {
                 phase = 2;
@@ -2040,13 +2051,20 @@ async function initPatchCountdown() {
         }
         clocks.forEach(el => { el.textContent = clockTxt; });
 
-        if (forceText && timerData.rawRange) {
-            const feat = Array.isArray(timerData.featured) && timerData.featured.length
-                ? ` (${timerData.featured.join(' / ')})`
-                : '';
-            const tooltipTitle = `Patch ${patch} Phase ${phase}${feat} : ${timerData.rawRange}`;
+        // Formatage dynamique et bilingue de l'infobulle au survol (sans jamais afficher une ancienne bannière expirée)
+        const locale = isEn ? 'en-US' : 'fr-FR';
+        const dateOpts = { day: 'numeric', month: 'short', year: 'numeric' };
+        const startFormatted = new Date(startMs).toLocaleDateString(locale, dateOpts);
+        const endFormatted = new Date(endMs).toLocaleDateString(locale, dateOpts);
+        const feat = (!rolledOver && Array.isArray(timerData.featured) && timerData.featured.length)
+            ? ` (${timerData.featured.join(' / ')})`
+            : '';
+        const tooltipTitle = `Patch ${patch} Phase ${phase}${feat} : ${startFormatted} – ${endFormatted}`;
+
+        if (forceText || tooltipTitle !== lastTooltipTxt) {
             if (desktopBox) desktopBox.title = tooltipTitle;
             if (mobileBox) mobileBox.title = tooltipTitle;
+            lastTooltipTxt = tooltipTitle;
         }
     };
 
