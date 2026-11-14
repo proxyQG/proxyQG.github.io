@@ -1,6 +1,6 @@
 export const colorMap = {
     'Physical': '#e8a838', 'Honed Edge': '#e8a838',
-    'Fire': '#f05432', 
+    'Fire': '#f05432', 'Genesis Flare': '#38bdf8',
     'Ice': '#00d5be', 
     'Frost': '#6d67f8',
     'Wind': '#4da2f8',
@@ -12,6 +12,7 @@ export const iconMap = {
     'Physical': 'physique.png',
     'Honed Edge': 'Honed_Edge.png',
     'Fire': 'feu.png',
+    'Genesis Flare': 'Genesis_Flare.png',
     'Ice': 'Ice.png',
     'Frost': 'Frost.png',
     'Wind': 'Vent.png',
@@ -27,9 +28,10 @@ export const filterGroups = {
     'Ether': ['Ether'], 
     'Lumiflux': ['Lumiflux'],
     'Physical': ['Physical'],
-    'Fire': ['Fire'],
+    'Fire': ['Fire', 'Genesis Flare'],
+    'Genesis Flare': ['Genesis Flare'],
     'Electric': ['Electric'],
     'Honed Edge': ['Honed Edge'],
     'Auric Ink': ['Auric Ink'],
-    'All': ['Ice', 'Frost', 'Wind', 'Ether', 'Auric Ink', 'Lumiflux', 'Physical', 'Honed Edge', 'Fire', 'Electric']
+    'All': ['Ice', 'Frost', 'Wind', 'Ether', 'Auric Ink', 'Lumiflux', 'Physical', 'Honed Edge', 'Fire', 'Genesis Flare', 'Electric']
 };
