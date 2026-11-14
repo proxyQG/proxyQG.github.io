@@ -3793,5 +3793,137 @@
         "en": "When there are enemies inflicted with Attribute Anomaly on the field, the equipper's ATK increases by [16%] and they deal an additional [25%] more DMG to the target."
       }
     ]
+  },
+  "Elegy of the Molted Spider": {
+    "name": {
+      "fr": "Élégie de l'araignée en mue",
+      "en": "Elegy of the Molted Spider"
+    },
+    "rank": "S",
+    "specialty": "Anomaly",
+    "element": "Electric",
+    "img": "W-Engine_Elegy_of_the_Molted_Spider.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "Réc. d'énergie",
+        "en": "Energy Regen"
+      },
+      "advanced": "24% - 60%"
+    },
+    "passiveName": {
+      "fr": "Sala aux mille fils",
+      "en": "Thousand-Thread Sala"
+    },
+    "overclocks": [
+      {
+        "fr": "Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT Électriques}, son {Adresse d'Anomalie} augmente de [30] pendant 30s (cumulable jusqu'à 3 fois). La durée de chaque cumul est calculée séparément. Cet effet peut se déclencher une fois par compétence. À 3 cumuls, les DGT de l'équipementier augmentent de [30 %] et ses DGT de {Désordre} augmentent de [20 %].",
+        "en": "When the equipper's {EX Special Attack} deals {Electric DMG}, their {Anomaly Proficiency} increases by [30] for 30s, stacking up to 3 times. The duration of each stack is calculated separately. This effect can trigger once per skill. At 3 stacks, the equipper's DMG increases by [30%], and their {Disorder} DMG increases by [20%]."
+      },
+      {
+        "fr": "Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT Électriques}, son {Adresse d'Anomalie} augmente de [34,5] pendant 30s (cumulable jusqu'à 3 fois). La durée de chaque cumul est calculée séparément. Cet effet peut se déclencher une fois par compétence. À 3 cumuls, les DGT de l'équipementier augmentent de [34,5 %] et ses DGT de {Désordre} augmentent de [23 %].",
+        "en": "When the equipper's {EX Special Attack} deals {Electric DMG}, their {Anomaly Proficiency} increases by [34.5] for 30s, stacking up to 3 times. The duration of each stack is calculated separately. This effect can trigger once per skill. At 3 stacks, the equipper's DMG increases by [34.5%], and their {Disorder} DMG increases by [23%]."
+      },
+      {
+        "fr": "Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT Électriques}, son {Adresse d'Anomalie} augmente de [39] pendant 30s (cumulable jusqu'à 3 fois). La durée de chaque cumul est calculée séparément. Cet effet peut se déclencher une fois par compétence. À 3 cumuls, les DGT de l'équipementier augmentent de [39 %] et ses DGT de {Désordre} augmentent de [26 %].",
+        "en": "When the equipper's {EX Special Attack} deals {Electric DMG}, their {Anomaly Proficiency} increases by [39] for 30s, stacking up to 3 times. The duration of each stack is calculated separately. This effect can trigger once per skill. At 3 stacks, the equipper's DMG increases by [39%], and their {Disorder} DMG increases by [26%]."
+      },
+      {
+        "fr": "Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT Électriques}, son {Adresse d'Anomalie} augmente de [43,5] pendant 30s (cumulable jusqu'à 3 fois). La durée de chaque cumul est calculée séparément. Cet effet peut se déclencher une fois par compétence. À 3 cumuls, les DGT de l'équipementier augmentent de [43,5 %] et ses DGT de {Désordre} augmentent de [29 %].",
+        "en": "When the equipper's {EX Special Attack} deals {Electric DMG}, their {Anomaly Proficiency} increases by [43.5] for 30s, stacking up to 3 times. The duration of each stack is calculated separately. This effect can trigger once per skill. At 3 stacks, the equipper's DMG increases by [43.5%], and their {Disorder} DMG increases by [29%]."
+      },
+      {
+        "fr": "Lorsque l'{Attaque spéciale EX} de l'équipementier inflige des {DGT Électriques}, son {Adresse d'Anomalie} augmente de [48] pendant 30s (cumulable jusqu'à 3 fois). La durée de chaque cumul est calculée séparément. Cet effet peut se déclencher une fois par compétence. À 3 cumuls, les DGT de l'équipementier augmentent de [48 %] et ses DGT de {Désordre} augmentent de [32 %].",
+        "en": "When the equipper's {EX Special Attack} deals {Electric DMG}, their {Anomaly Proficiency} increases by [48] for 30s, stacking up to 3 times. The duration of each stack is calculated separately. This effect can trigger once per skill. At 3 stacks, the equipper's DMG increases by [48%], and their {Disorder} DMG increases by [32%]."
+      }
+    ]
+  },
+  "Starlit Chroma": {
+    "name": {
+      "fr": "Chroma étoilé",
+      "en": "Starlit Chroma"
+    },
+    "rank": "S",
+    "specialty": "Defense",
+    "element": "Ether",
+    "img": "W-Engine_Starlit_Chroma.webp",
+    "stats": {
+      "base": "48 - 713",
+      "advancedLabel": {
+        "fr": "PV %",
+        "en": "HP %"
+      },
+      "advanced": "12% - 30%"
+    },
+    "passiveName": {
+      "fr": "Grand nocturne",
+      "en": "Grand Nocturne"
+    },
+    "overclocks": [
+      {
+        "fr": "Augmente le Bouclier appliqué par l'équipementier de [15 %]. Lors de l'application d'un Bouclier, augmente les DGT de {Lacération} de toute l'escouade de [15 %] pendant 20s (les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s). Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier lance une {Onde de choc}, les DGT de toute l'escouade augmentent de [8,5 %] pendant 20s (cumulable jusqu'à 2 fois, réinitialise la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "Increases the Shield applied by the equipper by [15%]. When applying a Shield, increases the whole squad's {Laceration} DMG by [15%] for 20s. Repeated triggers extend the duration, up to a maximum of 30s. Only one instance of this effect can exist in the same squad. When the equipper launches an {Aftershock}, increases the whole squad's DMG by [8.5%] for 20s, stacking up to 2 times. Repeated triggers refresh the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "Augmente le Bouclier appliqué par l'équipementier de [17,25 %]. Lors de l'application d'un Bouclier, augmente les DGT de {Lacération} de toute l'escouade de [17,25 %] pendant 20s (les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s). Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier lance une {Onde de choc}, les DGT de toute l'escouade augmentent de [9,8 %] pendant 20s (cumulable jusqu'à 2 fois, réinitialise la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "Increases the Shield applied by the equipper by [17.25%]. When applying a Shield, increases the whole squad's {Laceration} DMG by [17.25%] for 20s. Repeated triggers extend the duration, up to a maximum of 30s. Only one instance of this effect can exist in the same squad. When the equipper launches an {Aftershock}, increases the whole squad's DMG by [9.8%] for 20s, stacking up to 2 times. Repeated triggers refresh the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "Augmente le Bouclier appliqué par l'équipementier de [19,5 %]. Lors de l'application d'un Bouclier, augmente les DGT de {Lacération} de toute l'escouade de [19,5 %] pendant 20s (les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s). Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier lance une {Onde de choc}, les DGT de toute l'escouade augmentent de [11,05 %] pendant 20s (cumulable jusqu'à 2 fois, réinitialise la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "Increases the Shield applied by the equipper by [19.5%]. When applying a Shield, increases the whole squad's {Laceration} DMG by [19.5%] for 20s. Repeated triggers extend the duration, up to a maximum of 30s. Only one instance of this effect can exist in the same squad. When the equipper launches an {Aftershock}, increases the whole squad's DMG by [11.05%] for 20s, stacking up to 2 times. Repeated triggers refresh the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "Augmente le Bouclier appliqué par l'équipementier de [21,75 %]. Lors de l'application d'un Bouclier, augmente les DGT de {Lacération} de toute l'escouade de [21,75 %] pendant 20s (les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s). Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier lance une {Onde de choc}, les DGT de toute l'escouade augmentent de [12,3 %] pendant 20s (cumulable jusqu'à 2 fois, réinitialise la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "Increases the Shield applied by the equipper by [21.75%]. When applying a Shield, increases the whole squad's {Laceration} DMG by [21.75%] for 20s. Repeated triggers extend the duration, up to a maximum of 30s. Only one instance of this effect can exist in the same squad. When the equipper launches an {Aftershock}, increases the whole squad's DMG by [12.3%] for 20s, stacking up to 2 times. Repeated triggers refresh the duration. Only one instance of this effect can exist in the same squad."
+      },
+      {
+        "fr": "Augmente le Bouclier appliqué par l'équipementier de [24 %]. Lors de l'application d'un Bouclier, augmente les DGT de {Lacération} de toute l'escouade de [24 %] pendant 20s (les déclenchements répétés prolongent la durée, jusqu'à un maximum de 30s). Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier lance une {Onde de choc}, les DGT de toute l'escouade augmentent de [13,6 %] pendant 20s (cumulable jusqu'à 2 fois, réinitialise la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+        "en": "Increases the Shield applied by the equipper by [24%]. When applying a Shield, increases the whole squad's {Laceration} DMG by [24%] for 20s. Repeated triggers extend the duration, up to a maximum of 30s. Only one instance of this effect can exist in the same squad. When the equipper launches an {Aftershock}, increases the whole squad's DMG by [13.6%] for 20s, stacking up to 2 times. Repeated triggers refresh the duration. Only one instance of this effect can exist in the same squad."
+      }
+    ]
+  },
+  "Dragonfire Mirage": {
+    "name": {
+      "fr": "Mirage de feu-dragon",
+      "en": "Dragonfire Mirage"
+    },
+    "rank": "S",
+    "specialty": "Armorer",
+    "element": "Genesis Flare",
+    "img": "W-Engine_Dragonfire_Mirage.webp",
+    "stats": {
+      "base": "30 - 446",
+      "advancedLabel": {
+        "fr": "DÉF %",
+        "en": "DEF %"
+      },
+      "advanced": "19.2% - 48%"
+    },
+    "passiveName": {
+      "fr": "Souffle brûlant",
+      "en": "Scorching Breath"
+    },
+    "overclocks": [
+      {
+        "fr": "Augmente le {Taux CRIT} de [20 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou entre en combat, ses {DGT de Feu} augmentent de [20 %] et ses {DGT de Feu tranchants} augmentent de [10 %] pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "{CRIT Rate} +[20%]. When the equipper uses an {EX Special Attack} or enters combat, the equipper's {Fire DMG} increases by [20%] and {Fire Sharp DMG} increases by [10%] for 25s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [22 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou entre en combat, ses {DGT de Feu} augmentent de [23 %] et ses {DGT de Feu tranchants} augmentent de [11,5 %] pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "{CRIT Rate} +[22%]. When the equipper uses an {EX Special Attack} or enters combat, the equipper's {Fire DMG} increases by [23%] and {Fire Sharp DMG} increases by [11.5%] for 25s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [24 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou entre en combat, ses {DGT de Feu} augmentent de [26 %] et ses {DGT de Feu tranchants} augmentent de [13 %] pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "{CRIT Rate} +[24%]. When the equipper uses an {EX Special Attack} or enters combat, the equipper's {Fire DMG} increases by [26%] and {Fire Sharp DMG} increases by [13%] for 25s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [26 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou entre en combat, ses {DGT de Feu} augmentent de [29 %] et ses {DGT de Feu tranchants} augmentent de [14,5 %] pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "{CRIT Rate} +[26%]. When the equipper uses an {EX Special Attack} or enters combat, the equipper's {Fire DMG} increases by [29%] and {Fire Sharp DMG} increases by [14.5%] for 25s. Repeated triggers reset the duration."
+      },
+      {
+        "fr": "Augmente le {Taux CRIT} de [28 %]. Lorsque l'équipementier utilise une {Attaque spéciale EX} ou entre en combat, ses {DGT de Feu} augmentent de [32 %] et ses {DGT de Feu tranchants} augmentent de [16 %] pendant 25s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "{CRIT Rate} +[28%]. When the equipper uses an {EX Special Attack} or enters combat, the equipper's {Fire DMG} increases by [32%] and {Fire Sharp DMG} increases by [16%] for 25s. Repeated triggers reset the duration."
+      }
+    ]
   }
 }
