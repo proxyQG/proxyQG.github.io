@@ -60,5 +60,8 @@
     { "name": "Claret", "element": "Electric", "rank": "S", "faction": "Atelier Flint", "role": "Armorer", "version": "V3" },
     { "name": "Roxy", "element": "Wind", "rank": "S", "faction": "Atelier Flint", "role": "Stun", "version": "V3" },
     { "name": "Phoenix", "element": "Fire", "rank": "S", "faction": "Autorité de conformité Krampus", "role": "Anomaly", "version": "V3" },
-    { "name": "Severian", "element": "Wind", "rank": "S", "faction": "Division de l'Ordre urbain", "role": "Attack", "version": "V3" }
+    { "name": "Severian", "element": "Wind", "rank": "S", "faction": "Division de l'Ordre urbain", "role": "Attack", "version": "V3" },
+    { "name": "Robin", "element": "Ether", "rank": "S", "faction": "Unknown Realm", "role": "Defense", "version": "V3" },
+    { "name": "Kafka", "element": "Electric", "rank": "S", "faction": "Unknown Realm", "role": "Anomaly", "version": "V3" },
+    { "name": "Sunbringer", "element": "Genesis Flare", "rank": "S", "faction": "Roscaelifer", "role": "Armorer", "version": "V3" }
 ]
