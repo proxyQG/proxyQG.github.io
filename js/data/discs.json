@@ -598,5 +598,45 @@
       "fr": "En entrant en combat ou lors du déploiement, l'ATQ de l'équipementier augmente de [25 %] pendant 10s. Cet effet peut se déclencher une fois toutes les 20s.",
       "en": "Upon entering combat or switching in, its user's ATK increases by [25%] for 10s. This effect can trigger once every 20s."
     }
+  },
+  "Crimson_Wing_Nocturne": {
+    "name": {
+      "fr": "Nocturne de l'aile cramoisie",
+      "en": "Crimson Wing Nocturne"
+    },
+    "img": "Crimson_Wing_Nocturne.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine",
+      "en": "Routine Cleanup"
+    },
+    "twoPiece": {
+      "fr": "Augmente la Réc. d'énergie de [20 %].",
+      "en": "Increases Energy Regen by [20%]."
+    },
+    "fourPiece": {
+      "fr": "Augmente les {DGT CRIT} de l'équipementier de [30 %] et la {Stupeur} infligée par ses attaques de [5 %]. Lorsque l'équipementier est un personnage d'{Étourdissement} et utilise une {Attaque spéciale EX} ou un {Enchaînement} alors que son Taux CRIT est d'au moins 50 %, les {DGT tranchants} infligés par tous les membres de l'escouade augmentent de [8 %] pendant 25s (les déclenchements répétés réinitialisent la durée). Une seule instance de cet effet peut exister dans la même escouade.",
+      "en": "Increases the equipper's {CRIT DMG} by [30%] and the {Daze} dealt by their attacks by [5%]. When the equipper is a {Stun} Character and uses an {EX Special Attack} or {Chain Attack} while their CRIT Rate is at least 50%, the {Sharp DMG} dealt by all squad members is increased by [8%] for 25s, and repeated triggers reset the duration. Only one instance of this effect can exist in the same squad."
+    }
+  },
+  "Rank_Stele": {
+    "name": {
+      "fr": "Stèle de rang",
+      "en": "Rank Stele"
+    },
+    "img": "Rank_Stele.webp",
+    "ranks": ["S", "A", "B"],
+    "source": {
+      "fr": "Nettoyage de routine",
+      "en": "Routine Cleanup"
+    },
+    "twoPiece": {
+      "fr": "Augmente la DÉF de [16 %].",
+      "en": "Increases DEF by [16%]."
+    },
+    "fourPiece": {
+      "fr": "Augmente le {Taux CRIT} de l'équipementier de [12 %]. Lorsque l'équipementier inflige des {DGT de Feu tranchants}, il ignore [16 %] de la DÉF de l'ennemi.",
+      "en": "Increases the equipper's {CRIT Rate} by [12%]. When the equipper deals {Fire Sharp DMG}, they ignore [16%] of the enemy's DEF."
+    }
   }
 }
