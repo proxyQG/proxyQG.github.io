@@ -195,7 +195,7 @@
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "dysfonction Ultime 👑",
+                    "fr": "Dysfonction Ultime 👑",
                     "en": "Ultimate Disorder 👑"
                 },
                 "videoId": "IzMquorLuQU",
@@ -245,7 +245,7 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "dysfonction Mixte",
+                    "fr": "Dysfonction Mixte",
                     "en": "Mixed Disorder"
                 },
                 "videoId": "IqG8ufUTih0",
@@ -466,7 +466,7 @@
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "dysfonction Brûlure",
+                    "fr": "Dysfonction Brûlure",
                     "en": "Burn Disorder"
                 },
                 "members": [
@@ -3010,11 +3010,11 @@
                 },
                 "set1": "Wuthering_Salon",
                 "set2": "Moonlight_Lullaby",
-                "set1Name": "4pc Turmoil's Salon",
+                "set1Name": "4pc Wuthering Salon",
                 "set2Name": "+ 2pc Moonlight Lullaby",
                 "note": {
-                    "fr": "Le 4 pièces augmente sa maîtrise d'anomalie (+50 AP) et ses dégâts (+18%), tandis que le 2 pièces fournit la récupération d'énergie indispensable pour maximiser son passif.",
-                    "en": "The 4-piece set increases Anomaly Mastery (+50 AP) and damage (+18%), while the 2-piece set provides the energy regeneration needed to maximize its passive ability."
+                    "fr": "Le 4 pièces augmente son Adresse d'Anomalie (+50 AP) et ses dégâts (+18%), tandis que le 2 pièces fournit la récupération d'énergie indispensable pour maximiser son passif.",
+                    "en": "The 4-piece set increases Anomaly Proficiency (+50 AP) and damage (+18%), while the 2-piece set provides the energy regeneration needed to maximize her passive ability."
                 }
             },
             {
@@ -3035,7 +3035,7 @@
                 },
                 "set1": "Wuthering_Salon",
                 "set2": "Chaos_Jazz",
-                "set1Name": "4pc Turmoil's Salon",
+                "set1Name": "4pc Wuthering Salon",
                 "set2Name": "+ 2pc Chaos Jazz",
                 "note": ""
             }
@@ -3159,7 +3159,10 @@
             },
             {
                 "name": "TEAM 02",
-                "tag": "Ellen",
+                "tag": {
+                    "fr": "Dysfonction Feu",
+                    "en": "Fire Disorder"
+                },
                 "members": [
                     {
                         "img": "Velina.webp",
@@ -3173,7 +3176,7 @@
                     },
                     {
                         "img": "Remielle.webp",
-                        "color": "#f43f5e",
+                        "color": "#fba2d0",
                         "initial": "R"
                     }
                 ]
@@ -3388,7 +3391,7 @@
                     },
                     {
                         "img": "Trigger.webp",
-                        "color": "#e8a838",
+                        "color": "#3182eb",
                         "initial": "T"
                     }
                 ]
@@ -3928,7 +3931,7 @@
                     },
                     {
                         "img": "Norma.webp",
-                        "color": "#ff3333",
+                        "color": "#f05432",
                         "initial": "N"
                     },
                     {
@@ -5532,16 +5535,16 @@
                 "set1": "The_Sky_Ablaze",
                 "set2": "Branch_Blade_Song",
                 "set1Name": "4pc The Sky Ablaze",
-                "set2Name": "+ 2pc Branch Blade Song",
+                "set2Name": "+ 2pc Branch and Blade Song",
                 "note": {
                     "fr": "C'est le choix le plus régulier et polyvalent pour Zhu Yuan, car il offre un bonus permanent de 30 % de DGT CRIT ainsi que 10 % d'ATQ en combat pendant 30s dès l'utilisation d'une attaque spéciale EX ou d'un Ultime, sans aucune contrainte d'équipe.",
-                    "en": "This is the most reliable and versatile choice for Zhu Yuan, as it provides a permanent 30% bonus to CRIT DGT as well as 10% ATQ in combat for 30s whenever an EX special attack or Ultimate is used, with no team restrictions."
+                    "en": "This is the most reliable and versatile choice for Zhu Yuan, providing a permanent 30% CRIT DMG bonus plus 10% in-combat ATK for 30s after using an EX Special Attack or Ultimate, with no team restrictions."
                 }
             },
             {
                 "tag": {
-                    "fr": "Vielle école",
-                    "en": "Old school"
+                    "fr": "Vieille école",
+                    "en": "Old School"
                 },
                 "set1": "Chaotic_Metal",
                 "set2": "Woodpecker_Electro",
@@ -5549,7 +5552,7 @@
                 "set2Name": "+ 2pc Woodpecker Electro",
                 "note": {
                     "fr": "Ancien meilleur choix pour un DPS Éther. Confère jusqu'à 53% de DGT CRIT. Nécessite Nicole pour appliquer la Corruption facilement.",
-                    "en": "previous top pick for Ether DPS, granting up to 53% CRIT DMG. Requires another source of Ether application such as Nicole."
+                    "en": "Previous top pick for Ether DPS, granting up to 53% CRIT DMG. Requires another source of Ether application such as Nicole."
                 }
             },
             {
@@ -5778,7 +5781,7 @@
             },
             {
                 "tag": {
-                    "fr": "Générale",
+                    "fr": "Général",
                     "en": "General"
                 },
                 "set1": "Astral_Voice",
@@ -5786,13 +5789,13 @@
                 "set1Name": "4pc Astral Voice",
                 "set2Name": "+ 2pc Puffer Electro",
                 "note": {
-                    "fr": "Meilleur ensemble en générale. Offre 10 % d'attaques bonus et augmente les dégâts de l'équipe de 24 %. Cependant ce bonus n'est pas actif en permanence.",
-                    "en": "Best overall set. Grants a 10 per cent attack bonus and increases the team’s damage by 24 %. However, this bonus is not active at all times."
+                    "fr": "Meilleur ensemble en général. Offre 10 % d'ATQ bonus et augmente les dégâts de l'équipe de 24 %. Cependant ce bonus n'est pas actif en permanence.",
+                    "en": "Best overall set. Grants a 10% ATK bonus and increases team damage by 24%. However, this bonus is not active at all times."
                 }
             },
             {
                 "tag": {
-                    "fr": "2nd Choix",
+                    "fr": "2ème Choix",
                     "en": "2nd Choice"
                 },
                 "set1": "Swing_Jazz",
@@ -5800,8 +5803,8 @@
                 "set1Name": "4pc Swing Jazz",
                 "set2Name": "+ 2pc Puffer Electro",
                 "note": {
-                    "fr": "Bonne alternative qui augmente tout les dégâts de 15 % pendant 12 secondes.",
-                    "en": "A good alternative that increases all damage by 15 % for 12 seconds."
+                    "fr": "Bonne alternative qui augmente tous les dégâts de 15 % pendant 12 secondes.",
+                    "en": "A good alternative that increases all squad damage by 15% for 12 seconds."
                 }
             }
         ],
@@ -6222,8 +6225,11 @@
                 "value": "2300"
             },
             {
-                "label": "TC / DC",
-                "value": "un peu"
+                "label": {
+                    "fr": "Taux CRIT / DGT CRIT",
+                    "en": "CRIT Rate / DMG"
+                },
+                "value": "Bonus"
             }
         ],
         "discs": [
@@ -11259,8 +11265,8 @@
         "element": "Fire",
         "rank": "S",
         "factionTitle": {
-            "fr": "Enquêtes Criminelles",
-            "en": "N.E.P.S."
+            "fr": "Escouade Obole",
+            "en": "Obol Squad"
         },
         "stats": [
             {
