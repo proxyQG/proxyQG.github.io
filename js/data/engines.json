@@ -186,7 +186,7 @@
     "stats": {
       "base": "48 - 713",
       "advancedLabel": {
-        "fr": "Taux Critique",
+        "fr": "Taux CRIT",
         "en": "CRIT Rate"
       },
       "advanced": "9.6% - 24%"
@@ -197,24 +197,24 @@
     },
     "overclocks": [
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [20 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [10 %], et les {DGT} infligés ignorent [15 %] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [20%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [10%], and the DMG dealt ignores [15%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux CRIT} de l'équipementier de [20 %]. Lorsque l'{Attaque de base} de l'équipementier touche un ennemi, son {ATQ} augmente de [10 %] et les DGT infligés ignorent [15 %] de la {RÉS Vent} de la cible pendant 16s.",
+        "en": "Increases the equipper's {CRIT Rate} by [20%]. When the equipper's {Basic Attack} hits an enemy, increases their own {ATK} by [10%], and the DMG dealt ignores [15%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [23 %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [11.5 %], et les {DGT} infligés ignorent [17.3%] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [23%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [11.5%], and the DMG dealt ignores [17.3%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux CRIT} de l'équipementier de [23 %]. Lorsque l'{Attaque de base} de l'équipementier touche un ennemi, son {ATQ} augmente de [11,5 %] et les DGT infligés ignorent [17,3 %] de la {RÉS Vent} de la cible pendant 16s.",
+        "en": "Increases the equipper's {CRIT Rate} by [23%]. When the equipper's {Basic Attack} hits an enemy, increases their own {ATK} by [11.5%], and the DMG dealt ignores [17.3%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [26% %]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [13 %], et les {DGT} infligés ignorent [19.5%] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [26%%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [13%], and the DMG dealt ignores [19.5%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux CRIT} de l'équipementier de [26 %]. Lorsque l'{Attaque de base} de l'équipementier touche un ennemi, son {ATQ} augmente de [13 %] et les DGT infligés ignorent [19,5 %] de la {RÉS Vent} de la cible pendant 16s.",
+        "en": "Increases the equipper's {CRIT Rate} by [26%]. When the equipper's {Basic Attack} hits an enemy, increases their own {ATK} by [13%], and the DMG dealt ignores [19.5%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [29%]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [14.5 %], et les {DGT} infligés ignorent [21.8%] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [29%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [14.5%], and the DMG dealt ignores [21.8%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux CRIT} de l'équipementier de [29 %]. Lorsque l'{Attaque de base} de l'équipementier touche un ennemi, son {ATQ} augmente de [14,5 %] et les DGT infligés ignorent [21,8 %] de la {RÉS Vent} de la cible pendant 16s.",
+        "en": "Increases the equipper's {CRIT Rate} by [29%]. When the equipper's {Basic Attack} hits an enemy, increases their own {ATK} by [14.5%], and the DMG dealt ignores [21.8%] of the target's {Wind RES} for 16s."
       },
       {
-        "fr": "Augmente le {Taux critique} de l'équipementier de [32%]. Lorsque l'[Attaque de base] de l'équipementier touche un ennemi, augmente sa propre {ATK} de [16 %], et les {DGT} infligés ignorent [24%] de la {RÉS Vent} de la cible pendant 16 s.",
-        "en": "Increases the equipper's {CRIT Rate} by [32%]. When the equipper's [Basic Attack] hits an enemy, increases their own {ATK} by [16%], and the DMG dealt ignores [24%] of the target's {Wind RES} for 16s."
+        "fr": "Augmente le {Taux CRIT} de l'équipementier de [32 %]. Lorsque l'{Attaque de base} de l'équipementier touche un ennemi, son {ATQ} augmente de [16 %] et les DGT infligés ignorent [24 %] de la {RÉS Vent} de la cible pendant 16s.",
+        "en": "Increases the equipper's {CRIT Rate} by [32%]. When the equipper's {Basic Attack} hits an enemy, increases their own {ATK} by [16%], and the DMG dealt ignores [24%] of the target's {Wind RES} for 16s."
       }
     ]
   },
@@ -230,7 +230,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "10% - 25%"
     },
@@ -1471,8 +1471,8 @@
         "en": "Reduces DMG taken by [10.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [870%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s."
       },
       {
-        "fr": "Réduit les DGT subis de [10,5 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [960 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.",
-        "en": "Reduces DMG taken by [10.5%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [960%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s."
+        "fr": "Réduit les DGT subis de [12 %]. Après avoir subi une attaque, la prochaine attaque touchant un ennemi déclenchera un coup critique et infligera [960 %] de la DÉF de l'équipementier en DGT supplémentaires. Cet effet peut se déclencher une fois toutes les 7,5s.",
+        "en": "Reduces DMG taken by [12%]. After being attacked, the next attack to hit an enemy will trigger a critical hit and deal [960%] of the equipper's DEF as additional DMG. This effect can be triggered once every 7.5s."
       }
     ]
   },
@@ -1675,8 +1675,8 @@
         "en": "Increases ATK by [7.5%]. Landing a critical hit on an enemy will inflict an additional [200%] of ATK as DMG. This effect can trigger once every 8s."
       },
       {
-        "fr": "Augmente l'ATQ de [8,6 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [230 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 7.5s.",
-        "en": "Increases ATK by [8.6%]. Landing a critical hit on an enemy will inflict an additional [230%] of ATK as DMG. This effect can trigger once every 8s."
+        "fr": "Augmente l'ATQ de [8,6 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [230 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 7,5s.",
+        "en": "Increases ATK by [8.6%]. Landing a critical hit on an enemy will inflict an additional [230%] of ATK as DMG. This effect can trigger once every 7.5s."
       },
       {
         "fr": "Augmente l'ATQ de [9,7 %]. Infliger un coup critique à un ennemi inflige des DGT supplémentaires équivalents à [260 %] de l'ATQ. Cet effet peut se déclencher une fois toutes les 7s.",
@@ -1879,7 +1879,7 @@
       "base": "42 - 624",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "10% - 25%"
     },
@@ -2097,7 +2097,7 @@
       "base": "48 - 713",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "12% - 30%"
     },
@@ -2403,7 +2403,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "Taux CRIT",
-        "en": "Crit Rate"
+        "en": "CRIT Rate"
       },
       "advanced": "8% - 20%"
     },
@@ -2491,7 +2491,7 @@
       "base": "48 - 713",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "12% - 30%"
     },
@@ -2528,14 +2528,14 @@
       "en": "Qingming Birdcage"
     },
     "rank": "S",
-    "specialty": "Auric Ink",
+    "specialty": "Rupture",
     "element": "Ether",
     "img": "W-Engine_Qingming_Birdcage.webp",
     "stats": {
       "base": "50 - 743",
       "advancedLabel": {
         "fr": "PV %",
-        "en": "HP"
+        "en": "HP %"
       },
       "advanced": "12% - 30%"
     },
@@ -2578,7 +2578,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "PV %",
-        "en": "HP"
+        "en": "HP %"
       },
       "advanced": "10% - 25%"
     },
@@ -2621,7 +2621,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "PV %",
-        "en": "HP"
+        "en": "HP %"
       },
       "advanced": "10% - 25%"
     },
@@ -2664,7 +2664,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "10% - 25%"
     },
@@ -2707,7 +2707,7 @@
       "base": "42 - 624",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "10% - 25%"
     },
@@ -2882,7 +2882,7 @@
       "base": "40 - 594",
       "advancedLabel": {
         "fr": "ATQ %",
-        "en": "ATK"
+        "en": "ATK %"
       },
       "advanced": "10% - 25%"
     },
@@ -2926,7 +2926,7 @@
       "base": "48 - 713",
       "advancedLabel": {
         "fr": "PV %",
-        "en": "HP"
+        "en": "HP %"
       },
       "advanced": "12% - 30%"
     },
@@ -2970,7 +2970,7 @@
       "base": "42 - 624",
       "advancedLabel": {
         "fr": "PV %",
-        "en": "HP"
+        "en": "HP %"
       },
       "advanced": "10% - 25%"
     },
@@ -3039,7 +3039,7 @@
     "name": { "fr": "L'appel d'hier", "en": "Yesterday Calls" },
     "rank": "S",
     "specialty": "Stun",
-    "element": "Lumiflux",
+    "element": "Physical",
     "img": "W-Engine_Yesterday_Calls.webp",
     "stats": {
       "base": "48 - 713",
