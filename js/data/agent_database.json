@@ -14329,75 +14329,101 @@
         "stats": [
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "PV Max initiaux",
+                    "en": "Initial Max HP"
                 },
-                "value": "..."
+                "value": "26 000+",
+                "note": {
+                    "fr": "Cap max (+800 DÉF d'équipe, jusqu'à 1 000 DÉF sous Point d'amélioration)",
+                    "en": "Cap (+800 squad DEF, up to 1,000 DEF when enhanced)"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Réc. d'énergie",
+                    "en": "Energy Regen"
                 },
-                "value": "..."
+                "value": "1,44 - 2,16+",
+                "note": {
+                    "fr": "1,20 de base — fluidité des Répliques améliorées à 40 d'Énergie",
+                    "en": "1.20 base — smooth enhanced Aftershocks at 40 Energy"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Taux CRIT",
+                    "en": "CRIT Rate"
                 },
-                "value": "..."
+                "value": "50 %+",
+                "note": {
+                    "fr": "Optionnel une fois les 26 000 PV atteints",
+                    "en": "Optional once the 26,000 HP cap is reached"
+                }
             }
         ],
         "discs": [
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Build Optimal 👑",
+                    "en": "Optimal Build 👑"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Bunny_in_Wonderland",
+                "set2": "Yunkui_Tales",
+                "set1Name": "4pc Bunny in Wonderland",
+                "set2Name": "+ 2pc Yunkui Tales",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Le meilleur set de soutien de Robin : il cumule +20 % de PV au total (via les deux effets 2-pièces) pour atteindre facilement les 26 000 PV initiaux, tout en octroyant jusqu'à +18 % de DGT à toute l'équipe pendant 25 s grâce à son Attaque spéciale EX et ses Soutiens défensifs.",
+                    "en": "Robin's best support set: combines +20% total HP (across both 2pc effects) to easily hit the 26,000 Initial HP threshold, while granting up to +18% squad DMG for 25s via her EX Special Attack and Defensive Assists."
                 }
             },
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Alternative Énergie",
+                    "en": "Energy Alternative"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Bunny_in_Wonderland",
+                "set2": "Swing_Jazz",
+                "set1Name": "4pc Bunny in Wonderland",
+                "set2Name": "+ 2pc Swing Jazz / Moonlight Lullaby",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Excellente alternative si tu atteins déjà les 26 000 PV grâce à son moteur signature : les +20 % de Récupération d'énergie assurent un déclenchement régulier de ses Répliques (Aftershocks) améliorées hors terrain à 40 d'Énergie.",
+                    "en": "Great alternative if you already hit 26,000 HP with her signature W-Engine: +20% Energy Regen ensures steady off-field enhanced Aftershock triggers at 40 Energy."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "Alternative Buff Ultime",
+                    "en": "Ultimate Buff Alternative"
+                },
+                "set1": "Swing_Jazz",
+                "set2": "Bunny_in_Wonderland",
+                "set1Name": "4pc Swing Jazz",
+                "set2Name": "+ 2pc Bunny in Wonderland / Yunkui Tales",
+                "note": {
+                    "fr": "Option viable dans les équipes axées sur les fenêtres d'étourdissement (Stun), sachant que Robin démarre le combat avec 3 000 Décibels et confère +15 % de DGT d'escouade pendant 12 s après un Enchaînement ou un Ultime.",
+                    "en": "Viable option in Stun-focused teams, as Robin starts combat with 3,000 Decibels and grants +15% squad DMG for 12s after a Chain Attack or Ultimate."
                 }
             }
         ],
         "skills": [
             {
                 "name": "Ex",
-                "level": "1",
+                "level": "12",
                 "icon": "Ex.webp"
             },
             {
-                "name": "Ult",
-                "level": "1",
-                "icon": "Ultime.webp"
-            },
-            {
                 "name": "Assist",
-                "level": "1",
+                "level": "11",
                 "icon": "Assist.webp"
             },
             {
+                "name": "Ult",
+                "level": "11",
+                "icon": "Ultime.webp"
+            },
+            {
                 "name": "Basic",
-                "level": "1",
+                "level": "7",
                 "icon": "Attaque_basic.webp"
             },
             {
@@ -14411,44 +14437,51 @@
                 {
                     "slot": "6",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "PV % > Réc. d'énergie (dès 26 000 PV sécurisés)",
+                        "en": "HP % > Energy Regen (once 26,000 HP is secured)"
                     }
                 },
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "PV % > DGT Éther %",
+                        "en": "HP % > Ether DMG %"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "PV % > Taux CRIT",
+                        "en": "HP % > CRIT Rate"
                     }
                 }
             ],
             "sub": [
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "PV % (priorité absolue jusqu'à 26 000 PV)",
+                        "en": "HP % (top priority up to 26,000 HP)"
                     },
                     "highlight": true
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Flat PV",
+                        "en": "Flat HP"
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "Taux CRIT",
+                        "en": "CRIT Rate"
                     },
                     "highlight": false
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "DGT CRIT / ATQ %",
+                        "en": "CRIT DMG / ATK %"
                     },
                     "highlight": false
                 }
@@ -14462,102 +14495,126 @@
                 },
                 "name": "Starlit Chroma",
                 "img": "W-Engine_Starlit_Chroma.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative S",
+                    "en": "S-Rank Alternative"
+                },
+                "name": "Half-Sugar Bunny",
+                "img": "W-Engine_Half-Sugar_Bunny.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative S",
+                    "en": "S-Rank Alternative"
+                },
+                "name": "Tusks of Fury",
+                "img": "W-Engine_Tusks_of_Fury.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative F2P (A)",
+                    "en": "F2P Alternative (A)"
+                },
+                "name": "Original Transmorpher",
+                "img": "W-Engine_Original_Transmorpher.webp"
             }
         ],
         "teams": [
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Synergie Absolue 👑",
+                    "en": "Absolute Synergy 👑"
                 },
                 "members": [
+                    {
+                        "img": "Sunbringer.webp",
+                        "color": "#38bdf8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "Roxy.webp",
+                        "color": "#4da2f8",
+                        "initial": "R"
+                    },
                     {
                         "img": "Robin.webp",
                         "color": "#f23c8a",
                         "initial": "R"
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Hypercarry Armure",
+                    "en": "Armorer Hypercarry"
                 },
                 "members": [
+                    {
+                        "img": "Claret.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
+                    },
+                    {
+                        "img": "Roxy.webp",
+                        "color": "#4da2f8",
+                        "initial": "R"
+                    },
                     {
                         "img": "Robin.webp",
                         "color": "#f23c8a",
                         "initial": "R"
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
                     }
                 ]
             },
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Polyvalence Stun",
+                    "en": "Stun Versatility"
                 },
                 "members": [
+                    {
+                        "img": "Severian.webp",
+                        "color": "#4da2f8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "Roxy.webp",
+                        "color": "#4da2f8",
+                        "initial": "R"
+                    },
                     {
                         "img": "Robin.webp",
                         "color": "#f23c8a",
                         "initial": "R"
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
                     }
                 ]
             },
             {
                 "name": "TEAM 04",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "F2P",
+                    "en": "F2P"
                 },
                 "members": [
+                    {
+                        "img": "Billy.webp",
+                        "color": "#e8a838",
+                        "initial": "B"
+                    },
+                    {
+                        "img": "Anby.webp",
+                        "color": "#3182eb",
+                        "initial": "A"
+                    },
                     {
                         "img": "Robin.webp",
                         "color": "#f23c8a",
                         "initial": "R"
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
-                    },
-                    {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
                     }
                 ]
             }
