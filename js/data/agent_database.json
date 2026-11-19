@@ -14312,6 +14312,742 @@
             }
         ]
     },
+    "Robin": {
+        "color": "#f23c8a",
+        "element": "Ether",
+        "rank": "S",
+        "factionTitle": {
+            "fr": "Unknown Realm",
+            "en": "Unknown Realm"
+        },
+        "stats": [
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            }
+        ],
+        "discs": [
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            }
+        ],
+        "skills": [
+            {
+                "name": "Ex",
+                "level": "1",
+                "icon": "Ex.webp"
+            },
+            {
+                "name": "Ult",
+                "level": "1",
+                "icon": "Ultime.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "1",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Basic",
+                "level": "1",
+                "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "1",
+                "icon": "Esquive.webp"
+            }
+        ],
+        "statPriority": {
+            "main": [
+                {
+                    "slot": "6",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "5",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "4",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                }
+            ],
+            "sub": [
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                }
+            ]
+        },
+        "engines": [
+            {
+                "tag": {
+                    "fr": "Signature (100 %) 👑",
+                    "en": "Signature (100%) 👑"
+                },
+                "name": "Starlit Chroma",
+                "img": "W-Engine_Starlit_Chroma.webp"
+            }
+        ],
+        "teams": [
+            {
+                "name": "TEAM 01",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 02",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 03",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            }
+        ]
+    },
+    "Kafka": {
+        "color": "#3182eb",
+        "element": "Electric",
+        "rank": "S",
+        "factionTitle": {
+            "fr": "Unknown Realm",
+            "en": "Unknown Realm"
+        },
+        "stats": [
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            }
+        ],
+        "discs": [
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            }
+        ],
+        "skills": [
+            {
+                "name": "Ex",
+                "level": "1",
+                "icon": "Ex.webp"
+            },
+            {
+                "name": "Ult",
+                "level": "1",
+                "icon": "Ultime.webp"
+            },
+            {
+                "name": "Basic",
+                "level": "1",
+                "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "1",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "1",
+                "icon": "Esquive.webp"
+            }
+        ],
+        "statPriority": {
+            "main": [
+                {
+                    "slot": "6",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "5",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "4",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                }
+            ],
+            "sub": [
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                }
+            ]
+        },
+        "engines": [
+            {
+                "tag": {
+                    "fr": "Signature (100 %) 👑",
+                    "en": "Signature (100%) 👑"
+                },
+                "name": "Elegy of the Molted Spider",
+                "img": "W-Engine_Elegy_of_the_Molted_Spider.webp"
+            }
+        ],
+        "teams": [
+            {
+                "name": "TEAM 01",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Kafka.webp",
+                        "color": "#3182eb",
+                        "initial": "K"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 02",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Kafka.webp",
+                        "color": "#3182eb",
+                        "initial": "K"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 03",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Kafka.webp",
+                        "color": "#3182eb",
+                        "initial": "K"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Kafka.webp",
+                        "color": "#3182eb",
+                        "initial": "K"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            }
+        ]
+    },
+    "Sunbringer": {
+        "color": "#38bdf8",
+        "element": "Genesis Flare",
+        "elementIcon": "Genesis_Flare.webp",
+        "rank": "S",
+        "factionTitle": {
+            "fr": "Roscaelifer",
+            "en": "Roscaelifer"
+        },
+        "stats": [
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            },
+            {
+                "label": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "value": "..."
+            }
+        ],
+        "discs": [
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "set1": "nothing",
+                "set2": "nothing",
+                "set1Name": "...",
+                "set2Name": "...",
+                "note": {
+                    "fr": "...",
+                    "en": "..."
+                }
+            }
+        ],
+        "skills": [
+            {
+                "name": "Basic",
+                "level": "1",
+                "icon": "Attaque_basic.webp"
+            },
+            {
+                "name": "Ex",
+                "level": "1",
+                "icon": "Ex.webp"
+            },
+            {
+                "name": "Ult",
+                "level": "1",
+                "icon": "Ultime.webp"
+            },
+            {
+                "name": "Assist",
+                "level": "1",
+                "icon": "Assist.webp"
+            },
+            {
+                "name": "Dodge",
+                "level": "1",
+                "icon": "Esquive.webp"
+            }
+        ],
+        "statPriority": {
+            "main": [
+                {
+                    "slot": "6",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "5",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                },
+                {
+                    "slot": "4",
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    }
+                }
+            ],
+            "sub": [
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                },
+                {
+                    "label": {
+                        "fr": "...",
+                        "en": "..."
+                    },
+                    "highlight": false
+                }
+            ]
+        },
+        "engines": [
+            {
+                "tag": {
+                    "fr": "Signature (100 %) 👑",
+                    "en": "Signature (100%) 👑"
+                },
+                "name": "Dragonfire Mirage",
+                "img": "W-Engine_Dragonfire_Mirage.webp"
+            }
+        ],
+        "teams": [
+            {
+                "name": "TEAM 01",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Sunbringer.webp",
+                        "color": "#38bdf8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 02",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Sunbringer.webp",
+                        "color": "#38bdf8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 03",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Sunbringer.webp",
+                        "color": "#38bdf8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            },
+            {
+                "name": "TEAM 04",
+                "tag": {
+                    "fr": "...",
+                    "en": "..."
+                },
+                "members": [
+                    {
+                        "img": "Sunbringer.webp",
+                        "color": "#38bdf8",
+                        "initial": "S"
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    },
+                    {
+                        "img": "nothing.webp",
+                        "color": "#52525b",
+                        "initial": "..."
+                    }
+                ]
+            }
+        ]
+    },
     "Hugo": {
         "color": "#3bbedb",
         "element": "Ice",
