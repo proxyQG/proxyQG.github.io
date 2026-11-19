@@ -105,7 +105,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateAllSliders(State.mode);
         });
     }
-    window.addEventListener('resize', () => { updateAllSliders(State.mode); });
+    window.addEventListener('resize', () => {
+        updateAllSliders(State.mode);
+        if (window.innerWidth >= 768) {
+            const sidebarList = document.getElementById('sidebarFactionsList');
+            if (sidebarList && sidebarList.children.length === 0) renderFactions();
+        }
+    });
     checkUrlForAgent();
 
     // 1. Hydratation du reste de la grille UNIQUEMENT au défilement réel de la grille (jamais au mousemove ou clic)
@@ -481,14 +487,14 @@ function updateDropdownUI(query) {
             sectionsHTML += `<div class="px-3 py-1.5 bg-[#09090b] text-[9px] font-black uppercase tracking-widest text-zinc-500">Agents (${filteredAgents.length})</div>`;
         }
         sectionsHTML += filteredAgents.map((agent) => {
-            const iconFile = iconMap[agent.element] || 'physique.png';
+            const iconFile = (iconMap[agent.element] || 'physique.webp').replace(/\.png$/i, '.webp');
             const delay = Math.min((animIndex++) * 12, 180);
             const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
             return `
-            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onclick="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-10 h-10 rounded-lg bg-[#121212] border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Agents/${agent.name}.webp" loading="lazy" decoding="async" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-300" onerror="this.src='https://placehold.co/100x100/222222/ffffff?text=${agent.name.charAt(0)}'"></div>
-                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${displayName}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile.replace('.png', '.webp')}" loading="lazy" decoding="async" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
+                    <div class="flex flex-col min-w-0"><span class="text-white text-xs font-black tracking-wider group-hover:text-[#d7f70c] transition-colors uppercase truncate">${displayName}</span><div class="flex items-center gap-1.5 mt-0.5"><img src="assets/Icone/${iconFile}" loading="lazy" decoding="async" class="w-3.5 h-3.5 object-contain opacity-80"><span class="text-zinc-500 text-[9px] uppercase font-bold tracking-widest">${tTerm(agent.element)}</span></div></div>
                 </div>
                 <svg class="w-4 h-4 text-zinc-600 group-hover:text-[#d7f70c] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
             </div>`;
@@ -502,7 +508,7 @@ function updateDropdownUI(query) {
             const delay = Math.min((animIndex++) * 12, 180);
             const jsSafeKey = disc.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             return `
-            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchItemSelect('disc', '${jsSafeKey}')">
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onclick="window.triggerSearchItemSelect('disc', '${jsSafeKey}')">
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-10 h-10 rounded-full bg-black border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors"><img src="assets/Disque/${disc.img}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
                     <div class="flex flex-col min-w-0">
@@ -523,7 +529,7 @@ function updateDropdownUI(query) {
             const jsSafeKey = eng.key.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             const rankColor = eng.rank === 'S' ? '#eab308' : (eng.rank === 'A' ? '#a855f7' : '#3b82f6');
             return `
-            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onmousedown="window.triggerSearchItemSelect('engine', '${jsSafeKey}')">
+            <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onclick="window.triggerSearchItemSelect('engine', '${jsSafeKey}')">
                 <div class="flex items-center gap-3 min-w-0">
                     <div class="w-10 h-10 rounded-lg bg-black border border-zinc-700/80 group-hover:border-[#d7f70c] overflow-hidden flex-shrink-0 relative shadow-inner transition-colors p-0.5"><img src="assets/W-Engine/${eng.img}" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"></div>
                     <div class="flex flex-col min-w-0">
@@ -896,7 +902,7 @@ function updateActiveFiltersBar(hasAnyActiveFilter) {
 
     if (State.filters.element !== 'All') {
         const c = colorMap[State.filters.element] || '#d7f70c';
-        const icon = (iconMap[State.filters.element] || 'physique.png').replace('.png', '.webp');
+        const icon = (iconMap[State.filters.element] || 'physique.webp').replace(/\.png$/i, '.webp');
         chips.push(makeChip(tTerm(State.filters.element), 'element', c, `<img src="assets/Icone/${icon}" class="w-3.5 h-3.5 object-contain">`));
     }
     if (State.filters.role !== 'All') {
@@ -1259,6 +1265,10 @@ function updateBackToAgentButton() {
 
 window.goBackToPreviousAgent = function() {
     if (State.agentHistory.length === 0) return;
+    if ((window.history.state?.teammateDepth || 0) > 0) {
+        window.history.back();
+        return;
+    }
     const prevAgent = State.agentHistory.pop();
     window.openAgentDetail(prevAgent, true, false, true);
 };
@@ -1275,8 +1285,9 @@ window.closeModal = function(id, updateUrl = true) {
 
         if (updateUrl) {
             if (window.history.state?.agentModal) {
+                const stepsBack = (window.history.state.teammateDepth || 0) + 1;
                 window.__ignoreNextPopstate = true;
-                window.history.back();
+                window.history.go(-stepsBack);
             } else {
                 window.history.replaceState({}, '', '/');
             }
@@ -1314,6 +1325,11 @@ window.closeModal = function(id, updateUrl = true) {
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
+    if (!agentName || String(agentName).toLowerCase() === 'nothing') return;
+    const validAgent = agentsData.find(a => a.name.toLowerCase() === String(agentName).toLowerCase());
+    if (!validAgent) return;
+    agentName = validAgent.name;
+
     const modal = document.getElementById('agentDetailModal');
     if (!modal) return;
     if (modal.parentElement !== document.body) { document.body.appendChild(modal); }
@@ -1340,10 +1356,14 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
 
     if (updateUrl) {
+        const hadAgentModal = window.history.state?.agentModal === true;
+        const currentDepth = window.history.state?.teammateDepth || 0;
         if (modalWasHidden) {
-            window.history.pushState({ agentModal: true }, '', `/agents/${encodeURIComponent(agentName)}/`);
+            window.history.pushState({ agentModal: true, teammateDepth: 0 }, '', `/agents/${encodeURIComponent(agentName)}/`);
+        } else if (fromTeammate) {
+            window.history.pushState({ agentModal: hadAgentModal, teammateDepth: currentDepth + 1 }, '', `/agents/${encodeURIComponent(agentName)}/`);
         } else {
-            window.history.replaceState({ agentModal: window.history.state?.agentModal === true }, '', `/agents/${encodeURIComponent(agentName)}/`);
+            window.history.replaceState({ agentModal: hadAgentModal, teammateDepth: currentDepth }, '', `/agents/${encodeURIComponent(agentName)}/`);
         }
     }
 
@@ -1438,7 +1458,10 @@ function preloadTeammatesFromDOM() {
         const attr = el.getAttribute('onclick') || '';
         const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
         if (match && match[2]) {
-            window.preloadSplash(match[2].replace(/\\(.)/g, '$1'), false, false);
+            const name = match[2].replace(/\\(.)/g, '$1');
+            if (name.toLowerCase() !== 'nothing' && agentsData.some(a => a.name === name)) {
+                window.preloadSplash(name, false, false);
+            }
         }
     });
 }
