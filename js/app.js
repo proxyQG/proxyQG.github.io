@@ -1491,11 +1491,12 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
         guideContainer.style.opacity = '0';
         try {
             const { getGuideHTML } = await import('./guides/index.js');
-            const guideHTML = await getGuideHTML(agentName, agentsData.find(a => a.name === agentName));
+            const agentMeta = agentsData.find(a => a.name === agentName);
+            const guideHTML = await getGuideHTML(agentName, agentMeta);
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
             await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(180)]);
             if (token !== openAgentToken) return;
-            guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML) + guideHTML;
+            guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML, agentMeta) + guideHTML;
             guideContainer.scrollTo(0, 0);
             void guideContainer.offsetWidth;
             guideContainer.style.transition = 'opacity 150ms ease-out';
@@ -1517,9 +1518,25 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
     }
 };
 
-function getUpcomingBannerHTML(guideHTML) {
-    if (!guideHTML || !guideHTML.includes('nothing.webp')) return '';
+function getUpcomingBannerHTML(guideHTML, agentMeta = null) {
+    const status = agentMeta?.status || (guideHTML && guideHTML.includes('nothing.webp') ? 'upcoming' : null);
+    if (!status) return '';
     const isEn = currentLang === 'en';
+
+    if (status === 'beta') {
+        const badge = isEn ? 'BETA • PRELIMINARY' : 'BÊTA • PRÉLIMINAIRE';
+        const text = isEn
+            ? 'Build based on early data — stats, discs, and teams are subject to change before or after official release.'
+            : 'Build basé sur des informations préliminaires — les stats, disques et équipes sont susceptibles d’évoluer avant ou après la sortie officielle.';
+        return `
+        <div class="mb-5 flex items-center gap-3 rounded-xl px-4 py-3 shadow-md" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.45);">
+            <span class="shrink-0 font-display font-black italic text-[10px] tracking-wider uppercase px-2 py-0.5 skew-x-[-10deg]" style="background: #f59e0b; color: #000000;">
+                <span class="block skew-x-[10deg]">${badge}</span>
+            </span>
+            <span class="text-xs text-zinc-200 font-medium leading-snug">${text}</span>
+        </div>`;
+    }
+
     const badge = isEn ? 'UPCOMING AGENT' : 'AGENT À VENIR';
     const text = isEn
         ? 'Kit not yet finalized — discs, stats, and teams will be updated upon official release.'
@@ -1974,9 +1991,10 @@ function initLanguageSwitcher() {
                 const savedModalScroll = modalScroll ? modalScroll.scrollTop : 0;
 
                 const { getGuideHTML } = await import('./guides/index.js');
-                const guideHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent));
+                const agentMeta = agentsData.find(a => a.name === State.currentAgent);
+                const guideHTML = await getGuideHTML(State.currentAgent, agentMeta);
                 if (guideContainer) {
-                    guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML) + guideHTML;
+                    guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML, agentMeta) + guideHTML;
                     guideContainer.scrollTop = savedGuideScroll;
                 }
                 if (modalScroll) modalScroll.scrollTop = savedModalScroll;
