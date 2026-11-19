@@ -60,6 +60,30 @@ let searchTimeout;
 let searchDiscsCache = null;
 let searchEnginesCache = null;
 let firstSearchMatch = null;
+let searchMatches = [];
+let activeSearchIdx = -1;
+
+function updateExtraUI() {
+    const isEn = currentLang === 'en';
+    const shareSvg = '<svg class="inline w-5 h-5 mx-1 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>';
+    const map = {
+        signalSearch: isEn ? 'Signal Search' : 'Recherche Signal',
+        iosTitle: isEn ? 'Install on iPhone' : 'Installer sur iPhone',
+        iosDesc: isEn
+            ? 'Apple blocks one-click installation. To add ProxyQG to your device:'
+            : "Apple bloque l'installation en un clic. Pour ajouter ProxyQG à votre appareil :",
+        iosStep1: isEn
+            ? `Tap the <b>Share</b> icon ${shareSvg} at the bottom of Safari.`
+            : `Appuyez sur l'icône <b>Partager</b> ${shareSvg} en bas de votre navigateur Safari.`,
+        iosStep2: isEn
+            ? 'Scroll down and select <br><b class="text-white bg-zinc-800 px-2 py-1.5 rounded mt-1.5 inline-block border border-zinc-700 shadow-inner">Add to Home Screen ➕</b>'
+            : 'Faites défiler et sélectionnez <br><b class="text-white bg-zinc-800 px-2 py-1.5 rounded mt-1.5 inline-block border border-zinc-700 shadow-inner">Sur l\'écran d\'accueil ➕</b>'
+    };
+    document.querySelectorAll('[data-i18n-extra]').forEach(el => {
+        const key = el.getAttribute('data-i18n-extra');
+        if (map[key]) el.innerHTML = map[key];
+    });
+}
 
 // ==========================================
 // 3. INITIALISATION
@@ -73,6 +97,7 @@ const dataPromise = window.__initialData || Promise.all([
 document.addEventListener('DOMContentLoaded', async () => {
     // Applique immédiatement la traduction statique sans attendre le réseau
     updateStaticUI();
+    updateExtraUI();
 
     // Les données sont déjà prêtes ou déjà en cours de réception
     [agentsData, factionsData] = await dataPromise;
@@ -345,9 +370,24 @@ function initSearch() {
             if (shortcutHint && input.id === 'searchInput' && !input.value) shortcutHint.classList.remove('hidden');
         });
         input.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
+            const activeDrop = window.innerWidth >= 768 ? DOM.dropdowns[0] : DOM.dropdowns[1];
+            if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && activeDrop && !activeDrop.classList.contains('hidden') && searchMatches.length > 0) {
+                e.preventDefault();
+                if (e.key === 'ArrowDown') {
+                    activeSearchIdx = (activeSearchIdx + 1) % searchMatches.length;
+                } else {
+                    activeSearchIdx = activeSearchIdx <= 0 ? searchMatches.length - 1 : activeSearchIdx - 1;
+                }
+                highlightSearchItem(activeDrop);
+            } else if (e.key === 'Enter') {
                 e.preventDefault();
                 clearTimeout(searchTimeout);
+                if (activeSearchIdx >= 0 && searchMatches[activeSearchIdx]) {
+                    const target = searchMatches[activeSearchIdx];
+                    if (target.type === 'agent') window.triggerSearchSelect(target.key);
+                    else window.triggerSearchItemSelect(target.type, target.key);
+                    return;
+                }
                 handleSearch(input.value);
                 if (firstSearchMatch) {
                     if (firstSearchMatch.type === 'agent') {
@@ -414,9 +454,23 @@ function handleSearch(query) {
     renderAgents();
 }
 
+function highlightSearchItem(drop) {
+    if (!drop) return;
+    const items = drop.querySelectorAll('.dropdown-item-anim');
+    items.forEach((el, idx) => {
+        const isActive = idx === activeSearchIdx;
+        el.classList.toggle('bg-[#1f1f26]', isActive);
+        el.classList.toggle('border-l-2', isActive);
+        el.classList.toggle('border-[#d7f70c]', isActive);
+        if (isActive) el.scrollIntoView({ block: 'nearest' });
+    });
+}
+
 function clearSearch() {
     State.search = '';
     firstSearchMatch = null;
+    searchMatches = [];
+    activeSearchIdx = -1;
     const shortcutHint = document.getElementById('searchShortcutHint');
     if (shortcutHint && document.activeElement !== DOM.searchInputs[0]) shortcutHint.classList.remove('hidden');
     DOM.searchInputs.forEach(input => { if (input) input.value = ''; });
@@ -429,6 +483,8 @@ function updateDropdownUI(query) {
     const normQuery = normalizeSearchStr(query.trim());
     const isEn = currentLang === 'en';
     firstSearchMatch = null;
+    searchMatches = [];
+    activeSearchIdx = -1;
 
     let filteredAgents = normQuery
         ? agentsData.filter(a => normalizeSearchStr(a.name).includes(normQuery) || (a.name === 'Jane' && 'jane doe'.includes(normQuery)))
@@ -471,13 +527,12 @@ function updateDropdownUI(query) {
         }
     }
 
-    if (filteredAgents.length > 0) {
-        firstSearchMatch = { type: 'agent', key: filteredAgents[0].name };
-    } else if (matchedDiscs.length > 0) {
-        firstSearchMatch = { type: 'disc', key: matchedDiscs[0].key };
-    } else if (matchedEngines.length > 0) {
-        firstSearchMatch = { type: 'engine', key: matchedEngines[0].key };
-    }
+    searchMatches = [
+        ...filteredAgents.map(a => ({ type: 'agent', key: a.name })),
+        ...matchedDiscs.map(d => ({ type: 'disc', key: d.key })),
+        ...matchedEngines.map(e => ({ type: 'engine', key: e.key }))
+    ];
+    firstSearchMatch = searchMatches[0] || null;
 
     let sectionsHTML = '';
     let animIndex = 0;
@@ -1073,7 +1128,21 @@ function renderAgents(isInitial = false) {
     // 3. Afficher ou cacher les modules externes
     if (State.filteredAgents.length > 0) {
         DOM.empty.classList.add('hidden'); DOM.empty.classList.remove('opacity-100'); 
-    } else { 
+    } else {
+        const isFavEmpty = State.showFavorites && State.favorites.length === 0;
+        const isEn = currentLang === 'en';
+        const emptyTitle = DOM.empty.querySelector('[data-i18n="noSignal"]');
+        const emptyDesc = DOM.empty.querySelector('[data-i18n="emptyStateDesc"]');
+        if (emptyTitle) {
+            emptyTitle.textContent = isFavEmpty
+                ? (isEn ? 'No Favorites Yet' : 'Aucun Favori')
+                : (isEn ? 'Signal Lost' : 'Signal Perdu');
+        }
+        if (emptyDesc) {
+            emptyDesc.textContent = isFavEmpty
+                ? (isEn ? 'Tap the heart on any agent card to pin your main squad here.' : "Clique sur le cœur d'un agent pour épingler ton escouade ici.")
+                : (isEn ? 'No agent matches these criteria.' : 'Aucun agent ne correspond à ces critères.');
+        }
         DOM.empty.classList.remove('hidden'); setTimeout(() => DOM.empty.classList.add('opacity-100'), 10); 
     }
 
@@ -1426,7 +1495,7 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
             await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(180)]);
             if (token !== openAgentToken) return;
-            guideContainer.innerHTML = guideHTML;
+            guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML) + guideHTML;
             guideContainer.scrollTo(0, 0);
             void guideContainer.offsetWidth;
             guideContainer.style.transition = 'opacity 150ms ease-out';
@@ -1447,6 +1516,22 @@ const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
         }
     }
 };
+
+function getUpcomingBannerHTML(guideHTML) {
+    if (!guideHTML || !guideHTML.includes('nothing.webp')) return '';
+    const isEn = currentLang === 'en';
+    const badge = isEn ? 'UPCOMING AGENT' : 'AGENT À VENIR';
+    const text = isEn
+        ? 'Kit not yet finalized — discs, stats, and teams will be updated upon official release.'
+        : 'Kit en attente de sortie officielle — les disques, stats et équipes seront complétés dès sa disponibilité.';
+    return `
+    <div class="mb-5 flex items-center gap-3 bg-[#d7f70c]/10 border border-[#d7f70c]/40 rounded-xl px-4 py-3 shadow-md">
+        <span class="shrink-0 bg-[#d7f70c] text-black font-display font-black italic text-[10px] tracking-wider uppercase px-2 py-0.5 skew-x-[-10deg]">
+            <span class="block skew-x-[10deg]">${badge}</span>
+        </span>
+        <span class="text-xs text-zinc-200 font-medium leading-snug">${text}</span>
+    </div>`;
+}
 
 // Préchargement discret des splashs des coéquipiers du guide en arrière-plan (sans leurs icônes)
 function preloadTeammatesFromDOM() {
@@ -1675,6 +1760,7 @@ window.shareCurrentAgent = function() {
     if (!agentName) return;
     // Génère le lien dédié à l'agent avec sa vignette Discord personnalisée
     const url = `${window.location.origin}/agents/${encodeURIComponent(agentName)}/`;
+    const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
     const showToast = () => {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;
@@ -1686,20 +1772,34 @@ window.shareCurrentAgent = function() {
             toast.classList.add('-translate-y-32', 'opacity-0');
         }, 3000);
     };
-    const fallbackCopy = () => {
-        const ta = document.createElement('textarea');
-        ta.value = url;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); showToast(); } catch (e) {}
-        document.body.removeChild(ta);
+    const copyLink = () => {
+        const fallbackCopy = () => {
+            const ta = document.createElement('textarea');
+            ta.value = url;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showToast(); } catch (e) {}
+            document.body.removeChild(ta);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(showToast).catch(fallbackCopy);
+        } else {
+            fallbackCopy();
+        }
     };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(showToast).catch(fallbackCopy);
+
+    const isMobileTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (isMobileTouch && typeof navigator.share === 'function') {
+        navigator.share({
+            title: `${displayName} - Guide & Build | ProxyQG`,
+            url
+        }).catch((err) => {
+            if (err && err.name !== 'AbortError') copyLink();
+        });
     } else {
-        fallbackCopy();
+        copyLink();
     }
 };
 
@@ -1840,6 +1940,7 @@ function initLanguageSwitcher() {
             const newLang = langSwitcher.getAttribute('data-active') === 'fr' ? 'en' : 'fr'; 
             langSwitcher.setAttribute('data-active', newLang); 
             setLanguage(newLang);
+            updateExtraUI();
             if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
             DOM.agentCards.forEach(c => {
                 const badge = c.el.querySelector('.agent-role-badge');
@@ -1854,19 +1955,34 @@ function initLanguageSwitcher() {
                 updateModalFavoriteButton(State.currentAgent, false);
             }
             
-            // --- NOUVEAU : Rechargement des factions ---
+            // --- Rechargement des factions ---
             renderFactions();
             if (State.faction) {
                 window.setFactionFilter(State.faction, false, true); // Met à jour le tag sans recharger les agents 2 fois
             }
-            // -------------------------------------------
+            // ---------------------------------
 
             updateDropdownUI(State.search);
-            renderAgents(); scrollToTop();
-            if (State.currentAgent && !document.getElementById('agentDetailModal').classList.contains('hidden')) {
+            renderAgents();
+
+            const agentModal = document.getElementById('agentDetailModal');
+            const isAgentOpen = State.currentAgent && agentModal && !agentModal.classList.contains('hidden');
+            if (isAgentOpen) {
+                const guideContainer = document.getElementById('agentGuideContainer');
+                const modalScroll = document.getElementById('agentModalScroll');
+                const savedGuideScroll = guideContainer ? guideContainer.scrollTop : 0;
+                const savedModalScroll = modalScroll ? modalScroll.scrollTop : 0;
+
                 const { getGuideHTML } = await import('./guides/index.js');
-                document.getElementById('agentGuideContainer').innerHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent));
+                const guideHTML = await getGuideHTML(State.currentAgent, agentsData.find(a => a.name === State.currentAgent));
+                if (guideContainer) {
+                    guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML) + guideHTML;
+                    guideContainer.scrollTop = savedGuideScroll;
+                }
+                if (modalScroll) modalScroll.scrollTop = savedModalScroll;
                 initGuideDragScroll();
+            } else {
+                scrollToTop();
             }
         });
     }
