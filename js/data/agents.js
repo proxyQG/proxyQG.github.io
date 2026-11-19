@@ -9,17 +9,17 @@ export const colorMap = {
 };
 
 export const iconMap = {
-    'Physical': 'physique.png',
-    'Honed Edge': 'Honed_Edge.png',
-    'Fire': 'feu.png',
-    'Genesis Flare': 'Genesis_Flare.png',
-    'Ice': 'Ice.png',
-    'Frost': 'Frost.png',
-    'Wind': 'Vent.png',
-    'Electric': 'electrique.png',
-    'Ether': 'Ether.png',
-    'Lumiflux': 'Lumiflux.png',
-    'Auric Ink': 'Auric_Ink.png'
+    'Physical': 'physique.webp',
+    'Honed Edge': 'Honed_Edge.webp',
+    'Fire': 'feu.webp',
+    'Genesis Flare': 'Genesis_Flare.webp',
+    'Ice': 'Ice.webp',
+    'Frost': 'Frost.webp',
+    'Wind': 'Vent.webp',
+    'Electric': 'electrique.webp',
+    'Ether': 'Ether.webp',
+    'Lumiflux': 'Lumiflux.webp',
+    'Auric Ink': 'Auric_Ink.webp'
 };
 
 export const filterGroups = {
