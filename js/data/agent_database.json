@@ -268,16 +268,6 @@
                     }
                 ]
             }
-        ],
-        "notes": [
-            {
-                "fr": "Synergie Velina : Velina est un partenaire parfait pour Piper, qui peinait avec la gestion des Dysfonctionnements. L'énorme quantité d'Anomalies de Piper la rend compétitive.",
-                "en": "Velina Synergy: Velina is a perfect match for Piper, who struggled with Disorder management. Piper's fast Anomaly build-up makes her competitive with Velina."
-            },
-            {
-                "fr": "Synergie Yuzuha : Bien que ce soit un support Anomalie, le fait qu'elle soit Physique permet à Piper de bénéficier facilement de sa Compétence Additionnelle.",
-                "en": "Yuzuha Synergy: Being Physical is great for Piper as it's one of the few reliable ways to trigger her Additional Ability."
-            }
         ]
     },
     "Jane": {
@@ -7181,20 +7171,6 @@
                     }
                 ]
             }
-        ],
-        "notes": [
-            {
-                "fr": "Plafond CRIT : Ne pas dépasser 34 % sur la fiche de stats hors combat (85,4 % innés sous forme renforcée).",
-                "en": "CRIT Cap: Do not exceed 34% on out-of-combat stat sheet (85.4% innate in enhanced state)."
-            },
-            {
-                "fr": "Moteurs : Proscrire formellement les armes à sous-stat Taux CRIT (comme Myriad Eclipse).",
-                "en": "W-Engines: Strictly avoid weapons with CRIT Rate secondary stats (e.g. Myriad Eclipse)."
-            },
-            {
-                "fr": "Arme vs Mindscapes : Si The Brimstone R5 est déjà en ta possession, priorise directement le M1/M2 plutôt que son arme signature.",
-                "en": "Weapon vs Mindscapes: If you already own The Brimstone R5, prioritize her M1/M2 over signature W-Engine."
-            }
         ]
     },
     "Soldier 11": {
@@ -7940,20 +7916,6 @@
                         "initial": "N"
                     }
                 ]
-            }
-        ],
-        "notes": [
-            {
-                "fr": "Énergie Ronronnante : Conserver 40 à 55 points avant le stun pour lancer directement la contre-esquive renforcée en maintenant l'attaque normale.",
-                "en": "Purr Energy: Pool 40-55 points prior to stun to unleash Enhanced Dodge Counter by holding Basic Attack."
-            },
-            {
-                "fr": "Attaques de dos : Le déclenchement de la contre-esquive confère 40 s où toutes les frappes sont comptabilisées comme des attaques arrière (+60 % DGT).",
-                "en": "Back-Attacks: Enhanced Dodge Counter activation grants 40s where all hits register as back-attacks (+60% DMG)."
-            },
-            {
-                "fr": "Maintien Woodpecker : Placer une attaque normale entre l'EX Spécial et la contre-esquive pour garantir les 3 cumuls du set.",
-                "en": "Woodpecker Upkeep: Insert a swift Basic Attack between EX Special and Dodge Counter to maintain 3 stacks."
             }
         ]
     },
