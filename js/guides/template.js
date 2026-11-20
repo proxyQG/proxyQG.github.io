@@ -1,5 +1,5 @@
 import { iconMap } from '../data/agents.js';
-import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats } from '../i18n.js';
+import { currentLang, ui, tData, tEngine, tDisc, tTerm, tStats, tAgentName } from '../i18n.js';
 
 // --- FONCTION DE SÉCURISATION (ANTI-XSS) ---
 function escapeHTML(str) {
@@ -22,11 +22,23 @@ function buildTeamMember(m, i, currentAgentName) {
 
     if (m.img) {
         const agentName = m.img.replace('.webp', '').replace('.png', '');
-        const displayName = agentName === 'Jane' ? 'Jane Doe' : (agentName === 'Orphie and Magus' ? 'Orphie' : agentName);
         const imgSrc = `assets/Agents/${m.img.replace('.png', '.webp')}`;
+
+        if (agentName.toLowerCase() === 'nothing') {
+            return `
+            <div class="flex flex-col items-center gap-2 cursor-default select-none min-w-0">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative shrink-0" style="${borderStyle}">
+                    <img src="${imgSrc}" alt="..." loading="eager" decoding="sync" class="w-full h-full object-cover object-center">
+                </div>
+                <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-500 text-center">...</span>
+            </div>`;
+        }
+
+        const displayName = agentName === 'Orphie and Magus' ? 'Orphie' : tAgentName(agentName);
         const escapedName = escapeHTML(displayName);
         const jsSafeName = agentName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         const isCurrentAgent = agentName === currentAgentName;
+        const guideHint = currentLang === 'en' ? `View ${escapedName}'s guide` : `Voir le guide de ${escapedName}`;
 
         if (isCurrentAgent) {
             return `
@@ -34,16 +46,16 @@ function buildTeamMember(m, i, currentAgentName) {
                 <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative shrink-0" style="${borderStyle}">
                     <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
                 </div>
-                <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-white truncate max-w-[76px] sm:max-w-[92px] text-center">${escapedName}</span>
+                <span title="${escapedName}" class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-white truncate max-w-[84px] sm:max-w-[116px] text-center">${escapedName}</span>
             </div>`;
         }
 
         return `
-        <div class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/fac min-w-0" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="Voir le guide de ${escapedName}">
+        <div class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/fac min-w-0" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="${guideHint}">
             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300 shrink-0" style="${borderStyle}">
                 <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
             </div>
-            <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-400 group-hover/fac:text-[#d7f70c] transition-colors truncate max-w-[76px] sm:max-w-[92px] text-center">${escapedName}</span>
+            <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-400 group-hover/fac:text-[#d7f70c] transition-colors truncate max-w-[84px] sm:max-w-[116px] text-center">${escapedName}</span>
         </div>`;
     }
 
@@ -118,10 +130,12 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
 
     const rankBadgeHTML = `<div class="rounded-lg md:rounded-xl text-black w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center font-black text-base sm:text-2xl md:text-3xl" style="background-color: ${c}; box-shadow: 0 0 15px ${c}40;">${escapeHTML(data.rank)}</div>`;
 
+    const displayAgentName = tAgentName(agentName);
+
     // Avatar mobile 84x84 sans zoom excessif, aligné avec Faction + Nom + Badges
     const mobileAvatarHTML = `
     <div class="md:hidden relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#121214] border-2 overflow-hidden shrink-0 shadow-[0_8px_20px_rgba(0,0,0,0.85)]" style="border-color: ${c}; box-shadow: 0 0 18px ${c}30;">
-        <img src="assets/Agents/${agentName}.webp" alt="${escapeHTML(agentName)}" loading="eager" decoding="sync" class="w-full h-full object-cover object-bottom">
+        <img src="assets/Agents/${agentName}.webp" alt="${escapeHTML(displayAgentName)}" loading="eager" decoding="sync" class="w-full h-full object-cover object-bottom">
     </div>`;
 
     return `
@@ -130,7 +144,7 @@ function buildHeader(agentName, data, c, iconName, agentMeta = null) {
             ${mobileAvatarHTML}
             <div class="flex flex-col min-w-0 flex-1">
                 ${factionHTML}
-                <h2 class="font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="font-size: clamp(1.85rem, 3.8vw, 4.5rem); text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(agentName)}</h2>
+                <h2 class="font-display font-black italic text-white leading-none uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-colors duration-500 cursor-default break-words" style="font-size: clamp(1.85rem, 3.8vw, 4.5rem); text-shadow: 0 0 20px ${c}40;" onmouseover="this.style.color='${c}'" onmouseout="this.style.color='white'">${escapeHTML(displayAgentName)}</h2>
                 <div class="flex md:hidden items-center gap-2 mt-2.5">
                     ${roleBadgeHTML}
                     ${elemBadgeHTML}
@@ -181,23 +195,32 @@ function buildDiscs(data, c, txt) {
         const tagShadow = isFirst ? `0 0 15px ${c}60` : 'transparent';
         const noteHTML = disc.note ? `<p class="text-[11px] text-zinc-400 mt-2 leading-relaxed">${escapeHTML(tDisc(tData(disc.note)))}</p>` : '';
 
+        const isPlaceholder1 = String(disc.set1).toLowerCase() === 'nothing';
+        const isPlaceholder2 = String(disc.set2).toLowerCase() === 'nothing';
+        const d1Attr = isPlaceholder1 ? '' : `data-disc="${escapeHTML(disc.set1)}"`;
+        const d2Attr = isPlaceholder2 ? '' : `data-disc="${escapeHTML(disc.set2)}"`;
+        const d1IconCls = isPlaceholder1 ? 'cursor-default' : 'cursor-pointer hover:scale-110 hover:z-20 transition-transform';
+        const d2IconCls = isPlaceholder2 ? 'cursor-default' : 'cursor-pointer hover:scale-110 hover:z-20 transition-transform hover:opacity-100';
+        const d1TxtCls = isPlaceholder1 ? 'cursor-default' : 'cursor-pointer hover:text-[#d7f70c] transition-colors';
+        const d2TxtCls = isPlaceholder2 ? 'cursor-default' : 'cursor-pointer hover:text-[#d7f70c] transition-colors';
+
         return `
         <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group flex-1 flex flex-col justify-center">
             <div class="absolute -top-3 right-3 sm:-right-3 text-[10px] font-black px-3 py-1.5 rounded-lg border-2 border-black uppercase" style="background-color: ${tagBg}; color: ${tagColor}; box-shadow: ${tagShadow};">${escapeHTML(tData(disc.tag))}</div>
             <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-2">
                 <div class="flex -space-x-4">
-                    <!-- Disque 4P cliquable -->
-                    <div data-disc="${escapeHTML(disc.set1)}" title="${escapeHTML(tDisc(disc.set1Name))}" class="cursor-pointer hover:scale-110 hover:z-20 transition-transform relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg">
+                    <!-- Disque 4P -->
+                    <div ${d1Attr} title="${escapeHTML(tDisc(disc.set1Name))}" class="${d1IconCls} relative w-14 h-14 rounded-full border-2 border-zinc-800 bg-black z-10 overflow-hidden shadow-lg">
                         <img src="assets/Disque/${disc.set1}.webp" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover">
                     </div>
-                    <!-- Disque 2P cliquable -->
-                    <div data-disc="${escapeHTML(disc.set2)}" title="${escapeHTML(tDisc(disc.set2Name))}" class="cursor-pointer hover:scale-110 hover:z-20 transition-transform relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 hover:opacity-100 overflow-hidden">
+                    <!-- Disque 2P -->
+                    <div ${d2Attr} title="${escapeHTML(tDisc(disc.set2Name))}" class="${d2IconCls} relative w-12 h-12 rounded-full border-2 border-zinc-800 bg-black z-0 opacity-80 overflow-hidden">
                         <img src="assets/Disque/${disc.set2}.webp" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover">
                     </div>
                 </div>
                 <div class="flex flex-col">
-                    <span data-disc="${escapeHTML(disc.set1)}" class="cursor-pointer hover:text-[#d7f70c] transition-colors font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span>
-                    <span data-disc="${escapeHTML(disc.set2)}" class="cursor-pointer hover:text-[#d7f70c] transition-colors font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span>
+                    <span ${d1Attr} class="${d1TxtCls} font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span>
+                    <span ${d2Attr} class="${d2TxtCls} font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span>
                 </div>
             </div>
             ${noteHTML}
