@@ -491,9 +491,14 @@ function updateDropdownUI(query) {
     activeSearchIdx = -1;
 
     let filteredAgents = normQuery
-        ? agentsData.filter(a => normalizeSearchStr(a.name).includes(normQuery) || (a.name === 'Jane' && 'jane doe'.includes(normQuery)))
+        ? agentsData.filter(a =>
+            normalizeSearchStr(a.name).includes(normQuery) ||
+            normalizeSearchStr(tAgentName(a.name)).includes(normQuery) ||
+            (a.name === 'Sunbringer' && "dame de l'aurore".includes(normQuery)) ||
+            (a.name === 'Jane' && 'jane doe'.includes(normQuery))
+          )
         : [...agentsData];
-    filteredAgents.sort((a, b) => a.name.localeCompare(b.name));
+    filteredAgents.sort((a, b) => tAgentName(a.name).localeCompare(tAgentName(b.name)));
 
     let matchedDiscs = [];
     let matchedEngines = [];
@@ -548,7 +553,7 @@ function updateDropdownUI(query) {
         sectionsHTML += filteredAgents.map((agent) => {
             const iconFile = (iconMap[agent.element] || 'physique.webp').replace(/\.png$/i, '.webp');
             const delay = Math.min((animIndex++) * 12, 180);
-            const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
+            const displayName = tAgentName(agent.name);
             return `
             <div class="dropdown-item-anim flex items-center justify-between gap-3 p-3 hover:bg-[#18181c] cursor-pointer transition-colors group" style="animation-delay: ${delay}ms" onclick="window.triggerSearchSelect('${agent.name.replace(/'/g, "\\'")}')">
                 <div class="flex items-center gap-3 min-w-0">
@@ -660,7 +665,7 @@ function updateModalFavoriteButton(agentName, animate = false) {
     if (!btn || !agentName) return;
 
     const isFav = State.favorites.includes(agentName);
-    const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
+    const displayName = tAgentName(agentName);
     const isEn = currentLang === 'en';
     const label = isFav
         ? (isEn ? `Remove ${displayName} from favorites (F)` : `Retirer ${displayName} des favoris (F)`)
@@ -1094,7 +1099,11 @@ function renderAgents(isInitial = false) {
     // 1. Filtrer en temps réel en combinant Élément + Rôle + Version (Zéro Reflow)
     DOM.agentCards.forEach((card) => {
         const agent = card.agent;
-        const matchSearch = !normSearch || normalizeSearchStr(agent.name).includes(normSearch) || (agent.name === 'Jane' && 'jane doe'.includes(normSearch));
+        const matchSearch = !normSearch
+            || normalizeSearchStr(agent.name).includes(normSearch)
+            || normalizeSearchStr(tAgentName(agent.name)).includes(normSearch)
+            || (agent.name === 'Sunbringer' && "dame de l'aurore".includes(normSearch))
+            || (agent.name === 'Jane' && 'jane doe'.includes(normSearch));
         const matchElem = State.filters.element === 'All' || filterGroups[State.filters.element]?.includes(agent.element);
         const matchRole = State.filters.role === 'All' || agent.role === State.filters.role;
         const matchVersion = State.filters.version === 'All' || agent.version === State.filters.version;
@@ -1197,7 +1206,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
     const isFav = State.favorites.includes(agent.name); 
     const heartClass = isFav ? 'text-red-500 fill-red-500' : 'text-zinc-400 fill-none'; 
     const favBtnStateClass = isFav ? 'border-red-500/60 bg-[#1a080a]/95 opacity-100' : 'border-zinc-700/80 bg-[#111]/90 opacity-80';
-    const displayName = agent.name === 'Jane' ? 'Jane Doe' : agent.name;
+    const displayName = tAgentName(agent.name);
     const roleLabel = tTerm(agent.role);
 
     // 1re carte en priorité haute (+2px pour le LCP), les 24 premières en priorité normale et decoding="sync" (zéro carré noir)
@@ -1351,7 +1360,7 @@ function updateBackToAgentButton() {
         const prevAgent = State.agentHistory[State.agentHistory.length - 1];
         img.src = `assets/Agents/${prevAgent}.webp`;
         img.alt = prevAgent;
-        nameEl.textContent = prevAgent === 'Jane' ? 'Jane Doe' : prevAgent;
+        nameEl.textContent = tAgentName(prevAgent);
         btn.classList.remove('hidden');
         btn.classList.add('flex');
     } else {
@@ -1464,20 +1473,20 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
         }
     }
 
-    document.title = `${agentName} - Guide & Build | ProxyQG`;
+    document.title = `${tAgentName(agentName)} - Guide & Build | ProxyQG`;
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentName)}/`);
 
     // Si on a défilé vers le bas sur mobile, on coupe l'ancien splash en 0ms avant de remonter
     const shouldAnimateFadeOut = !!splashImg && splashImg.style.opacity === '1' && !isScrolledDown;
     if (splashImg) {
-        splashImg.alt = agentName === 'Jane' ? 'Jane Doe' : agentName;
+        splashImg.alt = tAgentName(agentName);
         splashImg.loading = 'eager';
         splashImg.fetchPriority = 'high';
         splashImg.style.transitionDuration = shouldAnimateFadeOut ? `${SPLASH_FADE_OUT_MS}ms` : '0ms';
         splashImg.style.opacity = '0';
     }
-    if (giantName) giantName.textContent = agentName;
+    if (giantName) giantName.textContent = tAgentName(agentName);
 
     // 1. Ouvre la modale uniquement si elle était fermée
     if (modalWasHidden) {
@@ -1633,7 +1642,7 @@ function updateModalNavigation(preloadNeighbors = false) {
 
     if (hasPrev) {
         const prevAgentName = State.filteredAgents[State.modalIndex - 1].name;
-        const prevDisplay = prevAgentName === 'Jane' ? 'Jane Doe' : prevAgentName;
+        const prevDisplay = tAgentName(prevAgentName);
         prevBtn.title = `← ${prevDisplay}`;
         prevBtn.setAttribute('aria-label', prevDisplay);
         prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(prevAgentName); };
@@ -1641,7 +1650,7 @@ function updateModalNavigation(preloadNeighbors = false) {
     }
     if (hasNext) {
         const nextAgentName = State.filteredAgents[State.modalIndex + 1].name;
-        const nextDisplay = nextAgentName === 'Jane' ? 'Jane Doe' : nextAgentName;
+        const nextDisplay = tAgentName(nextAgentName);
         nextBtn.title = `${nextDisplay} →`;
         nextBtn.setAttribute('aria-label', nextDisplay);
         nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(nextAgentName); };
@@ -1805,7 +1814,7 @@ window.shareCurrentAgent = function() {
     if (!agentName) return;
     // Génère le lien dédié à l'agent avec sa vignette Discord personnalisée
     const url = `${window.location.origin}/agents/${encodeURIComponent(agentName)}/`;
-    const displayName = agentName === 'Jane' ? 'Jane Doe' : agentName;
+    const displayName = tAgentName(agentName);
     const showToast = () => {
         const toast = document.getElementById('toastNotification');
         if (!toast) return;
@@ -1988,6 +1997,11 @@ function initLanguageSwitcher() {
             updateExtraUI();
             if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
             DOM.agentCards.forEach(c => {
+                const displayName = tAgentName(c.agent.name);
+                const nameSpan = c.el.querySelector('.agent-nameplate span');
+                if (nameSpan) nameSpan.textContent = displayName;
+                const portrait = c.el.querySelector('.agent-image');
+                if (portrait) portrait.setAttribute('alt', displayName);
                 const badge = c.el.querySelector('.agent-role-badge');
                 if (badge) {
                     const lbl = tTerm(c.agent.role);
@@ -1997,7 +2011,12 @@ function initLanguageSwitcher() {
                 }
             });
             if (State.currentAgent) {
+                const giantName = document.getElementById('modalGiantNameText');
+                if (giantName) giantName.textContent = tAgentName(State.currentAgent);
+                document.title = `${tAgentName(State.currentAgent)} - Guide & Build | ProxyQG`;
+                updateBackToAgentButton();
                 updateModalFavoriteButton(State.currentAgent, false);
+                updateModalNavigation(false);
             }
             
             // --- Rechargement des factions ---
