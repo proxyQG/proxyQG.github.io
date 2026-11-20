@@ -136,6 +136,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             const sidebarList = document.getElementById('sidebarFactionsList');
             if (sidebarList && sidebarList.children.length === 0) renderFactions();
         }
+        const fModal = document.getElementById('factionModal');
+        if (fModal && !fModal.classList.contains('hidden')) {
+            window.renderModalFactions(true);
+        }
     });
     checkUrlForAgent();
 
@@ -849,12 +853,36 @@ function renderFactions() {
     }
 }
 
-// Génère la grille de la modale uniquement au clic
+function getModalFactionsColumns() {
+    const w = window.innerWidth;
+    if (w >= 1024) return 5;
+    if (w >= 768) return 4;
+    if (w >= 640) return 3;
+    return 2;
+}
+
+function generateEmptyFactionCardHTML() {
+    return `
+    <div aria-hidden="true" class="bg-[#121212]/70 border-2 border-zinc-800/70 rounded-2xl sm:rounded-[2rem] p-3 sm:p-6 flex flex-col items-center justify-start gap-3 sm:gap-6 select-none pointer-events-none shadow-inner relative overflow-hidden h-full">
+        <div class="w-20 h-20 sm:w-32 sm:h-32 md:w-48 md:h-48 relative z-10 flex-shrink-0 flex items-center justify-center mt-1 sm:mt-0">
+            <img src="assets/Faction/unknown.webp" loading="lazy" decoding="async" alt="" class="w-full h-full object-contain opacity-75">
+        </div>
+        <div class="mt-auto bg-black/50 px-2 py-2.5 sm:px-5 sm:py-3 rounded-xl text-[9px] sm:text-xs md:text-sm font-black w-full text-center border border-zinc-800/70 text-zinc-600 uppercase tracking-widest relative z-10 flex flex-col justify-center items-center">
+            EMPTY
+        </div>
+    </div>`;
+}
+
+// Génère la grille de la modale uniquement au clic (avec remplissage UNKNOWN en fin de ligne)
 window.renderModalFactions = function(force = false) {
     if (modalFactionsRendered && !force) return;
     const modalGrid = document.getElementById('modalFactionsGrid');
     if (modalGrid && factionsData.length > 0) {
-        modalGrid.innerHTML = factionsData.map(f => generateFactionCardHTML(f, false)).join('');
+        const cols = getModalFactionsColumns();
+        const emptyCount = (cols - (factionsData.length % cols)) % cols;
+        const cardsHTML = factionsData.map(f => generateFactionCardHTML(f, false)).join('');
+        const emptyHTML = Array.from({ length: emptyCount }, () => generateEmptyFactionCardHTML()).join('');
+        modalGrid.innerHTML = cardsHTML + emptyHTML;
         modalFactionsRendered = true;
     }
 };
