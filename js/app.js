@@ -752,7 +752,7 @@ const factionTranslations = {
     "Entente de Dayat": "Void Hunters",
     "Phaéthon": "Phaethon",
     "Atelier Flint": "Flint Workshop",
-    "Unknown Realm": "Unknown Realm",
+    "Royaume inconnu": "Unknown Realm",
     "Roscaelifer": "Roscaelifer"
 };
 
