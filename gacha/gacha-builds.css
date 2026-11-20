@@ -26,7 +26,7 @@
 }
 
 /* ========================================================
-   1. BARRE D'AGENTS COMPACTE EN HAUT (MOBILE & PC)
+   1. SÉLECTEUR D'AGENT COMPACT (FLÈCHES + MODALE GRILLE)
 ======================================================== */
 .zb-roster-strip {
     display: flex;
@@ -44,24 +44,135 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        padding: 6px 10px;
+        gap: 12px;
+        padding: 7px 12px;
     }
 }
 
-.zb-roster-bar {
-    flex: 1;
-    min-width: 0;
+.zb-agent-switcher {
     display: flex;
     align-items: center;
     gap: 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    min-width: 0;
+    flex: 1;
+    max-width: 100%;
 }
 
-.zb-roster-bar::-webkit-scrollbar {
-    display: none;
+@media (min-width: 640px) {
+    .zb-agent-switcher {
+        flex: 0 1 auto;
+        max-width: 440px;
+    }
+}
+
+.zb-nav-arrow-btn {
+    width: 36px;
+    height: 40px;
+    border-radius: 11px;
+    background: #14151e;
+    border: 1.5px solid #2c2d3a;
+    color: #d4d4d8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.15s ease;
+}
+
+.zb-nav-arrow-btn:hover:not(:disabled) {
+    border-color: #d7f70c;
+    color: #d7f70c;
+    background: rgba(215, 247, 12, 0.08);
+}
+
+.zb-nav-arrow-btn:disabled {
+    opacity: 0.32;
+    cursor: not-allowed;
+}
+
+.zb-agent-picker-btn {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.14) 0%, #15161f 70%);
+    border: 1.5px solid rgba(215, 247, 12, 0.65);
+    border-radius: 11px;
+    padding: 3px 10px 3px 4px;
+    cursor: pointer;
+    box-shadow: 0 0 14px rgba(215, 247, 12, 0.12);
+    transition: all 0.16s ease;
+    text-align: left;
+}
+
+.zb-agent-picker-btn:hover {
+    border-color: #d7f70c;
+    box-shadow: 0 0 20px rgba(215, 247, 12, 0.28);
+    transform: translateY(-1px);
+}
+
+.zb-agent-picker-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.zb-agent-picker-left img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+    object-position: top center;
+    background: #000;
+    flex-shrink: 0;
+}
+
+.zb-roster-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    color: #fff;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zb-roster-sub {
+    font-family: monospace;
+    font-size: 9px;
+    font-weight: 800;
+    color: #d7f70c;
+    display: block;
+    white-space: nowrap;
+}
+
+.zb-agent-picker-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(9, 9, 13, 0.85);
+    border: 1px solid #353644;
+    border-radius: 7px;
+    padding: 4px 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    color: #e4e4e7;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.zb-agent-picker-btn:hover .zb-agent-picker-cta {
+    border-color: #d7f70c;
+    color: #d7f70c;
 }
 
 .zb-roster-strip > .zzz-pill-btn {
@@ -76,53 +187,28 @@
     }
 }
 
-.zb-roster-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: #14151e;
-    border: 1.5px solid #2a2b36;
-    border-radius: 10px;
-    padding: 3px 9px 3px 3px;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: all 0.16s ease;
-}
-
-.zb-roster-pill:hover {
-    border-color: #71717a;
-}
-
-.zb-roster-pill.active {
-    background: linear-gradient(135deg, rgba(215, 247, 12, 0.22) 0%, #171822 100%);
-    border-color: #d7f70c;
-    box-shadow: 0 0 14px rgba(215, 247, 12, 0.25);
-}
-
-.zb-roster-pill img {
-    width: 30px;
-    height: 30px;
-    border-radius: 7px;
-    object-fit: cover;
-    object-position: top center;
-    background: #000;
-}
-
-.zb-roster-name {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 10px;
-    text-transform: uppercase;
-    color: #fff;
-    display: block;
-}
-
-.zb-roster-sub {
+/* Badge d'avancement des disques dans l'onglet Collection & la modale de sélection */
+.zb-col-build-badge {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    z-index: 6;
+    background: rgba(12, 12, 16, 0.92);
+    border: 1px solid rgba(56, 189, 248, 0.65);
+    color: #38bdf8;
     font-family: monospace;
-    font-size: 8.5px;
-    font-weight: 800;
-    color: #d7f70c;
-    display: block;
+    font-weight: 900;
+    font-size: 9.5px;
+    padding: 2px 6px;
+    border-radius: 5px;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+
+.zb-col-build-badge.is-full {
+    background: rgba(20, 83, 45, 0.94);
+    border-color: #4ade80;
+    color: #4ade80;
 }
 
 /* ========================================================
