@@ -1920,9 +1920,16 @@
                             ? `<span class="gacha-col-rank-tag">${it.rank}</span>`
                             : '';
 
-                        const buildShortcutHTML = (it.unlocked && it.type === 'agent')
-                            ? `<button type="button" class="gacha-col-build-pill" data-col-quick-build="${it.rawKey}" title="Ouvrir le Build">Build</button>`
-                            : '';
+                        let buildBadgeHTML = '';
+                        if (it.unlocked && it.type === 'agent') {
+                            const ab = GState.buildSystem?.agentBuilds?.[it.rawKey];
+                            const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
+                            const hasEng = !!ab?.engineKey;
+                            if (eqDiscs > 0 || hasEng) {
+                                const isFull = eqDiscs === 6 && hasEng;
+                                buildBadgeHTML = `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>`;
+                            }
+                        }
 
                         const subText = it.type === 'agent'
                             ? `${it.element || ''} • ${it.role || typeLabel(it.type)}`
@@ -1933,7 +1940,7 @@
                              data-col-type="${it.type}" data-col-key="${it.rawKey}">
                             <div class="gacha-col-visual">
                                 ${rankBadgeHTML}
-                                ${buildShortcutHTML}
+                                ${buildBadgeHTML}
                                 <span class="gacha-col-dupe-tag ${isMax ? 'maxed' : ''}">${progBadge}</span>
                                 <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
                             </div>
@@ -1982,19 +1989,16 @@
             });
         }
 
-        mount.querySelectorAll('[data-col-quick-build]').forEach(btn => {
-            btn.addEventListener('click', (ev) => {
-                ev.stopPropagation();
-                const agKey = btn.getAttribute('data-col-quick-build');
-                if (agKey && window.ZZZBuilds?.openAgentBuild) {
-                    window.ZZZBuilds.openAgentBuild(agKey);
-                }
-            });
-        });
-
         mount.querySelectorAll('[data-col-type]').forEach(card => {
             card.addEventListener('click', () => {
-                openItemFromGacha(card.getAttribute('data-col-type'), card.getAttribute('data-col-key'));
+                const type = card.getAttribute('data-col-type');
+                const key = card.getAttribute('data-col-key');
+                const isUnlocked = !card.classList.contains('is-locked');
+                if (type === 'agent' && isUnlocked && window.ZZZBuilds?.openAgentBuild) {
+                    window.ZZZBuilds.openAgentBuild(key);
+                    return;
+                }
+                openItemFromGacha(type, key);
             });
         });
     }
@@ -2455,10 +2459,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=7';
+            link.href = 'gacha/gacha-builds.css?v=8';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=7').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=8').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
