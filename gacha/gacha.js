@@ -489,12 +489,13 @@
             POOL = { S_featured: [], S_all: [], A_all: [], B_all: [], allCatalog: [] };
 
             agents.forEach(a => {
-                const displayName = a.name === 'Jane' ? 'Jane Doe' : a.name;
+                const nameFr = a.name === 'Jane' ? 'Jane Doe' : (a.name === 'Sunbringer' ? "Dame de l'Aurore" : a.name);
+                const nameEn = a.name === 'Jane' ? 'Jane Doe' : a.name;
                 const item = {
                     id: `agent_${a.name}`,
                     type: 'agent',
-                    nameFr: displayName,
-                    nameEn: displayName,
+                    nameFr,
+                    nameEn,
                     rawKey: a.name,
                     rank: a.rank || 'S',
                     element: a.element || 'Physical',
@@ -676,14 +677,23 @@
     function computeOvercapSurplus() {
         let totalExcess = 0;
         let totalGain = 0;
+        const agentBuilds = Object.values(GState.buildSystem?.agentBuilds || {});
         Object.values(GState.inventory || {}).forEach(it => {
-            if (it.type !== 'agent') return;
-            const maxCap = 7;
-            if ((it.count || 0) > maxCap) {
-                const diff = it.count - maxCap;
-                totalExcess += diff;
-                const valPerUnit = it.rank === 'S' ? 40 : 10;
-                totalGain += diff * valPerUnit;
+            if (it.type === 'agent') {
+                const maxCap = 7;
+                if ((it.count || 0) > maxCap) {
+                    const diff = it.count - maxCap;
+                    totalExcess += diff;
+                    totalGain += diff * (it.rank === 'S' ? 40 : 10);
+                }
+            } else if (it.type === 'engine') {
+                const equippedCount = agentBuilds.filter(ab => ab && ab.engineKey === it.rawKey).length;
+                const keepCap = Math.max(5, equippedCount);
+                if ((it.count || 0) > keepCap) {
+                    const diff = it.count - keepCap;
+                    totalExcess += diff;
+                    totalGain += diff * (it.rank === 'S' ? 40 : (it.rank === 'A' ? 10 : 3));
+                }
             }
         });
         return { totalExcess, totalGain };
@@ -1674,9 +1684,16 @@
             recycleBtn.addEventListener('click', () => {
                 const { totalGain } = computeOvercapSurplus();
                 if (totalGain > 0) {
+                    const agentBuilds = Object.values(GState.buildSystem?.agentBuilds || {});
                     Object.values(GState.inventory || {}).forEach(it => {
                         if (it.type === 'agent' && (it.count || 0) > 7) {
                             it.count = 7;
+                        } else if (it.type === 'engine') {
+                            const equippedCount = agentBuilds.filter(ab => ab && ab.engineKey === it.rawKey).length;
+                            const keepCap = Math.max(5, equippedCount);
+                            if ((it.count || 0) > keepCap) {
+                                it.count = keepCap;
+                            }
                         }
                     });
                     GState.residual += totalGain;
@@ -2106,8 +2123,12 @@
         Lumiflux: 'Lumiflux.webp',
         HonedEdge: 'Honed_Edge.webp',
         Honed_Edge: 'Honed_Edge.webp',
+        'Honed Edge': 'Honed_Edge.webp',
         Sepia: 'Auric_Ink.webp',
-        Auric_Ink: 'Auric_Ink.webp'
+        Auric_Ink: 'Auric_Ink.webp',
+        'Auric Ink': 'Auric_Ink.webp',
+        'Genesis Flare': 'Genesis_Flare.webp',
+        Genesis_Flare: 'Genesis_Flare.webp'
     };
 
     function showAgentMiniCard(rawKey) {
@@ -2264,8 +2285,11 @@
                 const bIdx = results.findIndex(r => r.rank === 'B');
                 if (discPool.length > 0 && bIdx !== -1) {
                     const oldB = results[bIdx];
-                    if (GState.inventory[oldB.id] && GState.inventory[oldB.id].count > 1) {
+                    if (GState.inventory[oldB.id]) {
                         GState.inventory[oldB.id].count -= 1;
+                        if (GState.inventory[oldB.id].count <= 0) {
+                            delete GState.inventory[oldB.id];
+                        }
                     }
                     const chosenDisc = pickRandom(discPool);
                     GState.residual += 6;
