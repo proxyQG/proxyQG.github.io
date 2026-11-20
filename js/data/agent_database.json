@@ -14934,75 +14934,101 @@
         "stats": [
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Taux CRIT",
+                    "en": "CRIT Rate"
                 },
-                "value": "..."
+                "value": "60 %+",
+                "note": {
+                    "fr": "Hors combat (100 %+ en combat via +40 % passif — le surplus active la double Lacération)",
+                    "en": "Out of combat (100%+ in combat via +40% passive — overcap triggers double Laceration)"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "DÉF initiale",
+                    "en": "Initial DEF"
                 },
-                "value": "..."
+                "value": "1 800 - 2 400+",
+                "note": {
+                    "fr": "Statistique principale (1 800 min. avec Rose couverte d'épines)",
+                    "en": "Main scaling stat (1,800 min. for Thorned Rose)"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "DGT CRIT",
+                    "en": "CRIT DMG"
                 },
-                "value": "..."
+                "value": "50 % (base)",
+                "note": {
+                    "fr": "Ne pas viser : converti à 0,35 % Taux CRIT par 1 % DGT CRIT",
+                    "en": "Do not build: converts at 0.35% CRIT Rate per 1% CRIT DMG"
+                }
             }
         ],
         "discs": [
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Build Optimal 👑",
+                    "en": "Optimal Build 👑"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Rank_Stele",
+                "set2": "Soul_Rock",
+                "set1Name": "4pc Rank Stele",
+                "set2Name": "+ 2pc Soul Rock / Thorned Rose",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Son set dédié : cumule +32 % de DÉF au total (via les deux 2-pièces à +16 %), ajoute +12 % de Taux CRIT sans condition et permet à ses DGT Tranchants de Feu d'ignorer 16 % supplémentaires de la DÉF ennemie.",
+                    "en": "Her signature set: stacks +32% total DEF (via both +16% 2pc effects), adds +12% unconditional CRIT Rate, and lets her Fire Sharp DMG ignore an extra 16% enemy DEF."
                 }
             },
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Alternative CRIT / Feu",
+                    "en": "CRIT / Fire Alternative"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Rank_Stele",
+                "set2": "Woodpecker_Electro",
+                "set1Name": "4pc Rank Stele",
+                "set2Name": "+ 2pc Woodpecker Electro / Inferno Metal",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Avec les gros buffs de DÉF fournis par Robin, un 2-pièces Taux CRIT (+8 %) ou DGT Feu (+10 %) équilibre très bien ses multiplicateurs.",
+                    "en": "Since Robin already grants massive DEF buffs, a 2pc CRIT Rate (+8%) or Fire DMG (+10%) balances her multipliers very well."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "Alternative Pré-farm",
+                    "en": "Pre-farm Alternative"
+                },
+                "set1": "Thorned_Rose",
+                "set2": "Soul_Rock",
+                "set1Name": "4pc Thorned Rose",
+                "set2Name": "+ 2pc Soul Rock / Woodpecker Electro",
+                "note": {
+                    "fr": "Excellente option déjà disponible : confère +16 % DÉF, +15 % de DGT constants et jusqu'à +16 % de Taux CRIT dès 1 800 de DÉF initiale hors combat.",
+                    "en": "Great pre-farmable option: grants +16% DEF, +15% permanent DMG, and up to +16% CRIT Rate once reaching 1,800 Initial DEF out of combat."
                 }
             }
         ],
         "skills": [
             {
-                "name": "Basic",
-                "level": "1",
-                "icon": "Attaque_basic.webp"
-            },
-            {
                 "name": "Ex",
-                "level": "1",
+                "level": "12",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Ult",
-                "level": "1",
+                "level": "12",
                 "icon": "Ultime.webp"
             },
             {
+                "name": "Basic",
+                "level": "11",
+                "icon": "Attaque_basic.webp"
+            },
+            {
                 "name": "Assist",
-                "level": "1",
+                "level": "11",
                 "icon": "Assist.webp"
             },
             {
@@ -15016,44 +15042,51 @@
                 {
                     "slot": "6",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "DÉF %",
+                        "en": "DEF %"
                     }
                 },
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "DGT Feu % > DÉF % > Taux de PÉN",
+                        "en": "Fire DMG % > DEF % > PEN Ratio"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Taux CRIT > DÉF %",
+                        "en": "CRIT Rate > DEF %"
                     }
                 }
             ],
             "sub": [
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Taux CRIT (rentable au-delà de 100 %)",
+                        "en": "CRIT Rate (scales past 100%)"
                     },
                     "highlight": true
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "DÉF %",
+                        "en": "DEF %"
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "DGT CRIT = Flat PÉN",
+                        "en": "CRIT DMG = Flat PEN"
                     },
                     "highlight": false
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Flat DÉF",
+                        "en": "Flat DEF"
                     },
                     "highlight": false
                 }
@@ -15067,14 +15100,38 @@
                 },
                 "name": "Dragonfire Mirage",
                 "img": "W-Engine_Dragonfire_Mirage.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative S",
+                    "en": "S-Rank Alternative"
+                },
+                "name": "Crimson Thirst",
+                "img": "W-Engine_Crimson_Thirst.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Battle Pass (A)",
+                    "en": "Battle Pass (A)"
+                },
+                "name": "Bloodmarrow Coffer",
+                "img": "W-Engine_Bloodmarrow_Coffer.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative F2P (A)",
+                    "en": "F2P Alternative (A)"
+                },
+                "name": "Catty Luck",
+                "img": "W-Engine_Catty_Luck.webp"
             }
         ],
         "teams": [
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Hypercarry Méta 👑",
+                    "en": "Meta Hypercarry 👑"
                 },
                 "members": [
                     {
@@ -15083,22 +15140,22 @@
                         "initial": "S"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Roxy.webp",
+                        "color": "#4da2f8",
+                        "initial": "R"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Synergie Feu / Stun",
+                    "en": "Fire / Stun Synergy"
                 },
                 "members": [
                     {
@@ -15107,22 +15164,22 @@
                         "initial": "S"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Norma.webp",
+                        "color": "#f05432",
+                        "initial": "N"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
                     }
                 ]
             },
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Double Forge",
+                    "en": "Dual Armorer"
                 },
                 "members": [
                     {
@@ -15131,22 +15188,22 @@
                         "initial": "S"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Claret.webp",
+                        "color": "#3182eb",
+                        "initial": "C"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Robin.webp",
+                        "color": "#f23c8a",
+                        "initial": "R"
                     }
                 ]
             },
             {
                 "name": "TEAM 04",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "F2P / Sans Robin",
+                    "en": "F2P / No Robin"
                 },
                 "members": [
                     {
@@ -15155,19 +15212,19 @@
                         "initial": "S"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Koleda.webp",
+                        "color": "#f05432",
+                        "initial": "K"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Ben.webp",
+                        "color": "#f05432",
+                        "initial": "B"
                     }
                 ]
             }
         ]
-    },
+    }
     "Hugo": {
         "color": "#3bbedb",
         "element": "Ice",
