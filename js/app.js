@@ -1,5 +1,5 @@
 import { colorMap, iconMap, filterGroups } from './data/agents.js';
-import { updateStaticUI, setLanguage, currentLang, tTerm } from './i18n.js';
+import { updateStaticUI, setLanguage, currentLang, tTerm, tAgentName } from './i18n.js';
 let agentsData = [];
 let factionsData = [];
 // ==========================================
