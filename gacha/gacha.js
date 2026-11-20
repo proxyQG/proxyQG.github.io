@@ -52,7 +52,7 @@
     async function ensureDictLoaded() {
         if (DICT) return;
         try {
-            const mod = await import('./gacha-i18n.js?v=4');
+            const mod = await import('./gacha-i18n.js?v=6');
             DICT = mod.GACHA_I18N;
         } catch (e) {
             console.error('Erreur chargement gacha-i18n.js :', e);
