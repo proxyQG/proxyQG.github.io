@@ -26,64 +26,57 @@
 }
 
 /* ========================================================
-   1. SÉLECTEUR D'AGENT COMPACT (FLÈCHES + MODALE GRILLE)
+   1. BANDEAU SUPÉRIEUR BUILD : SÉLECTEUR + HUD RÉSUMÉ + STATS
 ======================================================== */
 .zb-roster-strip {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 8px;
-    background: rgba(10, 10, 14, 0.92);
-    border: 1px solid #252630;
-    border-radius: 14px;
-    padding: 7px 10px;
+    gap: 10px;
+    background: linear-gradient(145deg, #13141c 0%, #0b0b10 100%);
+    border: 1.5px solid #282936;
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
     .zb-roster-strip {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        padding: 7px 12px;
+        gap: 14px;
+        padding: 9px 12px;
     }
 }
 
 .zb-agent-switcher {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     min-width: 0;
-    flex: 1;
-    max-width: 100%;
-}
-
-@media (min-width: 640px) {
-    .zb-agent-switcher {
-        flex: 0 1 auto;
-        max-width: 440px;
-    }
+    flex-shrink: 0;
 }
 
 .zb-nav-arrow-btn {
-    width: 36px;
-    height: 40px;
-    border-radius: 11px;
-    background: #14151e;
-    border: 1.5px solid #2c2d3a;
+    width: 38px;
+    height: 50px;
+    border-radius: 12px;
+    background: #151620;
+    border: 1.5px solid #2e303e;
     color: #d4d4d8;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
-    transition: all 0.15s ease;
+    transition: all 0.16s ease;
 }
 
 .zb-nav-arrow-btn:hover:not(:disabled) {
     border-color: #d7f70c;
     color: #d7f70c;
-    background: rgba(215, 247, 12, 0.08);
+    background: rgba(215, 247, 12, 0.1);
 }
 
 .zb-nav-arrow-btn:disabled {
@@ -94,51 +87,60 @@
 .zb-agent-picker-btn {
     flex: 1;
     min-width: 0;
-    height: 40px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    background: linear-gradient(135deg, rgba(215, 247, 12, 0.14) 0%, #15161f 70%);
-    border: 1.5px solid rgba(215, 247, 12, 0.65);
-    border-radius: 11px;
-    padding: 3px 10px 3px 4px;
+    gap: 14px;
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.14) 0%, #171822 65%);
+    border: 2px solid rgba(215, 247, 12, 0.72);
+    border-radius: 13px;
+    padding: 5px 8px 5px 6px;
     cursor: pointer;
-    box-shadow: 0 0 14px rgba(215, 247, 12, 0.12);
+    box-shadow: 0 0 18px rgba(215, 247, 12, 0.14);
     transition: all 0.16s ease;
     text-align: left;
 }
 
+@media (min-width: 1024px) {
+    .zb-agent-picker-btn {
+        min-width: 320px;
+    }
+}
+
 .zb-agent-picker-btn:hover {
     border-color: #d7f70c;
-    box-shadow: 0 0 20px rgba(215, 247, 12, 0.28);
+    box-shadow: 0 0 26px rgba(215, 247, 12, 0.32);
     transform: translateY(-1px);
 }
 
 .zb-agent-picker-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     min-width: 0;
 }
 
 .zb-agent-picker-left img {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
     object-fit: cover;
     object-position: top center;
     background: #000;
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     flex-shrink: 0;
 }
 
 .zb-roster-name {
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 11.5px;
+    font-style: italic;
+    font-size: 13.5px;
     text-transform: uppercase;
     color: #fff;
     display: block;
+    line-height: 1.15;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -146,41 +148,129 @@
 
 .zb-roster-sub {
     font-family: monospace;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 800;
     color: #d7f70c;
     display: block;
+    margin-top: 2px;
     white-space: nowrap;
 }
 
 .zb-agent-picker-cta {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    background: rgba(9, 9, 13, 0.85);
-    border: 1px solid #353644;
-    border-radius: 7px;
-    padding: 4px 8px;
+    gap: 6px;
+    background: #d7f70c;
+    border: 1.5px solid #e9ff59;
+    border-radius: 9px;
+    padding: 8px 13px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 9.5px;
+    font-style: italic;
+    font-size: 11px;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: #e4e4e7;
+    color: #000000;
     flex-shrink: 0;
     white-space: nowrap;
+    box-shadow: 0 0 14px rgba(215, 247, 12, 0.38);
+    transition: all 0.16s ease;
 }
 
 .zb-agent-picker-btn:hover .zb-agent-picker-cta {
-    border-color: #d7f70c;
-    color: #d7f70c;
+    background: #e6ff3b;
+    box-shadow: 0 0 22px rgba(215, 247, 12, 0.65);
+    transform: scale(1.03);
+}
+
+/* HUD central de résumé du build actif (comble le vide) */
+.zb-build-hud {
+    flex: 1;
+    min-width: 0;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px 10px;
+    background: rgba(9, 9, 13, 0.72);
+    border: 1px solid #242532;
+    border-radius: 13px;
+    padding: 6px 12px;
+}
+
+.zb-hud-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #14151e;
+    border: 1px solid #2b2d3b;
+    border-radius: 9px;
+    padding: 5px 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    color: #e4e4e7;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.zb-hud-chip.is-grade {
+    border-color: rgba(250, 204, 21, 0.45);
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.12) 0%, #14151e 100%);
+}
+
+.zb-hud-grade-val {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.zb-hud-chip.is-set {
+    border-color: rgba(215, 247, 12, 0.35);
+}
+
+.zb-hud-chip.is-set img {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.zb-hud-set-tag {
+    background: #d7f70c;
+    color: #000;
+    font-size: 9px;
+    font-weight: 900;
+    padding: 1px 5px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.zb-hud-set-name {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.zb-hud-muted {
+    color: #71717a;
+    font-size: 10.5px;
+    font-weight: 700;
 }
 
 .zb-roster-strip > .zzz-pill-btn {
     width: 100%;
+    height: 46px;
     justify-content: center;
+    font-size: 12.5px;
+    padding: 4px 18px 4px 6px;
+    flex-shrink: 0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1024px) {
     .zb-roster-strip > .zzz-pill-btn {
         width: auto;
         justify-content: flex-start;
