@@ -76,6 +76,7 @@ export const terms = {
     "Auric Ink": { fr: "Sépia", en: "Auric Ink" },
     'Honed Edge': { fr: 'Lame affûtée', en: 'Honed Edge' },
     'Frost': { fr: 'Givre', en: 'Frost' },
+    'Genesis Flare': { fr: 'Flambeau de la genèse', en: 'Genesis Flare' },
     
     'Attack': { fr: 'Attaque', en: 'Attack' },
     'Stun': { fr: 'Stun', en: 'Stun' },
@@ -96,6 +97,8 @@ export const terms = {
 
 // Dictionnaire officiel des Disques (EN strict -> FR)
 export const discsDict = {
+    "Crimson Wing Nocturne": "Nocturne des ailes écarlates",
+    "Rank Stele": "Monument aux étoiles",
     "Fated Feathers": "Plumes du destin",
     "Feathered Fate": "Plumes du destin",
     "Thorny Rose": "Rose couverte d'épines",
@@ -109,14 +112,6 @@ export const discsDict = {
     "Wonderland Bunny": "Lapine au pays des merveilles",
     "Bunny in Wonderland": "Lapin au pays des merveilles",
     "Branch Blade Song": "Balade de l'épée de bois",
-    "Fated Feathers": "Plumes du destin",
-    "Thorny Rose": "Rose couverte d'épines",
-    "Thorned Rose": "Rose couverte d'épines",
-    "Blazing Sky": "Le ciel ardent",
-    "Turmoil's Salon": "Salon de tourmente",
-    "Wuthering Salon": "Salon de tourmente",
-    "Prisoner's Notes": "Notes d'une prisonnière",
-    "Wonderland Bunny": "Lapine au pays des merveilles",
     "Radiant Aria": "Aria rayonnante",
     "Shining Aria": "Aria rayonnante",
     "White Water Ballad": "Mélopée des eaux blanches",
@@ -150,6 +145,9 @@ export const discsDict = {
 
 // Dictionnaire officiel des Moteurs (EN strict -> FR)
 export const enginesDict = {
+    "Dragonfire Mirage": "Mirage draconique",
+    "Elegy of the Molted Spider": "Requiem Araneae",
+    "Starlit Chroma": "Stellaria iridescente",
     "Street Superstar": "Superstar des rues",
     "The Brimstone": "Le Soufre",
     "The Restrained": "L'Enchainé",
@@ -291,7 +289,8 @@ const exactStatsEn = {
     'DGT Feu': 'Fire DMG',
     'DGT Physique': 'Physical DMG',
     'DGT Électrique': 'Electric DMG',
-    'DGT Éther': 'Ether DMG'
+    'DGT Éther': 'Ether DMG',
+    'DGT Vent': 'Wind DMG'
 };
 
 // Règles précompilées pour les phrases complexes de stats (ex: combinaisons avec / ou multi-lignes)
@@ -308,7 +307,7 @@ const STAT_RULES = [
     [/\b(?:PV|Points\s*de\s*vie)\b/gi, "HP"],
     [/Taux\s*Crit(?:ique)?/gi, "CRIT Rate"],
     [/(?:Dégât(?:s)?\s*Crit(?:ique)?|DGT\s*CRIT)/gi, "CRIT DMG"],
-    [/Taux\s*de\s*PEN/gi, "PEN Ratio"],
+    [/Taux\s*de\s*P[EÉ]N/gi, "PEN Ratio"],
     [/(?:Ma[îi]trise|Ma[îi]\.)\s*(?:d')?Anomalie/gi, "Anomaly Mastery"],
     [/(?:Adresse|Adre\.)\s*(?:d')?Anomalie/gi, "Anomaly Prof."],
     [/(?:R[ée]cup(?:[ée]ration)?|R[ée]c)\.?\s*d'?[ée]nergie/gi, "Energy Regen"],
@@ -317,6 +316,7 @@ const STAT_RULES = [
     [/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]lectrique/gi, "Electric DMG"],
     [/(?:DGT|Dégât(?:s)?)\s*(?:d')?[Ée]ther/gi, "Ether DMG"],
     [/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Feu/gi, "Fire DMG"],
+    [/(?:DGT|Dégât(?:s)?)\s*(?:de\s*)?Vent/gi, "Wind DMG"],
     [/\bDGT\b/gi, "DMG"]
 ];
 
@@ -333,12 +333,14 @@ export function setLanguage(lang) {
 // Fonction de traduction générique (lit { fr: "...", en: "..." } ou renvoie la chaîne brute)
 export function tData(field) {
     if (!field) return '';
-    if (typeof field === 'object') return field[currentLang] || field['fr'] || '';
+    if (typeof field === 'object') return field[currentLang] || field['fr'] || field['en'] || '';
     return field;
 }
 
 // Traducteur pour les moteurs (vérifie le dictionnaire officiel)
 export function tEngine(englishName) {
+    if (!englishName) return '';
+    if (typeof englishName === 'object') return tData(englishName);
     if (currentLang === 'en') return englishName;
     return enginesDict[englishName] || englishName;
 }
@@ -346,10 +348,12 @@ export function tEngine(englishName) {
 // Traducteur pour les sets de disques (Exécution en une passe unique)
 export function tDisc(name) {
     if (!name) return '';
+    if (typeof name === 'object') return tData(name);
+    const str = String(name);
     if (currentLang === 'en') {
-        return name.replace(/4-pièces/gi, "4pc").replace(/2-pièces/gi, "2pc");
+        return str.replace(/4-pièces/gi, "4pc").replace(/2-pièces/gi, "2pc");
     }
-    return name
+    return str
         .replace(discRegex, match => discsLookup[match.toLowerCase()] || match)
         .replace(/4pc/gi, "4-pièces")
         .replace(/2pc/gi, "2-pièces");
