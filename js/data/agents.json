@@ -62,6 +62,6 @@
     { "name": "Phoenix", "element": "Fire", "rank": "S", "faction": "Autorité de conformité Krampus", "role": "Anomaly", "version": "V3" },
     { "name": "Severian", "element": "Wind", "rank": "S", "faction": "Division de l'Ordre urbain", "role": "Attack", "version": "V3" },
     { "name": "Robin", "element": "Ether", "rank": "S", "faction": "Unknown Realm", "role": "Defense", "version": "V3", "isNew": true, "status": "beta" },
-    { "name": "Kafka", "element": "Electric", "rank": "S", "faction": "Unknown Realm", "role": "Anomaly", "version": "V3", "isNew": true, "status": "upcoming" },
+    { "name": "Kafka", "element": "Electric", "rank": "S", "faction": "Unknown Realm", "role": "Anomaly", "version": "V3", "isNew": true, "status": "beta" },
     { "name": "Sunbringer", "element": "Genesis Flare", "rank": "S", "faction": "Roscaelifer", "role": "Armorer", "version": "V3", "isNew": true, "status": "upcoming" }
 ]
