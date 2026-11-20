@@ -14631,80 +14631,106 @@
         "stats": [
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Adresse d'Anomalie",
+                    "en": "Anomaly Proficiency"
                 },
-                "value": "..."
+                "value": "410 - 446+",
+                "note": {
+                    "fr": "Hors combat — monte à 500–536+ en combat (signature / alliés)",
+                    "en": "Out of combat — reaches 500–536+ in combat (sig / allies)"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Réc. d'énergie initiale",
+                    "en": "Initial Energy Regen"
                 },
-                "value": "..."
+                "value": "2,16 - 2,88",
+                "note": {
+                    "fr": "2,16 sans signature • 2,88 plafond exact avec signature",
+                    "en": "2.16 without signature • 2.88 exact cap with signature"
+                }
             },
             {
                 "label": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Maîtrise d'Anomalie",
+                    "en": "Anomaly Mastery"
                 },
-                "value": "..."
+                "value": "192 - 252",
+                "note": {
+                    "fr": "En combat (112 de base — gagnée via conversion d'énergie)",
+                    "en": "In combat (112 base — gained via Energy conversion)"
+                }
             }
         ],
         "discs": [
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Build Optimal 👑",
+                    "en": "Optimal Build 👑"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Freedom_Blues",
+                "set2": "Swing_Jazz",
+                "set1Name": "4pc Freedom Blues",
+                "set2Name": "+ 2pc Swing Jazz / Moonlight Lullaby",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Le set de référence : +30 d'Adresse d'anomalie et -20 % de résistance ennemie à l'accumulation d'Anomalie Électrique pendant 8 s dès l'EX, tandis que le 2-pièces (+20 % Réc. d'énergie) valide le palier exact de 2,88 (ou 2,16 sans signature).",
+                    "en": "The go-to set: +30 Anomaly Proficiency and -20% enemy Electric Anomaly Buildup RES for 8s on EX Special, while the 2pc (+20% Energy Regen) hits the exact 2.88 cap (or 2.16 without signature)."
                 }
             },
             {
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Alternative Adresse Pure",
+                    "en": "Pure AP Alternative"
                 },
-                "set1": "nothing",
-                "set2": "nothing",
-                "set1Name": "...",
-                "set2Name": "...",
+                "set1": "Freedom_Blues",
+                "set2": "Chaos_Jazz",
+                "set1Name": "4pc Freedom Blues",
+                "set2Name": "+ 2pc Chaos Jazz / Fated Feathers",
                 "note": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Remplace les +20 % d'Énergie par +30 d'Adresse d'anomalie supplémentaire si ton cycle d'EX est déjà fluide (au prix de 20 points de Maîtrise d'anomalie convertie).",
+                    "en": "Trades +20% Energy Regen for +30 extra Anomaly Proficiency if your EX Special rotation is already smooth (sacrificing 20 converted Anomaly Mastery)."
+                }
+            },
+            {
+                "tag": {
+                    "fr": "Alternative Dégâts",
+                    "en": "Damage Alternative"
+                },
+                "set1": "Chaos_Jazz",
+                "set2": "Swing_Jazz",
+                "set1Name": "4pc Chaos Jazz",
+                "set2Name": "+ 2pc Swing Jazz / Moonlight Lullaby",
+                "note": {
+                    "fr": "Apporte +30 d'Adresse d'anomalie et +15 % de DGT Électriques, mais une partie du 4-pièces favorise le jeu hors terrain alors que Kafka préfère enchaîner ses EX sur le terrain.",
+                    "en": "Grants +30 Anomaly Proficiency and +15% Electric DMG, though part of the 4pc favors off-field play while Kafka prefers chaining EX Specials on-field."
                 }
             }
         ],
         "skills": [
             {
+                "name": "Basic",
+                "level": "12",
+                "icon": "Attaque_basic.webp"
+            },
+            {
                 "name": "Ex",
-                "level": "1",
+                "level": "12",
                 "icon": "Ex.webp"
             },
             {
                 "name": "Ult",
-                "level": "1",
+                "level": "11",
                 "icon": "Ultime.webp"
             },
             {
-                "name": "Basic",
-                "level": "1",
-                "icon": "Attaque_basic.webp"
-            },
-            {
                 "name": "Assist",
-                "level": "1",
+                "level": "7",
                 "icon": "Assist.webp"
             },
             {
                 "name": "Dodge",
-                "level": "1",
+                "level": "7",
                 "icon": "Esquive.webp"
             }
         ],
@@ -14713,44 +14739,51 @@
                 {
                     "slot": "6",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Réc. d'énergie > ATQ %",
+                        "en": "Energy Regen > ATK %"
                     }
                 },
                 {
                     "slot": "5",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "DGT Électrique % = Taux de PÉN > ATQ %",
+                        "en": "Electric DMG % = PEN Ratio > ATK %"
                     }
                 },
                 {
                     "slot": "4",
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Adresse d'Anomalie > ATQ %",
+                        "en": "Anomaly Proficiency > ATK %"
                     }
                 }
             ],
             "sub": [
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Adresse d'Anomalie",
+                        "en": "Anomaly Proficiency"
                     },
                     "highlight": true
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "ATQ %",
+                        "en": "ATK %"
+                    },
+                    "highlight": true
+                },
+                {
+                    "label": {
+                        "fr": "Flat PÉN",
+                        "en": "Flat PEN"
                     },
                     "highlight": false
                 },
                 {
                     "label": {
-                        "fr": "...",
-                        "en": "..."
+                        "fr": "Flat ATQ",
+                        "en": "Flat ATK"
                     },
                     "highlight": false
                 }
@@ -14764,14 +14797,38 @@
                 },
                 "name": "Elegy of the Molted Spider",
                 "img": "W-Engine_Elegy_of_the_Molted_Spider.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative S",
+                    "en": "S-Rank Alternative"
+                },
+                "name": "Timeweaver",
+                "img": "W-Engine_Timeweaver.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative F2P (A)",
+                    "en": "F2P Alternative (A)"
+                },
+                "name": "Weeping Gemini",
+                "img": "W-Engine_Weeping_Gemini.webp"
+            },
+            {
+                "tag": {
+                    "fr": "Alternative BP (A)",
+                    "en": "BP Alternative (A)"
+                },
+                "name": "Electro-Lip Gloss",
+                "img": "W-Engine_Electro-Lip_Gloss.webp"
             }
         ],
         "teams": [
             {
                 "name": "TEAM 01",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Triple Désordres 👑",
+                    "en": "Triple Disorder 👑"
                 },
                 "members": [
                     {
@@ -14780,22 +14837,22 @@
                         "initial": "K"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Vivian.webp",
+                        "color": "#f23c8a",
+                        "initial": "V"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Yuzuha.webp",
+                        "color": "#e8a838",
+                        "initial": "Y"
                     }
                 ]
             },
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Stun & Polarité",
+                    "en": "Stun & Polarity"
                 },
                 "members": [
                     {
@@ -14804,22 +14861,22 @@
                         "initial": "K"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Nangong Yu.webp",
+                        "color": "#f23c8a",
+                        "initial": "NY"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Yuzuha.webp",
+                        "color": "#e8a838",
+                        "initial": "Y"
                     }
                 ]
             },
             {
                 "name": "TEAM 03",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "Duo Anomalie",
+                    "en": "Dual Anomaly"
                 },
                 "members": [
                     {
@@ -14828,22 +14885,22 @@
                         "initial": "K"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Burnice.webp",
+                        "color": "#f05432",
+                        "initial": "B"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Remielle.webp",
+                        "color": "#fba2d0",
+                        "initial": "R"
                     }
                 ]
             },
             {
                 "name": "TEAM 04",
                 "tag": {
-                    "fr": "...",
-                    "en": "..."
+                    "fr": "F2P / Accessible",
+                    "en": "F2P / Accessible"
                 },
                 "members": [
                     {
@@ -14852,14 +14909,14 @@
                         "initial": "K"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Piper.webp",
+                        "color": "#e8a838",
+                        "initial": "P"
                     },
                     {
-                        "img": "nothing.webp",
-                        "color": "#52525b",
-                        "initial": "..."
+                        "img": "Seth.webp",
+                        "color": "#3182eb",
+                        "initial": "S"
                     }
                 ]
             }
