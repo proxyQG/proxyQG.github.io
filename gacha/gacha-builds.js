@@ -836,11 +836,32 @@
                 });
         }
 
-        function buildAgentSwitcherHTML(st, ownedAgents, agent, ab, bridge, t) {
+        function buildAgentSwitcherHTML(st, pool, ownedAgents, agent, ab, calc, bridge, t) {
+            const isEn = (bridge.getLang?.() || 'fr') === 'en';
             const cnt = st.inventory[agent.id]?.count || 1;
             const mTag = cnt > 7 ? `M6 +${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
             const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
             const navDisabled = ownedAgents.length <= 1 ? 'disabled' : '';
+
+            const gradeColors = { SSS: '#d7f70c', SS: '#facc15', S: '#facc15', A: '#c084fc', B: '#38bdf8', C: '#a1a1aa' };
+            const gradeCol = gradeColors[calc.grade] || '#a1a1aa';
+
+            const activeSets = Object.entries(calc.setCounts || {})
+                .filter(([, count]) => count >= 2)
+                .sort((a, b) => b[1] - a[1]);
+
+            const setsHTML = activeSets.length > 0
+                ? activeSets.map(([setKey, count]) => {
+                    const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === setKey);
+                    const sName = dObj ? bridge.itemName(dObj) : setKey;
+                    return `
+                    <div class="zb-hud-chip is-set" title="${count >= 4 ? '4P' : '2P'} ${sName}">
+                        ${dObj ? `<img src="${dObj.img}" alt="">` : ''}
+                        <span class="zb-hud-set-tag">${count >= 4 ? '4P' : '2P'}</span>
+                        <span class="zb-hud-set-name">${sName}</span>
+                    </div>`;
+                }).join('')
+                : `<span class="zb-hud-muted">${isEn ? 'No active set bonus' : 'Aucun bonus de set actif'}</span>`;
 
             return `
             <div class="zb-agent-switcher">
@@ -852,7 +873,7 @@
                         <img src="${agent.img}" alt="${bridge.itemName(agent)}">
                         <div style="min-width:0;">
                             <span class="zb-roster-name">${bridge.itemName(agent)}</span>
-                            <span class="zb-roster-sub">${agent.rank} • Lv.60 • ${mTag} • ${eqDiscs}/6</span>
+                            <span class="zb-roster-sub">${agent.rank} • Lv.60 • ${mTag}</span>
                         </div>
                     </div>
                     <span class="zb-agent-picker-cta">
@@ -863,6 +884,23 @@
                 <button type="button" class="zb-nav-arrow-btn" id="zb-btn-next-agent" ${navDisabled} title="${t.nextAgentTitle}">
                     ${UI_SVGS.chevRight}
                 </button>
+            </div>
+
+            <div class="zb-build-hud">
+                <div class="zb-hud-chip is-grade">
+                    <span style="color:#a1a1aa;font-size:10px;text-transform:uppercase;">${isEn ? 'Grade' : 'Note'}</span>
+                    <span class="zb-hud-grade-val" style="color:${gradeCol};">${calc.grade}</span>
+                    <span style="font-family:monospace;font-size:10px;color:#a1a1aa;">(${calc.finalScore}%)</span>
+                </div>
+                <div class="zb-hud-chip">
+                    <span style="color:#a1a1aa;font-size:10px;text-transform:uppercase;">${isEn ? 'Discs' : 'Disques'}</span>
+                    <span style="font-family:monospace;color:${eqDiscs === 6 ? '#4ade80' : '#38bdf8'};">${eqDiscs}/6</span>
+                </div>
+                ${setsHTML}
+                <div class="zb-hud-chip">
+                    <span style="color:#a1a1aa;font-size:10px;text-transform:uppercase;">Sub-stats</span>
+                    <span style="font-family:monospace;color:#facc15;">${calc.effectiveSubRolls}</span>
+                </div>
             </div>`;
         }
 
@@ -1013,7 +1051,7 @@
             const prof = getGuideProfile(agent.rawKey);
             const freeDiscsTotal = getFreeGachaDiscCount(st);
 
-            const switcherHTML = buildAgentSwitcherHTML(st, ownedAgents, agent, ab, bridge, t);
+            const switcherHTML = buildAgentSwitcherHTML(st, pool, ownedAgents, agent, ab, calc, bridge, t);
 
             if (currentSubMenu === 'stats') {
                 mount.innerHTML = `
