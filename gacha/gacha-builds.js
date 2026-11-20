@@ -56,6 +56,14 @@
                 claimedBadge: "Obtenu",
                 inProgress: "En cours",
                 close: "Fermer",
+                changeAgentBtn: "Changer",
+                pickerTitle: "Sélectionner un Agent",
+                pickerSub: "Choisissez l'Agent à équiper parmi vos {n} Agents débloqués.",
+                pickerSearch: "Rechercher un Agent...",
+                pickerAll: "Tous",
+                pickerActive: "ACTIF",
+                prevAgentTitle: "Agent précédent",
+                nextAgentTitle: "Agent suivant",
                 stats: {
                     "PV": "PV", "ATQ": "ATQ", "DÉF": "DÉF", "Impact": "Impact",
                     "Taux CRIT": "Taux CRIT", "Dégâts CRIT": "DGT CRIT",
@@ -121,6 +129,14 @@
                 claimedBadge: "Claimed",
                 inProgress: "In Progress",
                 close: "Close",
+                changeAgentBtn: "Switch",
+                pickerTitle: "Select an Agent",
+                pickerSub: "Choose an Agent to customize from your {n} unlocked Agents.",
+                pickerSearch: "Search an Agent...",
+                pickerAll: "All",
+                pickerActive: "ACTIVE",
+                prevAgentTitle: "Previous Agent",
+                nextAgentTitle: "Next Agent",
                 stats: {
                     "PV": "HP", "ATQ": "ATK", "DÉF": "DEF", "Impact": "Impact",
                     "Taux CRIT": "CRIT Rate", "Dégâts CRIT": "CRIT DMG",
@@ -143,7 +159,10 @@
             discTune: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>`,
             compare: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg>`,
             recommend: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><polygon points="12 7 13.8 10.6 17.8 11.2 14.9 14 15.6 18 12 16.1 8.4 18 9.1 14 6.2 11.2 10.2 10.6 12 7" fill="currentColor"/></svg>`,
-            users: `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`
+            users: `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`,
+            chevLeft: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>`,
+            chevRight: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>`,
+            chevDown: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`
         };
 
         function B() {
@@ -807,7 +826,44 @@
         let bardicSlot = 0;
 
         function getOwnedAgents(st, pool) {
-            return pool.allCatalog.filter(i => i.type === 'agent' && (st.inventory[i.id]?.count || 0) > 0);
+            const rW = { S: 0, A: 1, B: 2 };
+            return pool.allCatalog
+                .filter(i => i.type === 'agent' && (st.inventory[i.id]?.count || 0) > 0)
+                .sort((a, b) => {
+                    const rw = (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9);
+                    if (rw !== 0) return rw;
+                    return (a.nameFr || a.rawKey).localeCompare(b.nameFr || b.rawKey);
+                });
+        }
+
+        function buildAgentSwitcherHTML(st, ownedAgents, agent, ab, bridge, t) {
+            const cnt = st.inventory[agent.id]?.count || 1;
+            const mTag = cnt > 7 ? `M6 +${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
+            const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
+            const navDisabled = ownedAgents.length <= 1 ? 'disabled' : '';
+
+            return `
+            <div class="zb-agent-switcher">
+                <button type="button" class="zb-nav-arrow-btn" id="zb-btn-prev-agent" ${navDisabled} title="${t.prevAgentTitle}">
+                    ${UI_SVGS.chevLeft}
+                </button>
+                <button type="button" class="zb-agent-picker-btn" id="zb-btn-open-agent-picker" title="${t.pickerTitle}">
+                    <div class="zb-agent-picker-left">
+                        <img src="${agent.img}" alt="${bridge.itemName(agent)}">
+                        <div style="min-width:0;">
+                            <span class="zb-roster-name">${bridge.itemName(agent)}</span>
+                            <span class="zb-roster-sub">${agent.rank} • Lv.60 • ${mTag} • ${eqDiscs}/6</span>
+                        </div>
+                    </div>
+                    <span class="zb-agent-picker-cta">
+                        <span>${t.changeAgentBtn} (${ownedAgents.length})</span>
+                        ${UI_SVGS.chevDown}
+                    </span>
+                </button>
+                <button type="button" class="zb-nav-arrow-btn" id="zb-btn-next-agent" ${navDisabled} title="${t.nextAgentTitle}">
+                    ${UI_SVGS.chevRight}
+                </button>
+            </div>`;
         }
 
         function buildInspectorPaneHTML(st, pool, agent, itemObj, isEngineMode, headerTag = '', isLangEn = false, t, bridge, prof) {
@@ -957,24 +1013,13 @@
             const prof = getGuideProfile(agent.rawKey);
             const freeDiscsTotal = getFreeGachaDiscCount(st);
 
-            const rosterHTML = ownedAgents.map(a => {
-                const cnt = st.inventory[a.id]?.count || 1;
-                const mTag = cnt > 7 ? `M6 +${cnt - 7}` : `M${Math.min(6, cnt - 1)}`;
-                return `
-                <div class="zb-roster-pill ${a.rawKey === agent.rawKey ? 'active' : ''}" data-pick-build-agent="${a.rawKey}">
-                    <img src="${a.img}" alt="${bridge.itemName(a)}">
-                    <div>
-                        <span class="zb-roster-name">${bridge.itemName(a)}</span>
-                        <span class="zb-roster-sub">${a.rank} • Lv.60 • ${mTag}</span>
-                    </div>
-                </div>`;
-            }).join('');
+            const switcherHTML = buildAgentSwitcherHTML(st, ownedAgents, agent, ab, bridge, t);
 
             if (currentSubMenu === 'stats') {
                 mount.innerHTML = `
                     <div class="zb-wrap">
                         <div class="zb-roster-strip">
-                            <div class="zb-roster-bar" id="zb-roster-scroll">${rosterHTML}</div>
+                            ${switcherHTML}
                             <button type="button" class="zzz-pill-btn active" id="btn-toggle-subview">
                                 <span class="zzz-pill-icon yellow">${UI_SVGS.discTune}</span>
                                 <span>${t.subEquip}</span>
@@ -985,7 +1030,7 @@
                         </div>
                     </div>
                 `;
-                bindRosterAndSubViewEvents(mount);
+                bindRosterAndSubViewEvents(mount, ownedAgents);
                 return;
             }
 
@@ -1311,14 +1356,13 @@
                 }
             }
 
-            const prevRosterLeft = document.getElementById('zb-roster-scroll')?.scrollLeft || 0;
             const prevGridTop = mount.querySelector('.zzz-left-grid-wrap')?.scrollTop || 0;
             const prevInspTop = mount.querySelector('.zzz-center-inspector-wrap')?.scrollTop || 0;
 
             mount.innerHTML = `
                 <div class="zb-wrap">
                     <div class="zb-roster-strip">
-                        <div class="zb-roster-bar" id="zb-roster-scroll">${rosterHTML}</div>
+                        ${switcherHTML}
                         <button type="button" class="zzz-pill-btn" id="btn-toggle-subview">
                             <span class="zzz-pill-icon yellow">${UI_SVGS.recommend}</span>
                             <span>${t.subStats}</span>
@@ -1448,35 +1492,157 @@
                 </div>
             `;
 
-            const newRosterEl = document.getElementById('zb-roster-scroll');
-            if (newRosterEl) newRosterEl.scrollLeft = prevRosterLeft;
             const newGridEl = mount.querySelector('.zzz-left-grid-wrap');
             if (newGridEl) newGridEl.scrollTop = prevGridTop;
             const newInspEl = mount.querySelector('.zzz-center-inspector-wrap');
             if (newInspEl) newInspEl.scrollTop = prevInspTop;
 
-            bindRosterAndSubViewEvents(mount);
+            bindRosterAndSubViewEvents(mount, ownedAgents);
             bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum);
         }
 
-        function bindRosterAndSubViewEvents(mount) {
-            const rosterScroll = document.getElementById('zb-roster-scroll');
-            if (rosterScroll) {
-                rosterScroll.addEventListener('wheel', (e) => {
-                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-                        e.preventDefault();
-                        rosterScroll.scrollLeft += e.deltaY;
-                    }
-                }, { passive: false });
+        function switchBuildAgent(mount, newAgentKey) {
+            if (!newAgentKey || newAgentKey === selectedAgentKey) return;
+            selectedAgentKey = newAgentKey;
+            selectedItemId = null;
+            window.__zzzRecEngKey = null;
+            renderBuildsTab(mount);
+        }
+
+        function openAgentPickerModal(mount) {
+            const bridge = window.ZZZGachaBridge;
+            const overlay = document.getElementById('gacha-anim-overlay');
+            if (!bridge || !overlay) return;
+
+            const st = bridge.getState();
+            const pool = bridge.getPool();
+            const ownedAgents = getOwnedAgents(st, pool);
+            const t = B();
+
+            let rankFilter = 'all';
+            let query = '';
+
+            overlay.classList.add('active');
+
+            function renderPicker() {
+                let list = ownedAgents;
+                if (rankFilter !== 'all') {
+                    list = list.filter(a => a.rank === rankFilter);
+                }
+                if (query.trim()) {
+                    const q = query.trim().toLowerCase();
+                    list = list.filter(a =>
+                        bridge.itemName(a).toLowerCase().includes(q)
+                        || (a.rawKey || '').toLowerCase().includes(q)
+                        || (a.element || '').toLowerCase().includes(q)
+                        || (a.role || '').toLowerCase().includes(q)
+                    );
+                }
+
+                overlay.innerHTML = `
+                    <div class="gacha-dialog-box">
+                        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                            <div>
+                                <span class="gacha-patch-tag">BUILDS • ${ownedAgents.length} AGENTS</span>
+                                <h2 class="gacha-panel-title">${t.pickerTitle}</h2>
+                                <p class="gacha-panel-desc">${t.pickerSub.replace('{n}', ownedAgents.length)}</p>
+                            </div>
+                            <button type="button" class="gacha-res-btn" id="zb-close-agent-picker">${t.close}</button>
+                        </div>
+
+                        <div class="gacha-col-controls" style="flex-shrink:0;">
+                            <div class="gacha-col-filter-group">
+                                <button type="button" class="gacha-col-filter-btn ${rankFilter === 'all' ? 'active' : ''}" data-zb-prank="all">${t.pickerAll}</button>
+                                <button type="button" class="gacha-col-filter-btn ${rankFilter === 'S' ? 'active' : ''}" data-zb-prank="S">S</button>
+                                <button type="button" class="gacha-col-filter-btn ${rankFilter === 'A' ? 'active' : ''}" data-zb-prank="A">A</button>
+                            </div>
+                            <input type="text" class="gacha-col-search" id="zb-picker-search" placeholder="${t.pickerSearch}" value="${query.replace(/"/g, '&quot;')}" style="flex:1;">
+                        </div>
+
+                        <div class="gacha-selector-scroll custom-scrollbar">
+                            <div class="gacha-selector-grid">
+                                ${list.map(a => {
+                                    const isAct = a.rawKey === selectedAgentKey;
+                                    const cnt = st.inventory[a.id]?.count || 1;
+                                    const mLvl = Math.min(6, cnt - 1);
+                                    const mLabel = cnt > 7 ? `M6 +${cnt - 7}` : (mLvl >= 6 ? 'M6 MAX' : `M${mLvl}`);
+                                    const ab = st.buildSystem?.agentBuilds?.[a.rawKey];
+                                    const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
+                                    const isFull = eqDiscs === 6 && !!ab?.engineKey;
+
+                                    return `
+                                    <div class="gacha-col-card rank-${a.rank}" data-zb-pick-modal="${a.rawKey}"
+                                         style="${isAct ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
+                                        <div class="gacha-col-visual">
+                                            ${isAct ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${t.pickerActive}</span>` : ''}
+                                            ${(eqDiscs > 0 || ab?.engineKey) ? `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>` : ''}
+                                            <span class="gacha-col-dupe-tag ${mLvl >= 6 ? 'maxed' : ''}">${mLabel}</span>
+                                            <img src="${a.img}" loading="lazy" alt="${bridge.itemName(a)}" class="is-agent">
+                                        </div>
+                                        <div class="gacha-col-info">
+                                            <span class="gacha-col-name">${bridge.itemName(a)}</span>
+                                            <span class="gacha-col-sub">${a.element || ''} • ${a.role || ''}</span>
+                                        </div>
+                                    </div>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('zb-close-agent-picker')?.addEventListener('click', () => {
+                    overlay.classList.remove('active');
+                });
+
+                overlay.querySelectorAll('[data-zb-prank]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        rankFilter = btn.getAttribute('data-zb-prank');
+                        renderPicker();
+                    });
+                });
+
+                const inp = document.getElementById('zb-picker-search');
+                if (inp) {
+                    inp.addEventListener('input', (e) => {
+                        query = e.target.value;
+                        renderPicker();
+                        const next = document.getElementById('zb-picker-search');
+                        if (next) {
+                            next.focus();
+                            next.setSelectionRange(next.value.length, next.value.length);
+                        }
+                    });
+                }
+
+                overlay.querySelectorAll('[data-zb-pick-modal]').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const key = card.getAttribute('data-zb-pick-modal');
+                        overlay.classList.remove('active');
+                        switchBuildAgent(mount, key);
+                    });
+                });
             }
 
-            mount.querySelectorAll('[data-pick-build-agent]').forEach(el => {
-                el.addEventListener('click', () => {
-                    selectedAgentKey = el.getAttribute('data-pick-build-agent');
-                    selectedItemId = null;
-                    window.__zzzRecEngKey = null;
-                    renderBuildsTab(mount);
-                });
+            renderPicker();
+        }
+
+        function bindRosterAndSubViewEvents(mount, ownedAgents) {
+            document.getElementById('zb-btn-open-agent-picker')?.addEventListener('click', () => {
+                openAgentPickerModal(mount);
+            });
+
+            document.getElementById('zb-btn-prev-agent')?.addEventListener('click', () => {
+                if (ownedAgents.length <= 1) return;
+                const idx = ownedAgents.findIndex(a => a.rawKey === selectedAgentKey);
+                const prevIdx = (idx <= 0 ? ownedAgents.length - 1 : idx - 1);
+                switchBuildAgent(mount, ownedAgents[prevIdx].rawKey);
+            });
+
+            document.getElementById('zb-btn-next-agent')?.addEventListener('click', () => {
+                if (ownedAgents.length <= 1) return;
+                const idx = ownedAgents.findIndex(a => a.rawKey === selectedAgentKey);
+                const nextIdx = (idx + 1) % ownedAgents.length;
+                switchBuildAgent(mount, ownedAgents[nextIdx].rawKey);
             });
 
             document.getElementById('btn-toggle-subview')?.addEventListener('click', () => {
