@@ -366,6 +366,18 @@ export function tTerm(termStr) {
     return terms[termStr][currentLang] || termStr;
 }
 
+// Dictionnaire d'affichage des noms d'agents (clé interne -> nom affiché FR / EN)
+export const agentNamesDict = {
+    'Jane': { fr: 'Jane Doe', en: 'Jane Doe' },
+    'Sunbringer': { fr: "Dame de l'Aurore", en: 'Sunbringer' }
+};
+
+export function tAgentName(name) {
+    if (!name) return '';
+    if (agentNamesDict[name]) return agentNamesDict[name][currentLang] || name;
+    return name;
+}
+
 // Traducteur pour les statistiques (Recherche directe instantanée + repli règles précompilées)
 export function tStats(statStr) {
     if (!statStr) return '';
