@@ -183,6 +183,71 @@
                 .replace(/\{([^}]+)\}/g, '<span style="color:#fbbf24;font-weight:800;">$1</span>');
         }
 
+        function extractMaxToken(rangeStr) {
+            if (!rangeStr) return '';
+            const parts = String(rangeStr).split(/\s*[-–—]\s*/);
+            return (parts[parts.length - 1] || '').trim();
+        }
+
+        function parseEngineInfo(rawJson, itemObj, isLangEn, overclockIdx = 0) {
+            const spec = (rawJson?.specialty || itemObj?.role || '').toLowerCase();
+            const isArmorer = spec === 'armorer';
+            const rank = rawJson?.rank || itemObj?.rank || 'A';
+
+            const fallbackBase = isArmorer
+                ? (rank === 'S' ? 446 : (rank === 'A' ? 356 : 280))
+                : (rank === 'S' ? 713 : (rank === 'A' ? 594 : 475));
+
+            const rawBaseMax = extractMaxToken(rawJson?.stats?.base || rawJson?.baseAtk);
+            const baseVal = parseFloat(rawBaseMax.replace(',', '.')) || fallbackBase;
+            const baseLabel = isArmorer
+                ? (isLangEn ? 'Base DEF' : 'DÉF de base')
+                : (isLangEn ? 'Base ATK' : 'ATQ de base');
+
+            const fallbackAdvLabel = isArmorer ? tStat('DÉF%') : tStat('ATQ%');
+            const fallbackAdvVal = isArmorer
+                ? (rank === 'S' ? '48%' : (rank === 'A' ? '40%' : '32%'))
+                : (rank === 'S' ? '30%' : (rank === 'A' ? '24%' : '18%'));
+
+            let advLabel = '';
+            let advValStr = '';
+            if (rawJson?.stats?.advancedLabel) {
+                advLabel = (isLangEn ? rawJson.stats.advancedLabel.en : rawJson.stats.advancedLabel.fr)
+                    || rawJson.stats.advancedLabel.fr || rawJson.stats.advancedLabel.en || fallbackAdvLabel;
+                advValStr = extractMaxToken(rawJson.stats.advanced) || fallbackAdvVal;
+            } else {
+                const legacySub = (isLangEn ? (rawJson?.subStat?.en || rawJson?.stat?.en) : (rawJson?.subStat?.fr || rawJson?.stat?.fr)) || '';
+                const m = String(legacySub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
+                advLabel = m ? m[1].trim() : fallbackAdvLabel;
+                advValStr = m ? m[2].replace('+', '').trim() : fallbackAdvVal;
+            }
+
+            const advNum = parseFloat(String(advValStr).replace(',', '.')) || 0;
+            const advStatKey = parseGuideStatKeys(advLabel)[0] || (isArmorer ? 'DÉF%' : 'ATQ%');
+
+            const overclocks = Array.isArray(rawJson?.overclocks) ? rawJson.overclocks : [];
+            let rawDesc = '';
+            if (overclocks.length > 0) {
+                const idx = Math.min(overclocks.length - 1, Math.max(0, overclockIdx));
+                rawDesc = (isLangEn ? overclocks[idx]?.en : overclocks[idx]?.fr)
+                    || overclocks[idx]?.fr || overclocks[idx]?.en || '';
+            } else {
+                rawDesc = (isLangEn ? (rawJson?.effect?.en || rawJson?.desc?.en) : (rawJson?.effect?.fr || rawJson?.desc?.fr)) || '';
+            }
+
+            return {
+                isArmorer,
+                baseLabel,
+                baseVal: Math.round(baseVal),
+                advLabel,
+                advValStr,
+                advNum,
+                advStatKey,
+                effectTitle: (isLangEn ? rawJson?.passiveName?.en : rawJson?.passiveName?.fr) || '',
+                effectHTML: formatCleanDesc(rawDesc || (isLangEn ? "Increases the equipper's combat effectiveness." : "Augmente l'efficacité de combat du porteur."))
+            };
+        }
+
         let EXT_DATA = { loaded: false, guides: {}, discs: {}, engines: {} };
 
         async function ensureExternalDataLoaded() {
@@ -395,8 +460,10 @@
         const ELEM_ICON_MAP = {
             Physical: 'physique.webp', Fire: 'feu.webp', Ice: 'Ice.webp', Frost: 'Frost.webp',
             Electric: 'electrique.webp', Ether: 'Ether.webp', Wind: 'Vent.webp',
-            Aurora: 'Lumiflux.webp', Lumiflux: 'Lumiflux.webp', HonedEdge: 'Honed_Edge.webp',
-            Honed_Edge: 'Honed_Edge.webp', Sepia: 'Auric_Ink.webp', Auric_Ink: 'Auric_Ink.webp'
+            Aurora: 'Lumiflux.webp', Lumiflux: 'Lumiflux.webp',
+            HonedEdge: 'Honed_Edge.webp', Honed_Edge: 'Honed_Edge.webp', 'Honed Edge': 'Honed_Edge.webp',
+            Sepia: 'Auric_Ink.webp', Auric_Ink: 'Auric_Ink.webp', 'Auric Ink': 'Auric_Ink.webp',
+            'Genesis Flare': 'Genesis_Flare.webp', Genesis_Flare: 'Genesis_Flare.webp'
         };
 
         function getEngineOwnersList(st, engineKey) {
@@ -642,7 +709,7 @@
             Support: { hp: 8400, atk: 810, def: 660, imp: 90,  cr: 5.0, cd: 50.0, am: 94,  ap: 96,  pen: 0, er: 1.4, rec: ["Régénération d'énergie", 'ATQ%', 'PV%'], goals: { er: 2.2, atk: 2250, hp: 9600 } },
             Defense: { hp: 9100, atk: 740, def: 780, imp: 110, cr: 5.0, cd: 50.0, am: 90,  ap: 90,  pen: 0, er: 1.2, rec: ['DÉF%', 'PV%', 'Impact'], goals: { def: 1700, hp: 10800, imp: 125 } },
             Rupture: { hp: 8100, atk: 895, def: 620, imp: 98,  cr: 5.0, cd: 50.0, am: 96,  ap: 98,  pen: 8, er: 1.2, rec: ['Taux CRIT', 'Dégâts CRIT', 'PV%', 'ATQ%'], goals: { cr: 62, cd: 135, atk: 2450 } },
-            Armorer: { hp: 8300, atk: 870, def: 675, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['ATQ%', 'Taux CRIT', 'Dégâts CRIT'], goals: { atk: 2450, cr: 58, cd: 125 } }
+            Armorer: { hp: 8300, atk: 760, def: 790, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'DÉF%', 'Dégâts CRIT'], goals: { def: 2000, cr: 65, cd: 100 } }
         };
 
         function computeAgentStats(st, pool, agentMeta) {
@@ -657,17 +724,23 @@
             const overclockLvl = Math.max(0, ownedCopies - 7);
 
             let engineAtkFlat = 0;
-            let enginePctBonus = 0;
+            let engineDefFlat = 0;
+            let engineAdvStatKey = null;
+            let engineAdvNum = 0;
             let isGuideEngine = false;
             let engRank = null;
             if (ab.engineKey) {
                 const engObj = pool.allCatalog.find(i => i.type === 'engine' && i.rawKey === ab.engineKey);
                 if (engObj) {
                     engRank = engObj.rank;
-                    engineAtkFlat = engObj.rank === 'S' ? 713 : (engObj.rank === 'A' ? 594 : 475);
-                    enginePctBonus = engObj.rank === 'S' ? 30 : (engObj.rank === 'A' ? 24 : 18);
+                    const parsedEng = parseEngineInfo(EXT_DATA.engines[engObj.rawKey], engObj, false, 0);
+                    if (parsedEng.isArmorer) engineDefFlat = parsedEng.baseVal;
+                    else engineAtkFlat = parsedEng.baseVal;
+                    engineAdvStatKey = parsedEng.advStatKey;
+                    engineAdvNum = parsedEng.advNum;
                     isGuideEngine = prof.engines.some(re =>
                         engObj.rawKey.toLowerCase() === re.rawImg.toLowerCase()
+                        || (re.name && engObj.rawKey.toLowerCase() === re.name.toLowerCase())
                         || engObj.img.toLowerCase().includes(re.rawImg.toLowerCase())
                     );
                 }
@@ -675,10 +748,10 @@
 
             const baseHp = base.hp;
             const baseAtk = base.atk + engineAtkFlat;
-            const baseDef = base.def;
+            const baseDef = base.def + engineDefFlat;
 
             let hpPct = 0, hpFlat = 0;
-            let atkPct = enginePctBonus, atkFlat = 0;
+            let atkPct = 0, atkFlat = 0;
             let defPct = 0, defFlat = 0;
             let cr = base.cr, cd = base.cd;
             let ap = base.ap, amPct = 0, impPct = 0, erPct = 0, penPct = base.pen;
@@ -702,6 +775,10 @@
                 else if (statKey === "Maîtrise d'anomalie") amPct += amount;
                 else if (statKey === "Régénération d'énergie") erPct += amount;
                 else if (statKey === 'Impact') impPct += amount;
+            }
+
+            if (engineAdvStatKey && engineAdvNum > 0) {
+                addStatContribution(engineAdvStatKey, engineAdvNum);
             }
 
             for (let slot = 1; slot <= 6; slot++) {
@@ -917,15 +994,9 @@
                 const cnt = st.inventory[itemObj.id]?.count || 1;
                 const owners = getEngineOwnersList(st, itemObj.rawKey);
                 const avatarOwner = owners.includes(agent.rawKey) ? agent.rawKey : owners[0];
-
-                const baseAtkVal = rawJson.baseAtk || (itemObj.rank === 'S' ? 713 : (itemObj.rank === 'A' ? 594 : 475));
-                const rawSub = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${itemObj.rank === 'S' ? '30%' : '24%'}`;
-                const effectTitle = (isLangEn ? rawJson.passiveName?.en : rawJson.passiveName?.fr) || bridge.itemName(itemObj);
-                const effectTxt = formatCleanDesc((isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.');
-
-                const matchPct = String(rawSub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
-                const advName = matchPct ? matchPct[1].trim() : rawSub;
-                const advVal = matchPct ? matchPct[2].replace('+', '').trim() : 'MAX';
+                const ocTier = Math.min(5, Math.max(1, cnt));
+                const engInfo = parseEngineInfo(rawJson, itemObj, isLangEn, ocTier - 1);
+                const effectTitle = engInfo.effectTitle || bridge.itemName(itemObj);
 
                 return `
                     <div class="zzz-inspector-pane">
@@ -935,37 +1006,37 @@
                         <div class="zzz-insp-lvl-row">
                             <div class="zzz-insp-lvl-pill">
                                 <span class="zzz-rank-circle r-${itemObj.rank}">${itemObj.rank}</span>
-                                <span>Niv. 60/60</span>
+                                <span>${isLangEn ? 'Lv.' : 'Niv.'} 60/60 • ★${ocTier}</span>
                             </div>
                             ${avatarOwner ? `<img src="assets/Agents/${avatarOwner}.webp" title="${owners.join(', ')}" style="width:28px;height:28px;border-radius:999px;border:2px solid #fff;background:#000;">` : ''}
                         </div>
 
                         <div class="zzz-stat-bar" style="width:fit-content;gap:14px;padding:4px 14px;">
-                            <span style="color:#a1a1aa;font-size:11px;">Exemplaires : ×${cnt}</span>
-                            <span style="color:#d7f70c;font-size:11px;">${owners.length}/${cnt} équipé(s)</span>
+                            <span style="color:#a1a1aa;font-size:11px;">${isLangEn ? 'Copies' : 'Exemplaires'} : ×${cnt}</span>
+                            <span style="color:#d7f70c;font-size:11px;">${owners.length}/${cnt} ${isLangEn ? 'equipped' : 'équipé(s)'}</span>
                         </div>
 
                         <span class="zzz-insp-sec-lbl">${t.baseStatLabel}</span>
                         <div class="zzz-stat-bar">
-                            <span>ATQ de base</span>
-                            <span>${baseAtkVal}</span>
+                            <span>${engInfo.baseLabel}</span>
+                            <span>${engInfo.baseVal}</span>
                         </div>
 
                         <span class="zzz-insp-sec-lbl">${t.advStatLabel}</span>
                         <div class="zzz-stat-bar hl-gold">
-                            <span>${advName}</span>
-                            <span>${advVal}</span>
+                            <span>${engInfo.advLabel}</span>
+                            <span>${engInfo.advValStr}</span>
                         </div>
 
                         <span class="zzz-insp-sec-lbl">${t.engineEffectLabel}</span>
                         <div class="zzz-set-desc-block">
                             <div style="margin-bottom:6px;color:#d4d4d8;">
-                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${itemObj.role || agent.role}</strong> :
+                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${rawJson.specialty || itemObj.role || agent.role}</strong> :
                             </div>
                             <div class="zzz-stat-bar" style="margin-bottom:7px;">
                                 <span>${effectTitle}</span>
                             </div>
-                            <div>${effectTxt}</div>
+                            <div>${engInfo.effectHTML}</div>
                         </div>
                     </div>
                 `;
@@ -1184,6 +1255,22 @@
                 ? (selectedObj ? (selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3)) : 0)
                 : (selectedObj ? calcDiscDismantleGain(selectedObj) : 0);
 
+            const batchTrashDiscs = !isEngineMode
+                ? gridItems.filter(d => d.level === 0 && !d.locked && !getDiscOwner(st, d.uid))
+                : [];
+            const spareEngCount = isEngineMode ? Math.max(0, engTotalOwned - engUsedCount) : 0;
+            const canBatchTrash = isEngineMode ? spareEngCount > 0 : batchTrashDiscs.length > 0;
+            const batchTrashGain = isEngineMode
+                ? spareEngCount * singleTrashGain
+                : batchTrashDiscs.reduce((acc, d) => acc + calcDiscDismantleGain(d), 0);
+            const batchTrashLabel = !isEngineMode
+                ? (canBatchTrash
+                    ? `${isLangEn ? 'Dismantle Lv.0' : 'Démanteler Niv. 0'} (×${batchTrashDiscs.length} • +${batchTrashGain} ✦)`
+                    : (isLangEn ? 'Dismantle Lv.0' : 'Démanteler Niv. 0'))
+                : (canBatchTrash
+                    ? `${t.dismantleBtn} ×${spareEngCount} (+${batchTrashGain} ✦)`
+                    : t.dismantleBtn);
+
             const isSelectedEquippedHere = isEngineMode
                 ? (selectedObj && ab.engineKey === selectedObj.rawKey)
                 : (selectedObj && ab.discs[slotNum] === selectedObj.uid);
@@ -1193,7 +1280,7 @@
             const canEnhanceSelected = !isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4;
             const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
-            // Construction du tiroir "Recommandations" 100% raccordé au Guide de l'Agent (sans taux ni phrase en bas)
+            // Construction du tiroir "Recommandations" 100% raccordé au Guide de l'Agent
             let recommendationDrawerHTML = '';
             if (window.__zzzRecOpen) {
                 if (isEngineMode) {
@@ -1203,6 +1290,7 @@
                         const found = pool.allCatalog.find(i =>
                             i.type === 'engine' && (
                                 i.rawKey.toLowerCase() === re.rawImg.toLowerCase() ||
+                                (re.name && i.rawKey.toLowerCase() === re.name.toLowerCase()) ||
                                 i.img.toLowerCase().includes(re.rawImg.toLowerCase())
                             )
                         );
@@ -1215,13 +1303,14 @@
                     const previewEng = recEngList.find(e => e.rawKey === window.__zzzRecEngKey) || recEngList[0] || selectedObj;
                     const previewOwned = previewEng ? (st.inventory[previewEng.id]?.count || 0) : 0;
                     const rawJson = previewEng ? (EXT_DATA.engines[previewEng.rawKey] || {}) : {};
-                    const baseAtkVal = rawJson.baseAtk || (previewEng?.rank === 'S' ? 713 : (previewEng?.rank === 'A' ? 594 : 475));
-                    const rawSub = (isLangEn ? (rawJson.subStat?.en || rawJson.stat?.en) : (rawJson.subStat?.fr || rawJson.stat?.fr)) || `${tStat('ATQ%')} +${previewEng?.rank === 'S' ? '30 %' : '24 %'}`;
-                    const matchPct = String(rawSub).match(/^(.*?)\s*([+]?\d+[.,]?\d*\s*%?)$/);
-                    const advName = matchPct ? matchPct[1].trim() : rawSub;
-                    const advVal = matchPct ? matchPct[2].replace('+', '').trim() : '30 %';
-                    const effectTitle = (isLangEn ? rawJson.passiveName?.en : rawJson.passiveName?.fr) || (previewEng ? bridge.itemName(previewEng) : '');
-                    const effectTxt = formatCleanDesc((isLangEn ? (rawJson.effect?.en || rawJson.desc?.en) : (rawJson.effect?.fr || rawJson.desc?.fr)) || 'Augmente l\'ATQ et l\'efficacité de combat du porteur.');
+                    const recOcTier = previewOwned > 0 ? Math.min(5, previewOwned) : 1;
+                    const recInfo = parseEngineInfo(rawJson, previewEng, isLangEn, recOcTier - 1);
+                    const baseLabelTxt = recInfo.baseLabel;
+                    const baseAtkVal = recInfo.baseVal;
+                    const advName = recInfo.advLabel;
+                    const advVal = recInfo.advValStr;
+                    const effectTitle = recInfo.effectTitle || (previewEng ? bridge.itemName(previewEng) : '');
+                    const effectTxt = recInfo.effectHTML;
 
                     const exclusiveEng = recEngList[0] || null;
                     const popularEngs = recEngList.slice(1);
@@ -1265,7 +1354,7 @@
                                             <img src="${agent.img}" style="width:26px;height:26px;border-radius:999px;border:2px solid #fff;">
                                         </div>
                                         <span class="zzz-insp-sec-lbl">${t.baseStatLabel}</span>
-                                        <div class="zzz-stat-bar"><span>ATQ de base</span><span>${baseAtkVal}</span></div>
+                                        <div class="zzz-stat-bar"><span>${baseLabelTxt}</span><span>${baseAtkVal}</span></div>
                                         <span class="zzz-insp-sec-lbl">${t.advStatLabel}</span>
                                         <div class="zzz-stat-bar hl-gold"><span>${advName}</span><span>${advVal}</span></div>
                                         <span class="zzz-insp-sec-lbl">${t.engineEffectLabel}</span>
@@ -1434,9 +1523,9 @@
                                     </button>
                                 </div>` : ''}
 
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-batch-dismantle" ${!canTrashSelected ? 'disabled' : ''}>
+                                <button type="button" class="zzz-pill-btn" id="zzz-btn-batch-dismantle" ${!canBatchTrash ? 'disabled' : ''}>
                                     <span class="zzz-pill-icon cyan">${UI_SVGS.dismantle}</span>
-                                    <span>${t.dismantleBtn}${canTrashSelected ? ` (+${singleTrashGain} ✦)` : ''}</span>
+                                    <span>${batchTrashLabel}</span>
                                 </button>
 
                                 <button type="button" class="zzz-pill-btn bardic-music-btn" id="zzz-btn-open-bardic">
@@ -1536,7 +1625,7 @@
             if (newInspEl) newInspEl.scrollTop = prevInspTop;
 
             bindRosterAndSubViewEvents(mount, ownedAgents);
-            bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum);
+            bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum, batchTrashDiscs);
         }
 
         function switchBuildAgent(mount, newAgentKey) {
@@ -1689,7 +1778,7 @@
             });
         }
 
-        function bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum) {
+        function bindZZZEquipmentEvents(mount, st, pool, bs, agent, ab, selectedObj, isEngineMode, slotNum, batchTrashDiscs = []) {
             const bridge = window.ZZZGachaBridge;
 
             mount.querySelectorAll('[data-wheel-pick]').forEach(el => {
@@ -1776,8 +1865,46 @@
                 }
             }
 
+            function dismantleBatchItems() {
+                if (isEngineMode && selectedObj) {
+                    const cnt = st.inventory[selectedObj.id]?.count || 0;
+                    const usedCount = getEngineOwnersList(st, selectedObj.rawKey).length;
+                    const spare = Math.max(0, cnt - usedCount);
+                    if (spare > 0) {
+                        const unitGain = selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3);
+                        const gain = spare * unitGain;
+                        st.inventory[selectedObj.id].count -= spare;
+                        if (st.inventory[selectedObj.id].count <= 0) {
+                            delete st.inventory[selectedObj.id];
+                            selectedItemId = null;
+                        }
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        bridge.saveState(st);
+                        renderBuildsTab(mount);
+                    }
+                } else if (!isEngineMode && batchTrashDiscs.length > 0) {
+                    const uidSet = new Set(batchTrashDiscs.map(d => d.uid));
+                    let totalGain = 0;
+                    bs.craftedDiscs = bs.craftedDiscs.filter(d => {
+                        if (uidSet.has(d.uid)) {
+                            totalGain += calcDiscDismantleGain(d);
+                            return false;
+                        }
+                        return true;
+                    });
+                    if (selectedItemId && uidSet.has(selectedItemId)) selectedItemId = null;
+                    if (totalGain > 0) {
+                        st.residual += totalGain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + totalGain;
+                        bridge.saveState(st);
+                        renderBuildsTab(mount);
+                    }
+                }
+            }
+
             document.getElementById('zzz-btn-trash-one')?.addEventListener('click', dismantleSelectedItem);
-            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleSelectedItem);
+            document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleBatchItems);
 
             document.getElementById('zzz-btn-open-bardic')?.addEventListener('click', () => {
                 bardicSlot = isEngineMode ? 0 : slotNum;
@@ -2597,6 +2724,37 @@
                 }, 60);
             }
         }, true);
+
+        if (!window.__zbKeysBound) {
+            window.__zbKeysBound = true;
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                const tag = document.activeElement?.tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+                const gModal = document.getElementById('zzz-gacha-modal');
+                if (!gModal || !gModal.classList.contains('visible')) return;
+                if (document.getElementById('gacha-anim-overlay')?.classList.contains('active')) return;
+                if (document.getElementById('gacha-agent-minicard-overlay')?.classList.contains('active')) return;
+
+                const activeBtn = gModal.querySelector('.gacha-nav-btn.active');
+                if (activeBtn?.getAttribute('data-gtab') !== 'builds' || currentSubMenu !== 'equip') return;
+
+                if (e.key === 'r' || e.key === 'R') {
+                    const trashBtn = document.getElementById('zzz-btn-trash-one');
+                    if (trashBtn && !trashBtn.disabled) {
+                        e.preventDefault();
+                        trashBtn.click();
+                    }
+                } else if (e.key === 't' || e.key === 'T') {
+                    const lockBtn = document.getElementById('zzz-btn-lock-one');
+                    if (lockBtn && !lockBtn.disabled) {
+                        e.preventDefault();
+                        lockBtn.click();
+                    }
+                }
+            });
+        }
 
         injectBuildTabsIntoTopbar();
 
