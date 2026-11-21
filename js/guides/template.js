@@ -258,7 +258,7 @@ function buildSkills(data, c, txt) {
         const isFirst = index === 0;
         const iconSrc = `assets/Skills/${(skill.icon || '').replace('.png', '.webp')}`;
         const rawLevel = skill.level ? escapeHTML(skill.level) : '';
-        const titleLevel = rawLevel ? ` (Niv. ${rawLevel})` : '';
+        const titleLevel = rawLevel ? (isEn ? ` (Lv. ${rawLevel})` : ` (Niv. ${rawLevel})`) : '';
 
         // Badge de niveau intégré au pied de l'icône (style natif ZZZ : 0 px de largeur ajoutée au texte)
         const levelBadgeHTML = rawLevel
