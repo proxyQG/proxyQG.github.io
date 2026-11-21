@@ -20,6 +20,14 @@
                 replaceBtn: "Remplacer",
                 equipBtn: "Équiper",
                 enhanceBtn: "Renforcer",
+                confirmUnequipBtn: "Confirmer ?",
+                toastEquippedAll: "Build recommandé équipé",
+                toastUnequippedAll: "Équipement retiré",
+                toastEnhancedMax: "Disque amélioré au Niv. 15",
+                toastDismantledOne: "Démantelé (+{g} ✦)",
+                toastDismantledBatch: "×{n} démantelés (+{g} ✦)",
+                toastLocked: "Disque verrouillé",
+                toastUnlocked: "Disque déverrouillé",
                 currentSelection: "Sélection actuelle",
                 currentlyEquipped: "Équipé",
                 subStats: "Stats de l'agent",
@@ -93,6 +101,14 @@
                 replaceBtn: "Replace",
                 equipBtn: "Equip",
                 enhanceBtn: "Enhance",
+                confirmUnequipBtn: "Confirm?",
+                toastEquippedAll: "Recommended build equipped",
+                toastUnequippedAll: "All equipment removed",
+                toastEnhancedMax: "Disc upgraded to Lv. 15",
+                toastDismantledOne: "Dismantled (+{g} ✦)",
+                toastDismantledBatch: "×{n} dismantled (+{g} ✦)",
+                toastLocked: "Disc locked",
+                toastUnlocked: "Disc unlocked",
                 currentSelection: "Current Selection",
                 currentlyEquipped: "Equipped",
                 subStats: "Agent Stats",
@@ -902,6 +918,8 @@
         let showAllPartitions = false;
         let bardicSetKey = '';
         let bardicSlot = 0;
+        let unequipConfirmArmed = false;
+        let unequipConfirmTimer = null;
 
         function getOwnedAgents(st, pool) {
             const rW = { S: 0, A: 1, B: 2 };
@@ -1279,6 +1297,12 @@
             const hasEquippedInSlot = isEngineMode ? !!ab.engineKey : !!ab.discs[slotNum];
             const equipBtnLabel = isSelectedEquippedHere ? t.removeBtn : (hasEquippedInSlot ? t.replaceBtn : t.equipBtn);
             const canEnhanceSelected = !isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4;
+            const stepsToMax = (!isEngineMode && selectedObj && selectedObj.level < 12)
+                ? Math.ceil((15 - selectedObj.level) / 3)
+                : 0;
+            const maxEnhanceCost = stepsToMax * 4;
+            const canEnhanceMax = stepsToMax >= 2 && st.residual >= maxEnhanceCost;
+            const hasAnyEquipped = !!ab.engineKey || [1, 2, 3, 4, 5, 6].some(s => !!ab.discs[s]);
             const distinctSets = [...new Set(bs.craftedDiscs.map(d => d.setKey))];
 
             // Construction du tiroir "Recommandations" 100% raccordé au Guide de l'Agent
@@ -1602,8 +1626,8 @@
                             </div>
 
                             <div class="zzz-eq-bot-right">
-                                <button type="button" class="zzz-action-pill" id="zzz-btn-unequip-all">
-                                    ${t.unequipAllBtn}
+                                <button type="button" class="zzz-action-pill ${unequipConfirmArmed ? 'confirm-danger' : ''}" id="zzz-btn-unequip-all" ${!hasAnyEquipped ? 'disabled' : ''}>
+                                    ${unequipConfirmArmed ? t.confirmUnequipBtn : t.unequipAllBtn}
                                 </button>
                                 <button type="button" class="zzz-action-pill" id="zzz-btn-equip-all">
                                     ${t.equipAllBtn}
@@ -1614,6 +1638,10 @@
                                 <button type="button" class="zzz-action-pill ${canEnhanceSelected ? 'primary-highlight' : ''}" id="zzz-btn-enhance" ${!canEnhanceSelected ? 'disabled' : ''}>
                                     ${!isEngineMode && selectedObj && selectedObj.level < 15 ? `${t.enhanceBtn} (+${selectedObj.level + 3} • 4 ✦)` : t.enhanceBtn}
                                 </button>
+                                ${stepsToMax >= 2 ? `
+                                <button type="button" class="zzz-action-pill max-enhance" id="zzz-btn-enhance-max" ${!canEnhanceMax ? 'disabled' : ''}>
+                                    +15 MAX (${maxEnhanceCost} ✦)
+                                </button>` : ''}
                             </div>
                         </div>
                     </div>
@@ -1631,6 +1659,8 @@
 
         function switchBuildAgent(mount, newAgentKey) {
             if (!newAgentKey || newAgentKey === selectedAgentKey) return;
+            unequipConfirmArmed = false;
+            clearTimeout(unequipConfirmTimer);
             selectedAgentKey = newAgentKey;
             selectedItemId = null;
             window.__zzzRecEngKey = null;
@@ -1829,8 +1859,10 @@
 
             document.getElementById('zzz-btn-lock-one')?.addEventListener('click', () => {
                 if (!isEngineMode && selectedObj) {
+                    const t = B();
                     selectedObj.locked = !selectedObj.locked;
                     bridge.saveState(st);
+                    bridge.showToast?.(selectedObj.locked ? t.toastLocked : t.toastUnlocked);
                     renderBuildsTab(mount);
                 }
             });
@@ -1850,6 +1882,7 @@
                         st.residual += gain;
                         st.totalDupesRes = (st.totalDupesRes || 0) + gain;
                         bridge.saveState(st);
+                        bridge.showToast?.(B().toastDismantledOne.replace('{g}', gain));
                         renderBuildsTab(mount);
                     }
                 } else if (!isEngineMode && selectedObj && !selectedObj.locked && !getDiscOwner(st, selectedObj.uid)) {
@@ -1861,6 +1894,47 @@
                         st.totalDupesRes = (st.totalDupesRes || 0) + gain;
                         selectedItemId = null;
                         bridge.saveState(st);
+                        bridge.showToast?.(B().toastDismantledOne.replace('{g}', gain));
+                        renderBuildsTab(mount);
+                    }
+                }
+            }
+
+            function dismantleBatchItems() {
+                if (isEngineMode && selectedObj) {
+                    const cnt = st.inventory[selectedObj.id]?.count || 0;
+                    const usedCount = getEngineOwnersList(st, selectedObj.rawKey).length;
+                    const spare = Math.max(0, cnt - usedCount);
+                    if (spare > 0) {
+                        const unitGain = selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3);
+                        const gain = spare * unitGain;
+                        st.inventory[selectedObj.id].count -= spare;
+                        if (st.inventory[selectedObj.id].count <= 0) {
+                            delete st.inventory[selectedObj.id];
+                            selectedItemId = null;
+                        }
+                        st.residual += gain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
+                        bridge.saveState(st);
+                        bridge.showToast?.(B().toastDismantledBatch.replace('{n}', spare).replace('{g}', gain));
+                        renderBuildsTab(mount);
+                    }
+                } else if (!isEngineMode && batchTrashDiscs.length > 0) {
+                    const uidSet = new Set(batchTrashDiscs.map(d => d.uid));
+                    let totalGain = 0;
+                    bs.craftedDiscs = bs.craftedDiscs.filter(d => {
+                        if (uidSet.has(d.uid)) {
+                            totalGain += calcDiscDismantleGain(d);
+                            return false;
+                        }
+                        return true;
+                    });
+                    if (selectedItemId && uidSet.has(selectedItemId)) selectedItemId = null;
+                    if (totalGain > 0) {
+                        st.residual += totalGain;
+                        st.totalDupesRes = (st.totalDupesRes || 0) + totalGain;
+                        bridge.saveState(st);
+                        bridge.showToast?.(B().toastDismantledBatch.replace('{n}', uidSet.size).replace('{g}', totalGain));
                         renderBuildsTab(mount);
                     }
                 }
@@ -1978,15 +2052,36 @@
             });
 
             document.getElementById('zzz-btn-unequip-all')?.addEventListener('click', () => {
+                const t = B();
+                if (!unequipConfirmArmed) {
+                    unequipConfirmArmed = true;
+                    clearTimeout(unequipConfirmTimer);
+                    unequipConfirmTimer = setTimeout(() => {
+                        unequipConfirmArmed = false;
+                        const btn = document.getElementById('zzz-btn-unequip-all');
+                        if (btn) {
+                            btn.classList.remove('confirm-danger');
+                            btn.textContent = B().unequipAllBtn;
+                        }
+                    }, 2500);
+                    renderBuildsTab(mount);
+                    return;
+                }
+                unequipConfirmArmed = false;
+                clearTimeout(unequipConfirmTimer);
                 ab.engineKey = null;
                 ab.discs = { 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
                 bridge.saveState(st);
+                bridge.showToast?.(t.toastUnequippedAll, 'warn');
                 renderBuildsTab(mount);
             });
 
             document.getElementById('zzz-btn-equip-all')?.addEventListener('click', () => {
+                unequipConfirmArmed = false;
+                clearTimeout(unequipConfirmTimer);
                 autoEquipFromGuide(st, pool, agent);
                 bridge.saveState(st);
+                bridge.showToast?.(B().toastEquippedAll);
                 renderBuildsTab(mount);
             });
 
@@ -2018,6 +2113,20 @@
                     bridge.saveState(st);
                     renderBuildsTab(mount);
                 }
+            });
+
+            document.getElementById('zzz-btn-enhance-max')?.addEventListener('click', () => {
+                if (isEngineMode || !selectedObj || selectedObj.level >= 15) return;
+                const steps = Math.ceil((15 - selectedObj.level) / 3);
+                const cost = steps * 4;
+                if (st.residual < cost) return;
+                st.residual -= cost;
+                while (selectedObj.level < 15) {
+                    upgradeDiscOneStep(selectedObj);
+                }
+                bridge.saveState(st);
+                bridge.showToast?.(B().toastEnhancedMax);
+                renderBuildsTab(mount);
             });
         }
 
@@ -2677,6 +2786,17 @@
             });
         }
 
+        function hasClaimableBadges(customState = null) {
+            const bridge = window.ZZZGachaBridge;
+            if (!bridge) return false;
+            const st = customState || bridge.getState();
+            const pool = bridge.getPool();
+            if (!st || !pool || !Array.isArray(pool.allCatalog) || pool.allCatalog.length === 0) return false;
+            const bs = ensureBuildState(st);
+            const badges = computeSeriesBadges(st, pool);
+            return badges.some(b => b.cur >= b.max && !bs.claimedBadges[b.id]);
+        }
+
         function injectBuildTabsIntoTopbar() {
             const navPills = document.querySelector('#zzz-gacha-modal .gacha-nav-pills');
             if (!navPills) return;
@@ -2685,7 +2805,7 @@
             navPills.classList.add('zb-six-tabs');
 
             const existingBuilds = document.getElementById('gtab-lbl-builds');
-            const existingBadges = document.getElementById('gtab-lbl-badges');
+            const existingBadgesTxt = document.getElementById('gtab-lbl-badges-txt');
 
             if (!existingBuilds) {
                 const btnBuilds = document.createElement('button');
@@ -2700,7 +2820,7 @@
                 btnBadges.className = 'gacha-nav-btn';
                 btnBadges.setAttribute('data-gtab', 'badges');
                 btnBadges.id = 'gtab-lbl-badges';
-                btnBadges.textContent = t.tabBadges;
+                btnBadges.innerHTML = `<span id="gtab-lbl-badges-txt">${t.tabBadges}</span><span class="gacha-quest-dot" id="gacha-dot-badges" style="display:none;"></span>`;
 
                 navPills.appendChild(btnBuilds);
                 navPills.appendChild(btnBadges);
@@ -2714,7 +2834,7 @@
                 });
             } else {
                 if (existingBuilds.textContent !== t.tabBuilds) existingBuilds.textContent = t.tabBuilds;
-                if (existingBadges && existingBadges.textContent !== t.tabBadges) existingBadges.textContent = t.tabBadges;
+                if (existingBadgesTxt && existingBadgesTxt.textContent !== t.tabBadges) existingBadgesTxt.textContent = t.tabBadges;
             }
 
             const animOverlay = document.getElementById('gacha-anim-overlay');
@@ -2759,7 +2879,26 @@
                 if (document.getElementById('gacha-agent-minicard-overlay')?.classList.contains('active')) return;
 
                 const activeBtn = gModal.querySelector('.gacha-nav-btn.active');
-                if (activeBtn?.getAttribute('data-gtab') !== 'builds' || currentSubMenu !== 'equip') return;
+                if (activeBtn?.getAttribute('data-gtab') !== 'builds') return;
+
+                if (e.key === 'ArrowLeft') {
+                    const prevBtn = document.getElementById('zb-btn-prev-agent');
+                    if (prevBtn && !prevBtn.disabled) {
+                        e.preventDefault();
+                        prevBtn.click();
+                    }
+                    return;
+                }
+                if (e.key === 'ArrowRight') {
+                    const nextBtn = document.getElementById('zb-btn-next-agent');
+                    if (nextBtn && !nextBtn.disabled) {
+                        e.preventDefault();
+                        nextBtn.click();
+                    }
+                    return;
+                }
+
+                if (currentSubMenu !== 'equip') return;
 
                 if (e.key === 'r' || e.key === 'R') {
                     const trashBtn = document.getElementById('zzz-btn-trash-one');
@@ -2781,6 +2920,7 @@
 
         window.ZZZBuilds = {
             initTabs: injectBuildTabsIntoTopbar,
+            hasClaimableBadges,
             openAgentBuild: (agentKey) => {
                 injectBuildTabsIntoTopbar();
                 selectedAgentKey = agentKey;
@@ -2788,6 +2928,8 @@
                 window.ZZZGachaBridge?.switchCustomTab('builds', renderBuildsTab);
             }
         };
+
+        window.ZZZGachaBridge?.refreshDots?.();
     } catch (err) {
         console.error('Erreur isolée dans gacha-builds.js :', err);
     }
