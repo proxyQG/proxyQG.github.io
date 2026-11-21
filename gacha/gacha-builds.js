@@ -630,6 +630,7 @@
             for (const recEng of prof.engines) {
                 const match = ownedEngines.find(e =>
                     e.rawKey.toLowerCase() === recEng.rawImg.toLowerCase()
+                    || (recEng.name && e.rawKey.toLowerCase() === recEng.name.toLowerCase())
                     || e.img.toLowerCase().includes(recEng.rawImg.toLowerCase())
                 );
                 if (match) {
@@ -1045,8 +1046,8 @@
             const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === itemObj.setKey);
             const setName = sObj ? bridge.itemName(sObj) : itemObj.setKey;
             const rawDiscJson = EXT_DATA.discs[itemObj.setKey] || {};
-            const desc2P = formatCleanDesc((isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || 'Bonus de statistique 2 pièces.');
-            const desc4P = formatCleanDesc((isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || 'Effet passif 4 pièces en combat.');
+            const desc2P = formatCleanDesc((isLangEn ? (rawDiscJson.twoPiece?.en || rawDiscJson.desc2?.en) : (rawDiscJson.twoPiece?.fr || rawDiscJson.desc2?.fr)) || (isLangEn ? '2-piece stat bonus.' : 'Bonus de statistique 2 pièces.'));
+            const desc4P = formatCleanDesc((isLangEn ? (rawDiscJson.fourPiece?.en || rawDiscJson.desc4?.en) : (rawDiscJson.fourPiece?.fr || rawDiscJson.desc4?.fr)) || (isLangEn ? '4-piece combat passive effect.' : 'Effet passif 4 pièces en combat.'));
             const ownerKey = getDiscOwner(st, itemObj.uid);
 
             return `
@@ -1057,7 +1058,7 @@
                     <div class="zzz-insp-lvl-row">
                         <div class="zzz-insp-lvl-pill">
                             <span class="zzz-rank-circle">S</span>
-                            <span>Niv. ${itemObj.level}/15</span>
+                            <span>${isLangEn ? 'Lv.' : 'Niv.'} ${itemObj.level}/15</span>
                         </div>
                         ${ownerKey ? `<img src="assets/Agents/${ownerKey}.webp" title="${ownerKey}" style="width:28px;height:28px;border-radius:999px;border:2px solid #fff;background:#000;">` : ''}
                     </div>
@@ -1181,7 +1182,7 @@
                                 <span style="font-size:8.5px;color:#e4e4e7;font-family:monospace;font-weight:900;">×${cnt}</span>
                             </div>
                         </div>
-                        <span class="zzz-case-lvl-pill">Niv. 60</span>
+                        <span class="zzz-case-lvl-pill">${isLangEn ? 'Lv. 60' : 'Niv. 60'}</span>
                     </div>`;
                 } else {
                     const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === it.setKey);
@@ -1199,7 +1200,7 @@
                                 ${it.locked ? `<span style="color:#facc15;display:inline-flex;">${UI_SVGS.lockMini}</span>` : ''}
                             </div>
                         </div>
-                        <span class="zzz-case-lvl-pill">Niv. ${it.level}</span>
+                        <span class="zzz-case-lvl-pill">${isLangEn ? 'Lv.' : 'Niv.'} ${it.level}</span>
                     </div>`;
                 }
             }).join('');
@@ -1238,7 +1239,7 @@
                 <div class="zzz-wheel-disc pos-${s} ${isAct ? 'active-ring' : ''}" data-wheel-pick="${s}">
                     ${d && sObj
                         ? `<img src="${sObj.img}" alt="Slot ${s}">
-                           <div class="zzz-wheel-lvl-tag"><span class="mini-s">S</span><span>Niv. ${d.level} /15</span></div>`
+                           <div class="zzz-wheel-lvl-tag"><span class="mini-s">S</span><span>${isLangEn ? 'Lv.' : 'Niv.'} ${d.level} /15</span></div>`
                         : `<span class="zzz-wheel-empty-num">${s}</span>`
                     }
                 </div>`;
@@ -1349,7 +1350,7 @@
                                         <div class="zzz-insp-lvl-row">
                                             <div class="zzz-insp-lvl-pill">
                                                 <span class="zzz-rank-circle r-${previewEng.rank}">${previewEng.rank}</span>
-                                                <span>Niv. 60/60</span>
+                                                <span>${isLangEn ? 'Lv.' : 'Niv.'} 60/60</span>
                                             </div>
                                             <img src="${agent.img}" style="width:26px;height:26px;border-radius:999px;border:2px solid #fff;">
                                         </div>
@@ -1577,7 +1578,7 @@
                                     <div class="zzz-wheel-wengine ${isEngineMode ? 'active-ring' : ''}" id="zzz-wheel-center-engine">
                                         ${eqEngineForWheel
                                             ? `<img src="${eqEngineForWheel.img}" alt="">
-                                               <div class="zzz-wheel-lvl-tag"><span class="mini-s">${eqEngineForWheel.rank}</span><span>Niv. 60 /60</span></div>`
+                                               <div class="zzz-wheel-lvl-tag"><span class="mini-s">${eqEngineForWheel.rank}</span><span>${isLangEn ? 'Lv.' : 'Niv.'} 60 /60</span></div>`
                                             : `<span class="zzz-wheel-empty-num">+</span>`
                                         }
                                     </div>
@@ -2023,19 +2024,33 @@
         function renderSubMenuStats(agent, calc, pool, bridge, t) {
             const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
             const isEn = (bridge.getLang?.() || 'fr') === 'en';
+            const elemFrMap = {
+                Physical: 'Physique', Fire: 'Feu', Ice: 'Glace', Frost: 'Givre',
+                Electric: 'Électrique', Ether: 'Éther', Wind: 'Vent',
+                Lumiflux: 'Lumen', 'Honed Edge': 'Lame affûtée',
+                'Auric Ink': 'Sépia', 'Genesis Flare': 'Flambeau de la genèse'
+            };
+            const roleFrMap = {
+                Attack: 'Attaque', Stun: 'Stun', Anomaly: 'Anomalie',
+                Support: 'Soutien', Defense: 'Défense', Armorer: 'Forge', Rupture: 'Rupture'
+            };
+            const elemLabel = isEn ? agent.element : (elemFrMap[agent.element] || agent.element);
+            const roleLabel = isEn ? agent.role : (roleFrMap[agent.role] || agent.role);
+            const factionLabel = (typeof window.translateFactionName === 'function' ? window.translateFactionName(agent.faction) : agent.faction) || 'New Eridu';
+
             const activeSetsHTML = Object.entries(calc.setCounts)
                 .filter(([, cnt]) => cnt >= 2)
                 .map(([setKey, cnt]) => {
                     const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === setKey);
                     const name = dObj ? bridge.itemName(dObj) : setKey;
-                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? '4P' : '2P'} : ${name}</span>`;
+                    return `<span class="gacha-quest-prog done">${cnt >= 4 ? (isEn ? '4pc' : '4P') : (isEn ? '2pc' : '2P')} : ${name}</span>`;
                 }).join(' ');
 
             return `
                 <div class="zb-agent-header">
                     <div>
                         <div class="zb-faction-line">
-                            <span>${agent.faction || 'New Eridu'}</span>
+                            <span>${factionLabel}</span>
                         </div>
                         <h2 class="zb-agent-big-name">${bridge.itemName(agent)}</h2>
                     </div>
@@ -2044,15 +2059,15 @@
 
                 <div class="zb-level-row">
                     <div class="zb-lvl-pill">
-                        <span>Lv. 60 <span style="color:#52525b;">/ 60</span></span>
+                        <span>${isEn ? 'Lv.' : 'Niv.'} 60 <span style="color:#52525b;">/ 60</span></span>
                         <span style="background:#272732;color:#d7f70c;font-size:10px;padding:2px 7px;border-radius:5px;">MAX</span>
                     </div>
                     <div class="zb-elem-role-pill">
                         <img src="assets/Icone/${elemIcon}" alt="">
-                        <span>${agent.element}</span>
+                        <span>${elemLabel}</span>
                         <span style="color:#3f3f46;">|</span>
                         <img src="assets/Rôles/${agent.role}.webp" alt="">
-                        <span>${agent.role}</span>
+                        <span>${roleLabel}</span>
                     </div>
                 </div>
 
@@ -2209,7 +2224,7 @@
                                                     ${is4P ? `<span class="zb-guide-chip">4P</span>` : (is2P ? `<span class="zb-guide-chip">2P</span>` : '')}
                                                 </div>
                                                 <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#71717a'};">
-                                                    ${freeStock > 0 ? `${freeStock} à graver` : `0 stock (×${countCrafted})`}
+                                                    ${freeStock > 0 ? `${freeStock} ${isEn ? 'to tune' : 'à graver'}` : `0 stock (×${countCrafted})`}
                                                 </span>
                                             </div>
                                         </div>`;
@@ -2224,19 +2239,21 @@
                                             <img src="${currentSet ? currentSet.img : ''}" style="width:40px;height:40px;border-radius:999px;flex-shrink:0;">
                                             <div>
                                                 <span style="font-size:9.5px;font-weight:900;color:${stockForCurrentSet > 0 ? '#4ade80' : '#f43f5e'};text-transform:uppercase;">
-                                                    ${stockForCurrentSet > 0 ? `Stock disponible : ${stockForCurrentSet} disque(s)` : `Stock disponible : 0 disque`}
+                                                    ${isEn
+                                                        ? `Available stock: ${stockForCurrentSet} disc(s)`
+                                                        : `Stock disponible : ${stockForCurrentSet} disque(s)`}
                                                 </span>
                                                 <h3 style="margin:0;font-family:'Montserrat',sans-serif;font-weight:900;font-size:15px;color:#fff;text-transform:uppercase;">
                                                     ${currentSet ? bridge.itemName(currentSet) : bardicSetKey}
                                                 </h3>
                                             </div>
                                         </div>
-                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">Réinitialiser</button>` : ''}
+                                        ${!isFreeRoll ? `<button type="button" class="gacha-details-btn" id="bardic-reset-custom">${isEn ? 'Reset' : 'Réinitialiser'}</button>` : ''}
                                     </div>
 
                                     <div style="font-size:10px;color:#a1a1aa;line-height:1.35;background:#08080c;padding:7px 10px;border-radius:10px;border:1px solid #1f202b;">
-                                        <div><strong style="color:#fff;">2P :</strong> ${desc2P || 'Bonus de statistique 2 pièces.'}</div>
-                                        <div style="margin-top:2px;"><strong style="color:#d7f70c;">4P :</strong> ${desc4P || 'Effet passif 4 pièces en combat.'}</div>
+                                        <div><strong style="color:#fff;">${isEn ? '2pc:' : '2P :'}</strong> ${desc2P || (isEn ? '2-piece stat bonus.' : 'Bonus de statistique 2 pièces.')}</div>
+                                        <div style="margin-top:2px;"><strong style="color:#d7f70c;">${isEn ? '4pc:' : '4P :'}</strong> ${desc4P || (isEn ? '4-piece combat passive effect.' : 'Effet passif 4 pièces en combat.')}</div>
                                     </div>
 
                                     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
@@ -2248,9 +2265,9 @@
 
                                     ${variableMainKeys.length > 0 ? `
                                     <div style="display:flex;flex-direction:column;gap:4px;">
-                                        <span style="font-size:10px;font-weight:800;color:#a1a1aa;">Stat Principale (+15 ✦ si choisie) :</span>
+                                        <span style="font-size:10px;font-weight:800;color:#a1a1aa;">${isEn ? 'Main Stat (+15 ✦ if targeted):' : 'Stat Principale (+15 ✦ si choisie) :'}</span>
                                         <select id="bardic-main-select" class="gacha-col-search" style="width:100%;border-color:${isMainTargeted ? '#d7f70c' : '#2c2c36'};">
-                                            <option value="">Aléatoire (Gratuit)</option>
+                                            <option value="">${isEn ? 'Random (Free)' : 'Aléatoire (Gratuit)'}</option>
                                             ${variableMainKeys.map(k => {
                                                 const isRecMain = (prof.mainBySlot[bardicSlot] || []).includes(k);
                                                 return `<option value="${k}" ${selectedMainStat === k ? 'selected' : ''}>${tStat(k)} ${isRecMain ? '[GUIDE]' : ''} (+15 ✦)</option>`;
@@ -2260,7 +2277,7 @@
 
                                     <div style="display:flex;flex-direction:column;gap:5px;">
                                         <div style="display:flex;align-items:center;justify-content:space-between;">
-                                            <span style="font-size:10px;font-weight:800;color:#a1a1aa;">Sous-Stats garanties (+10 ✦ chacune, max 4) :</span>
+                                            <span style="font-size:10px;font-weight:800;color:#a1a1aa;">${isEn ? 'Guaranteed Sub-Stats (+10 ✦ each, max 4):' : 'Sous-Stats garanties (+10 ✦ chacune, max 4) :'}</span>
                                             <span class="gacha-quest-prog ${selectedSubStats.length > 0 ? 'done' : ''}">${selectedSubStats.length} / 4</span>
                                         </div>
                                         <div style="display:flex;flex-wrap:wrap;gap:5px;">
@@ -2300,23 +2317,27 @@
 
                                 ${stockForCurrentSet <= 0 ? `
                                 <div style="text-align:center;padding:10px;background:#14141d;border:1px solid #2b2b38;border-radius:12px;font-size:11px;font-weight:800;color:#a1a1aa;">
-                                    Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !
+                                    ${isEn
+                                        ? 'No disc stock for this set. Perform Signal Searches on the Unified Channel to earn more!'
+                                        : 'Aucun disque en stock pour ce set. Faites des tirages sur le Canal Unifié pour en obtenir !'}
                                 </div>` : (isFreeRoll ? `
                                 <div style="display:grid;grid-template-columns:${bulkFreeCount > 1 ? '1fr 1fr' : '1fr'};gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-emerald" id="btn-craft-free-1">
-                                        Graver ×1 (Gratuit • ${stockForCurrentSet} dispo)
+                                        ${isEn
+                                            ? `Tune ×1 (Free • ${stockForCurrentSet} left)`
+                                            : `Graver ×1 (Gratuit • ${stockForCurrentSet} dispo)`}
                                     </button>
                                     ${bulkFreeCount > 1 ? `
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-free-bulk">
-                                        Graver ×${bulkFreeCount} (Gratuit)
+                                        ${isEn ? `Tune ×${bulkFreeCount} (Free)` : `Graver ×${bulkFreeCount} (Gratuit)`}
                                     </button>` : ''}
                                 </div>` : `
                                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                                     <button type="button" class="gacha-shop-btn primary-yellow" id="btn-craft-custom-res" ${st.residual < customResCost ? 'disabled' : ''}>
-                                        Graver Sur-Mesure (${customResCost} ✦)
+                                        ${isEn ? `Custom Tune (${customResCost} ✦)` : `Graver Sur-Mesure (${customResCost} ✦)`}
                                     </button>
                                     <button type="button" class="gacha-shop-btn primary-cyan" id="btn-craft-custom-poly" ${st.polychromes < customPolyCost ? 'disabled' : ''}>
-                                        Graver Sur-Mesure (${customPolyCost} Poly)
+                                        ${isEn ? `Custom Tune (${customPolyCost} Poly)` : `Graver Sur-Mesure (${customPolyCost} Poly)`}
                                     </button>
                                 </div>`)}
                             </div>
@@ -2558,7 +2579,7 @@
                             <p class="gacha-sec-sub">${t.badgesSub}</p>
                         </div>
                         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-                            ${claimableBadges.length > 0 ? `<button type="button" class="gacha-claim-btn can-claim" id="btn-claim-all-badges">Tout récupérer (${claimableBadges.length})</button>` : ''}
+                            ${claimableBadges.length > 0 ? `<button type="button" class="gacha-claim-btn can-claim" id="btn-claim-all-badges">${(bridge.getLang?.() === 'en' ? 'Claim All' : 'Tout récupérer')} (${claimableBadges.length})</button>` : ''}
                             <span class="gacha-reset-pill">${t.badgesUnlockedCount.replace('{u}', unlockedTotal).replace('{t}', allBadges.length)}</span>
                             <div class="gacha-col-filter-group">
                                 <button type="button" class="gacha-col-filter-btn ${badgeFilter === 'all' ? 'active' : ''}" data-bf="all">${t.filterAllBadges.replace('{n}', allBadges.length)}</button>
