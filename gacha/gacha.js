@@ -52,7 +52,7 @@
     async function ensureDictLoaded() {
         if (DICT) return;
         try {
-            const mod = await import('./gacha-i18n.js?v=4');
+            const mod = await import('./gacha-i18n.js?v=5');
             DICT = mod.GACHA_I18N;
         } catch (e) {
             console.error('Erreur chargement gacha-i18n.js :', e);
@@ -378,12 +378,25 @@
     // ==========================================
     // 3. QUÊTES (1 FOIS PAR AGENT/JOUR, CAP 10/JOUR, FLÈCHES < > INCLUSES)
     // ==========================================
+    function normalizeTrackedAgentName(agentName) {
+        const raw = String(agentName || '').trim();
+        if (!raw) return '';
+        const low = raw.toLowerCase();
+        if (low === 'nothing') return '';
+        if (low === "dame de l'aurore" || low === 'dame de l’aurore') return 'Sunbringer';
+        if (low === 'jane doe') return 'Jane';
+        return raw;
+    }
+
     function trackGuideOpen(agentName) {
-        const clean = String(agentName || '').trim();
+        const clean = normalizeTrackedAgentName(agentName);
         if (!clean) return;
         GState = loadState();
         // 1 seul comptage par agent par jour + plafond strict de 10 guides par jour
-        if (GState.daily.guidesOpened.includes(clean)) return;
+        const alreadyTracked = GState.daily.guidesOpened.some(
+            n => normalizeTrackedAgentName(n).toLowerCase() === clean.toLowerCase()
+        );
+        if (alreadyTracked) return;
         if (GState.daily.guidesOpened.length >= DAILY_GUIDE_CAP) return;
 
         GState.daily.guidesOpened.push(clean);
@@ -939,7 +952,7 @@
                         <div>
                             <span class="gacha-patch-tag">${t.badge.replace('{patch}', bannerInfo.patch)}</span>
                             <h2 class="gacha-panel-title">${t.title}</h2>
-                            <p class="gacha-panel-desc">${t.subtitle}</p>
+                            <p class="gacha-panel-desc">${(t.subtitle || '').replace('{n}', totalAgents)}</p>
                         </div>
 
                         <div class="gacha-rates-box">
@@ -1097,7 +1110,7 @@
                 <div class="gacha-dialog-box">
                     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
                         <div>
-                            <span class="gacha-patch-tag">DUO EN VEDETTE • 50/50</span>
+                            <span class="gacha-patch-tag">${tm.badgeDuo || 'DUO EN VEDETTE • 50/50'}</span>
                             <h2 class="gacha-panel-title">${slotNum === 1 ? tm.title1 : tm.title2}</h2>
                             <p class="gacha-panel-desc">${slotNum === 1 ? tm.subtitle1 : tm.subtitle2}</p>
                         </div>
@@ -1319,7 +1332,7 @@
 
                         <div class="gacha-daily-summary-banner">
                             <div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:900;">
-                                <span style="color:#e4e4e7;">RÉCOMPENSES QUOTIDIENNES OBTENUES</span>
+                                <span style="color:#e4e4e7;">${t.dailyEarnedHeader || 'RÉCOMPENSES QUOTIDIENNES OBTENUES'}</span>
                                 <span style="font-family:monospace;color:#d7f70c;">${dailyEarnedPoly} / ${dailyTotalPoly} POLYCHROMES (${dailyEarnedPct}%)</span>
                             </div>
                             <div class="gacha-quest-bar-track" style="height:6px;">
@@ -2025,7 +2038,12 @@
     // ==========================================
     function encodeBackupCode(stateObj) {
         try {
-            return btoa(unescape(encodeURIComponent(JSON.stringify(stateObj))));
+            const bytes = new TextEncoder().encode(JSON.stringify(stateObj));
+            let bin = '';
+            for (let i = 0; i < bytes.length; i += 0x8000) {
+                bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+            }
+            return btoa(bin);
         } catch (e) {
             return '';
         }
@@ -2033,9 +2051,16 @@
 
     function decodeBackupCode(str) {
         try {
-            return JSON.parse(decodeURIComponent(escape(atob(str.trim()))));
+            const bin = atob(str.trim());
+            const bytes = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+            return JSON.parse(new TextDecoder().decode(bytes));
         } catch (e) {
-            return null;
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(str.trim()))));
+            } catch (e2) {
+                return null;
+            }
         }
     }
 
@@ -2071,8 +2096,25 @@
         const msgEl = document.getElementById('backup-status-msg');
 
         document.getElementById('btn-copy-backup').addEventListener('click', () => {
-            navigator.clipboard?.writeText(code);
-            msgEl.textContent = b.copiedMsg;
+            const onDone = () => {
+                msgEl.style.color = '#d7f70c';
+                msgEl.textContent = b.copiedMsg;
+            };
+            const fallbackCopy = () => {
+                const ta = document.createElement('textarea');
+                ta.value = code;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); onDone(); } catch (e) {}
+                document.body.removeChild(ta);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(onDone).catch(fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
         });
 
         document.getElementById('btn-dl-backup').addEventListener('click', () => {
@@ -2093,6 +2135,10 @@
                 try { parsed = JSON.parse(raw); } catch (e) {}
             }
             if (parsed && typeof parsed === 'object' && parsed.inventory) {
+                if (scoreState(parsed) < scoreState(GState)) {
+                    const warnMsg = b.confirmOverwrite || 'Attention : cette sauvegarde contient moins de progression que votre compte actuel. Continuer ?';
+                    if (!window.confirm(warnMsg)) return;
+                }
                 GState = normalizeState(parsed);
                 saveState(GState);
                 msgEl.style.color = '#d7f70c';
@@ -2145,7 +2191,9 @@
 
         const roleLabel = (tm.roles && tm.roles[agent.role]) || agent.role || 'Attack';
         const elemLabel = (ac.elements && ac.elements[agent.element]) || agent.element || 'Physical';
-        const factionLabel = (ac.factions && ac.factions[agent.faction]) || agent.faction || 'New Eridu';
+        const factionLabel = (typeof window.translateFactionName === 'function' ? window.translateFactionName(agent.faction) : null)
+            || (ac.factions && ac.factions[agent.faction])
+            || agent.faction || 'New Eridu';
         const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
         const borderCol = agent.rank === 'S' ? '#facc15' : '#c084fc';
 
@@ -2156,7 +2204,7 @@
                         <img src="${agent.img}" alt="${itemName(agent)}">
                     </div>
                     <div class="gacha-minicard-meta">
-                        <span class="gacha-patch-tag" style="width:fit-content;margin-bottom:2px;background:${borderCol};">RANG ${agent.rank}</span>
+                        <span class="gacha-patch-tag" style="width:fit-content;margin-bottom:2px;background:${borderCol};">${(ac.rankLabel || 'RANG {r}').replace('{r}', agent.rank)}</span>
                         <h3 class="gacha-minicard-name">${itemName(agent)}</h3>
                         <span style="font-family:monospace;font-size:11px;font-weight:800;color:#d7f70c;">${statusStr}</span>
                     </div>
@@ -2187,7 +2235,7 @@
                 </div>
 
                 <div style="display:flex;gap:8px;width:100%;">
-                    ${owned > 0 ? `<button type="button" class="gacha-res-btn primary" id="open-agent-build-btn" style="flex:1.3;">Build & Disques</button>` : ''}
+                    ${owned > 0 ? `<button type="button" class="gacha-res-btn primary" id="open-agent-build-btn" style="flex:1.3;">${ac.buildBtn || 'Build & Disques'}</button>` : ''}
                     <button type="button" class="gacha-res-btn ${owned > 0 ? '' : 'primary'}" id="close-agent-minicard" style="flex:1;">${ac.close || 'Fermer'}</button>
                 </div>
             </div>
