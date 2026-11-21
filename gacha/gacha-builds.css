@@ -1256,6 +1256,30 @@
     cursor: not-allowed;
 }
 
+.zzz-action-pill.confirm-danger {
+    background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+    border-color: #f87171;
+    color: #ffffff;
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.45);
+}
+
+.zzz-action-pill.confirm-danger:hover {
+    border-color: #fecaca;
+    color: #ffffff;
+}
+
+.zzz-action-pill.max-enhance {
+    background: linear-gradient(135deg, rgba(215, 247, 12, 0.2) 0%, #15171e 100%);
+    border-color: #d7f70c;
+    color: #d7f70c;
+}
+
+@media (max-width: 859px) {
+    .zzz-action-pill.max-enhance {
+        grid-column: 1 / -1;
+    }
+}
+
 /* ========================================================
    6. VUE STATS DE L'AGENT, STUDIO DISQUES & SALLE DES TROPHÉES
 ======================================================== */
