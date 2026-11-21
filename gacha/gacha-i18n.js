@@ -15,7 +15,7 @@ export const GACHA_I18N = {
         banner: {
             badge: "CANAL UNIFIÉ • PATCH {patch}",
             title: "Recherche de Signal",
-            subtitle: "Canal permanent regroupant les 62 Agents, les Moteurs-Ampli et les Packs de ×2 à ×5 Disques (1 Pack de Disques garanti à chaque Multi ×10).",
+            subtitle: "Canal permanent regroupant les {n} Agents, les Moteurs-Ampli et les Packs de ×2 à ×5 Disques (1 Pack de Disques garanti à chaque Multi ×10).",
             rateUpLabel: "DUO EN VEDETTE (RATE-UP 50%)",
             changeDuoBtn: "Changer le Duo en Vedette",
             tv1Tag: "AGENT S EN VEDETTE",
@@ -59,6 +59,7 @@ export const GACHA_I18N = {
             close: "Fermer"
         },
         targetModal: {
+            badgeDuo: "DUO EN VEDETTE • 50/50",
             title1: "Personnaliser votre Duo en Vedette",
             subtitle1: "Écran #1 : Choisissez l'Agent de Rang S prioritaire (garanti à 100 % après un 50/50 perdu).",
             title2: "Personnaliser votre Duo en Vedette",
@@ -88,6 +89,7 @@ export const GACHA_I18N = {
             dailyHeader: "Commissions Quotidiennes",
             dailySub: "Se réinitialisent à minuit (2 400 Polychromes / jour • Max 10 guides uniques/j).",
             dailyCapInfo: "Guides du jour : {n} / 10",
+            dailyEarnedHeader: "RÉCOMPENSES QUOTIDIENNES OBTENUES",
             achHeader: "Hauts Faits Inter-Nœud (Paliers ∞)",
             achSub: "Objectifs permanents à paliers infinis.",
             resetLabel: "Reset : 00h00",
@@ -199,6 +201,7 @@ export const GACHA_I18N = {
             importBtn: "Restaurer la Sauvegarde",
             importSuccess: "Sauvegarde restaurée avec succès ✓",
             importError: "Code invalide ou corrompu.",
+            confirmOverwrite: "Attention : cette sauvegarde contient moins de progression que votre compte actuel. Voulez-vous vraiment la restaurer ?",
             close: "Fermer"
         },
         results: {
@@ -216,6 +219,8 @@ export const GACHA_I18N = {
             role: "Rôle",
             element: "Élément",
             status: "Statut Collection",
+            rankLabel: "RANG {r}",
+            buildBtn: "Build & Disques",
             unowned: "Non obtenu",
             copies: "{n} exemplaire(s)",
             close: "Fermer",
@@ -223,25 +228,32 @@ export const GACHA_I18N = {
                 Physical: "Physique",
                 Fire: "Feu",
                 Ice: "Glace",
+                Frost: "Givre",
                 Electric: "Électrique",
                 Ether: "Éther",
                 Wind: "Vent",
                 Aurora: "Lumen",
+                Lumiflux: "Lumen",
                 HonedEdge: "Lame affûtée",
-                Sepia: "Sépia"
+                "Honed Edge": "Lame affûtée",
+                Sepia: "Sépia",
+                "Auric Ink": "Sépia",
+                "Genesis Flare": "Flambeau de la genèse"
             },
             factions: {
-                "Cunning Hares": "Lièvres Rusés",
+                "Cunning Hares": "Lièvres rusés",
                 "Belobog Heavy Industries": "Usines Belobog",
-                "Victoria Housekeeping": "Société d'Entretien Victoria",
-                "Criminal Investigation Special Response Team": "Équipe d'Intervention Spéciale",
+                "Victoria Housekeeping": "Société d'entretien Victoria",
+                "Criminal Investigation Special Response Team": "Section spéciale N.E.P.S.",
                 "Sons of Calydon": "Fils de Calydon",
                 "Hollow Special Operations Section 6": "Section 6",
                 "Obol Squad": "Escouade Obole",
-                "Stars of Lyra": "astres de Lyra",
-                "Mockingbird": "Oiseau Moqueur",
-                "Yunkui Summit": "Sommet Yunkui",
-                "Silver Squad": "Escouade d'Argent"
+                "Stars of Lyra": "Étoiles de la Lyre",
+                "Mockingbird": "Oiseaux-moqueurs",
+                "Yunkui Summit": "Cimes de Yunkui",
+                "Silver Squad": "Escouade Argent",
+                "Unknown Realm": "Royaume inconnu",
+                "Roscaelifer": "Roscaelifer"
             }
         }
     },
@@ -259,7 +271,7 @@ export const GACHA_I18N = {
         banner: {
             badge: "UNIFIED CHANNEL • PATCH {patch}",
             title: "Signal Search",
-            subtitle: "Permanent channel featuring all 62 Agents, W-Engines, and ×2 to ×5 Drive Disc Packs (1 Disc Pack guaranteed every 10-Pull).",
+            subtitle: "Permanent channel featuring all {n} Agents, W-Engines, and ×2 to ×5 Drive Disc Packs (1 Disc Pack guaranteed every 10-Pull).",
             rateUpLabel: "FEATURED DUO (50% RATE-UP)",
             changeDuoBtn: "Change Featured Duo",
             tv1Tag: "FEATURED S-AGENT",
@@ -303,6 +315,7 @@ export const GACHA_I18N = {
             close: "Close"
         },
         targetModal: {
+            badgeDuo: "FEATURED DUO • 50/50",
             title1: "Customize Your Featured Duo",
             subtitle1: "Screen #1: Choose your priority S-Rank Agent (100% guaranteed after losing a 50/50).",
             title2: "Customize Your Featured Duo",
@@ -324,6 +337,7 @@ export const GACHA_I18N = {
             dailyHeader: "Daily Commissions",
             dailySub: "Resets at midnight (2,400 Polychromes / day • Max 10 unique guides/day).",
             dailyCapInfo: "Daily guides: {n} / 10",
+            dailyEarnedHeader: "DAILY REWARDS EARNED",
             achHeader: "Inter-Knot Milestones (∞ Tiers)",
             achSub: "Permanent infinite-tier achievements.",
             resetLabel: "Reset: 00:00",
@@ -435,6 +449,7 @@ export const GACHA_I18N = {
             importBtn: "Restore Backup",
             importSuccess: "Backup restored successfully ✓",
             importError: "Invalid or corrupted backup code.",
+            confirmOverwrite: "Warning: this backup has less progress than your current save. Are you sure you want to overwrite it?",
             close: "Close"
         },
         results: {
@@ -452,6 +467,8 @@ export const GACHA_I18N = {
             role: "Role",
             element: "Element",
             status: "Collection Status",
+            rankLabel: "RANK {r}",
+            buildBtn: "Build & Discs",
             unowned: "Unowned",
             copies: "{n} copy(ies)",
             close: "Close",
@@ -459,12 +476,17 @@ export const GACHA_I18N = {
                 Physical: "Physical",
                 Fire: "Fire",
                 Ice: "Ice",
+                Frost: "Frost",
                 Electric: "Electric",
                 Ether: "Ether",
                 Wind: "Wind",
-                Aurora: "Aurora",
+                Aurora: "Lumiflux",
+                Lumiflux: "Lumiflux",
                 HonedEdge: "Honed Edge",
-                Sepia: "Sepia"
+                "Honed Edge": "Honed Edge",
+                Sepia: "Auric Ink",
+                "Auric Ink": "Auric Ink",
+                "Genesis Flare": "Genesis Flare"
             }
         }
     }
