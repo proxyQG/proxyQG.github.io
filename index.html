@@ -409,13 +409,22 @@
                 </div>
             </div>
             
-            <!-- Barre de Recherche & Bouton Entonnoir Filtre Mobile -->
-            <div class="md:hidden w-full mb-6 relative z-[100] group flex gap-3">
-                <div class="relative flex-1 flex items-center">
+            <!-- Barre de Recherche, Gacha & Bouton Entonnoir Filtre Mobile -->
+            <div class="md:hidden w-full mb-6 relative z-[100] group flex gap-2.5">
+                <div class="relative flex-1 flex items-center min-w-0">
                     <input type="text" id="searchInputMobile" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Agent, disque, moteur..." class="w-full bg-[#151515] border-2 border-zinc-800 rounded-xl py-3.5 pl-4 pr-10 text-white text-sm focus:outline-none focus:border-yellow-400 focus:bg-[#1a1a1a] transition-all shadow-inner placeholder-zinc-600">
                     <button id="clearSearchBtnMobile" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
-                <button id="mobileFilterBtn" aria-label="Ouvrir les filtres" class="relative bg-[#151515] border-2 border-zinc-800 rounded-xl px-4 flex items-center justify-center text-zinc-400 hover:text-yellow-400 hover:border-yellow-400 transition-colors shadow-inner">
+                <button type="button" onclick="window.openGachaModal()" aria-label="Recherche Signal" title="Recherche Signal" class="relative shrink-0 bg-[#151515] border-2 border-[#d7f70c]/50 hover:border-[#d7f70c] rounded-xl px-3.5 flex items-center justify-center text-[#d7f70c] transition-all active:scale-95 shadow-inner">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="6.5" width="19" height="14" rx="2.5"></rect>
+                        <polyline points="17 2.5 12 6.5 7 2.5"></polyline>
+                        <circle cx="9.5" cy="13.5" r="1.5" fill="currentColor" stroke="none"></circle>
+                        <circle cx="14.5" cy="13.5" r="1.5" fill="currentColor" stroke="none"></circle>
+                    </svg>
+                    <span class="gacha-quest-dot-global absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444] ring-2 ring-[#050505]" style="display:none;"></span>
+                </button>
+                <button id="mobileFilterBtn" aria-label="Ouvrir les filtres" class="relative shrink-0 bg-[#151515] border-2 border-zinc-800 rounded-xl px-4 flex items-center justify-center text-zinc-400 hover:text-yellow-400 hover:border-yellow-400 transition-colors shadow-inner">
                     <span id="mobileFilterActiveDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#d7f70c] shadow-[0_0_8px_#d7f70c] ring-2 ring-[#050505]"></span>
                     <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                 </button>
@@ -788,11 +797,11 @@
                         const link = document.createElement('link');
                         link.id = 'zzz-gacha-core-css';
                         link.rel = 'stylesheet';
-                        link.href = 'gacha/gacha.css?v=5';
+                        link.href = 'gacha/gacha.css?v=6';
                         document.head.appendChild(link);
                     }
                     const s = document.createElement('script');
-                    s.src = 'gacha/gacha.js?v=5';
+                    s.src = 'gacha/gacha.js?v=9';
                     s.onload = () => { window.__zzzGachaLoaded = true; resolve(); };
                     s.onerror = (err) => {
                         s.remove();
