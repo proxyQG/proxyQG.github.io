@@ -252,9 +252,10 @@
     function updateQuestNotificationDot(st) {
         const questsReady = hasClaimableQuestsOrAch(st);
         const shopReady = hasClaimableShopFreePack(st);
-        const anyGlobal = questsReady || shopReady;
+        const badgesReady = !!(window.ZZZBuilds && typeof window.ZZZBuilds.hasClaimableBadges === 'function' && window.ZZZBuilds.hasClaimableBadges(st));
+        const anyGlobal = questsReady || shopReady || badgesReady;
 
-        // Pastille sur le bouton de la barre latérale du site
+        // Pastille sur les boutons du site (PC & mobile)
         document.querySelectorAll('.gacha-quest-dot-global').forEach(el => {
             el.style.display = anyGlobal ? 'block' : 'none';
         });
@@ -266,6 +267,10 @@
         // Pastille uniquement sur l'onglet Magasin
         const sDot = document.getElementById('gacha-dot-shop');
         if (sDot) sDot.style.display = shopReady ? 'block' : 'none';
+
+        // Pastille uniquement sur l'onglet Badges
+        const bDot = document.getElementById('gacha-dot-badges');
+        if (bDot) bDot.style.display = badgesReady ? 'block' : 'none';
     }
 
     function saveState(state) {
@@ -1635,6 +1640,8 @@
             </div>
         `;
 
+        const isEnShop = getLang() === 'en';
+
         document.getElementById('buy-free-pack').addEventListener('click', () => {
             if (!GState.daily.freePackClaimed) {
                 GState.daily.freePackClaimed = true;
@@ -1644,6 +1651,7 @@
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
+                showGachaToast(isEnShop ? '+320 Polychromes & +20 ✦ claimed' : '+320 Polychromes & +20 ✦ récupérés');
             }
         });
 
@@ -1654,6 +1662,7 @@
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
+                showGachaToast(isEnShop ? '+1 Encrypted Master Tape' : '+1 Bande maîtresse chiffrée');
             }
         });
 
@@ -1665,6 +1674,7 @@
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
+                showGachaToast(isEnShop ? `+${count} Encrypted Master Tapes` : `+${count} Bandes maîtresses chiffrées`);
             }
         });
 
@@ -1675,6 +1685,7 @@
                 saveState(GState);
                 renderShopTab(mount);
                 updateTopCurrencies();
+                showGachaToast(isEnShop ? '+1 Master Tape (-20 ✦)' : '+1 Bande maîtresse (-20 ✦)');
             }
         });
 
@@ -1688,6 +1699,7 @@
                     saveState(GState);
                     renderShopTab(mount);
                     updateTopCurrencies();
+                    showGachaToast(isEnShop ? `+${count} Master Tapes (-${count * 20} ✦)` : `+${count} Bandes maîtresses (-${count * 20} ✦)`);
                 }
             });
         }
@@ -2502,6 +2514,27 @@
         });
     }
 
+    let gachaToastTimer = null;
+    function showGachaToast(message, tone = 'lime') {
+        if (!message) return;
+        let box = document.getElementById('gacha-toast-box');
+        if (!box) {
+            box = document.createElement('div');
+            box.id = 'gacha-toast-box';
+            document.body.appendChild(box);
+        }
+        box.textContent = message;
+        box.classList.remove('tone-warn', 'tone-danger');
+        if (tone === 'warn') box.classList.add('tone-warn');
+        else if (tone === 'danger') box.classList.add('tone-danger');
+
+        box.classList.add('visible');
+        clearTimeout(gachaToastTimer);
+        gachaToastTimer = setTimeout(() => {
+            box.classList.remove('visible');
+        }, 2200);
+    }
+
     // Pont sécurisé pour le module indépendant gacha-builds.js
     window.ZZZGachaBridge = {
         getState: () => GState,
@@ -2510,6 +2543,8 @@
         getLang: getLang,
         itemName: itemName,
         openItemModal: openItemFromGacha,
+        showToast: showGachaToast,
+        refreshDots: () => updateQuestNotificationDot(GState),
         switchCustomTab: (tabName, renderFn) => {
             activeTab = tabName;
             if (!modalEl) return;
