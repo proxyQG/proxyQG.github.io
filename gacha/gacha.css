@@ -2227,3 +2227,46 @@
     transform: scale(1.06);
     background: #fff;
 }
+/* ========================================================
+   11. MICRO-TOASTS DE CONFIRMATION GACHA & BUILDS
+======================================================== */
+#gacha-toast-box {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translate(-50%, 16px);
+    z-index: 480;
+    pointer-events: none;
+    opacity: 0;
+    background: rgba(13, 14, 20, 0.96);
+    border: 1.5px solid #d7f70c;
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 18px rgba(215, 247, 12, 0.28);
+    transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 92vw;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#gacha-toast-box.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+#gacha-toast-box.tone-warn {
+    border-color: #f59e0b;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 18px rgba(245, 158, 11, 0.3);
+}
+
+#gacha-toast-box.tone-danger {
+    border-color: #ef4444;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 18px rgba(239, 68, 68, 0.3);
+}
