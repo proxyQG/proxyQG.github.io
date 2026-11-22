@@ -968,6 +968,13 @@
         let batchTrashConfirmArmed = false;
         let batchTrashConfirmTimer = null;
 
+        function resetConfirmStates() {
+            unequipConfirmArmed = false;
+            clearTimeout(unequipConfirmTimer);
+            batchTrashConfirmArmed = false;
+            clearTimeout(batchTrashConfirmTimer);
+        }
+
         function getOwnedAgents(st, pool) {
             const bridge = window.ZZZGachaBridge;
             const rW = { S: 0, A: 1, B: 2 };
@@ -1521,8 +1528,8 @@
                                             </div>
                                         </div>
                                         <div style="display:flex;flex-direction:column;align-items:flex-end;min-width:0;flex:1;padding-right:6px;">
-                                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">4P ${s4Name}</span>
-                                            <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;color:#a1a1aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">2P ${s2Name}</span>
+                                            <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:11px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${isLangEn ? '4pc' : '4P'} ${s4Name}</span>
+                                            <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:10px;color:#a1a1aa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${isLangEn ? '2pc' : '2P'} ${s2Name}</span>
                                         </div>
                                     </div>`;
                                 }).join('')}
@@ -1710,10 +1717,7 @@
 
         function switchBuildAgent(mount, newAgentKey) {
             if (!newAgentKey || newAgentKey === selectedAgentKey) return;
-            unequipConfirmArmed = false;
-            clearTimeout(unequipConfirmTimer);
-            batchTrashConfirmArmed = false;
-            clearTimeout(batchTrashConfirmTimer);
+            resetConfirmStates();
             selectedAgentKey = newAgentKey;
             selectedItemId = null;
             window.__zzzRecEngKey = null;
@@ -1854,6 +1858,7 @@
             });
 
             document.getElementById('btn-toggle-subview')?.addEventListener('click', () => {
+                resetConfirmStates();
                 currentSubMenu = currentSubMenu === 'stats' ? 'equip' : 'stats';
                 renderBuildsTab(mount);
             });
@@ -1864,6 +1869,7 @@
 
             mount.querySelectorAll('[data-wheel-pick]').forEach(el => {
                 el.addEventListener('click', () => {
+                    resetConfirmStates();
                     const val = el.getAttribute('data-wheel-pick');
                     activeWheelTarget = val === 'engine' ? 'engine' : parseInt(val, 10);
                     selectedItemId = null;
@@ -1872,6 +1878,7 @@
             });
 
             document.getElementById('zzz-wheel-center-engine')?.addEventListener('click', () => {
+                resetConfirmStates();
                 activeWheelTarget = 'engine';
                 selectedItemId = null;
                 renderBuildsTab(mount);
@@ -1882,6 +1889,27 @@
                     selectedItemId = el.getAttribute('data-grid-pick');
                     renderBuildsTab(mount);
                 });
+                el.addEventListener('dblclick', () => {
+                    const pickId = el.getAttribute('data-grid-pick');
+                    if (!pickId) return;
+                    selectedItemId = pickId;
+                    resetConfirmStates();
+                    if (isEngineMode) {
+                        if (ab.engineKey === pickId) ab.engineKey = null;
+                        else equipEngineUnique(st, agent.rawKey, pickId);
+                    } else {
+                        const dObj = bs.craftedDiscs.find(x => x.uid === pickId);
+                        if (!dObj) return;
+                        const targetSlot = dObj.slot || slotNum;
+                        if (ab.discs[targetSlot] === dObj.uid) ab.discs[targetSlot] = null;
+                        else {
+                            equipDiscUnique(st, agent.rawKey, targetSlot, dObj.uid);
+                            activeWheelTarget = targetSlot;
+                        }
+                    }
+                    bridge.saveState(st);
+                    renderBuildsTab(mount);
+                });
             });
 
             document.getElementById('zzz-btn-filter')?.addEventListener('click', () => {
@@ -1890,18 +1918,21 @@
             });
 
             document.getElementById('zzz-select-set-filter')?.addEventListener('change', (e) => {
+                resetConfirmStates();
                 filterSetKey = e.target.value;
                 selectedItemId = null;
                 renderBuildsTab(mount);
             });
 
             document.getElementById('zzz-btn-slot-only')?.addEventListener('click', () => {
+                resetConfirmStates();
                 showAllPartitions = false;
                 selectedItemId = null;
                 renderBuildsTab(mount);
             });
 
             document.getElementById('zzz-btn-all-slots')?.addEventListener('click', () => {
+                resetConfirmStates();
                 showAllPartitions = true;
                 selectedItemId = null;
                 renderBuildsTab(mount);
@@ -2161,18 +2192,8 @@
         function renderSubMenuStats(agent, calc, pool, bridge, t) {
             const elemIcon = ELEM_ICON_MAP[agent.element] || 'physique.webp';
             const isEn = (bridge.getLang?.() || 'fr') === 'en';
-            const elemFrMap = {
-                Physical: 'Physique', Fire: 'Feu', Ice: 'Glace', Frost: 'Givre',
-                Electric: 'Électrique', Ether: 'Éther', Wind: 'Vent',
-                Lumiflux: 'Lumen', 'Honed Edge': 'Lame affûtée',
-                'Auric Ink': 'Sépia', 'Genesis Flare': 'Flambeau de la genèse'
-            };
-            const roleFrMap = {
-                Attack: 'Attaque', Stun: 'Stun', Anomaly: 'Anomalie',
-                Support: 'Soutien', Defense: 'Défense', Armorer: 'Forge', Rupture: 'Rupture'
-            };
-            const elemLabel = isEn ? agent.element : (elemFrMap[agent.element] || agent.element);
-            const roleLabel = isEn ? agent.role : (roleFrMap[agent.role] || agent.role);
+            const elemLabel = tElem(agent.element);
+            const roleLabel = tRole(agent.role);
             const factionLabel = (typeof window.translateFactionName === 'function' ? window.translateFactionName(agent.faction) : agent.faction) || 'New Eridu';
 
             const activeSetsHTML = Object.entries(calc.setCounts)
@@ -2326,6 +2347,7 @@
             }
 
             function renderBardic() {
+                const prevSetListScroll = overlay.querySelector('.zb-set-grid-scroll')?.scrollTop || 0;
                 const t = B();
                 const isEn = (bridge.getLang?.() || 'fr') === 'en';
                 const prof = getGuideProfile(selectedAgentKey);
@@ -2392,7 +2414,7 @@
                                                     <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10px;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                                                         ${bridge.itemName(s)}
                                                     </span>
-                                                    ${is4P ? `<span class="zb-guide-chip">4P</span>` : (is2P ? `<span class="zb-guide-chip">2P</span>` : '')}
+                                                    ${is4P ? `<span class="zb-guide-chip">${isEn ? '4pc' : '4P'}</span>` : (is2P ? `<span class="zb-guide-chip">${isEn ? '2pc' : '2P'}</span>` : '')}
                                                 </div>
                                                 <span style="font-family:monospace;font-size:9.5px;color:${freeStock > 0 ? '#4ade80' : '#71717a'};">
                                                     ${freeStock > 0 ? `${freeStock} ${isEn ? 'to tune' : 'à graver'}` : `0 stock (×${countCrafted})`}
@@ -2515,6 +2537,9 @@
                         </div>
                     </div>
                 `;
+
+                const newSetList = overlay.querySelector('.zb-set-grid-scroll');
+                if (newSetList) newSetList.scrollTop = prevSetListScroll;
 
                 document.getElementById('close-bardic-modal').addEventListener('click', () => {
                     overlay.classList.remove('active');
@@ -2904,32 +2929,13 @@
                 if (existingBadgesTxt && existingBadgesTxt.textContent !== t.tabBadges) existingBadgesTxt.textContent = t.tabBadges;
             }
 
-            const animOverlay = document.getElementById('gacha-anim-overlay');
-            if (animOverlay && !animOverlay.__zbBackdropBound) {
-                animOverlay.__zbBackdropBound = true;
-                animOverlay.addEventListener('mousedown', (ev) => {
-                    if (ev.target === animOverlay && animOverlay.querySelector('.gacha-dialog-box')) {
-                        animOverlay.classList.remove('active');
-                        const mount = document.getElementById('gacha-view-mount');
-                        const activeBtn = document.querySelector('#zzz-gacha-modal .gacha-nav-btn.active');
-                        if (mount && activeBtn?.getAttribute('data-gtab') === 'builds') {
-                            renderBuildsTab(mount);
-                        }
-                    }
-                });
             }
-        }
 
         document.addEventListener('click', (e) => {
             if (e.target.closest('#langSwitcher')) {
                 setTimeout(() => {
                     injectBuildTabsIntoTopbar();
-                    const mount = document.getElementById('gacha-view-mount');
-                    const activeBtn = document.querySelector('#zzz-gacha-modal .gacha-nav-btn.active');
-                    const tab = activeBtn?.getAttribute('data-gtab');
-                    if (mount && tab === 'builds') renderBuildsTab(mount);
-                    else if (mount && tab === 'badges') renderBadgesTab(mount);
-                }, 60);
+                }, 30);
             }
         }, true);
 
