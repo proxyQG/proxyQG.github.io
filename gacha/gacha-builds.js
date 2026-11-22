@@ -191,6 +191,29 @@
             return dict[statKey] || statKey;
         }
 
+        function normText(str) {
+            return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+        }
+
+        const ELEM_FR_MAP = {
+            Physical: 'Physique', Fire: 'Feu', Ice: 'Glace', Frost: 'Givre',
+            Electric: 'Électrique', Ether: 'Éther', Wind: 'Vent',
+            Lumiflux: 'Lumen', 'Honed Edge': 'Lame affûtée',
+            'Auric Ink': 'Sépia', 'Genesis Flare': 'Flambeau de la genèse'
+        };
+        const ROLE_FR_MAP = {
+            Attack: 'Attaque', Stun: 'Stun', Anomaly: 'Anomalie',
+            Support: 'Soutien', Defense: 'Défense', Armorer: 'Forge', Rupture: 'Rupture'
+        };
+        function tElem(key) {
+            const isEn = (window.ZZZGachaBridge?.getLang?.() || 'fr') === 'en';
+            return isEn ? (key || '') : (ELEM_FR_MAP[key] || key || '');
+        }
+        function tRole(key) {
+            const isEn = (window.ZZZGachaBridge?.getLang?.() || 'fr') === 'en';
+            return isEn ? (key || '') : (ROLE_FR_MAP[key] || key || '');
+        }
+
         // Supprime les {accolades} et [crochets] des textes JSON et met en valeur les chiffres/mots-clés comme en jeu
         function formatCleanDesc(rawText) {
             if (!rawText) return '';
@@ -977,10 +1000,11 @@
                 ? activeSets.map(([setKey, count]) => {
                     const dObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === setKey);
                     const sName = dObj ? bridge.itemName(dObj) : setKey;
+                    const pTag = count >= 4 ? (isEn ? '4pc' : '4P') : (isEn ? '2pc' : '2P');
                     return `
-                    <div class="zb-hud-chip is-set" title="${count >= 4 ? '4P' : '2P'} ${sName}">
+                    <div class="zb-hud-chip is-set" title="${pTag} ${sName}">
                         ${dObj ? `<img src="${dObj.img}" alt="">` : ''}
-                        <span class="zb-hud-set-tag">${count >= 4 ? '4P' : '2P'}</span>
+                        <span class="zb-hud-set-tag">${pTag}</span>
                         <span class="zb-hud-set-name">${sName}</span>
                     </div>`;
                 }).join('')
@@ -996,7 +1020,7 @@
                         <img src="${agent.img}" alt="${bridge.itemName(agent)}">
                         <div style="min-width:0;">
                             <span class="zb-roster-name">${bridge.itemName(agent)}</span>
-                            <span class="zb-roster-sub">${agent.rank} • Lv.60 • ${mTag}</span>
+                            <span class="zb-roster-sub">${agent.rank} • ${isEn ? 'Lv.' : 'Niv.'} 60 • ${mTag}</span>
                         </div>
                     </div>
                     <span class="zb-agent-picker-cta">
@@ -1077,7 +1101,7 @@
                         <span class="zzz-insp-sec-lbl">${t.engineEffectLabel}</span>
                         <div class="zzz-set-desc-block">
                             <div style="margin-bottom:6px;color:#d4d4d8;">
-                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${rawJson.specialty || itemObj.role || agent.role}</strong> :
+                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${tRole(rawJson.specialty || itemObj.role || agent.role)}</strong> :
                             </div>
                             <div class="zzz-stat-bar" style="margin-bottom:7px;">
                                 <span>${effectTitle}</span>
@@ -1412,7 +1436,7 @@
                                         <span class="zzz-insp-sec-lbl">${t.engineEffectLabel}</span>
                                         <div class="zzz-set-desc-block">
                                             <div style="margin-bottom:6px;color:#d4d4d8;">
-                                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${previewEng.role || agent.role}</strong> :
+                                                ${t.engineSpecIntro} <strong style="color:#f59e0b;">${tRole(previewEng.role || agent.role)}</strong> :
                                             </div>
                                             <div class="zzz-stat-bar" style="margin-bottom:7px;"><span>${effectTitle}</span></div>
                                             <div>${effectTxt}</div>
@@ -1717,12 +1741,12 @@
                 let list = ownedAgents;
                 if (rankFilter !== 'all') list = list.filter(a => a.rank === rankFilter);
                 if (query.trim()) {
-                    const q = query.trim().toLowerCase();
+                    const q = normText(query.trim());
                     list = list.filter(a =>
-                        bridge.itemName(a).toLowerCase().includes(q)
-                        || (a.rawKey || '').toLowerCase().includes(q)
-                        || (a.element || '').toLowerCase().includes(q)
-                        || (a.role || '').toLowerCase().includes(q)
+                        normText(bridge.itemName(a)).includes(q)
+                        || normText(a.rawKey).includes(q)
+                        || normText(tElem(a.element)).includes(q)
+                        || normText(tRole(a.role)).includes(q)
                     );
                 }
 
@@ -1746,7 +1770,7 @@
                         </div>
                         <div class="gacha-col-info">
                             <span class="gacha-col-name">${bridge.itemName(a)}</span>
-                            <span class="gacha-col-sub">${a.element || ''} • ${a.role || ''}</span>
+                            <span class="gacha-col-sub">${tElem(a.element)} • ${tRole(a.role)}</span>
                         </div>
                     </div>`;
                 }).join('');
@@ -1932,7 +1956,10 @@
                     clearTimeout(batchTrashConfirmTimer);
                     batchTrashConfirmTimer = setTimeout(() => {
                         batchTrashConfirmArmed = false;
-                        renderBuildsTab(mount);
+                        const activeBtn = document.querySelector('#zzz-gacha-modal .gacha-nav-btn.active');
+                        if (activeBtn?.getAttribute('data-gtab') === 'builds' && currentSubMenu === 'equip') {
+                            renderBuildsTab(mount);
+                        }
                     }, 2600);
                     renderBuildsTab(mount);
                     return;
@@ -1974,44 +2001,6 @@
                         st.totalDupesRes = (st.totalDupesRes || 0) + totalGain;
                         bridge.saveState(st);
                         bridge.showToast?.(B().toastDismantledBatch.replace('{n}', uidSet.size).replace('{g}', totalGain));
-                        renderBuildsTab(mount);
-                    }
-                }
-            }
-
-            function dismantleBatchItems() {
-                if (isEngineMode && selectedObj) {
-                    const cnt = st.inventory[selectedObj.id]?.count || 0;
-                    const usedCount = getEngineOwnersList(st, selectedObj.rawKey).length;
-                    const spare = Math.max(0, cnt - usedCount);
-                    if (spare > 0) {
-                        const unitGain = selectedObj.rank === 'S' ? 40 : (selectedObj.rank === 'A' ? 10 : 3);
-                        const gain = spare * unitGain;
-                        st.inventory[selectedObj.id].count -= spare;
-                        if (st.inventory[selectedObj.id].count <= 0) {
-                            delete st.inventory[selectedObj.id];
-                            selectedItemId = null;
-                        }
-                        st.residual += gain;
-                        st.totalDupesRes = (st.totalDupesRes || 0) + gain;
-                        bridge.saveState(st);
-                        renderBuildsTab(mount);
-                    }
-                } else if (!isEngineMode && batchTrashDiscs.length > 0) {
-                    const uidSet = new Set(batchTrashDiscs.map(d => d.uid));
-                    let totalGain = 0;
-                    bs.craftedDiscs = bs.craftedDiscs.filter(d => {
-                        if (uidSet.has(d.uid)) {
-                            totalGain += calcDiscDismantleGain(d);
-                            return false;
-                        }
-                        return true;
-                    });
-                    if (selectedItemId && uidSet.has(selectedItemId)) selectedItemId = null;
-                    if (totalGain > 0) {
-                        st.residual += totalGain;
-                        st.totalDupesRes = (st.totalDupesRes || 0) + totalGain;
-                        bridge.saveState(st);
                         renderBuildsTab(mount);
                     }
                 }
@@ -2342,13 +2331,7 @@
                 const prof = getGuideProfile(selectedAgentKey);
                 const activeAgent = pool.allCatalog.find(i => i.type === 'agent' && i.rawKey === selectedAgentKey);
 
-                const filteredSets = allSets.filter(s => {
-                    if (!setSearch.trim()) return true;
-                    const q = setSearch.trim().toLowerCase();
-                    return bridge.itemName(s).toLowerCase().includes(q) || s.rawKey.toLowerCase().includes(q);
-                });
-
-                filteredSets.sort((a, b) => {
+                const sortedSets = [...allSets].sort((a, b) => {
                     const aStock = getFreeGachaDiscCount(st, a.rawKey);
                     const bStock = getFreeGachaDiscCount(st, b.rawKey);
                     if ((aStock > 0) !== (bStock > 0)) return bStock > 0 ? 1 : -1;
@@ -2357,6 +2340,7 @@
                     if (aRec !== bRec) return bRec - aRec;
                     return bStock - aStock;
                 });
+                const normSetQ = normText(setSearch.trim());
 
                 const currentSet = allSets.find(s => s.rawKey === bardicSetKey) || allSets[0];
                 const rawDiscJson = EXT_DATA.discs[bardicSetKey] || {};
@@ -2394,13 +2378,14 @@
                             <div class="zb-bardic-left-col">
                                 <input type="text" id="bardic-set-search" class="gacha-col-search" placeholder="${t.searchSetPlaceholder}" value="${setSearch.replace(/"/g, '&quot;')}" style="width:100%;">
                                 <div class="zb-set-grid-scroll">
-                                    ${filteredSets.map(s => {
+                                    ${sortedSets.map(s => {
                                         const freeStock = getFreeGachaDiscCount(st, s.rawKey);
                                         const countCrafted = bs.craftedDiscs.filter(d => d.setKey === s.rawKey).length;
                                         const is4P = prof.sets4.includes(s.rawKey);
                                         const is2P = prof.sets2.includes(s.rawKey);
+                                        const hiddenBySearch = normSetQ && !normText(bridge.itemName(s)).includes(normSetQ) && !normText(s.rawKey).includes(normSetQ);
                                         return `
-                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}" style="${freeStock <= 0 ? 'opacity:0.55;' : ''}">
+                                        <div class="zb-set-card ${s.rawKey === bardicSetKey ? 'active' : ''}" data-bset="${s.rawKey}" style="${freeStock <= 0 ? 'opacity:0.55;' : ''}${hiddenBySearch ? 'display:none;' : ''}">
                                             <img src="${s.img}" alt="${bridge.itemName(s)}">
                                             <div style="min-width:0;flex:1;display:flex;flex-direction:column;gap:2px;">
                                                 <div style="display:flex;align-items:center;justify-content:space-between;gap:4px;">
@@ -2546,11 +2531,11 @@
                 if (sInp) {
                     sInp.addEventListener('input', (e) => {
                         setSearch = e.target.value;
-                        const q = setSearch.trim().toLowerCase();
+                        const q = normText(setSearch.trim());
                         overlay.querySelectorAll('[data-bset]').forEach(card => {
                             const key = card.getAttribute('data-bset') || '';
-                            const nameTxt = card.textContent.toLowerCase();
-                            card.style.display = (!q || nameTxt.includes(q) || key.toLowerCase().includes(q)) ? '' : 'none';
+                            const nameTxt = normText(card.textContent);
+                            card.style.display = (!q || nameTxt.includes(q) || normText(key).includes(q)) ? '' : 'none';
                         });
                     });
                 }
@@ -2829,11 +2814,14 @@
             `;
 
             document.getElementById('btn-claim-all-badges')?.addEventListener('click', () => {
+                let totalRew = 0;
                 claimableBadges.forEach(b => {
                     bs.claimedBadges[b.id] = true;
                     st.polychromes += b.reward;
+                    totalRew += b.reward;
                 });
                 bridge.saveState(st);
+                bridge.showToast?.(`+${totalRew} Polychromes`);
                 renderBadgesTab(mount);
             });
 
@@ -2858,6 +2846,7 @@
                         bs.claimedBadges[bId] = true;
                         st.polychromes += rew;
                         bridge.saveState(st);
+                        bridge.showToast?.(`+${rew} Polychromes`);
                         renderBadgesTab(mount);
                     }
                 });
@@ -2999,6 +2988,19 @@
         window.ZZZBuilds = {
             initTabs: injectBuildTabsIntoTopbar,
             hasClaimableBadges,
+            closeRecDrawer: () => {
+                if (!window.__zzzRecOpen) return false;
+                window.__zzzRecOpen = false;
+                const mount = document.getElementById('gacha-view-mount');
+                if (mount) renderBuildsTab(mount);
+                return true;
+            },
+            refreshActiveView: (tabName) => {
+                const mount = document.getElementById('gacha-view-mount');
+                if (!mount) return;
+                if (tabName === 'builds') renderBuildsTab(mount);
+                else if (tabName === 'badges') renderBadgesTab(mount);
+            },
             openAgentBuild: (agentKey) => {
                 injectBuildTabsIntoTopbar();
                 selectedAgentKey = agentKey;
