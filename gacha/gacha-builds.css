@@ -19,7 +19,7 @@
     grid-template-columns: repeat(3, 1fr) !important;
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1120px) {
     #zzz-gacha-modal .gacha-nav-pills.zb-six-tabs {
         display: inline-flex !important;
     }
@@ -183,6 +183,45 @@
     transform: scale(1.03);
 }
 
+@media (max-width: 479px) {
+    .zb-agent-switcher {
+        gap: 5px;
+    }
+    .zb-nav-arrow-btn {
+        width: 30px;
+        height: 46px;
+    }
+    .zb-agent-picker-btn {
+        min-height: 46px;
+        gap: 6px;
+        padding: 4px 6px 4px 5px;
+    }
+    .zb-agent-picker-left {
+        gap: 7px;
+    }
+    .zb-agent-picker-left img {
+        width: 34px;
+        height: 34px;
+    }
+    .zb-roster-name {
+        font-size: 12px;
+    }
+    .zb-roster-sub {
+        font-size: 9px;
+    }
+    .zb-agent-picker-cta {
+        padding: 6px 8px;
+        font-size: 9.5px;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 399px) {
+    .zb-cta-count {
+        display: none;
+    }
+}
+
 /* HUD central de résumé du build actif (comble le vide) */
 .zb-build-hud {
     flex: 1;
@@ -327,14 +366,15 @@
     }
 }
 
-/* Illustration de l'Agent floutée en arrière-plan comme dans le jeu */
+/* Illustration de l'Agent floutée en arrière-plan (image unique sans doublon) */
 .zzz-eq-bg-art {
     position: absolute;
     inset: 0;
-    background-position: 50% 12%;
-    background-repeat: no-repeat;
-    background-size: 380px auto;
-    filter: blur(5px) brightness(0.32) contrast(1.08);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 18%;
+    filter: blur(6px) brightness(0.3) contrast(1.08);
     transform: scale(1.06);
     pointer-events: none;
     z-index: 0;
@@ -342,8 +382,8 @@
 
 @media (min-width: 768px) {
     .zzz-eq-bg-art {
-        background-position: 62% 18%;
-        background-size: 560px auto;
+        object-fit: contain;
+        object-position: 62% 20%;
     }
 }
 
@@ -456,6 +496,13 @@
 .zzz-pill-btn:disabled {
     opacity: 0.42;
     cursor: not-allowed;
+}
+
+.zzz-pill-btn.confirm-danger {
+    background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+    border-color: #f87171;
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.45);
 }
 
 .zzz-pill-icon {
