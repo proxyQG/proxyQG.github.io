@@ -2664,7 +2664,7 @@
             link.href = 'gacha/gacha-builds.css?v=11';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=16').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=17').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
