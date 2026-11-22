@@ -52,7 +52,7 @@
     async function ensureDictLoaded() {
         if (DICT) return;
         try {
-            const mod = await import('./gacha-i18n.js?v=5');
+            const mod = await import('./gacha-i18n.js?v=6');
             DICT = mod.GACHA_I18N;
         } catch (e) {
             console.error('Erreur chargement gacha-i18n.js :', e);
@@ -372,6 +372,10 @@
         }
         if (animOverlayEl && animOverlayEl.classList.contains('active')) {
             animOverlayEl.classList.remove('active');
+            renderCurrentTab(false);
+            return;
+        }
+        if (window.ZZZBuilds?.closeRecDrawer?.()) {
             return;
         }
         if (modalEl && modalEl.classList.contains('visible')) {
@@ -583,6 +587,10 @@
         } catch (e) {
             console.error('Erreur chargement Gacha Pool:', e);
         }
+    }
+
+    function normSearch(str) {
+        return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     }
 
     function itemName(item) {
@@ -832,6 +840,9 @@
                 }
                 if (animOverlayEl && animOverlayEl.classList.contains('active')) {
                     animOverlayEl.classList.remove('active');
+                    renderCurrentTab(false);
+                } else if (window.ZZZBuilds?.closeRecDrawer?.()) {
+                    return;
                 } else {
                     closeGachaModal(false);
                 }
@@ -872,6 +883,9 @@
         else if (activeTab === 'quests') renderQuestsTab(mount);
         else if (activeTab === 'shop') renderShopTab(mount);
         else if (activeTab === 'collection') renderCollectionTab(mount);
+        else if (activeTab === 'builds' || activeTab === 'badges') {
+            window.ZZZBuilds?.refreshActiveView?.(activeTab);
+        }
 
         mount.scrollTop = resetScroll ? 0 : savedScroll;
     }
@@ -1111,8 +1125,8 @@
                 candidates = candidates.filter(i => i.type === filterCat);
             }
             if (query.trim()) {
-                const q = query.trim().toLowerCase();
-                candidates = candidates.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+                const q = normSearch(query.trim());
+                candidates = candidates.filter(i => normSearch(itemName(i)).includes(q) || normSearch(i.rawKey).includes(q));
             }
 
             const ordered = [...candidates].reverse().sort((a, b) => {
@@ -1441,10 +1455,12 @@
         const claimAllBtn = document.getElementById('btn-claim-all');
         if (claimAllBtn) {
             claimAllBtn.addEventListener('click', () => {
+                let gained = 0;
                 dailyList.forEach(q => {
                     if (q.progress >= q.max && !GState.daily.claimed[q.id]) {
                         GState.daily.claimed[q.id] = true;
                         GState.polychromes += q.reward;
+                        gained += q.reward;
                     }
                 });
                 Object.keys(ACH_CONFIG).forEach((key) => {
@@ -1452,6 +1468,7 @@
                     let info = getAchTierData(key, tierIdx, GState);
                     while (info.currentVal >= info.target) {
                         GState.polychromes += info.reward;
+                        gained += info.reward;
                         tierIdx++;
                         GState.achievements[key] = tierIdx;
                         info = getAchTierData(key, tierIdx, GState);
@@ -1460,6 +1477,7 @@
                 saveState(GState);
                 renderQuestsTab(mount);
                 updateTopCurrencies();
+                if (gained > 0) showGachaToast(`+${gained} Polychromes`);
             });
         }
 
@@ -1473,6 +1491,7 @@
                     saveState(GState);
                     renderQuestsTab(mount);
                     updateTopCurrencies();
+                    showGachaToast(`+${reward} Polychromes`);
                 }
             });
         });
@@ -1488,6 +1507,7 @@
                     saveState(GState);
                     renderQuestsTab(mount);
                     updateTopCurrencies();
+                    showGachaToast(`+${info.reward} Polychromes`);
                 }
             });
         });
@@ -1734,6 +1754,7 @@
                     saveState(GState);
                     renderShopTab(mount);
                     updateTopCurrencies();
+                    showGachaToast(isEnShop ? `Surplus recycled (+${totalGain} ✦)` : `Surplus recyclés (+${totalGain} ✦)`);
                 }
             });
         }
@@ -1772,8 +1793,8 @@
             if (!grid) return;
             let items = [...POOL.S_all.filter(i => i.type === targetType)].reverse();
             if (query.trim()) {
-                const q = query.trim().toLowerCase();
-                items = items.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+                const q = normSearch(query.trim());
+                items = items.filter(i => normSearch(itemName(i)).includes(q) || normSearch(i.rawKey).includes(q));
             }
             grid.innerHTML = items.map(it => {
                 const owned = GState.inventory[it.id]?.count || 0;
@@ -1870,31 +1891,8 @@
 
         const rankWeight = { S: 0, A: 1, B: 2 };
         const typeWeight = { agent: 0, engine: 1, disc: 2 };
-        let list = catalog.map(item => {
-            const owned = inv[item.id];
-            return {
-                ...item,
-                count: owned ? owned.count : 0,
-                unlocked: !!(owned && owned.count > 0)
-            };
-        });
-
-        if (colFilterType !== 'all') list = list.filter(i => i.type === colFilterType);
-        if (colFilterRank !== 'all') list = list.filter(i => i.rank === colFilterRank);
-        if (!colShowLocked) list = list.filter(i => i.unlocked);
-        if (colSearchQuery.trim()) {
-            const q = colSearchQuery.trim().toLowerCase();
-            list = list.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
-        }
-
-        list.sort((a, b) => {
-            if (a.unlocked !== b.unlocked) return a.unlocked ? -1 : 1;
-            const rw = (rankWeight[a.rank] ?? 9) - (rankWeight[b.rank] ?? 9);
-            if (rw !== 0) return rw;
-            const tw = (typeWeight[a.type] ?? 9) - (typeWeight[b.type] ?? 9);
-            if (tw !== 0) return tw;
-            return b.count - a.count;
-        });
+        const acElems = L().agentCard?.elements || {};
+        const tmRoles = L().targetModal?.roles || {};
 
         const typeLabel = (tp) => tp === 'agent' ? t.typeAgent : (tp === 'engine' ? t.typeEngine : t.typeDisc);
 
@@ -1963,8 +1961,13 @@
             if (colFilterRank !== 'all') filtered = filtered.filter(i => i.rank === colFilterRank);
             if (!colShowLocked) filtered = filtered.filter(i => i.unlocked);
             if (colSearchQuery.trim()) {
-                const q = colSearchQuery.trim().toLowerCase();
-                filtered = filtered.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+                const q = normSearch(colSearchQuery.trim());
+                filtered = filtered.filter(i =>
+                    normSearch(itemName(i)).includes(q)
+                    || normSearch(i.rawKey).includes(q)
+                    || normSearch(acElems[i.element] || i.element).includes(q)
+                    || normSearch(tmRoles[i.role] || i.role).includes(q)
+                );
             }
 
             filtered.sort((a, b) => {
@@ -2009,9 +2012,11 @@
                     }
                 }
 
+                const elemTxt = acElems[it.element] || it.element || '';
+                const roleTxt = tmRoles[it.role] || it.role || typeLabel(it.type);
                 const subText = it.type === 'agent'
-                    ? `${it.element || ''} • ${it.role || typeLabel(it.type)}`
-                    : (it.type === 'engine' && it.role ? `${it.role}` : typeLabel(it.type));
+                    ? `${elemTxt} • ${roleTxt}`
+                    : (it.type === 'engine' && it.role ? roleTxt : typeLabel(it.type));
 
                 return `
                 <div class="gacha-col-card rank-${it.rank} ${it.unlocked ? '' : 'is-locked'}"
@@ -2601,7 +2606,7 @@
             link.href = 'gacha/gacha-builds.css?v=11';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=13').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=14').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
