@@ -2491,6 +2491,7 @@
         tvAnimTimers.push(setTimeout(() => {
             if (!skipRequested && mySession === tvAnimSession) showFinalScreen();
         }, totalDuration));
+    }
 
     function renderSearchResultsScreen(results) {
         animOverlayEl.onclick = null;
