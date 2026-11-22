@@ -169,7 +169,7 @@ function buildStats(data, c, txt) {
         <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full min-w-0 shadow-inner flex flex-col justify-center">
             <div class="flex items-baseline justify-between gap-3 min-w-0">
                 <span class="text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug min-w-0 break-words">${escapeHTML(tStats(stat.label))}</span>
-                <span class="text-white font-black text-xl drop-shadow-md leading-tight shrink-0 text-right">${escapeHTML(stat.value)}</span>
+                <span class="text-white font-black text-xl drop-shadow-md leading-tight shrink-0 text-right">${escapeHTML(tData(stat.value))}</span>
             </div>
             ${noteHTML}
         </div>`;
@@ -606,7 +606,7 @@ function buildMindscapes(mindscapes, c) {
 // --- FONCTION PRINCIPALE (ASSEMBLAGE) ---
 
 export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta = null) {
-    const iconName = data.elementIcon || iconMap[data.element] || 'physique.png';
+    const iconName = data.elementIcon || iconMap[data.element] || 'physique.webp';
     const c = data.color || '#d7f70c';
     const txt = ui[currentLang] || ui.fr;
     
