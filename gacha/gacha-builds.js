@@ -961,6 +961,7 @@
         let showFilterBar = false;
         let filterSetKey = 'all';
         let showAllPartitions = false;
+        let filterEngineSpecialtyOnly = false;
         let bardicSetKey = '';
         let bardicSlot = 0;
         let unequipConfirmArmed = false;
@@ -1225,7 +1226,11 @@
 
             let gridItems = [];
             if (isEngineMode) {
-                gridItems = pool.allCatalog.filter(i => i.type === 'engine' && (st.inventory[i.id]?.count || 0) > 0);
+                gridItems = pool.allCatalog.filter(i => {
+                    if (i.type !== 'engine' || (st.inventory[i.id]?.count || 0) <= 0) return false;
+                    if (filterEngineSpecialtyOnly && (i.role || '').toLowerCase() !== (agent.role || '').toLowerCase()) return false;
+                    return true;
+                });
                 const rW = { S: 0, A: 1, B: 2 };
                 gridItems.sort((a, b) => (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9));
                 if (!selectedItemId || !gridItems.some(e => e.rawKey === selectedItemId)) {
@@ -1585,9 +1590,9 @@
 
                         <div class="zzz-eq-topbar">
                             <div class="zzz-eq-top-left">
-                                <button type="button" class="zzz-pill-btn ${showFilterBar ? 'active' : ''}" id="zzz-btn-filter">
+                                <button type="button" class="zzz-pill-btn ${(showFilterBar || (isEngineMode ? filterEngineSpecialtyOnly : (filterSetKey !== 'all' || showAllPartitions))) ? 'active' : ''}" id="zzz-btn-filter">
                                     <span class="zzz-pill-icon dark">${UI_SVGS.funnel}</span>
-                                    <span>${t.filterBtn}</span>
+                                    <span>${t.filterBtn}${(isEngineMode ? filterEngineSpecialtyOnly : (filterSetKey !== 'all' || showAllPartitions)) ? ' •' : ''}</span>
                                 </button>
                             </div>
 
@@ -1633,7 +1638,15 @@
                             <button type="button" class="gacha-col-filter-btn ${showAllPartitions ? 'active' : ''}" id="zzz-btn-all-slots">
                                 ${t.allPartitions}
                             </button>
-                        </div>` : ''}
+                        </div>` : (showFilterBar && isEngineMode ? `
+                        <div class="zzz-filter-drawer">
+                            <button type="button" class="gacha-col-filter-btn ${!filterEngineSpecialtyOnly ? 'active' : ''}" id="zzz-btn-eng-all">
+                                ${isLangEn ? 'All W-Engines' : 'Tous les Moteurs'}
+                            </button>
+                            <button type="button" class="gacha-col-filter-btn ${filterEngineSpecialtyOnly ? 'active' : ''}" id="zzz-btn-eng-spec">
+                                ${isLangEn ? `Specialty: ${tRole(agent.role)}` : `Spécialité : ${tRole(agent.role)}`}
+                            </button>
+                        </div>` : '')}
 
                         <div class="zzz-mobile-slots">
                             <button type="button" class="gacha-col-filter-btn ${isEngineMode ? 'active' : ''}" data-wheel-pick="engine">W-Engine</button>
@@ -1938,6 +1951,20 @@
                 renderBuildsTab(mount);
             });
 
+            document.getElementById('zzz-btn-eng-all')?.addEventListener('click', () => {
+                resetConfirmStates();
+                filterEngineSpecialtyOnly = false;
+                selectedItemId = null;
+                renderBuildsTab(mount);
+            });
+
+            document.getElementById('zzz-btn-eng-spec')?.addEventListener('click', () => {
+                resetConfirmStates();
+                filterEngineSpecialtyOnly = true;
+                selectedItemId = null;
+                renderBuildsTab(mount);
+            });
+
             document.getElementById('zzz-btn-lock-one')?.addEventListener('click', () => {
                 if (!isEngineMode && selectedObj) {
                     const t = B();
@@ -2041,6 +2068,7 @@
             document.getElementById('zzz-btn-batch-dismantle')?.addEventListener('click', dismantleBatchItems);
 
             document.getElementById('zzz-btn-open-bardic')?.addEventListener('click', () => {
+                resetConfirmStates();
                 bardicSlot = isEngineMode ? 0 : slotNum;
                 openBardicNeedleModal(mount);
             });
@@ -2075,10 +2103,12 @@
 
             mount.querySelectorAll('[data-rec-open-bardic]').forEach(row => {
                 row.addEventListener('click', () => {
+                    resetConfirmStates();
                     const prof = getGuideProfile(agent.rawKey);
                     if (prof.sets4[0]) bardicSetKey = prof.sets4[0];
                     bardicSlot = slotNum;
-                    openBardicNeedleModal(mount);
+                    const recStatKey = row.getAttribute('data-rec-open-bardic') || '';
+                    openBardicNeedleModal(mount, recStatKey);
                 });
             });
 
@@ -2090,10 +2120,14 @@
             });
 
             document.getElementById('zzz-rec-eng-details')?.addEventListener('click', () => {
-                if (window.__zzzRecEngKey && (st.inventory[`engine_${window.__zzzRecEngKey}`]?.count || 0) > 0) {
-                    selectedItemId = window.__zzzRecEngKey;
+                const targetKey = window.__zzzRecEngKey;
+                if (!targetKey) return;
+                if ((st.inventory[`engine_${targetKey}`]?.count || 0) > 0) {
+                    selectedItemId = targetKey;
                     window.__zzzRecOpen = false;
                     renderBuildsTab(mount);
+                } else {
+                    bridge.openItemModal?.('engine', targetKey);
                 }
             });
 
@@ -2136,16 +2170,23 @@
             });
 
             document.getElementById('zzz-btn-equip-all')?.addEventListener('click', () => {
-                unequipConfirmArmed = false;
-                clearTimeout(unequipConfirmTimer);
+                resetConfirmStates();
+                const beforeSnap = JSON.stringify({ e: ab.engineKey, d: ab.discs });
                 autoEquipFromGuide(st, pool, agent);
+                const afterSnap = JSON.stringify({ e: ab.engineKey, d: ab.discs });
                 bridge.saveState(st);
-                bridge.showToast?.(B().toastEquippedAll);
+                if (beforeSnap !== afterSnap) {
+                    bridge.showToast?.(B().toastEquippedAll);
+                } else {
+                    const isEn = (bridge.getLang?.() || 'fr') === 'en';
+                    bridge.showToast?.(isEn ? 'Already optimal or no spare gear' : 'Déjà optimal ou aucun équipement libre', 'warn');
+                }
                 renderBuildsTab(mount);
             });
 
             document.getElementById('zzz-btn-equip-or-remove')?.addEventListener('click', () => {
                 if (!selectedObj) return;
+                resetConfirmStates();
                 if (isEngineMode) {
                     if (ab.engineKey === selectedObj.rawKey) {
                         ab.engineKey = null;
@@ -2167,6 +2208,7 @@
 
             document.getElementById('zzz-btn-enhance')?.addEventListener('click', () => {
                 if (!isEngineMode && selectedObj && selectedObj.level < 15 && st.residual >= 4) {
+                    resetConfirmStates();
                     st.residual -= 4;
                     upgradeDiscOneStep(selectedObj);
                     bridge.saveState(st);
@@ -2179,6 +2221,7 @@
                 const steps = Math.ceil((15 - selectedObj.level) / 3);
                 const cost = steps * 4;
                 if (st.residual < cost) return;
+                resetConfirmStates();
                 st.residual -= cost;
                 while (selectedObj.level < 15) {
                     upgradeDiscOneStep(selectedObj);
@@ -2297,7 +2340,7 @@
         // ========================================================
         // 8. MAGASIN DE MUSIQUE (STUDIO BARDIC NEEDLE)
         // ========================================================
-        function openBardicNeedleModal(mount) {
+        function openBardicNeedleModal(mount, initialMainStat = '') {
             const bridge = window.ZZZGachaBridge;
             const st = bridge.getState();
             const pool = bridge.getPool();
@@ -2313,7 +2356,9 @@
             }
 
             let setSearch = '';
-            let selectedMainStat = '';
+            let selectedMainStat = (initialMainStat && bardicSlot >= 4 && PARTITION_WEIGHTS[bardicSlot]?.[initialMainStat])
+                ? initialMainStat
+                : '';
             let selectedSubStats = [];
             let lastCraftedList = [];
 
@@ -2490,7 +2535,9 @@
                                 </div>
 
                                 <div style="display:flex;flex-direction:column;gap:5px;max-height:115px;overflow-y:auto;">
-                                    ${lastCraftedList.map(d => `
+                                    ${lastCraftedList.map(d => {
+                                        const isEqNow = !!(activeAgent && getDiscOwner(st, d.uid) === activeAgent.rawKey);
+                                        return `
                                         <div style="background:#141520;border:1.5px solid #d7f70c;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
                                             <div style="min-width:0;flex:1;">
                                                 <div style="font-size:10px;font-weight:900;color:#d7f70c;">
@@ -2501,11 +2548,11 @@
                                                 </div>
                                             </div>
                                             ${activeAgent ? `
-                                            <button type="button" class="gacha-claim-btn can-claim" data-quick-equip="${d.uid}" data-qslot="${d.slot}" style="padding:5px 9px;font-size:9.5px;">
-                                                ${t.equipNow}
+                                            <button type="button" class="gacha-claim-btn ${isEqNow ? '' : 'can-claim'}" data-quick-equip="${d.uid}" data-qslot="${d.slot}" ${isEqNow ? 'disabled' : ''} style="padding:5px 9px;font-size:9.5px;">
+                                                ${isEqNow ? t.equippedTag : t.equipNow}
                                             </button>` : ''}
-                                        </div>
-                                    `).join('')}
+                                        </div>`;
+                                    }).join('')}
                                 </div>
 
                                 ${stockForCurrentSet <= 0 ? `
@@ -2638,8 +2685,8 @@
                             activeWheelTarget = sl;
                             selectedItemId = uid;
                             bridge.saveState(st);
-                            btn.textContent = t.equippedTag;
-                            btn.disabled = true;
+                            bridge.showToast?.(`${t.equippedTag} [${sl}]`);
+                            renderBardic();
                         }
                     });
                 });
