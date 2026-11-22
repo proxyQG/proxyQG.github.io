@@ -52,7 +52,7 @@
     async function ensureDictLoaded() {
         if (DICT) return;
         try {
-            const mod = await import('./gacha-i18n.js?v=6');
+            const mod = await import('./gacha-i18n.js?v=7');
             DICT = mod.GACHA_I18N;
         } catch (e) {
             console.error('Erreur chargement gacha-i18n.js :', e);
@@ -159,9 +159,25 @@
             };
         }
 
-        if (!state.inventory) state.inventory = {};
+        const safeInt = (v, fb = 0, max = Infinity) => {
+            const n = Number(v);
+            return Number.isFinite(n) ? Math.min(max, Math.max(0, Math.floor(n))) : fb;
+        };
+        state.polychromes = safeInt(state.polychromes, 3200);
+        state.tapes = safeInt(state.tapes, 10);
+        state.residual = safeInt(state.residual, 0);
+        state.pityS = safeInt(state.pityS, 0, 89);
+        state.pityA = safeInt(state.pityA, 0, 9);
+        state.totalPulls = safeInt(state.totalPulls, 0);
+        state.totalSPulls = safeInt(state.totalSPulls, 0);
+        state.totalAPulls = safeInt(state.totalAPulls, 0);
+        state.totalDupesRes = safeInt(state.totalDupesRes, 0);
+        state.totalGuidesRead = safeInt(state.totalGuidesRead, 0);
+        state.guaranteedFeatured = !!state.guaranteedFeatured;
+
+        if (!state.inventory || typeof state.inventory !== 'object') state.inventory = {};
         if (!Array.isArray(state.recentDrops)) state.recentDrops = [];
-        if (!state.achievements) state.achievements = { a1: 0, a2: 0, a3: 0, a4: 0, a5: 0, a6: 0 };
+        if (!state.achievements || typeof state.achievements !== 'object') state.achievements = { a1: 0, a2: 0, a3: 0, a4: 0, a5: 0, a6: 0 };
 
         let invSCount = 0;
         let invACount = 0;
@@ -1772,12 +1788,13 @@
         }
 
         document.getElementById('buy-box-a').addEventListener('click', () => {
-            if (GState.residual >= 80 && POOL.A_all.length > 0) {
+            const boxAPool = POOL.A_all.filter(i => i.type === 'agent' || i.type === 'engine');
+            if (GState.residual >= 80 && boxAPool.length > 0) {
                 GState.residual -= 80;
-                const won = registerItemToInventory(pickRandom(POOL.A_all));
+                const won = registerItemToInventory(pickRandom(boxAPool));
                 saveState(GState);
                 updateTopCurrencies();
-                renderSearchResultsScreen([won]);
+                renderSearchResultsScreen([won], true);
                 animOverlayEl.classList.add('active');
             }
         });
@@ -1835,7 +1852,7 @@
                         const won = registerItemToInventory(chosen);
                         saveState(GState);
                         updateTopCurrencies();
-                        renderSearchResultsScreen([won]);
+                        renderSearchResultsScreen([won], true);
                     } else {
                         animOverlayEl.classList.remove('active');
                         openItemFromGacha(chosen.type, chosen.rawKey);
@@ -2142,7 +2159,11 @@
                 <div style="border-top:1px solid #262630;padding-top:12px;display:flex;flex-direction:column;gap:8px;">
                     <label style="font-size:11.5px;font-weight:800;color:#d4d4d8;text-transform:uppercase;">${b.importLabel}</label>
                     <textarea id="backup-import-input" rows="3" placeholder="${b.importPlaceholder}" style="width:100%;background:#09090d;border:1px solid #2e2e3a;border-radius:10px;padding:10px;color:#fff;font-family:monospace;font-size:11px;resize:none;"></textarea>
-                    <button type="button" id="btn-restore-backup" class="gacha-shop-btn primary-purple">${b.importBtn}</button>
+                    <input type="file" id="backup-file-input" accept=".json,application/json" style="display:none;">
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button type="button" id="btn-restore-backup" class="gacha-shop-btn primary-purple" style="flex:1;">${b.importBtn}</button>
+                        <button type="button" id="btn-upload-backup" class="gacha-shop-btn secondary-purple" style="flex:1;">${b.importFileBtn || 'Importer (.json)'}</button>
+                    </div>
                 </div>
 
                 <button type="button" class="gacha-res-btn" id="close-backup-modal" style="align-self:flex-end;">${b.close}</button>
@@ -2183,12 +2204,12 @@
             URL.revokeObjectURL(url);
         });
 
-        document.getElementById('btn-restore-backup').addEventListener('click', () => {
-            const raw = document.getElementById('backup-import-input').value.trim();
-            if (!raw) return;
-            let parsed = decodeBackupCode(raw);
+        function applyBackupPayload(raw) {
+            const clean = String(raw || '').trim();
+            if (!clean) return;
+            let parsed = decodeBackupCode(clean);
             if (!parsed) {
-                try { parsed = JSON.parse(raw); } catch (e) {}
+                try { parsed = JSON.parse(clean); } catch (e) {}
             }
             if (parsed && typeof parsed === 'object' && parsed.inventory) {
                 if (scoreState(parsed) < scoreState(GState)) {
@@ -2205,6 +2226,25 @@
                 msgEl.style.color = '#ef4444';
                 msgEl.textContent = b.importError;
             }
+        }
+
+        document.getElementById('btn-restore-backup').addEventListener('click', () => {
+            applyBackupPayload(document.getElementById('backup-import-input').value);
+        });
+
+        const fileInp = document.getElementById('backup-file-input');
+        document.getElementById('btn-upload-backup').addEventListener('click', () => fileInp?.click());
+        fileInp?.addEventListener('change', (ev) => {
+            const file = ev.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => applyBackupPayload(reader.result);
+            reader.onerror = () => {
+                msgEl.style.color = '#ef4444';
+                msgEl.textContent = b.importError;
+            };
+            reader.readAsText(file);
+            ev.target.value = '';
         });
 
         document.getElementById('close-backup-modal').addEventListener('click', () => {
@@ -2493,7 +2533,7 @@
         }, totalDuration));
     }
 
-    function renderSearchResultsScreen(results) {
+    function renderSearchResultsScreen(results, fromShop = false) {
         animOverlayEl.onclick = null;
         const t = L().results;
         const rankWeight = { S: 0, A: 1, B: 2 };
@@ -2501,15 +2541,18 @@
 
         const singleStyle = results.length === 1 ? 'aspect-ratio:1/1.05;' : '';
 
-       const cardsHTML = sorted.map((item, idx) => {
+        const cardsHTML = sorted.map((item, idx) => {
             const delay = idx * 45;
             const fitClass = item.type === 'agent' ? 'is-agent' : 'is-equip';
             const badgePos = item.type === 'agent' ? 'left:5px;' : 'right:5px;';
+            const dupTag = fromShop
+                ? (item.type === 'agent' ? `M${Math.min(6, Math.max(0, (item.count || 1) - 1))}` : `×${item.count || 1}`)
+                : `✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}`;
             const topBadge = item.type === 'disc'
                 ? `<span style="position:absolute;top:5px;right:5px;z-index:10;background:#38bdf8;color:#000;font-size:8.5px;font-weight:900;padding:2px 6px;border-radius:4px;">PACK ×${item.qtyAdded || 3}</span>`
                 : (item.isNew
                     ? `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:#d7f70c;color:#000;font-size:8.5px;font-weight:900;padding:2px 5px;border-radius:4px;">${t.newBadge}</span>`
-                    : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">✦ +${item.rank === 'S' ? 40 : (item.rank === 'A' ? 8 : 2)}</span>`);
+                    : `<span style="position:absolute;top:5px;${badgePos}z-index:10;background:rgba(0,0,0,0.82);color:#e4e4e7;font-family:monospace;font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);">${dupTag}</span>`);
 
             return `
             <div class="gacha-result-card rank-${item.rank}" style="animation-delay:${delay}ms;${singleStyle}"
@@ -2536,10 +2579,11 @@
                             <img src="${ASSETS.polychrome}" style="width:16px;height:16px;object-fit:contain;" ${iconFallback('poly')}> ${GState.polychromes}
                         </span>
                     </div>
+                    ${!fromShop ? `
                     <button type="button" id="gacha-again-btn" class="gacha-res-btn">
                         ${results.length === 10 ? t.pullAgain10 : t.pullAgain1}
-                    </button>
-                    <button type="button" id="gacha-confirm-results" class="gacha-res-btn primary">
+                    </button>` : ''}
+                    <button type="button" id="gacha-confirm-results" class="gacha-res-btn primary" style="${fromShop ? 'grid-column:span 2;' : ''}">
                         ${t.confirm}
                     </button>
                 </div>
@@ -2551,7 +2595,7 @@
             renderCurrentTab(false);
         });
 
-        document.getElementById('gacha-again-btn').addEventListener('click', () => {
+        document.getElementById('gacha-again-btn')?.addEventListener('click', () => {
             animOverlayEl.classList.remove('active');
             triggerPull(results.length);
         });
@@ -2620,7 +2664,7 @@
             link.href = 'gacha/gacha-builds.css?v=11';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=15').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=16').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
