@@ -308,6 +308,8 @@
     let miniCardOverlayEl = null;
     let gachaOpenedAt = 0;
 
+    let ignoreNextGachaPop = false;
+
     function closeGachaModal(fromPopState = false) {
         if (!modalEl) return;
         modalEl.classList.remove('visible');
@@ -316,7 +318,8 @@
         document.body.classList.remove('modal-open');
         if (!fromPopState && window.history.state?.gachaOpen) {
             try {
-                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+                ignoreNextGachaPop = true;
+                window.history.back();
             } catch (e) {}
         }
     }
@@ -352,6 +355,10 @@
     };
 
     window.addEventListener('popstate', (e) => {
+        if (ignoreNextGachaPop) {
+            ignoreNextGachaPop = false;
+            return;
+        }
         // Ignore tout popstate résiduel déclenché par la fermeture du menu mobile lors de l'ouverture du Gacha
         if (Date.now() - gachaOpenedAt < 500) {
             return;
@@ -894,15 +901,18 @@
         const rWord = t.rankWord || 'RANG';
         const recentHTML = (GState.recentDrops || []).length === 0
             ? `<div style="font-size:11.5px;color:#71717a;font-weight:600;padding:6px 2px;">${t.recentDropsEmpty}</div>`
-            : GState.recentDrops.map(d => `
+            : GState.recentDrops.map(d => {
+                const liveItem = POOL.allCatalog.find(c => c.id === d.id) || d;
+                const liveName = itemName(liveItem);
+                return `
                 <div class="gacha-hist-chip rank-${d.rank}" data-h-type="${d.type}" data-h-key="${d.rawKey}">
-                    <img src="${d.img}" alt="${itemName(d)}">
+                    <img src="${liveItem.img || d.img}" alt="${liveName}">
                     <div style="display:flex;flex-direction:column;gap:1px;">
-                        <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10.5px;color:#fff;text-transform:uppercase;">${itemName(d)}</span>
+                        <span style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:10.5px;color:#fff;text-transform:uppercase;">${liveName}</span>
                         <span style="font-family:monospace;font-size:9.5px;font-weight:800;color:${d.rank === 'S' ? '#facc15' : '#c084fc'};">${rWord} ${d.rank}</span>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
 
         mount.innerHTML = `
             <div class="gacha-page-wrap">
@@ -1086,7 +1096,9 @@
 
         animOverlayEl.classList.add('active');
 
-        function renderSelectorContent() {
+        function renderTargetGridOnly() {
+            const grid = document.getElementById('target-selector-grid');
+            if (!grid) return;
             const primaryObj = getPrimaryFeatured();
             const secondaryObj = getSecondaryFeatured(primaryObj);
             const activeKey = slotNum === 1 ? primaryObj.rawKey : (secondaryObj.id || secondaryObj.rawKey);
@@ -1109,6 +1121,43 @@
                 return bSel - aSel;
             });
 
+            grid.innerHTML = ordered.map(it => {
+                const isSelected = (slotNum === 1 ? it.rawKey === activeKey : (it.id === activeKey || it.rawKey === activeKey));
+                const ownedCount = GState.inventory[it.id]?.count || 0;
+                const ownedBadge = ownedCount > 0
+                    ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `×${ownedCount}`)
+                    : tm.unownedTag;
+                const roleTranslated = (tm.roles && tm.roles[it.role]) || it.role || 'S-Rank';
+
+                return `
+                <div class="gacha-col-card rank-S" data-pick-id="${it.id}" data-pick-key="${it.rawKey}"
+                     style="${isSelected ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
+                    <div class="gacha-col-visual">
+                        ${isSelected ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${tm.selectedTag}</span>` : (it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : '')}
+                        <span class="gacha-col-dupe-tag ${ownedCount > 0 ? 'maxed' : ''}">${ownedBadge}</span>
+                        <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
+                    </div>
+                    <div class="gacha-col-info">
+                        <span class="gacha-col-name">${itemName(it)}</span>
+                        <span class="gacha-col-sub">${roleTranslated}</span>
+                    </div>
+                </div>`;
+            }).join('');
+
+            grid.querySelectorAll('[data-pick-key]').forEach(card => {
+                card.addEventListener('click', () => {
+                    if (slotNum === 1) GState.selectedRateUp = card.getAttribute('data-pick-key');
+                    else GState.selectedRateUp2 = card.getAttribute('data-pick-id');
+                    saveState(GState);
+                    renderCurrentTab(false);
+                    renderSelectorContent();
+                });
+            });
+        }
+
+        function renderSelectorContent() {
+            const primaryObj = getPrimaryFeatured();
+            const secondaryObj = getSecondaryFeatured(primaryObj);
             const phText = slotNum === 1 ? (tm.searchPlaceholder1 || tm.searchPlaceholder) : tm.searchPlaceholder;
 
             animOverlayEl.innerHTML = `
@@ -1142,30 +1191,7 @@
                     </div>
 
                     <div class="gacha-selector-scroll custom-scrollbar">
-                        <div class="gacha-selector-grid">
-                            ${ordered.map(it => {
-                                const isSelected = (slotNum === 1 ? it.rawKey === activeKey : (it.id === activeKey || it.rawKey === activeKey));
-                                const ownedCount = GState.inventory[it.id]?.count || 0;
-                                const ownedBadge = ownedCount > 0
-                                    ? (it.type === 'agent' ? `M${Math.min(6, ownedCount - 1)}` : `×${ownedCount}`)
-                                    : tm.unownedTag;
-                                const roleTranslated = (tm.roles && tm.roles[it.role]) || it.role || 'S-Rank';
-
-                                return `
-                                <div class="gacha-col-card rank-S" data-pick-id="${it.id}" data-pick-key="${it.rawKey}"
-                                     style="${isSelected ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
-                                    <div class="gacha-col-visual">
-                                        ${isSelected ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${tm.selectedTag}</span>` : (it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : '')}
-                                        <span class="gacha-col-dupe-tag ${ownedCount > 0 ? 'maxed' : ''}">${ownedBadge}</span>
-                                        <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
-                                    </div>
-                                    <div class="gacha-col-info">
-                                        <span class="gacha-col-name">${itemName(it)}</span>
-                                        <span class="gacha-col-sub">${roleTranslated}</span>
-                                    </div>
-                                </div>`;
-                            }).join('')}
-                        </div>
+                        <div class="gacha-selector-grid" id="target-selector-grid"></div>
                     </div>
                 </div>
             `;
@@ -1186,35 +1212,17 @@
             animOverlayEl.querySelectorAll('[data-tcat]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     filterCat = btn.getAttribute('data-tcat');
-                    renderSelectorContent();
+                    animOverlayEl.querySelectorAll('[data-tcat]').forEach(b => b.classList.toggle('active', b === btn));
+                    renderTargetGridOnly();
                 });
             });
 
-            const sInp = document.getElementById('target-search-inp');
-            if (sInp) {
-                sInp.addEventListener('input', (e) => {
-                    query = e.target.value;
-                    renderSelectorContent();
-                    const nextInp = document.getElementById('target-search-inp');
-                    if (nextInp) {
-                        nextInp.focus();
-                        nextInp.setSelectionRange(nextInp.value.length, nextInp.value.length);
-                    }
-                });
-            }
-
-            animOverlayEl.querySelectorAll('[data-pick-key]').forEach(card => {
-                card.addEventListener('click', () => {
-                    if (slotNum === 1) {
-                        GState.selectedRateUp = card.getAttribute('data-pick-key');
-                    } else {
-                        GState.selectedRateUp2 = card.getAttribute('data-pick-id');
-                    }
-                    saveState(GState);
-                    renderCurrentTab(false);
-                    renderSelectorContent();
-                });
+            document.getElementById('target-search-inp')?.addEventListener('input', (e) => {
+                query = e.target.value;
+                renderTargetGridOnly();
             });
+
+            renderTargetGridOnly();
         }
 
         renderSelectorContent();
@@ -1759,69 +1767,32 @@
 
         animOverlayEl.classList.add('active');
 
-        function renderCatalog() {
+        function renderShopGridOnly() {
+            const grid = document.getElementById('shop-selector-grid');
+            if (!grid) return;
             let items = [...POOL.S_all.filter(i => i.type === targetType)].reverse();
             if (query.trim()) {
                 const q = query.trim().toLowerCase();
                 items = items.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
             }
-
-            animOverlayEl.innerHTML = `
-                <div class="gacha-dialog-box">
-                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
-                        <div>
-                            <span class="gacha-patch-tag">SIGNAL SHOP • ${GState.residual} / ${cost} ✦</span>
-                            <h2 class="gacha-panel-title">${titleText}</h2>
-                            ${!canAfford ? `<p class="gacha-panel-desc" style="color:#facc15;font-weight:700;">⚠️ ${t.selectorInsufficient.replace('{missing}', missing)}</p>` : ''}
-                        </div>
-                        <button type="button" class="gacha-res-btn" id="close-shop-selector">${tm.close}</button>
+            grid.innerHTML = items.map(it => {
+                const owned = GState.inventory[it.id]?.count || 0;
+                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `×${owned}`) : tm.unownedTag;
+                return `
+                <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
+                    <div class="gacha-col-visual">
+                        ${it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : ''}
+                        <span class="gacha-col-dupe-tag ${owned > 0 ? 'maxed' : ''}">${badge}</span>
+                        <img src="${it.img}" loading="lazy" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
                     </div>
-
-                    <div class="gacha-col-controls" style="flex-shrink:0;">
-                        <input type="text" class="gacha-col-search" id="shop-cat-search" placeholder="${tm.searchPlaceholder}" value="${query.replace(/"/g, '&quot;')}" style="width:100%;">
+                    <div class="gacha-col-info">
+                        <span class="gacha-col-name">${itemName(it)}</span>
+                        <span class="gacha-col-sub">${canAfford ? `${cost} ✦` : it.role || 'S-Rank'}</span>
                     </div>
+                </div>`;
+            }).join('');
 
-                    <div class="gacha-selector-scroll custom-scrollbar">
-                        <div class="gacha-selector-grid">
-                            ${items.map(it => {
-                                const owned = GState.inventory[it.id]?.count || 0;
-                                const badge = owned > 0 ? (it.type === 'agent' ? `M${Math.min(6, owned - 1)}` : `×${owned}`) : tm.unownedTag;
-                                return `
-                                <div class="gacha-col-card rank-S" data-shop-pick="${it.id}">
-                                    <div class="gacha-col-visual">
-                                        ${it.type !== 'agent' ? `<span class="gacha-col-rank-tag">S</span>` : ''}
-                                        <span class="gacha-col-dupe-tag ${owned > 0 ? 'maxed' : ''}">${badge}</span>
-                                        <img src="${it.img}" loading="lazy" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
-                                    </div>
-                                    <div class="gacha-col-info">
-                                        <span class="gacha-col-name">${itemName(it)}</span>
-                                        <span class="gacha-col-sub">${canAfford ? `${cost} ✦` : it.role || 'S-Rank'}</span>
-                                    </div>
-                                </div>`;
-                            }).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('close-shop-selector').addEventListener('click', () => {
-                animOverlayEl.classList.remove('active');
-            });
-
-            const sInp = document.getElementById('shop-cat-search');
-            if (sInp) {
-                sInp.addEventListener('input', (e) => {
-                    query = e.target.value;
-                    renderCatalog();
-                    const nextInp = document.getElementById('shop-cat-search');
-                    if (nextInp) {
-                        nextInp.focus();
-                        nextInp.setSelectionRange(nextInp.value.length, nextInp.value.length);
-                    }
-                });
-            }
-
-            animOverlayEl.querySelectorAll('[data-shop-pick]').forEach(card => {
+            grid.querySelectorAll('[data-shop-pick]').forEach(card => {
                 card.addEventListener('click', () => {
                     const pickedId = card.getAttribute('data-shop-pick');
                     const chosen = POOL.S_all.find(i => i.id === pickedId);
@@ -1838,6 +1809,40 @@
                     }
                 });
             });
+        }
+
+        function renderCatalog() {
+            animOverlayEl.innerHTML = `
+                <div class="gacha-dialog-box">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+                        <div>
+                            <span class="gacha-patch-tag">SIGNAL SHOP • ${GState.residual} / ${cost} ✦</span>
+                            <h2 class="gacha-panel-title">${titleText}</h2>
+                            ${!canAfford ? `<p class="gacha-panel-desc" style="color:#facc15;font-weight:700;">⚠️ ${t.selectorInsufficient.replace('{missing}', missing)}</p>` : ''}
+                        </div>
+                        <button type="button" class="gacha-res-btn" id="close-shop-selector">${tm.close}</button>
+                    </div>
+
+                    <div class="gacha-col-controls" style="flex-shrink:0;">
+                        <input type="text" class="gacha-col-search" id="shop-cat-search" placeholder="${tm.searchPlaceholder}" value="${query.replace(/"/g, '&quot;')}" style="width:100%;">
+                    </div>
+
+                    <div class="gacha-selector-scroll custom-scrollbar">
+                        <div class="gacha-selector-grid" id="shop-selector-grid"></div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('close-shop-selector').addEventListener('click', () => {
+                animOverlayEl.classList.remove('active');
+            });
+
+            document.getElementById('shop-cat-search')?.addEventListener('input', (e) => {
+                query = e.target.value;
+                renderShopGridOnly();
+            });
+
+            renderShopGridOnly();
         }
 
         renderCatalog();
@@ -1941,108 +1946,130 @@
                     </label>
                 </div>
 
-                ${list.length === 0 ? `<div style="text-align:center;padding:44px 10px;color:#71717a;font-weight:700;">${t.emptyFilter}</div>` : `
-                <div class="gacha-col-grid">
-                    ${list.map(it => {
-                        let progBadge = '';
-                        let isMax = false;
-                        if (it.unlocked) {
-                            if (it.type === 'agent') {
-                                const mLvl = Math.min(6, it.count - 1);
-                                isMax = mLvl >= 6;
-                                progBadge = isMax ? `M6 MAX` : `M${mLvl}`;
-                            } else {
-                                progBadge = `×${it.count}`;
-                            }
-                        } else {
-                            progBadge = t.lockedLabel;
-                        }
-
-                        const rankBadgeHTML = it.type !== 'agent'
-                            ? `<span class="gacha-col-rank-tag">${it.rank}</span>`
-                            : '';
-
-                        let buildBadgeHTML = '';
-                        if (it.unlocked && it.type === 'agent') {
-                            const ab = GState.buildSystem?.agentBuilds?.[it.rawKey];
-                            const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
-                            const hasEng = !!ab?.engineKey;
-                            if (eqDiscs > 0 || hasEng) {
-                                const isFull = eqDiscs === 6 && hasEng;
-                                buildBadgeHTML = `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>`;
-                            }
-                        }
-
-                        const subText = it.type === 'agent'
-                            ? `${it.element || ''} • ${it.role || typeLabel(it.type)}`
-                            : (it.type === 'engine' && it.role ? `${it.role}` : typeLabel(it.type));
-
-                        return `
-                        <div class="gacha-col-card rank-${it.rank} ${it.unlocked ? '' : 'is-locked'}"
-                             data-col-type="${it.type}" data-col-key="${it.rawKey}">
-                            <div class="gacha-col-visual">
-                                ${rankBadgeHTML}
-                                ${buildBadgeHTML}
-                                <span class="gacha-col-dupe-tag ${isMax ? 'maxed' : ''}">${progBadge}</span>
-                                <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
-                            </div>
-                            <div class="gacha-col-info">
-                                <span class="gacha-col-name">${itemName(it)}</span>
-                                <span class="gacha-col-sub">${subText}</span>
-                            </div>
-                        </div>`;
-                    }).join('')}
-                </div>`}
+                <div id="gacha-col-grid-wrap"></div>
             </div>
         `;
+
+        function renderCollectionGridOnly() {
+            const wrap = document.getElementById('gacha-col-grid-wrap');
+            if (!wrap) return;
+
+            let filtered = catalog.map(item => {
+                const owned = inv[item.id];
+                return { ...item, count: owned ? owned.count : 0, unlocked: !!(owned && owned.count > 0) };
+            });
+
+            if (colFilterType !== 'all') filtered = filtered.filter(i => i.type === colFilterType);
+            if (colFilterRank !== 'all') filtered = filtered.filter(i => i.rank === colFilterRank);
+            if (!colShowLocked) filtered = filtered.filter(i => i.unlocked);
+            if (colSearchQuery.trim()) {
+                const q = colSearchQuery.trim().toLowerCase();
+                filtered = filtered.filter(i => itemName(i).toLowerCase().includes(q) || (i.rawKey || '').toLowerCase().includes(q));
+            }
+
+            filtered.sort((a, b) => {
+                if (a.unlocked !== b.unlocked) return a.unlocked ? -1 : 1;
+                const rw = (rankWeight[a.rank] ?? 9) - (rankWeight[b.rank] ?? 9);
+                if (rw !== 0) return rw;
+                const tw = (typeWeight[a.type] ?? 9) - (typeWeight[b.type] ?? 9);
+                if (tw !== 0) return tw;
+                return b.count - a.count;
+            });
+
+            if (filtered.length === 0) {
+                wrap.innerHTML = `<div style="text-align:center;padding:44px 10px;color:#71717a;font-weight:700;">${t.emptyFilter}</div>`;
+                return;
+            }
+
+            wrap.innerHTML = `<div class="gacha-col-grid">${filtered.map(it => {
+                let progBadge = '';
+                let isMax = false;
+                if (it.unlocked) {
+                    if (it.type === 'agent') {
+                        const mLvl = Math.min(6, it.count - 1);
+                        isMax = mLvl >= 6;
+                        progBadge = isMax ? `M6 MAX` : `M${mLvl}`;
+                    } else {
+                        progBadge = `×${it.count}`;
+                    }
+                } else {
+                    progBadge = t.lockedLabel;
+                }
+
+                const rankBadgeHTML = it.type !== 'agent' ? `<span class="gacha-col-rank-tag">${it.rank}</span>` : '';
+
+                let buildBadgeHTML = '';
+                if (it.unlocked && it.type === 'agent') {
+                    const ab = GState.buildSystem?.agentBuilds?.[it.rawKey];
+                    const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
+                    const hasEng = !!ab?.engineKey;
+                    if (eqDiscs > 0 || hasEng) {
+                        const isFull = eqDiscs === 6 && hasEng;
+                        buildBadgeHTML = `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>`;
+                    }
+                }
+
+                const subText = it.type === 'agent'
+                    ? `${it.element || ''} • ${it.role || typeLabel(it.type)}`
+                    : (it.type === 'engine' && it.role ? `${it.role}` : typeLabel(it.type));
+
+                return `
+                <div class="gacha-col-card rank-${it.rank} ${it.unlocked ? '' : 'is-locked'}"
+                     data-col-type="${it.type}" data-col-key="${it.rawKey}">
+                    <div class="gacha-col-visual">
+                        ${rankBadgeHTML}
+                        ${buildBadgeHTML}
+                        <span class="gacha-col-dupe-tag ${isMax ? 'maxed' : ''}">${progBadge}</span>
+                        <img src="${it.img}" loading="lazy" alt="${itemName(it)}" class="${it.type === 'agent' ? 'is-agent' : 'is-equip'}">
+                    </div>
+                    <div class="gacha-col-info">
+                        <span class="gacha-col-name">${itemName(it)}</span>
+                        <span class="gacha-col-sub">${subText}</span>
+                    </div>
+                </div>`;
+            }).join('')}</div>`;
+
+            wrap.querySelectorAll('[data-col-type]').forEach(card => {
+                card.addEventListener('click', () => {
+                    const type = card.getAttribute('data-col-type');
+                    const key = card.getAttribute('data-col-key');
+                    const isUnlocked = !card.classList.contains('is-locked');
+                    if (type === 'agent' && isUnlocked && window.ZZZBuilds?.openAgentBuild) {
+                        window.ZZZBuilds.openAgentBuild(key);
+                        return;
+                    }
+                    openItemFromGacha(type, key);
+                });
+            });
+        }
 
         mount.querySelectorAll('[data-cfilter]').forEach(btn => {
             btn.addEventListener('click', () => {
                 colFilterType = btn.getAttribute('data-cfilter');
-                renderCollectionTab(mount);
+                mount.querySelectorAll('[data-cfilter]').forEach(b => b.classList.toggle('active', b === btn));
+                renderCollectionGridOnly();
             });
         });
 
         mount.querySelectorAll('[data-rfilter]').forEach(btn => {
             btn.addEventListener('click', () => {
                 colFilterRank = btn.getAttribute('data-rfilter');
-                renderCollectionTab(mount);
+                mount.querySelectorAll('[data-rfilter]').forEach(b => b.classList.toggle('active', b === btn));
+                renderCollectionGridOnly();
             });
         });
 
-        const searchInp = document.getElementById('col-search-input');
-        if (searchInp) {
-            searchInp.addEventListener('input', (e) => {
-                colSearchQuery = e.target.value;
-                renderCollectionTab(mount);
-                const newInp = document.getElementById('col-search-input');
-                if (newInp) {
-                    newInp.focus();
-                    newInp.setSelectionRange(newInp.value.length, newInp.value.length);
-                }
-            });
-        }
-
-        const lockCheckbox = document.getElementById('toggle-show-locked');
-        if (lockCheckbox) {
-            lockCheckbox.addEventListener('change', (e) => {
-                colShowLocked = e.target.checked;
-                renderCollectionTab(mount);
-            });
-        }
-
-        mount.querySelectorAll('[data-col-type]').forEach(card => {
-            card.addEventListener('click', () => {
-                const type = card.getAttribute('data-col-type');
-                const key = card.getAttribute('data-col-key');
-                const isUnlocked = !card.classList.contains('is-locked');
-                if (type === 'agent' && isUnlocked && window.ZZZBuilds?.openAgentBuild) {
-                    window.ZZZBuilds.openAgentBuild(key);
-                    return;
-                }
-                openItemFromGacha(type, key);
-            });
+        document.getElementById('col-search-input')?.addEventListener('input', (e) => {
+            colSearchQuery = e.target.value;
+            renderCollectionGridOnly();
         });
+
+        document.getElementById('toggle-show-locked')?.addEventListener('change', (e) => {
+            colShowLocked = e.target.checked;
+            renderCollectionGridOnly();
+        });
+
+        renderCollectionGridOnly();
     }
 
     // ==========================================
@@ -2326,9 +2353,14 @@
                     GState.polychromes -= neededPoly;
                     GState.tapes += missingTapes;
                 } else {
+                    const lacking = neededPoly - GState.polychromes;
+                    const msg = getLang() === 'en'
+                        ? `Need ${lacking} more Polychromes — complete Quests!`
+                        : `Il vous manque ${lacking} Polychromes — complétez vos quêtes !`;
                     activeTab = 'quests';
                     modalEl.querySelectorAll('[data-gtab]').forEach(b => b.classList.toggle('active', b.getAttribute('data-gtab') === 'quests'));
                     renderCurrentTab(true);
+                    showGachaToast(msg, 'warn');
                     return;
                 }
             }
@@ -2566,10 +2598,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=8';
+            link.href = 'gacha/gacha-builds.css?v=11';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=8').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=13').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
