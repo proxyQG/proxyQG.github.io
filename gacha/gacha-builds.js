@@ -349,9 +349,63 @@
             return [...new Set(res)];
         }
 
+        const STAT_KEY_TO_GOAL_PROP = {
+            'PV%': 'hp', 'PV (flat)': 'hp',
+            'ATQ%': 'atk', 'ATQ (flat)': 'atk',
+            'DÉF%': 'def', 'DÉF (flat)': 'def',
+            'Impact': 'imp',
+            'Taux CRIT': 'cr',
+            'Dégâts CRIT': 'cd',
+            "Maîtrise d'anomalie": 'am',
+            "Adresse d'anomalie": 'ap',
+            'Ratio de PÉN': 'pen',
+            "Régénération d'énergie": 'er'
+        };
+
+        function parseGuideNumbers(rawVal) {
+            const txt = typeof rawVal === 'object' ? (rawVal.fr || rawVal.en || '') : String(rawVal || '');
+            if (!txt || txt.includes('...')) return [];
+            const cleaned = txt
+                .replace(/(\d)[\s\u00a0\u202f]+(\d{3})(?!\d)/g, '$1$2')
+                .replace(/(\d),(\d{3})(?!\d)/g, '$1$2')
+                .replace(/(\d),(\d)/g, '$1.$2');
+            const matches = cleaned.match(/\d+(?:\.\d+)?/g);
+            return matches ? matches.map(Number).filter(n => Number.isFinite(n) && n > 0) : [];
+        }
+
+        function parseGuideGoals(guide) {
+            const goals = {};
+            if (!guide || !Array.isArray(guide.stats)) return goals;
+            guide.stats.forEach(st => {
+                const rawVal = typeof st?.value === 'object' ? (st.value.fr || st.value.en || '') : String(st?.value || '');
+                const rawNote = typeof st?.note === 'object' ? `${st.note.fr || ''} ${st.note.en || ''}` : String(st?.note || '');
+                if (/\bbase\b/i.test(rawVal) || /ne pas viser|do not build/i.test(rawNote)) return;
+
+                const nums = parseGuideNumbers(rawVal);
+                if (nums.length === 0) return;
+
+                const keys = parseGuideStatKeys(st.label);
+                const normalizeVal = (prop, val) => (prop === 'er' && val > 10 && rawVal.includes('%'))
+                    ? Number((1.2 * val / 100).toFixed(2))
+                    : val;
+
+                if (keys.length === 1) {
+                    const prop = STAT_KEY_TO_GOAL_PROP[keys[0]];
+                    if (prop && !goals[prop]) goals[prop] = normalizeVal(prop, nums[0]);
+                } else if (keys.length >= 2) {
+                    keys.forEach((k, idx) => {
+                        const prop = STAT_KEY_TO_GOAL_PROP[k];
+                        const val = nums[idx] ?? nums[0];
+                        if (prop && val && !goals[prop]) goals[prop] = normalizeVal(prop, val);
+                    });
+                }
+            });
+            return goals;
+        }
+
         function getGuideProfile(agentKey) {
             const g = getAgentGuide(agentKey);
-            if (!g) return { sets: [], sets4: [], sets2: [], mainBySlot: { 4: [], 5: [], 6: [] }, subPrio: [], engines: [] };
+            if (!g) return { sets: [], sets4: [], sets2: [], mainBySlot: { 4: [], 5: [], 6: [] }, subPrio: [], engines: [], goals: {} };
 
             const sets = (g.discs || []).filter(d => d.set1 && d.set2);
             const sets4 = [];
@@ -383,7 +437,7 @@
                 return { rawImg, name: e.name };
             });
 
-            return { sets, sets4, sets2, mainBySlot, subPrio, engines };
+            return { sets, sets4, sets2, mainBySlot, subPrio, engines, goals: parseGuideGoals(g) };
         }
 
         const MAIN_STAT_MAX_LV15 = {
@@ -884,17 +938,23 @@
             const finalErNum = Number((base.er * (1 + erPct / 100)).toFixed(2));
             const finalAp = Math.round(ap);
 
-            const gTargets = base.goals || { atk: 2500, cr: 60, cd: 120 };
-            const goalItems = [];
-            if (gTargets.imp) goalItems.push({ label: tStat('Impact'), cur: finalImp, target: gTargets.imp, pct: Math.min(100, Math.round(finalImp / gTargets.imp * 100)) });
-            if (gTargets.ap)  goalItems.push({ label: tStat("Adresse d'anomalie"), cur: finalAp, target: gTargets.ap, pct: Math.min(100, Math.round(finalAp / gTargets.ap * 100)) });
-            if (gTargets.am)  goalItems.push({ label: tStat("Maîtrise d'anomalie"), cur: finalAm, target: gTargets.am, pct: Math.min(100, Math.round(finalAm / gTargets.am * 100)) });
-            if (gTargets.er)  goalItems.push({ label: tStat("Régénération d'énergie"), cur: finalErNum.toFixed(2), target: gTargets.er, pct: Math.min(100, Math.round(finalErNum / gTargets.er * 100)) });
-            if (gTargets.def) goalItems.push({ label: tStat('DÉF'), cur: finalDef, target: gTargets.def, pct: Math.min(100, Math.round(finalDef / gTargets.def * 100)) });
-            if (gTargets.hp)  goalItems.push({ label: tStat('PV'), cur: finalHp, target: gTargets.hp, pct: Math.min(100, Math.round(finalHp / gTargets.hp * 100)) });
-            if (gTargets.atk) goalItems.push({ label: tStat('ATQ'), cur: finalAtk, target: gTargets.atk, pct: Math.min(100, Math.round(finalAtk / gTargets.atk * 100)) });
-            if (gTargets.cr)  goalItems.push({ label: tStat('Taux CRIT'), cur: `${cr.toFixed(1)}%`, target: `${gTargets.cr}%`, pct: Math.min(100, Math.round(cr / gTargets.cr * 100)) });
-            if (gTargets.cd)  goalItems.push({ label: tStat('Dégâts CRIT'), cur: `${cd.toFixed(1)}%`, target: `${gTargets.cd}%`, pct: Math.min(100, Math.round(cd / gTargets.cd * 100)) });
+            const hasGuideGoals = prof.goals && Object.keys(prof.goals).length > 0;
+            const gTargets = hasGuideGoals ? prof.goals : (base.goals || { atk: 2500, cr: 60, cd: 120 });
+            const goalBuilders = {
+                hp:  (v) => ({ label: tStat('PV'), cur: finalHp, target: v, pct: Math.min(100, Math.round(finalHp / v * 100)) }),
+                atk: (v) => ({ label: tStat('ATQ'), cur: finalAtk, target: v, pct: Math.min(100, Math.round(finalAtk / v * 100)) }),
+                def: (v) => ({ label: tStat('DÉF'), cur: finalDef, target: v, pct: Math.min(100, Math.round(finalDef / v * 100)) }),
+                imp: (v) => ({ label: tStat('Impact'), cur: finalImp, target: v, pct: Math.min(100, Math.round(finalImp / v * 100)) }),
+                cr:  (v) => ({ label: tStat('Taux CRIT'), cur: `${cr.toFixed(1)}%`, target: `${v}%`, pct: Math.min(100, Math.round(cr / v * 100)) }),
+                cd:  (v) => ({ label: tStat('Dégâts CRIT'), cur: `${cd.toFixed(1)}%`, target: `${v}%`, pct: Math.min(100, Math.round(cd / v * 100)) }),
+                am:  (v) => ({ label: tStat("Maîtrise d'anomalie"), cur: finalAm, target: v, pct: Math.min(100, Math.round(finalAm / v * 100)) }),
+                ap:  (v) => ({ label: tStat("Adresse d'anomalie"), cur: finalAp, target: v, pct: Math.min(100, Math.round(finalAp / v * 100)) }),
+                pen: (v) => ({ label: tStat('Ratio de PÉN'), cur: `${penPct.toFixed(1)}%`, target: `${v}%`, pct: Math.min(100, Math.round(penPct / v * 100)) }),
+                er:  (v) => ({ label: tStat("Régénération d'énergie"), cur: finalErNum.toFixed(2), target: Number(v).toFixed(2), pct: Math.min(100, Math.round(finalErNum / v * 100)) })
+            };
+            const goalItems = Object.entries(gTargets)
+                .map(([k, v]) => (goalBuilders[k] && v > 0 ? goalBuilders[k](v) : null))
+                .filter(Boolean);
 
             const equippedDiscsCount = Object.values(ab.discs).filter(Boolean).length;
             let evalPoints = 0;
@@ -946,7 +1006,8 @@
                 pen: penPct.toFixed(1) + ' %', er: finalErNum.toFixed(2),
                 effectiveSubRolls, totalDiscLevels, matchingMainStats,
                 goalItems: goalItems.slice(0, 3), grade, finalScore,
-                mindscape, overclockLvl, setCounts, recSubList
+                mindscape, overclockLvl, setCounts, recSubList,
+                goalProps: Object.keys(gTargets)
             };
         }
 
@@ -2273,37 +2334,37 @@
                 </div>
 
                 <div class="zb-stats-grid">
-                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('PV')) ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.some(k => k.startsWith('PV')) || calc.goalProps?.includes('hp')) ? 'recommended' : ''}">
                         <span>${tStat('PV')}</span>
                         <span class="zb-stat-val">${calc.hp}${calc.hpBonus > 0 ? `<span class="zb-stat-bonus">+${calc.hpBonus}</span>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('ATQ')) ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.some(k => k.startsWith('ATQ')) || calc.goalProps?.includes('atk')) ? 'recommended' : ''}">
                         <span>${tStat('ATQ')}</span>
                         <span class="zb-stat-val">${calc.atk}${calc.atkBonus > 0 ? `<span class="zb-stat-bonus">+${calc.atkBonus}</span>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('DÉF')) ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.some(k => k.startsWith('DÉF')) || calc.goalProps?.includes('def')) ? 'recommended' : ''}">
                         <span>${tStat('DÉF')}</span>
                         <span class="zb-stat-val">${calc.def}${calc.defBonus > 0 ? `<span class="zb-stat-bonus">+${calc.defBonus}</span>` : ''}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('Impact') ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes('Impact') || calc.goalProps?.includes('imp')) ? 'recommended' : ''}">
                         <span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('Taux CRIT') ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes('Taux CRIT') || calc.goalProps?.includes('cr')) ? 'recommended' : ''}">
                         <span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes('Dégâts CRIT') ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes('Dégâts CRIT') || calc.goalProps?.includes('cd')) ? 'recommended' : ''}">
                         <span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes("Maîtrise d'anomalie") ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes("Maîtrise d'anomalie") || calc.goalProps?.includes('am')) ? 'recommended' : ''}">
                         <span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes("Adresse d'anomalie") ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes("Adresse d'anomalie") || calc.goalProps?.includes('ap')) ? 'recommended' : ''}">
                         <span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.some(k => k.includes('PÉN')) ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.some(k => k.includes('PÉN')) || calc.goalProps?.includes('pen')) ? 'recommended' : ''}">
                         <span>${tStat('Ratio de PÉN')}</span><span class="zb-stat-val">${calc.pen}</span>
                     </div>
-                    <div class="zb-stat-row ${calc.recSubList.includes("Régénération d'énergie") ? 'recommended' : ''}">
+                    <div class="zb-stat-row ${(calc.recSubList.includes("Régénération d'énergie") || calc.goalProps?.includes('er')) ? 'recommended' : ''}">
                         <span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span>
                     </div>
                 </div>
