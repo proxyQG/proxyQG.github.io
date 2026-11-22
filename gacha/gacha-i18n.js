@@ -77,7 +77,7 @@ export const GACHA_I18N = {
             close: "Fermer",
             roles: {
                 Attack: "Attaque",
-                Stun: "Confusion",
+                Stun: "Stun",
                 Anomaly: "Anomalie",
                 Support: "Soutien",
                 Defense: "Défense",
@@ -175,7 +175,7 @@ export const GACHA_I18N = {
         },
         collection: {
             title: "Archives & Collection",
-            subtitle: "Cliquez sur n'importe quel Agent, Moteur ou Disque pour consulter directement son guide ou ses statistiques.",
+            subtitle: "Cliquez sur un Agent débloqué pour ouvrir son Build en 1 clic, ou sur un Moteur / Disque pour ses statistiques.",
             totalUnlocked: "Complétion Globale",
             filterAll: "Tous",
             filterAgents: "Agents",
@@ -423,7 +423,7 @@ export const GACHA_I18N = {
         },
         collection: {
             title: "Unlocked Archives & Vault",
-            subtitle: "Click on any Agent, W-Engine, or Drive Disc to open its full guide or stats.",
+            subtitle: "Click an unlocked Agent to open their Build in 1 click, or any W-Engine / Drive Disc for stats.",
             totalUnlocked: "Overall Completion",
             filterAll: "All",
             filterAgents: "Agents",
