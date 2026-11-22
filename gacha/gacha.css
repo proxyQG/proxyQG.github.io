@@ -23,6 +23,14 @@
     user-select: none;
 }
 
+#zzz-gacha-modal input,
+#zzz-gacha-modal textarea,
+#gacha-anim-overlay input,
+#gacha-anim-overlay textarea {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
 #zzz-gacha-modal.visible {
     opacity: 1;
     pointer-events: auto;
