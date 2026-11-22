@@ -173,6 +173,12 @@
             100% { transform: translateX(200%) skewX(-15deg); }
         }
         .animate-shine { animation: shine 1.5s infinite; }
+        @media (max-width: 639px) {
+            .agent-nameplate span {
+                font-size: 0.72rem !important;
+                letter-spacing: 0.02em !important;
+            }
+        }
     </style>
 
 
@@ -200,7 +206,7 @@
       })();
     </script>
 </head>
-<body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden">
+<body class="flex flex-col h-screen bg-[#050505] text-white overflow-hidden" style="height: 100dvh;">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57NMW247"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -288,7 +294,7 @@
                         <div class="hidden md:flex items-center absolute right-3 pointer-events-none">
                             <kbd id="searchShortcutHint" class="px-1.5 py-0.5 text-[10px] font-mono font-bold text-zinc-500 bg-zinc-900 border border-zinc-800 rounded">/</kbd>
                         </div>
-                        <button id="clearSearchBtn" class="absolute right-2.5 text-zinc-500 hover:text-[#d7f70c] transition-colors hidden p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                        <button id="clearSearchBtn" aria-label="Effacer la recherche" class="absolute right-2.5 text-zinc-500 hover:text-[#d7f70c] transition-colors hidden p-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
                     <div id="searchDropdown" class="absolute left-0 right-0 top-full mt-2 bg-[#0c0c0e]/95 border border-zinc-700 rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.95)] max-h-72 overflow-y-auto flex flex-col hidden divide-y divide-zinc-800/80 backdrop-blur-xl transform origin-top transition-all duration-300 z-[150]"></div>
                 </div>
@@ -322,7 +328,7 @@
                             <button data-filter="Fire" style="--btn-color: #f05432;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
                             <button data-filter="Ice" style="--btn-color: #00d5be;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
                             <button data-filter="Electric" style="--btn-color: #3182eb;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Électrique</span></button>
-                            <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                            <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Éther</span></button>
                             <button data-filter="Wind" style="--btn-color: #4da2f8;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
                             <button data-filter="Lumiflux" style="--btn-color: #fba2d0;" class="filter-btn filter-elem-btn px-2 py-2 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumen</span></button>
                             <button data-filter="Honed Edge" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-1 py-2 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
@@ -377,7 +383,7 @@
                             <span class="text-[9px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
                             <span class="active-faction-name text-xs font-bold text-white truncate"></span>
                         </div>
-                        <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-1.5 transition-all transform hover:scale-110 hover:rotate-90 shadow-lg ml-2 shrink-0"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                        <button aria-label="Retirer le filtre de faction" class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-1.5 transition-all transform hover:scale-110 hover:rotate-90 shadow-lg ml-2 shrink-0"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                     </div>
                 </div>
             </div>
@@ -416,7 +422,7 @@
             <div class="md:hidden w-full mb-6 relative z-[100] group flex gap-2.5">
                 <div class="relative flex-1 flex items-center min-w-0">
                     <input type="text" id="searchInputMobile" data-i18n="searchPlaceholder" autocomplete="off" placeholder="Agent, disque, moteur..." class="w-full bg-[#151515] border-2 border-zinc-800 rounded-xl py-3.5 pl-4 pr-10 text-white text-sm focus:outline-none focus:border-yellow-400 focus:bg-[#1a1a1a] transition-all shadow-inner placeholder-zinc-600">
-                    <button id="clearSearchBtnMobile" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    <button id="clearSearchBtnMobile" aria-label="Effacer la recherche" class="absolute right-3 text-zinc-500 hover:text-yellow-400 transition-colors hidden p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
                 </div>
                 <button type="button" onclick="window.openGachaModal()" aria-label="Recherche Signal" title="Recherche Signal" class="relative shrink-0 bg-[#151515] border-2 border-[#d7f70c]/50 hover:border-[#d7f70c] rounded-xl px-3.5 flex items-center justify-center text-[#d7f70c] transition-all active:scale-95 shadow-inner">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
@@ -503,7 +509,7 @@
             <!-- Header Filtres Mobile -->
             <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-800">
                 <span class="text-white font-display font-black text-xl uppercase tracking-wider" data-i18n="filtersTitle">FILTRES</span>
-                <button id="closeMobileFilterBtn" class="text-zinc-400 hover:text-white p-2">
+                <button id="closeMobileFilterBtn" aria-label="Fermer les filtres" class="text-zinc-400 hover:text-white p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
@@ -536,8 +542,8 @@
                         <button data-filter="Physical" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/physique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Physical">Physique</span></button>
                         <button data-filter="Fire" style="--btn-color: #f05432;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/feu.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Fire">Feu</span></button>
                         <button data-filter="Ice" style="--btn-color: #00d5be;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ice.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ice">Glace</span></button>
-                        <button data-filter="Electric" style="--btn-color: #3182eb;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Élec</span></button>
-                        <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Ether</span></button>
+                        <button data-filter="Electric" style="--btn-color: #3182eb;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/electrique.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Electric">Électrique</span></button>
+                        <button data-filter="Ether" style="--btn-color: #f23c8a;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Ether.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Ether">Éther</span></button>
                         <button data-filter="Wind" style="--btn-color: #4da2f8;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Vent.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Wind">Vent</span></button>
                         <button data-filter="Lumiflux" style="--btn-color: #fba2d0;" class="filter-btn filter-elem-btn px-2 py-2.5 rounded-xl text-xs font-bold gap-1.5"><img src="assets/Icone/Lumiflux.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term" data-term="Lumiflux">Lumen</span></button>
                         <button data-filter="Honed Edge" style="--btn-color: #e8a838;" class="filter-btn filter-elem-btn px-1 py-2.5 rounded-xl text-[11px] font-bold gap-1"><img src="assets/Icone/Honed_Edge.webp" alt="" loading="lazy" class="w-4 h-4 object-contain shrink-0"><span class="dyn-term tracking-tight" data-term="Honed Edge">Lame affûtée</span></button>
@@ -575,7 +581,7 @@
                     <span class="text-[10px] text-yellow-400 font-black uppercase tracking-widest" data-i18n="activeFaction">Faction active</span>
                     <span class="active-faction-name text-xs font-bold text-white mt-0.5 leading-tight"></span>
                 </div>
-                <button class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-2 transition-all ml-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                <button aria-label="Retirer le filtre de faction" class="clear-faction-btn text-zinc-300 hover:text-black bg-zinc-800 hover:bg-yellow-400 rounded-full p-2 transition-all ml-2 shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
 
             <!-- Favoris Mobile -->
@@ -599,7 +605,7 @@
         </div>
 
         <div class="mt-4 pt-4">
-            <button onclick="window.openModal('factionModal'); window.closeModal('mobileFilterModal');" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-sm py-4 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 flex items-center justify-center gap-3">
+            <button onclick="window.closeModal('mobileFilterModal', false); window.openModal('factionModal');" class="w-full bg-[#d7f70c] hover:bg-[#c4e30b] text-black font-black uppercase text-sm py-4 rounded-xl shadow-[0_0_20px_rgba(215,247,12,0.2)] transition-all duration-300 flex items-center justify-center gap-3">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                 <span data-i18n="allFactions">Toutes les factions</span>
             </button>
@@ -699,7 +705,7 @@
     <!-- Modale Vidéo Holo-Cinématique -->
     <div id="videoModal" onclick="window.closeVideoModal()" class="fixed inset-0 z-[300] hidden bg-black/90 backdrop-blur-md overflow-hidden opacity-0 transition-opacity duration-300 flex items-center justify-center">
         <!-- Bouton Fermer -->
-        <button onclick="window.closeVideoModal()" class="absolute top-6 right-6 md:top-10 md:right-10 bg-black/60 hover:bg-yellow-400 text-zinc-300 hover:text-black w-12 h-12 rounded-full border border-zinc-700 hover:border-transparent flex items-center justify-center transition-all duration-300 shadow-2xl group z-[310]">
+        <button onclick="event.stopPropagation(); window.closeVideoModal();" aria-label="Fermer la vidéo" class="absolute top-6 right-6 md:top-10 md:right-10 bg-black/60 hover:bg-yellow-400 text-zinc-300 hover:text-black w-12 h-12 rounded-full border border-zinc-700 hover:border-transparent flex items-center justify-center transition-all duration-300 shadow-2xl group z-[310]">
             <svg class="w-6 h-6 transform group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
@@ -724,7 +730,7 @@
     <!-- Modale d'aide PWA pour iOS (DÉSORMAIS LIBRE) -->
     <div id="apple-guide-box" class="fixed inset-0 items-center justify-center backdrop-blur-md" style="display: none; opacity: 0; transition: opacity 0.3s ease; z-index: 999999; background: rgba(5, 5, 5, 0.9);">
         <div class="bg-[#1a1a1a] text-white p-6 rounded-2xl max-w-sm mx-4 border border-zinc-700 relative shadow-[0_0_50px_rgba(0,0,0,0.8)]">
-            <button id="close-guide-box" class="absolute top-4 right-4 text-zinc-400 hover:text-yellow-400 transition-colors">
+            <button id="close-guide-box" aria-label="Fermer le guide iOS" class="absolute top-4 right-4 text-zinc-400 hover:text-yellow-400 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
@@ -751,12 +757,37 @@
             return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
         }
 
+        function normalizeAgentKey(raw) {
+            const s = String(raw || '').trim();
+            if (!s) return '';
+            const low = s.toLowerCase();
+            if (low === 'nothing') return '';
+            if (low === "dame de l'aurore" || low === 'dame de l’aurore') return 'Sunbringer';
+            if (low === 'jane doe') return 'Jane';
+            return s;
+        }
+
+        function createFreshGachaState(t) {
+            return {
+                polychromes: 3200, tapes: 10, residual: 0, pityS: 0, pityA: 0,
+                guaranteedFeatured: false, selectedRateUp: '', selectedRateUp2: '',
+                totalPulls: 0, totalSPulls: 0, totalAPulls: 0, totalDupesRes: 0,
+                totalGuidesRead: 0, recentDrops: [],
+                achievements: { a1: 0, a2: 0, a3: 0, a4: 0, a5: 0, a6: 0 },
+                inventory: {},
+                daily: { date: t, visitDone: true, pullsToday: 0, freePackClaimed: false, guidesOpened: [], itemsInspected: [], claimed: {} }
+            };
+        }
+
         function updateSilentTracker(cb) {
             try {
                 const raw = localStorage.getItem(KEY);
-                if (!raw) return;
-                const st = JSON.parse(raw);
                 const t = todayStr();
+                if (!raw && !cb) {
+                    document.querySelectorAll('.gacha-quest-dot-global').forEach(el => { el.style.display = 'block'; });
+                    return;
+                }
+                const st = raw ? JSON.parse(raw) : createFreshGachaState(t);
                 if (!st.daily || st.daily.date !== t) {
                     st.daily = { date: t, visitDone: true, pullsToday: 0, freePackClaimed: false, guidesOpened: [], itemsInspected: [], claimed: {} };
                 }
@@ -773,9 +804,11 @@
             if (window.__zzzGachaLoaded) return;
             const ag = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
             if (ag) {
-                const name = ag.getAttribute('data-agent') || ag.getAttribute('data-tt-agent') || ag.getAttribute('data-disc-agent') || (ag.getAttribute('onclick')?.match(/openAgentDetail\(\s*['"]([^'"]+)['"]/) || [])[1];
+                const rawName = ag.getAttribute('data-agent') || ag.getAttribute('data-tt-agent') || ag.getAttribute('data-disc-agent') || (ag.getAttribute('onclick')?.match(/openAgentDetail\(\s*['"]([^'"]+)['"]/) || [])[1];
+                const name = normalizeAgentKey(rawName);
                 if (name) updateSilentTracker(st => {
-                    if (!st.daily.guidesOpened.includes(name) && st.daily.guidesOpened.length < 10) {
+                    const exists = st.daily.guidesOpened.some(n => normalizeAgentKey(n).toLowerCase() === name.toLowerCase());
+                    if (!exists && st.daily.guidesOpened.length < 10) {
                         st.daily.guidesOpened.push(name);
                         st.totalGuidesRead = (st.totalGuidesRead || 0) + 1;
                     }
@@ -784,7 +817,7 @@
             const eq = e.target.closest('[data-engine], [data-disc]');
             if (eq) {
                 const k = eq.getAttribute('data-engine') || eq.getAttribute('data-disc');
-                if (k) updateSilentTracker(st => {
+                if (k && k.toLowerCase() !== 'nothing') updateSilentTracker(st => {
                     if (!st.daily.itemsInspected.includes(k)) st.daily.itemsInspected.push(k);
                 });
             }
@@ -800,11 +833,11 @@
                         const link = document.createElement('link');
                         link.id = 'zzz-gacha-core-css';
                         link.rel = 'stylesheet';
-                        link.href = 'gacha/gacha.css?v=6';
+                        link.href = 'gacha/gacha.css?v=7';
                         document.head.appendChild(link);
                     }
                     const s = document.createElement('script');
-                    s.src = 'gacha/gacha.js?v=9';
+                    s.src = 'gacha/gacha.js?v=10';
                     s.onload = () => { window.__zzzGachaLoaded = true; resolve(); };
                     s.onerror = (err) => {
                         s.remove();
