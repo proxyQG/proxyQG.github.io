@@ -829,6 +829,28 @@
                 });
             }
 
+            // Application réelle des bonus de sets 2-pièces actifs
+            Object.entries(setCounts).forEach(([setKey, count]) => {
+                if (count < 2) return;
+                const dJson = EXT_DATA.discs[setKey];
+                const raw2p = String(dJson?.twoPiece?.en || dJson?.twoPiece?.fr || '').replace(/[\[\]{}]/g, '');
+                if (!raw2p) return;
+                const valMatch = raw2p.match(/\+?\s*(\d+(?:[.,]\d+)?)\s*(%?)/);
+                const val = valMatch ? parseFloat(valMatch[1].replace(',', '.')) : 0;
+                if (!val) return;
+                const up = raw2p.toUpperCase();
+                if (up.includes('CRIT RATE') || up.includes('TAUX CRIT')) addStatContribution('Taux CRIT', val);
+                else if (up.includes('CRIT DMG') || up.includes('DGT CRIT')) addStatContribution('Dégâts CRIT', val);
+                else if (up.includes('ANOMALY PROFICIENCY') || up.includes("ADRESSE D'ANOMALIE")) addStatContribution("Adresse d'anomalie", val);
+                else if (up.includes('ANOMALY MASTERY') || up.includes("MAÎTRISE D'ANOMALIE")) addStatContribution("Maîtrise d'anomalie", val);
+                else if (up.includes('ENERGY REGEN') || up.includes("ÉNERGIE") || up.includes("ENERGIE")) addStatContribution("Régénération d'énergie", val);
+                else if (up.includes('PEN RATIO') || up.includes('TAUX DE PÉN') || up.includes('TAUX DE PEN')) addStatContribution('Ratio de PÉN', val);
+                else if (up.includes('IMPACT')) addStatContribution('Impact', val);
+                else if (/\bATK\b|\bATQ\b/.test(up) && valMatch[2] === '%') addStatContribution('ATQ%', val);
+                else if (/\bDEF\b|\bDÉF\b/.test(up) && valMatch[2] === '%') addStatContribution('DÉF%', val);
+                else if (/\bHP\b|\bPV\b/.test(up) && valMatch[2] === '%') addStatContribution('PV%', val);
+            });
+
             const overclockMult = 1 + Math.min(0.20, overclockLvl * 0.02);
 
             const finalHp = Math.round(((baseHp * (1 + hpPct / 100)) + hpFlat) * overclockMult);
@@ -920,15 +942,20 @@
         let bardicSlot = 0;
         let unequipConfirmArmed = false;
         let unequipConfirmTimer = null;
+        let batchTrashConfirmArmed = false;
+        let batchTrashConfirmTimer = null;
 
         function getOwnedAgents(st, pool) {
+            const bridge = window.ZZZGachaBridge;
             const rW = { S: 0, A: 1, B: 2 };
             return pool.allCatalog
                 .filter(i => i.type === 'agent' && (st.inventory[i.id]?.count || 0) > 0)
                 .sort((a, b) => {
                     const rw = (rW[a.rank] ?? 9) - (rW[b.rank] ?? 9);
                     if (rw !== 0) return rw;
-                    return (a.nameFr || a.rawKey).localeCompare(b.nameFr || b.rawKey);
+                    const na = bridge?.itemName ? bridge.itemName(a) : (a.nameFr || a.rawKey);
+                    const nb = bridge?.itemName ? bridge.itemName(b) : (b.nameFr || b.rawKey);
+                    return na.localeCompare(nb);
                 });
         }
 
@@ -973,7 +1000,7 @@
                         </div>
                     </div>
                     <span class="zb-agent-picker-cta">
-                        <span>${t.changeAgentBtn} (${ownedAgents.length})</span>
+                        <span>${t.changeAgentBtn}<span class="zb-cta-count"> (${ownedAgents.length})</span></span>
                         ${UI_SVGS.chevDown}
                     </span>
                 </button>
@@ -1522,7 +1549,7 @@
                     </div>
 
                     <div class="zzz-eq-screen">
-                        <div class="zzz-eq-bg-art" style="background-image:url('assets/splash/${agent.rawKey}.webp'), url('${agent.img}');"></div>
+                        <img class="zzz-eq-bg-art" src="assets/splash/${agent.rawKey}.webp" onerror="this.onerror=null;this.src='${agent.img}';" alt="">
                         <div class="zzz-eq-bg-stripes"></div>
 
                         <div class="zzz-eq-topbar">
@@ -1548,9 +1575,9 @@
                                     </button>
                                 </div>` : ''}
 
-                                <button type="button" class="zzz-pill-btn" id="zzz-btn-batch-dismantle" ${!canBatchTrash ? 'disabled' : ''}>
+                                <button type="button" class="zzz-pill-btn ${batchTrashConfirmArmed ? 'confirm-danger' : ''}" id="zzz-btn-batch-dismantle" ${!canBatchTrash ? 'disabled' : ''}>
                                     <span class="zzz-pill-icon cyan">${UI_SVGS.dismantle}</span>
-                                    <span>${batchTrashLabel}</span>
+                                    <span>${batchTrashConfirmArmed ? `${t.confirmUnequipBtn} (${isEngineMode ? `×${spareEngCount}` : `×${batchTrashDiscs.length}`} • +${batchTrashGain} ✦)` : batchTrashLabel}</span>
                                 </button>
 
                                 <button type="button" class="zzz-pill-btn bardic-music-btn" id="zzz-btn-open-bardic">
@@ -1661,6 +1688,8 @@
             if (!newAgentKey || newAgentKey === selectedAgentKey) return;
             unequipConfirmArmed = false;
             clearTimeout(unequipConfirmTimer);
+            batchTrashConfirmArmed = false;
+            clearTimeout(batchTrashConfirmTimer);
             selectedAgentKey = newAgentKey;
             selectedItemId = null;
             window.__zzzRecEngKey = null;
@@ -1682,11 +1711,11 @@
 
             overlay.classList.add('active');
 
-            function renderPicker() {
+            function renderPickerGridOnly() {
+                const grid = document.getElementById('zb-picker-grid');
+                if (!grid) return;
                 let list = ownedAgents;
-                if (rankFilter !== 'all') {
-                    list = list.filter(a => a.rank === rankFilter);
-                }
+                if (rankFilter !== 'all') list = list.filter(a => a.rank === rankFilter);
                 if (query.trim()) {
                     const q = query.trim().toLowerCase();
                     list = list.filter(a =>
@@ -1697,6 +1726,41 @@
                     );
                 }
 
+                grid.innerHTML = list.map(a => {
+                    const isAct = a.rawKey === selectedAgentKey;
+                    const cnt = st.inventory[a.id]?.count || 1;
+                    const mLvl = Math.min(6, cnt - 1);
+                    const mLabel = cnt > 7 ? `M6 +${cnt - 7}` : (mLvl >= 6 ? 'M6 MAX' : `M${mLvl}`);
+                    const ab = st.buildSystem?.agentBuilds?.[a.rawKey];
+                    const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
+                    const isFull = eqDiscs === 6 && !!ab?.engineKey;
+
+                    return `
+                    <div class="gacha-col-card rank-${a.rank}" data-zb-pick-modal="${a.rawKey}"
+                         style="${isAct ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
+                        <div class="gacha-col-visual">
+                            ${isAct ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${t.pickerActive}</span>` : ''}
+                            ${(eqDiscs > 0 || ab?.engineKey) ? `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>` : ''}
+                            <span class="gacha-col-dupe-tag ${mLvl >= 6 ? 'maxed' : ''}">${mLabel}</span>
+                            <img src="${a.img}" loading="lazy" alt="${bridge.itemName(a)}" class="is-agent">
+                        </div>
+                        <div class="gacha-col-info">
+                            <span class="gacha-col-name">${bridge.itemName(a)}</span>
+                            <span class="gacha-col-sub">${a.element || ''} • ${a.role || ''}</span>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                grid.querySelectorAll('[data-zb-pick-modal]').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const key = card.getAttribute('data-zb-pick-modal');
+                        overlay.classList.remove('active');
+                        switchBuildAgent(mount, key);
+                    });
+                });
+            }
+
+            function renderPicker() {
                 overlay.innerHTML = `
                     <div class="gacha-dialog-box">
                         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
@@ -1718,32 +1782,7 @@
                         </div>
 
                         <div class="gacha-selector-scroll custom-scrollbar">
-                            <div class="gacha-selector-grid">
-                                ${list.map(a => {
-                                    const isAct = a.rawKey === selectedAgentKey;
-                                    const cnt = st.inventory[a.id]?.count || 1;
-                                    const mLvl = Math.min(6, cnt - 1);
-                                    const mLabel = cnt > 7 ? `M6 +${cnt - 7}` : (mLvl >= 6 ? 'M6 MAX' : `M${mLvl}`);
-                                    const ab = st.buildSystem?.agentBuilds?.[a.rawKey];
-                                    const eqDiscs = ab?.discs ? Object.values(ab.discs).filter(Boolean).length : 0;
-                                    const isFull = eqDiscs === 6 && !!ab?.engineKey;
-
-                                    return `
-                                    <div class="gacha-col-card rank-${a.rank}" data-zb-pick-modal="${a.rawKey}"
-                                         style="${isAct ? 'border-color:#d7f70c;box-shadow:0 0 20px rgba(215,247,12,0.5);' : ''}">
-                                        <div class="gacha-col-visual">
-                                            ${isAct ? `<span class="gacha-col-rank-tag" style="background:#d7f70c;color:#000;border-color:#000;">${t.pickerActive}</span>` : ''}
-                                            ${(eqDiscs > 0 || ab?.engineKey) ? `<span class="zb-col-build-badge ${isFull ? 'is-full' : ''}">${eqDiscs}/6</span>` : ''}
-                                            <span class="gacha-col-dupe-tag ${mLvl >= 6 ? 'maxed' : ''}">${mLabel}</span>
-                                            <img src="${a.img}" loading="lazy" alt="${bridge.itemName(a)}" class="is-agent">
-                                        </div>
-                                        <div class="gacha-col-info">
-                                            <span class="gacha-col-name">${bridge.itemName(a)}</span>
-                                            <span class="gacha-col-sub">${a.element || ''} • ${a.role || ''}</span>
-                                        </div>
-                                    </div>`;
-                                }).join('')}
-                            </div>
+                            <div class="gacha-selector-grid" id="zb-picker-grid"></div>
                         </div>
                     </div>
                 `;
@@ -1755,30 +1794,17 @@
                 overlay.querySelectorAll('[data-zb-prank]').forEach(btn => {
                     btn.addEventListener('click', () => {
                         rankFilter = btn.getAttribute('data-zb-prank');
-                        renderPicker();
+                        overlay.querySelectorAll('[data-zb-prank]').forEach(b => b.classList.toggle('active', b === btn));
+                        renderPickerGridOnly();
                     });
                 });
 
-                const inp = document.getElementById('zb-picker-search');
-                if (inp) {
-                    inp.addEventListener('input', (e) => {
-                        query = e.target.value;
-                        renderPicker();
-                        const next = document.getElementById('zb-picker-search');
-                        if (next) {
-                            next.focus();
-                            next.setSelectionRange(next.value.length, next.value.length);
-                        }
-                    });
-                }
-
-                overlay.querySelectorAll('[data-zb-pick-modal]').forEach(card => {
-                    card.addEventListener('click', () => {
-                        const key = card.getAttribute('data-zb-pick-modal');
-                        overlay.classList.remove('active');
-                        switchBuildAgent(mount, key);
-                    });
+                document.getElementById('zb-picker-search')?.addEventListener('input', (e) => {
+                    query = e.target.value;
+                    renderPickerGridOnly();
                 });
+
+                renderPickerGridOnly();
             }
 
             renderPicker();
@@ -1901,6 +1927,19 @@
             }
 
             function dismantleBatchItems() {
+                if (!batchTrashConfirmArmed) {
+                    batchTrashConfirmArmed = true;
+                    clearTimeout(batchTrashConfirmTimer);
+                    batchTrashConfirmTimer = setTimeout(() => {
+                        batchTrashConfirmArmed = false;
+                        renderBuildsTab(mount);
+                    }, 2600);
+                    renderBuildsTab(mount);
+                    return;
+                }
+                batchTrashConfirmArmed = false;
+                clearTimeout(batchTrashConfirmTimer);
+
                 if (isEngineMode && selectedObj) {
                     const cnt = st.inventory[selectedObj.id]?.count || 0;
                     const usedCount = getEngineOwnersList(st, selectedObj.rawKey).length;
@@ -2181,17 +2220,55 @@
                 </div>
 
                 <div class="zb-stats-grid">
-                    <div class="zb-stat-row"><span>${tStat('PV')}</span><span class="zb-stat-val">${calc.hp}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('ATQ')}</span><span class="zb-stat-val">${calc.atk}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('DÉF')}</span><span class="zb-stat-val">${calc.def}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span></div>
-                    <div class="zb-stat-row"><span>${tStat('Ratio de PÉN')}</span><span class="zb-stat-val">${calc.pen}</span></div>
-                    <div class="zb-stat-row"><span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span></div>
+                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('PV')) ? 'recommended' : ''}">
+                        <span>${tStat('PV')}</span>
+                        <span class="zb-stat-val">${calc.hp}${calc.hpBonus > 0 ? `<span class="zb-stat-bonus">+${calc.hpBonus}</span>` : ''}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('ATQ')) ? 'recommended' : ''}">
+                        <span>${tStat('ATQ')}</span>
+                        <span class="zb-stat-val">${calc.atk}${calc.atkBonus > 0 ? `<span class="zb-stat-bonus">+${calc.atkBonus}</span>` : ''}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.some(k => k.startsWith('DÉF')) ? 'recommended' : ''}">
+                        <span>${tStat('DÉF')}</span>
+                        <span class="zb-stat-val">${calc.def}${calc.defBonus > 0 ? `<span class="zb-stat-bonus">+${calc.defBonus}</span>` : ''}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes('Impact') ? 'recommended' : ''}">
+                        <span>${tStat('Impact')}</span><span class="zb-stat-val">${calc.imp}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes('Taux CRIT') ? 'recommended' : ''}">
+                        <span>${tStat('Taux CRIT')}</span><span class="zb-stat-val">${calc.cr}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes('Dégâts CRIT') ? 'recommended' : ''}">
+                        <span>${tStat('Dégâts CRIT')}</span><span class="zb-stat-val">${calc.cd}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes("Maîtrise d'anomalie") ? 'recommended' : ''}">
+                        <span>${tStat("Maîtrise d'anomalie")}</span><span class="zb-stat-val">${calc.am}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes("Adresse d'anomalie") ? 'recommended' : ''}">
+                        <span>${tStat("Adresse d'anomalie")}</span><span class="zb-stat-val">${calc.ap}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.some(k => k.includes('PÉN')) ? 'recommended' : ''}">
+                        <span>${tStat('Ratio de PÉN')}</span><span class="zb-stat-val">${calc.pen}</span>
+                    </div>
+                    <div class="zb-stat-row ${calc.recSubList.includes("Régénération d'énergie") ? 'recommended' : ''}">
+                        <span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span>
+                    </div>
                 </div>
+
+                ${calc.goalItems?.length ? `
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;">
+                    ${calc.goalItems.map(g => `
+                        <div style="background:#0a0a0f;border:1px solid #22222c;border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:5px;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;font-size:10.5px;font-weight:800;">
+                                <span style="color:#a1a1aa;">${g.label}</span>
+                                <span style="font-family:monospace;color:${g.pct >= 100 ? '#4ade80' : '#facc15'};">${g.cur} / ${g.target}</span>
+                            </div>
+                            <div class="zb-goal-bar-track">
+                                <div class="zb-goal-bar-fill" style="width:${g.pct}%;background:${g.pct >= 100 ? '#4ade80' : '#d7f70c'};"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>` : ''}
 
                 ${activeSetsHTML ? `<div style="display:flex;gap:6px;flex-wrap:wrap;">${activeSetsHTML}</div>` : ''}
 
@@ -2469,12 +2546,12 @@
                 if (sInp) {
                     sInp.addEventListener('input', (e) => {
                         setSearch = e.target.value;
-                        renderBardic();
-                        const next = document.getElementById('bardic-set-search');
-                        if (next) {
-                            next.focus();
-                            next.setSelectionRange(next.value.length, next.value.length);
-                        }
+                        const q = setSearch.trim().toLowerCase();
+                        overlay.querySelectorAll('[data-bset]').forEach(card => {
+                            const key = card.getAttribute('data-bset') || '';
+                            const nameTxt = card.textContent.toLowerCase();
+                            card.style.display = (!q || nameTxt.includes(q) || key.toLowerCase().includes(q)) ? '' : 'none';
+                        });
                     });
                 }
 
@@ -2645,11 +2722,12 @@
 
             Object.entries(factionMap).forEach(([facName, members]) => {
                 const ownedCount = members.filter(m => (inv[m.id]?.count || 0) > 0).length;
+                const displayFac = (typeof window.translateFactionName === 'function' ? window.translateFactionName(facName) : facName) || facName;
                 badges.push({
                     id: `fac_${facName}`, cat: 'squads',
                     icon: `assets/Faction/${facName}.webp`, svg: BADGE_SVGS.squadReady,
-                    title: `${facName}`,
-                    desc: isEn ? `Recruit all ${members.length} Agents from ${facName}.` : `Recruter les ${members.length} Agents de l'escouade ${facName}.`,
+                    title: displayFac,
+                    desc: isEn ? `Recruit all ${members.length} Agents from ${displayFac}.` : `Recruter les ${members.length} Agents de l'escouade ${displayFac}.`,
                     cur: ownedCount, max: members.length, reward: 800, members
                 });
             });
