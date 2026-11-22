@@ -114,7 +114,7 @@
     white-space: nowrap;
 }
 
-@media (min-width: 1150px) {
+@media (min-width: 1280px) {
     .gacha-ik-badge {
         display: inline-flex;
     }
