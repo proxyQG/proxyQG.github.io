@@ -309,9 +309,19 @@
     let gachaOpenedAt = 0;
 
     let ignoreNextGachaPop = false;
+    let tvAnimTimers = [];
+    let tvAnimSession = 0;
+
+    function clearTVAnimTimers() {
+        tvAnimSession += 1;
+        tvAnimTimers.forEach(id => clearTimeout(id));
+        tvAnimTimers = [];
+        if (animOverlayEl) animOverlayEl.onclick = null;
+    }
 
     function closeGachaModal(fromPopState = false) {
         if (!modalEl) return;
+        clearTVAnimTimers();
         modalEl.classList.remove('visible');
         if (animOverlayEl) animOverlayEl.classList.remove('active');
         if (miniCardOverlayEl) miniCardOverlayEl.classList.remove('active');
@@ -371,6 +381,7 @@
             return;
         }
         if (animOverlayEl && animOverlayEl.classList.contains('active')) {
+            clearTVAnimTimers();
             animOverlayEl.classList.remove('active');
             renderCurrentTab(false);
             return;
@@ -839,6 +850,7 @@
                     return;
                 }
                 if (animOverlayEl && animOverlayEl.classList.contains('active')) {
+                    clearTVAnimTimers();
                     animOverlayEl.classList.remove('active');
                     renderCurrentTab(false);
                 } else if (window.ZZZBuilds?.closeRecDrawer?.()) {
@@ -1808,7 +1820,7 @@
                     </div>
                     <div class="gacha-col-info">
                         <span class="gacha-col-name">${itemName(it)}</span>
-                        <span class="gacha-col-sub">${canAfford ? `${cost} ✦` : it.role || 'S-Rank'}</span>
+                        <span class="gacha-col-sub">${canAfford ? `${cost} ✦` : ((tm.roles && tm.roles[it.role]) || it.role || 'S-Rank')}</span>
                     </div>
                 </div>`;
             }).join('');
@@ -2407,6 +2419,8 @@
 
     function playZZZTVAnimation(results) {
         const t = L().results;
+        clearTVAnimTimers();
+        const mySession = tvAnimSession;
         skipRequested = false;
         animOverlayEl.classList.remove('s-rank-flash');
         animOverlayEl.classList.add('active');
@@ -2442,9 +2456,9 @@
         `;
 
         const showFinalScreen = () => {
-            if (skipRequested) return;
+            if (skipRequested || mySession !== tvAnimSession) return;
             skipRequested = true;
-            animOverlayEl.onclick = null;
+            clearTVAnimTimers();
             renderSearchResultsScreen(results);
         };
 
@@ -2459,8 +2473,8 @@
         };
 
         results.forEach((item, idx) => {
-            setTimeout(() => {
-                if (skipRequested) return;
+            tvAnimTimers.push(setTimeout(() => {
+                if (skipRequested || mySession !== tvAnimSession) return;
                 const tv = document.getElementById(`gtv-${idx}`);
                 if (tv) {
                     tv.classList.add(`lit-${item.rank}`);
@@ -2470,14 +2484,13 @@
                         animOverlayEl.classList.add('s-rank-flash');
                     }
                 }
-            }, 130 + idx * 130);
+            }, 130 + idx * 130));
         });
 
         const totalDuration = 130 + results.length * 130 + 700;
-        setTimeout(() => {
-            if (!skipRequested) showFinalScreen();
-        }, totalDuration);
-    }
+        tvAnimTimers.push(setTimeout(() => {
+            if (!skipRequested && mySession === tvAnimSession) showFinalScreen();
+        }, totalDuration));
 
     function renderSearchResultsScreen(results) {
         animOverlayEl.onclick = null;
@@ -2606,7 +2619,7 @@
             link.href = 'gacha/gacha-builds.css?v=11';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=14').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        import('./gacha-builds.js?v=15').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
