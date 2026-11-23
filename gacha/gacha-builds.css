@@ -15,8 +15,10 @@
     max-width: 100%;
 }
 
-#zzz-gacha-modal .gacha-nav-pills.zb-six-tabs {
-    grid-template-columns: repeat(3, 1fr) !important;
+@media (min-width: 768px) and (max-width: 1119px) {
+    #zzz-gacha-modal .gacha-nav-pills.zb-six-tabs {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
 }
 
 @media (min-width: 1120px) {
