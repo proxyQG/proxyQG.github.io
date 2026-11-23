@@ -2754,7 +2754,7 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=12';
+            link.href = 'gacha/gacha-builds.css?v=13';
             document.head.appendChild(link);
         }
         import('./gacha-builds.js?v=18').catch(err => console.warn('Module Builds optionnel non chargé:', err));
