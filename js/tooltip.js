@@ -254,13 +254,16 @@
     function init() {
         agentModalEl = document.getElementById('agentDetailModal');
 
-        const storedEngines = sessionStorage.getItem('zzz_engines_db');
-        if (storedEngines) {
-            try {
-                W_ENGINES_DB = JSON.parse(storedEngines);
-            } catch (e) {
-                sessionStorage.removeItem('zzz_engines_db');
+        try {
+            const storedEngines = sessionStorage.getItem('zzz_engines_db');
+            if (storedEngines) {
+                const parsed = JSON.parse(storedEngines);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    W_ENGINES_DB = parsed;
+                }
             }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_engines_db'); } catch (_) {}
         }
 
         if (!W_ENGINES_DB || !AGENTS_DB) {
@@ -390,7 +393,10 @@
         const langSwitcher = document.getElementById('langSwitcher');
         const lang = langSwitcher ? langSwitcher.getAttribute('data-active') : (localStorage.getItem('zzz_lang') || 'fr');
         const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
-        const baseAtkLabel = lang === 'en' ? 'Base ATK' : 'ATQ de base';
+        const isArmorer = (data.specialty || '').toLowerCase() === 'armorer';
+        const baseAtkLabel = isArmorer
+            ? (lang === 'en' ? 'Base DEF' : 'DÉF de base')
+            : (lang === 'en' ? 'Base ATK' : 'ATQ de base');
         
         if (currentEngineKey !== engineKey) {
             document.getElementById('tt-name').textContent = data.name[lang] || data.name.en;
