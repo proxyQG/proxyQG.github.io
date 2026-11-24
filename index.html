@@ -716,7 +716,13 @@
                 localStorage.setItem(KEY, serialized);
                 localStorage.setItem(BACKUP_KEY, serialized);
                 const d = st.daily;
-                const ready = !d.freePackClaimed || !d.claimed?.q1 || (d.guidesOpened.length >= 3 && !d.claimed?.q2) || (d.itemsInspected.length >= 2 && !d.claimed?.q3) || (d.guidesOpened.length >= 6 && !d.claimed?.q5);
+                const ready = !d.freePackClaimed
+                    || !d.claimed?.q1
+                    || (d.guidesOpened.length >= 3 && !d.claimed?.q2)
+                    || (d.itemsInspected.length >= 2 && !d.claimed?.q3)
+                    || ((d.pullsToday || 0) >= 1 && !d.claimed?.q4)
+                    || (d.guidesOpened.length >= 6 && !d.claimed?.q5)
+                    || ((d.pullsToday || 0) >= 10 && !d.claimed?.q6);
                 document.querySelectorAll('.gacha-quest-dot-global').forEach(el => { el.style.display = ready ? 'block' : 'none'; });
             } catch (e) {}
         }
@@ -756,6 +762,7 @@
         // Suivi passif 0 Ko des quêtes pendant la lecture des guides (cartes + flèches < >)
         document.addEventListener('click', (e) => {
             if (window.__zzzGachaLoaded) return;
+            if (e.target.closest('[onclick*="toggleFavorite"]')) return;
             setupPassiveGuideObserver();
 
             const ag = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
@@ -808,16 +815,20 @@
             if (showLoader) setGachaButtonsLoading(true);
 
             if (!loadingPromise) {
-                loadingPromise = new Promise((resolve, reject) => {
-                    if (!document.getElementById('zzz-gacha-core-css')) {
+                const cssReady = document.getElementById('zzz-gacha-core-css')
+                    ? Promise.resolve()
+                    : new Promise((resCss) => {
                         const link = document.createElement('link');
                         link.id = 'zzz-gacha-core-css';
                         link.rel = 'stylesheet';
                         link.href = 'gacha/gacha.css?v=12';
+                        link.onload = resCss;
+                        link.onerror = resCss;
                         document.head.appendChild(link);
-                    }
+                    });
+                const jsReady = new Promise((resolve, reject) => {
                     const s = document.createElement('script');
-                    s.src = 'gacha/gacha.js?v=16';
+                    s.src = 'gacha/gacha.js?v=17';
                     s.onload = () => {
                         window.__zzzGachaLoaded = true;
                         if (passiveObs) { passiveObs.disconnect(); passiveObs = null; }
@@ -830,6 +841,7 @@
                     };
                     document.body.appendChild(s);
                 });
+                loadingPromise = Promise.all([cssReady, jsReady]);
             }
             return loadingPromise.then(() => {
                 if (typeof window.__realOpenGachaModal === 'function') {
