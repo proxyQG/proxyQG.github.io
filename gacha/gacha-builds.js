@@ -307,13 +307,31 @@
 
         let EXT_DATA = { loaded: false, guides: {}, discs: {}, engines: {} };
 
+        async function fetchCachedExtJson(url, storageKey) {
+            try {
+                const cached = sessionStorage.getItem(storageKey);
+                if (cached) return JSON.parse(cached);
+            } catch (e) {
+                try { sessionStorage.removeItem(storageKey); } catch (_) {}
+            }
+            try {
+                const data = await fetch(url).then(r => r.json());
+                if (data) {
+                    try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (e) {}
+                }
+                return data || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
         async function ensureExternalDataLoaded() {
             if (EXT_DATA.loaded) return;
             try {
                 const [g, d, e] = await Promise.all([
-                    fetch('js/data/agent_database.json').then(r => r.json()).catch(() => ({})),
-                    fetch('js/data/discs.json').then(r => r.json()).catch(() => ({})),
-                    fetch('js/data/engines.json').then(r => r.json()).catch(() => ({}))
+                    fetchCachedExtJson('js/data/agent_database.json', 'zzz_agent_db'),
+                    fetchCachedExtJson('js/data/discs.json', 'zzz_discs_db'),
+                    fetchCachedExtJson('js/data/engines.json', 'zzz_engines_db')
                 ]);
                 EXT_DATA.guides = g || {};
                 EXT_DATA.discs = d || {};
@@ -1050,6 +1068,8 @@
         let mobileSlotDrawerOpen = false;
         let mobileMoreMenuOpen = false;
         let mobileEffectExpanded = false;
+        let lastMobTapId = null;
+        let lastMobTapTime = 0;
 
         function isMobileViewport() {
             return window.innerWidth < 768;
@@ -1364,10 +1384,12 @@
                     const owners = getEngineOwnersList(st, it.rawKey);
                     const avatarOwner = owners.includes(agent.rawKey) ? agent.rawKey : owners[0];
                     const isSel = it.rawKey === selectedItemId;
+                    const isEqHere = ab.engineKey === it.rawKey;
                     return `
                     <div class="zzz-case-item ${isSel ? 'selected' : ''}" data-grid-pick="${it.rawKey}">
                         <div class="zzz-case-box rank-${it.rank}">
                             ${avatarOwner ? `<div class="zzz-case-owner"><img src="assets/Agents/${avatarOwner}.webp"></div>` : ''}
+                            ${isSel ? `<button type="button" class="zzz-mob-quick-btn ${isEqHere ? 'is-equipped' : ''}" data-mob-quick-equip="${it.rawKey}" aria-label="${isEqHere ? t.removeBtn : t.equipBtn}">${isEqHere ? '−' : '+'}</button>` : ''}
                             <img src="${it.img}" class="zzz-engine-thumb" alt="">
                             <div class="zzz-case-rarity-lock">
                                 <span class="r-${it.rank.toLowerCase()}">${it.rank}</span>
@@ -1380,10 +1402,12 @@
                     const sObj = pool.allCatalog.find(i => i.type === 'disc' && i.rawKey === it.setKey);
                     const ownerKey = getDiscOwner(st, it.uid);
                     const isSel = it.uid === selectedItemId;
+                    const isEqHere = ab.discs[it.slot || slotNum] === it.uid;
                     return `
                     <div class="zzz-case-item ${isSel ? 'selected' : ''}" data-grid-pick="${it.uid}">
                         <div class="zzz-case-box rank-S">
                             ${ownerKey ? `<div class="zzz-case-owner"><img src="assets/Agents/${ownerKey}.webp"></div>` : ''}
+                            ${isSel ? `<button type="button" class="zzz-mob-quick-btn ${isEqHere ? 'is-equipped' : ''}" data-mob-quick-equip="${it.uid}" aria-label="${isEqHere ? t.removeBtn : t.equipBtn}">${isEqHere ? '−' : '+'}</button>` : ''}
                             <div class="zzz-disc-cd-sleeve">
                                 <img src="${sObj ? sObj.img : ''}" alt="">
                             </div>
@@ -2228,31 +2252,34 @@
                 renderBuildsTab(mount);
             });
 
+            const toggleQuickEquip = (pickId) => {
+                if (!pickId) return;
+                selectedItemId = pickId;
+                resetConfirmStates();
+                if (isEngineMode) {
+                    if (ab.engineKey === pickId) ab.engineKey = null;
+                    else equipEngineUnique(st, agent.rawKey, pickId);
+                } else {
+                    const dObj = bs.craftedDiscs.find(x => x.uid === pickId);
+                    if (!dObj) return;
+                    const targetSlot = dObj.slot || slotNum;
+                    if (ab.discs[targetSlot] === dObj.uid) ab.discs[targetSlot] = null;
+                    else {
+                        equipDiscUnique(st, agent.rawKey, targetSlot, dObj.uid);
+                        activeWheelTarget = targetSlot;
+                    }
+                }
+                bridge.saveState(st);
+                renderBuildsTab(mount);
+            };
+
             mount.querySelectorAll('[data-grid-pick]').forEach(el => {
                 el.addEventListener('click', () => {
                     selectedItemId = el.getAttribute('data-grid-pick');
                     renderBuildsTab(mount);
                 });
                 el.addEventListener('dblclick', () => {
-                    const pickId = el.getAttribute('data-grid-pick');
-                    if (!pickId) return;
-                    selectedItemId = pickId;
-                    resetConfirmStates();
-                    if (isEngineMode) {
-                        if (ab.engineKey === pickId) ab.engineKey = null;
-                        else equipEngineUnique(st, agent.rawKey, pickId);
-                    } else {
-                        const dObj = bs.craftedDiscs.find(x => x.uid === pickId);
-                        if (!dObj) return;
-                        const targetSlot = dObj.slot || slotNum;
-                        if (ab.discs[targetSlot] === dObj.uid) ab.discs[targetSlot] = null;
-                        else {
-                            equipDiscUnique(st, agent.rawKey, targetSlot, dObj.uid);
-                            activeWheelTarget = targetSlot;
-                        }
-                    }
-                    bridge.saveState(st);
-                    renderBuildsTab(mount);
+                    toggleQuickEquip(el.getAttribute('data-grid-pick'));
                 });
             });
 
@@ -2669,9 +2696,27 @@
                         renderBuildsTab(mount);
                     });
                 });
+                portal.querySelectorAll('[data-mob-quick-equip]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        lastMobTapId = null;
+                        lastMobTapTime = 0;
+                        toggleQuickEquip(btn.getAttribute('data-mob-quick-equip'));
+                    });
+                });
                 portal.querySelectorAll('[data-grid-pick]').forEach(el => {
                     el.addEventListener('click', () => {
-                        selectedItemId = el.getAttribute('data-grid-pick');
+                        const pickId = el.getAttribute('data-grid-pick');
+                        const now = Date.now();
+                        if (pickId && pickId === lastMobTapId && (now - lastMobTapTime) < 320) {
+                            lastMobTapId = null;
+                            lastMobTapTime = 0;
+                            toggleQuickEquip(pickId);
+                            return;
+                        }
+                        lastMobTapId = pickId;
+                        lastMobTapTime = now;
+                        selectedItemId = pickId;
                         renderBuildsTab(mount);
                     });
                 });
