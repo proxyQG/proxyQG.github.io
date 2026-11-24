@@ -500,6 +500,7 @@
     setupGuideNavigationObserver();
 
     document.addEventListener('click', (e) => {
+        if (e.target.closest('[onclick*="toggleFavorite"]')) return;
         setupGuideNavigationObserver();
 
         const agentCard = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
@@ -553,14 +554,21 @@
         if (storageKey) {
             try {
                 const cached = sessionStorage.getItem(storageKey);
-                if (cached) return JSON.parse(cached);
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                        return parsed;
+                    }
+                }
             } catch (e) {
                 try { sessionStorage.removeItem(storageKey); } catch (_) {}
             }
         }
         try {
-            const data = await fetch(url).then(r => r.json());
-            if (storageKey && data) {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (storageKey && data && typeof data === 'object' && Object.keys(data).length > 0) {
                 try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (e) {}
             }
             return data;
@@ -2778,10 +2786,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=14';
+            link.href = 'gacha/gacha-builds.css?v=15';
             document.head.appendChild(link);
         }
-        buildsLoadPromise = import('./gacha-builds.js?v=19').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        buildsLoadPromise = import('./gacha-builds.js?v=20').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
