@@ -11,6 +11,7 @@
     const ttDict = {
         'Physical': { fr: 'Physique', en: 'Physical' },
         'Fire': { fr: 'Feu', en: 'Fire' },
+        'Genesis Flare': { fr: 'Flambeau de la genèse', en: 'Genesis Flare' },
         'Ice': { fr: 'Glace', en: 'Ice' },
         'Frost': { fr: 'Givre', en: 'Frost' },
         'Electric': { fr: 'Électrique', en: 'Electric' },
@@ -36,19 +37,19 @@
 
     async function loadEnginesDB() {
         if (W_ENGINES_DB) return W_ENGINES_DB;
-        const stored = sessionStorage.getItem('zzz_engines_db');
-        if (stored) {
-            try {
+        try {
+            const stored = sessionStorage.getItem('zzz_engines_db');
+            if (stored) {
                 W_ENGINES_DB = JSON.parse(stored);
                 return W_ENGINES_DB;
-            } catch (e) {
-                sessionStorage.removeItem('zzz_engines_db');
             }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_engines_db'); } catch (_) {}
         }
         try {
             const res = await fetch('js/data/engines.json');
             W_ENGINES_DB = await res.json();
-            sessionStorage.setItem('zzz_engines_db', JSON.stringify(W_ENGINES_DB));
+            try { sessionStorage.setItem('zzz_engines_db', JSON.stringify(W_ENGINES_DB)); } catch (e) {}
             return W_ENGINES_DB;
         } catch (error) {
             console.error("Erreur chargement des moteurs :", error);
@@ -58,17 +59,19 @@
 
     async function getAgentsDB() {
         if (AGENTS_DB) return AGENTS_DB;
-        const stored = sessionStorage.getItem('zzz_agent_db');
-        if (stored) {
-            try {
+        try {
+            const stored = sessionStorage.getItem('zzz_agent_db');
+            if (stored) {
                 AGENTS_DB = JSON.parse(stored);
                 return AGENTS_DB;
-            } catch (e) {}
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_agent_db'); } catch (_) {}
         }
         try {
             const res = await fetch('js/data/agent_database.json');
             AGENTS_DB = await res.json();
-            sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB));
+            try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB)); } catch (e) {}
             return AGENTS_DB;
         } catch (e) {
             return null;
