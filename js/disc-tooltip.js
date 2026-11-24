@@ -7,13 +7,16 @@
     let pendingDiscCardsHTML = '';
 
     // Lecture depuis le cache local de session pour une ouverture en 0 ms
-    const storedDiscs = sessionStorage.getItem('zzz_discs_db');
-    if (storedDiscs) {
-        try {
-            DISCS_DB = JSON.parse(storedDiscs);
-        } catch (e) {
-            sessionStorage.removeItem('zzz_discs_db');
+    try {
+        const storedDiscs = sessionStorage.getItem('zzz_discs_db');
+        if (storedDiscs) {
+            const parsed = JSON.parse(storedDiscs);
+            if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                DISCS_DB = parsed;
+            }
         }
+    } catch (e) {
+        try { sessionStorage.removeItem('zzz_discs_db'); } catch (_) {}
     }
 
     function getLang() {
@@ -170,8 +173,11 @@
         if (DISCS_DB) return DISCS_DB;
         try {
             const res = await fetch('js/data/discs.json');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             DISCS_DB = await res.json();
-            sessionStorage.setItem('zzz_discs_db', JSON.stringify(DISCS_DB));
+            if (DISCS_DB && typeof DISCS_DB === 'object' && Object.keys(DISCS_DB).length > 0) {
+                try { sessionStorage.setItem('zzz_discs_db', JSON.stringify(DISCS_DB)); } catch (e) {}
+            }
             return DISCS_DB;
         } catch (e) {
             console.error('Erreur chargement discs.json:', e);
@@ -181,17 +187,25 @@
 
     async function getAgentsDB() {
         if (AGENTS_DB) return AGENTS_DB;
-        const stored = sessionStorage.getItem('zzz_agent_db');
-        if (stored) {
-            try {
-                AGENTS_DB = JSON.parse(stored);
-                return AGENTS_DB;
-            } catch (e) {}
+        try {
+            const stored = sessionStorage.getItem('zzz_agent_db');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    AGENTS_DB = parsed;
+                    return AGENTS_DB;
+                }
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_agent_db'); } catch (_) {}
         }
         try {
             const res = await fetch('js/data/agent_database.json');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             AGENTS_DB = await res.json();
-            sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB));
+            if (AGENTS_DB && typeof AGENTS_DB === 'object' && Object.keys(AGENTS_DB).length > 0) {
+                try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB)); } catch (e) {}
+            }
             return AGENTS_DB;
         } catch (e) {
             return null;
