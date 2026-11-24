@@ -2496,6 +2496,10 @@
         width: clamp(360px, 26vw, 465px);
     }
 }
+.zzz-mob-slot-sheet .zzz-case-item {
+    touch-action: manipulation;
+}
+
 .zzz-mob-quick-btn {
     display: none;
 }
@@ -2505,14 +2509,14 @@
     top: 3px;
     left: 3px;
     z-index: 6;
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     border-radius: 999px;
     border: 1.5px solid #09090b;
     background: #d7f70c;
     color: #09090b;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1;
     display: flex;
     align-items: center;
