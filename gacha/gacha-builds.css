@@ -2496,3 +2496,38 @@
         width: clamp(360px, 26vw, 465px);
     }
 }
+.zzz-mob-quick-btn {
+    display: none;
+}
+
+.zzz-mob-slot-sheet .zzz-mob-quick-btn {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 6;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 1.5px solid #09090b;
+    background: #d7f70c;
+    color: #09090b;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.zzz-mob-slot-sheet .zzz-mob-quick-btn.is-equipped {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.zzz-mob-slot-sheet .zzz-mob-quick-btn:active {
+    transform: scale(0.9);
+}
