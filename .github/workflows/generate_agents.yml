@@ -46,6 +46,7 @@ jobs:
           COLOR_MAP = {
               "Physical": "#e8a838",
               "Fire": "#f05432",
+              "Genesis Flare": "#38bdf8",
               "Ice": "#00d5be",
               "Electric": "#3182eb",
               "Ether": "#f23c8a",
