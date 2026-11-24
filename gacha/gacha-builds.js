@@ -310,13 +310,20 @@
         async function fetchCachedExtJson(url, storageKey) {
             try {
                 const cached = sessionStorage.getItem(storageKey);
-                if (cached) return JSON.parse(cached);
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                        return parsed;
+                    }
+                }
             } catch (e) {
                 try { sessionStorage.removeItem(storageKey); } catch (_) {}
             }
             try {
-                const data = await fetch(url).then(r => r.json());
-                if (data) {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                if (data && typeof data === 'object' && Object.keys(data).length > 0) {
                     try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (e) {}
                 }
                 return data || {};
@@ -336,7 +343,9 @@
                 EXT_DATA.guides = g || {};
                 EXT_DATA.discs = d || {};
                 EXT_DATA.engines = e || {};
-                EXT_DATA.loaded = true;
+                EXT_DATA.loaded = Object.keys(EXT_DATA.guides).length > 0
+                    && Object.keys(EXT_DATA.discs).length > 0
+                    && Object.keys(EXT_DATA.engines).length > 0;
             } catch (err) {
                 console.warn('Erreur chargement données externes Builds:', err);
             }
@@ -2708,7 +2717,7 @@
                     el.addEventListener('click', () => {
                         const pickId = el.getAttribute('data-grid-pick');
                         const now = Date.now();
-                        if (pickId && pickId === lastMobTapId && (now - lastMobTapTime) < 320) {
+                        if (pickId && pickId === lastMobTapId && (now - lastMobTapTime) < 360) {
                             lastMobTapId = null;
                             lastMobTapTime = 0;
                             toggleQuickEquip(pickId);
