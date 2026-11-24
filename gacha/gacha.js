@@ -37,6 +37,7 @@
     }
 
     let DICT = null;
+    let buildsLoadPromise = null;
     let modalEl = null;
     let animOverlayEl = null;
     let poolReady = false;
@@ -378,7 +379,10 @@
         await new Promise(r => setTimeout(r, 45));
         gachaOpenedAt = Date.now();
 
-        await ensureDictLoaded();
+        await Promise.all([
+            ensureDictLoaded(),
+            buildsLoadPromise || Promise.resolve()
+        ]);
         createModalDOM();
         window.ZZZBuilds?.initTabs?.();
         await ensurePoolLoaded();
@@ -545,13 +549,33 @@
     // ==========================================
     // 4. CHARGEMENT DU CATALOGUE COMPLET
     // ==========================================
+    async function fetchCachedJson(url, storageKey, fallback) {
+        if (storageKey) {
+            try {
+                const cached = sessionStorage.getItem(storageKey);
+                if (cached) return JSON.parse(cached);
+            } catch (e) {
+                try { sessionStorage.removeItem(storageKey); } catch (_) {}
+            }
+        }
+        try {
+            const data = await fetch(url).then(r => r.json());
+            if (storageKey && data) {
+                try { sessionStorage.setItem(storageKey, JSON.stringify(data)); } catch (e) {}
+            }
+            return data;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
     async function ensurePoolLoaded() {
         if (poolReady) return;
         try {
             const [agents, engines, discs, timer] = await Promise.all([
                 fetch('js/data/agents.json').then(r => r.json()).catch(() => []),
-                fetch('js/data/engines.json').then(r => r.json()).catch(() => ({})),
-                fetch('js/data/discs.json').then(r => r.json()).catch(() => ({})),
+                fetchCachedJson('js/data/engines.json', 'zzz_engines_db', {}),
+                fetchCachedJson('js/data/discs.json', 'zzz_discs_db', {}),
                 fetch('js/data/patch_timer.json').then(r => r.json()).catch(() => null)
             ]);
 
@@ -2754,10 +2778,10 @@
             const link = document.createElement('link');
             link.id = 'zzz-gacha-builds-css';
             link.rel = 'stylesheet';
-            link.href = 'gacha/gacha-builds.css?v=13';
+            link.href = 'gacha/gacha-builds.css?v=14';
             document.head.appendChild(link);
         }
-        import('./gacha-builds.js?v=18').catch(err => console.warn('Module Builds optionnel non chargé:', err));
+        buildsLoadPromise = import('./gacha-builds.js?v=19').catch(err => console.warn('Module Builds optionnel non chargé:', err));
     } catch (e) {}
 
     await ensureDictLoaded();
