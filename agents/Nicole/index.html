@@ -64,25 +64,6 @@
     <link rel="preload" href="/assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/montserrat-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
 
-    <style>
-        @font-face {
-            font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: block;
-            src: url('/assets/fonts/inter-latin-wght-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Inter'; font-style: italic; font-weight: 100 900; font-display: block;
-            src: url('/assets/fonts/inter-latin-wght-italic.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; font-display: block;
-            src: url('/assets/fonts/montserrat-latin-wght-normal.woff2') format('woff2');
-        }
-        @font-face {
-            font-family: 'Montserrat'; font-style: italic; font-weight: 100 900; font-display: block;
-            src: url('/assets/fonts/montserrat-latin-wght-italic.woff2') format('woff2');
-        }
-    </style>
-
     <!-- 2. SEO & Canonique -->
     <title>Nicole - Guide &amp; Build | ProxyQG</title>
     <meta name="description" content="Découvrez le meilleur build, disques, moteurs et synergies pour Nicole sur Zenless Zone Zero.">
@@ -119,68 +100,6 @@
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
     <link href="css/disc-tooltip.css" rel="stylesheet" media="print" onload="this.media='all'">
-
-    <!-- 6. Composants d'interface sur-mesure indispensables -->
-    <style>
-        main { transition: opacity 0.3s ease; }
-        .direct-agent-load main { opacity: 0 !important; pointer-events: none; }
-        
-        .tab-container { position: relative; display: flex; align-items: center; background-color: #141414; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9999px; padding: 4px; gap: 4px; overflow: hidden; }
-                .tab-pill { flex: 1; min-width: 0; white-space: nowrap; position: relative; z-index: 10; padding: 0.6rem 0.25rem; font-weight: 900; text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.01em; color: #a1a1aa; transition: color 0.3s ease; border-radius: 9999px; cursor: pointer; text-align: center; }
-                @media (min-width: 768px) { .tab-pill { font-size: 0.71rem; padding: 0.62rem 0.25rem; letter-spacing: 0.01em; } }
-                .tab-pill:hover { color: #ffffff; }
-                .tab-pill.active { color: #000000; }
-        
-        .tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
-        
-        .filter-btn { position: relative; background-color: #121214; color: #a1a1aa; border: 1px solid rgba(255, 255, 255, 0.07); transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; overflow: hidden; }
-        .filter-btn:hover:not(.active) { background-color: #1c1c1f; border-color: var(--btn-color, rgba(255, 255, 255, 0.28)); color: #ffffff; transform: translateY(-1px); }
-        .filter-btn.active { background: linear-gradient(135deg, color-mix(in srgb, var(--btn-color, #d7f70c) 24%, #161618), #0d0d0f) !important; color: #ffffff !important; border-color: var(--btn-color, #d7f70c) !important; box-shadow: 0 4px 18px -2px color-mix(in srgb, var(--btn-color, #d7f70c) 45%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important; font-weight: 900 !important; }
-        .filter-btn[data-filter="All"].active, .filter-btn[data-role="All"].active, .filter-btn[data-version="All"].active { background: #d7f70c !important; color: #000000 !important; border-color: #d7f70c !important; box-shadow: 0 0 20px rgba(215, 247, 12, 0.4) !important; }
-        .tab-dot { position: absolute; top: 5px; right: 7px; width: 5px; height: 5px; border-radius: 9999px; background-color: #d7f70c; box-shadow: 0 0 6px #d7f70c; pointer-events: none; }
-        .tab-pill.active .tab-dot { background-color: #000000; box-shadow: none; }
-        @keyframes shimmerLaser { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .laser-beam { animation: shimmerLaser 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        .lang-switch-wrap { position: relative; width: 84px; height: 34px; background: #121214; border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; display: flex; align-items: center; cursor: pointer; transition: border-color 0.25s ease, box-shadow 0.25s ease; box-shadow: inset 0 2px 6px rgba(0,0,0,0.6); }
-        .lang-switch-wrap:hover { border-color: rgba(215,247,12,0.45); box-shadow: 0 0 15px rgba(215,247,12,0.12), inset 0 2px 6px rgba(0,0,0,0.6); }
-        .lang-indicator { position: absolute; height: calc(100% - 6px); width: calc(50% - 3px); top: 3px; left: 3px; background: #d7f70c; border-radius: 99px; transition: transform 0.38s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 12px rgba(215,247,12,0.45); }
-        .lang-switch-wrap[data-active="en"] .lang-indicator { transform: translateX(100%); }
-        .lang-option { flex: 1; text-align: center; font-size: 11px; font-weight: 900; letter-spacing: 0.05em; z-index: 10; color: #fff; transition: color 0.25s ease; }
-        .lang-switch-wrap[data-active="fr"] .lang-option.fr { color: #000; }
-        .lang-switch-wrap[data-active="fr"] .lang-option.en { color: #a1a1aa; }
-        .lang-switch-wrap[data-active="en"] .lang-option.en { color: #000; }
-        .lang-switch-wrap[data-active="en"] .lang-option.fr { color: #a1a1aa; }
-        .lang-switch-wrap:hover .lang-option { color: #e4e4e7; }
-        .lang-switch-wrap[data-active="fr"]:hover .lang-option.fr, .lang-switch-wrap[data-active="en"]:hover .lang-option.en { color: #000; }
-
-        .mindscape-node { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .mindscape-node:hover { transform: scale(1.2); }
-        .mindscape-node.active { transform: scale(1.25); box-shadow: 0 0 15px currentColor; }
-        .mindscape-line { transition: width 0.5s ease-out; }
-
-        @keyframes rainUp {
-            0% { transform: translateY(100%); }
-            100% { transform: translateY(-200%); }
-        }
-
-        .dropdown-item-anim {
-            will-change: transform, opacity;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) skewX(-15deg); }
-            100% { transform: translateX(200%) skewX(-15deg); }
-        }
-        .animate-shine { animation: shine 1.5s infinite; }
-        @media (max-width: 639px) {
-            .agent-nameplate span {
-                font-size: 0.72rem !important;
-                letter-spacing: 0.02em !important;
-            }
-        }
-    </style>
-
 
     <script>
       (function() {
@@ -750,7 +669,9 @@
     <script>
     (function () {
         const KEY = 'zzz_proxyqg_gacha_v1';
+        const BACKUP_KEY = 'zzz_proxyqg_gacha_backup_v1';
         let loadingPromise = null;
+        let passiveObs = null;
 
         function todayStr() {
             const d = new Date();
@@ -781,7 +702,7 @@
 
         function updateSilentTracker(cb) {
             try {
-                const raw = localStorage.getItem(KEY);
+                const raw = localStorage.getItem(KEY) || localStorage.getItem(BACKUP_KEY);
                 const t = todayStr();
                 if (!raw && !cb) {
                     document.querySelectorAll('.gacha-quest-dot-global').forEach(el => { el.style.display = 'block'; });
@@ -791,29 +712,70 @@
                 if (!st.daily || st.daily.date !== t) {
                     st.daily = { date: t, visitDone: true, pullsToday: 0, freePackClaimed: false, guidesOpened: [], itemsInspected: [], claimed: {} };
                 }
+                if (!Array.isArray(st.daily.guidesOpened)) st.daily.guidesOpened = [];
+                if (!Array.isArray(st.daily.itemsInspected)) st.daily.itemsInspected = [];
                 if (cb) cb(st);
-                localStorage.setItem(KEY, JSON.stringify(st));
+                const serialized = JSON.stringify(st);
+                localStorage.setItem(KEY, serialized);
+                localStorage.setItem(BACKUP_KEY, serialized);
                 const d = st.daily;
-                const ready = !d.freePackClaimed || !d.claimed?.q1 || (d.guidesOpened?.length >= 3 && !d.claimed?.q2) || (d.itemsInspected?.length >= 2 && !d.claimed?.q3) || (d.guidesOpened?.length >= 6 && !d.claimed?.q5);
+                const ready = !d.freePackClaimed || !d.claimed?.q1 || (d.guidesOpened.length >= 3 && !d.claimed?.q2) || (d.itemsInspected.length >= 2 && !d.claimed?.q3) || (d.guidesOpened.length >= 6 && !d.claimed?.q5);
                 document.querySelectorAll('.gacha-quest-dot-global').forEach(el => { el.style.display = ready ? 'block' : 'none'; });
             } catch (e) {}
         }
 
-        // Suivi passif 0 Ko des quêtes pendant la lecture des guides
+        function trackPassiveGuide(rawName) {
+            const name = normalizeAgentKey(rawName);
+            if (!name) return;
+            updateSilentTracker(st => {
+                const exists = st.daily.guidesOpened.some(n => normalizeAgentKey(n).toLowerCase() === name.toLowerCase());
+                if (!exists && st.daily.guidesOpened.length < 10) {
+                    st.daily.guidesOpened.push(name);
+                    st.totalGuidesRead = (st.totalGuidesRead || 0) + 1;
+                }
+            });
+        }
+
+        // Observe aussi les changements via flèches clavier / lien direct avant ouverture du Gacha
+        function setupPassiveGuideObserver() {
+            const giantTitle = document.getElementById('modalGiantNameText');
+            if (!giantTitle || giantTitle.__silentGachaWatched) return;
+            giantTitle.__silentGachaWatched = true;
+            passiveObs = new MutationObserver(() => {
+                if (window.__zzzGachaLoaded) {
+                    passiveObs.disconnect();
+                    return;
+                }
+                const agModal = document.getElementById('agentDetailModal');
+                if (agModal && !agModal.classList.contains('hidden')) {
+                    const currentName = giantTitle.textContent.trim();
+                    if (currentName) trackPassiveGuide(currentName);
+                }
+            });
+            passiveObs.observe(giantTitle, { childList: true, characterData: true, subtree: true });
+        }
+        setupPassiveGuideObserver();
+
+        // Suivi passif 0 Ko des quêtes pendant la lecture des guides (cartes + flèches < >)
         document.addEventListener('click', (e) => {
             if (window.__zzzGachaLoaded) return;
+            setupPassiveGuideObserver();
+
             const ag = e.target.closest('[data-agent], [onclick*="openAgentDetail"], [data-tt-agent], [data-disc-agent]');
             if (ag) {
                 const rawName = ag.getAttribute('data-agent') || ag.getAttribute('data-tt-agent') || ag.getAttribute('data-disc-agent') || (ag.getAttribute('onclick')?.match(/openAgentDetail\(\s*['"]([^'"]+)['"]/) || [])[1];
-                const name = normalizeAgentKey(rawName);
-                if (name) updateSilentTracker(st => {
-                    const exists = st.daily.guidesOpened.some(n => normalizeAgentKey(n).toLowerCase() === name.toLowerCase());
-                    if (!exists && st.daily.guidesOpened.length < 10) {
-                        st.daily.guidesOpened.push(name);
-                        st.totalGuidesRead = (st.totalGuidesRead || 0) + 1;
-                    }
-                });
+                if (rawName) trackPassiveGuide(rawName);
             }
+
+            if (e.target.closest('#prevAgentBtn, #nextAgentBtn')) {
+                setTimeout(() => {
+                    if (window.__zzzGachaLoaded) return;
+                    const giantTitle = document.getElementById('modalGiantNameText');
+                    const currentName = giantTitle && giantTitle.textContent.trim();
+                    if (currentName) trackPassiveGuide(currentName);
+                }, 40);
+            }
+
             const eq = e.target.closest('[data-engine], [data-disc]');
             if (eq) {
                 const k = eq.getAttribute('data-engine') || eq.getAttribute('data-disc');
@@ -825,8 +787,29 @@
 
         updateSilentTracker();
 
+        function setGachaButtonsLoading(isLoading) {
+            const isEn = (document.getElementById('langSwitcher')?.getAttribute('data-active') || localStorage.getItem('zzz_lang') || 'fr') === 'en';
+            const loadingText = isEn ? 'Loading...' : 'Chargement...';
+            document.querySelectorAll('[onclick*="openGachaModal"]').forEach(btn => {
+                btn.classList.toggle('gacha-btn-loading', isLoading);
+                btn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+                const lbl = btn.querySelector('[data-i18n-extra="signalSearch"]');
+                if (!lbl) return;
+                if (isLoading) {
+                    if (!lbl.dataset.prevLabel) lbl.dataset.prevLabel = lbl.textContent;
+                    lbl.textContent = loadingText;
+                } else if (lbl.dataset.prevLabel) {
+                    lbl.textContent = lbl.dataset.prevLabel;
+                    delete lbl.dataset.prevLabel;
+                }
+            });
+        }
+
         // Chargement à la demande uniquement au clic sur "Recherche Signal"
         window.openGachaModal = function () {
+            const showLoader = !window.__zzzGachaLoaded;
+            if (showLoader) setGachaButtonsLoading(true);
+
             if (!loadingPromise) {
                 loadingPromise = new Promise((resolve, reject) => {
                     if (!document.getElementById('zzz-gacha-core-css')) {
@@ -837,8 +820,12 @@
                         document.head.appendChild(link);
                     }
                     const s = document.createElement('script');
-                    s.src = 'gacha/gacha.js?v=15';
-                    s.onload = () => { window.__zzzGachaLoaded = true; resolve(); };
+                    s.src = 'gacha/gacha.js?v=16';
+                    s.onload = () => {
+                        window.__zzzGachaLoaded = true;
+                        if (passiveObs) { passiveObs.disconnect(); passiveObs = null; }
+                        resolve();
+                    };
                     s.onerror = (err) => {
                         s.remove();
                         loadingPromise = null;
@@ -853,6 +840,8 @@
                 }
             }).catch(() => {
                 loadingPromise = null;
+            }).finally(() => {
+                if (showLoader) setGachaButtonsLoading(false);
             });
         };
     })();
