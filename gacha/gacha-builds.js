@@ -851,6 +851,24 @@
             Armorer: { hp: 8300, atk: 760, def: 790, imp: 105, cr: 5.0, cd: 50.0, am: 95,  ap: 95,  pen: 0, er: 1.2, rec: ['Taux CRIT', 'DÉF%', 'Dégâts CRIT'], goals: { def: 2000, cr: 65, cd: 100 } }
         };
 
+        const AGENT_ELEM_DMG_KEY = {
+            Physical: 'DGT Physique', 'Honed Edge': 'DGT Physique',
+            Fire: 'DGT Feu', 'Genesis Flare': 'DGT Feu',
+            Ice: 'DGT Glace', Frost: 'DGT Glace',
+            Electric: 'DGT Électrique',
+            Ether: 'DGT Éther', 'Auric Ink': 'DGT Éther',
+            Wind: 'DGT Vent'
+        };
+
+        const ELEM_DMG_ICONS = {
+            'DGT Physique': 'physique.webp',
+            'DGT Feu': 'feu.webp',
+            'DGT Glace': 'Ice.webp',
+            'DGT Électrique': 'electrique.webp',
+            'DGT Éther': 'Ether.webp',
+            'DGT Vent': 'Vent.webp'
+        };
+
         function computeAgentStats(st, pool, agentMeta) {
             const bs = ensureBuildState(st);
             const ab = getOrInitAgentBuild(st, agentMeta.rawKey);
@@ -899,6 +917,10 @@
             let matchingMainStats = 0;
 
             const setCounts = {};
+            const elemDmgMap = {
+                'DGT Physique': 0, 'DGT Feu': 0, 'DGT Glace': 0,
+                'DGT Électrique': 0, 'DGT Éther': 0, 'DGT Vent': 0
+            };
 
             function addStatContribution(statKey, amount) {
                 if (statKey === 'PV (flat)') hpFlat += amount;
@@ -914,6 +936,7 @@
                 else if (statKey === "Maîtrise d'anomalie") amPct += amount;
                 else if (statKey === "Régénération d'énergie") erPct += amount;
                 else if (statKey === 'Impact') impPct += amount;
+                else if (Object.prototype.hasOwnProperty.call(elemDmgMap, statKey)) elemDmgMap[statKey] += amount;
             }
 
             if (engineAdvStatKey && engineAdvNum > 0) {
@@ -968,6 +991,12 @@
                 else if (up.includes('ENERGY REGEN') || up.includes("ÉNERGIE") || up.includes("ENERGIE")) addStatContribution("Régénération d'énergie", val);
                 else if (up.includes('PEN RATIO') || up.includes('TAUX DE PÉN') || up.includes('TAUX DE PEN')) addStatContribution('Ratio de PÉN', val);
                 else if (up.includes('IMPACT')) addStatContribution('Impact', val);
+                else if (up.includes('PHYSICAL DMG') || up.includes('DGT PHYSIQUES')) addStatContribution('DGT Physique', val);
+                else if (up.includes('FIRE DMG') || up.includes('DGT DE FEU')) addStatContribution('DGT Feu', val);
+                else if (up.includes('ICE DMG') || up.includes('DGT DE GLACE')) addStatContribution('DGT Glace', val);
+                else if (up.includes('ELECTRIC DMG') || up.includes('DGT ÉLECTRIQUES')) addStatContribution('DGT Électrique', val);
+                else if (up.includes('ETHER DMG') || up.includes("DGT D'ÉTHER")) addStatContribution('DGT Éther', val);
+                else if (up.includes('WIND DMG') || up.includes('DGT DE VENT')) addStatContribution('DGT Vent', val);
                 else if (/\bATK\b|\bATQ\b/.test(up) && valMatch[2] === '%') addStatContribution('ATQ%', val);
                 else if (/\bDEF\b|\bDÉF\b/.test(up) && valMatch[2] === '%') addStatContribution('DÉF%', val);
                 else if (/\bHP\b|\bPV\b/.test(up) && valMatch[2] === '%') addStatContribution('PV%', val);
@@ -1044,11 +1073,27 @@
                 grade = 'B';
             }
 
+            const nativeElemKey = AGENT_ELEM_DMG_KEY[agentMeta.element] || null;
+            const elemDmgRows = [];
+            if (nativeElemKey) {
+                elemDmgRows.push({
+                    key: nativeElemKey,
+                    val: elemDmgMap[nativeElemKey] || 0,
+                    isRec: (prof.mainBySlot[5] || []).includes(nativeElemKey)
+                });
+            }
+            Object.entries(elemDmgMap).forEach(([ek, ev]) => {
+                if (ek !== nativeElemKey && ev > 0) {
+                    elemDmgRows.push({ key: ek, val: ev, isRec: false });
+                }
+            });
+
             return {
                 hp: finalHp, hpBonus: finalHp - base.hp, atk: finalAtk, atkBonus: finalAtk - base.atk,
                 def: finalDef, defBonus: finalDef - base.def, imp: finalImp,
                 cr: cr.toFixed(1) + ' %', cd: cd.toFixed(1) + ' %', am: finalAm, ap: finalAp,
                 pen: penPct.toFixed(1) + ' %', er: finalErNum.toFixed(2),
+                elemDmgRows,
                 effectiveSubRolls, totalDiscLevels, matchingMainStats,
                 goalItems: goalItems.slice(0, 3), grade, finalScore,
                 mindscape, overclockLvl, setCounts, recSubList,
@@ -2861,6 +2906,18 @@
                     <div class="zb-stat-row ${(calc.recSubList.includes("Régénération d'énergie") || calc.goalProps?.includes('er')) ? 'recommended' : ''}">
                         <span>${tStat("Régénération d'énergie")}</span><span class="zb-stat-val">${calc.er}</span>
                     </div>
+                    ${(calc.elemDmgRows || []).map((row, idx, arr) => {
+                        const spanFull = arr.length % 2 === 1 && idx === arr.length - 1;
+                        const eIco = ELEM_DMG_ICONS[row.key] || elemIcon;
+                        return `
+                    <div class="zb-stat-row ${row.isRec ? 'recommended' : ''}" ${spanFull ? 'style="grid-column:1 / -1;"' : ''}>
+                        <span style="display:inline-flex;align-items:center;gap:6px;">
+                            <img src="assets/Icone/${eIco}" alt="" style="width:15px;height:15px;object-fit:contain;">
+                            <span>${tStat(row.key)}</span>
+                        </span>
+                        <span class="zb-stat-val">${row.val.toFixed(1)} %</span>
+                    </div>`;
+                    }).join('')}
                 </div>
 
                 ${calc.goalItems?.length ? `
