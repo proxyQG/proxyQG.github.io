@@ -1746,9 +1746,10 @@ function getAgentFromUrl() {
     return null;
 }
 
-window.addEventListener('popstate', () => {
+window.addEventListener('popstate', (e) => {
     if (window.__ignoreNextPopstate) {
         window.__ignoreNextPopstate = false;
+        e.stopImmediatePropagation();
         return;
     }
     const modal = document.getElementById('agentDetailModal');
@@ -1761,22 +1762,26 @@ window.addEventListener('popstate', () => {
 
     // 1. Si la vidéo est ouverte, le retour mobile ferme uniquement la vidéo
     if (videoModal && !videoModal.classList.contains('hidden')) {
-    window.closeVideoModal(true);
-    return;
-}
+        e.stopImmediatePropagation();
+        window.closeVideoModal(true);
+        return;
+    }
 
     // 2. Si les factions ou le filtre mobile sont ouverts, on les ferme en priorité
     if (factionModal && !factionModal.classList.contains('hidden')) {
+        e.stopImmediatePropagation();
         window.closeModal('factionModal', false);
         return;
     }
     if (mobileFilterModal && !mobileFilterModal.classList.contains('hidden')) {
+        e.stopImmediatePropagation();
         window.closeModal('mobileFilterModal', false);
         return;
     }
 
     // 3. Si la platine vinyle est visible, le retour mobile ferme UNIQUEMENT le vinyle
     if (discModal && discModal.classList.contains('visible')) {
+        e.stopImmediatePropagation();
         if (typeof window.hideDiscTooltip === 'function') {
             window.hideDiscTooltip(true);
         }
@@ -1785,6 +1790,7 @@ window.addEventListener('popstate', () => {
 
     // 4. Si l'infobulle moteur est visible, le retour mobile ferme UNIQUEMENT l'infobulle
     if (tooltip && tooltip.classList.contains('visible')) {
+        e.stopImmediatePropagation();
         if (typeof window.hideTooltip === 'function') {
             window.hideTooltip(true);
         }
