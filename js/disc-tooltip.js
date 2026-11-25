@@ -20,7 +20,11 @@
     }
 
     function getLang() {
-        return localStorage.getItem('zzz_lang') || 'fr';
+        try {
+            return localStorage.getItem('zzz_lang') || 'fr';
+        } catch (e) {
+            return 'fr';
+        }
     }
 
     function t(obj) {
