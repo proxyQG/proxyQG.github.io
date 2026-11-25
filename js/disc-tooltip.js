@@ -81,7 +81,7 @@
 
                 const gachaModal = document.getElementById('zzz-gacha-modal');
                 if (gachaModal && gachaModal.classList.contains('visible')) {
-                    hideDiscTooltip();
+                    hideDiscTooltip(false, true);
                     if (window.ZZZGachaBridge?.openItemModal) {
                         window.ZZZGachaBridge.openItemModal('agent', targetAgent);
                     } else if (typeof window.closeGachaModal === 'function' && typeof window.openAgentDetail === 'function') {
@@ -403,11 +403,17 @@
 
     let isClosing = false;
 
-    function hideDiscTooltip(fromPopstate = false) {
-        if (isClosing || !modalEl || !modalEl.classList.contains('visible')) return;
-        isClosing = true;
+    function hideDiscTooltip(fromPopstate = false, instant = false) {
+        if ((!instant && isClosing) || !modalEl || !modalEl.classList.contains('visible')) return;
+        if (!instant) isClosing = true;
 
-        modalEl.style.transition = '';
+        if (instant) {
+            modalEl.style.transition = 'none';
+            if (overlayEl) overlayEl.style.transition = 'none';
+        } else {
+            modalEl.style.transition = '';
+        }
+
         if (overlayEl) {
             overlayEl.classList.remove('visible');
             overlayEl.style.opacity = '';
@@ -417,18 +423,28 @@
             modalEl.style.transform = '';
         }
 
+        if (instant) {
+            void modalEl.offsetWidth;
+            modalEl.style.transition = '';
+            if (overlayEl) overlayEl.style.transition = '';
+            isClosing = false;
+        }
+
         if (fromPopstate !== true && window.history.state?.discTooltipOpen) {
+            const delay = instant ? 0 : 260;
             setTimeout(() => {
                 if (modalEl && !modalEl.classList.contains('visible') && window.history.state?.discTooltipOpen) {
                     window.__ignoreNextPopstate = true;
                     window.history.back();
                 }
-            }, 260);
+            }, delay);
         }
 
-        setTimeout(() => {
-            isClosing = false;
-        }, 280);
+        if (!instant) {
+            setTimeout(() => {
+                isClosing = false;
+            }, 280);
+        }
     }
 
     document.addEventListener('keydown', (e) => {
