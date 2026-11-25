@@ -2692,3 +2692,21 @@
         gap: 16px;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    #gacha-anim-overlay.s-rank-flash {
+        animation: none !important;
+    }
+    .gacha-result-card,
+    .gacha-minicard-box {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    #zzz-gacha-modal,
+    .gacha-anim-tv,
+    .gacha-tv-letter,
+    #gacha-toast-box {
+        transition: none !important;
+    }
+}
