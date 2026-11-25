@@ -14153,14 +14153,14 @@
             "en": "Metropolitan Order Division"
         },
         "stats": [
-           {
-        "label": "Taux Crit",
-        "value": "60 - 100%",
-        "note": {
-          "fr": "76 % max avec son moteur signature",
-          "en": "76% max with her Signature W-Engine"
-        }
-      },
+            {
+                "label": "Taux Crit",
+                "value": "60 - 100%",
+                "note": {
+                    "fr": "80 % max avec son moteur signature",
+                    "en": "80% max with his Signature W-Engine"
+                }
+            },
             { "label": "Dégât Crit", "value": "140 - 170%+" },
             { "label": "Attaque", "value": "2600 - 3000+" }
         ],
@@ -15261,7 +15261,7 @@
                 "icon": "Assist.webp"
             },
             {
-                "name": "Esquive",
+                "name": "Dodge",
                 "level": "",
                 "icon": "Esquive.webp"
             }
