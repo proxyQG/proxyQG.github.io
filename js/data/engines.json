@@ -1,7 +1,7 @@
 {
   "Practiced Perfection": {
     "name": {
-      "fr": "Perfection de la pratique",
+      "fr": "Sphère stellaire 10D",
       "en": "Practiced Perfection"
     },
     "rank": "S",
@@ -46,7 +46,7 @@
   "Nirvana's First Plume": {
     "name": {
       "fr": "Première plume du nirvana",
-      "en": "Nirvana's First Plume"
+      "en": "Plume of Rebirth"
     },
     "rank": "S",
     "specialty": "Anomaly",
@@ -89,7 +89,7 @@
   },
   "Lunar - Noviluna": {
     "name": {
-      "fr": "Lune Nouvelle",
+      "fr": "[Lunaire] Nouvelle lune",
       "en": "[Lunar] Noviluna"
     },
     "rank": "B",
@@ -132,7 +132,7 @@
   },
   "Zanshin Herb Case": {
     "name": {
-      "fr": "Étui à herbes Zanshin",
+      "fr": "Pilulier Zanshin",
       "en": "Zanshin Herb Case"
     },
     "rank": "S",
@@ -176,8 +176,8 @@
   },
   "Sin-Ban Cage": {
     "name": {
-      "fr": "Cage des péchés interdits",
-      "en": "Sin-Ban Cage"
+      "fr": "Poigne d'incarcération",
+      "en": "Incarcerating Grip"
     },
     "rank": "S",
     "specialty": "Attack",
@@ -220,7 +220,7 @@
   },
   "Street Superstar": {
     "name": {
-      "fr": "Superstar des rues",
+      "fr": "Star de la rue",
       "en": "Street Superstar"
     },
     "rank": "A",
@@ -263,7 +263,7 @@
   },
   "Drill Rig - Red Axis": {
     "name": {
-      "fr": "Foreuse - Axe rouge",
+      "fr": "Foreuse – Axe rouge",
       "en": "Drill Rig - Red Axis"
     },
     "rank": "A",
@@ -351,7 +351,7 @@
   },
   "Sharpened Stinger": {
     "name": {
-      "fr": "Dard Aiguisé",
+      "fr": "Pinces acérées",
       "en": "Sharpened Stinger"
     },
     "rank": "S",
@@ -395,7 +395,7 @@
   },
   "Weeping Gemini": {
     "name": {
-      "fr": "Gémeaux en pleurs",
+      "fr": "Gémeaux éplorés",
       "en": "Weeping Gemini"
     },
     "rank": "A",
@@ -438,7 +438,7 @@
   },
   "Roaring Ride": {
     "name": {
-      "fr": "Virée rugissante",
+      "fr": "Moteur hurlant",
       "en": "Roaring Ride"
     },
     "rank": "A",
@@ -482,7 +482,7 @@
   },
   "Kaboom the Cannon": {
     "name": {
-      "fr": "Kaboom le canon",
+      "fr": "Canon Kaboum",
       "en": "Kaboom the Cannon"
     },
     "rank": "A",
@@ -525,7 +525,7 @@
   },
   "Elegant Vanity": {
     "name": {
-      "fr": "Vanité élégante",
+      "fr": "Trousse coquette",
       "en": "Elegant Vanity"
     },
     "rank": "S",
@@ -568,7 +568,7 @@
   },
   "Bashful Demon": {
     "name": {
-      "fr": "Démon timide",
+      "fr": "Démon pudique",
       "en": "Bashful Demon"
     },
     "rank": "A",
@@ -612,7 +612,7 @@
   },
   "Unfettered Game Ball": {
     "name": {
-      "fr": "Balle de jeu sans entraves",
+      "fr": "Sphère ludique endiablée",
       "en": "Unfettered Game Ball"
     },
     "rank": "A",
@@ -655,7 +655,7 @@
   },
   "Weeping Cradle": {
     "name": {
-      "fr": "Berceau en pleurs",
+      "fr": "Berceau des sanglots",
       "en": "Weeping Cradle"
     },
     "rank": "S",
@@ -698,7 +698,7 @@
   },
   "Slice of Time": {
     "name": {
-      "fr": "Tranche de temps",
+      "fr": "Figeur temporel",
       "en": "Slice of Time"
     },
     "rank": "A",
@@ -827,7 +827,7 @@
   },
   "Fusion Compiler": {
     "name": {
-      "fr": "Compilateur de fusion",
+      "fr": "Compilateur chimérique",
       "en": "Fusion Compiler"
     },
     "rank": "S",
@@ -870,7 +870,7 @@
   },
   "Timeweaver": {
     "name": {
-      "fr": "Tisseur de temps",
+      "fr": "Chronotisseur",
       "en": "Timeweaver"
     },
     "rank": "S",
@@ -914,7 +914,7 @@
   },
   "Magnetic Storm - Alpha": {
     "name": {
-      "fr": "[Tempête Magnétique] Alpha",
+      "fr": "[Tempête magnétique] Alpha",
       "en": "[Magnetic Storm] Alpha"
     },
     "rank": "B",
@@ -957,7 +957,7 @@
   },
   "Hellfire Gears": {
     "name": {
-      "fr": "Engrenages des flammes infernales",
+      "fr": "Engrenage infernal",
       "en": "Hellfire Gears"
     },
     "rank": "S",
@@ -1001,7 +1001,7 @@
   },
   "The Restrained": {
     "name": {
-      "fr": "Le Restreint",
+      "fr": "L'enchaîné",
       "en": "The Restrained"
     },
     "rank": "S",
@@ -1087,7 +1087,7 @@
   },
   "Six Shooter": {
     "name": {
-      "fr": "Six coups",
+      "fr": "Barillet à six coups",
       "en": "Six Shooter"
     },
     "rank": "A",
@@ -1130,7 +1130,7 @@
   },
   "Heartstring Nocturne": {
     "name": {
-      "fr": "Nocturne des cordes du cœur",
+      "fr": "Appassionato nocturne",
       "en": "Heartstring Nocturne"
     },
     "rank": "S",
@@ -1174,7 +1174,7 @@
   },
   "Cordis Germina": {
     "name": {
-      "fr": "Cordis Germina",
+      "fr": "Cordis germina",
       "en": "Cordis Germina"
     },
     "rank": "S",
@@ -1218,7 +1218,7 @@
   },
   "Myriad Eclipse": {
     "name": {
-      "fr": "Éclipse de la myriade",
+      "fr": "Mille facettes du soleil déchu",
       "en": "Myriad Eclipse"
     },
     "rank": "S",
@@ -1262,7 +1262,7 @@
   },
   "The Brimstone": {
     "name": {
-      "fr": "Le Soufre",
+      "fr": "Soufre",
       "en": "The Brimstone"
     },
     "rank": "S",
@@ -1306,7 +1306,7 @@
   },
   "Starlight Engine": {
     "name": {
-      "fr": "Moteur Starlight",
+      "fr": "Moteur stellaire",
       "en": "Starlight Engine"
     },
     "rank": "A",
@@ -1349,7 +1349,7 @@
   },
   "Spring Embrace": {
     "name": {
-      "fr": "Étreinte printanière",
+      "fr": "Source printanière",
       "en": "Spring Embrace"
     },
     "rank": "A",
@@ -1392,7 +1392,7 @@
   },
   "Original Transmorpher": {
     "name": {
-      "fr": "Transmorpheur original",
+      "fr": "Transformateur originel",
       "en": "Original Transmorpher"
     },
     "rank": "A",
@@ -1435,7 +1435,7 @@
   },
   "Big Cylinder": {
     "name": {
-      "fr": "Gros Cylindre",
+      "fr": "Big-cylindre",
       "en": "Big Cylinder"
     },
     "rank": "A",
@@ -1478,8 +1478,8 @@
   },
   "Identity Base": {
     "name": {
-      "fr": "Base Identité",
-      "en": "Identity Base"
+      "fr": "[Identité] Base",
+      "en": "[Identity] Base"
     },
     "rank": "B",
     "specialty": "Defense",
@@ -1521,8 +1521,8 @@
   },
   "Vortex - Arrow": {
     "name": {
-      "fr": "Flèche Vortex",
-      "en": "Vortex Arrow"
+      "fr": "[Vortex] Flèche",
+      "en": "[Vortex] Arrow"
     },
     "rank": "B",
     "specialty": "Stun",
@@ -1564,7 +1564,7 @@
   },
   "Housekeeper": {
     "name": {
-      "fr": "Gouvernante",
+      "fr": "Aide à domicile",
       "en": "Housekeeper"
     },
     "rank": "A",
@@ -1607,7 +1607,7 @@
   },
   "Steel Cushion": {
     "name": {
-      "fr": "Coussin d'acier",
+      "fr": "Coussinets d'acier",
       "en": "Steel Cushion"
     },
     "rank": "S",
@@ -1651,7 +1651,7 @@
   },
   "Cannon Rotor": {
     "name": {
-      "fr": "Rotor canon",
+      "fr": "Rotor de canon",
       "en": "Cannon Rotor"
     },
     "rank": "A",
@@ -1694,7 +1694,7 @@
   },
   "The Vault": {
     "name": {
-      "fr": "Le Coffre-fort",
+      "fr": "Chambre forte",
       "en": "The Vault"
     },
     "rank": "A",
@@ -1738,7 +1738,7 @@
   },
   "Cloudcleave Radiance": {
     "name": {
-      "fr": "Clarté fendeuse de nuages",
+      "fr": "Éclat fend-nuages",
       "en": "Cloudcleave Radiance"
     },
     "rank": "S",
@@ -1782,7 +1782,7 @@
   },
   "Starlight Engine Replica": {
     "name": {
-      "fr": "Réplique du Moteur Starlight",
+      "fr": "Réplique du moteur stellaire",
       "en": "Starlight Engine Replica"
     },
     "rank": "A",
@@ -1869,7 +1869,7 @@
   },
   "Peacekeeper - Specialized": {
     "name": {
-      "fr": "Pacificateur - Spécialisé",
+      "fr": "Défenseur de la paix – Spécialisé",
       "en": "Peacekeeper - Specialized"
     },
     "rank": "A",
@@ -1912,7 +1912,7 @@
   },
   "Bunny Band": {
     "name": {
-      "fr": "Boule de lapins",
+      "fr": "Panier-lapin",
       "en": "Bunny Band"
     },
     "rank": "A",
@@ -1955,7 +1955,7 @@
   },
   "Deep Sea Visitor": {
     "name": {
-      "fr": "Visiteur des grands fonds",
+      "fr": "Visiteur des abysses",
       "en": "Deep Sea Visitor"
     },
     "rank": "S",
@@ -1999,7 +1999,7 @@
   },
   "Riot Suppressor Mark VI": {
     "name": {
-      "fr": "Répresseur d'émeutes Mark VI",
+      "fr": "Force anti-émeute Mark VI",
       "en": "Riot Suppressor Mark VI"
     },
     "rank": "S",
@@ -2043,7 +2043,7 @@
   },
   "Ice-Jade Teapot": {
     "name": {
-      "fr": "Théière de jade glacé",
+      "fr": "Théière en jade",
       "en": "Ice-Jade Teapot"
     },
     "rank": "S",
@@ -2086,7 +2086,7 @@
   },
   "Flamemaker Shaker": {
     "name": {
-      "fr": "Secoueur incendiaire",
+      "fr": "Shakeur à flammes",
       "en": "Flamemaker Shaker"
     },
     "rank": "S",
@@ -2130,7 +2130,7 @@
   },
   "Tusks of Fury": {
     "name": {
-      "fr": "Défenses de fureur",
+      "fr": "Défenses de la fureur",
       "en": "Tusks of Fury"
     },
     "rank": "S",
@@ -2173,7 +2173,7 @@
   },
   "Blazing Laurel": {
     "name": {
-      "fr": "Laurier ardent",
+      "fr": "Laurier flamboyant",
       "en": "Blazing Laurel"
     },
     "rank": "S",
@@ -2217,7 +2217,7 @@
   },
   "Hailstorm Shrine": {
     "name": {
-      "fr": "Sanctuaire de la tempête de grêle",
+      "fr": "Temple de la grêle",
       "en": "Hailstorm Shrine"
     },
     "rank": "S",
@@ -2393,7 +2393,7 @@
   },
   "Marcato Desire": {
     "name": {
-      "fr": "Désir Marcato",
+      "fr": "Capriccio marcato",
       "en": "Marcato Desire"
     },
     "rank": "A",
@@ -2436,7 +2436,7 @@
   },
   "Flight of Fancy": {
     "name": {
-      "fr": "Vol de fantaisie",
+      "fr": "Envol de l'oiseau des rêves",
       "en": "Flight of Fancy"
     },
     "rank": "S",
@@ -2480,7 +2480,7 @@
   },
   "Roaring Fur-nace": {
     "name": {
-      "fr": "Fournaise ronronnante",
+      "fr": "Fu-fourneau rugissant",
       "en": "Roaring Fur-nace"
     },
     "rank": "S",
@@ -2524,7 +2524,7 @@
   },
   "Qingming Birdcage": {
     "name": {
-      "fr": "Cage à oiseaux de Qingming",
+      "fr": "Cage à oiseau Qingming",
       "en": "Qingming Birdcage"
     },
     "rank": "S",
@@ -2568,7 +2568,7 @@
   },
   "Cauldron of Clarity": {
     "name": {
-      "fr": "Chaudron de clarté",
+      "fr": "Chaudron d'émeraude",
       "en": "Cauldron of Clarity"
     },
     "rank": "A",
@@ -2611,7 +2611,7 @@
   },
   "Radiowave Journey": {
     "name": {
-      "fr": "Périple des ondes",
+      "fr": "Radio-baladeur",
       "en": "Radiowave Journey"
     },
     "rank": "A",
@@ -2654,7 +2654,7 @@
   },
   "Puzzle Sphere": {
     "name": {
-      "fr": "Sphère casse-tête",
+      "fr": "Casse-tête sphérique",
       "en": "Puzzle Sphere"
     },
     "rank": "A",
@@ -2697,7 +2697,7 @@
   },
   "Tremor Trigram Vessel": {
     "name": {
-      "fr": "Vaisseau des trigrammes de séisme",
+      "fr": "Boîtier du trigramme sismique",
       "en": "Tremor Trigram Vessel"
     },
     "rank": "A",
@@ -2784,7 +2784,7 @@
   },
   "Thoughtbop": {
     "name": {
-      "fr": "Pensée bondissante",
+      "fr": "Ballade au fil des pensées",
       "en": "Thoughtbop"
     },
     "rank": "S",
@@ -2828,7 +2828,7 @@
   },
   "Bellicose Blaze": {
     "name": {
-      "fr": "Flamme belliqueuse",
+      "fr": "Brasier belliqueux",
       "en": "Bellicose Blaze"
     },
     "rank": "S",
@@ -2872,7 +2872,7 @@
   },
   "Gilded Blossom": {
     "name": {
-      "fr": "Fleur dorée",
+      "fr": "Floraison dorée",
       "en": "Gilded Blossom"
     },
     "rank": "A",
@@ -2959,7 +2959,7 @@
   },
   "Grill O'Wisp": {
     "name": {
-      "fr": "Feu follet grillé",
+      "fr": "Fournaise follette",
       "en": "Grill O'Wisp"
     },
     "rank": "A",
@@ -3002,16 +3002,25 @@
     ]
   },
   "Dreamlit Hearth": {
-    "name": { "fr": "Foyer onirique", "en": "Dreamlit Hearth" },
+    "name": {
+      "fr": "Fourneau des rêves",
+      "en": "Dreamlit Hearth"
+    },
     "rank": "S",
     "specialty": "Support",
     "img": "W-Engine_Dreamlit_Hearth.webp",
     "stats": {
       "base": "48 - 713",
-      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advancedLabel": {
+        "fr": "PV %",
+        "en": "HP %"
+      },
       "advanced": "12% - 30%"
     },
-    "passiveName": { "fr": "Épopée des marées lunaires", "en": "Moontide Epic" },
+    "passiveName": {
+      "fr": "Épopée des marées lunaires",
+      "en": "Moontide Epic"
+    },
     "overclocks": [
       {
         "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,4]/s. Lorsque l'équipementier active un {Voile d'éther} ou prolonge sa durée, tous les membres de l'escouade gagnent [25 %] de DGT supplémentaires et [15 %] de PV max supplémentaires pendant 45s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet peut exister dans la même escouade.",
@@ -3036,17 +3045,26 @@
     ]
   },
   "Yesterday Calls": {
-    "name": { "fr": "L'appel d'hier", "en": "Yesterday Calls" },
+    "name": {
+      "fr": "Appel de la nuit dernière",
+      "en": "Yesterday Calls"
+    },
     "rank": "S",
     "specialty": "Stun",
     "element": "Physical",
     "img": "W-Engine_Yesterday_Calls.webp",
     "stats": {
       "base": "48 - 713",
-      "advancedLabel": { "fr": "Taux CRIT", "en": "CRIT Rate" },
+      "advancedLabel": {
+        "fr": "Taux CRIT",
+        "en": "CRIT Rate"
+      },
       "advanced": "9.6% - 24%"
     },
-    "passiveName": { "fr": "24h/24, 7j/7", "en": "24/7" },
+    "passiveName": {
+      "fr": "24h/24, 7j/7",
+      "en": "24/7"
+    },
     "overclocks": [
       {
         "fr": "En dehors du terrain, la {Réc. d'énergie} de l'équipementier augmente de [1,5]/s. Lorsque l'équipementier inflige des {DGT Physiques} avec une {Attaque spéciale EX}, la {Stupeur} infligée par ses attaques augmente de [9 %] pendant 10s (cumulable jusqu'à 3 fois). À 3 cumuls, tous les membres de l'escouade gagnent [30 %] de {DGT CRIT} supplémentaires pendant 40s. Les déclenchements répétés réinitialisent la durée. Une seule instance de cet effet de DGT CRIT peut exister dans la même escouade.",
@@ -3071,16 +3089,25 @@
     ]
   },
   "Half-Sugar Bunny": {
-    "name": { "fr": "Lapin mi-sucré", "en": "Half-Sugar Bunny" },
+    "name": {
+      "fr": "Lapin givré allégé",
+      "en": "Half-Sugar Bunny"
+    },
     "rank": "S",
     "specialty": "Defense",
     "img": "W-Engine_Half-Sugar_Bunny.webp",
     "stats": {
       "base": "48 - 713",
-      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advancedLabel": {
+        "fr": "PV %",
+        "en": "HP %"
+      },
       "advanced": "12% - 30%"
     },
-    "passiveName": { "fr": "Douceur fragile", "en": "Fragile Sweetness" },
+    "passiveName": {
+      "fr": "Douceur fragile",
+      "en": "Fragile Sweetness"
+    },
     "overclocks": [
       {
         "fr": "La {Réc. d'énergie} de l'équipementier augmente de [0,46]/s. Tous les membres de l'escouade gagnent [10 %] d'ATQ et [10 %] de {PV max}. Une seule instance de cet effet peut exister dans la même escouade. Lorsque l'équipementier active ou prolonge un {Voile d'éther}, tous les membres de l'escouade gagnent [30 %] de {DGT CRIT} pendant 60s. Les déclenchements répétés réinitialisent la durée.",
@@ -3105,17 +3132,26 @@
     ]
   },
   "Wrathful Vajra": {
-    "name": { "fr": "Vajra courroucé", "en": "Wrathful Vajra" },
+    "name": {
+      "fr": "Vajra courroucé",
+      "en": "Wrathful Vajra"
+    },
     "rank": "S",
     "specialty": "Rupture",
     "element": "Fire",
     "img": "W-Engine_Wrathful_Vajra.webp",
     "stats": {
       "base": "48 - 713",
-      "advancedLabel": { "fr": "PV %", "en": "HP %" },
+      "advancedLabel": {
+        "fr": "PV %",
+        "en": "HP %"
+      },
       "advanced": "12% - 30%"
     },
-    "passiveName": { "fr": "Feu karmique purificateur", "en": "Purging Karmic Fire" },
+    "passiveName": {
+      "fr": "Feu karmique purificateur",
+      "en": "Purging Karmic Fire"
+    },
     "overclocks": [
       {
         "fr": "Le {Taux CRIT} augmente de [20 %]. Lorsque l'équipementier lance une {Attaque spéciale EX}, ses {DGT de Feu bruts} augmentent de [9 %], cumulable jusqu'à 2 fois et d'une durée de 20s. La durée de chaque cumul est calculée séparément.",
@@ -3185,7 +3221,7 @@
   },
   "Serpentine Seeker": {
     "name": {
-      "fr": "Chercheur serpentin",
+      "fr": "Traque serpentine",
       "en": "Serpentine Seeker"
     },
     "rank": "S",
@@ -3229,7 +3265,7 @@
   },
   "Neon Fantasies": {
     "name": {
-      "fr": "Fantaisies néon",
+      "fr": "Fantaisie de néon",
       "en": "Neon Fantasies"
     },
     "rank": "S",
@@ -3273,7 +3309,7 @@
   },
   "The Simmering Pot": {
     "name": {
-      "fr": "La Marmite frémissante",
+      "fr": "Marmite mijotante",
       "en": "The Simmering Pot"
     },
     "rank": "A",
@@ -3316,7 +3352,7 @@
   },
   "Starlight Rider Faceplate": {
     "name": {
-      "fr": "Plaque de Chevalier Starlight",
+      "fr": "Heaume du Chevalier stellaire",
       "en": "Starlight Rider Faceplate"
     },
     "rank": "S",
@@ -3404,7 +3440,7 @@
   },
   "Chief Sidekick": {
     "name": {
-      "fr": "Acolyte en chef",
+      "fr": "Bras droit en chef",
       "en": "Chief Sidekick"
     },
     "rank": "S",
@@ -3448,7 +3484,7 @@
   },
   "Sol Exuvia": {
     "name": {
-      "fr": "Exuvie solaire",
+      "fr": "Sol Exuvia",
       "en": "Sol Exuvia"
     },
     "rank": "S",
@@ -3492,7 +3528,7 @@
   },
   "Knight's Extolment": {
     "name": {
-      "fr": "Éloge du chevalier",
+      "fr": "Éloge du cavalier",
       "en": "Knight's Extolment"
     },
     "rank": "S",
@@ -3579,7 +3615,7 @@
   },
   "Catty Luck": {
     "name": {
-      "fr": "Chance féline",
+      "fr": "Felis Fortuna",
       "en": "Catty Luck"
     },
     "rank": "A",
@@ -3753,7 +3789,7 @@
   },
   "Electro-Lip Gloss": {
     "name": {
-      "fr": "Gloss électrique",
+      "fr": "Brillant à lèvres électro",
       "en": "Electro-Lip Gloss"
     },
     "rank": "A",
