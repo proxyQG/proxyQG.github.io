@@ -407,3 +407,16 @@
         transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    #proxy-tooltip.visible .tt-img-wrap img,
+    [data-engine]::after {
+        animation: none !important;
+    }
+    #proxy-tooltip,
+    #proxy-tooltip-overlay,
+    [data-engine],
+    [data-engine] .sheen {
+        transition: none !important;
+    }
+}
