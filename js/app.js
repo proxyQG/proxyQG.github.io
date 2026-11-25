@@ -331,27 +331,49 @@ function normalizeSearchStr(str) {
 
 function ensureSearchDatabases() {
     if (!searchDiscsCache) {
-        const storedD = sessionStorage.getItem('zzz_discs_db');
-        if (storedD) {
-            try { searchDiscsCache = JSON.parse(storedD); } catch (e) {}
+        try {
+            const storedD = sessionStorage.getItem('zzz_discs_db');
+            if (storedD) {
+                const parsed = JSON.parse(storedD);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    searchDiscsCache = parsed;
+                }
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_discs_db'); } catch (_) {}
         }
         if (!searchDiscsCache) {
-            fetch('./js/data/discs.json').then(r => r.json()).then(d => {
-                searchDiscsCache = d;
-                sessionStorage.setItem('zzz_discs_db', JSON.stringify(d));
-            }).catch(() => {});
+            fetch('./js/data/discs.json')
+                .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+                .then(d => {
+                    if (d && typeof d === 'object' && Object.keys(d).length > 0) {
+                        searchDiscsCache = d;
+                        try { sessionStorage.setItem('zzz_discs_db', JSON.stringify(d)); } catch (_) {}
+                    }
+                }).catch(() => {});
         }
     }
     if (!searchEnginesCache) {
-        const storedE = sessionStorage.getItem('zzz_engines_db');
-        if (storedE) {
-            try { searchEnginesCache = JSON.parse(storedE); } catch (e) {}
+        try {
+            const storedE = sessionStorage.getItem('zzz_engines_db');
+            if (storedE) {
+                const parsed = JSON.parse(storedE);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    searchEnginesCache = parsed;
+                }
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_engines_db'); } catch (_) {}
         }
         if (!searchEnginesCache) {
-            fetch('./js/data/engines.json').then(r => r.json()).then(e => {
-                searchEnginesCache = e;
-                sessionStorage.setItem('zzz_engines_db', JSON.stringify(e));
-            }).catch(() => {});
+            fetch('./js/data/engines.json')
+                .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+                .then(e => {
+                    if (e && typeof e === 'object' && Object.keys(e).length > 0) {
+                        searchEnginesCache = e;
+                        try { sessionStorage.setItem('zzz_engines_db', JSON.stringify(e)); } catch (_) {}
+                    }
+                }).catch(() => {});
         }
     }
 }
@@ -695,7 +717,7 @@ window.toggleFavorite = function(btn, agentName, event) {
     }
     const isNowFav = !wasFav;
 
-    localStorage.setItem('zzz_favorites', JSON.stringify(State.favorites));
+    try { localStorage.setItem('zzz_favorites', JSON.stringify(State.favorites)); } catch (e) {}
     updateFavBadges();
 
     const cardObj = DOM.agentCards.find(c => c.agent.name === agentName);
@@ -1245,7 +1267,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
             <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
                 ${newRibbonHTML}
                 <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
-                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 group-hover:opacity-100">
+                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain opacity-90 group-hover:opacity-100">
                 </div>
                 <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
