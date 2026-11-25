@@ -414,6 +414,12 @@
         if (Date.now() - gachaOpenedAt < 500) {
             return;
         }
+        const engTip = document.getElementById('proxy-tooltip');
+        const discTip = document.getElementById('disc-tooltip-modal');
+        if ((engTip && engTip.classList.contains('visible')) ||
+            (discTip && discTip.classList.contains('visible'))) {
+            return;
+        }
         if (miniCardOverlayEl && miniCardOverlayEl.classList.contains('active')) {
             miniCardOverlayEl.classList.remove('active');
             return;
@@ -922,7 +928,7 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modalEl && modalEl.classList.contains('visible')) {
-                const engTip = document.getElementById('w-engine-tooltip');
+                const engTip = document.getElementById('proxy-tooltip');
                 const discTip = document.getElementById('disc-tooltip-modal');
                 if ((engTip && engTip.classList.contains('visible')) ||
                     (discTip && discTip.classList.contains('visible'))) {
