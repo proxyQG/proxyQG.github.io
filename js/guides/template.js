@@ -199,10 +199,10 @@ function buildDiscs(data, c, txt) {
         const isPlaceholder2 = String(disc.set2).toLowerCase() === 'nothing';
         const d1Attr = isPlaceholder1 ? '' : `data-disc="${escapeHTML(disc.set1)}"`;
         const d2Attr = isPlaceholder2 ? '' : `data-disc="${escapeHTML(disc.set2)}"`;
-        const d1IconCls = isPlaceholder1 ? 'cursor-default' : 'cursor-pointer hover:scale-110 hover:z-20 transition-transform';
-        const d2IconCls = isPlaceholder2 ? 'cursor-default' : 'cursor-pointer hover:scale-110 hover:z-20 transition-transform hover:opacity-100';
-        const d1TxtCls = isPlaceholder1 ? 'cursor-default' : 'cursor-pointer hover:text-[#d7f70c] transition-colors';
-        const d2TxtCls = isPlaceholder2 ? 'cursor-default' : 'cursor-pointer hover:text-[#d7f70c] transition-colors';
+        const d1IconCls = isPlaceholder1 ? 'cursor-default' : 'disc-trigger-icon cursor-pointer hover:scale-110 hover:z-20 transition-transform';
+        const d2IconCls = isPlaceholder2 ? 'cursor-default' : 'disc-trigger-icon cursor-pointer hover:scale-110 hover:z-20 transition-transform hover:opacity-100';
+        const d1TxtCls = isPlaceholder1 ? 'cursor-default' : 'disc-trigger-text cursor-pointer hover:text-[#d7f70c] transition-colors';
+        const d2TxtCls = isPlaceholder2 ? 'cursor-default' : 'disc-trigger-text is-sub cursor-pointer hover:text-[#d7f70c] transition-colors';
 
         return `
         <div class="bg-[#121212] border border-zinc-700 rounded-xl p-5 transition-all duration-300 relative shadow-xl group flex-1 flex flex-col justify-center">
@@ -218,7 +218,7 @@ function buildDiscs(data, c, txt) {
                         <img src="assets/Disque/${disc.set2}.webp" alt="" loading="eager" decoding="sync" class="w-full h-full object-cover">
                     </div>
                 </div>
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-1.5">
                     <span ${d1Attr} class="${d1TxtCls} font-black text-sm uppercase text-white tracking-wide">${escapeHTML(tDisc(disc.set1Name))}</span>
                     <span ${d2Attr} class="${d2TxtCls} font-bold text-xs text-zinc-400">${escapeHTML(tDisc(disc.set2Name))}</span>
                 </div>
