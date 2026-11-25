@@ -524,3 +524,70 @@
         margin: 8px auto 14px auto;
     }
 }
+
+/* ========================================================
+   AFFORDANCE CLIQUABLE SUR LES DISQUES DANS LES GUIDES
+======================================================== */
+.disc-trigger-icon {
+    border-color: rgba(215, 247, 12, 0.28) !important;
+}
+
+.disc-trigger-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    padding: 2px 4px 2px 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.disc-trigger-text::after {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 18L15 12L9 6' stroke='%23d7f70c' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter' stroke-opacity='0.65'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: discCuePulse 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.disc-trigger-text.is-sub::after {
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+}
+
+@keyframes discCuePulse {
+    0%, 100% { opacity: 0.55; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(3px); }
+}
+
+@media (hover: hover) {
+    .disc-trigger-icon:hover {
+        border-color: #d7f70c !important;
+        box-shadow: 0 0 14px rgba(215, 247, 12, 0.35);
+    }
+
+    .disc-trigger-text:hover::after {
+        animation: none;
+        opacity: 1;
+        transform: translateX(4px);
+        filter: drop-shadow(0 0 6px rgba(215, 247, 12, 0.8));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #disc-tooltip-modal.visible .disc-vinyl-plate,
+    .disc-trigger-text::after {
+        animation: none !important;
+    }
+    #disc-tooltip-modal,
+    #disc-tooltip-overlay,
+    .rec-panel,
+    .rec-chevron {
+        transition: none !important;
+    }
+}
