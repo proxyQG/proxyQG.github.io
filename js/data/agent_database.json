@@ -2649,8 +2649,8 @@
             {
                 "name": "TEAM 02",
                 "tag": {
-                    "fr": "Pieds ou boules ?",
-                    "en": "Feet or balls?"
+                    "fr": "Pieds en feu",
+                    "en": "Burning feet"
                 },
                 "members": [
                     {
@@ -2659,9 +2659,9 @@
                         "initial": "S"
                     },
                     {
-                        "img": "Banyue.webp",
+                        "img": "Orphie and Magus.webp",
                         "color": "#f05432",
-                        "initial": "B"
+                        "initial": "OM"
                     },
                     {
                         "img": "Dialyn.webp",
