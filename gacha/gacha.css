@@ -1916,12 +1916,12 @@
 }
 
 /* Force les popups Moteur et Disque à s'afficher AU-DESSUS du Gacha et des Résultats de tirage */
-#w-engine-tooltip,
+#proxy-tooltip,
 #disc-tooltip-modal {
     z-index: 460 !important;
 }
 
-#w-engine-tooltip-overlay,
+#proxy-tooltip-overlay,
 #disc-tooltip-overlay {
     z-index: 450 !important;
 }
