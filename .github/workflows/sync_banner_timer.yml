@@ -117,6 +117,7 @@ jobs:
           index_path = Path("index.html")
           if index_path.exists():
               idx_html = index_path.read_text(encoding="utf-8")
+              sub_text = "P2 DANS :" if str(phase_num) == "1" else "PATCH SUIV. :"
               idx_html = re.sub(
                   r'(<span class="patch-timer-badge[^>]*>)[^<]+(</span>)',
                   rf'\g<1>{patch_num} • P{phase_num}\2',
@@ -125,6 +126,11 @@ jobs:
               idx_html = re.sub(
                   r'(<span class="patch-timer-label[^>]*>)[^<]+(</span>)',
                   rf'\g<1>PATCH {patch_num} • P{phase_num}\2',
+                  idx_html
+              )
+              idx_html = re.sub(
+                  r'(<span class="patch-timer-sub[^>]*>)[^<]+(</span>)',
+                  rf'\g<1>{sub_text}\2',
                   idx_html
               )
               index_path.write_text(idx_html, encoding="utf-8")
