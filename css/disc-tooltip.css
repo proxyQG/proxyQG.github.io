@@ -578,16 +578,3 @@
         filter: drop-shadow(0 0 6px rgba(215, 247, 12, 0.8));
     }
 }
-
-@media (prefers-reduced-motion: reduce) {
-    #disc-tooltip-modal.visible .disc-vinyl-plate,
-    .disc-trigger-text::after {
-        animation: none !important;
-    }
-    #disc-tooltip-modal,
-    #disc-tooltip-overlay,
-    .rec-panel,
-    .rec-chevron {
-        transition: none !important;
-    }
-}
