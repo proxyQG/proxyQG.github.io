@@ -156,7 +156,7 @@
 
                 const gachaModal = document.getElementById('zzz-gacha-modal');
                 if (gachaModal && gachaModal.classList.contains('visible')) {
-                    hideTooltip();
+                    hideTooltip(false, true);
                     if (window.ZZZGachaBridge?.openItemModal) {
                         window.ZZZGachaBridge.openItemModal('agent', targetAgent);
                     } else if (typeof window.closeGachaModal === 'function' && typeof window.openAgentDetail === 'function') {
@@ -299,10 +299,16 @@
             .replace(/\{(.*?)\}/g, '<strong>$1</strong>');
     }
 
-    function hideTooltip(fromPopstate = false) {
+    function hideTooltip(fromPopstate = false, instant = false) {
         if (!tooltipEl || !tooltipEl.classList.contains('visible')) return;
 
-        tooltipEl.style.transition = '';
+        if (instant) {
+            tooltipEl.style.transition = 'none';
+            if (overlayEl) overlayEl.style.transition = 'none';
+        } else {
+            tooltipEl.style.transition = '';
+        }
+
         tooltipEl.classList.remove('visible');
         tooltipEl.style.transform = '';
         if (overlayEl) {
@@ -311,14 +317,21 @@
         }
         currentEngineKey = null;
 
-        if (fromPopstate !== true && window.history.state?.tooltipOpen) {
-    setTimeout(() => {
-        if (!tooltipEl.classList.contains('visible') && window.history.state?.tooltipOpen) {
-            window.__ignoreNextPopstate = true;
-            window.history.back();
+        if (instant) {
+            void tooltipEl.offsetWidth;
+            tooltipEl.style.transition = '';
+            if (overlayEl) overlayEl.style.transition = '';
         }
-    }, 260);
-}
+
+        if (fromPopstate !== true && window.history.state?.tooltipOpen) {
+            const delay = instant ? 0 : 260;
+            setTimeout(() => {
+                if (!tooltipEl.classList.contains('visible') && window.history.state?.tooltipOpen) {
+                    window.__ignoreNextPopstate = true;
+                    window.history.back();
+                }
+            }, delay);
+        }
     }
     window.hideTooltip = hideTooltip;
 
