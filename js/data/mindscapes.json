@@ -110,7 +110,7 @@
         "en": "Azure Wind"
       },
       "desc": {
-        "fr": "Lorsque Severian entre sur le champ de bataille, restaure 150 points de Souffle du flux (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Lorsque Severian déclenche une Esquive parfaite ou lance l'[Attaque de base : Chasse de l'ombre du vent d'azur, son Taux de pénétration augmente de 20 % pendant 25 s.",
+        "fr": "Lorsque Severian entre sur le champ de bataille, restaure 150 points de Souffle du flux (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Lorsque Severian déclenche une Esquive parfaite ou lance l'Attaque de base : Chasse de l'ombre du vent d'azur, son Taux de pénétration augmente de 20 % pendant 25 s.",
         "en": "When Severian enters the battlefield, restore 150 pt(s) of Flowing Breath. In Investigation Zone mode, this effect can trigger once every 180s; When Severian triggers Perfect Dodge or unleashes Basic Attack: Azure Wind Shadowhunt, his PEN Ratio increases by 20% for 25s."
       }
     },
