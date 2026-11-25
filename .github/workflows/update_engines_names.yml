@@ -1,0 +1,123 @@
+name: One-Shot Update Engines Names
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-engines:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update official W-Engine names & Lunar - Noviluna specialty
+        run: |
+          python3 - << 'EOF'
+          import json
+          from pathlib import Path
+
+          UPDATES = {
+              "Practiced Perfection": {"fr": "Sphère stellaire 10D"},
+              "Nirvana's First Plume": {"en": "Plume of Rebirth"},
+              "Lunar - Noviluna": {"fr": "[Lunaire] Nouvelle lune"},
+              "Zanshin Herb Case": {"fr": "Pilulier Zanshin"},
+              "Sin-Ban Cage": {"fr": "Poigne d'incarcération", "en": "Incarcerating Grip"},
+              "Street Superstar": {"fr": "Star de la rue"},
+              "Drill Rig - Red Axis": {"fr": "Foreuse – Axe rouge"},
+              "Sharpened Stinger": {"fr": "Pinces acérées"},
+              "Weeping Gemini": {"fr": "Gémeaux éplorés"},
+              "Roaring Ride": {"fr": "Moteur hurlant"},
+              "Kaboom the Cannon": {"fr": "Canon Kaboum"},
+              "Elegant Vanity": {"fr": "Trousse coquette"},
+              "Bashful Demon": {"fr": "Démon pudique"},
+              "Unfettered Game Ball": {"fr": "Sphère ludique endiablée"},
+              "Weeping Cradle": {"fr": "Berceau des sanglots"},
+              "Slice of Time": {"fr": "Figeur temporel"},
+              "Fusion Compiler": {"fr": "Compilateur chimérique"},
+              "Timeweaver": {"fr": "Chronotisseur"},
+              "Magnetic Storm - Alpha": {"fr": "[Tempête magnétique] Alpha"},
+              "Hellfire Gears": {"fr": "Engrenage infernal"},
+              "The Restrained": {"fr": "L'enchaîné"},
+              "Six Shooter": {"fr": "Barillet à six coups"},
+              "Heartstring Nocturne": {"fr": "Appassionato nocturne"},
+              "Cordis Germina": {"fr": "Cordis germina"},
+              "Myriad Eclipse": {"fr": "Mille facettes du soleil déchu"},
+              "The Brimstone": {"fr": "Soufre"},
+              "Starlight Engine": {"fr": "Moteur stellaire"},
+              "Spring Embrace": {"fr": "Source printanière"},
+              "Original Transmorpher": {"fr": "Transformateur originel"},
+              "Big Cylinder": {"fr": "Big-cylindre"},
+              "Identity Base": {"fr": "[Identité] Base", "en": "[Identity] Base"},
+              "Vortex - Arrow": {"fr": "[Vortex] Flèche", "en": "[Vortex] Arrow"},
+              "Housekeeper": {"fr": "Aide à domicile"},
+              "Steel Cushion": {"fr": "Coussinets d'acier"},
+              "Cannon Rotor": {"fr": "Rotor de canon"},
+              "The Vault": {"fr": "Chambre forte"},
+              "Cloudcleave Radiance": {"fr": "Éclat fend-nuages"},
+              "Starlight Engine Replica": {"fr": "Réplique du moteur stellaire"},
+              "Peacekeeper - Specialized": {"fr": "Défenseur de la paix – Spécialisé"},
+              "Bunny Band": {"fr": "Panier-lapin"},
+              "Deep Sea Visitor": {"fr": "Visiteur des abysses"},
+              "Riot Suppressor Mark VI": {"fr": "Force anti-émeute Mark VI"},
+              "Ice-Jade Teapot": {"fr": "Théière en jade"},
+              "Flamemaker Shaker": {"fr": "Shakeur à flammes"},
+              "Tusks of Fury": {"fr": "Défenses de la fureur"},
+              "Blazing Laurel": {"fr": "Laurier flamboyant"},
+              "Hailstorm Shrine": {"fr": "Temple de la grêle"},
+              "Marcato Desire": {"fr": "Capriccio marcato"},
+              "Flight of Fancy": {"fr": "Envol de l'oiseau des rêves"},
+              "Roaring Fur-nace": {"fr": "Fu-fourneau rugissant"},
+              "Qingming Birdcage": {"fr": "Cage à oiseau Qingming"},
+              "Cauldron of Clarity": {"fr": "Chaudron d'émeraude"},
+              "Radiowave Journey": {"fr": "Radio-baladeur"},
+              "Puzzle Sphere": {"fr": "Casse-tête sphérique"},
+              "Tremor Trigram Vessel": {"fr": "Boîtier du trigramme sismique"},
+              "Thoughtbop": {"fr": "Ballade au fil des pensées"},
+              "Bellicose Blaze": {"fr": "Brasier belliqueux"},
+              "Gilded Blossom": {"fr": "Floraison dorée"},
+              "Grill O'Wisp": {"fr": "Fournaise follette"},
+              "Dreamlit Hearth": {"fr": "Fourneau des rêves"},
+              "Yesterday Calls": {"fr": "Appel de la nuit dernière"},
+              "Half-Sugar Bunny": {"fr": "Lapin givré allégé"},
+              "Serpentine Seeker": {"fr": "Traque serpentine"},
+              "Neon Fantasies": {"fr": "Fantaisie de néon"},
+              "The Simmering Pot": {"fr": "Marmite mijotante"},
+              "Starlight Rider Faceplate": {"fr": "Heaume du Chevalier stellaire"},
+              "Chief Sidekick": {"fr": "Bras droit en chef"},
+              "Sol Exuvia": {"fr": "Sol Exuvia"},
+              "Knight's Extolment": {"fr": "Éloge du cavalier"},
+              "Catty Luck": {"fr": "Felis Fortuna"},
+              "Electro-Lip Gloss": {"fr": "Brillant à lèvres électro"},
+          }
+
+          p = Path("js/data/engines.json")
+          db = json.loads(p.read_text(encoding="utf-8"))
+
+          updated = 0
+          for key, patch in UPDATES.items():
+              if key in db and isinstance(db[key].get("name"), dict):
+                  db[key]["name"].update(patch)
+                  updated += 1
+
+          if "Lunar - Noviluna" in db:
+              db["Lunar - Noviluna"]["specialty"] = "Attack"
+
+          p.write_text(json.dumps(db, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          print(f"{updated} moteurs mis à jour dans js/data/engines.json.")
+          EOF
+
+      - name: Commit & Push updated engines.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/data/engines.json
+          if git diff --staged --quiet; then
+            echo "Aucune modification détectée."
+          else
+            git commit -m "fix(data): align official FR/EN W-Engine names and Lunar - Noviluna specialty"
+            git pull --rebase -X theirs origin main
+            git push origin main
+          fi
