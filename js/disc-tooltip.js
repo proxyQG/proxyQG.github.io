@@ -77,7 +77,21 @@
             const agentBtn = e.target.closest('[data-disc-agent]');
             if (agentBtn) {
                 const targetAgent = agentBtn.getAttribute('data-disc-agent');
-                if (targetAgent && typeof window.openAgentDetail === 'function') {
+                if (!targetAgent) return;
+
+                const gachaModal = document.getElementById('zzz-gacha-modal');
+                if (gachaModal && gachaModal.classList.contains('visible')) {
+                    hideDiscTooltip();
+                    if (window.ZZZGachaBridge?.openItemModal) {
+                        window.ZZZGachaBridge.openItemModal('agent', targetAgent);
+                    } else if (typeof window.closeGachaModal === 'function' && typeof window.openAgentDetail === 'function') {
+                        window.closeGachaModal();
+                        window.openAgentDetail(targetAgent);
+                    }
+                    return;
+                }
+
+                if (typeof window.openAgentDetail === 'function') {
                     const modal = document.getElementById('agentDetailModal');
                     const isGuideOpen = modal && !modal.classList.contains('hidden');
                     const pathMatch = window.location.pathname.match(/^\/agents\/([^/]+)/i);
@@ -249,7 +263,9 @@
         `).join('') + (extraCount > 0 ? `<span class="rec-preview-more">+${extraCount}</span>` : '');
 
         pendingDiscCardsHTML = matchingAgents.map(item => {
-            const displayName = item.name === 'Jane' ? 'Jane Doe' : item.name;
+            const displayName = item.name === 'Jane'
+                ? 'Jane Doe'
+                : (item.name === 'Sunbringer' && lang !== 'en' ? "Dame de l'Aurore" : item.name);
             const safeAttr = item.name.replace(/"/g, '&quot;');
             const badgeClass = item.isPrimary ? 'rec-badge-primary' : 'rec-badge-secondary';
             return `
