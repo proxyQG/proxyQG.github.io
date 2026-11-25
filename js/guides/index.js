@@ -18,18 +18,30 @@ export function preloadGuideDatabases() {
 
     // 1. Lecture synchrone depuis le sessionStorage si disponible
     if (!cachedDatabase) {
-        const storedDB = sessionStorage.getItem('zzz_agent_db');
-        if (storedDB) {
-            try { cachedDatabase = JSON.parse(storedDB); }
-            catch (e) { sessionStorage.removeItem('zzz_agent_db'); }
+        try {
+            const storedDB = sessionStorage.getItem('zzz_agent_db');
+            if (storedDB) {
+                const parsed = JSON.parse(storedDB);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    cachedDatabase = parsed;
+                }
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_agent_db'); } catch (_) {}
         }
     }
 
     if (!cachedMindscapes) {
-        const storedMS = sessionStorage.getItem('zzz_mindscapes_db');
-        if (storedMS) {
-            try { cachedMindscapes = JSON.parse(storedMS); }
-            catch (e) { sessionStorage.removeItem('zzz_mindscapes_db'); }
+        try {
+            const storedMS = sessionStorage.getItem('zzz_mindscapes_db');
+            if (storedMS) {
+                const parsed = JSON.parse(storedMS);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    cachedMindscapes = parsed;
+                }
+            }
+        } catch (e) {
+            try { sessionStorage.removeItem('zzz_mindscapes_db'); } catch (_) {}
         }
     }
 
@@ -41,9 +53,14 @@ export function preloadGuideDatabases() {
     const initialPromise = window.__initialGuideData;
     window.__initialGuideData = null;
 
+    const fetchJsonSafe = (url) => fetch(url).then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+    });
+
     const rawPromise = initialPromise || Promise.all([
-        needDB ? fetch('./js/data/agent_database.json').then(r => r.json()) : Promise.resolve(cachedDatabase),
-        needMS ? fetch('./js/data/mindscapes.json').then(r => r.json()) : Promise.resolve(cachedMindscapes)
+        needDB ? fetchJsonSafe('./js/data/agent_database.json') : Promise.resolve(cachedDatabase),
+        needMS ? fetchJsonSafe('./js/data/mindscapes.json') : Promise.resolve(cachedMindscapes)
     ]);
 
     dbLoadPromise = rawPromise.then(([dbData, msData]) => {
