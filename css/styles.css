@@ -531,3 +531,41 @@ main { transition: opacity 0.3s ease; }
 .gacha-btn-loading svg {
     animation: gachaBtnSpin 0.8s linear infinite;
 }
+
+/* ========================================================
+   ACCESSIBILITÉ : RÉDUCTION DES ANIMATIONS OS
+======================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track-vertical,
+    .laser-beam,
+    .zzz-new-glyph,
+    .pulse-active-tag,
+    .animate-shine,
+    .animate-pulse,
+    .grid-fav-pop,
+    .fav-modal-btn.anim-pop .fav-heart-icon,
+    .fav-modal-btn.anim-pop .fav-shockwave-ring,
+    .fav-modal-btn.anim-pop .fav-sparks,
+    .fav-modal-btn.anim-unpop .fav-heart-icon {
+        animation: none !important;
+    }
+
+    .zzz-new-glyph {
+        transform: none !important;
+    }
+
+    .animate-fade-in-up,
+    .stagger-anim {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .tab-slider,
+    .lang-indicator,
+    .agent-shape-wrapper,
+    .agent-image,
+    .ascension-btn {
+        transition-duration: 0.01ms !important;
+    }
+}
