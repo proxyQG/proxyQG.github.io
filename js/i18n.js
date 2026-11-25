@@ -338,11 +338,15 @@ const STAT_RULES = [
 ];
 
 // Langue active (sauvegardée en LocalStorage)
-export let currentLang = localStorage.getItem('zzz_lang') || 'fr';
+let savedLang = 'fr';
+try {
+    savedLang = localStorage.getItem('zzz_lang') || 'fr';
+} catch (e) {}
+export let currentLang = savedLang;
 
 export function setLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('zzz_lang', lang);
+    try { localStorage.setItem('zzz_lang', lang); } catch (e) {}
     document.documentElement.lang = lang;
     updateStaticUI();
 }
