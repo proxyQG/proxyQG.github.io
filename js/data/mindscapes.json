@@ -2850,5 +2850,143 @@
         "en": "When Basic Attack: Converging Spear's 1st/2nd/3rd stage's final hit lands, it deals an additional 80%/90%/100% ATK as Ice DMG. There is no more limit on the number of times Sigrid can enter the Formation Breaker state upon hitting a Stunned enemy with Chain Attack: Encroaching Ice. Formation Breaker state's Basic Attack: Converging Spear will activate faster."
       }
     }
+  ],
+  "Kafka": [
+    {
+      "rank": "M1",
+      "title": {
+        "fr": "Rhapsodie d'atours enchanteurs",
+        "en": "Rhapsody of Enchanting Attire"
+      },
+      "desc": {
+        "fr": "Les DGT de Désordre infligés par tous les membres de l'escouade augmentent de 25 %. Les DGT infligés par l'Onde de foudre de Kafka ignorent 10 % de la RÉS aux DGT de tous les attributs de la cible. Lorsque Kafka utilise son Ultime, elle restaure 10 points d'Énergie.",
+        "en": "Disorder DMG dealt by all squad members increases by 25%. DMG dealt by Kafka's Lightning Surge ignores 10% of the target's All-Attribute DMG RES. When Kafka uses her Ultimate, she restores 10 Energy."
+      }
+    },
+    {
+      "rank": "M2",
+      "title": {
+        "fr": "Cauchemar dans la brume",
+        "en": "Nightmare in the Mist"
+      },
+      "desc": {
+        "fr": "Sous l'état Ouverture du chasseur, l'Adresse d'Anomalie de Kafka augmente de 35 et ses DGT augmentent de 25 %. Cet effet reste actif pendant 20 s après avoir quitté Ouverture du chasseur.",
+        "en": "While in Hunter's Overture, Kafka's Anomaly Proficiency increases by 35, and her DMG increases by 25%. This effect remains active for 20s after exiting Hunter's Overture."
+      }
+    },
+    {
+      "rank": "M4",
+      "title": {
+        "fr": "Chasse au clair de lune",
+        "en": "Hunting by Moonlight"
+      },
+      "desc": {
+        "fr": "Lorsque l'attaque lourde de l'Enchaînement de Kafka touche un ennemi étourdi souffrant d'une Anomalie d'attribut, elle déclenche Onde de foudre, infligeant des DGT équivalents à 60 % des DGT de Désordre initiaux. Cet effet peut se déclencher une fois par ennemi et par période d'étourdissement.",
+        "en": "When the heavy attack of Kafka's Chain Attack strikes a Stunned enemy affected by an Attribute Anomaly, it triggers Lightning Surge, dealing DMG equal to 60% of the original Disorder DMG. This effect can trigger once per enemy per Stun period."
+      }
+    },
+    {
+      "rank": "M6",
+      "title": {
+        "fr": "Château des destins entrelacés",
+        "en": "Castle of Intertwined Fates"
+      },
+      "desc": {
+        "fr": "Au cours d'une même Ouverture du chasseur, jusqu'à 6 Attaques spéciales EX consécutives peuvent être utilisées. Les DGT de l'Attaque spéciale EX : Chasse nocturne - Récitatif et de l'Onde de foudre qu'elle déclenche ignorent 12 % de la DÉF de la cible. Après que Kafka a utilisé son Ultime, le coût en Énergie des 6 prochaines utilisations de l'Attaque spéciale EX : Chasse nocturne - Récitatif ou de l'Attaque spéciale EX : Chasse nocturne - Aria est réduit de 50 %. De plus, le Taux d'accumulation d'Anomalie de l'Attaque spéciale EX : Chasse nocturne - Récitatif augmente de 40 % supplémentaires. Les déclenchements répétés réinitialisent le nombre d'utilisations.",
+        "en": "During the same Hunter's Overture, up to 6 consecutive EX Special Attacks can be used. The DMG of EX Special Attack: Nocturne Hunt - Recitative and the Lightning Surge it triggers ignores 12% of the target's DEF. After Kafka uses her Ultimate, the Energy cost of the next 6 uses of EX Special Attack: Nocturne Hunt - Recitative or EX Special Attack: Nocturne Hunt - Aria is reduced to 50% of the original. Among them, the Anomaly Buildup Rate of EX Special Attack: Nocturne Hunt - Recitative increases by an additional 40%. Repeated triggers refresh the number of uses."
+      }
+    }
+  ],
+  "Robin": [
+    {
+      "rank": "M1",
+      "title": {
+        "fr": "La vie est une chanson",
+        "en": "Life Is Like a Song"
+      },
+      "desc": {
+        "fr": "Lorsque Robin utilise sa Compétence d'entrée : Instant stellaire, elle gagne 2 cumuls de Bénédiction harmonique (2 cumuls max). Lorsqu'elle accorde un Bouclier harmonique en possédant Bénédiction harmonique, elle consomme 1 cumul pour octroyer à toute l'escouade un Bouclier harmonique spécial qui bloque une instance de DGT dépassant la valeur actuelle du bouclier avant de disparaître. En entrant sur le champ de bataille, Robin gagne 2 cumuls de Bénédiction harmonique (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Chaque fois qu'un Temps fort est consommé, les DGT infligés par tous les membres de l'escouade ignorent 20 % de la DÉF de la cible pendant 80 s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When Robin uses Entry Skill: Starglow Moment, she gains 2 stacks of Harmonic Blessing; up to 2 stacks of Harmonic Blessing can be held. When granting Harmonic Shield, if she holds Harmonic Blessing, she consumes 1 stack of Harmonic Blessing to grant all squad members a special Harmonic Shield; the special Harmonic Shield blocks one instance of DMG exceeding the current shield value, after which the special Harmonic Shield is removed; upon entering the battlefield, Robin gains 2 stacks of Harmonic Blessing, and in Investigation Zone mode this effect can trigger once every 180s; whenever Accent Beat is consumed, DMG dealt by all squad members ignores 20% of the target's DEF for 80s. Repeated triggers refresh the duration."
+      }
+    },
+    {
+      "rank": "M2",
+      "title": {
+        "fr": "Talent et dévouement",
+        "en": "Talent and Dedication"
+      },
+      "desc": {
+        "fr": "Lorsque Robin utilise une Onde de choc, les DGT infligés par tous les membres de l'escouade ignorent 15 % de la RÉS ennemie pendant 20 s. Les déclenchements répétés réinitialisent la durée.",
+        "en": "When Robin uses an Aftershock, DMG dealt by all squad members ignores 15% of the enemy's RES for 20s. Repeated triggers reset the duration."
+      }
+    },
+    {
+      "rank": "M4",
+      "title": {
+        "fr": "Sur scène et en coulisses",
+        "en": "Onstage and Backstage"
+      },
+      "desc": {
+        "fr": "Les DGT de Robin augmentent de 10 %. Lors de l'utilisation de l'Attaque spéciale : Chants en harmonie, si l'amélioration de compétence ne se déclenche pas, elle est tout de même améliorée en Attaque spéciale EX : Chœur sismique sans aucun coût en Énergie. Cet effet peut se déclencher une fois toutes les 60 s.",
+        "en": "Robin's DMG increases by 10%. When using Special Attack: Songs in Harmony, if the skill upgrade is not triggered, it is instead upgraded to EX Special Attack: Seismic Chorus at no Energy cost. This effect can trigger once every 60s."
+      }
+    },
+    {
+      "rank": "M6",
+      "title": {
+        "fr": "Le ciel appartient aux oiseaux",
+        "en": "The Sky Is Where Birds Belong"
+      },
+      "desc": {
+        "fr": "L'Attaque spéciale EX : Chœur sismique inflige un coup critique garanti. Le bonus de DGT d'attaque lourde supplémentaire basé sur les PV max de l'Attaque spéciale EX : Chœur sismique passe à 200 % de sa valeur initiale. Les DGT tranchants infligés par tous les membres de l'escouade disposant d'Aria gardienne augmentent de 15 %.",
+        "en": "EX Special Attack: Seismic Chorus is guaranteed to CRIT. The additional heavy attack DMG bonus based on Max HP for EX Special Attack: Seismic Chorus increases to 200% of its original value. Sharp DMG dealt by all squad members with Guardian Aria increases by 15%."
+      }
+    }
+  ],
+  "Sunbringer": [
+    {
+      "rank": "M1",
+      "title": {
+        "fr": "La Chasseuse du néant recluse",
+        "en": "The Reclusive Void Hunter"
+      },
+      "desc": {
+        "fr": "En entrant sur le champ de bataille, Dame de l'Aurore gagne immédiatement 120 points de Feu de vœu (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Lorsqu'un ennemi est vaincu, Dame de l'Aurore restaure 80 points de Feu de vœu (déclenchable une fois toutes les 60 s). Son Taux d'accumulation d'Entaille augmente de 10 %, et les DGT infligés par ses compétences ignorent 15 % de la RÉS Feu de l'ennemi.",
+        "en": "Upon entering the battlefield, Sunbringer immediately gains 120 Wishfire. In Investigation Zone mode, this effect can trigger once every 180s. When an enemy is defeated, Sunbringer restores 80 Wishfire; this restoration effect can trigger once every 60s. Sunbringer's Gash Buildup Rate increases by 10%, and DMG dealt by skills ignores 15% of the enemy's Fire RES."
+      }
+    },
+    {
+      "rank": "M2",
+      "title": {
+        "fr": "Bannière rebelle de l'héritière",
+        "en": "Heir's Rebel Flag"
+      },
+      "desc": {
+        "fr": "Lorsque les autres compétences de Dame de l'Aurore touchent des ennemis et infligent des DGT tranchants, la cible accumule également des Marques de braise équivalentes à 30 % des DGT réellement infligés. Lorsqu'un membre de l'escouade déclenche Mutilation ou que Dame de l'Aurore fait accumuler des Marques de braise aux ennemis, le montant final de Marques de braise comptabilisé augmente de 35 %. Après que Dame de l'Aurore a utilisé l'Attaque de base : Porte-étendard - Rassemblement des lames, elle restaure 200 Décibels supplémentaires. Sa limite de Décibels augmente de 1 000.",
+        "en": "When Sunbringer's other skills hit enemies and deal Sharp DMG, the target also accumulates Embermarks equal to 30% of the actual DMG dealt. When any squad member triggers Maim or Sunbringer causes enemies to accumulate Embermarks, the final amount of Embermarks settled is increased by 35%. After Sunbringer uses Basic Attack: Flagbearer - Gathering Blades, she restores an additional 200 Decibels. Sunbringer's Decibel limit increases by 1,000."
+      }
+    },
+    {
+      "rank": "M4",
+      "title": {
+        "fr": "Le fantôme de la dévote",
+        "en": "The Devotee's Phantom"
+      },
+      "desc": {
+        "fr": "En entrant sur le champ de bataille, Dame de l'Aurore gagne immédiatement 1 000 Décibels (déclenchable une fois toutes les 180 s en mode Zone d'investigation). En entrant sur le champ de bataille, après sa première utilisation de l'Attaque de base : Porte-étendard - Rassemblement des lames, la prochaine Attaque spéciale EX : Lumière embrasée - Torche du jour éternel ou le prochain Ultime : Ce vœu façonnera le monde qui fait accumuler des Marques de braise à la cible octroie un bonus supplémentaire de 65 % à l'accumulation de Marques de braise issue de Bannière rebelle de l'héritière (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Les DGT de Dame de l'Aurore augmentent de 10 %.",
+        "en": "Upon entering the battlefield, Sunbringer immediately gains 1,000 Decibels. In Investigation Zone mode, this effect can trigger once every 180s. Upon entering the battlefield, after Sunbringer uses Basic Attack: Flagbearer - Gathering Blades for the first time, the next EX Special Attack: Kindled Light - Torch of Eternal Day or Ultimate: \"This Wish, Shall Reshape the World\" that causes the target to accumulate Embermarks grants an additional 65% to the Embermarks accumulation bonus from Cinematic Portrait: Heir's Rebel Flag. In Investigation Zone mode, this effect can trigger once every 180s. Sunbringer's DMG increases by 10%."
+      }
+    },
+    {
+      "rank": "M6",
+      "title": {
+        "fr": "L'espoir de l'aube",
+        "en": "The Hope of Day Break"
+      },
+      "desc": {
+        "fr": "En entrant sur le champ de bataille, la première Attaque de base : Porte-étendard - Rassemblement des lames utilisée par Dame de l'Aurore n'octroie plus Ordre du drapeau mais Noyau de vœu (déclenchable une fois toutes les 180 s en mode Zone d'investigation). Après que Dame de l'Aurore a utilisé son Ultime : Ce vœu façonnera le monde pour déclencher Éruption de braise, elle enchaîne rapidement avec une Attaque spéciale EX spéciale : Lumière embrasée - Torche du jour éternel sans consommer d'Ordre du drapeau. Cette Attaque spéciale EX n'inflige aucun dégât direct, mais applique immédiatement à la cible des Marques de braise équivalentes à 80 % des Marques de braise accumulées par l'Ultime précédent, puis consomme toutes les Marques de braise pour déclencher Éruption de braise une fois de plus. Les DGT infligés par les compétences de Dame de l'Aurore ignorent 15 % de la DÉF de la cible.",
+        "en": "Upon entering the battlefield, the first Basic Attack: Flagbearer - Gathering Blades Sunbringer uses no longer grants Flag Order and instead grants Wishcore. In Investigation Zone mode, this effect can trigger once every 180s. After Sunbringer uses Ultimate: \"This Wish, Shall Reshape the World\" to trigger Emberburst, she will quickly follow up with a special EX Special Attack: Kindled Light - Torch of Eternal Day without consuming Flag Order. This EX Special Attack: Kindled Light - Torch of Eternal Day deals no actual damage, but directly applies Embermarks to the target equal to 80% of the Embermarks accumulated by the target from the preceding Ultimate: \"This Wish, Shall Reshape the World\". All Embermarks on the target are then removed, triggering Emberburst once. DMG dealt by Sunbringer skills ignores 15% of the target's DEF."
+      }
+    }
   ]
 }
