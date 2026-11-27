@@ -105,7 +105,8 @@
 
     <script>
       (function() {
-          let agentParam = new URLSearchParams(window.location.search).get('agent');
+          const queryAgent = new URLSearchParams(window.location.search).get('agent');
+          let agentParam = queryAgent;
           if (!agentParam) {
               const m = window.location.pathname.match(/^\/agents\/([^/]+)/i);
               if (m && m[1]) {
@@ -113,15 +114,20 @@
               }
           }
           if (agentParam) {
+              const alreadyStatic = document.documentElement.classList.contains('direct-agent-load');
               document.documentElement.classList.add('direct-agent-load');
-              document.title = `${agentParam} - Guide & Build | ProxyQG`;
-              const metaDesc = document.querySelector('meta[name="description"]');
-              if (metaDesc) {
-                  metaDesc.setAttribute('content', `Découvrez le meilleur build, disques, moteurs, statistiques et équipes pour ${agentParam} sur Zenless Zone Zero (ZZZ).`);
-              }
-              const canonical = document.querySelector('link[rel="canonical"]');
-              if (canonical) {
-                  canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentParam)}/`);
+              if (queryAgent || !alreadyStatic) {
+                  const seoNames = { sunbringer: "Dame de l'Aurore (Sunbringer)", jane: 'Jane Doe' };
+                  const displayName = seoNames[agentParam.toLowerCase()] || agentParam;
+                  document.title = `${displayName} - Guide & Build | ProxyQG`;
+                  const metaDesc = document.querySelector('meta[name="description"]');
+                  if (metaDesc) {
+                      metaDesc.setAttribute('content', `Découvrez le meilleur build, disques, moteurs, statistiques et équipes pour ${displayName} sur Zenless Zone Zero (ZZZ).`);
+                  }
+                  const canonical = document.querySelector('link[rel="canonical"]');
+                  if (canonical) {
+                      canonical.setAttribute('href', `https://proxyqg.github.io/agents/${encodeURIComponent(agentParam)}/`);
+                  }
               }
           }
       })();
