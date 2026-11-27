@@ -37,7 +37,7 @@
   "screenshots": [
     {
       "src": "assets/screenshot-mobile.webp",
-      "sizes": "458x1145",
+      "sizes": "428x963",
       "type": "image/webp",
       "form_factor": "narrow"
     },
