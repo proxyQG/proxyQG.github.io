@@ -230,13 +230,20 @@
         }
     }
 
-    // Préchargement silencieux quand le navigateur est au repos
+    // Préchargement silencieux dès la 1re interaction (ne concurrence pas le LCP)
     if (!DISCS_DB) {
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => loadDatabase(), { timeout: 3000 });
-        } else {
-            setTimeout(loadDatabase, 1800);
-        }
+        let discPreloaded = false;
+        const triggerDiscPreload = () => {
+            if (discPreloaded) return;
+            discPreloaded = true;
+            ['mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(evt => {
+                window.removeEventListener(evt, triggerDiscPreload);
+            });
+            loadDatabase();
+        };
+        ['mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(evt => {
+            window.addEventListener(evt, triggerDiscPreload, { once: true, passive: true });
+        });
     }
 
     function buildRecommendedAccordion(agentsDB, discKey, lang) {
