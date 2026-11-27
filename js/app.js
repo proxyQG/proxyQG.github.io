@@ -220,19 +220,10 @@ function scrollToTop() {
 }
 window.scrollToTop = scrollToTop;
 
-function updateSliderPosition(container, activePill) {
-    if (!container || !activePill) return;
-    const containerRect = container.getBoundingClientRect();
-    const pillRect = activePill.getBoundingClientRect();
-    container.style.setProperty('--slide-left', `${pillRect.left - containerRect.left}px`);
-    container.style.setProperty('--slide-width', `${pillRect.width}px`);
-}
-
 function updateAllSliders(mode) {
-    const desktopPill = document.querySelector(`#mainTabContainer .tab-pill[id*="${mode.charAt(0).toUpperCase() + mode.slice(1)}"]`);
-    const mobilePill = document.querySelector(`#mobileTabContainer .tab-pill[id*="${mode.charAt(0).toUpperCase() + mode.slice(1)}"]`);
-    if (DOM.tabContainers[0] && desktopPill) updateSliderPosition(DOM.tabContainers[0], desktopPill);
-    if (DOM.tabContainers[1] && mobilePill) updateSliderPosition(DOM.tabContainers[1], mobilePill);
+    DOM.tabContainers.forEach(container => {
+        if (container) container.setAttribute('data-active', mode);
+    });
 }
 
 function initTabs() {
@@ -1619,12 +1610,27 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
             }
             initGuideDragScroll();
             bindTeammateHoverPreload();
+            hydrateMindscapesSlot(guideContainer, agentName, token);
         } catch (err) {
             guideContainer.style.opacity = '1';
             console.error("Erreur lors du chargement du guide :", err);
         }
     }
 };
+
+function hydrateMindscapesSlot(guideContainer, agentName, token) {
+    const msSlot = guideContainer && guideContainer.querySelector('#guide-mindscapes-slot');
+    if (!msSlot) return;
+    const color = msSlot.getAttribute('data-color') || '#d7f70c';
+    import('./guides/index.js')
+        .then(({ getMindscapesHTML }) => getMindscapesHTML(agentName, color))
+        .then((msHTML) => {
+            if (token !== openAgentToken || !msSlot.isConnected) return;
+            if (msHTML) msSlot.outerHTML = msHTML;
+            else msSlot.remove();
+        })
+        .catch(() => {});
+}
 
 function getUpcomingBannerHTML(guideHTML, agentMeta = null) {
     const status = agentMeta?.status || (guideHTML && guideHTML.includes('nothing.webp') ? 'upcoming' : null);
@@ -2128,6 +2134,7 @@ function initLanguageSwitcher() {
                 if (modalScroll) modalScroll.scrollTop = savedModalScroll;
                 initGuideDragScroll();
                 bindTeammateHoverPreload();
+                hydrateMindscapesSlot(guideContainer, State.currentAgent, openAgentToken);
             } else {
                 scrollToTop();
             }
