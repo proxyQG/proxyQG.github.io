@@ -30,10 +30,10 @@
       window.__preloadedImgs = [];
       window.__isDirectAgent = /^\/agents\/[^/]+/i.test(window.location.pathname) || new URLSearchParams(window.location.search).has('agent');
       if (window.__isDirectAgent) {
-        window.__initialGuideData = Promise.all([
-          fetch('./js/data/agent_database.json').then(function(r) { return r.json(); }),
-          fetch('./js/data/mindscapes.json').then(function(r) { return r.json(); })
-        ]);
+        window.__initialAgentDB = fetch('./js/data/agent_database.json').then(function(r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
       }
       window.__initialData = Promise.all([
         fetch('./js/data/agents.json').then(function(r) { return r.json(); }).then(function(agents) {
@@ -794,7 +794,9 @@
         updateSilentTracker();
 
         function setGachaButtonsLoading(isLoading) {
-            const isEn = (document.getElementById('langSwitcher')?.getAttribute('data-active') || localStorage.getItem('zzz_lang') || 'fr') === 'en';
+            let storedLang = 'fr';
+            try { storedLang = localStorage.getItem('zzz_lang') || 'fr'; } catch (e) {}
+            const isEn = (document.getElementById('langSwitcher')?.getAttribute('data-active') || storedLang) === 'en';
             const loadingText = isEn ? 'Loading...' : 'Chargement...';
             document.querySelectorAll('[onclick*="openGachaModal"]').forEach(btn => {
                 btn.classList.toggle('gacha-btn-loading', isLoading);
