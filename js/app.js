@@ -1544,6 +1544,11 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     }
     if (giantName) giantName.textContent = tAgentName(agentName);
 
+    // Retire le texte SEO brut avant d'afficher la modale (zéro flash blanc à l'écran)
+    if (guideContainer && guideContainer.querySelector('[data-seo-prerender]')) {
+        guideContainer.innerHTML = '';
+    }
+
     // 1. Ouvre la modale uniquement si elle était fermée (instantané sur accès direct pour le LCP/Speed Index)
     if (modalWasHidden) {
         if (isDirectInitialLoad) {
