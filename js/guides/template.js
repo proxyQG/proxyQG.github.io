@@ -50,13 +50,14 @@ function buildTeamMember(m, i, currentAgentName) {
             </div>`;
         }
 
+        const encodedAgent = encodeURIComponent(agentName);
         return `
-        <div class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/fac min-w-0" onclick="window.openAgentDetail('${jsSafeName}', true, true)" title="${guideHint}">
+        <a href="/agents/${encodedAgent}/" data-agent="${escapeHTML(agentName)}" class="flex flex-col items-center gap-2 cursor-pointer hover:scale-105 transition-transform duration-300 group/fac min-w-0" onclick="window.handleAgentLinkClick(event, '${jsSafeName}', true)" title="${guideHint}">
             <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 bg-black overflow-hidden relative hover:shadow-lg transition-shadow duration-300 shrink-0" style="${borderStyle}">
                 <img src="${imgSrc}" alt="${escapedName}" loading="eager" decoding="sync" class="w-full h-full object-cover object-top scale-110">
             </div>
             <span class="text-[10px] sm:text-[11px] font-display font-black uppercase tracking-wider text-zinc-400 group-hover/fac:text-[#d7f70c] transition-colors truncate max-w-[84px] sm:max-w-[116px] text-center">${escapedName}</span>
-        </div>`;
+        </a>`;
     }
 
     const rawRole = (m.role || '').toLowerCase();
