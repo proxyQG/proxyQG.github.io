@@ -6,6 +6,10 @@ on:
     branches: [ main ]
     paths:
       - 'js/data/agents.json'
+      - 'js/data/agent_database.json'
+      - 'js/data/mindscapes.json'
+      - 'js/data/discs.json'
+      - 'js/data/engines.json'
       - 'index.html'
       - '.github/workflows/generate_agents.yml'
   workflow_run:
@@ -32,7 +36,7 @@ jobs:
       - name: Synchronisation avec la branche main
         run: git pull --rebase origin main
 
-      - name: Génération des pages agents (Zéro Redirection) et du Sitemap
+      - name: Génération des pages agents (Zéro Redirection, Pré-rendu SEO & Sitemap)
         run: |
           python3 - << 'EOF'
           import json
@@ -62,8 +66,42 @@ jobs:
               "Jane": "Jane Doe",
           }
 
-          with open("js/data/agents.json", "r", encoding="utf-8") as f:
-              agents = json.load(f)
+          TERM_FR = {
+              "Physical": "Physique", "Fire": "Feu", "Ice": "Glace", "Frost": "Givre",
+              "Electric": "Électrique", "Ether": "Éther", "Wind": "Vent",
+              "Lumiflux": "Lumen", "Auric Ink": "Sépia", "Honed Edge": "Lame affûtée",
+              "Genesis Flare": "Flambeau de la genèse",
+              "Attack": "Attaque", "Stun": "Stun", "Anomaly": "Anomalie",
+              "Support": "Soutien", "Defense": "Défense", "Armorer": "Forge", "Rupture": "Rupture",
+          }
+
+          SKILL_FR = {
+              "BASIC": "Attaque normale", "DODGE": "Esquive", "ASSIST": "Soutien",
+              "EX": "Attaque spéciale EX", "ULT": "Enchaînement & Ultime", "CHAIN": "Enchaînement & Ultime",
+          }
+
+          def load_json_safe(path, default):
+              try:
+                  with open(path, "r", encoding="utf-8") as f:
+                      return json.load(f)
+              except Exception:
+                  return default
+
+          def t_fr(val):
+              if not val:
+                  return ""
+              if isinstance(val, dict):
+                  return str(val.get("fr") or val.get("en") or "")
+              return str(val)
+
+          def esc(val):
+              return html.escape(str(val or ""), quote=False).replace('"', "&quot;")
+
+          agents = load_json_safe("js/data/agents.json", [])
+          agent_db = load_json_safe("js/data/agent_database.json", {})
+          mindscapes_db = load_json_safe("js/data/mindscapes.json", {})
+          discs_db = load_json_safe("js/data/discs.json", {})
+          engines_db = load_json_safe("js/data/engines.json", {})
 
           with open("index.html", "r", encoding="utf-8") as f:
               base_html = f.read()
@@ -76,6 +114,123 @@ jobs:
           for existing_dir in output_base.iterdir():
               if existing_dir.is_dir() and existing_dir.name not in valid_names:
                   shutil.rmtree(existing_dir)
+
+          def build_static_guide_html(agent_meta, display_name):
+              name = agent_meta["name"]
+              data = agent_db.get(name)
+              ms_list = mindscapes_db.get(name) or []
+              elem_fr = TERM_FR.get(agent_meta.get("element", ""), agent_meta.get("element", ""))
+              role_fr = TERM_FR.get(agent_meta.get("role", ""), agent_meta.get("role", ""))
+              rank = (data.get("rank") if isinstance(data, dict) else None) or agent_meta.get("rank", "S")
+              faction = agent_meta.get("faction") or (t_fr(data.get("factionTitle")) if isinstance(data, dict) else "")
+
+              parts = [
+                  '<article data-seo-prerender="true">',
+                  f"<h2>{esc(display_name)} — Guide &amp; Build Zenless Zone Zero (ZZZ)</h2>",
+                  f"<p>Faction : {esc(faction)} | Rang {esc(rank)} | Rôle : {esc(role_fr)} | Attribut : {esc(elem_fr)}.</p>",
+              ]
+
+              if isinstance(data, dict):
+                  stats = data.get("stats") or []
+                  if stats:
+                      items = []
+                      for st in stats:
+                          lbl = t_fr(st.get("label"))
+                          val = t_fr(st.get("value"))
+                          note = t_fr(st.get("note"))
+                          txt = f"{esc(lbl)} : {esc(val)}" + (f" ({esc(note)})" if note else "")
+                          items.append(f"<li>{txt}</li>")
+                      parts.append("<h3>Stats recommandées</h3><ul>" + "".join(items) + "</ul>")
+
+                  discs = data.get("discs") or []
+                  if discs:
+                      items = []
+                      for d in discs:
+                          s1_key = str(d.get("set1") or "")
+                          s2_key = str(d.get("set2") or "")
+                          s1_fr = t_fr((discs_db.get(s1_key) or {}).get("name")) or t_fr(d.get("set1Name"))
+                          s2_fr = t_fr((discs_db.get(s2_key) or {}).get("name")) or t_fr(d.get("set2Name"))
+                          tag = t_fr(d.get("tag"))
+                          note = t_fr(d.get("note"))
+                          line = f"{esc(tag)} : 4-pièces {esc(s1_fr)} + 2-pièces {esc(s2_fr)}"
+                          if note:
+                              line += f" — {esc(note)}"
+                          items.append(f"<li>{line}</li>")
+                      parts.append("<h3>Meilleurs Sets de Disques</h3><ul>" + "".join(items) + "</ul>")
+
+                  skills = data.get("skills") or []
+                  if skills:
+                      s_items = []
+                      for sk in skills:
+                          sk_key = str(sk.get("name") or "").upper().strip()
+                          sk_lbl = SKILL_FR.get(sk_key, sk_key)
+                          lvl = sk.get("level")
+                          s_items.append(f"<li>{esc(sk_lbl)}" + (f" (Niv. {esc(lvl)})" if lvl else "") + "</li>")
+                      parts.append("<h3>Priorité des Compétences</h3><ol>" + "".join(s_items) + "</ol>")
+
+                  stat_prio = data.get("statPriority") or {}
+                  main_stats = stat_prio.get("main") or []
+                  sub_stats = stat_prio.get("sub") or []
+                  if main_stats or sub_stats:
+                      parts.append("<h3>Statistiques des Disques</h3>")
+                      if main_stats:
+                          m_items = [f"<li>Disque {esc(m.get('slot'))} : {esc(t_fr(m.get('label')))}</li>" for m in main_stats]
+                          parts.append("<ul>" + "".join(m_items) + "</ul>")
+                      if sub_stats:
+                          sub_labels = ", ".join(esc(t_fr(s.get("label"))) for s in sub_stats if t_fr(s.get("label")))
+                          parts.append(f"<p>Priorité Sub-stats : {sub_labels}</p>")
+
+                  engines = data.get("engines") or []
+                  if engines:
+                      e_items = []
+                      for eng in engines:
+                          e_key = str(eng.get("name") or "")
+                          if e_key.lower() == "nothing":
+                              continue
+                          e_fr = t_fr((engines_db.get(e_key) or {}).get("name")) or e_key
+                          e_tag = t_fr(eng.get("tag"))
+                          e_label = f"{esc(e_fr)} ({esc(e_key)})" if e_fr.lower() != e_key.lower() else esc(e_fr)
+                          e_items.append(f"<li>{e_label}" + (f" — {esc(e_tag)}" if e_tag else "") + "</li>")
+                      if e_items:
+                          parts.append("<h3>Meilleurs Moteurs-Amplis</h3><ol>" + "".join(e_items) + "</ol>")
+
+                  teams = data.get("teams") or []
+                  if teams:
+                      t_items = []
+                      for team in teams:
+                          t_name = t_fr(team.get("name"))
+                          t_tag = t_fr(team.get("tag"))
+                          m_parts = []
+                          for m in (team.get("members") or []):
+                              img = str(m.get("img") or "")
+                              if img:
+                                  m_key = img.replace(".webp", "").replace(".png", "")
+                                  if m_key.lower() == "nothing":
+                                      continue
+                                  m_disp = SEO_NAMES.get(m_key, m_key)
+                                  if m_key in valid_names and m_key != name:
+                                      m_parts.append(f'<a href="/agents/{quote(m_key, safe="")}/">{esc(m_disp)}</a>')
+                                  else:
+                                      m_parts.append(esc(m_disp))
+                              elif m.get("role"):
+                                  clean_role = re.sub(r"<[^>]+>", " ", str(m.get("role")))
+                                  m_parts.append(esc(clean_role))
+                          if m_parts:
+                              t_items.append(f"<li><strong>{esc(t_name)}</strong> ({esc(t_tag)}) : " + " + ".join(m_parts) + "</li>")
+                      if t_items:
+                          parts.append("<h3>Meilleures Équipes &amp; Synergies</h3><ul>" + "".join(t_items) + "</ul>")
+
+              if ms_list:
+                  ms_items = []
+                  for ms in ms_list:
+                      ms_rank = ms.get("rank", "")
+                      ms_title = t_fr(ms.get("title"))
+                      ms_desc = t_fr(ms.get("desc"))
+                      ms_items.append(f"<li><strong>{esc(ms_rank)} — {esc(ms_title)}</strong> : {esc(ms_desc)}</li>")
+                  parts.append("<h3>Mindscapes</h3><ul>" + "".join(ms_items) + "</ul>")
+
+              parts.append('<p><a href="/">Retour à tous les guides Zenless Zone Zero sur ProxyQG</a></p></article>')
+              return "".join(parts)
 
           today = date.today().isoformat()
           sitemap_urls = [
@@ -90,7 +245,7 @@ jobs:
           for agent in agents:
               name = agent["name"]
               display_name = SEO_NAMES.get(name, name)
-              safe_name = html.escape(display_name, quote=False).replace('"', '&quot;')
+              safe_name = esc(display_name)
               encoded = quote(name, safe="")
               color = COLOR_MAP.get(agent.get("element", ""), "#eab308")
               canonical_url = f"https://proxyqg.github.io/agents/{encoded}/"
@@ -99,6 +254,49 @@ jobs:
               og_title = f"{safe_name} - Guide &amp; Build"
               desc_str = f"Découvrez le meilleur build, disques, moteurs et synergies pour {safe_name} sur Zenless Zone Zero."
               og_desc = f"Build complet, disques recommandés, moteurs et compositions pour {safe_name}."
+
+              ld_payload = {
+                  "@context": "https://schema.org",
+                  "@graph": [
+                      {
+                          "@type": "WebPage",
+                          "@id": canonical_url,
+                          "url": canonical_url,
+                          "name": f"{display_name} - Guide & Build | ProxyQG",
+                          "description": f"Découvrez le meilleur build, disques, moteurs et synergies pour {display_name} sur Zenless Zone Zero.",
+                          "inLanguage": "fr-FR",
+                          "primaryImageOfPage": {
+                              "@type": "ImageObject",
+                              "url": img_url
+                          },
+                          "isPartOf": {
+                              "@type": "WebSite",
+                              "name": "ProxyQG",
+                              "url": "https://proxyqg.github.io/"
+                          }
+                      },
+                      {
+                          "@type": "BreadcrumbList",
+                          "itemListElement": [
+                              {
+                                  "@type": "ListItem",
+                                  "position": 1,
+                                  "name": "ProxyQG",
+                                  "item": "https://proxyqg.github.io/"
+                              },
+                              {
+                                  "@type": "ListItem",
+                                  "position": 2,
+                                  "name": display_name,
+                                  "item": canonical_url
+                              }
+                          ]
+                      }
+                  ]
+              }
+              ld_json = json.dumps(ld_payload, ensure_ascii=False).replace("</", "<\\/")
+              ld_tag = f'    <script type="application/ld+json">{ld_json}</script>\n</head>'
+              static_guide_html = build_static_guide_html(agent, display_name)
 
               page_html = base_html
 
@@ -114,28 +312,37 @@ jobs:
               )
               page_html = re.sub(
                   r'<link rel="preload" href="assets/Agents/[^"]+\.webp" as="image"[^>]*>',
-                  agent_preloads,
+                  lambda _: agent_preloads,
                   page_html,
                   count=1
               )
 
               # 3. Remplacement des balises SEO, OpenGraph et Discord
-              page_html = re.sub(r'<title>.*?</title>', f'<title>{title_str}</title>', page_html, count=1)
-              page_html = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{desc_str}">', page_html, count=1)
-              page_html = re.sub(r'<link rel="canonical" href="[^"]*">', f'<link rel="canonical" href="{canonical_url}">', page_html, count=1)
+              page_html = re.sub(r'<title>.*?</title>', lambda _: f'<title>{title_str}</title>', page_html, count=1)
+              page_html = re.sub(r'<meta name="description" content="[^"]*">', lambda _: f'<meta name="description" content="{desc_str}">', page_html, count=1)
+              page_html = re.sub(r'<link rel="canonical" href="[^"]*">', lambda _: f'<link rel="canonical" href="{canonical_url}">', page_html, count=1)
 
-              page_html = re.sub(r'<meta property="og:url" content="[^"]*">', f'<meta property="og:url" content="{canonical_url}">', page_html, count=1)
-              page_html = re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{og_title}">', page_html, count=1)
-              page_html = re.sub(r'<meta property="og:description" content="[^"]*">', f'<meta property="og:description" content="{og_desc}">', page_html, count=1)
-              page_html = re.sub(r'<meta property="og:image" content="[^"]*">', f'<meta property="og:image" content="{img_url}">', page_html, count=1)
+              page_html = re.sub(r'<meta property="og:url" content="[^"]*">', lambda _: f'<meta property="og:url" content="{canonical_url}">', page_html, count=1)
+              page_html = re.sub(r'<meta property="og:title" content="[^"]*">', lambda _: f'<meta property="og:title" content="{og_title}">', page_html, count=1)
+              page_html = re.sub(r'<meta property="og:description" content="[^"]*">', lambda _: f'<meta property="og:description" content="{og_desc}">', page_html, count=1)
+              page_html = re.sub(r'<meta property="og:image" content="[^"]*">', lambda _: f'<meta property="og:image" content="{img_url}">', page_html, count=1)
               page_html = re.sub(r'<meta property="og:image:width" content="[^"]*">', '<meta property="og:image:width" content="400">', page_html, count=1)
               page_html = re.sub(r'<meta property="og:image:height" content="[^"]*">', '<meta property="og:image:height" content="400">', page_html, count=1)
 
               page_html = re.sub(r'<meta name="twitter:card" content="[^"]*">', '<meta name="twitter:card" content="summary">', page_html, count=1)
-              page_html = re.sub(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{og_title}">', page_html, count=1)
-              page_html = re.sub(r'<meta name="twitter:description" content="[^"]*">', f'<meta name="twitter:description" content="{og_desc}">', page_html, count=1)
-              page_html = re.sub(r'<meta name="twitter:image" content="[^"]*">', f'<meta name="twitter:image" content="{img_url}">', page_html, count=1)
-              page_html = re.sub(r'<meta name="theme-color" content="[^"]*">', f'<meta name="theme-color" content="{color}">', page_html, count=1)
+              page_html = re.sub(r'<meta name="twitter:title" content="[^"]*">', lambda _: f'<meta name="twitter:title" content="{og_title}">', page_html, count=1)
+              page_html = re.sub(r'<meta name="twitter:description" content="[^"]*">', lambda _: f'<meta name="twitter:description" content="{og_desc}">', page_html, count=1)
+              page_html = re.sub(r'<meta name="twitter:image" content="[^"]*">', lambda _: f'<meta name="twitter:image" content="{img_url}">', page_html, count=1)
+              page_html = re.sub(r'<meta name="theme-color" content="[^"]*">', lambda _: f'<meta name="theme-color" content="{color}">', page_html, count=1)
+
+              # 4. Injection du JSON-LD structuré et du contenu statique pré-rendu du guide
+              page_html = page_html.replace('</head>', ld_tag, 1)
+              page_html = re.sub(
+                  r'(<div id="agentGuideContainer"[^>]*>)</div>',
+                  lambda m: f"{m.group(1)}{static_guide_html}</div>",
+                  page_html,
+                  count=1
+              )
 
               agent_dir = output_base / name
               agent_dir.mkdir(parents=True, exist_ok=True)
@@ -171,7 +378,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "Aucune mise à jour nécessaire."
           else
-            git commit -m "perf(seo): generate direct agent pages without client-side redirect"
+            git commit -m "feat(seo): pre-render static agent guides and JSON-LD"
             for i in 1 2 3 4 5; do
               git pull --rebase -X theirs origin main && git push origin main && exit 0
               git rebase --abort 2>/dev/null || true
