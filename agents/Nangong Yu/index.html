@@ -38,7 +38,9 @@
       window.__initialData = Promise.all([
         fetch('./js/data/agents.json').then(function(r) { return r.json(); }).then(function(agents) {
           if (!window.__isDirectAgent) {
-            var limit = Math.min(agents.length, 24);
+            var vw = window.innerWidth || 1024;
+            var maxEager = vw < 640 ? 6 : (vw < 1024 ? 12 : 18);
+            var limit = Math.min(agents.length, maxEager);
             for (var i = 1; i <= limit; i++) {
               var img = new Image();
               img.decoding = 'sync';
