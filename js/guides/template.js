@@ -167,9 +167,9 @@ function buildStats(data, c, txt) {
             : '';
         return `
         <div class="bg-black/50 p-4 rounded-xl border border-zinc-800 w-full min-w-0 shadow-inner flex flex-col justify-center">
-            <div class="flex items-baseline justify-between gap-3 min-w-0">
-                <span class="text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug min-w-0 break-words">${escapeHTML(tStats(stat.label))}</span>
-                <span class="text-white font-black text-xl drop-shadow-md leading-tight shrink-0 text-right">${escapeHTML(tData(stat.value))}</span>
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <span class="text-zinc-400 text-[10px] font-bold uppercase tracking-widest leading-snug">${escapeHTML(tStats(stat.label))}</span>
+                <span class="text-white font-black text-xl drop-shadow-md leading-tight ml-auto text-right whitespace-nowrap">${escapeHTML(tData(stat.value))}</span>
             </div>
             ${noteHTML}
         </div>`;
@@ -521,7 +521,7 @@ if (typeof window !== 'undefined') {
     };
 }
 
-function buildMindscapes(mindscapes, c) {
+export function buildMindscapes(mindscapes, c) {
     if (!mindscapes || !Array.isArray(mindscapes) || mindscapes.length === 0) return '';
 
     const isEn = currentLang === 'en';
@@ -610,7 +610,9 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
     const c = data.color || '#d7f70c';
     const txt = ui[currentLang] || ui.fr;
     
-    const mindscapes = mindscapesDB ? mindscapesDB[agentName] : null;
+    const mindscapesHTML = mindscapesDB
+        ? buildMindscapes(mindscapesDB[agentName], c)
+        : `<div id="guide-mindscapes-slot" data-color="${escapeHTML(c)}"></div>`;
     const placeSkillsLeft = (data.discs || []).length <= 2;
 
     return `
@@ -631,7 +633,7 @@ export function generateGuideFromData(agentName, data, mindscapesDB, agentMeta =
 
         ${buildEngines(data, c, txt)}
         ${buildTeams(agentName, data, c, txt)}
-        ${buildMindscapes(mindscapes, c)}
+        ${mindscapesHTML}
     </div>
     `;
 }
