@@ -57,6 +57,11 @@ jobs:
               "Frost": "#00d5be",
           }
 
+          SEO_NAMES = {
+              "Sunbringer": "Dame de l'Aurore (Sunbringer)",
+              "Jane": "Jane Doe",
+          }
+
           with open("js/data/agents.json", "r", encoding="utf-8") as f:
               agents = json.load(f)
 
