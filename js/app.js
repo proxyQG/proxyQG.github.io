@@ -94,6 +94,18 @@ const dataPromise = window.__initialData || Promise.all([
     fetch('./js/data/factions.json').then(r => r.json())
 ]);
 
+const INITIAL_EAGER_CARDS = window.innerWidth < 640 ? 6 : (window.innerWidth < 1024 ? 12 : 18);
+let homeGridBuilt = false;
+
+function ensureHomeInitialized() {
+    if (homeGridBuilt) return;
+    homeGridBuilt = true;
+    buildInitialGrid();
+    renderAgents(true);
+    renderFactions();
+    setTimeout(() => { updateAllSliders(State.mode); }, 50);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // Applique immédiatement la traduction statique sans attendre le réseau
     updateStaticUI();
@@ -113,40 +125,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     initModals();
     initMobileDrawer();
     initPatchCountdown();
-    
-    // Attend jusqu'à 60ms max le décodage RAM des portraits du 1er écran pour éviter tout carré noir initial
-    if (window.__preloadedImgs && window.__preloadedImgs.length > 0) {
-        const decodes = window.__preloadedImgs.slice(0, 18).map(img => img.decode ? img.decode().catch(() => {}) : Promise.resolve());
-        await Promise.race([Promise.all(decodes), new Promise(r => setTimeout(r, 60))]);
+
+    const directAgentParam = getAgentFromUrl();
+    const hasValidDirectAgent = !!(directAgentParam && agentsData.some(a => a.name.toLowerCase() === directAgentParam.toLowerCase()));
+
+    if (hasValidDirectAgent) {
+        // Accès direct à une fiche : priorité absolue au guide, zéro téléchargement de la grille cachée
+        State.filteredAgents = [...agentsData];
+        checkUrlForAgent();
+    } else {
+        // Attend jusqu'à 60ms max le décodage RAM des portraits du 1er écran pour éviter tout carré noir initial
+        if (window.__preloadedImgs && window.__preloadedImgs.length > 0) {
+            const decodes = window.__preloadedImgs.slice(0, INITIAL_EAGER_CARDS).map(img => img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+            await Promise.race([Promise.all(decodes), new Promise(r => setTimeout(r, 60))]);
+        }
+        ensureHomeInitialized();
+        document.documentElement.classList.remove('direct-agent-load');
     }
 
-    buildInitialGrid(); // 1. Génère la grille principale en priorité absolue pour le LCP
-    renderAgents(true);
-    renderFactions();   // 2. Génère la sidebar immédiatement (sans pop visuel)
-    
-    setTimeout(() => { updateAllSliders('elements'); }, 100);
     if (document.fonts) {
         document.fonts.ready.then(() => {
-            updateAllSliders(State.mode);
+            if (homeGridBuilt) updateAllSliders(State.mode);
         });
     }
     window.addEventListener('resize', () => {
-        updateAllSliders(State.mode);
-        if (window.innerWidth >= 768) {
-            const sidebarList = document.getElementById('sidebarFactionsList');
-            if (sidebarList && sidebarList.children.length === 0) renderFactions();
+        if (homeGridBuilt) {
+            updateAllSliders(State.mode);
+            if (window.innerWidth >= 768) {
+                const sidebarList = document.getElementById('sidebarFactionsList');
+                if (sidebarList && sidebarList.children.length === 0) renderFactions();
+            }
         }
         const fModal = document.getElementById('factionModal');
         if (fModal && !fModal.classList.contains('hidden')) {
             window.renderModalFactions(true);
         }
     });
-    checkUrlForAgent();
 
     // 1. Hydratation du reste de la grille UNIQUEMENT au défilement réel de la grille (jamais au mousemove ou clic)
     let gridFullyHydrated = false;
     const hydrateAllRemainingCards = () => {
-        if (gridFullyHydrated || document.body.classList.contains('modal-open')) return;
+        if (!homeGridBuilt || gridFullyHydrated || document.body.classList.contains('modal-open')) return;
         gridFullyHydrated = true;
         if (DOM.scrollArea) DOM.scrollArea.removeEventListener('scroll', hydrateAllRemainingCards);
         DOM.agentCards.forEach(c => hydrateCardImage(c.el));
@@ -1104,14 +1123,23 @@ function initLazyCardsObserver() {
         entries.forEach(entry => {
             if (entry.isIntersecting) hydrateCardImage(entry.target);
         });
-    }, { root: DOM.scrollArea, rootMargin: '800px 0px' });
+    }, { root: DOM.scrollArea, rootMargin: '300px 0px' });
 
     DOM.agentCards.forEach((c, i) => {
-        if (i >= 24) lazyCardObserver.observe(c.el);
+        if (i >= INITIAL_EAGER_CARDS) lazyCardObserver.observe(c.el);
     });
 }
 
 function renderAgents(isInitial = false) {
+    if (!homeGridBuilt) {
+        State.filteredAgents = [...agentsData];
+        if (State.currentAgent) {
+            State.modalIndex = State.filteredAgents.findIndex(a => a.name === State.currentAgent);
+        }
+        updateModalNavigation();
+        return;
+    }
+
     State.filteredAgents = []; 
     let visibleIndex = 0;
     const versionCounts = {};
@@ -1136,7 +1164,7 @@ function renderAgents(isInitial = false) {
             State.filteredAgents.push(agent);
             versionCounts[card.version] = (versionCounts[card.version] || 0) + 1;
             
-            if (!isInitial || visibleIndex < 24) hydrateCardImage(card.el);
+            if (!isInitial || visibleIndex < INITIAL_EAGER_CARDS) hydrateCardImage(card.el);
             card.el.classList.remove('hidden');
             visibleIndex++;
         } else {
@@ -1237,7 +1265,7 @@ function createCardHTML(agent, isNew = false, index = 0) {
     const imgPath = `assets/Agents/${agent.name}.webp`;
     const imgAttributes = isLcpHero
         ? `src="${imgPath}" loading="eager" fetchpriority="high" decoding="sync"`
-        : (index < 24
+        : (index < INITIAL_EAGER_CARDS
             ? `src="${imgPath}" loading="eager" decoding="sync"`
             : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${imgPath}" decoding="sync"`);
 
@@ -1409,6 +1437,8 @@ window.closeModal = function(id, updateUrl = true) {
         openAgentToken++; // annule les ouvertures encore en attente (splash / guide)
         if (typeof window.hideTooltip === 'function') window.hideTooltip(true);
         if (typeof window.hideDiscTooltip === 'function') window.hideDiscTooltip(true);
+        // Construit la grille et la sidebar si on venait d'un lien direct /agents/*/
+        ensureHomeInitialized();
         // Rétablit l'affichage de la grille principale
         document.documentElement.classList.remove('direct-agent-load');
 
@@ -1479,9 +1509,10 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     const guideContainer = document.getElementById('agentGuideContainer');
     
     State.modalIndex = State.filteredAgents.findIndex(a => a.name === agentName); 
-    updateModalNavigation(false);
+    updateModalNavigation();
     const modalScroll = document.getElementById('agentModalScroll');
     const modalWasHidden = modal.classList.contains('hidden') || !modal.classList.contains('opacity-100');
+    const isDirectInitialLoad = !updateUrl && modalWasHidden && !isBackNav;
     const isScrolledDown = !modalWasHidden && modalScroll && modalScroll.scrollTop > 80;
 
     if (updateUrl) {
@@ -1511,11 +1542,17 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
     }
     if (giantName) giantName.textContent = tAgentName(agentName);
 
-    // 1. Ouvre la modale uniquement si elle était fermée
+    // 1. Ouvre la modale uniquement si elle était fermée (instantané sur accès direct pour le LCP/Speed Index)
     if (modalWasHidden) {
-        window.openModal('agentDetailModal');
+        if (isDirectInitialLoad) {
+            modal.style.transitionDuration = '0ms';
+            window.openModal('agentDetailModal');
+            requestAnimationFrame(() => { modal.style.transitionDuration = ''; });
+        } else {
+            window.openModal('agentDetailModal');
+        }
     }
-    if (splashImg && !shouldAnimateFadeOut) {
+    if (splashImg && !shouldAnimateFadeOut && !isDirectInitialLoad) {
         void splashImg.offsetWidth; // Valide l'opacité 0 une fois la modale visible
     }
 
@@ -1524,53 +1561,64 @@ window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammat
         modalScroll.scrollTop = 0;
     }
 
-   // 2bis. Charge le splash UNIQUEMENT sur PC (>= 768px), zéro téléchargement sur mobile
-const isDesktop = window.innerWidth >= 768;
-const splashReadyPromise = (isDesktop && splashImg) ? (async () => {
-        await Promise.all([
-            Promise.race([window.preloadSplash(agentName, true, false), wait(SPLASH_DECODE_TIMEOUT_MS)]),
-            wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
-        ]);
-        if (token !== openAgentToken) return;
+    // 2bis. Charge le splash UNIQUEMENT sur PC (>= 768px), zéro téléchargement sur mobile
+    const isDesktop = window.innerWidth >= 768;
+    if (isDesktop && splashImg) {
+        (async () => {
+            if (!isDirectInitialLoad) {
+                await Promise.all([
+                    Promise.race([window.preloadSplash(agentName, true, false), wait(SPLASH_DECODE_TIMEOUT_MS)]),
+                    wait(shouldAnimateFadeOut ? SPLASH_FADE_OUT_MS + 10 : 0)
+                ]);
+                if (token !== openAgentToken) return;
+            }
 
-        splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
-        splashImg.src = `assets/splash/${agentName}.webp`;
+            splashImg.onerror = function() { this.onerror = null; this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; };
+            splashImg.src = `assets/splash/${agentName}.webp`;
 
-        const decoded = splashImg.decode ? splashImg.decode().catch(() => {}) : Promise.resolve();
-        await Promise.race([decoded, wait(SPLASH_DECODE_TIMEOUT_MS)]);
-        if (token !== openAgentToken) return;
+            const decoded = splashImg.decode ? splashImg.decode().catch(() => {}) : Promise.resolve();
+            await Promise.race([decoded, wait(SPLASH_DECODE_TIMEOUT_MS)]);
+            if (token !== openAgentToken) return;
 
-        void splashImg.offsetWidth; // Garantit le déclenchement du fondu de 200ms même en cache RAM
-        splashImg.style.transitionDuration = '';
-        splashImg.style.opacity = '1';
-    })() : Promise.resolve();
+            if (isDirectInitialLoad) {
+                splashImg.style.transitionDuration = '0ms';
+                splashImg.style.opacity = '1';
+                requestAnimationFrame(() => { splashImg.style.transitionDuration = ''; });
+            } else {
+                void splashImg.offsetWidth; // Garantit le déclenchement du fondu de 200ms même en cache RAM
+                splashImg.style.transitionDuration = '';
+                splashImg.style.opacity = '1';
+            }
+        })();
+    }
 
-    // 3. Charge, pré-décode les icônes (disques/moteurs) en RAM, puis injecte le guide en fondu groupé
+    // 3. Charge et injecte le guide (affichage instantané sur accès direct, fondu groupé en navigation interne)
     if (guideContainer) {
-        guideContainer.style.transition = 'none';
-        guideContainer.style.opacity = '0';
+        if (!isDirectInitialLoad) {
+            guideContainer.style.transition = 'none';
+            guideContainer.style.opacity = '0';
+        }
         try {
             const { getGuideHTML } = await import('./guides/index.js');
             const agentMeta = agentsData.find(a => a.name === agentName);
             const guideHTML = await getGuideHTML(agentName, agentMeta);
             if (token !== openAgentToken) return; // un autre agent a été demandé entre-temps
-            await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(180)]);
-            if (token !== openAgentToken) return;
+            if (!isDirectInitialLoad) {
+                await Promise.race([preloadGuideAssetsFromHTML(guideHTML), wait(180)]);
+                if (token !== openAgentToken) return;
+            }
             guideContainer.innerHTML = getUpcomingBannerHTML(guideHTML, agentMeta) + guideHTML;
             guideContainer.scrollTo(0, 0);
-            void guideContainer.offsetWidth;
-            guideContainer.style.transition = 'opacity 150ms ease-out';
-            guideContainer.style.opacity = '1';
+            if (isDirectInitialLoad) {
+                guideContainer.style.transition = '';
+                guideContainer.style.opacity = '1';
+            } else {
+                void guideContainer.offsetWidth;
+                guideContainer.style.transition = 'opacity 150ms ease-out';
+                guideContainer.style.opacity = '1';
+            }
             initGuideDragScroll();
-
-            // 4. Attend que le splash de l'agent actuel soit affiché avant de précharger les voisins et coéquipiers
-            splashReadyPromise.then(() => {
-                if (token !== openAgentToken) return;
-                updateModalNavigation(true);
-                setTimeout(() => {
-                    if (token === openAgentToken) preloadTeammatesFromDOM();
-                }, 150);
-            });
+            bindTeammateHoverPreload();
         } catch (err) {
             guideContainer.style.opacity = '1';
             console.error("Erreur lors du chargement du guide :", err);
@@ -1610,19 +1658,19 @@ function getUpcomingBannerHTML(guideHTML, agentMeta = null) {
     </div>`;
 }
 
-// Préchargement discret des splashs des coéquipiers du guide en arrière-plan (sans leurs icônes)
-function preloadTeammatesFromDOM() {
+// Préchargement à la demande au survol d'un coéquipier (zéro téléchargement inutile à l'ouverture)
+function bindTeammateHoverPreload() {
+    if (window.innerWidth < 768 || window.matchMedia('(hover: none)').matches) return;
     const guideContainer = document.getElementById('agentGuideContainer');
     if (!guideContainer) return;
 
-    const triggers = guideContainer.querySelectorAll('[onclick*="openAgentDetail"]');
-    triggers.forEach(el => {
+    guideContainer.querySelectorAll('[onclick*="openAgentDetail"]').forEach(el => {
         const attr = el.getAttribute('onclick') || '';
         const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
         if (match && match[2]) {
             const name = match[2].replace(/\\(.)/g, '$1');
             if (name.toLowerCase() !== 'nothing' && agentsData.some(a => a.name === name)) {
-                window.preloadSplash(name, false, false);
+                el.addEventListener('mouseenter', () => window.preloadSplash(name, false, false), { once: true, passive: true });
             }
         }
     });
@@ -1654,7 +1702,7 @@ function initGuideDragScroll() {
     });
 }
 
-function updateModalNavigation(preloadNeighbors = false) {
+function updateModalNavigation() {
     const prevBtn = document.getElementById('prevAgentBtn'); const nextBtn = document.getElementById('nextAgentBtn');
     if (!prevBtn || !nextBtn) return;
     
@@ -1669,7 +1717,9 @@ function updateModalNavigation(preloadNeighbors = false) {
         prevBtn.title = `← ${prevDisplay}`;
         prevBtn.setAttribute('aria-label', prevDisplay);
         prevBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(prevAgentName); };
-        if (preloadNeighbors) window.preloadSplash(prevAgentName, false, true);
+        prevBtn.onmouseenter = () => window.preloadSplash(prevAgentName, false, true);
+    } else {
+        prevBtn.onmouseenter = null;
     }
     if (hasNext) {
         const nextAgentName = State.filteredAgents[State.modalIndex + 1].name;
@@ -1677,7 +1727,9 @@ function updateModalNavigation(preloadNeighbors = false) {
         nextBtn.title = `${nextDisplay} →`;
         nextBtn.setAttribute('aria-label', nextDisplay);
         nextBtn.onclick = (e) => { e.stopPropagation(); window.openAgentDetail(nextAgentName); };
-        if (preloadNeighbors) window.preloadSplash(nextAgentName, false, true);
+        nextBtn.onmouseenter = () => window.preloadSplash(nextAgentName, false, true);
+    } else {
+        nextBtn.onmouseenter = null;
     }
 }
 
@@ -2045,11 +2097,11 @@ function initLanguageSwitcher() {
                 document.title = `${tAgentName(State.currentAgent)} - Guide & Build | ProxyQG`;
                 updateBackToAgentButton();
                 updateModalFavoriteButton(State.currentAgent, false);
-                updateModalNavigation(false);
+                updateModalNavigation();
             }
             
             // --- Rechargement des factions ---
-            renderFactions();
+            if (homeGridBuilt) renderFactions();
             if (State.faction) {
                 window.setFactionFilter(State.faction, false, true); // Met à jour le tag sans recharger les agents 2 fois
             }
@@ -2075,6 +2127,7 @@ function initLanguageSwitcher() {
                 }
                 if (modalScroll) modalScroll.scrollTop = savedModalScroll;
                 initGuideDragScroll();
+                bindTeammateHoverPreload();
             } else {
                 scrollToTop();
             }
