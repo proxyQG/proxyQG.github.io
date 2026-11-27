@@ -65,7 +65,8 @@
     function getLang() {
         const switcher = document.getElementById('langSwitcher');
         const attr = switcher && switcher.getAttribute('data-active');
-        return attr || localStorage.getItem('zzz_lang') || 'fr';
+        if (attr) return attr;
+        try { return localStorage.getItem('zzz_lang') || 'fr'; } catch (e) { return 'fr'; }
     }
 
     function L() {
