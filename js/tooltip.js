@@ -35,21 +35,35 @@
         return term;
     }
 
+    function getSafeLang() {
+        const langSwitcher = document.getElementById('langSwitcher');
+        const attr = langSwitcher && langSwitcher.getAttribute('data-active');
+        if (attr) return attr;
+        try { return localStorage.getItem('zzz_lang') || 'fr'; } catch (e) { return 'fr'; }
+    }
+
     async function loadEnginesDB() {
         if (W_ENGINES_DB) return W_ENGINES_DB;
         try {
             const stored = sessionStorage.getItem('zzz_engines_db');
             if (stored) {
-                W_ENGINES_DB = JSON.parse(stored);
-                return W_ENGINES_DB;
+                const parsed = JSON.parse(stored);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    W_ENGINES_DB = parsed;
+                    return W_ENGINES_DB;
+                }
             }
         } catch (e) {
             try { sessionStorage.removeItem('zzz_engines_db'); } catch (_) {}
         }
         try {
             const res = await fetch('js/data/engines.json');
-            W_ENGINES_DB = await res.json();
-            try { sessionStorage.setItem('zzz_engines_db', JSON.stringify(W_ENGINES_DB)); } catch (e) {}
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+                W_ENGINES_DB = data;
+                try { sessionStorage.setItem('zzz_engines_db', JSON.stringify(W_ENGINES_DB)); } catch (e) {}
+            }
             return W_ENGINES_DB;
         } catch (error) {
             console.error("Erreur chargement des moteurs :", error);
@@ -62,16 +76,23 @@
         try {
             const stored = sessionStorage.getItem('zzz_agent_db');
             if (stored) {
-                AGENTS_DB = JSON.parse(stored);
-                return AGENTS_DB;
+                const parsed = JSON.parse(stored);
+                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                    AGENTS_DB = parsed;
+                    return AGENTS_DB;
+                }
             }
         } catch (e) {
             try { sessionStorage.removeItem('zzz_agent_db'); } catch (_) {}
         }
         try {
             const res = await fetch('js/data/agent_database.json');
-            AGENTS_DB = await res.json();
-            try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB)); } catch (e) {}
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+                AGENTS_DB = data;
+                try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(AGENTS_DB)); } catch (e) {}
+            }
             return AGENTS_DB;
         } catch (e) {
             return null;
@@ -281,12 +302,19 @@
         }
 
         if (!W_ENGINES_DB || !AGENTS_DB) {
-            const preloadAll = () => { loadEnginesDB(); getAgentsDB(); };
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(preloadAll, { timeout: 2000 });
-            } else {
-                setTimeout(preloadAll, 1200);
-            }
+            let preloaded = false;
+            const triggerPreload = () => {
+                if (preloaded) return;
+                preloaded = true;
+                ['mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(evt => {
+                    window.removeEventListener(evt, triggerPreload);
+                });
+                loadEnginesDB();
+                getAgentsDB();
+            };
+            ['mousemove', 'touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(evt => {
+                window.addEventListener(evt, triggerPreload, { once: true, passive: true });
+            });
         }
 
         bindEvents();
@@ -419,8 +447,7 @@
 
         createDOM();
 
-        const langSwitcher = document.getElementById('langSwitcher');
-        const lang = langSwitcher ? langSwitcher.getAttribute('data-active') : (localStorage.getItem('zzz_lang') || 'fr');
+        const lang = getSafeLang();
         const rankLabel = lang === 'en' ? 'Rank' : 'Rang';
         const isArmorer = (data.specialty || '').toLowerCase() === 'armorer';
         const baseAtkLabel = isArmorer
