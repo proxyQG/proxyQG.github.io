@@ -1,9 +1,10 @@
 import { generateGenericGuide } from './generic.js';
-import { generateGuideFromData } from './template.js';
+import { generateGuideFromData, buildMindscapes } from './template.js';
 
 let cachedDatabase = null;
 let cachedMindscapes = null;
 let dbLoadPromise = null;
+let msLoadPromise = null;
 
 try {
     const navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
@@ -12,88 +13,105 @@ try {
     }
 } catch (e) {}
 
-export function preloadGuideDatabases() {
-    if (cachedDatabase && cachedMindscapes) return Promise.resolve();
-    if (dbLoadPromise) return dbLoadPromise;
-
-    // 1. Lecture synchrone depuis le sessionStorage si disponible
-    if (!cachedDatabase) {
-        try {
-            const storedDB = sessionStorage.getItem('zzz_agent_db');
-            if (storedDB) {
-                const parsed = JSON.parse(storedDB);
-                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-                    cachedDatabase = parsed;
-                }
+function readSessionJSON(key) {
+    try {
+        const raw = sessionStorage.getItem(key);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+                return parsed;
             }
-        } catch (e) {
-            try { sessionStorage.removeItem('zzz_agent_db'); } catch (_) {}
         }
+    } catch (e) {
+        try { sessionStorage.removeItem(key); } catch (_) {}
     }
+    return null;
+}
 
-    if (!cachedMindscapes) {
-        try {
-            const storedMS = sessionStorage.getItem('zzz_mindscapes_db');
-            if (storedMS) {
-                const parsed = JSON.parse(storedMS);
-                if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
-                    cachedMindscapes = parsed;
-                }
-            }
-        } catch (e) {
-            try { sessionStorage.removeItem('zzz_mindscapes_db'); } catch (_) {}
-        }
-    }
-
-    const needDB = !cachedDatabase;
-    const needMS = !cachedMindscapes;
-    if (!needDB && !needMS) return Promise.resolve();
-
-    // 2. Utilise le préchargement du <head> sur lien direct ou télécharge en parallèle (HTTP/2)
-    const initialPromise = window.__initialGuideData;
-    window.__initialGuideData = null;
-
-    const fetchJsonSafe = (url) => fetch(url).then(r => {
+function fetchJsonSafe(url) {
+    return fetch(url).then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
     });
+}
 
-    const rawPromise = initialPromise || Promise.all([
-        needDB ? fetchJsonSafe('./js/data/agent_database.json') : Promise.resolve(cachedDatabase),
-        needMS ? fetchJsonSafe('./js/data/mindscapes.json') : Promise.resolve(cachedMindscapes)
-    ]);
+function ensureAgentDatabase() {
+    if (cachedDatabase) return Promise.resolve(cachedDatabase);
+    cachedDatabase = readSessionJSON('zzz_agent_db');
+    if (cachedDatabase) return Promise.resolve(cachedDatabase);
+    if (dbLoadPromise) return dbLoadPromise;
 
-    dbLoadPromise = rawPromise.then(([dbData, msData]) => {
-        if (needDB && dbData) {
-            cachedDatabase = dbData;
-            try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase)); } catch (e) {}
-        }
-        if (needMS && msData) {
-            cachedMindscapes = msData;
-            try { sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes)); } catch (e) {}
-        }
-    }).finally(() => {
-        dbLoadPromise = null;
-    });
+    const initialDB = window.__initialAgentDB;
+    window.__initialAgentDB = null;
+
+    dbLoadPromise = (initialDB || fetchJsonSafe('./js/data/agent_database.json'))
+        .then((dbData) => {
+            if (dbData && typeof dbData === 'object' && Object.keys(dbData).length > 0) {
+                cachedDatabase = dbData;
+                try { sessionStorage.setItem('zzz_agent_db', JSON.stringify(cachedDatabase)); } catch (e) {}
+            }
+            return cachedDatabase;
+        })
+        .finally(() => {
+            dbLoadPromise = null;
+        });
 
     return dbLoadPromise;
 }
 
+function ensureMindscapesDatabase() {
+    if (cachedMindscapes) return Promise.resolve(cachedMindscapes);
+    cachedMindscapes = readSessionJSON('zzz_mindscapes_db');
+    if (cachedMindscapes) return Promise.resolve(cachedMindscapes);
+    if (msLoadPromise) return msLoadPromise;
+
+    msLoadPromise = fetchJsonSafe('./js/data/mindscapes.json')
+        .then((msData) => {
+            if (msData && typeof msData === 'object' && Object.keys(msData).length > 0) {
+                cachedMindscapes = msData;
+                try { sessionStorage.setItem('zzz_mindscapes_db', JSON.stringify(cachedMindscapes)); } catch (e) {}
+            }
+            return cachedMindscapes;
+        })
+        .finally(() => {
+            msLoadPromise = null;
+        });
+
+    return msLoadPromise;
+}
+
+export function preloadGuideDatabases() {
+    return Promise.all([ensureAgentDatabase(), ensureMindscapesDatabase()]);
+}
+
 export async function getGuideHTML(agentName, agentMeta = null) {
-    if (!cachedDatabase || !cachedMindscapes) {
+    if (!cachedDatabase) {
         try {
-            await preloadGuideDatabases();
+            await ensureAgentDatabase();
         } catch (error) {
             console.error("Erreur lors du chargement des guides :", error);
             if (!cachedDatabase) return generateGenericGuide(agentName);
         }
     }
+    if (!cachedMindscapes) {
+        cachedMindscapes = readSessionJSON('zzz_mindscapes_db');
+    }
 
     if (cachedDatabase && cachedDatabase[agentName]) {
-        return generateGuideFromData(agentName, cachedDatabase[agentName], cachedMindscapes || {}, agentMeta);
+        return generateGuideFromData(agentName, cachedDatabase[agentName], cachedMindscapes, agentMeta);
     } else {
         return generateGenericGuide(agentName);
     }
+}
+
+export async function getMindscapesHTML(agentName, color) {
+    try {
+        await ensureMindscapesDatabase();
+    } catch (e) {
+        return '';
+    }
+    if (!cachedMindscapes || !cachedMindscapes[agentName]) return '';
+    return buildMindscapes(cachedMindscapes[agentName], color || '#d7f70c');
 }
 
 export { generateGenericGuide };
