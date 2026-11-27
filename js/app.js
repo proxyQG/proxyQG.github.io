@@ -1280,22 +1280,27 @@ function createCardHTML(agent, isNew = false, index = 0) {
             </svg>
         </div>` : '';
 
+    const encodedName = encodeURIComponent(agent.name);
+    const jsSafeName = agent.name.replace(/'/g, "\\'");
+
     return `
-    <div data-agent="${agent.name}" class="agent-card-container flex flex-col cursor-pointer w-full group" style="--elem-color: ${hexColor};" onclick="window.openAgentDetail('${agent.name.replace(/'/g, "\\'")}')">
+    <div data-agent="${agent.name}" class="agent-card-container flex flex-col w-full group" style="--elem-color: ${hexColor};">
         <div class="agent-shape-wrapper w-full aspect-square bg-zinc-800 relative" ${heroWrapperStyle}>
-            <div class="agent-shape-inner relative overflow-hidden flex items-end justify-center h-full w-full">
-                ${newRibbonHTML}
-                <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
-                    <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain opacity-90 group-hover:opacity-100">
-                </div>
-                <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
-                <button onclick="window.toggleFavorite(this, '${agent.name.replace(/'/g, "\\'")}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full border ${favBtnStateClass} group-hover:opacity-100 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
+            <div class="agent-shape-inner relative overflow-hidden h-full w-full">
+                <a href="/agents/${encodedName}/" onclick="window.handleAgentLinkClick(event, '${jsSafeName}')" class="relative flex items-end justify-center h-full w-full cursor-pointer">
+                    ${newRibbonHTML}
+                    <div class="agent-role-badge absolute top-2 left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#0c0c0e]/90 border border-white/10 flex items-center justify-center z-20 pointer-events-none transition-colors duration-200 shadow-md" title="${roleLabel}">
+                        <img src="assets/Rôles/${agent.role}.webp" alt="${roleLabel}" loading="eager" decoding="sync" class="w-4 h-4 sm:w-[18px] sm:h-[18px] object-contain opacity-90 group-hover:opacity-100">
+                    </div>
+                    <img ${imgAttributes} alt="${displayName}" class="agent-image absolute bottom-0 w-full h-auto min-h-full object-cover object-bottom" onerror="this.onerror=null; this.src='https://placehold.co/400x400/181818/${cleanHex}?text=${agent.name.charAt(0)}&font=montserrat'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-40"></div>
+                </a>
+                <button onclick="window.toggleFavorite(this, '${jsSafeName}', event)" aria-label="Ajouter ${displayName} aux favoris" class="absolute bottom-2 right-2 w-9 h-9 rounded-full border ${favBtnStateClass} group-hover:opacity-100 flex items-center justify-center z-30 transition-all hover:scale-110 shadow-lg group/fav"><svg class="w-5 h-5 transition-colors duration-300 ${heartClass} group-hover/fav:text-red-400" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></button>
             </div>
         </div>
-        <div class="agent-nameplate mt-2.5 mx-1 bg-[#141417] py-2 px-2 skew-x-[-15deg] border border-zinc-800/90 border-b-[4px] shadow-lg transition-colors duration-200 relative overflow-hidden" style="border-bottom-color: ${hexColor};">
+        <a href="/agents/${encodedName}/" onclick="window.handleAgentLinkClick(event, '${jsSafeName}')" class="agent-nameplate block mt-2.5 mx-1 bg-[#141417] py-2 px-2 skew-x-[-15deg] border border-zinc-800/90 border-b-[4px] shadow-lg transition-colors duration-200 relative overflow-hidden cursor-pointer" style="border-bottom-color: ${hexColor};">
             <div class="skew-x-[15deg] text-center w-full px-1 overflow-hidden flex items-center justify-center"><span class="text-zinc-100 group-hover:text-white font-display font-black uppercase text-xs sm:text-[14px] tracking-[0.18em] truncate block drop-shadow-md transition-colors pointer-events-none">${displayName}</span></div>
-        </div>
+        </a>
     </div>`;
 }
 
@@ -1472,6 +1477,12 @@ window.closeModal = function(id, updateUrl = true) {
             if (typeof window.refreshPatchTimerLang === 'function') window.refreshPatchTimerLang();
         }
     }, 300);
+};
+
+window.handleAgentLinkClick = function(e, agentName, fromTeammate = false) {
+    if (e && (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0)) return;
+    if (e) e.preventDefault();
+    window.openAgentDetail(agentName, true, fromTeammate);
 };
 
 window.openAgentDetail = async function(agentName, updateUrl = true, fromTeammate = false, isBackNav = false) {
@@ -1670,14 +1681,10 @@ function bindTeammateHoverPreload() {
     const guideContainer = document.getElementById('agentGuideContainer');
     if (!guideContainer) return;
 
-    guideContainer.querySelectorAll('[onclick*="openAgentDetail"]').forEach(el => {
-        const attr = el.getAttribute('onclick') || '';
-        const match = attr.match(/openAgentDetail\(\s*(['"])((?:\\.|(?!\1)[^\\])*)\1/);
-        if (match && match[2]) {
-            const name = match[2].replace(/\\(.)/g, '$1');
-            if (name.toLowerCase() !== 'nothing' && agentsData.some(a => a.name === name)) {
-                el.addEventListener('mouseenter', () => window.preloadSplash(name, false, false), { once: true, passive: true });
-            }
+    guideContainer.querySelectorAll('a[data-agent]').forEach(el => {
+        const name = el.getAttribute('data-agent');
+        if (name && name.toLowerCase() !== 'nothing' && agentsData.some(a => a.name === name)) {
+            el.addEventListener('mouseenter', () => window.preloadSplash(name, false, false), { once: true, passive: true });
         }
     });
 }
