@@ -471,7 +471,10 @@ main { transition: opacity 0.3s ease; }
 .tab-pill:hover { color: #ffffff; }
 .tab-pill.active { color: #000000; }
 
-.tab-slider { position: absolute; top: 4px; bottom: 4px; left: var(--slide-left, 4px); width: var(--slide-width, calc(33.333% - 2.6px)); background-color: #ffffff; border-radius: 9999px; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); z-index: 0; }
+.tab-slider { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 16px) / 3); background-color: #ffffff; border-radius: 9999px; transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55); box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); will-change: transform; z-index: 0; }
+.tab-container[data-active="elements"] .tab-slider { transform: translateX(0); }
+.tab-container[data-active="roles"] .tab-slider { transform: translateX(calc(100% + 4px)); }
+.tab-container[data-active="versions"] .tab-slider { transform: translateX(calc(200% + 8px)); }
 
 .filter-btn { position: relative; background-color: #121214; color: #a1a1aa; border: 1px solid rgba(255, 255, 255, 0.07); transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1); display: flex; align-items: center; justify-content: center; width: 100%; white-space: nowrap; overflow: hidden; }
 .filter-btn:hover:not(.active) { background-color: #1c1c1f; border-color: var(--btn-color, rgba(255, 255, 255, 0.28)); color: #ffffff; transform: translateY(-1px); }
