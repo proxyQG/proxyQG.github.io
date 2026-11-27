@@ -89,7 +89,8 @@ jobs:
 
           for agent in agents:
               name = agent["name"]
-              safe_name = html.escape(name)
+              display_name = SEO_NAMES.get(name, name)
+              safe_name = html.escape(display_name, quote=False).replace('"', '&quot;')
               encoded = quote(name, safe="")
               color = COLOR_MAP.get(agent.get("element", ""), "#eab308")
               canonical_url = f"https://proxyqg.github.io/agents/{encoded}/"
